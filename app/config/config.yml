@@ -124,3 +124,6 @@ services:
             - "@twig"
             - "@templating.name_parser"
             - "@templating.locator"
+fos_rest:
+    routing_loader:
+        default_format: json
