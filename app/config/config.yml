@@ -6,6 +6,7 @@ parameters:
     translator.identity.class: Common\Language
 
 framework:
+    serializer: true
     secret:          %kernel.secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
