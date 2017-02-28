@@ -41,6 +41,8 @@ class AppKernel extends Kernel
             new MailMotor\Bundle\MailMotorBundle\MailMotorMailMotorBundle(),
             new MailMotor\Bundle\MailChimpBundle\MailMotorMailChimpBundle(),
             new MailMotor\Bundle\CampaignMonitorBundle\MailMotorCampaignMonitorBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
