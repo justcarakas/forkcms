@@ -1,3 +1,7 @@
+users:
+    type:     rest
+    resource: Api\ApiController
+
 backend:
     path: /private/{_locale}/{module}/{action}
     defaults:
