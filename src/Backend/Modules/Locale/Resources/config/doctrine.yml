@@ -1,0 +1,8 @@
+doctrine:
+  dbal:
+    types:
+      locale_translation_name: Backend\Modules\Locale\Domain\Translation\Name\NameDBALType
+      locale_translation_type: Backend\Modules\Locale\Domain\Translation\Type\TypeDBALType
+      locale_translation_application: Backend\Modules\Locale\Domain\Translation\Application\ApplicationDBALType
+  orm:
+    mappings:
