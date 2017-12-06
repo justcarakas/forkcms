@@ -1,0 +1,6 @@
+doctrine:
+  dbal:
+    types:
+      extensions_module_name: Backend\Modules\Extensions\Domain\Module\Name\NameDBALType
+  orm:
+    mappings:
