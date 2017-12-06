@@ -1,6 +1,6 @@
 <?php
 
-namespace Backend\Modules\Locale\Domain\Locale\Name;
+namespace Backend\Modules\Locale\Domain\Translation\Name;
 
 final class Name
 {

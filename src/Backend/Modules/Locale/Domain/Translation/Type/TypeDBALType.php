@@ -1,6 +1,6 @@
 <?php
 
-namespace Backend\Modules\Locale\Domain\Locale\Type;
+namespace Backend\Modules\Locale\Domain\Translation\Type;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\TextType;
@@ -9,7 +9,7 @@ final class TypeDBALType extends TextType
 {
     public function getName(): string
     {
-        return 'locale_type';
+        return 'locale_translation_type';
     }
 
     /**

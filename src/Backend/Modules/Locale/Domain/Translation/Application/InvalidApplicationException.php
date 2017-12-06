@@ -1,6 +1,6 @@
 <?php
 
-namespace Backend\Modules\Locale\Domain\Locale\Application;
+namespace Backend\Modules\Locale\Domain\Translation\Application;
 
 use InvalidArgumentException;
 

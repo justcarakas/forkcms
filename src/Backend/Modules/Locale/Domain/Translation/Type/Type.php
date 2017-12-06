@@ -1,6 +1,6 @@
 <?php
 
-namespace Backend\Modules\Locale\Domain\Locale\Type;
+namespace Backend\Modules\Locale\Domain\Translation\Type;
 
 final class Type
 {
