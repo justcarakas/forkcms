@@ -10,7 +10,7 @@ final class Type
     private const MESSAGE = 'msg';
     private const ACTION = 'act';
     private const ERROR = 'err';
-    private const POSSIBLE_VALUES = [
+    public const POSSIBLE_VALUES = [
         self::LABEL,
         self::MESSAGE,
         self::ACTION,
