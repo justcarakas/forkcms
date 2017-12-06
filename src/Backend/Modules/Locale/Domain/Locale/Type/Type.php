@@ -2,8 +2,6 @@
 
 namespace Backend\Modules\Locale\Domain\Locale\Type;
 
-use InvalidArgumentException;
-
 final class Type
 {
     private const LABEL = 'lbl';
@@ -23,7 +21,7 @@ final class Type
     public function __construct(string $type)
     {
         if (!\in_array($type, self::POSSIBLE_VALUES, true)) {
-            throw new InvalidArgumentException('Invalid value');
+            throw InvalidTypeException::notSupported($type);
         }
 
         $this->type = $type;
