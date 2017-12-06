@@ -39,11 +39,7 @@ final class Type
 
     public function equals(self $type): bool
     {
-        if (!($type instanceof $this)) {
-            return false;
-        }
-
-        return $type == $this;
+        return $type->type === $this->type;
     }
 
     public static function label(): self
