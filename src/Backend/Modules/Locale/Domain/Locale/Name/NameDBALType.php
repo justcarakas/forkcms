@@ -24,13 +24,13 @@ final class NameDBALType extends TextType
     }
 
     /**
-     * @param Name $nameDBALName
+     * @param Name $name
      * @param AbstractPlatform $platform
      *
      * @return string
      */
-    public function convertToDatabaseValue($nameDBALName, AbstractPlatform $platform): string
+    public function convertToDatabaseValue($name, AbstractPlatform $platform): string
     {
-        return $nameDBALName->getValue();
+        return $name->getValue();
     }
 }

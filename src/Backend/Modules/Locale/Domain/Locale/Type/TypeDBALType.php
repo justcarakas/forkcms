@@ -24,13 +24,13 @@ final class TypeDBALType extends TextType
     }
 
     /**
-     * @param Type $typeDBALType
+     * @param Type $type
      * @param AbstractPlatform $platform
      *
      * @return string
      */
-    public function convertToDatabaseValue($typeDBALType, AbstractPlatform $platform): string
+    public function convertToDatabaseValue($type, AbstractPlatform $platform): string
     {
-        return $typeDBALType->getValue();
+        return $type->getValue();
     }
 }
