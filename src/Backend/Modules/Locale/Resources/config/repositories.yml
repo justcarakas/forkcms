@@ -1,0 +1,6 @@
+services:
+  locale.repository.translation:
+    class: Backend\Modules\Locale\Domain\Translation\TranslationRepository
+    factory: ["@doctrine.orm.entity_manager", getRepository]
+    arguments:
+      - Backend\Modules\Faq\Domain\Translation\Translation
