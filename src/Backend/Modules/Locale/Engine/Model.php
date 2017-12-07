@@ -22,6 +22,78 @@ class Model
         'msg',
     ];
 
+    public static function getLocaleForExport(array $filter)
+    {
+        $parameters = [];
+
+        // start of query
+        $query =
+            'SELECT l.id, l.language, l.application, l.module, l.type, l.name, l.value
+             FROM locale AS l
+             WHERE 1';
+
+        // add language
+        if ($filter['language'] !== null) {
+            // create an array for the languages, surrounded by quotes (example: 'en')
+            $languages = [];
+            foreach ($filter['language'] as $key => $val) {
+                $languages[$key] = '\'' . $val . '\'';
+            }
+
+            $query .= ' AND l.language IN (' . implode(',', $languages) . ')';
+        }
+
+        // add application
+        if ($filter['application'] !== null) {
+            $query .= ' AND l.application = ?';
+            $parameters[] = $filter['application'];
+        }
+
+        // add module
+        if ($filter['module'] !== null) {
+            $query .= ' AND l.module = ?';
+            $parameters[] = $filter['module'];
+        }
+
+        // add type
+        if ($filter['type'] !== null) {
+            // create an array for the types, surrounded by quotes (example: 'lbl')
+            $types = [];
+            foreach ($filter['type'] as $key => $val) {
+                $types[$key] = '\'' . $val . '\'';
+            }
+
+            $query .= ' AND l.type IN (' . implode(',', $types) . ')';
+        }
+
+        // add name
+        if ($filter['name'] !== null) {
+            $query .= ' AND l.name LIKE ?';
+            $parameters[] = '%' . $filter['name'] . '%';
+        }
+
+        // add value
+        if ($filter['value'] !== null) {
+            $query .= ' AND l.value LIKE ?';
+            $parameters[] = '%' . $filter['value'] . '%';
+        }
+
+        // filter checkboxes
+        if ($filter['ids']) {
+            // make really sure we are working with integers
+            foreach ($filter['ids'] as &$id) {
+                $id = (int) $id;
+            }
+
+            $query .= ' AND l.id IN (' . implode(',', $filter['ids']) . ') ';
+        }
+
+        // end of query
+        $query .= ' ORDER BY l.application, l.module, l.name ASC';
+
+        return (array) BackendModel::getContainer()->get('database')->getRecords($query, $parameters);
+    }
+
     public static function buildCache(string $language, string $application): void
     {
         $cacheBuilder = new CacheBuilder(BackendModel::get('database'));
