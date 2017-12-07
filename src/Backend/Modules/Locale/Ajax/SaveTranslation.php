@@ -2,6 +2,8 @@
 
 namespace Backend\Modules\Locale\Ajax;
 
+use Backend\Modules\Locale\Domain\Translation\Application\Application;
+use Backend\Modules\Locale\Domain\Translation\Type\Type;
 use Common\Uri as CommonUri;
 use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
@@ -38,11 +40,11 @@ class SaveTranslation extends BackendBaseAJAXAction
         }
         $name = $this->getRequest()->request->get('name', '');
         $type = $this->getRequest()->request->get('type');
-        if (!in_array($type, BackendModel::get('database')->getColumn('SELECT type FROM locale GROUP BY type'))) {
+        if (!\in_array($type, Type::POSSIBLE_VALUES, true)) {
             $type = '';
         }
         $application = $this->getRequest()->request->get('application');
-        if (!in_array($application, ['Backend', 'Frontend'])) {
+        if (!\in_array($application, Application::POSSIBLE_VALUES, true)) {
             $application = '';
         }
         $value = $this->getRequest()->request->get('value');
