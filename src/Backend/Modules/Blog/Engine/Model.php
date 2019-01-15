@@ -358,14 +358,8 @@ class Model
      *
      * @return array
      */
-    public static function getAllCommentsForStatus(string $status, int $limit = 30, int $offset = 0): array
+    public static function getAllCommentsForStatus(string $status = null, int $limit = 30, int $offset = 0): array
     {
-        if ($status !== null) {
-            $status = (string) $status;
-        }
-        $limit = (int) $limit;
-        $offset = (int) $offset;
-
         // no status passed
         if ($status === null) {
             return (array) BackendModel::getContainer()->get('database')->getRecords(
