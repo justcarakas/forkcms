@@ -2,6 +2,7 @@
 
 namespace Backend\Modules\Faq\Domain\Question;
 
+use Backend\Modules\Blog\Domain\Comment\Comment;
 use Common\Core\Model;
 use Common\Locale;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -19,12 +20,37 @@ class QuestionRepository extends ServiceEntityRepository
 
     public function add(Question $question): void
     {
+        if ($question->getStatus()->isArchived()) {
+            return; // don't add new archived
+        }
+
         $this->getEntityManager()->persist($question);
+
+        $oldDraftQuestion = $this->findOneBy(['id' => $question->getId(), 'status' => Status::draft()]);
+        if ($oldDraftQuestion instanceof Question) {
+            $oldDraftQuestion->archive();
+        }
+
+        if (!$question->getStatus()->isActive()) {
+            return;
+        }
+
+        $oldActiveQuestion = $this->findOneBy(['id' => $question->getId(), 'status' => Status::active()]);
+        if ($oldActiveQuestion instanceof Question) {
+            $oldActiveQuestion->archive();
+        }
     }
 
     public function remove(Question $question): void
     {
-        $this->getEntityManager()->remove($question);
+        $this->createQueryBuilder('q')
+            ->delete('q')
+            ->where('q.id = :id')
+            ->setParameter('id', $question->getId())
+            ->getQuery()
+            ->execute();
+
+        $this->getEntityManager()->clear(Question::class);
     }
 
     public function findBySlugAndLocale(string $slug, Locale $locale): ?Question
