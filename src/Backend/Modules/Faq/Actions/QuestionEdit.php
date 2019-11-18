@@ -109,6 +109,10 @@ final class QuestionEdit extends ActionEdit
     private function getQuestion(): ?Question
     {
         $id = $this->getRequest()->query->getInt('id');
+        $revisionId = $this->getRequest()->query->getInt('revisionId');
+        if ($revisionId !== 0) {
+            return $this->questionRepository->findOneBy(['id' => $id, 'revisionId' => $revisionId]);
+        }
 
         $question = $this->questionRepository->findOneBy(['id' => $id, 'status' => Status::active()]);
         if ($question instanceof Question) {
