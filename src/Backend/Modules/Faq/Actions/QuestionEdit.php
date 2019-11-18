@@ -3,11 +3,13 @@
 namespace Backend\Modules\Faq\Actions;
 
 use Backend\Core\Engine\Base\ActionEdit;
+use Backend\Core\Language\Locale;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Faq\Domain\Question\Question;
 use Backend\Modules\Faq\Domain\Question\Command\UpdateQuestion;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Faq\Domain\Question\QuestionRepository;
+use Backend\Modules\Faq\Domain\Question\QuestionRevisionDataGrid;
 use Backend\Modules\Faq\Domain\Question\QuestionType;
 use Backend\Modules\Faq\Domain\Question\Status;
 use Symfony\Component\Form\Form;
@@ -42,6 +44,10 @@ final class QuestionEdit extends ActionEdit
         if (!$form->isSubmitted() || !$form->isValid()) {
             $this->template->assign('form', $form->createView());
             $this->template->assign('question', $question);
+            $this->template->assign(
+                'revisionDataGrid',
+                QuestionRevisionDataGrid::getHtml(Locale::workingLocale(), $question)
+            );
 
             $this->parse();
             $this->display();
