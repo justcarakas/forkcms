@@ -28,7 +28,7 @@ final class QuestionIndex extends ActionIndex
         $workingLocale = Locale::workingLocale();
         $categories = $this->categoryRepository->findByLocale($workingLocale);
 
-        if (empty($categories)) {
+        if (count($categories) === 0) {
             $this->redirect(Model::createUrlForAction('CategoryAdd'));
         }
 
