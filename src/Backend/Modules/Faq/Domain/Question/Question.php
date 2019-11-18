@@ -224,8 +224,8 @@ class Question
 
     public function getTranslation(Locale $locale): QuestionTranslation
     {
-        if ($this->translations->containsKey($locale)) {
-            return $this->translations->get($locale);
+        if ($this->translations->containsKey((string) $locale)) {
+            return $this->translations->get((string) $locale);
         }
 
         throw QuestionTranslationNotFoundException::withLocale($locale);
@@ -233,6 +233,6 @@ class Question
 
     public function addTranslation(Locale $locale, QuestionTranslation $questionTranslation): void
     {
-        $this->translations->set($locale, $questionTranslation);
+        $this->translations->set((string) $locale, $questionTranslation);
     }
 }
