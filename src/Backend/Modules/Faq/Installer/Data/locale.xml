@@ -48,6 +48,18 @@
         <translation language="nl"><![CDATA[vraag bewerken]]></translation>
         <translation language="en"><![CDATA[edit question]]></translation>
       </item>
+      <item type="label" name="VisibleOnPhone">
+        <translation language="nl"><![CDATA[zichtbaar op telefoon]]></translation>
+        <translation language="en"><![CDATA[visible on phone]]></translation>
+      </item>
+      <item type="label" name="VisibleOnTablet">
+        <translation language="nl"><![CDATA[zichtbaar op tablet]]></translation>
+        <translation language="en"><![CDATA[visible on tablet]]></translation>
+      </item>
+      <item type="label" name="VisibleOnDesktop">
+        <translation language="nl"><![CDATA[zichtbaar op desktop]]></translation>
+        <translation language="en"><![CDATA[visible on desktop]]></translation>
+      </item>
       <item type="message" name="NoItems">
         <translation language="nl"><![CDATA[Er zijn nog geen vragen. <a href="%1$s">Schrijf het eerste vraag en antwoord</a>.]]></translation>
         <translation language="en"><![CDATA[There are no questions yet. <a href="%1$s">Write the first question and answer</a>.]]></translation>

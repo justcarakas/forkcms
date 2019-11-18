@@ -235,4 +235,9 @@ class Question
     {
         $this->translations->set((string) $locale, $questionTranslation);
     }
+
+    public function archive(): void
+    {
+        $this->status = Status::archive();
+    }
 }
