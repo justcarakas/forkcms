@@ -11,20 +11,21 @@ use Backend\Modules\Faq\Domain\Category\Category;
 
 class QuestionDataGrid extends DataGridDatabase
 {
-    public function __construct(Locale $locale, Status $status, Category $category)
+    public function __construct(Locale $locale, Category $category)
     {
         parent::__construct(
-            'SELECT q.id, qt.question, sequence
+            'SELECT DISTINCT q.id, qt.question, sequence
              FROM FaqQuestion q
              INNER JOIN FaqQuestionTranslation qt
                 ON q.id = qt.questionId
                 AND q.revisionId = qt.questionRevisionId
                 AND qt.locale = :locale
-                AND q.status = :status
+                AND (q.status = :draft OR :active)
                 AND q.category_id = :category',
             [
                 'locale' => $locale,
-                'status' => $status,
+                'draft' => Status::draft(),
+                'active' => Status::active(),
                 'category' => $category->getId(),
             ]
         );
@@ -39,8 +40,8 @@ class QuestionDataGrid extends DataGridDatabase
         }
     }
 
-    public static function getHtml(Locale $locale, Status $status, Category $category): string
+    public static function getHtml(Locale $locale, Category $category): string
     {
-        return (new self($locale, $status, $category))->getContent();
+        return (new self($locale, $category))->getContent();
     }
 }

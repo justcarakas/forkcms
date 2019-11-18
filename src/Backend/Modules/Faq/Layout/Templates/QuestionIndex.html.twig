@@ -1,0 +1,25 @@
+{% extends 'Layout/Templates/base.html.twig' %}
+{% import 'Layout/Templates/macros.html.twig' as macro %}
+
+{% block actionbar %}
+  {% if showFaqQuestionAdd %}
+    <div class="btn-toolbar justify-content-end">
+      <div class="btn-group" role="group">
+        {{ macro.buttonIcon(geturl('QuestionAdd'), 'plus-square', 'lbl.Add'|trans|ucfirst) }}
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% for category in dataGrids %}
+    <div class="content-block content-block-pb">
+      <div class="content-title">
+        <h2>{{ category.name }}</h2>
+      </div>
+      <div class="table-responsive">
+        {{ macro.dataGrid(category.dataGrid, 'msg.NoItems'|trans|format(geturl('QuestionAdd', 'Faq', '&category=' ~ category.id))) }}
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

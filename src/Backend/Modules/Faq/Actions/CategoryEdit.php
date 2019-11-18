@@ -3,12 +3,15 @@
 namespace Backend\Modules\Faq\Actions;
 
 use Backend\Core\Engine\Base\ActionEdit;
+use Backend\Core\Language\Locale;
 use Backend\Form\Type\DeleteType;
 use Backend\Modules\Faq\Domain\Category\Category;
 use Backend\Modules\Faq\Domain\Category\Command\UpdateCategory;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Faq\Domain\Category\CategoryRepository;
 use Backend\Modules\Faq\Domain\Category\CategoryType;
+use Backend\Modules\Faq\Domain\Question\QuestionDataGrid;
+use Backend\Modules\Faq\Domain\Question\Status;
 use Symfony\Component\Form\Form;
 
 final class CategoryEdit extends ActionEdit

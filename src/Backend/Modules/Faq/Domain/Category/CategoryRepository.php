@@ -27,7 +27,7 @@ class CategoryRepository extends ServiceEntityRepository
         $this->getEntityManager()->remove($category);
     }
 
-    public function findBySlugAndLocale(string $slug, Locale $locale): ?Category
+    public function findOneBySlugAndLocale(string $slug, Locale $locale): ?Category
     {
         try {
             return $this
@@ -35,9 +35,9 @@ class CategoryRepository extends ServiceEntityRepository
                 ->select('c, ct, cm, q, qt, qm')
                 ->innerJoin('c.translations', 'ct', Join::WITH, 'ct.locale = :locale')
                 ->innerJoin('ct.meta', 'cm', Join::WITH, 'cm.url = :slug')
-                ->innerJoin('c.questions', 'q')
-                ->innerJoin('q.translations', 'qt', Join::WITH, 'qt.locale = :locale')
-                ->innerJoin('qt.meta', 'qm')
+                ->leftJoin('c.questions', 'q')
+                ->leftJoin('q.translations', 'qt', Join::WITH, 'qt.locale = :locale')
+                ->leftJoin('qt.meta', 'qm')
                 ->setParameter('slug', $slug)
                 ->setParameter('locale', $locale)
                 ->getQuery()
@@ -45,6 +45,26 @@ class CategoryRepository extends ServiceEntityRepository
         } catch (NoResultException | NonUniqueResultException $resultException) {
             return null;
         }
+    }
+
+    /**
+     * @param Locale $locale
+     *
+     * @return Category[]
+     */
+    public function findByLocale(Locale $locale): array
+    {
+        return $this
+            ->createQueryBuilder('c')
+            ->select('c, ct, cm, q, qt, qm')
+            ->innerJoin('c.translations', 'ct', Join::WITH, 'ct.locale = :locale')
+            ->innerJoin('ct.meta', 'cm')
+            ->leftJoin('c.questions', 'q')
+            ->leftJoin('q.translations', 'qt', Join::WITH, 'qt.locale = :locale')
+            ->leftJoin('qt.meta', 'qm')
+            ->setParameter('locale', $locale)
+            ->getQuery()
+            ->getResult();
     }
 
     public function getUrl(string $url, Locale $locale, int $id = null): string
@@ -73,9 +93,9 @@ class CategoryRepository extends ServiceEntityRepository
     public function getNextSequence(): int
     {
         return $this
-            ->createQueryBuilder('c')
-            ->select('MAX(c.sequence) + 1')
-            ->getQuery()
-            ->getSingleScalarResult() ?? 1;
+                   ->createQueryBuilder('c')
+                   ->select('MAX(c.sequence) + 1')
+                   ->getQuery()
+                   ->getSingleScalarResult() ?? 1;
     }
 }

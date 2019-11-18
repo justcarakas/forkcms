@@ -2,7 +2,15 @@
 {% import 'Layout/Templates/macros.html.twig' as macro %}
 {% form_theme form 'Faq/Layout/FormLayout.html.twig' %}
 
-{% block actionbar %}{% endblock %}
+{% block actionbar %}
+  {% if showFaqQuestionAdd %}
+    <div class="btn-toolbar justify-content-end">
+      <div class="btn-group" role="group">
+        {{ macro.buttonIcon(  geturl('QuestionAdd', 'Faq', '&category=' ~ category.id), 'plus-square', 'lbl.AddQuestion'|trans|ucfirst) }}
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
 
 {% block content %}
   {{ form_start(form) }}

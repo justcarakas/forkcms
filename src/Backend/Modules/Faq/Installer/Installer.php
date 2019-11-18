@@ -37,15 +37,23 @@ final class Installer extends ModuleInstaller
     {
         $navigationModulesId = $this->setNavigation(null, 'Modules');
 
+        $navigationModuleId = $this->setNavigation($navigationModulesId, $this->getModule());
         $this->setNavigation(
-            $navigationModulesId,
-            $this->getModule(),
+            $navigationModuleId,
+            'Question',
+            'faq/question_index',
+            [
+                'faq/question_add',
+                'faq/question_edit'
+            ]
+        );
+        $this->setNavigation(
+            $navigationModuleId,
+            'Category',
             'faq/category_index',
             [
                 'faq/category_add',
-                'faq/category_edit',
-                'faq/question_add',
-                'faq/question_edit'
+                'faq/category_edit'
             ]
         );
     }
