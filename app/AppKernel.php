@@ -42,11 +42,6 @@ class AppKernel extends Kernel
             $bundles[] = new \Symfony\Bundle\DebugBundle\DebugBundle();
         }
 
-        if ($this->getEnvironment() === 'dev') {
-            $bundles[] = new \Matthias\SymfonyConsoleForm\Bundle\SymfonyConsoleFormBundle();
-            $bundles[] = new \ModuleGenerator\ModuleGeneratorBundle();
-        }
-
         return $bundles;
     }
 
