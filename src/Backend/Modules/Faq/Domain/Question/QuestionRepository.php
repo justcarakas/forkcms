@@ -61,10 +61,41 @@ class QuestionRepository extends ServiceEntityRepository
                 ->setParameter('id', $id);
         }
 
-        if ((int)$query->getQuery()->getSingleScalarResult() === 0) {
+        if ((int) $query->getQuery()->getSingleScalarResult() === 0) {
             return $url;
         }
 
         return $this->getUrl(Model::addNumber($url), $locale, $id);
+    }
+
+    public function getNextSequence(): int
+    {
+        return $this->getNext('sequence');
+    }
+
+    public function getNextId(): int
+    {
+        return $this->getNext('id');
+    }
+
+    public function getNextRevisionId(int $id): int
+    {
+        return $this->getNext('revisionId', 'q.id = :id', ['id' => $id]);
+    }
+
+    private function getNext(string $field, string $where = null, array $parameters = []): int
+    {
+        $queryBuilder = $this
+            ->createQueryBuilder('q')
+            ->select('MAX(q.' . $field . ') + 1')
+            ->setParameters($parameters);
+
+        if ($where !== null) {
+            $queryBuilder->where($where);
+        }
+
+        return $queryBuilder
+                   ->getQuery()
+                   ->getSingleScalarResult() ?? 1;
     }
 }
