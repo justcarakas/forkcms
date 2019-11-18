@@ -44,7 +44,7 @@ class QuestionRepository extends ServiceEntityRepository
     public function remove(Question $question): void
     {
         $this->createQueryBuilder('q')
-            ->delete('q')
+            ->delete()
             ->where('q.id = :id')
             ->setParameter('id', $question->getId())
             ->getQuery()

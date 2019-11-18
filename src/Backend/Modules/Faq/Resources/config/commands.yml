@@ -24,6 +24,10 @@ services:
     tags:
       - { name: command_handler, handles: Backend\Modules\Faq\Domain\Question\Command\CreateQuestion }
 
+  Backend\Modules\Faq\Domain\Question\Command\DeleteQuestionHandler:
+    tags:
+      - { name: command_handler, handles: Backend\Modules\Faq\Domain\Question\Command\DeleteQuestion }
+
   Backend\Modules\Faq\Domain\Question\Command\UpdateQuestionHandler:
     tags:
       - { name: command_handler, handles: Backend\Modules\Faq\Domain\Question\Command\UpdateQuestion }
