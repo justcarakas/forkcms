@@ -21,7 +21,8 @@ class QuestionDataGrid extends DataGridDatabase
                 AND q.revisionId = qt.questionRevisionId
                 AND qt.locale = :locale
                 AND (q.status = :draft OR q.status = :active)
-                AND q.category_id = :category',
+                AND q.category_id = :category
+            GROUP BY id',
             [
                 'locale' => $locale,
                 'draft' => Status::draft(),
