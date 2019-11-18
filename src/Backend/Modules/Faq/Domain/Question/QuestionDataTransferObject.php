@@ -80,7 +80,7 @@ class QuestionDataTransferObject
         $this->visibleOnDesktop = $question->isVisibleOnDesktop();
         foreach ($question->getTranslations() as $questionTranslation) {
             $this->translations->set(
-                $questionTranslation->getLocale(),
+                (string) $questionTranslation->getLocale(),
                 new QuestionTranslationDataTransferObject($questionTranslation)
             );
         }

@@ -19,3 +19,7 @@ services:
   Backend\Modules\Faq\Domain\Category\Command\ReSequenceCategoriesHandler:
     tags:
       - { name: command_handler, handles: Backend\Modules\Faq\Domain\Category\Command\ReSequenceCategories }
+
+  Backend\Modules\Faq\Domain\Question\Command\CreateQuestionHandler:
+    tags:
+      - { name: command_handler, handles: Backend\Modules\Faq\Domain\Question\Command\CreateQuestion }
