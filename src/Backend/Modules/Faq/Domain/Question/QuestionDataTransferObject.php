@@ -18,7 +18,7 @@ class QuestionDataTransferObject
     /**
      * @var Category
      */
-    protected $category;
+    public $category;
 
     /**
      * @var int
@@ -100,7 +100,7 @@ class QuestionDataTransferObject
         return $this->id;
     }
 
-    public function getCategory(): Category
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
