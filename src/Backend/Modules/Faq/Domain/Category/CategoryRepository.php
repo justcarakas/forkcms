@@ -63,6 +63,7 @@ class CategoryRepository extends ServiceEntityRepository
             ->leftJoin('q.translations', 'qt', Join::WITH, 'qt.locale = :locale')
             ->leftJoin('qt.meta', 'qm')
             ->setParameter('locale', $locale)
+            ->orderBy('c.sequence', 'ASC')
             ->getQuery()
             ->getResult();
     }
