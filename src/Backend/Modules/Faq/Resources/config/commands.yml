@@ -31,3 +31,7 @@ services:
   Backend\Modules\Faq\Domain\Question\Command\UpdateQuestionHandler:
     tags:
       - { name: command_handler, handles: Backend\Modules\Faq\Domain\Question\Command\UpdateQuestion }
+
+  Backend\Modules\Faq\Domain\Question\Command\ReSequenceQuestionsHandler:
+      tags:
+          - { name: command_handler, handles: Backend\Modules\Faq\Domain\Question\Command\ReSequenceQuestions }

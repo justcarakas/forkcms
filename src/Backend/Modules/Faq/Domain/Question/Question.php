@@ -154,6 +154,11 @@ class Question
         return $this->sequence;
     }
 
+    public function changeSequence(int $sequence): void
+    {
+        $this->sequence = $sequence;
+    }
+
     public function getVisibleOnPhone(): bool
     {
         return $this->visibleOnPhone;
