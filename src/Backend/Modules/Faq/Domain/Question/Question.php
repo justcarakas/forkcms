@@ -2,12 +2,16 @@
 
 namespace Backend\Modules\Faq\Domain\Question;
 
+use Backend\Core\Language\Language as BackendLanguage;
+use Backend\Core\Language\Locale as BackendLocale;
 use Backend\Modules\Faq\Domain\Category\Category;
+use Common\Language;
 use Common\Locale;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Frontend\Core\Language\Locale as FrontendLocale;
 
 /**
  * @ORM\Table(name="FaqQuestion")
@@ -239,5 +243,19 @@ class Question
     public function archive(): void
     {
         $this->status = Status::archive();
+    }
+
+    public function getCurrentTranslation(): QuestionTranslation
+    {
+        if (Language::get() === BackendLanguage::class) {
+            return $this->getTranslation(BackendLocale::workingLocale());
+        }
+
+        return $this->getTranslation(FrontendLocale::frontendLanguage());
+    }
+
+    public function __toString(): string
+    {
+        return $this->getCurrentTranslation()->getQuestion();
     }
 }

@@ -3,6 +3,10 @@
 namespace Backend\Modules\Faq\Domain\Question;
 
 use Backend\Form\EventListener\AddMetaSubscriber;
+use Backend\Modules\Faq\Domain\Category\Category;
+use Backend\Modules\Faq\Domain\Category\CategoryTranslationType;
+use Common\Form\CollectionType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,6 +17,14 @@ final class QuestionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $builder->add(
+            'category',
+            EntityType::class,
+            [
+                'class' => Category::class,
+                'label' => 'lbl.Category',
+            ]
+        );
         $builder->add(
             'visibleOnPhone',
             CheckboxType::class,
@@ -32,6 +44,13 @@ final class QuestionType extends AbstractType
             CheckboxType::class,
             [
                 'label' => 'lbl.VisibleOnDesktop',
+            ]
+        );
+        $builder->add(
+            'translations',
+            CollectionType::class,
+            [
+                'entry_type' => QuestionTranslationType::class,
             ]
         );
     }
