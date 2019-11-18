@@ -2,15 +2,13 @@
 
 namespace Backend\Modules\Faq\Domain\Question;
 
-use Backend\Form\EventListener\AddMetaSubscriber;
 use Backend\Modules\Faq\Domain\Category\Category;
-use Backend\Modules\Faq\Domain\Category\CategoryTranslationType;
 use Common\Form\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 final class QuestionType extends AbstractType
@@ -52,6 +50,11 @@ final class QuestionType extends AbstractType
             [
                 'entry_type' => QuestionTranslationType::class,
             ]
+        );
+        $builder->add(
+            'saveAsDraft',
+            SubmitType::class,
+            ['label' => 'lbl.SaveAsDraft']
         );
     }
 

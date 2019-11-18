@@ -8,6 +8,7 @@ use Backend\Modules\Faq\Domain\Category\CategoryRepository;
 use Backend\Modules\Faq\Domain\Question\Command\CreateQuestion;
 use Backend\Modules\Faq\Domain\Question\QuestionType;
 use Backend\Core\Engine\Model as BackendModel;
+use Backend\Modules\Faq\Domain\Question\Status;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -44,7 +45,7 @@ final class QuestionAdd extends ActionAdd
     private function handleForm(Form $form): void
     {
         $createQuestion = $form->getData();
-
+        $createQuestion->status = $form->get('saveAsDraft')->isClicked() ? Status::draft() : Status::active();
         $this->get('command_bus')->handle($createQuestion);
 
         $this->redirect(

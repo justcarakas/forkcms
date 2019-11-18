@@ -78,7 +78,7 @@ final class QuestionEdit extends ActionEdit
     private function handleForm(Form $form): void
     {
         $updateQuestion = $form->getData();
-
+        $updateQuestion->status = $form->get('saveAsDraft')->isClicked() ? Status::draft() : Status::active();
         $this->get('command_bus')->handle($updateQuestion);
 
         $this->redirect(

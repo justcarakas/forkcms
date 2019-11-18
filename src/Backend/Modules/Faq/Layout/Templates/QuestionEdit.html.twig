@@ -6,9 +6,17 @@
 
 {% block content %}
   {{ form_start(form) }}
-  <div class="fork-module-content">
-    {{ form_rest(form) }}
+  <div class="row">
+    <div class="col">
+      {{ form_row(form.category) }}
+    </div>
+    <div class="col">
+      {{ form_row(form.visibleOnPhone) }}
+      {{ form_row(form.visibleOnTablet) }}
+      {{ form_row(form.visibleOnDesktop) }}
+    </div>
   </div>
+  {{ form_row(form.translations) }}
   <div class="row fork-module-actions">
     <div class="col-md-12">
       <div class="btn-toolbar justify-content-between">
@@ -19,6 +27,7 @@
           {{ macro.buttonIcon(geturl('QuestionIndex'), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default') }}
         </div>
         <div class="btn-group" role="group">
+          {{ form_widget(form.saveAsDraft) }}
           {{ macro.buttonIcon('', 'save', 'lbl.Save'|trans|ucfirst, 'btn-primary', {"type":"submit", "id":"editButton", "name":"edit"}) }}
         </div>
       </div>
