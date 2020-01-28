@@ -188,7 +188,7 @@ class Installer extends ModuleInstaller
             // insert modules page
             $modulesPageId = $this->insertPage(
                 [
-                    'id' => 4,
+                    'id' => Page::EXAMPLE_PAGE_ID,
                     'title' => \SpoonFilter::ucfirst(
                         $this->getLocale('Modules', 'Core', $language, 'lbl', 'Frontend')
                     ),
@@ -439,7 +439,7 @@ class Installer extends ModuleInstaller
             // insert sitemap
             $this->insertPage(
                 [
-                    'id' => 2,
+                    'id' => Page::SITEMAP_PAGE_ID,
                     'title' => \SpoonFilter::ucfirst(
                         $this->getLocale('Sitemap', 'Core', $language, 'lbl', 'Frontend')
                     ),
@@ -455,7 +455,7 @@ class Installer extends ModuleInstaller
             // insert disclaimer
             $this->insertPage(
                 [
-                    'id' => 3,
+                    'id' => Page::DISCLAIMER_PAGE_ID,
                     'title' => \SpoonFilter::ucfirst(
                         $this->getLocale('Disclaimer', 'Core', $language, 'lbl', 'Frontend')
                     ),

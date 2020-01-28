@@ -27,13 +27,16 @@ class Page
 {
     public const NO_PARENT_PAGE_ID = 0;
     public const HOME_PAGE_ID = 1;
+    public const SITEMAP_PAGE_ID = 2;
+    public const DISCLAIMER_PAGE_ID = 3;
+    public const EXAMPLE_PAGE_ID = 4;
     public const ERROR_PAGE_ID = 404;
     public const TOP_LEVEL_IDS = [
         self::NO_PARENT_PAGE_ID,
         self::HOME_PAGE_ID,
-        2,
-        3,
-        4,
+        self::SITEMAP_PAGE_ID,
+        self::DISCLAIMER_PAGE_ID,
+        self::EXAMPLE_PAGE_ID,
     ];
 
     /**
