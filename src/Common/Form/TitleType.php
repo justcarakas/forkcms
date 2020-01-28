@@ -2,10 +2,11 @@
 
 namespace Common\Form;
 
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TitleType extends TextType
+class TitleType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -22,8 +23,8 @@ class TitleType extends TextType
         );
     }
 
-    public function getBlockPrefix(): string
+    public function getParent(): string
     {
-        return 'title';
+        return TextType::class;
     }
 }
