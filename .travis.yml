@@ -1,8 +1,7 @@
 language: php
-dist: precise
-matrix:
-    include:
-        -   php: 7.1
+dist: xenial
+services:
+    - mysql
 
 cache:
     directories:
