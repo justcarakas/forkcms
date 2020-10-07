@@ -11,7 +11,7 @@ services:
     Backend\Modules\MediaLibrary\Manager\FileManager:
         public: true
         arguments:
-            - "@fork.settings"
+            - '@Common\ModulesSettings'
 
     media_library.manager.item:
         class: Backend\Modules\MediaLibrary\Manager\MediaItemManager

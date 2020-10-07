@@ -2,6 +2,7 @@
 
 namespace Frontend\Core\Engine;
 
+use Common\ModulesSettings;
 use Exception;
 
 /**
@@ -65,7 +66,7 @@ class Theme
     {
         // theme name has not yet been saved, fetch and save it
         if (!self::$theme) {
-            self::$theme = Model::get('fork.settings')->get('Core', 'theme', null);
+            self::$theme = Model::get(ModulesSettings::class)->get('Core', 'theme', null);
         }
 
         // return theme name

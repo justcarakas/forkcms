@@ -4,6 +4,7 @@ namespace Frontend\Core\Engine;
 
 use Common\BlockEditor\Twig\ParseBlocksExtension;
 use Common\Exception\RedirectException;
+use Common\ModulesSettings;
 use ForkCMS\App\KernelLoader;
 use ForkCMS\Privacy\ConsentDialog;
 use Frontend\Core\Engine\Block\ModuleExtraInterface;
@@ -109,7 +110,7 @@ class Page extends KernelLoader
     public function load(): void
     {
         // @deprecated remove this in Fork 6, the privacy consent dialog should be used
-        if (!$this->getContainer()->get('fork.settings')->get('Core', 'show_consent_dialog', false)) {
+        if (!$this->getContainer()->get(ModulesSettings::class)->get('Core', 'show_consent_dialog', false)) {
             // set tracking cookie
             Model::getVisitorId();
         }
@@ -198,7 +199,7 @@ class Page extends KernelLoader
             // @deprecated remove this in Fork 6, the privacy consent dialog should be used
             $this->template->assignGlobal(
                 'cookieBarHide',
-                !$this->get('fork.settings')->get('Core', 'show_cookie_bar', false)
+                !$this->get(ModulesSettings::class)->get('Core', 'show_cookie_bar', false)
                 || $this->getContainer()->get('fork.cookie')->hasHiddenCookieBar()
             );
             $this->parsePrivacyConsents();

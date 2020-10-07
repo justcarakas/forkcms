@@ -7,6 +7,7 @@ use Backend\Modules\Profiles\Domain\Profile\ProfileRepository;
 use Backend\Modules\Profiles\Domain\Profile\Status;
 use Backend\Modules\Profiles\Domain\Setting\Setting;
 use Backend\Modules\Profiles\Domain\Setting\SettingRepository;
+use Common\ModulesSettings;
 use Common\Uri as CommonUri;
 use Frontend\Core\Engine\Model as FrontendModel;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
@@ -28,12 +29,12 @@ class Model
 
     public static function maxDisplayNameChanges(): int
     {
-        return FrontendModel::get('fork.settings')->get('Profiles', 'max_display_name_changes', self::MAX_DISPLAY_NAME_CHANGES);
+        return FrontendModel::get(ModulesSettings::class)->get('Profiles', 'max_display_name_changes', self::MAX_DISPLAY_NAME_CHANGES);
     }
 
     public static function displayNameCanStillBeChanged(Profile $profile): bool
     {
-        if (!FrontendModel::get('fork.settings')->get('Profiles', 'limit_display_name_changes', false)) {
+        if (!FrontendModel::get(ModulesSettings::class)->get('Profiles', 'limit_display_name_changes', false)) {
             return true;
         }
 
@@ -100,7 +101,7 @@ class Model
         $avatar = $user->getSetting('avatar');
 
         // no custom avatar defined, get gravatar if allowed
-        if (empty($avatar) && FrontendModel::get('fork.settings')->get('Profiles', 'allow_gravatar', true)) {
+        if (empty($avatar) && FrontendModel::get(ModulesSettings::class)->get('Profiles', 'allow_gravatar', true)) {
             // define hash
             $hash = md5(mb_strtolower(trim('d' . $email)));
 

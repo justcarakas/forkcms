@@ -4,6 +4,7 @@ namespace Backend\Core\Engine;
 
 use Backend\Core\Language\Locale;
 use Backend\Modules\Pages\Domain\Page\Page;
+use Common\ModulesSettings;
 use InvalidArgumentException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -242,7 +243,7 @@ class Model extends \Common\Core\Model
         $possibleFormats = [];
 
         // loop available formats
-        foreach ((array) self::get('fork.settings')->get('Core', 'date_formats_long') as $format) {
+        foreach ((array) self::get(ModulesSettings::class)->get('Core', 'date_formats_long') as $format) {
             // get date based on given format
             $possibleFormats[$format] = \SpoonDate::getDate(
                 $format,
@@ -264,7 +265,7 @@ class Model extends \Common\Core\Model
         $possibleFormats = [];
 
         // loop available formats
-        foreach ((array) self::get('fork.settings')->get('Core', 'date_formats_short') as $format) {
+        foreach ((array) self::get(ModulesSettings::class)->get('Core', 'date_formats_short') as $format) {
             // get date based on given format
             $possibleFormats[$format] = \SpoonDate::getDate(
                 $format,
@@ -400,7 +401,7 @@ class Model extends \Common\Core\Model
      */
     public static function getNumberFormats(): array
     {
-        return (array) self::get('fork.settings')->get('Core', 'number_formats');
+        return (array) self::get(ModulesSettings::class)->get('Core', 'number_formats');
     }
 
     /**
@@ -413,7 +414,7 @@ class Model extends \Common\Core\Model
         $possibleFormats = [];
         $interfaceLanguage = Authentication::getUser()->getSetting('interface_language');
 
-        foreach (self::get('fork.settings')->get('Core', 'time_formats') as $format) {
+        foreach (self::get(ModulesSettings::class)->get('Core', 'time_formats') as $format) {
             $possibleFormats[$format] = \SpoonDate::getDate($format, null, $interfaceLanguage);
         }
 

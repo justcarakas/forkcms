@@ -2,6 +2,7 @@
 
 namespace Frontend\Modules\Mailmotor\Actions;
 
+use Common\ModulesSettings;
 use Exception;
 use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
 use Frontend\Core\Engine\Navigation as FrontendNavigation;
@@ -49,7 +50,7 @@ class Subscribe extends FrontendBaseBlock
         $subscription = $form->getData();
 
         /** @var bool $doubleOptIn */
-        $doubleOptIn = $this->get('fork.settings')->get('Mailmotor', 'double_opt_in', false);
+        $doubleOptIn = $this->get(ModulesSettings::class)->get('Mailmotor', 'double_opt_in', false);
 
         try {
             // The command bus will handle the subscription

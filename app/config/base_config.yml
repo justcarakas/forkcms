@@ -190,7 +190,7 @@ services:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
             - { name: kernel.event_listener, event: console.command, method: onConsoleCommand }
         arguments:
-            - "@fork.settings"
+            - '@Common\ModulesSettings'
             - "@service_container"
 
     cache.filesystem.adapter:
@@ -225,8 +225,7 @@ services:
             - "@database"
             - "@cache.pool"
 
-    fork.settings:
-        class: Common\ModulesSettings
+    Common\ModulesSettings:
         public: true
         arguments:
             - "@database"
@@ -266,8 +265,6 @@ services:
 
     ForkCMS\Utility\Geolocation:
         public: true
-        arguments:
-            - "@fork.settings"
 
     ForkCMS\Utility\Thumbnails:
         public: true
@@ -319,13 +316,9 @@ services:
 
     ForkCMS\Google\TagManager\TagManager:
         public: true
-        arguments:
-            - "@fork.settings"
-            - '@ForkCMS\Google\TagManager\DataLayer'
-            - '@ForkCMS\Privacy\ConsentDialog'
 
     ForkCMS\Privacy\ConsentDialog:
         public: true
         arguments:
-            - "@fork.settings"
+            - '@Common\ModulesSettings'
             - "@fork.cookie"

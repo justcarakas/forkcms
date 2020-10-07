@@ -7,6 +7,7 @@ use Backend\Core\Engine\Model;
 use Backend\Core\Language\Language;
 use Backend\Modules\Mailmotor\Domain\Settings\Command\SaveSettings;
 use Backend\Modules\Mailmotor\Domain\Settings\Event\SettingsSavedEvent;
+use Common\ModulesSettings;
 
 /**
  * This tests the api
@@ -37,7 +38,7 @@ final class Ping extends ActionIndex
             return false;
         }
 
-        $settings = $this->getContainer()->get('fork.settings');
+        $settings = $this->getContainer()->get(ModulesSettings::class);
         foreach (Language::getActiveLanguages() as $language) {
             $languageListId = $settings->get('Mailmotor', 'list_id_' . $language);
 
@@ -66,7 +67,7 @@ final class Ping extends ActionIndex
 
     private function resetMailEngine(): void
     {
-        $saveSettings = new SaveSettings($this->get('fork.settings'));
+        $saveSettings = new SaveSettings($this->get(ModulesSettings::class));
         $saveSettings->mailEngine = 'not_implemented';
 
         $this->get('command_bus')->handle($saveSettings);
