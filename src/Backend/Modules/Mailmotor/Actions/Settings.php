@@ -7,6 +7,7 @@ use Backend\Core\Engine\Model;
 use Backend\Modules\Mailmotor\Domain\Settings\Command\SaveSettings;
 use Backend\Modules\Mailmotor\Domain\Settings\Event\SettingsSavedEvent;
 use Backend\Modules\Mailmotor\Domain\Settings\SettingsType;
+use Common\ModulesSettings;
 
 /**
  * This is the settings-action (default),
@@ -20,7 +21,7 @@ final class Settings extends ActionIndex
 
         $form = $this->createForm(
             SettingsType::class,
-            new SaveSettings($this->get('fork.settings'))
+            new SaveSettings($this->get(ModulesSettings::class))
         );
 
         $form->handleRequest($this->getRequest());
