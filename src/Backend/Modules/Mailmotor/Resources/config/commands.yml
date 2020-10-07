@@ -3,7 +3,7 @@ services:
     class: Backend\Modules\Mailmotor\Domain\Settings\Command\SaveSettingsHandler
     public: true
     arguments:
-      - "@fork.settings"
+      - '@Common\ModulesSettings'
     tags:
       - { name: command_handler, handles: Backend\Modules\Mailmotor\Domain\Settings\Command\SaveSettings }
 
@@ -12,7 +12,7 @@ services:
     public: true
     arguments:
       - "@mailmotor.subscriber"
-      - "@fork.settings"
+      - '@Common\ModulesSettings'
     tags:
       - { name: command_handler, handles: Frontend\Modules\Mailmotor\Domain\Subscription\Command\Subscription }
 
@@ -21,6 +21,6 @@ services:
     public: true
     arguments:
       - "@mailmotor.subscriber"
-      - "@fork.settings"
+      - '@Common\ModulesSettings'
     tags:
       - { name: command_handler, handles: Frontend\Modules\Mailmotor\Domain\Subscription\Command\Unsubscription }

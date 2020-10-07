@@ -9,20 +9,20 @@ services:
     class: Frontend\Modules\Mailmotor\EventListener\NewNotImplementedMailingListSubscription
     arguments:
       - "@mailer"
-      - "@fork.settings"
+      - '@Common\ModulesSettings'
     tags:
       - { name: kernel.event_listener, event: mailmotor.event.not_implemented.subscribed, method: onNotImplementedSubscribedEvent }
   mailmotor.listener.unsubscribed:
     class: Frontend\Modules\Mailmotor\EventListener\NewNotImplementedMailingListUnsubscription
     arguments:
       - "@mailer"
-      - "@fork.settings"
+      - '@Common\ModulesSettings'
     tags:
       - { name: kernel.event_listener, event: mailmotor.event.not_implemented.unsubscribed, method: onNotImplementedUnsubscribedEvent }
 
   Frontend\Modules\Mailmotor\EventListener\FormBuilderSubmittedMailmotorSubscriber:
     arguments:
-        - "@fork.settings"
+        - '@Common\ModulesSettings'
         - "@mailmotor.subscriber"
     tags:
         - { name: kernel.event_listener, event: form.submitted, method: onFormSubmitted }
