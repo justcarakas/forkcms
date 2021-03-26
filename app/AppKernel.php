@@ -25,9 +25,10 @@ class AppKernel extends Kernel
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new \Backend\Modules\MediaLibrary\MediaLibrary(),
             new \Backend\Modules\Mailmotor\Mailmotor(),
-            new \MailMotor\Bundle\MailMotorBundle\MailMotorMailMotorBundle(),
-            new \MailMotor\Bundle\MailChimpBundle\MailMotorMailChimpBundle(),
-            new \MailMotor\Bundle\CampaignMonitorBundle\MailMotorCampaignMonitorBundle(),
+            // @TODO update mailmotor once symfony is upgraded
+            //new \MailMotor\Bundle\MailMotorBundle\MailMotorMailMotorBundle(),
+            //new \MailMotor\Bundle\MailChimpBundle\MailMotorMailChimpBundle(),
+            //new \MailMotor\Bundle\CampaignMonitorBundle\MailMotorCampaignMonitorBundle(),
             new \Liip\ImagineBundle\LiipImagineBundle(),
             new \FOS\RestBundle\FOSRestBundle(),
             new \JMS\SerializerBundle\JMSSerializerBundle(),
