@@ -3,23 +3,23 @@
 namespace Common\EventListener;
 
 use Backend\Core\Engine\Backend;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 final class ApiSetupListener
 {
-    /** @var ContainerInterface */
-    private $container;
+    /** @var KernelInterface */
+    private $kernel;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(KernelInterface $kernel)
     {
-        $this->container = $container;
+        $this->kernel = $kernel;
     }
 
     public function onKernelRequest(GetResponseEvent $event): void
     {
         if (strpos($event->getRequest()->getPathInfo(), '/api/') === 0) {
-            $application = new Backend($this->container->get('kernel'));
+            $application = new Backend($this->kernel);
             $application->passContainerToModels();
         }
     }

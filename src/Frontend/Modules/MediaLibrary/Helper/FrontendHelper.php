@@ -181,7 +181,7 @@ class FrontendHelper
 
         // Create new widget instance and return parsed content
         $widget = new FrontendBlockWidget(
-            FrontendModel::get('kernel'),
+            FrontendModel::get('fork.kernel'),
             $module,
             $mediaWidgetAction,
             serialize(

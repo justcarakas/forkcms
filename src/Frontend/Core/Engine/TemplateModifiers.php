@@ -376,7 +376,7 @@ class TemplateModifiers extends BaseTwigModifiers
     {
         // create new widget instance and return parsed content
         $extra = FrontendBlockWidget::getForId(
-            FrontendModel::get('kernel'),
+            FrontendModel::get('fork.kernel'),
             $module,
             $action,
             $id
