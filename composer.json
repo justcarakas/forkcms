@@ -40,7 +40,6 @@
         "ramsey/uuid": "^3.5",
         "ramsey/uuid-doctrine": "^1.2",
         "simple-bus/doctrine-orm-bridge": "^4.0",
-        "simple-bus/symfony-bridge": "^4.1",
         "spoon/library": "^3.0",
         "swiftmailer/swiftmailer": "^6.0",
         "symfony/monolog-bundle": "^3.1",
