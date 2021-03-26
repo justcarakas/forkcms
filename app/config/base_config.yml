@@ -131,6 +131,11 @@ liip_imagine:
                 scale: { dim: [2400, 2400] }
 
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    ForkCMS\App\ForkController:
+
     fork.kernel:
         alias: Symfony\Component\HttpKernel\KernelInterface
         public: true
