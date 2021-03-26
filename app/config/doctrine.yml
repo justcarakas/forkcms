@@ -47,10 +47,6 @@ doctrine:
                         group_concat: DoctrineExtensions\Query\Mysql\GroupConcat
                         ifelse: DoctrineExtensions\Query\Mysql\IfElse
 
-doctrine_orm_bridge:
-    entity_manager: default
-    connection: default
-
 services:
     fork.entity.create_schema:
         class: Common\Doctrine\Entity\CreateSchema

@@ -133,6 +133,10 @@ liip_imagine:
                 scale: { dim: [2400, 2400] }
 
 services:
+    command_bus:
+        # @TODO deprecated replace later in this PR with the symfony commands
+        class: SimpleBus\Message\Bus\Middleware\MessageBusSupportingMiddleware
+
     templating.name_parser.public:
         alias: templating.name_parser
         public: true
