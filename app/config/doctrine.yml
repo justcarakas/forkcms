@@ -48,11 +48,13 @@ doctrine:
                         ifelse: DoctrineExtensions\Query\Mysql\IfElse
 
 services:
-    fork.entity.create_schema:
-        class: Common\Doctrine\Entity\CreateSchema
+    _defaults:
+        autowire: true
+        autoconfigure: true
         public: true
-        arguments:
-            - "@doctrine.orm.entity_manager"
+
+    Common\Doctrine\Entity\CreateSchema:
+        public: true
 
     fork.repository.meta:
         class: Common\Doctrine\Repository\MetaRepository
