@@ -43,11 +43,13 @@ class CacheClearCommand extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->checkOptions($input);
         $this->deleteCachedFolders();
         $output->writeln('<info>' . $this->getMessage() . '</info>');
+
+        return self::SUCCESS;
     }
 
     private function checkOptions(InputInterface $input): void

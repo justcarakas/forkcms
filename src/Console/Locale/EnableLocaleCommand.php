@@ -85,7 +85,7 @@ class EnableLocaleCommand extends Command
             ->setDescription('Enable a locale');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->input = $input;
         $this->output = $output;
@@ -99,7 +99,7 @@ class EnableLocaleCommand extends Command
                 ]
             );
 
-            return;
+            return self::FAILURE;
         }
 
         $this->installedLocale = array_flip($this->settings->get('Core', 'languages'));
@@ -114,12 +114,14 @@ class EnableLocaleCommand extends Command
         $this->showLocaleOverview();
         $this->selectWorkingLocale();
         if (!$this->askToInstall()) {
-            return;
+            return self::FAILURE;
         }
         $this->askToAddInterfaceLocale();
         if ($this->askToMakeTheLocaleAccessibleToVisitors()) {
             $this->askToEnableTheLocaleForRedirecting();
         }
+
+        return self::SUCCESS;
     }
 
     private function askToEnableTheLocaleForRedirecting(): void
