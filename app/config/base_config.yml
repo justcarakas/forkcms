@@ -148,9 +148,6 @@ services:
         # @TODO deprecated replace later in this PR with the symfony commands
         class: SimpleBus\Message\Bus\Middleware\MessageBusSupportingMiddleware
 
-    templating.name_parser.public:
-        alias: templating.name_parser
-        public: true
     file_locator.public:
         alias: file_locator
         public: true

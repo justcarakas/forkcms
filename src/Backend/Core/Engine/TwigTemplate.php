@@ -11,7 +11,6 @@ use Symfony\Bridge\Twig\AppVariable;
 use Symfony\Bridge\Twig\Extension\FormExtension as SymfonyFormExtension;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;
-use Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormRenderer;
 use Twig\Environment;
@@ -35,11 +34,7 @@ class TwigTemplate extends BaseTwigTemplate
         $container = Model::getContainer();
         $this->debugMode = $container->getParameter('kernel.debug');
 
-        parent::__construct(
-            $this->buildTwigEnvironmentForTheBackend(),
-            $container->get('templating.name_parser.public'),
-            new TemplateLocator($container->get('file_locator.public'), $container->getParameter('kernel.cache_dir'))
-        );
+        parent::__construct($this->buildBackendLoader());
 
         if ($addToReference) {
             $container->set('template', $this);
@@ -83,26 +78,18 @@ class TwigTemplate extends BaseTwigTemplate
      * @return Environment
      * @throws \ReflectionException
      */
-    private function buildTwigEnvironmentForTheBackend(): Environment
+    private function buildBackendLoader(): FilesystemLoader
     {
         // path to TwigBridge library so we can locate the form theme files.
         $appVariableReflection = new ReflectionClass(AppVariable::class);
         $vendorTwigBridgeDir = dirname($appVariableReflection->getFileName());
 
         // render the compiled File
-        $loader = new FilesystemLoader(
+        return new FilesystemLoader(
             [
                 BACKEND_MODULES_PATH,
                 BACKEND_CORE_PATH,
                 $vendorTwigBridgeDir . '/Resources/views/Form',
-            ]
-        );
-
-        return new Environment(
-            $loader,
-            [
-                'cache' => Model::getContainer()->getParameter('kernel.cache_dir') . '/twig',
-                'debug' => $this->debugMode,
             ]
         );
     }
