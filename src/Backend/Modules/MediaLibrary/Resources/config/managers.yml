@@ -8,8 +8,7 @@ services:
             - [add, ["movie", "%media_library.movie_extensions%"]]
             - [add, ["audio", "%media_library.audio_extensions%"]]
 
-    media_library.manager.file:
-        class: Backend\Modules\MediaLibrary\Manager\FileManager
+    Backend\Modules\MediaLibrary\Manager\FileManager:
         public: true
         arguments:
             - "@fork.settings"
