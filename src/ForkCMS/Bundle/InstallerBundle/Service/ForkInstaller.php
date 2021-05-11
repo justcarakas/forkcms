@@ -318,7 +318,7 @@ class ForkInstaller
             '<path-www>' => PATH_WWW,
             '<action-group-tag>' => '\@actiongroup',
             '<action-rights-level>' => 7,
-            '<secret>' => Model::generateRandomString(32, true, true, true, false),
+            '<secret>' => bin2hex(random_bytes(16)),
         ];
     }
 
