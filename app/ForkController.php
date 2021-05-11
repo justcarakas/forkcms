@@ -12,6 +12,7 @@ use Frontend\Init as FrontendInit;
 use Common\Exception\RedirectException;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Error\Error as TwigError;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Application routing
