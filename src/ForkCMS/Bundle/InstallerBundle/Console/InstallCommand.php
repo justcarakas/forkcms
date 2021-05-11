@@ -52,11 +52,11 @@ class InstallCommand extends Command
         bool $forkIsInstalled,
         PrepareForReinstallCommand $prepareForReinstallCommand
     ) {
-        parent::__construct();
         $this->installer = $installer;
         $this->installConfigPath = $projectDirectory . '/app/config/cli-install.yml';
         $this->forkIsInstalled = $forkIsInstalled;
         $this->prepareForReinstallCommand = $prepareForReinstallCommand;
+        parent::__construct();
     }
 
     protected function configure(): void
@@ -69,30 +69,32 @@ class InstallCommand extends Command
             ->setHidden($this->forkIsInstalled);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->input = $input;
         $this->output = $output;
         $this->formatter = new SymfonyStyle($input, $output);
 
         if (!$this->isReadyForInstall()) {
-            return;
+            return self::FAILURE;
         }
 
         try {
             if ($this->installer->install($this->getInstallationData())) {
                 $this->formatter->success('Fork CMS is installed');
 
-                return;
+                return self::SUCCESS;
             }
         } catch (Throwable $throwable) {
             // There was a validation error
             $this->formatter->error($throwable->getMessage());
 
-            return;
+            return self::FAILURE;
         }
 
         $this->formatter->error('Fork CMS was not installed');
+
+        return self::FAILURE;
     }
 
     private function serverMeetsRequirements(): int

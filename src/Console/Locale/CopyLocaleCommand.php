@@ -47,7 +47,7 @@ class CopyLocaleCommand extends Command
             ->setDescription('Copy the content across modules from one locale to another.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->formatter = new SymfonyStyle($input, $output);
 
@@ -58,6 +58,8 @@ class CopyLocaleCommand extends Command
         $this->formatter->success(
             'All supported modules are copied from "' . $fromLocale . '" to "' . $toLocale . '".'
         );
+
+        return self::SUCCESS;
     }
 
     private function askFromLocale(): CommonLocale

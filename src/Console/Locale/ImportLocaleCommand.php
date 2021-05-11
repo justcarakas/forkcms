@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Backend\Modules\Locale\Engine\Model as BackendLocaleModel;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * This is a simple command to install a locale file
@@ -25,16 +26,19 @@ class ImportLocaleCommand extends Command
             ->addOption('locale', 'l', InputOption::VALUE_OPTIONAL, 'Only install for a specific locale');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Get input values
         $fileOption = $input->getOption('file');
         $moduleOption = $input->getOption('module');
         $localeOption = $input->getOption('locale');
         $overwriteOption = $input->hasOption('overwrite');
+        $formatter = new SymfonyStyle($input, $output);
 
         if (!isset($fileOption) && !isset($moduleOption)) {
-            throw new Exception('Please specify a modulename or path to a locale file');
+            $formatter->error('Please specify a modulename or path to a locale file');
+
+            return self::FAILURE;
         }
 
         // Get path to locale file
@@ -42,12 +46,16 @@ class ImportLocaleCommand extends Command
 
         // Verify existence file
         if (!file_exists($localePath)) {
-            throw new Exception('The given locale file (' . $localePath . ') does not exist.');
+            $formatter->error('The given locale file (' . $localePath . ') does not exist.');
+
+            return self::FAILURE;
         }
 
         // Import locale
-        $output->writeln('<info>Importing locale....</info>');
+        $formatter->info('Importing locale....');
         $this->importLocale($localePath, $overwriteOption, $output, $localeOption);
+
+        return self::SUCCESS;
     }
 
     private function importLocale(
