@@ -140,6 +140,8 @@ services:
             $commandBus: '@command_bus' # Generic // This should be replaced with the Messenger component
             $database: '@database'
 
+    Twig\Loader\LoaderInterface: '@twig.loader'
+
     ForkCMS\App\ForkController:
 
     fork.kernel:
