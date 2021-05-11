@@ -141,6 +141,7 @@ services:
             $database: '@database'
 
     Twig\Loader\LoaderInterface: '@twig.loader'
+    SpoonDatabase: '@database'
 
     ForkCMS\App\ForkController:
 
