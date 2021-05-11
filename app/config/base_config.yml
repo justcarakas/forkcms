@@ -9,6 +9,8 @@ framework:
         resource: "%kernel.project_dir%/app/config/routing.yml"
         strict_requirements: ~
     serializer: true
+    assets:
+        packages: # create the "assets.packages" service
     form:            ~
     validation:
         enable_annotations: true
