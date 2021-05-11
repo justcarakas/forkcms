@@ -48,7 +48,7 @@ class GenerateThumbnailsCommand extends Command
         parent::__construct();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): into
     {
         $style = new SymfonyStyle($input, $output);
 
@@ -56,6 +56,8 @@ class GenerateThumbnailsCommand extends Command
 
         $this->retrieveSourceFilesAndDestinationFolders($input, $output);
         $this->generateThumbnails($input, $output);
+
+        return self::SUCCESS;
     }
 
     private function generateThumbnails(InputInterface $input, OutputInterface $output): void
