@@ -2,7 +2,8 @@
 
 namespace ForkCMS\Bundle\InstallerBundle\Console;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use SpoonDatabase;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -11,11 +12,20 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * This command will prepare everything for a full reinstall
  */
-class PrepareForReinstallCommand extends ContainerAwareCommand
+class PrepareForReinstallCommand extends Command
 {
     public const RETURN_SUCCESS = 0;
     public const RETURN_DID_NOT_REINSTALL = 1;
     public const RETURN_DID_NOT_CLEAR_DATABASE = 2;
+
+    private SpoonDatabase $database;
+
+    public function __construct(SpoonDatabase $database)
+    {
+        $this->database = $database;
+
+        parent::__construct();
+    }
 
     protected function configure(): void
     {
@@ -45,13 +55,13 @@ class PrepareForReinstallCommand extends ContainerAwareCommand
             return self::RETURN_DID_NOT_CLEAR_DATABASE;
         }
 
-        $tables = $this->getContainer()->get('database')->getColumn(
+        $tables = $this->database->getColumn(
             'SHOW TABLES'
         );
 
         if (!empty($tables)) {
-            $this->getContainer()->get('database')->execute('SET FOREIGN_KEY_CHECKS=0');
-            $this->getContainer()->get('database')->drop($tables);
+            $this->database->execute('SET FOREIGN_KEY_CHECKS=0');
+            $this->database->drop($tables);
         }
 
         $io->success('Removed all tables');
