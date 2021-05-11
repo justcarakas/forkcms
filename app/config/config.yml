@@ -22,7 +22,3 @@ services:
         class: Common\Language
         arguments:
             - "@translator.selector"
-
-fos_rest:
-    routing_loader:
-        default_format: json
