@@ -4,12 +4,9 @@ namespace Frontend\Modules\Profiles\Tests\Engine;
 
 use Backend\Modules\Profiles\DataFixtures\LoadProfilesProfile;
 use Frontend\Core\Tests\FrontendWebTestCase;
-use Frontend\Modules\Profiles\Engine\Profile;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Backend\Modules\Profiles\Domain\Profile\Profile;
 use Backend\Modules\Profiles\Domain\Profile\Status;
-use Frontend\Modules\Profiles\Engine\Model;
-use Common\WebTestCase;
 
 final class ProfileTest extends FrontendWebTestCase
 {
@@ -44,6 +41,10 @@ final class ProfileTest extends FrontendWebTestCase
                 'my_second_setting' => 'My second value',
             ]
         );
+        $settings = [];
+        foreach ($profile->getSettings()->toArray() as $Setting) {
+            $settings[$Setting->getName()] = $Setting->getValue();
+        }
         self::assertEquals(
             [
                 'my_first_setting' => 'My first value',
