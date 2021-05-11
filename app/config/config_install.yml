@@ -51,7 +51,7 @@ services:
             - "%database.name%"
             - "%database.port%"
         calls:
-            - [ setDebug, [ "%kernel.debug%" ]]
+            - [ setDebug, [ "%kernel.debug%" ] ]
 
 # Doctrine Configuration
 doctrine:
