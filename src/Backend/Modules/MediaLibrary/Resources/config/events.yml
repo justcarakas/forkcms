@@ -10,7 +10,7 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
         arguments:
-            - "@media_library.manager.file"
+            - '@Backend\Modules\MediaLibrary\Manager\FileManager'
             - "@liip_imagine.cache.manager"
             - "@command_bus"
     media_library.listener.media_item_deleted_resequence:

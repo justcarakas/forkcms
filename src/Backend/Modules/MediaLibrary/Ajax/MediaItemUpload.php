@@ -65,7 +65,7 @@ class MediaItemUpload extends BackendBaseAJAXAction
         }
 
         $this->localStorageProvider = $this->get('media_library.storage.local');
-        $this->fileManager = $this->get('media_library.manager.file');
+        $this->fileManager = $this->get(FileManager::class);
         $this->extensionManager = $this->get('media_library.manager.extension');
         $this->mimeTypeManager = $this->get('media_library.manager.mime_type');
         $this->mediaFolderRepository = $this->get(MediaFolderRepository::class);

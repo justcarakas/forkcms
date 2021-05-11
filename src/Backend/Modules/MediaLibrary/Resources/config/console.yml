@@ -1,5 +1,8 @@
 services:
-    media_library.console.cache_clear:
-        class: Backend\Modules\MediaLibrary\Console\CacheClearCommand
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Backend\Modules\MediaLibrary\Console\CacheClearCommand:
         tags:
             -  { name: console.command }
