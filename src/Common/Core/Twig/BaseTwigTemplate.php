@@ -202,7 +202,7 @@ abstract class BaseTwigTemplate extends Environment
         $this->addSlashes = $enabled;
     }
 
-    public function render($template, array $variables = []): string
+    public function render($name, array $context = []): string
     {
         if (!empty($this->forms)) {
             foreach ($this->forms as $form) {
@@ -211,6 +211,6 @@ abstract class BaseTwigTemplate extends Environment
             }
         }
 
-        return $this->environment->render($template, array_merge($this->runtimeGlobals, $variables));
+        return parent::render($name, array_merge($this->runtimeGlobals, $context));
     }
 }
