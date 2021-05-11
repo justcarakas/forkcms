@@ -1,5 +1,8 @@
 services:
-    media_galleries.console.delete_galleries:
-        class: Backend\Modules\MediaGalleries\Console\MediaGalleryDeleteAllCommand
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Backend\Modules\MediaGalleries\Console\MediaGalleryDeleteAllCommand:
         tags:
             - { name: console.command }
