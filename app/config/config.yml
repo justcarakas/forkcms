@@ -16,5 +16,3 @@ services:
 
     translator:
         class: Common\Language
-        arguments:
-            - "@translator.selector"
