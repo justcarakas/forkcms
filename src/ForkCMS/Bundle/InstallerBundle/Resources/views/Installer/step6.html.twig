@@ -1,8 +1,8 @@
-{% extends 'ForkCMSInstallerBundle:Installer:base.html.twig' %}
-{% import 'ForkCMSInstallerBundle:Installer:navigation.html.twig' as macro %}
+{% extends '@ForkCMSInstallerBundle/Installer/base.html.twig' %}
+{% import '@ForkCMSInstallerBundle/Installer/navigation.html.twig' as nav %}
 
 {% block navigation %}
-  {{ macro.navigation('step-6') }}
+  {{ nav.navigation('step-6') }}
 {% endblock %}
 
 {% block content %}

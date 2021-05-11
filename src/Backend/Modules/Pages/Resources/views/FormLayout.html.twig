@@ -281,7 +281,7 @@
 {% endblock %}
 
 {% block _page_content_page_block_collection_widget %}
-  {% spaceless %}
+  {% apply spaceless %}
     {% import 'Layout/Templates/macros.html.twig' as macro %}
     {% if prototype is defined %}
       {% set prototype_vars = {} %}
@@ -310,7 +310,7 @@
       {% endif %}
       {{ form_errors(form) }}
     </div>
-  {% endspaceless %}
+  {% endapply %}
 {% endblock %}
 
 {% block page_block_widget %}
