@@ -233,53 +233,6 @@ class Model extends \Common\Core\Model
     }
 
     /**
-     * Generate a random string
-     *
-     * @param int $length Length of random string.
-     * @param bool $numeric Use numeric characters.
-     * @param bool $lowercase Use alphanumeric lowercase characters.
-     * @param bool $uppercase Use alphanumeric uppercase characters.
-     * @param bool $special Use special characters.
-     *
-     * @return string
-     */
-    public static function generateRandomString(
-        int $length = 15,
-        bool $numeric = true,
-        bool $lowercase = true,
-        bool $uppercase = true,
-        bool $special = true
-    ): string {
-        $characters = '';
-        $string = '';
-
-        // possible characters
-        if ($numeric) {
-            $characters .= '1234567890';
-        }
-        if ($lowercase) {
-            $characters .= 'abcdefghijklmnopqrstuvwxyz';
-        }
-        if ($uppercase) {
-            $characters .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        }
-        if ($special) {
-            $characters .= '-_.:;,?!@#&=)([]{}*+%$';
-        }
-
-        // get random characters
-        for ($i = 0; $i < $length; ++$i) {
-            // random index
-            $index = random_int(0, mb_strlen($characters));
-
-            // add character to salt
-            $string .= mb_substr($characters, $index, 1, self::getContainer()->getParameter('kernel.charset'));
-        }
-
-        return $string;
-    }
-
-    /**
      * Fetch the list of long date formats including examples of these formats.
      *
      * @return array
@@ -478,7 +431,7 @@ class Model extends \Common\Core\Model
             return self::getSession()->get('csrf_token');
         }
 
-        $token = self::generateRandomString(10, true, true, false, false);
+        $token = bin2hex(random_bytes(10));
         self::getSession()->set('csrf_token', $token);
 
         return $token;

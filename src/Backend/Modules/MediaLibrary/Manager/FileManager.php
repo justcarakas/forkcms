@@ -99,7 +99,7 @@ final class FileManager
         // filename must not be empty
         if (empty($name)) {
             // redefine name with random string
-            $name = BackendModel::generateRandomString(15, true, true, false, false);
+            $name = bin2hex(random_bytes(10));
         }
 
         if (!$this->filesystem->exists($directory . '/' . $name . '.' . $extension)) {
