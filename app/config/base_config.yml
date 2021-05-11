@@ -134,6 +134,8 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
+        bind:
+            $commandBus: '@command_bus' # Generic // This should be replaced with the Messenger component
     ForkCMS\App\ForkController:
 
     fork.kernel:
@@ -253,8 +255,6 @@ services:
 
     ForkCMS\Utility\Module\CopyContentToOtherLocale\CopyContentFromModulesToOtherLocaleManager:
         public: true
-        arguments:
-            - "@command_bus"
 
     fork.response_securer:
         class: Common\EventListener\ResponseSecurer
