@@ -1,15 +1,14 @@
 services:
-    media_library.form.type.media_group:
-        class: Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupType
-        arguments:
-            - '@Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupRepository'
-            - "@command_bus"
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        bind:
+            $commandBus: '@command_bus' # Generic // This should be replaced with the Messenger component
+
+    Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupType:
         tags:
             - { name: form.type }
 
     Backend\Modules\MediaLibrary\Domain\MediaGroup\SingleMediaGroupType:
-        arguments:
-            - '@Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupRepository'
-            - "@command_bus"
         tags:
             - { name: form.type }
