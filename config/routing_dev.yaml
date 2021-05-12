@@ -8,4 +8,4 @@ _profiler:
 
 # Fork routes
 _main:
-    resource: routing.yml
+    resource: routing.yaml

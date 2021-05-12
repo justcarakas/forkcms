@@ -320,7 +320,7 @@ final class RequirementsChecker
 
     private function checkRequiredPermissionsAndFiles(): RequirementCategory
     {
-        $distParametersFile = $this->rootDir . 'config/parameters.yml.dist';
+        $distParametersFile = $this->rootDir . 'config/parameters.yaml.dist';
 
         return new RequirementCategory(
             'Required permissions and files',
