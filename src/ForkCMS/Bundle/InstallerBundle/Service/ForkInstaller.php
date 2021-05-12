@@ -14,7 +14,7 @@ use Backend\Modules\Pages\Domain\PageBlock\PageBlockRepository;
 use Backend\Modules\Pages\Domain\PageBlock\Type as PageBlockType;
 use ForkCMS\Bundle\InstallerBundle\Controller\InstallerController;
 use ForkCMS\Bundle\InstallerBundle\Entity\InstallationData;
-use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
@@ -23,25 +23,17 @@ use Symfony\Component\Finder\Finder;
  */
 class ForkInstaller
 {
-    /**
-     * The Dependency injection container
-     *
-     * @var Container
-     */
-    private $container;
+    private ContainerInterface $container;
 
-    /**
-     * @var array
-     */
-    private $defaultExtras = [];
+    private array $defaultExtras = [];
 
     /**
      * @todo: - make sure the Container doesn't have to be injected
      *        - make sure the Model::setContainer isn't needed anymore
      *
-     * @param Container $container
+     * @param ContainerInterface $container
      */
-    public function __construct(Container $container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
 
