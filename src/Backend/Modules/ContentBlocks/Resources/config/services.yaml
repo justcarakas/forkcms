@@ -1,6 +1,6 @@
 imports:
-  - { resource: commands.yml }
-  - { resource: repositories.yml }
+  - { resource: commands.yaml }
+  - { resource: repositories.yaml }
 
 services:
     _defaults:

@@ -1,6 +1,6 @@
 imports:
-    - { resource: base_config.yml }
-    - { resource: parameters.yml }
+    - { resource: base_config.yaml }
+    - { resource: parameters.yaml }
 
 parameters:
     fork.is_installed: true

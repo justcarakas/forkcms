@@ -1,0 +1,6 @@
+imports:
+  # @TODO reactivate mailmotor
+  #- { resource: commands.yaml }
+  #- { resource: forms.yaml }
+  #- { resource: validators.yaml }
+  #- { resource: eventListeners.yaml }

@@ -25,7 +25,7 @@ $env = $_SERVER['FORK_ENV'] ?: 'prod';
 $debug = $_SERVER['FORK_DEBUG'] === '1';
 
 // Fork has not yet been installed
-$parametersFile = __DIR__ . '/config/parameters.yml';
+$parametersFile = __DIR__ . '/config/parameters.yaml';
 $request = Request::createFromGlobals();
 if (!file_exists($parametersFile)) {
     $env = 'install';

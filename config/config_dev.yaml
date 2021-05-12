@@ -1,10 +1,10 @@
 imports:
-    - { resource: config.yml }
+    - { resource: config.yaml }
 
 framework:
     profiler: { only_exceptions: false }
     router:
-        resource: "%kernel.project_dir%/config/routing_dev.yml"
+        resource: "%kernel.project_dir%/config/routing_dev.yaml"
     cache:
         pools:
             cache.block_editor:
