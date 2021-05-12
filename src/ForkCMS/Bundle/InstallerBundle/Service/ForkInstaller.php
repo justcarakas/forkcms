@@ -257,7 +257,7 @@ class ForkInstaller
     }
 
     /**
-     * Writes a config file to app/config/parameters.yml.
+     * Writes a config file to config/parameters.yml.
      *
      * @param InstallationData $data
      */
@@ -268,7 +268,7 @@ class ForkInstaller
 
         // map the config templates to their destination filename
         $yamlFiles = [
-            PATH_WWW . '/app/config/parameters.yml.dist' => PATH_WWW . '/app/config/parameters.yml',
+            PATH_WWW . '/config/parameters.yml.dist' => PATH_WWW . '/config/parameters.yml',
         ];
 
         foreach ($yamlFiles as $sourceFilename => $destinationFilename) {
@@ -279,7 +279,7 @@ class ForkInstaller
                 $yamlContent
             );
 
-            // write app/config/parameters.yml
+            // write config/parameters.yml
             $filesystem = new Filesystem();
             $filesystem->dumpFile($destinationFilename, $yamlContent);
         }

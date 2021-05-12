@@ -98,7 +98,7 @@ deny from env=stayout
     # forbidden directories
     RewriteRule \.git - [F]
     RewriteRule \.github - [F]
-    RewriteRule app/config - [F]
+    RewriteRule config - [F]
     RewriteRule bin/.* - [F]
     RewriteRule src/Backend/Cache/CompiledTemplates - [F]
     RewriteRule src/Console/.* - [F]
