@@ -51,7 +51,8 @@
         "symfony/webpack-encore-bundle": "^1.7",
         "tijsverkoyen/css-to-inline-styles": "^2.2",
         "phpoffice/phpspreadsheet": "^1.12",
-        "composer/package-versions-deprecated": "^1.11"
+        "composer/package-versions-deprecated": "^1.11",
+        "symfony/flex": "^1.12"
     },
     "require-dev": {
         "jdorn/sql-formatter": "1.2.17",
