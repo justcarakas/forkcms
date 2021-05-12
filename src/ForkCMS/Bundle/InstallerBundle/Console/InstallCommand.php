@@ -53,7 +53,7 @@ class InstallCommand extends Command
         PrepareForReinstallCommand $prepareForReinstallCommand
     ) {
         $this->installer = $installer;
-        $this->installConfigPath = $projectDirectory . '/app/config/cli-install.yml';
+        $this->installConfigPath = $projectDirectory . '/config/cli-install.yml';
         $this->forkIsInstalled = $forkIsInstalled;
         $this->prepareForReinstallCommand = $prepareForReinstallCommand;
         parent::__construct();
@@ -262,7 +262,7 @@ class InstallCommand extends Command
 
         if (!is_file($this->installConfigPath)) {
             $this->formatter->error(
-                'Please add your app/config/cli-install.yml based on app/config/cli-install.yml.dist'
+                'Please add your config/cli-install.yml based on config/cli-install.yml.dist'
             );
 
             return false;

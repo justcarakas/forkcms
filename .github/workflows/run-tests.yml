@@ -55,7 +55,7 @@ jobs:
               run: |
                   mysql -h 127.0.0.1 -uroot -pkingtriton -e 'create database forkcms_test'
                   mysql -h 127.0.0.1 -uroot -pkingtriton forkcms_test < tests/data/test_db.sql
-                  cp app/config/parameters.yml.test app/config/parameters.yml
+                  cp config/parameters.yml.test config/parameters.yml
 
             - name: Install dependencies
               env:
@@ -121,7 +121,7 @@ jobs:
               run: |
                   mysql -h 127.0.0.1 -uroot -pkingtriton -e 'create database forkcms_test'
                   mysql -h 127.0.0.1 -uroot -pkingtriton forkcms_test < tests/data/test_db.sql
-                  cp app/config/parameters.yml.test app/config/parameters.yml
+                  cp config/parameters.yml.test config/parameters.yml
 
             - name: Install dependencies
               run: composer install -o
