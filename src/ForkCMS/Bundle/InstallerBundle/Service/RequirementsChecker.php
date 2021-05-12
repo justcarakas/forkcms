@@ -320,7 +320,7 @@ final class RequirementsChecker
 
     private function checkRequiredPermissionsAndFiles(): RequirementCategory
     {
-        $distParametersFile = $this->rootDir . 'app/config/parameters.yml.dist';
+        $distParametersFile = $this->rootDir . 'config/parameters.yml.dist';
 
         return new RequirementCategory(
             'Required permissions and files',
@@ -381,8 +381,8 @@ final class RequirementsChecker
                 RequirementStatus::error()
             ),
             Requirement::check(
-                $this->rootDir . 'app/config/*',
-                $this->isWritable($this->rootDir . 'app/config/'),
+                $this->rootDir . 'config/*',
+                $this->isWritable($this->rootDir . 'config/'),
                 'In this location the global configuration will be stored. This location and all subdirectories are be writable.',
                 'In this location the global configuration will be stored. This location and all subdirectories must be writable.',
                 RequirementStatus::error()
