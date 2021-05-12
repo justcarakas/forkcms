@@ -1,6 +1,6 @@
 imports:
-    - { resource: base_config.yml }
-    - { resource: parameters_install.yml }
+    - { resource: base_config.yaml }
+    - { resource: parameters_install.yaml }
 
 parameters:
     doctrine.dbal.connection_factory.class: ForkCMS\Bundle\InstallerBundle\Service\InstallerConnectionFactory
@@ -12,7 +12,7 @@ twig: ~
 framework:
     secret: "%kernel.secret%"
     router:
-        resource: "%kernel.project_dir%/config/routing_install.yml"
+        resource: "%kernel.project_dir%/config/routing_install.yaml"
 
 monolog:
     handlers:

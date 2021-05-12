@@ -12,12 +12,12 @@ final class FaqExtension extends Extension implements PrependExtensionInterface
 {
     public function load(array $configs, ContainerBuilder $container)
     {
-        $this->getLoader($container)->load('services.yml');
+        $this->getLoader($container)->load('services.yaml');
     }
 
     public function prepend(ContainerBuilder $container)
     {
-        $this->getLoader($container)->load('doctrine.yml');
+        $this->getLoader($container)->load('doctrine.yaml');
     }
 
     public function getLoader(ContainerBuilder $container): Loader\YamlFileLoader

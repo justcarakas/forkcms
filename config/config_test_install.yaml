@@ -1,5 +1,5 @@
 imports:
-    - { resource: config_install.yml }
+    - { resource: config_install.yaml }
 
 parameters:
     site.multilanguage: true
@@ -12,7 +12,7 @@ framework:
     profiler:
         collect: false
     router:
-        resource: "%kernel.project_dir%/config/routing_install.yml"
+        resource: "%kernel.project_dir%/config/routing_install.yaml"
 
 monolog:
     handlers:

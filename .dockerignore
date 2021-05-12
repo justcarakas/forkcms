@@ -29,6 +29,6 @@ vendor/
 .idea
 var/cache/*
 var/log/*
-config/parameters.yml
+config/parameters.yaml
 src/Backend/Cache/*/*
 src/Frontend/Cache/*/*

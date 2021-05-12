@@ -18,12 +18,12 @@ class PagesExtension extends Extension implements PrependExtensionInterface
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.yml');
+        $loader->load('services.yaml');
     }
 
     public function prepend(ContainerBuilder $container): void
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('doctrine.yml');
+        $loader->load('doctrine.yaml');
     }
 }

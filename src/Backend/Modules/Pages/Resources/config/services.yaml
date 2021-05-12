@@ -1,5 +1,5 @@
 imports:
-  - { resource: commands.yml }
+  - { resource: commands.yaml }
 
 services:
     _defaults:

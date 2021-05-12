@@ -1722,7 +1722,7 @@ Improvements:
 * Core: Integrated addRssLink() function, fixes #841.
 * Blog: making use of the new $this->header->addRssLink() function, fixes #841.
 * Core: minifier updated to a newer version.
-* Core: remove unneeded kernel.charset parameter from the parameters.yml file.
+* Core: remove unneeded kernel.charset parameter from the parameters.yaml file.
 * Core: refactor the URL classes to use the Symfony Request object.
 * Core: update the PHPDocs for some methods.
 * Pages: add a has_children variable to pages.
@@ -1822,7 +1822,7 @@ Improvements:
 * Extensions: you can upload a module from a zip with an extra directory
 * Ajax: endpoint has been changed to not contain an extension. /src/Backend/Ajax.php is now /backend/ajax and /src/Frontend/Ajax.php is now /frontend/ajax
 * Cronjob: endpoint has been changed to not contain an extension. /src/Backend/Cronjob.php is now /backend/cronjob.
-* Routing: use the Symfony routing component to replace routing.yml
+* Routing: use the Symfony routing component to replace routing.yaml
 * Core: implement the SymfonyFrameworkBundle to handle routing.
 * Core: make the AppKernel more similar to Symfony's kernel.
 * Core: add the Symfony console component.
@@ -2018,7 +2018,7 @@ Bugfixes:
 * Installer: after sending Location headers we need to exit to prevent further execution of the application.
 * Core: do not add headers set by Spoon to Response. Otherwise they will be send twice.
 * Core: removed line of code from frontend pagination.
-* Spoon: SPOON_DEBUG level did not reflect the parameters.yml settings.
+* Spoon: SPOON_DEBUG level did not reflect the parameters.yaml settings.
 * Email: allow null as plain_text value to prevent MySQL errors to be thrown. Fixes #429.
 * Share-widget: fixed the whitespace added by Pinterest. Fixes #392.
 * Core: CKEditor is nov available in Chinese. Fixed #381
@@ -2052,7 +2052,7 @@ Improvements:
 * Core: added the Symfony DependencyInjection component to handle our services and config.
 * Core: the AppKernel is passed to all actions/models which contains the DI container.
 * Core: one frontcontroller which routes all requests (actions, ajax, cronjobs, ...)
-* Core: replaced globals*.php config files with app/config/config.yml.
+* Core: replaced globals*.php config files with app/config/config.yaml.
 * Core: removed js.php
 * Spoon: Spoon dependency is now handled via composer.
 * Core: Include a non-official patch for CKeditor to fix an issue with the stylesheet-parser on FF/Safari on Macs.

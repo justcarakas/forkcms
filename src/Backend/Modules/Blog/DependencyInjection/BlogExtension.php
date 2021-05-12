@@ -16,7 +16,7 @@ class BlogExtension extends Extension implements PrependExtensionInterface
             $container,
             new FileLocator(__DIR__ . '/../Resources/config')
         );
-        $loader->load('services.yml');
+        $loader->load('services.yaml');
     }
 
     public function prepend(ContainerBuilder $container): void
@@ -25,6 +25,6 @@ class BlogExtension extends Extension implements PrependExtensionInterface
             $container,
             new FileLocator(__DIR__ . '/../Resources/config')
         );
-        $loader->load('doctrine.yml');
+        $loader->load('doctrine.yaml');
     }
 }

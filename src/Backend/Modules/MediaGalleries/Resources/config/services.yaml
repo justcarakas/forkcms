@@ -1,0 +1,4 @@
+imports:
+  - { resource: commands.yaml }
+  - { resource: console.yaml }
+  - { resource: repositories.yaml }

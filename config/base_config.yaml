@@ -1,12 +1,12 @@
 imports:
-    - { resource: console.yml }
-    - { resource: form.yml }
-    - { resource: doctrine.yml }
+    - { resource: console.yaml }
+    - { resource: form.yaml }
+    - { resource: doctrine.yaml }
 
 framework:
     secret: "%kernel.secret%"
     router:
-        resource: "%kernel.project_dir%/config/routing.yml"
+        resource: "%kernel.project_dir%/config/routing.yaml"
         strict_requirements: ~
     serializer: true
     assets:
