@@ -4,7 +4,7 @@ namespace Backend\Modules\MediaLibrary\Domain\MediaFolder;
 
 use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Backend\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFound;
 
 /**
