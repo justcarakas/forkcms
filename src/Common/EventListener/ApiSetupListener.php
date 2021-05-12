@@ -3,7 +3,7 @@
 namespace Common\EventListener;
 
 use Backend\Core\Engine\Backend;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 final class ApiSetupListener
@@ -16,7 +16,7 @@ final class ApiSetupListener
         $this->kernel = $kernel;
     }
 
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         if (strpos($event->getRequest()->getPathInfo(), '/api/') === 0) {
             $application = new Backend($this->kernel);
