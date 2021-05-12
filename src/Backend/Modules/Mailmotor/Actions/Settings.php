@@ -39,7 +39,7 @@ final class Settings extends ActionIndex
         $settings = $form->getData();
 
         // The command bus will handle the saving of the settings in the database.
-        $this->get('command_bus')->handle($settings);
+        $this->get('command_bus.public')->handle($settings);
 
         $this->get('event_dispatcher')->dispatch(
             SettingsSavedEvent::EVENT_NAME,

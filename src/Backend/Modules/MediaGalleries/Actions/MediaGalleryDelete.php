@@ -37,7 +37,7 @@ class MediaGalleryDelete extends BackendBaseActionDelete
         $deleteMediaGallery = new DeleteMediaGallery($mediaGallery);
 
         // Handle the MediaGallery delete
-        $this->get('command_bus')->handle($deleteMediaGallery);
+        $this->get('command_bus.public')->handle($deleteMediaGallery);
 
         $this->redirect(
             $this->getBackLink(

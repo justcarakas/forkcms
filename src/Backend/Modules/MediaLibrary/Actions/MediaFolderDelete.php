@@ -79,7 +79,7 @@ class MediaFolderDelete extends BackendBaseActionDelete
         $deleteMediaFolder = new DeleteMediaFolder($mediaFolder);
 
         // Handle the MediaFolder delete
-        $this->get('command_bus')->handle($deleteMediaFolder);
+        $this->get('command_bus.public')->handle($deleteMediaFolder);
 
         return $deleteMediaFolder;
     }

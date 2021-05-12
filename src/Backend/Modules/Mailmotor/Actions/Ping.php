@@ -70,7 +70,7 @@ final class Ping extends ActionIndex
         $saveSettings = new SaveSettings($this->get(ModulesSettings::class));
         $saveSettings->mailEngine = 'not_implemented';
 
-        $this->get('command_bus')->handle($saveSettings);
+        $this->get('command_bus.public')->handle($saveSettings);
 
         $this->get('event_dispatcher')->dispatch(
             SettingsSavedEvent::EVENT_NAME,

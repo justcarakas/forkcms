@@ -31,7 +31,7 @@ class Delete extends BackendBaseActionDelete
         $contentBlock = $this->getContentBlock((int) $deleteFormData['id']);
 
         // The command bus will handle the saving of the content block in the database.
-        $this->get('command_bus')->handle(new DeleteContentBlock($contentBlock));
+        $this->get('command_bus.public')->handle(new DeleteContentBlock($contentBlock));
 
         $this->get('event_dispatcher')->dispatch(
             ContentBlockDeleted::EVENT_NAME,

@@ -30,7 +30,7 @@ class MediaFolderMove extends BackendBaseAJAXAction
         $updateMediaFolder->parent = $this->getMediaFolderWhereDroppedOn($this->getTypeOfDrop());
 
         // Handle the MediaFolder update
-        $this->get('command_bus')->handle($updateMediaFolder);
+        $this->get('command_bus.public')->handle($updateMediaFolder);
 
         $this->output(
             Response::HTTP_OK,

@@ -68,7 +68,7 @@ class MediaItemEdit extends BackendBaseActionEdit
         $updateMediaItem = $form->getData();
 
         // Handle the MediaItem update
-        $this->get('command_bus')->handle($updateMediaItem);
+        $this->get('command_bus.public')->handle($updateMediaItem);
 
         $this->redirect(
             $this->getBackLink(

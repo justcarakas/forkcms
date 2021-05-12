@@ -45,7 +45,7 @@ class MediaGalleryAdd extends ActionAdd
         $createMediaGallery = $form->getData();
 
         // Handle the MediaGallery create
-        $this->get('command_bus')->handle($createMediaGallery);
+        $this->get('command_bus.public')->handle($createMediaGallery);
 
         return $createMediaGallery;
     }
