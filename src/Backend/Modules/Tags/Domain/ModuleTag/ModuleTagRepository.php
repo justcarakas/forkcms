@@ -5,7 +5,7 @@ namespace Backend\Modules\Tags\Domain\ModuleTag;
 use Common\Locale;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
 
 final class ModuleTagRepository extends ServiceEntityRepository
