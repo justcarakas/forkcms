@@ -3,7 +3,7 @@
 namespace Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method MediaGroupMediaItem|null find($id, $lockMode = null, $lockVersion = null)
