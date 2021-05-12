@@ -252,7 +252,7 @@ services:
     fork.api_setup:
         class: Common\EventListener\ApiSetupListener
         arguments:
-            - '@Symfony\Component\DependencyInjection\ContainerInterface'
+            - '@Symfony\Component\HttpKernel\KernelInterface'
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 1 }
 

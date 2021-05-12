@@ -2,11 +2,11 @@
 
 namespace Common\EventListener;
 
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 final class ApplicationSetterListener
 {
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         switch ($event->getRequest()->attributes->get('_route')) {
             case 'backend':
