@@ -2,6 +2,7 @@
 
 namespace Backend\Core\Engine\Base;
 
+use Backend\Core\Engine\Authentication;
 use Backend\Core\Engine\TwigTemplate;
 use Common\Exception\RedirectException;
 use ForkCMS\App\KernelLoader;
@@ -201,7 +202,9 @@ class Action extends KernelLoader
             BackendModel::createUrlForAction('MediaBrowserVideos', 'MediaLibrary') . '#tabLibrary'
         );
 
-        $this->header->addJsData('Core', 'preferred_editor', BackendModel::getPreferredEditor());
+        if (Authentication::isLoggedIn()) {
+            $this->header->addJsData('Core', 'preferred_editor', BackendModel::getPreferredEditor());
+        }
     }
 
     /**

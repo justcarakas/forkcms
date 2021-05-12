@@ -34,10 +34,15 @@ class Authentication
 
     /**
      * This is used to prevent logging out multiple times (less queries)
+     */
+    private static bool $alreadyLoggedOut = false;
+
+    /**
+     * This is used to prevent logging in multiple times (less queries)
      *
      * @var bool
      */
-    private static $alreadyLoggedOut = false;
+    private static bool $isLoggedIn = false;
 
     /**
      * Check the strength of the password
@@ -260,8 +265,8 @@ class Authentication
      */
     public static function isLoggedIn(): bool
     {
-        if (BackendModel::getContainer()->has('logged_in')) {
-            return (bool) BackendModel::getContainer()->get('logged_in');
+        if (self::$isLoggedIn) {
+            return true;
         }
 
         // check if all needed values are set in the session
@@ -297,7 +302,7 @@ class Authentication
             self::$user = new User($sessionData['user_id']);
 
             // the user is logged on
-            BackendModel::getContainer()->set('logged_in', true);
+            self::$isLoggedIn = true;
 
             return true;
         }
@@ -372,7 +377,7 @@ class Authentication
         $session->set('backend_secret_key', $userSession['secret_key']);
 
         // update/instantiate the value for the logged_in container.
-        BackendModel::getContainer()->set('logged_in', true);
+        self::$isLoggedIn = true;
         self::$user = new User($userId);
 
         return true;
@@ -403,6 +408,7 @@ class Authentication
         }
 
         self::$alreadyLoggedOut = true;
+        self::$isLoggedIn = false;
     }
 
     /**
