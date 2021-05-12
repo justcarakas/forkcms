@@ -76,7 +76,7 @@ class MediaFolderEdit extends BackendBaseAJAXAction
         $updateMediaFolder->name = htmlspecialchars($name, ENT_QUOTES);
 
         // Handle the MediaFolder update
-        $this->get('command_bus')->handle($updateMediaFolder);
+        $this->get('command_bus.public')->handle($updateMediaFolder);
 
         return $updateMediaFolder;
     }

@@ -192,7 +192,7 @@ class MediaItemMassAction extends BackendBaseAction
         $updateMediaItem->folder = $this->moveToMediaFolder;
 
         // Handle the MediaItem update
-        $this->get('command_bus')->handle($updateMediaItem);
+        $this->get('command_bus.public')->handle($updateMediaItem);
     }
 
     private function delete(MediaItem $mediaItem): void
@@ -201,6 +201,6 @@ class MediaItemMassAction extends BackendBaseAction
         $deleteMediaItem = new DeleteMediaItem($mediaItem);
 
         // Handle the MediaItem delete
-        $this->get('command_bus')->handle($deleteMediaItem);
+        $this->get('command_bus.public')->handle($deleteMediaItem);
     }
 }
