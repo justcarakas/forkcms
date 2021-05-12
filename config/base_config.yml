@@ -50,7 +50,7 @@ monolog:
     handlers:
         main:
             type:  rotating_file
-            path:  "%site.path_www%/var/logs/%kernel.environment%/error.log"
+            path:  "%site.path_www%/var/log/%kernel.environment%/error.log"
             level: error
             max_files: 10
         # swift:

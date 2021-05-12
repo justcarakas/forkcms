@@ -2052,7 +2052,7 @@ Improvements:
 * Core: added the Symfony DependencyInjection component to handle our services and config.
 * Core: the AppKernel is passed to all actions/models which contains the DI container.
 * Core: one frontcontroller which routes all requests (actions, ajax, cronjobs, ...)
-* Core: replaced globals*.php config files with config/config.yml.
+* Core: replaced globals*.php config files with app/config/config.yml.
 * Core: removed js.php
 * Spoon: Spoon dependency is now handled via composer.
 * Core: Include a non-official patch for CKeditor to fix an issue with the stylesheet-parser on FF/Safari on Macs.

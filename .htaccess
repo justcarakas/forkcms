@@ -105,7 +105,7 @@ deny from env=stayout
     RewriteRule src/Frontend/Cache/CompiledTemplates - [F]
     RewriteRule src/Frontend/Files/MediaLibrary/uploads - [F]
     RewriteRule var/docker/.* - [F]
-    RewriteRule var/logs - [F]
+    RewriteRule var/log - [F]
     RewriteRule vendor/.* - [F]
 
     # redirect all traffic to https

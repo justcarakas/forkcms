@@ -218,7 +218,7 @@ abstract class Kernel extends BaseKernel
 
     public function getLogDir(): string
     {
-        return dirname(__DIR__).'/var/logs/' . $this->environment;
+        return dirname(__DIR__).'/var/log/' . $this->environment;
     }
 
     public function getCacheDir(): string

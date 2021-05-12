@@ -18,7 +18,7 @@ monolog:
     handlers:
         main:
             type:  stream
-            path:  "%site.path_www%/var/logs/%kernel.environment%/debug.log"
+            path:  "%site.path_www%/var/log/%kernel.environment%/debug.log"
             level: debug
         dockerstdout:
             type: stream

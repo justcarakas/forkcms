@@ -15,7 +15,7 @@
 .*.swp
 .DS_Store
 /var/cache/*
-/var/logs/*
+/var/log/*
 /app/sessions/*
 /bin/*
 !bin/console
