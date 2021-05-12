@@ -5,7 +5,7 @@ imports:
 parameters:
     doctrine.dbal.connection_factory.class: ForkCMS\Bundle\InstallerBundle\Service\InstallerConnectionFactory
     fork.is_installed: false
-    fork.form.theme: "ForkCMSInstallerBundle:Installer:form_theme.html.twig"
+    fork.form.theme: '@@ForkCMSInstaller/Installer/form_theme.html.twig'
 
 twig: ~
 
