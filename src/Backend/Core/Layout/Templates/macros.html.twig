@@ -3,7 +3,7 @@
   {# When url is an empty string, use a button, otherwise use a hyperlink/anchor #}
   {% if url %}
     <a href="{{ url }}" class="btn {{ buttonType|default('btn-default') }}{% if iconOnly %} btn-icon-only{% endif %}" title="{{ label }}" {% if extra is iterable %}{% for attr, value in extra %} {{ attr }}="{{ value }}"{% endfor %}{% else %}{{ extra }}{% endif %}>
-    {% apply %}
+    {% apply spaceless %}
       {% if not iconRight %}{{ macro.icon(icon) }}{% endif %}
       <span class="{% if iconOnly %}visually-hidden{% else %}btn-text{% endif %}">{{ label }}</span>
       {% if iconRight %}{{ macro.icon(icon) }}{% endif %}
