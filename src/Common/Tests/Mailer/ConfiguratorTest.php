@@ -6,7 +6,7 @@ use Common\Mailer\Configurator;
 use Common\ModulesSettings;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 /**
  * Tests for our module settings
@@ -41,7 +41,7 @@ class ConfiguratorTest extends TestCase
             )
         ;
 
-        $configurator->onKernelRequest($this->getGetResponseEventMock());
+        $configurator->onKernelRequest($this->getResponseEventMock());
     }
 
     public function testConfiguratorSetsSmtpTransport(): void
@@ -78,7 +78,7 @@ class ConfiguratorTest extends TestCase
             )
         ;
 
-        $configurator->onKernelRequest($this->getGetResponseEventMock());
+        $configurator->onKernelRequest($this->getResponseEventMock());
     }
 
     private function getModulesSettingsMock(): ModulesSettings
@@ -91,8 +91,8 @@ class ConfiguratorTest extends TestCase
         return $this->createMock(ContainerInterface::class);
     }
 
-    private function getGetResponseEventMock(): GetResponseEvent
+    private function getResponseEventMock(): ResponseEvent
     {
-        return $this->createMock(GetResponseEvent::class);
+        return $this->createMock(ResponseEvent::class);
     }
 }

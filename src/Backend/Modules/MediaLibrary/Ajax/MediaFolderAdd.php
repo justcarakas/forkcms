@@ -53,7 +53,7 @@ class MediaFolderAdd extends BackendBaseAJAXAction
         );
 
         // Handle the MediaFolder create
-        $this->get('command_bus')->handle($createMediaFolder);
+        $this->get('command_bus.public')->handle($createMediaFolder);
 
         return $createMediaFolder;
     }
