@@ -72,3 +72,7 @@ services:
   liip_imagine.cache.manager.public:
     alias: liip_imagine.cache.manager
     public: true
+
+  ForkCMS\ImagineController:
+    public: true
+    autowire: true
