@@ -40,9 +40,8 @@
         "simple-bus/doctrine-orm-bridge": "^4.0",
         "spoon/library": "^3.0",
         "swiftmailer/swiftmailer": "^6.0",
-        "symfony/monolog-bundle": "^3.1",
+        "symfony/monolog-bundle": "^3.7",
         "symfony/swiftmailer-bundle": "^3.0",
-        "symfony/symfony": "^5.2",
         "tijsverkoyen/akismet": "1.1.*",
         "friendsofsymfony/rest-bundle": "^3.0",
         "jms/serializer-bundle": "^3.9",
@@ -52,7 +51,19 @@
         "tijsverkoyen/css-to-inline-styles": "^2.2",
         "phpoffice/phpspreadsheet": "^1.12",
         "composer/package-versions-deprecated": "^1.11",
-        "symfony/flex": "^1.12"
+        "symfony/flex": "^1.12",
+        "sensio/framework-extra-bundle": "^6.1",
+        "symfony/asset": "^5.2",
+        "symfony/mailer": "^5.2",
+        "symfony/form": "^5.2",
+        "symfony/security-bundle": "^5.2",
+        "symfony/translation": "^5.2",
+        "symfony/validator": "^5.2",
+        "doctrine/doctrine-migrations-bundle": "^3.1",
+        "symfony/proxy-manager-bridge": "^5.2",
+        "symfony/twig-bundle": "^5.2",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
         "jdorn/sql-formatter": "1.2.17",
@@ -61,7 +72,12 @@
         "phpstan/phpstan": "^0.12.52",
         "phpstan/phpstan-symfony": "^0.12.7",
         "phpstan/phpstan-doctrine": "^0.12.22",
-        "symfony/var-dumper": "^5.2"
+        "symfony/var-dumper": "^5.2",
+        "symfony/dotenv": "^5.2",
+        "symfony/maker-bundle": "^1.31",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "symfony/stopwatch": "^5.2",
+        "symfony/web-profiler-bundle": "^5.2"
     },
     "config": {
         "bin-dir": "bin"
@@ -102,5 +118,8 @@
         "psr-4": {
             "ForkCMS\\Tests\\": "tests/"
         }
+    },
+    "conflict": {
+        "symfony/symfony": "*"
     }
 }
