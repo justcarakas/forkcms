@@ -1,0 +1,35 @@
+# Backend controller
+backend:
+  path: /private/{_locale}/{module}/{action}
+  defaults:
+    _controller: \ForkCMS\App\ForkController::backendController
+    _locale: ~
+    module: ~
+    action: ~
+
+#Ajax controllers
+backend_ajax:
+  path: /backend/ajax
+  defaults:
+    _controller: \ForkCMS\App\ForkController::backendAjaxController
+frontend_ajax:
+  path: /frontend/ajax
+  defaults:
+    _controller: \ForkCMS\App\ForkController::frontendAjaxController
+
+# Api routing files
+content_blocks_api:
+  resource: '../src/Backend/Modules/ContentBlocks/Resources/config/routing.yaml'
+pages_api:
+  resource: '../src/Backend/Modules/Pages/Resources/config/routing.yaml'
+media_library_api:
+  resource: '../src/Backend/Modules/MediaLibrary/Resources/config/routing.yaml'
+
+# Frontend controller (this is as good as the default when no other route gets matched)
+frontend:
+  path: /{route}
+  defaults:
+    _controller: \ForkCMS\App\ForkController::frontendController
+    route: ~
+  requirements:
+    route: (.*)
