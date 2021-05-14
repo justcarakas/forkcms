@@ -2,5 +2,5 @@ framework:
   test: true
   session:
     storage_id: session.storage.mock_file
-  router:
-    resource: "%kernel.project_dir%/config/routing_install.yml"
+#  router:
+#    resource: "%kernel.project_dir%/config/routing_install.yml"
