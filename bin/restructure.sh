@@ -31,6 +31,7 @@ OLDSRC=$(pwd)'/src'
 NEWSRC=$(pwd)'/newSrc'
 MODULESDIR=$NEWSRC'/Modules'
 COREDIR=$NEWSRC'/Core'
+CACHEDIR=$NEWSRC'/Cache'
 FILESDIR=$NEWSRC'/Files'
 THEMESDIR=$NEWSRC'/Themes'
 INSTALLERDIR=$NEWSRC'/Installer'
@@ -42,17 +43,19 @@ rm -rf $NEWSRC
 # Create the base directories
 mkdir -p $COREDIR'/Backend'
 mkdir -p $COREDIR'/Frontend'
+mkdir -p $CACHEDIR'/Backend'
+mkdir -p $CACHEDIR'/Frontend'
 mkdir -p $MODULESDIR
 
-cp -r $OLDSRC'/Common' $COREDIR'/Common'
+cp -a $OLDSRC'/Common' $COREDIR'/Common'
 if $CLEANUP ; then rm -r $OLDSRC'/Common'; fi;
-cp -r $OLDSRC'/Console' $NEWSRC'/Console'
+cp -a $OLDSRC'/Console' $NEWSRC'/Console'
 if $CLEANUP ; then rm -r $OLDSRC'/Console'; fi;
-cp -r $OLDSRC'/Frontend/Files' $FILESDIR
+cp -a $OLDSRC'/Frontend/Files' $FILESDIR
 if $CLEANUP ; then rm -r $OLDSRC'/Frontend/Files'; fi;
-cp -r $OLDSRC'/Frontend/Themes' $THEMESDIR
+cp -a $OLDSRC'/Frontend/Themes' $THEMESDIR
 if $CLEANUP ; then rm -r $OLDSRC'/Frontend/Themes'; fi;
-cp -r $OLDSRC'/ForkCMS/Bundle/InstallerBundle' $INSTALLERDIR
+cp -a $OLDSRC'/ForkCMS/Bundle/InstallerBundle' $INSTALLERDIR
 if $CLEANUP ; then rm -r $OLDSRC'/ForkCMS/Bundle/InstallerBundle'; fi;
 
 for APPLICATION in ${APPLICATIONS[@]}
@@ -61,17 +64,27 @@ do
   do
       dir=${dir%*/}
       mkdir $MODULESDIR/${dir##*/} &> /dev/null
-      cp -r $dir $MODULESDIR/${dir##*/}/$APPLICATION/
+      cp -a $dir $MODULESDIR/${dir##*/}/$APPLICATION/
       if $CLEANUP ; then rm -r $dir; fi;
   done
-  cp -a $OLDSRC/$APPLICATION/Core/* $COREDIR/$APPLICATION/
+  cp -a $OLDSRC/$APPLICATION/Core $COREDIR/$APPLICATION/
   if $CLEANUP ; then rm -r $OLDSRC/$APPLICATION/Core; fi;
+  cp -a $OLDSRC/$APPLICATION/Form $COREDIR/$APPLICATION/
+  if $CLEANUP ; then rm -r $OLDSRC/$APPLICATION/Form; fi;
+  cp -a $OLDSRC/$APPLICATION/DependencyInjection $COREDIR/$APPLICATION/
+  if $CLEANUP ; then rm -r $OLDSRC/$APPLICATION/DependencyInjection; fi;
+  cp -a $OLDSRC/$APPLICATION/favicon.ico $COREDIR/$APPLICATION/
+  if $CLEANUP ; then rm -r $OLDSRC/$APPLICATION/favicon.ico; fi;
+  cp -a $OLDSRC/$APPLICATION/Init.php $COREDIR/$APPLICATION/
+  if $CLEANUP ; then rm -r $OLDSRC/$APPLICATION/Init.php; fi;
+  cp -a $OLDSRC/$APPLICATION/Cache/* $CACHEDIR/$APPLICATION/
+  if $CLEANUP ; then rm -r $OLDSRC/$APPLICATION/Cache; fi;
 done
 
 if $CLEANUP
 then
-  cp -r $OLDSRC $(pwd)'/oldsrc'
+  cp -a $OLDSRC $(pwd)'/oldsrc'
   rm -rf $OLDSRC
-  cp -r $NEWSRC $OLDSRC
+  cp -a $NEWSRC $OLDSRC
   rm -rf $NEWSRC
 fi
