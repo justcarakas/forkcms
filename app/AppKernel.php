@@ -15,24 +15,16 @@ class AppKernel extends Kernel
      */
     public function registerBundles(): array
     {
+        // @TODO verify what is left here
         $bundles = [
-            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new \Symfony\Bundle\TwigBundle\TwigBundle(),
-            new \Symfony\Bundle\MonologBundle\MonologBundle(),
-            new \Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new \ForkCMS\Bundle\InstallerBundle\ForkCMSInstallerBundle(),
             new \ForkCMS\Bundle\CoreBundle\ForkCMSCoreBundle(),
-            new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new \Backend\Modules\MediaLibrary\MediaLibrary(),
             // @TODO update mailmotor once symfony is upgraded
             //new \Backend\Modules\Mailmotor\Mailmotor(),
             //new \MailMotor\Bundle\MailMotorBundle\MailMotorMailMotorBundle(),
             //new \MailMotor\Bundle\MailChimpBundle\MailMotorMailChimpBundle(),
             //new \MailMotor\Bundle\CampaignMonitorBundle\MailMotorCampaignMonitorBundle(),
-            new \Liip\ImagineBundle\LiipImagineBundle(),
-            new \FOS\RestBundle\FOSRestBundle(),
-            new \JMS\SerializerBundle\JMSSerializerBundle(),
-            new \Symfony\WebpackEncoreBundle\WebpackEncoreBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'])) {
