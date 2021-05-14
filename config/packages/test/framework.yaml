@@ -1,0 +1,8 @@
+parameters:
+  site.multilanguage: true
+  site.default_language: en
+
+framework:
+  test: true
+  session:
+    storage_id: session.storage.mock_file
