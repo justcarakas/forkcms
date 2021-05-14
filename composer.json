@@ -65,7 +65,12 @@
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0",
         "symfony/debug-bundle": "^5.2",
-        "symfony/yaml": "^5.2"
+        "symfony/yaml": "^5.2",
+        "doctrine/annotations": "^1.0",
+        "phpdocumentor/reflection-docblock": "^5.2",
+        "symfony/property-access": "^5.2",
+        "symfony/property-info": "^5.2",
+        "symfony/serializer": "^5.2"
     },
     "require-dev": {
         "jdorn/sql-formatter": "1.2.17",
@@ -90,10 +95,8 @@
     },
     "scripts": {
         "test": "./bin/simple-phpunit",
-        "post-install-cmd": [
-        ],
-        "post-update-cmd": [
-        ]
+        "post-install-cmd": [],
+        "post-update-cmd": []
     },
     "autoload": {
         "psr-4": {
