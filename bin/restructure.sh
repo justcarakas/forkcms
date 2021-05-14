@@ -64,6 +64,8 @@ do
       cp -r $dir $MODULESDIR/${dir##*/}/$APPLICATION/
       if $CLEANUP ; then rm -r $dir; fi;
   done
+  cp -a $OLDSRC/$APPLICATION/Core/* $COREDIR/$APPLICATION/
+  if $CLEANUP ; then rm -r $OLDSRC/$APPLICATION/Core; fi;
 done
 
 if $CLEANUP
