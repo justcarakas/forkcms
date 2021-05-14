@@ -14,15 +14,15 @@ webpack_encore:
   # strict_mode: false
 
   # if you have multiple builds:
-  # builds:
+  builds:
+    installerConfig: '%kernel.project_dir%/src/ForkCMS/Bundle/InstallerBundle/Resources/public/build'
+    backendConfig: '%kernel.project_dir%/src/Backend/Core/build'
+    frontendConfig: '%kernel.project_dir%/src/Frontend/Core/build'
+    frontendThemeConfig: '%kernel.project_dir%/src/Frontend/Themes/%env(resolve:THEME)%/Core/build'
   # pass "frontend" as the 3rg arg to the Twig functions
   # {{ encore_entry_script_tags('entry1', null, 'frontend') }}
 
   # frontend: '%kernel.project_dir%/public/frontend/build'
-  installerConfig: '%kernel.project_dir%/src/ForkCMS/Bundle/InstallerBundle/Resources/public/build'
-  backendConfig: '%kernel.project_dir%/src/Backend/Core/build'
-  frontendConfig: '%kernel.project_dir%/src/Frontend/Core/build'
-  frontendThemeConfig: '%kernel.project_dir%/src/Frontend/Themes/%env(resolve:THEME)%/Core/build'
 
   # Cache the entrypoints.json (rebuild Symfony's cache when entrypoints.json changes)
   # Put in config/packages/prod/webpack_encore.yaml
