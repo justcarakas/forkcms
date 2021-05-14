@@ -10,15 +10,15 @@ framework:
     resource: "%kernel.project_dir%/config/routing.yml"
 
 services:
-  database:
-    class: SpoonDatabase
-    public: true
-    arguments:
-      - "%database.driver%"
-      - "%database.host%"
-      - "%database.user%"
-      - "%database.password%"
-      - "%database.name%_test"
-      - "%database.port%"
-    calls:
-      - [ setDebug, [ "%kernel.debug%" ]]
+#  database:
+#    class: SpoonDatabase
+#    public: true
+#    arguments:
+#      - "%database.driver%"
+#      - "%database.host%"
+#      - "%database.user%"
+#      - "%database.password%"
+#      - "%database.name%_test"
+#      - "%database.port%"
+#    calls:
+#      - [ setDebug, [ "%kernel.debug%" ]]

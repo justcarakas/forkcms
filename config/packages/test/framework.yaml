@@ -1,6 +1,6 @@
 parameters:
-  site.multilanguage: true
-  site.default_language: en
+#  site.multilanguage: true
+#  site.default_language: en
 
 framework:
   test: true

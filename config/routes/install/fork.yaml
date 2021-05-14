@@ -1,2 +1,2 @@
-installer:
-  resource: "@ForkCMSInstallerBundle/Resources/config/routing.yaml"
+#installer:
+#  resource: "@ForkCMSInstallerBundle/Resources/config/routing.yaml"
