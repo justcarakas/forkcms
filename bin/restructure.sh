@@ -49,6 +49,8 @@ mkdir -p $MODULESDIR
 
 cp -a $OLDSRC'/Common' $COREDIR'/Common'
 if $CLEANUP ; then rm -r $OLDSRC'/Common'; fi;
+cp -a $OLDSRC/ForkCMS $COREDIR'/Common'
+if $CLEANUP ; then rm -r $OLDSRC/ForkCMS; fi;
 cp -a $OLDSRC'/Console' $NEWSRC'/Console'
 if $CLEANUP ; then rm -r $OLDSRC'/Console'; fi;
 cp -a $OLDSRC'/Frontend/Files' $FILESDIR
