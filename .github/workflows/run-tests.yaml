@@ -54,7 +54,7 @@ jobs:
 
             - name: Install dependencies
               env:
-                  FORK_ENV: test
+                  APP_ENV: test
               run: composer install -o
 
             - name: Install Node
@@ -121,7 +121,7 @@ jobs:
             - name: Install dependencies
               run: composer install -o
               env:
-                  FORK_ENV: dev
+                  APP_ENV: dev
 
             - name: Run PHPStan
               run: bin/phpstan analyze --error-format github src

@@ -1788,8 +1788,8 @@ Improvements:
 * Core: insertExtra Integrated in the modules: "ContentBlocks, Faq, FormBuilder and Location"
 * Core: Restyled mail templates, simple fluid design (looks good on small and wide screens).
 * Debug mode and environment are set earlier in the response.
-  You can set debug mode with ````SetEnv FORK_DEBUG 1````
-  You can set dev environment with ````SetEnv FORK_ENV dev````
+  You can set debug mode with ````SetEnv APP_DEBUG 1````
+  You can set dev environment with ````SetEnv APP_ENV dev````
 * Core: when in debug mode and in dev environment, the SymfonyWebProfiler is shown in the bottom of the page.
 * Core: handle errors in debug mode by the symfony error handler.
 * Analytics: implement event tracking for universal analytics
