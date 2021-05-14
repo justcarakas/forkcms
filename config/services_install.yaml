@@ -1,0 +1,40 @@
+parameters:
+  doctrine.dbal.connection_factory.class: ForkCMS\Bundle\InstallerBundle\Service\InstallerConnectionFactory
+  fork.is_installed: false
+  fork.form.theme: '@@ForkCMSInstaller/Installer/form_theme.html.twig'
+
+framework:
+  secret: "%kernel.secret%"
+  router:
+    resource: "%kernel.project_dir%/config/routing_install.yml"
+
+services:
+  templating:
+    alias: templating.engine.twig
+
+  Common\ModulesSettings:
+    public: true
+    arguments:
+      - "@database"
+      - "@cache.pool"
+      - "%fork.is_installed%"
+
+  # dummy service during the installation
+  mailer_configurator:
+    class: stdClass
+
+  cache.pool:
+    class: Symfony\Component\Cache\Adapter\ArrayAdapter
+
+  database:
+    class: SpoonDatabase
+    public: true
+    arguments:
+      - "%database.driver%"
+      - "%database.host%"
+      - "%database.user%"
+      - "%database.password%"
+      - "%database.name%"
+      - "%database.port%"
+    calls:
+      - [ setDebug, [ "%kernel.debug%" ] ]
