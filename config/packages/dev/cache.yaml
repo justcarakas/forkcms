@@ -2,4 +2,4 @@ framework:
   cache:
     pools:
       cache.block_editor:
-        adapter: cache.array.adapter
+        adapter: cache.adapter.array

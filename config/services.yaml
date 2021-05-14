@@ -94,7 +94,7 @@ services:
 #    class: League\Flysystem\Adapter\Local
 #    arguments:
 #      - "%kernel.cache_dir%"
-#  cache.array.adapter:
+#  cache.adapter.array:
 #    class: Symfony\Component\Cache\Adapter\ArrayAdapter
 #    arguments:
 #      - "%kernel.cache_dir%"
