@@ -14,13 +14,13 @@ set_include_path(__DIR__ . '/vendor/spoon/library' . PATH_SEPARATOR . get_includ
 require_once 'spoon/spoon.php';
 
 // load server variables
-if (!array_key_exists('FORK_ENV', $_SERVER)) {
-    $_SERVER['FORK_ENV'] = $_ENV['FORK_ENV'] ?? null;
+if (!array_key_exists('APP_ENV', $_SERVER)) {
+    $_SERVER['APP_ENV'] = $_ENV['APP_ENV'] ?? null;
 }
 
-if ('prod' !== $_SERVER['FORK_ENV']) {
+if ('prod' !== $_SERVER['APP_ENV']) {
     if (!class_exists(Dotenv::class)) {
-        throw new RuntimeException('The "FORK_ENV" environment variable is not set to "prod". Please run "composer require symfony/dotenv" to load the ".env" files configuring the application.');
+        throw new RuntimeException('The "APP_ENV" environment variable is not set to "prod". Please run "composer require symfony/dotenv" to load the ".env" files configuring the application.');
     }
     $dotenv = new Dotenv();
 
@@ -32,8 +32,8 @@ if ('prod' !== $_SERVER['FORK_ENV']) {
     }
 }
 
-$_SERVER['FORK_ENV'] = $_ENV['FORK_ENV'] = $_SERVER['APP_ENV'] = $_SERVER['FORK_ENV'] ?: $_ENV['FORK_ENV'] ?: 'dev';
-$_SERVER['FORK_DEBUG'] = $_SERVER['FORK_DEBUG'] ?? $_ENV['FORK_DEBUG'] ?? 'prod' !== $_SERVER['FORK_ENV'];
-$_SERVER['FORK_DEBUG'] = $_ENV['FORK_DEBUG'] = $_SERVER['APP_DEBUG'] = (int) $_SERVER['FORK_DEBUG'] || filter_var($_SERVER['FORK_DEBUG'], FILTER_VALIDATE_BOOLEAN) ? '1' : '0';
+$_SERVER['APP_ENV'] = $_ENV['APP_ENV'] = $_SERVER['APP_ENV'] = $_SERVER['APP_ENV'] ?: $_ENV['APP_ENV'] ?: 'dev';
+$_SERVER['APP_DEBUG'] = $_SERVER['APP_DEBUG'] ?? $_ENV['APP_DEBUG'] ?? 'prod' !== $_SERVER['APP_ENV'];
+$_SERVER['APP_DEBUG'] = $_ENV['APP_DEBUG'] = $_SERVER['APP_DEBUG'] = (int) $_SERVER['APP_DEBUG'] || filter_var($_SERVER['APP_DEBUG'], FILTER_VALIDATE_BOOLEAN) ? '1' : '0';
 
 return $loader;
