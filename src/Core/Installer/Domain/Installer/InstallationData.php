@@ -4,17 +4,9 @@ namespace ForkCMS\Bundle\InstallerBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * This object contains all fork data
- */
-class InstallationData
+class InstallationConfiguration
 {
-    /**
-     * The host of the database
-     *
-     * @var string
-     */
-    protected $databaseHostname;
+    protected ?string $databaseHostname;
 
     /**
      * The username for the database
