@@ -3,11 +3,6 @@ parameters:
   fork.is_installed: false
   fork.form.theme: '@@ForkCMSInstaller/Installer/form_theme.html.twig'
 
-framework:
-  secret: "%kernel.secret%"
-  router:
-    resource: "%kernel.project_dir%/config/routing_install.yml"
-
 services:
 #  templating:
 #    alias: templating.engine.twig
