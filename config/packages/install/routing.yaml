@@ -1,4 +1,4 @@
 framework:
     router:
+        utf8: true
         strict_requirements: null
-#        resource: "%kernel.project_dir%/config/routing_install.yml"
