@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Bundle\InstallerBundle\Console;
+namespace ForkCMS\Core\Installer\Console;
 
 use ForkCMS\Bundle\InstallerBundle\Entity\InstallationData;
 use ForkCMS\Bundle\InstallerBundle\Form\Handler\DatabaseHandler;
