@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Bundle\InstallerBundle\Language;
+namespace ForkCMS\Core\Installer\Domain\Locale;
 
 final class Locale extends \Common\Locale
 {

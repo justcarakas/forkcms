@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Bundle\InstallerBundle\Form\Handler;
+namespace ForkCMS\Core\Installer\Domain\Login;
 
 use ForkCMS\Bundle\InstallerBundle\Entity\InstallationData;
 

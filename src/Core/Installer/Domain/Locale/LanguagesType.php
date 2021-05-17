@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Bundle\InstallerBundle\Form\Type;
+namespace ForkCMS\Core\Installer\Domain\Locale;
 
 use ForkCMS\Bundle\InstallerBundle\Language\Locale;
 use Symfony\Component\Form\AbstractType;

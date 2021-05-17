@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Bundle\InstallerBundle\Service;
+namespace ForkCMS\Core\Installer\Domain\Installer;
 
 use Backend\Core\Engine\Model;
 use Backend\Core\Installer\CoreInstaller;

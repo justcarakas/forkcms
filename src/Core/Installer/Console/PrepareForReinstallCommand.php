@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Bundle\InstallerBundle\Console;
+namespace ForkCMS\Core\Installer\Console;
 
 use SpoonDatabase;
 use Symfony\Component\Console\Command\Command;

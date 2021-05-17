@@ -1,10 +1,10 @@
 <?php
 
-namespace ForkCMS\Bundle\InstallerBundle\Entity;
+namespace ForkCMS\Core\Installer\Domain\Installer;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class InstallationConfiguration
+class InstallationData
 {
     protected ?string $databaseHostname;
 
