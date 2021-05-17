@@ -23,6 +23,6 @@ install_step6:
     defaults:
         _controller: ForkCMS\Bundle\InstallerBundle\Controller\InstallerController::step6Action
 install:
-    path: /install
+    path: /
     defaults:
         _controller: ForkCMS\Bundle\InstallerBundle\Controller\InstallerController::noStepAction
