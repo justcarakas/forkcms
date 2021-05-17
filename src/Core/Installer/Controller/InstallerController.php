@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Bundle\InstallerBundle\Controller;
+namespace ForkCMS\Core\Installer\Controller;
 
 use Common\Exception\ExitException;
 use ForkCMS\Bundle\InstallerBundle\Entity\InstallationData;

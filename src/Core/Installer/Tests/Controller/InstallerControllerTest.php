@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Bundle\InstallerBundle\Tests\Controller;
+namespace ForkCMS\Core\Installer\Tests\Controller;
 
 use Common\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;

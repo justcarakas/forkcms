@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Bundle\InstallerBundle\DBALType;
+namespace ForkCMS\Core\Installer\Domain\Locale;
 
 use Common\Locale;
 use Doctrine\DBAL\Types\TextType;

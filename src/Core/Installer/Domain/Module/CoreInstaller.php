@@ -1,6 +1,6 @@
 <?php
 
-namespace Backend\Core\Installer;
+namespace ForkCMS\Core\Installer\Domain\Module;
 
 use Backend\Core\Engine\Model;
 use Backend\Modules\Pages\Domain\ModuleExtra\ModuleExtra;
