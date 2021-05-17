@@ -13,10 +13,6 @@ framework:
   php_errors:
     log: true
 
-
-  router:
-    resource: '%kernel.project_dir%/config/routing_install.yml'
-    strict_requirements: ~
   serializer: true
   assets:
     packages: # create the "assets.packages" service
