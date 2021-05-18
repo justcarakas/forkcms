@@ -21,7 +21,7 @@ use Common\Doctrine\Entity\Meta;
 use Common\Doctrine\Repository\MetaRepository;
 use Common\Uri as CommonUri;
 use DateTime;
-use ForkCMS\Bundle\InstallerBundle\Language\Locale;
+use ForkCMS\Core\Installer\Domain\Locale\Locale;
 use SpoonDatabase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;

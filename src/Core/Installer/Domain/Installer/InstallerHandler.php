@@ -2,7 +2,6 @@
 
 namespace ForkCMS\Core\Installer\Domain\Installer;
 
-use ForkCMS\Bundle\InstallerBundle\Entity\InstallationData;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 

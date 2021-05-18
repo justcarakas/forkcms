@@ -2,12 +2,13 @@
 
 namespace ForkCMS\Core\Installer\Console;
 
-use ForkCMS\Bundle\InstallerBundle\Entity\InstallationData;
-use ForkCMS\Bundle\InstallerBundle\Form\Handler\DatabaseHandler;
-use ForkCMS\Bundle\InstallerBundle\Form\Handler\LanguagesHandler;
-use ForkCMS\Bundle\InstallerBundle\Form\Handler\LoginHandler;
-use ForkCMS\Bundle\InstallerBundle\Form\Handler\ModulesHandler;
-use ForkCMS\Bundle\InstallerBundle\Service\ForkInstaller;
+use ForkCMS\Console\Install\PrepareForReinstallCommand;
+use ForkCMS\Core\Installer\Domain\Database\DatabaseHandler;
+use ForkCMS\Core\Installer\Domain\Installer\ForkInstaller;
+use ForkCMS\Core\Installer\Domain\Installer\InstallationData;
+use ForkCMS\Core\Installer\Domain\Locale\LanguagesHandler;
+use ForkCMS\Core\Installer\Domain\Login\LoginHandler;
+use ForkCMS\Core\Installer\Domain\Module\ModulesHandler;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
@@ -25,35 +26,22 @@ use Throwable;
  */
 class InstallCommand extends Command
 {
-    /** @var InputInterface */
-    private $input;
-
-    /** @var OutputInterface */
-    private $output;
-
-    /** @var SymfonyStyle */
-    private $formatter;
-
-    /** @var ForkInstaller */
-    private $installer;
-
-    /** @var string */
-    private $installConfigPath;
-
-    /** @var bool */
-    private $forkIsInstalled;
-
-    /** @var PrepareForReinstallCommand */
-    private $prepareForReinstallCommand;
+    private InputInterface $input;
+    private OutputInterface $output;
+    private SymfonyStyle $formatter;
+    private ForkInstaller $installer;
+    private string $installConfigPath;
+    private bool $forkIsInstalled;
+    private PrepareForReinstallCommand $prepareForReinstallCommand;
 
     public function __construct(
         ForkInstaller $installer,
-        string $projectDirectory,
+        string $rootDir,
         bool $forkIsInstalled,
         PrepareForReinstallCommand $prepareForReinstallCommand
     ) {
         $this->installer = $installer;
-        $this->installConfigPath = $projectDirectory . '/config/cli-install.yaml';
+        $this->installConfigPath = $rootDir . '/config/cli-install.yaml';
         $this->forkIsInstalled = $forkIsInstalled;
         $this->prepareForReinstallCommand = $prepareForReinstallCommand;
         parent::__construct();
