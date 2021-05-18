@@ -1,6 +1,6 @@
-import { MultiTextBox } from '../../../Core/Js/Components/MultiTextBox'
-import { StringUtil } from '../../../Core/Js/Components/StringUtil'
-import { Messages } from '../../../Core/Js/Components/Messages'
+import { MultiTextBox } from '../../../../Core/Backend/Core/Js/Components/MultiTextBox'
+import { StringUtil } from '../../../../Core/Backend/Core/Js/Components/StringUtil'
+import { Messages } from '../../../../Core/Backend/Core/Js/Components/Messages'
 
 export class Settings {
   constructor () {

@@ -1,7 +1,7 @@
 import { Group } from './Helper/Group'
 import { ModalSelection } from './Helper/ModalSelection'
 import { Upload } from './Helper/Upload'
-import { Data } from '../../../Core/Js/Components/Data'
+import { Data } from '../../../../Core/Backend/Core/Js/Components/Data'
 import { Cropper } from './Helper/Cropper'
 import { MovieThumbUrl } from './Helper/MovieThumbUrl'
 

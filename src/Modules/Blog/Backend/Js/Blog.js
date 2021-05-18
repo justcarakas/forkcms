@@ -1,5 +1,5 @@
-import { Meta } from '../../../Core/Js/Components/Meta'
-import { Config } from '../../../Core/Js/Components/Config'
+import { Meta } from '../../../../Core/Js/Components/Meta'
+import { Config } from '../../../../Core/Js/Components/Config'
 
 export class Blog {
   constructor () {
