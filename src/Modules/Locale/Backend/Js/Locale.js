@@ -1,4 +1,4 @@
-import { InlineTextEdit } from '../../../Core/Js/Components/InlineTextEdit'
+import { InlineTextEdit } from '../../../../Core/Backend/Core/Js/Components/InlineTextEdit'
 
 export class LocaleModule {
   constructor () {

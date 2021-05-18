@@ -1,7 +1,7 @@
-import { Messages } from '../../../Core/Js/Components/Messages'
-import { Meta } from '../../../Core/Js/Components/Meta'
+import { Messages } from '../../../../Core/Backend/Core/Js/Components/Messages'
+import { Meta } from '../../../../Core/Backend/Core/Js/Components/Meta'
 import Sortable from 'sortablejs'
-import { Config } from '../../../Core/Js/Components/Config'
+import { Config } from '../../../../Core/Backend/Core/Js/Components/Config'
 
 export class Faq {
   constructor () {

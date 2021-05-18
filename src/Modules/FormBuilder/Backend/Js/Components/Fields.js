@@ -1,7 +1,7 @@
-import { Messages } from '../../../../Core/Js/Components/Messages'
-import { StringUtil } from '../../../../Core/Js/Components/StringUtil'
-import { Config } from '../../../../Core/Js/Components/Config'
-import { MultiTextBox } from '../../../../Core/Js/Components/MultiTextBox'
+import { Messages } from '../../../../../Core/Backend/Core/Js/Components/Messages'
+import { StringUtil } from '../../../../../Core/Backend/Core/Js/Components/StringUtil'
+import { Config } from '../../../../../Core/Backend/Core/Js/Components/Config'
+import { MultiTextBox } from '../../../../../Core/Backend/Core/Js/Components/MultiTextBox'
 import Sortable from 'sortablejs'
 
 export class Fields {

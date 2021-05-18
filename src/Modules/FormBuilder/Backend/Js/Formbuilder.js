@@ -1,6 +1,6 @@
 import { Fields } from './Components/Fields'
-import { StringUtil } from '../../../Core/Js/Components/StringUtil'
-import { MultiTextBox } from '../../../Core/Js/Components/MultiTextBox'
+import { StringUtil } from '../../../../Core/Backend/Core/Js/Components/StringUtil'
+import { MultiTextBox } from '../../../../Core/Backend/Core/Js/Components/MultiTextBox'
 
 export class Formbuilder {
   constructor () {

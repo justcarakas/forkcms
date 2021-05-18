@@ -1,4 +1,4 @@
-import { Meta } from '../../../Core/Js/Components/Meta'
+import { Meta } from '../../../../Core/Backend/Core/Js/Components/Meta'
 
 export class Blog {
   constructor () {

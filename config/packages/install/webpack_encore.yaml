@@ -2,6 +2,10 @@ webpack_encore:
   # The path where Encore is building the assets - i.e. Encore.setOutputPath()
   output_path: '%kernel.project_dir%/public/build/installer'
 
+  builds:
+    installerConfig: '%kernel.project_dir%/public/build/installer'
+    backendConfig: '%kernel.project_dir%/public/build/backend'
+
   # if using Encore.enableIntegrityHashes() and need the crossorigin attribute (default: false, or use 'anonymous' or 'use-credentials')
   # crossorigin: 'anonymous'
 

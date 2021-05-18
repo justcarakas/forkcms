@@ -1,7 +1,7 @@
 import 'jstree/dist/jstree'
-import { EventUtil } from '../../../../Core/Js/Components/EventUtil'
-import { Messages } from '../../../../Core/Js/Components/Messages'
-import { Config } from '../../../../Core/Js/Components/Config'
+import { EventUtil } from '../../../../../Core/Backend/Core/Js/Components/EventUtil'
+import { Messages } from '../../../../../Core/Backend/Core/Js/Components/Messages'
+import { Config } from '../../../../../Core/Backend/Core/Js/Components/Config'
 
 export class Tree {
   constructor () {

@@ -1,4 +1,4 @@
-import { StringUtil } from '../../../../Core/Js/Components/StringUtil'
+import { StringUtil } from '../../../../../Core/Backend/Core/Js/Components/StringUtil'
 
 export class Templates {
   /**

@@ -1,9 +1,9 @@
-import { Messages } from '../../../../Core/Js/Components/Messages'
+import { Messages } from '../../../../../Core/Backend/Core/Js/Components/Messages'
 import { Duplicator } from './Duplicator'
 import { Templates } from './Templates'
-import { Config } from '../../../../Core/Js/Components/Config'
-import { Data } from '../../../../Core/Js/Components/Data'
-import { StringUtil } from '../../../../Core/Js/Components/StringUtil'
+import { Config } from '../../../../../Core/Backend/Core/Js/Components/Config'
+import { Data } from '../../../../../Core/Backend/Core/Js/Components/Data'
+import { StringUtil } from '../../../../../Core/Backend/Core/Js/Components/StringUtil'
 import Sortable from 'sortablejs'
 
 export class Group {

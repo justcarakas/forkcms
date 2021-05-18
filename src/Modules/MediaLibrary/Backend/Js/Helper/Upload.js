@@ -1,7 +1,7 @@
-import { Messages } from '../../../../Core/Js/Components/Messages'
-import { Data } from '../../../../Core/Js/Components/Data'
-import { Config } from '../../../../Core/Js/Components/Config'
-import { StringUtil } from '../../../../Core/Js/Components/StringUtil'
+import { Messages } from '../../../../../Core/Backend/Core/Js/Components/Messages'
+import { Data } from '../../../../../Core/Backend/Core/Js/Components/Data'
+import { Config } from '../../../../../Core/Backend/Core/Js/Components/Config'
+import { StringUtil } from '../../../../../Core/Backend/Core/Js/Components/StringUtil'
 import { Templates } from './Templates'
 
 export class Upload {
