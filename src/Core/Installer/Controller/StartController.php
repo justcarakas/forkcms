@@ -2,20 +2,12 @@
 
 namespace ForkCMS\Core\Installer\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
-final class StartController
+final class StartController extends AbstractStepController
 {
-    private Router $router;
-
-    public function __construct(Router $router)
-    {
-        $this->router = $router;
-    }
-
-    public function __invoke(): Response
+    public function __invoke(): ResponseInterface
     {
         return new RedirectResponse($this->router->generate('install_step1'));
     }
