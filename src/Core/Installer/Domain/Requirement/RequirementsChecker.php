@@ -314,76 +314,76 @@ final class RequirementsChecker
 
         return new RequirementCategory(
             'Required permissions and files',
+//            Requirement::check(
+//                $this->rootDir . '/src/Backend/Cache/*',
+//                $this->isRecursivelyWritable($this->rootDir . '/src/Backend/Cache/'),
+//                'In this location all files created by the backend will be stored. This location and all subdirectories are be writable.',
+//                'In this location all files created by the backend will be stored. This location and all subdirectories must be writable.',
+//                RequirementStatus::error()
+//            ),
+//            Requirement::check(
+//                $this->rootDir . '/src/Backend/Modules/',
+//                $this->isWritable($this->rootDir . '/src/Backend/Modules/'),
+//                'In this location modules will be installed.',
+//                'In this location modules will be installed. You can continue the installation, but installing a module will then require a manual upload.',
+//                RequirementStatus::warning()
+//            ),
+//            Requirement::check(
+//                $this->rootDir . '/src/Frontend/Cache/*',
+//                $this->isRecursivelyWritable($this->rootDir . '/src/Frontend/Cache/'),
+//                'In this location all files created by the frontend will be stored. This location and all subdirectories are be writable.',
+//                'In this location all files created by the frontend will be stored. This location and all subdirectories must be writable.',
+//                RequirementStatus::error()
+//            ),
+//            Requirement::check(
+//                $this->rootDir . '/src/Frontend/Files/*',
+//                $this->isRecursivelyWritable($this->rootDir . '/src/Frontend/Files/'),
+//                'In this location all files uploaded by the user/modules will be stored. This location and all subdirectories are be writable.',
+//                'In this location all files uploaded by the user/modules will be stored. This location and all subdirectories must be writable.',
+//                RequirementStatus::error()
+//            ),
+//            Requirement::check(
+//                $this->rootDir . '/src/Frontend/Modules/',
+//                $this->isWritable($this->rootDir . '/src/Frontend/Modules/'),
+//                'In this location modules will be installed.',
+//                'In this location modules will be installed. You can continue the installation, but installing a module will then require a manual upload.',
+//                RequirementStatus::warning()
+//            ),
+//            Requirement::check(
+//                $this->rootDir . '/src/Frontend/Themes/',
+//                $this->isWritable($this->rootDir . '/src/Frontend/Themes/'),
+//                'In this location themes will be installed.',
+//                'In this location themes will be installed. You can continue the installation, but installing a theme will then require a manual upload.',
+//                RequirementStatus::warning()
+//            ),
             Requirement::check(
-                $this->rootDir . 'src/Backend/Cache/*',
-                $this->isRecursivelyWritable($this->rootDir . 'src/Backend/Cache/'),
-                'In this location all files created by the backend will be stored. This location and all subdirectories are be writable.',
-                'In this location all files created by the backend will be stored. This location and all subdirectories must be writable.',
-                RequirementStatus::error()
-            ),
-            Requirement::check(
-                $this->rootDir . 'src/Backend/Modules/',
-                $this->isWritable($this->rootDir . 'src/Backend/Modules/'),
-                'In this location modules will be installed.',
-                'In this location modules will be installed. You can continue the installation, but installing a module will then require a manual upload.',
-                RequirementStatus::warning()
-            ),
-            Requirement::check(
-                $this->rootDir . 'src/Frontend/Cache/*',
-                $this->isRecursivelyWritable($this->rootDir . 'src/Frontend/Cache/'),
-                'In this location all files created by the frontend will be stored. This location and all subdirectories are be writable.',
-                'In this location all files created by the frontend will be stored. This location and all subdirectories must be writable.',
-                RequirementStatus::error()
-            ),
-            Requirement::check(
-                $this->rootDir . 'src/Frontend/Files/*',
-                $this->isRecursivelyWritable($this->rootDir . 'src/Frontend/Files/'),
-                'In this location all files uploaded by the user/modules will be stored. This location and all subdirectories are be writable.',
-                'In this location all files uploaded by the user/modules will be stored. This location and all subdirectories must be writable.',
-                RequirementStatus::error()
-            ),
-            Requirement::check(
-                $this->rootDir . 'src/Frontend/Modules/',
-                $this->isWritable($this->rootDir . 'src/Frontend/Modules/'),
-                'In this location modules will be installed.',
-                'In this location modules will be installed. You can continue the installation, but installing a module will then require a manual upload.',
-                RequirementStatus::warning()
-            ),
-            Requirement::check(
-                $this->rootDir . 'src/Frontend/Themes/',
-                $this->isWritable($this->rootDir . 'src/Frontend/Themes/'),
-                'In this location themes will be installed.',
-                'In this location themes will be installed. You can continue the installation, but installing a theme will then require a manual upload.',
-                RequirementStatus::warning()
-            ),
-            Requirement::check(
-                $this->rootDir . 'var/cache/*',
-                $this->isWritable($this->rootDir . 'var/cache/'),
+                $this->rootDir . '/var/cache/*',
+                $this->isWritable($this->rootDir . '/var/cache/'),
                 'In this location the global cache will be stored. This location and all subdirectories are be writable.',
                 'In this location the global cache will be stored. This location and all subdirectories must be writable.',
                 RequirementStatus::error()
             ),
             Requirement::check(
-                $this->rootDir . 'var/log/*',
-                $this->isWritable($this->rootDir . 'var/log/'),
+                $this->rootDir . '/var/log/*',
+                $this->isWritable($this->rootDir . '/var/log/'),
                 'In this location the global logs will be stored. This location and all subdirectories are be writable.',
                 'In this location the global logs will be stored. This location and all subdirectories must be writable.',
                 RequirementStatus::error()
             ),
             Requirement::check(
-                $this->rootDir . 'config/*',
-                $this->isWritable($this->rootDir . 'config/'),
+                $this->rootDir . '/config/*',
+                $this->isWritable($this->rootDir . '/config/'),
                 'In this location the global configuration will be stored. This location and all subdirectories are be writable.',
                 'In this location the global configuration will be stored. This location and all subdirectories must be writable.',
                 RequirementStatus::error()
             ),
-            Requirement::check(
-                $distParametersFile,
-                file_exists($distParametersFile) && is_readable($distParametersFile),
-                'This file is used to create the global configuration file.',
-                'This file is used to create the global configuration file. This file must be readable.',
-                RequirementStatus::error()
-            )
+//            Requirement::check(
+//                $distParametersFile,
+//                file_exists($distParametersFile) && is_readable($distParametersFile),
+//                'This file is used to create the global configuration file.',
+//                'This file is used to create the global configuration file. This file must be readable.',
+//                RequirementStatus::error()
+//            )
         );
     }
 
