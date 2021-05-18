@@ -1,18 +1,17 @@
 <?php
 
-// @TODO rename this file to bootstrap.php to better reflect its function
-
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Symfony\Component\Dotenv\Dotenv;
 
 // use vendor generated autoloader
-$loader = require __DIR__ . '/vendor/autoload.php';
+$loader = require __DIR__ . '/../vendor/autoload.php';
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
 // Spoon is not autoloaded via Composer but uses its own old skool autoloader
-set_include_path(__DIR__ . '/vendor/spoon/library' . PATH_SEPARATOR . get_include_path());
+set_include_path(__DIR__ . '/../vendor/spoon/library' . PATH_SEPARATOR . get_include_path());
 require_once 'spoon/spoon.php';
 
+restore_exception_handler();
 // load server variables
 if (!array_key_exists('APP_ENV', $_SERVER)) {
     $_SERVER['APP_ENV'] = $_ENV['APP_ENV'] ?? null;
@@ -24,11 +23,11 @@ if ('prod' !== $_SERVER['APP_ENV']) {
     }
     $dotenv = new Dotenv();
 
-    $dotenv->load(__DIR__ . '/.env');
+    $dotenv->load(__DIR__ . '/../.env');
 
     // @TODO when updating to Fork 6, using Symfony 4, check if we still need to check the file's existence
-    if (file_exists(__DIR__ . '/.env.local')) {
-        $dotenv->load(__DIR__ . '/.env.local');
+    if (file_exists(__DIR__ . '/../.env.local')) {
+        $dotenv->load(__DIR__ . '/../.env.local');
     }
 }
 
