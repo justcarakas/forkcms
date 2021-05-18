@@ -12,8 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Installer - Fork CS</title>
-  <link rel="shortcut icon" href="/src/Backend/favicon.ico" />
-  {{ encore_entry_link_tags('screen', null, 'backendConfig') }}
+  <link rel="shortcut icon" href="{{ asset('build/installer/images/favicon.ico') }}" />
   <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro%7COpen+Sans:400,600' rel='stylesheet' type='text/css'>
   {{ encore_entry_link_tags('screen', null, 'installerConfig') }}
 
@@ -51,14 +50,14 @@
     </div>
     <div id="root-footer-installer"></div>
   </div>
-  <footer id="footer-installer" class="installer-footer">
+  <footer id="footer-installer" class="installer-footer" >
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
           <div class="footer-inner">
             <p class="text-center text-muted"> <small><i>Powered by</i></small>
             </p> <a href="http://www.fork-cms.com" target="_blank" rel="noopener noreferrer">
-              <img src="/src/Backend/Core/Layout/images/logo_footer.svg" alt="Fork CMS" class="logo-footer img-fluid">
+              <img src="{{ asset('build/installer/images/logo_footer.svg') }}" alt="Fork CMS" class="logo-footer img-fluid">
             </a>
           </div>
         </div>
