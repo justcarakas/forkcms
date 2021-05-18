@@ -1,8 +1,16 @@
 #installer {
+  h2,
+  h3 {
+    float: none;
+  }
 
   h3 {
     font-size: $font-size-base;
     font-weight: $font-weight-medium;
+  }
+
+  h4 {
+    font-size: 14px;
   }
 
   .card-footer {
@@ -84,7 +92,6 @@
 }
 
 @mixin sticky-footer($footer-height, $root-selector: unquote("#root-installer"), $root-footer-selector: unquote("#root-footer-installer"), $footer-selector: unquote("#footer-installer")) {
-
   html, body {
     height: 100%;
   }
@@ -109,4 +116,21 @@
 
 @include media-breakpoint-up(md) {
   @include sticky-footer(100px);
+}
+
+
+
+#step2 .list-group-item-success h4,
+#step2 .list-group-item-danger h4  {
+    color: white;
+}
+
+#step2 .list-group-item-success a,
+#step2 .list-group-item-danger a  {
+    color: white;
+}
+
+.help-block.errorMessage,
+.has-error .control-label {
+    color: #d0021b;
 }
