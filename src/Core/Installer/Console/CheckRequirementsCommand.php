@@ -2,9 +2,10 @@
 
 namespace ForkCMS\Core\Installer\Console;
 
-use ForkCMS\Bundle\InstallerBundle\Requirement\Requirement;
-use ForkCMS\Bundle\InstallerBundle\Requirement\RequirementCategory;
-use ForkCMS\Bundle\InstallerBundle\Service\RequirementsChecker;
+use ForkCMS\Core\Installer\Domain\Requirement\Requirement;
+use ForkCMS\Core\Installer\Domain\Requirement\RequirementCategory;
+use ForkCMS\Core\Installer\Domain\Requirement\RequirementsChecker;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -19,11 +20,8 @@ class CheckRequirementsCommand extends Command
     public const RETURN_SERVER_MEETS_REQUIREMENTS = 0;
     public const RETURN_SERVER_MEETS_REQUIREMENTS_BUT_HAS_WARNINGS = 1;
 
-    /** @var SymfonyStyle */
-    private $formatter;
-
-    /** @var RequirementsChecker */
-    private $requirementsChecker;
+    private SymfonyStyle $formatter;
+    private RequirementsChecker $requirementsChecker;
 
     public function __construct(RequirementsChecker $requirementsChecker)
     {
@@ -72,7 +70,7 @@ class CheckRequirementsCommand extends Command
             return self::RETURN_SERVER_DOES_NOT_MEET_REQUIREMENTS;
         }
 
-        throw new \RuntimeException('Invalid requirement state');
+        throw new RuntimeException('Invalid requirement state');
     }
 
     private function showWarnings(): void
@@ -128,7 +126,7 @@ class CheckRequirementsCommand extends Command
         // format urls as "text (url)" or just url if the text and url are the same
         return preg_replace_callback(
             '|<a[\s\S]*?href="(.*?)"[\s\S]*?>(.*?)<\/a>|',
-            function ($matches) {
+            static function ($matches) {
                 if ($matches[1] !== $matches[2]) {
                     return $matches[2] . ' (' . $matches[1] . ')';
                 }

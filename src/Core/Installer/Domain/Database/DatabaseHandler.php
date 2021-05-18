@@ -2,7 +2,8 @@
 
 namespace ForkCMS\Core\Installer\Domain\Database;
 
-use ForkCMS\Bundle\InstallerBundle\Entity\InstallationData;
+use ForkCMS\Core\Installer\Domain\Installer\InstallationData;
+use ForkCMS\Core\Installer\Domain\Installer\InstallerHandler;
 
 /**
  * Validates and saves the data from the databases form

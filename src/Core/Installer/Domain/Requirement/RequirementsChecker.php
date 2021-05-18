@@ -2,26 +2,14 @@
 
 namespace ForkCMS\Core\Installer\Domain\Requirement;
 
-use ForkCMS\Bundle\InstallerBundle\Requirement\Requirement;
-use ForkCMS\Bundle\InstallerBundle\Requirement\RequirementCategory;
-use ForkCMS\Bundle\InstallerBundle\Requirement\RequirementStatus;
-
-/**
- * Requirements checker
- */
 final class RequirementsChecker
 {
-    /**
-     * The root dir of our project
-     *
-     * @var string
-     */
-    private $rootDir;
+    private string $rootDir;
 
     /**
      * @var RequirementCategory[]
      */
-    private $requirementCategories;
+    private array $requirementCategories;
 
     public function __construct(string $rootDir)
     {
@@ -66,7 +54,7 @@ final class RequirementsChecker
         return in_array(
             true,
             array_map(
-                function (RequirementCategory $requirementCategory) {
+                static function (RequirementCategory $requirementCategory) {
                     return $requirementCategory->hasErrors();
                 },
                 $this->requirementCategories
@@ -89,7 +77,7 @@ final class RequirementsChecker
         return in_array(
             true,
             array_map(
-                function (RequirementCategory $requirementCategory) {
+                static function (RequirementCategory $requirementCategory) {
                     return $requirementCategory->hasWarnings();
                 },
                 $this->requirementCategories
@@ -125,7 +113,7 @@ final class RequirementsChecker
             'Web server',
             Requirement::check(
                 'php version',
-                version_compare(PHP_VERSION, '7.4.0', '>='),
+                PHP_VERSION_ID >= 70400,
                 'Your server is running at least php 7.4.0. <br>' . $reasoningBehindTheMinimumPHPVersion,
                 'PHP version must be at least 7.4.0, Before using Fork CMS, upgrade your PHP installation, preferably to the latest version.<br>' . $reasoningBehindTheMinimumPHPVersion,
                 RequirementStatus::error()
@@ -133,15 +121,17 @@ final class RequirementsChecker
             Requirement::check(
                 'subfolder',
                 // If we don't know for sure but we shall assume that it isn't in a subfolder
-                array_key_exists('REQUEST_URI', $_SERVER)
-                    ? mb_substr($_SERVER['REQUEST_URI'], 0, 8) === '/install' : true,
+                array_key_exists('REQUEST_URI', $_SERVER) ? mb_strpos($_SERVER['REQUEST_URI'], '/install') === 0 : true,
                 'Fork CMS is as far as we can detect not running is a subfolder',
                 'Fork CMS can\'t be installed in subfolders',
                 RequirementStatus::error()
             ),
             Requirement::check(
                 'mod_rewrite',
-                php_sapi_name() === "cli" || (bool) (getenv('MOD_REWRITE') || getenv('REDIRECT_MOD_REWRITE') || strtolower($_SERVER['HTTP_MOD_REWRITE'] ?? 'Off') === 'on'),
+                PHP_SAPI === "cli"
+                || (bool) (getenv('MOD_REWRITE')
+                           || getenv('REDIRECT_MOD_REWRITE')
+                           || strtolower($_SERVER['HTTP_MOD_REWRITE'] ?? 'Off') === 'on'),
                 'Fork CMS is able to rewrite the urls using mod_rewrite',
                 'Fork CMS will not be able to run if mod_rewrite can not be applied. Please make sure that the .htaccess file is present (the file starts with a dot, so it may be hidden on your filesystem), being read (AllowOverride directive) and the mod_rewrite module is enabled in Apache. If you are installing Fork CMS on another web server than Apache, make sure you have manually configured your web server to properly rewrite urls.
                  More information can be found in our <a href="http://www.fork-cms.com/knowledge-base/detail/fork-cms-and-webservers" title="Fork CMS and web servers">knowledge base</a>.
@@ -158,7 +148,7 @@ final class RequirementsChecker
         return new RequirementCategory(
             'PHP extensions',
             ...array_map(
-                function (array $extension) {
+                static function (array $extension): Requirement {
                     return Requirement::check(
                         $extension['name'],
                         $extension['check'],

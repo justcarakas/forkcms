@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Installer\Domain\Locale;
 
-use ForkCMS\Bundle\InstallerBundle\Language\Locale;
+use ForkCMS\Core\Installer\Domain\Installer\InstallationData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -76,7 +76,7 @@ class LanguagesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => 'ForkCMS\Bundle\InstallerBundle\Entity\InstallationData',
+            'data_class' => InstallationData::class,
         ]);
     }
 

@@ -3,8 +3,6 @@
 namespace ForkCMS\Core\Installer\Domain\Installer;
 
 use Backend\Core\Engine\Model;
-use Backend\Core\Installer\CoreInstaller;
-use Backend\Core\Installer\ModuleInstaller;
 use Backend\Modules\Locale\Engine\Model as BackendLocaleModel;
 use Backend\Modules\Pages\Domain\ModuleExtra\ModuleExtra;
 use Backend\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository;
@@ -12,8 +10,8 @@ use Backend\Modules\Pages\Domain\Page\PageRepository;
 use Backend\Modules\Pages\Domain\PageBlock\PageBlock;
 use Backend\Modules\Pages\Domain\PageBlock\PageBlockRepository;
 use Backend\Modules\Pages\Domain\PageBlock\Type as PageBlockType;
-use ForkCMS\Bundle\InstallerBundle\Controller\InstallerController;
-use ForkCMS\Bundle\InstallerBundle\Entity\InstallationData;
+use ForkCMS\Core\Installer\Domain\Module\CoreInstaller;
+use ForkCMS\Core\Installer\Domain\Module\ModuleInstaller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;

@@ -5,7 +5,7 @@ namespace ForkCMS\Core\Installer\Domain\Locale;
 use Common\Locale;
 use Doctrine\DBAL\Types\TextType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use ForkCMS\Bundle\InstallerBundle\Language\Locale as InstallLocale;
+use ForkCMS\Core\Installer\Domain\Locale as InstallLocale;
 
 class LocaleDBALType extends TextType
 {
