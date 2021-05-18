@@ -2,6 +2,8 @@
 
 namespace ForkCMS\Core\Installer\Domain\Module;
 
+use ForkCMS\Core\Installer\Domain\Installer\ForkInstaller;
+use ForkCMS\Core\Installer\Domain\Installer\InstallationData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -11,7 +13,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use ForkCMS\Bundle\InstallerBundle\Service\ForkInstaller;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Backend\Core\Engine\Model as BackendModel;
 
@@ -81,7 +82,7 @@ class ModulesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => 'ForkCMS\Bundle\InstallerBundle\Entity\InstallationData',
+            'data_class' => InstallationData::class,
         ]);
     }
 

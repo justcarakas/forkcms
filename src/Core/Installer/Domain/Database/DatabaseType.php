@@ -1,8 +1,9 @@
 <?php
 
-namespace ForkCMS\Bundle\InstallerBundle\Form\Type;
+namespace ForkCMS\Core\Installer\Domain\Database;
 
-use ForkCMS\Bundle\InstallerBundle\Entity\InstallationData;
+use ForkCMS\Core\Installer\Domain\Installer\InstallationData;
+use SpoonDatabase;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -67,7 +68,7 @@ class DatabaseType extends AbstractType
                     $chunks = explode('.', $host);
 
                     // seems like windows can't handle localhost...
-                    $data->setDatabaseHostname((mb_substr(PHP_OS, 0, 3) == 'WIN') ? '127.0.0.1' : 'localhost');
+                    $data->setDatabaseHostname('127.0.0.1');
 
                     // remove tld
                     array_pop($chunks);
@@ -94,10 +95,10 @@ class DatabaseType extends AbstractType
                 'constraints' => [
                     new Callback(
                         [
-                            'callback' => function (InstallationData $data, ExecutionContextInterface $context) : void {
+                            'callback' => function (InstallationData $data, ExecutionContextInterface $context): void {
                                 try {
                                     // create instance
-                                    $database = new \SpoonDatabase(
+                                    $database = new SpoonDatabase(
                                         'mysql',
                                         $data->getDatabaseHostname(),
                                         $data->getDatabaseUsername(),
@@ -124,7 +125,7 @@ class DatabaseType extends AbstractType
                         ]
                     ),
                 ],
-                'data_class' => 'ForkCMS\Bundle\InstallerBundle\Entity\InstallationData',
+                'data_class' => InstallationData::class,
             ]
         );
     }

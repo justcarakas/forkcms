@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Installer\Domain\Login;
 
-use ForkCMS\Bundle\InstallerBundle\Entity\InstallationData;
+use ForkCMS\Core\Installer\Domain\Installer\InstallationData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
