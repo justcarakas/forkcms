@@ -67,9 +67,9 @@ class Kernel extends BaseKernel
             $container->import('../config/{packages}/test_install/*.yaml');
         }
 
-        $container->import('../config/{services}_install/*.yaml');
+        $container->import('../config/{services}_install.yaml');
         if ($this->environment === 'test_install') {
-            $container->import('../config/{services}_test_install/*.yaml');
+            $container->import('../config/{services}_test_install.yaml');
         }
     }
 
