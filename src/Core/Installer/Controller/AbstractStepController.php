@@ -31,7 +31,7 @@ abstract class AbstractStepController
         $this->formFactory = $formFactory;
     }
 
-    abstract public function __invoke(): Response;
+    abstract public function __invoke(Request $request): Response;
 
     final protected function handleInstallationStep(
         int $step,
