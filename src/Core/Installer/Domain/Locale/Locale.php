@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Installer\Domain\Locale;
 
-final class Locale extends \Common\Locale
+final class Locale extends \ForkCMS\Core\Common\Locale
 {
     public const AVAILABLE_LOCALE = [
         'en' => 'English',
