@@ -5,6 +5,7 @@ namespace ForkCMS\Core\Installer\Controller;
 use ForkCMS\Core\Installer\Domain\Requirement\RequirementsChecker;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
@@ -25,7 +26,7 @@ final class RequirementCheckerController extends AbstractStepController
         $this->rootDir = $rootDir;
     }
 
-    public function __invoke(): Response
+    public function __invoke(Request $request): Response
     {
         // if all our requirements are met, go to the next step
         if ($this->requirementsChecker->passes()) {
