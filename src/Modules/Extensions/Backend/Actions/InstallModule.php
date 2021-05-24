@@ -1,10 +1,10 @@
 <?php
 
-namespace Backend\Modules\Extensions\Actions;
+namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Extensions\Engine\Model as BackendExtensionsModel;
+use ForkCMS\Core\Backend\Domain\Action\ActionIndex as BackendBaseActionIndex;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Extensions\Backend\Helper\Model as BackendExtensionsModel;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**

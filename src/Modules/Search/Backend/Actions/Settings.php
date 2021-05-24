@@ -1,13 +1,13 @@
 <?php
 
-namespace Backend\Modules\Search\Actions;
+namespace ForkCMS\Modules\Search\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Language\Language as BL;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Search\Engine\Model as BackendSearchModel;
-use Common\ModulesSettings;
+use ForkCMS\Core\Backend\Domain\Action\ActionEdit as BackendBaseActionEdit;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Search\Backend\Helper\Model as BackendSearchModel;
+use ForkCMS\Core\Common\ModulesSettings;
 
 /**
  * This is the settings-action, it will display a form to set general search settings

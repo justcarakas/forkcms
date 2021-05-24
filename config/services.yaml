@@ -20,15 +20,15 @@ services:
 
   # makes classes in src/ available to be used as services
   # this creates a service per class whose id is the fully-qualified class name
-  App\:
-    resource: '../src/'
-    exclude:
-      - '../src/Cache/'
-      - '../src/Console/'
-      - '../src/Kernel.php'
-      - '../src/Core/'
-      - '../src/Files/'
-      - '../src/Modules/'
+#  App\:
+#    resource: '../src/'
+#    exclude:
+#      - '../src/Cache/'
+#      - '../src/Console/'
+#      - '../src/Kernel.php'
+#      - '../src/Core/'
+#      - '../src/Files/'
+#      - '../src/Modules/'
 
   # controllers are imported separately to make sure services can be injected
   # as action arguments even if you don't extend any base controller class

@@ -1,9 +1,9 @@
 <?php
 
-namespace Frontend\Modules\MediaLibrary\Widgets;
+namespace ForkCMS\Modules\MediaLibrary\Frontend\Widgets;
 
-use Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItem;
-use Frontend\Modules\MediaLibrary\Widgets\Base\FrontendMediaWidget;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItem;
+use ForkCMS\Modules\MediaLibrary\Frontend\Widgets\Base\FrontendMediaWidget;
 
 class OneRandomImage extends FrontendMediaWidget
 {

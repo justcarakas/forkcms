@@ -1,13 +1,13 @@
 <?php
 
-namespace Backend\Modules\MediaGalleries\Actions;
+namespace ForkCMS\Modules\MediaGalleries\Backend\Actions;
 
-use Backend\Core\Engine\Authentication;
-use Backend\Core\Engine\Base\ActionAdd;
-use Backend\Core\Engine\Model;
-use Backend\Modules\MediaLibrary\Domain\MediaGroup\Type;
-use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryType;
-use Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\CreateMediaGallery;
+use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication;
+use ForkCMS\Core\Backend\Domain\Action\ActionAdd;
+use ForkCMS\Core\Backend\Helper\Model;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\Type;
+use ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryType;
+use ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\Command\CreateMediaGallery;
 use InvalidArgumentException;
 use Symfony\Component\Form\Form;
 

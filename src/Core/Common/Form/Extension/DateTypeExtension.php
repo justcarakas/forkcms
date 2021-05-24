@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\Form\Extension;
+namespace ForkCMS\Core\Common\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\DateType;

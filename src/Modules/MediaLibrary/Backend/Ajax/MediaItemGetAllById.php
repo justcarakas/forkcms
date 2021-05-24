@@ -1,9 +1,9 @@
 <?php
 
-namespace Backend\Modules\MediaLibrary\Ajax;
+namespace ForkCMS\Modules\MediaLibrary\Backend\Ajax;
 
-use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
+use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BackendBaseAJAXAction;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

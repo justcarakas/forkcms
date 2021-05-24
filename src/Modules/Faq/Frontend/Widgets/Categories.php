@@ -1,9 +1,9 @@
 <?php
 
-namespace Frontend\Modules\Faq\Widgets;
+namespace ForkCMS\Modules\Faq\Frontend\Widgets;
 
-use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
-use Frontend\Modules\Faq\Engine\Model as FrontendFaqModel;
+use ForkCMS\Core\Frontend\Helper\Base\Widget as FrontendBaseWidget;
+use ForkCMS\Modules\Faq\Frontend\Helper\Model as FrontendFaqModel;
 
 /**
  * This is a widget with faq categories

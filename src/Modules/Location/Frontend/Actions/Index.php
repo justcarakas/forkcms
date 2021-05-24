@@ -1,12 +1,12 @@
 <?php
 
-namespace Frontend\Modules\Location\Actions;
+namespace ForkCMS\Modules\Location\Frontend\Actions;
 
-use Common\ModulesSettings;
-use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
-use Frontend\Core\Language\Language;
-use Frontend\Core\Language\Locale;
-use Frontend\Modules\Location\Engine\Model as FrontendLocationModel;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
+use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language;
+use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Location\Frontend\Helper\Model as FrontendLocationModel;
 
 /**
  * This is the index-action, it has an overview of locations.

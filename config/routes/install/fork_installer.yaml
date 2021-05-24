@@ -5,11 +5,11 @@ install_step1:
 install_step2:
     path: /install/2
     defaults:
-        _controller: ForkCMS\Core\Installer\Controller\InstallerController::step2Action
+        _controller: ForkCMS\Core\Installer\Controller\LanguagesController
 install_step3:
     path: /install/3
     defaults:
-        _controller: ForkCMS\Core\Installer\Controller\InstallerController::step3Action
+        _controller: ForkCMS\Core\Installer\Controller\ModuleController
 install_step4:
     path: /install/4
     defaults:

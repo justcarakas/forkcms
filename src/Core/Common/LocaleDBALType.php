@@ -1,8 +1,8 @@
 <?php
 
-namespace ForkCMS\Core\Installer\Domain\Locale;
+namespace ForkCMS\Core\Common;
 
-use Common\Locale;
+use ForkCMS\Core\Common\Locale;
 use Doctrine\DBAL\Types\TextType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use ForkCMS\Core\Installer\Domain\Locale as InstallLocale;

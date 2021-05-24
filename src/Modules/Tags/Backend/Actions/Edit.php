@@ -1,14 +1,14 @@
 <?php
 
-namespace Backend\Modules\Tags\Actions;
+namespace ForkCMS\Modules\Tags\Backend\Actions;
 
-use Common\Uri as CommonUri;
-use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
-use Backend\Core\Engine\DataGridArray as BackendDataGridArray;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Language\Language as BL;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
+use ForkCMS\Core\Common\Uri as CommonUri;
+use ForkCMS\Core\Backend\Domain\Action\ActionEdit as BackendBaseActionEdit;
+use ForkCMS\Core\Backend\Domain\DataGrid\DataGridArray as BackendDataGridArray;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Tags\Backend\Helper\Model as BackendTagsModel;
 
 /**
  * This is the edit action, it will display a form to edit an existing tag.

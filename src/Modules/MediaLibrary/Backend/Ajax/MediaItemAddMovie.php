@@ -1,17 +1,17 @@
 <?php
 
-namespace Backend\Modules\MediaLibrary\Ajax;
+namespace ForkCMS\Modules\MediaLibrary\Backend\Ajax;
 
-use Backend\Core\Engine\Authentication as BackendAuthentication;
-use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
-use Backend\Core\Language\Language;
-use Backend\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFound;
-use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\Command\CreateMediaItemFromMovieUrl;
-use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\StorageType;
-use Common\Exception\AjaxExitException;
+use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
+use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BackendBaseAJAXAction;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFound;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\Command\CreateMediaItemFromMovieUrl;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\StorageType;
+use ForkCMS\Core\Common\Exception\AjaxExitException;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 

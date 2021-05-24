@@ -1,9 +1,9 @@
 <?php
 
-namespace ForkCMS\Utility\Csv;
+namespace ForkCMS\Core\Common\ForkCMS\Utility\Csv;
 
-use Backend\Core\Engine\Authentication;
-use Backend\Core\Engine\User;
+use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication;
+use ForkCMS\Modules\Users\Backend\Helper\User;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Csv;

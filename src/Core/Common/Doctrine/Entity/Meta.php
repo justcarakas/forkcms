@@ -1,16 +1,16 @@
 <?php
 
-namespace Common\Doctrine\Entity;
+namespace ForkCMS\Core\Common\Doctrine\Entity;
 
-use Backend\Core\Engine\Meta as BackendMeta;
-use Common\Doctrine\ValueObject\SEOFollow;
-use Common\Doctrine\ValueObject\SEOIndex;
+use ForkCMS\Core\Backend\Domain\Meta\Meta as BackendMeta;
+use ForkCMS\Core\Common\Doctrine\ValueObject\SEOFollow;
+use ForkCMS\Core\Common\Doctrine\ValueObject\SEOIndex;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 
 /**
  * @ORM\Table(name="meta", indexes={@ORM\Index(name="idx_url", columns={"url"})})
- * @ORM\Entity(repositoryClass="Common\Doctrine\Repository\MetaRepository")
+ * @ORM\Entity(repositoryClass="ForkCMS\Core\Common\Doctrine\Repository\MetaRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Meta implements JsonSerializable

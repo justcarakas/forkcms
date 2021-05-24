@@ -1,10 +1,10 @@
 <?php
 
-namespace Backend\Modules\Profiles\Actions;
+namespace ForkCMS\Modules\Profiles\Backend\Actions;
 
-use Backend\Core\Engine\Base\Action as BackendBaseAction;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
+use ForkCMS\Core\Backend\Domain\Action\Action as BackendBaseAction;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Profiles\Backend\Helper\Model as BackendProfilesModel;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**

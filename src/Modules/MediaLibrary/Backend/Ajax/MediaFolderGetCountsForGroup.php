@@ -1,14 +1,14 @@
 <?php
 
-namespace Backend\Modules\MediaLibrary\Ajax;
+namespace ForkCMS\Modules\MediaLibrary\Backend\Ajax;
 
-use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
-use Backend\Core\Language\Language;
-use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
-use Backend\Modules\MediaLibrary\Domain\MediaGroup\Exception\MediaGroupNotFound;
-use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
-use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupRepository;
-use Common\Exception\AjaxExitException;
+use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BackendBaseAJAXAction;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\Exception\MediaGroupNotFound;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupRepository;
+use ForkCMS\Core\Common\Exception\AjaxExitException;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

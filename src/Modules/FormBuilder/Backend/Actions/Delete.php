@@ -1,11 +1,11 @@
 <?php
 
-namespace Backend\Modules\FormBuilder\Actions;
+namespace ForkCMS\Modules\FormBuilder\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionDelete as BackendBaseActionDelete;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Form\Type\DeleteType;
-use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
+use ForkCMS\Core\Backend\Domain\Action\ActionDelete as BackendBaseActionDelete;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Core\Backend\Domain\Form\DeleteType;
+use ForkCMS\Modules\FormBuilder\Backend\Helper\Model as BackendFormBuilderModel;
 
 /**
  * This is the delete-action, it will delete an item.

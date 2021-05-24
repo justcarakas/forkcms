@@ -1,7 +1,7 @@
 parameters:
   doctrine.dbal.connection_factory.class: ForkCMS\Bundle\InstallerBundle\Service\InstallerConnectionFactory
   fork.is_installed: false
-  fork.form.theme: '@@ForkCMSInstaller/Installer/form_theme.html.twig'
+  fork.form.theme: '@@ForkCMSInstaller/form_theme.html.twig'
 
 services:
   # default configuration for services in *this* file

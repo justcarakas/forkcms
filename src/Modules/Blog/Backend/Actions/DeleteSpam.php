@@ -1,10 +1,10 @@
 <?php
 
-namespace Backend\Modules\Blog\Actions;
+namespace ForkCMS\Modules\Blog\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionDelete as BackendBaseActionDelete;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
+use ForkCMS\Core\Backend\Domain\Action\ActionDelete as BackendBaseActionDelete;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Blog\Backend\Helper\Model as BackendBlogModel;
 
 /**
  * This action will delete a blogpost

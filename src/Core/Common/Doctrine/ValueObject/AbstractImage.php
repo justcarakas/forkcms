@@ -1,9 +1,9 @@
 <?php
 
-namespace Common\Doctrine\ValueObject;
+namespace ForkCMS\Core\Common\Doctrine\ValueObject;
 
-use Backend\Core\Engine\Model;
-use ForkCMS\Utility\Thumbnails;
+use ForkCMS\Core\Backend\Helper\Model;
+use ForkCMS\Core\Common\ForkCMS\Utility\Thumbnails;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**

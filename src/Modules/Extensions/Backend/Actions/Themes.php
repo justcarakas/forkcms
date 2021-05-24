@@ -1,14 +1,14 @@
 <?php
 
-namespace Backend\Modules\Extensions\Actions;
+namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
-use Backend\Core\Language\Language as BL;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Modules\Extensions\Engine\Model as BackendExtensionsModel;
-use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
-use Common\ModulesSettings;
+use ForkCMS\Core\Backend\Domain\Action\ActionIndex as BackendBaseActionIndex;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Modules\Extensions\Backend\Helper\Model as BackendExtensionsModel;
+use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
+use ForkCMS\Core\Common\ModulesSettings;
 
 /**
  * This is the themes-action, it will display the overview of modules.

@@ -1,8 +1,8 @@
 <?php
 
-namespace Backend\Modules\ContentBlocks;
+namespace ForkCMS\Modules\ContentBlocks\Backend;
 
-use Backend\Core\Engine\Base\Config as BackendBaseConfig;
+use ForkCMS\Core\Backend\Domain\Config\Config as BackendBaseConfig;
 
 /**
  * This is the configuration-object for the content_blocks module

@@ -1,12 +1,12 @@
 <?php
 
-namespace Backend\Modules\MediaLibrary\Actions;
+namespace ForkCMS\Modules\MediaLibrary\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionAdd as BackendBaseActionAdd;
-use Backend\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFound;
-use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
-use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
-use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupType;
+use ForkCMS\Core\Backend\Domain\Action\ActionAdd as BackendBaseActionAdd;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFound;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupType;
 
 class MediaItemUpload extends BackendBaseActionAdd
 {

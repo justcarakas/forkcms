@@ -1,8 +1,8 @@
 <?php
 
-namespace Backend\Modules\Settings\Ajax;
+namespace ForkCMS\Modules\Settings\Backend\Ajax;
 
-use Backend\Core\Engine\Base\AjaxAction;
+use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\HttpFoundation\Response;

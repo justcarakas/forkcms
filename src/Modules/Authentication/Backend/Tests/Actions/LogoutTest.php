@@ -1,8 +1,8 @@
 <?php
 
-namespace Backend\Modules\Authentication\Tests\Action;
+namespace ForkCMS\Modules\Authentication\Backend\Tests\Actions;
 
-use Backend\Core\Tests\BackendWebTestCase;
+use ForkCMS\Core\Tests\Backend\BackendWebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 
 class LogoutTest extends BackendWebTestCase

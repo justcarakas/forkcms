@@ -1,9 +1,9 @@
 <?php
 
-namespace Common\BlockEditor;
+namespace ForkCMS\Core\Common\BlockEditor;
 
-use Common\BlockEditor\Blocks\AbstractBlock;
-use Common\BlockEditor\Blocks\HeaderBlock;
+use ForkCMS\Core\Common\BlockEditor\Blocks\AbstractBlock;
+use ForkCMS\Core\Common\BlockEditor\Blocks\HeaderBlock;
 use DOMDocument;
 use EditorJS\EditorJS;
 use EditorJS\EditorJSException;

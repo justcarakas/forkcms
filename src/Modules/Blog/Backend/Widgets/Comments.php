@@ -1,9 +1,9 @@
 <?php
 
-namespace Backend\Modules\Blog\Widgets;
+namespace ForkCMS\Modules\Blog\Backend\Widgets;
 
-use Backend\Core\Engine\Base\Widget as BackendBaseWidget;
-use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
+use ForkCMS\Core\Backend\Domain\Widget\Widget as BackendBaseWidget;
+use ForkCMS\Modules\Blog\Backend\Helper\Model as BackendBlogModel;
 
 /**
  * This widget will show the latest comments

@@ -1,16 +1,16 @@
 <?php
 
-namespace Frontend\Modules\Faq\Actions;
+namespace ForkCMS\Modules\Faq\Frontend\Actions;
 
-use Common\Mailer\Message;
-use Common\ModulesSettings;
-use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
-use Frontend\Core\Engine\Form as FrontendForm;
-use Frontend\Core\Language\Language as FL;
-use Frontend\Core\Engine\Model as FrontendModel;
-use Frontend\Core\Engine\Navigation as FrontendNavigation;
-use Frontend\Modules\Faq\Engine\Model as FrontendFaqModel;
-use Frontend\Modules\Tags\Engine\Model as FrontendTagsModel;
+use ForkCMS\Core\Common\Mailer\Message;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
+use ForkCMS\Core\Frontend\Helper\Form as FrontendForm;
+use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Core\Frontend\Helper\Model as FrontendModel;
+use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
+use ForkCMS\Modules\Faq\Frontend\Helper\Model as FrontendFaqModel;
+use ForkCMS\Modules\Tags\Frontend\Helper\Model as FrontendTagsModel;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**

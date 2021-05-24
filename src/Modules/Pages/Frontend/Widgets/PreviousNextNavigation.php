@@ -1,11 +1,11 @@
 <?php
 
-namespace Frontend\Modules\Pages\Widgets;
+namespace ForkCMS\Modules\Pages\Frontend\Widgets;
 
-use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
-use Frontend\Core\Engine\Exception as FrontendException;
-use Frontend\Core\Engine\Theme as FrontendTheme;
-use Frontend\Core\Engine\Navigation as FrontendNavigation;
+use ForkCMS\Core\Frontend\Helper\Base\Widget as FrontendBaseWidget;
+use ForkCMS\Core\Frontend\Helper\Exception as FrontendException;
+use ForkCMS\Core\Frontend\Helper\Theme as FrontendTheme;
+use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
 
 /**
  * This is a widget which creates a previous/next navigation for pages on the same level.

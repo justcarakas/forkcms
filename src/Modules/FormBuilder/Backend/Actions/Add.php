@@ -1,15 +1,15 @@
 <?php
 
-namespace Backend\Modules\FormBuilder\Actions;
+namespace ForkCMS\Modules\FormBuilder\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionAdd as BackendBaseActionAdd;
-use Backend\Core\Engine\Authentication as BackendAuthentication;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Language\Language as BL;
-use Frontend\Core\Language\Language as FL;
-use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
-use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
+use ForkCMS\Core\Backend\Domain\Action\ActionAdd as BackendBaseActionAdd;
+use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Modules\FormBuilder\Backend\Helper\Model as BackendFormBuilderModel;
+use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
 
 /**
  * This is the add-action, it will display a form to create a new item.

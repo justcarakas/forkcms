@@ -1,11 +1,11 @@
 <?php
 
-namespace Frontend\Modules\Blog\Widgets;
+namespace ForkCMS\Modules\Blog\Frontend\Widgets;
 
-use Frontend\Core\Engine\Base\Widget;
-use Frontend\Core\Engine\Navigation;
-use Frontend\Modules\Tags\Engine\Model as FrontendTagsModel;
-use Frontend\Modules\Blog\Engine\Model as FrontendBlogModel;
+use ForkCMS\Core\Frontend\Helper\Base\Widget;
+use ForkCMS\Core\Frontend\Helper\Navigation;
+use ForkCMS\Modules\Tags\Frontend\Helper\Model as FrontendTagsModel;
+use ForkCMS\Modules\Blog\Frontend\Helper\Model as FrontendBlogModel;
 
 /**
  * This is a widget with that shows all blog articles that share tags with the current page or blog post

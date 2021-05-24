@@ -1,9 +1,9 @@
 <?php
 
-namespace ForkCMS\Privacy;
+namespace ForkCMS\Core\Common\ForkCMS\Privacy;
 
-use Common\Core\Cookie;
-use Common\ModulesSettings;
+use ForkCMS\Core\Common\Cookie;
+use ForkCMS\Core\Common\ModulesSettings;
 
 class ConsentDialog
 {
