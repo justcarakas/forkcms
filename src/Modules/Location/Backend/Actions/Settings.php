@@ -1,14 +1,14 @@
 <?php
 
-namespace Backend\Modules\Location\Actions;
+namespace ForkCMS\Modules\Location\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
-use Backend\Core\Engine\Authentication as BackendAuthentication;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Language\Language as BL;
-use Backend\Core\Engine\Model as BackendModel;
-use Common\ModulesSettings;
-use Backend\Modules\Location\Engine\Model as BackendLocationModel;
+use ForkCMS\Core\Backend\Domain\Action\ActionEdit as BackendBaseActionEdit;
+use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Location\Backend\Helper\Model as BackendLocationModel;
 
 /**
  * This is the settings-action, it will display a form to set general location settings

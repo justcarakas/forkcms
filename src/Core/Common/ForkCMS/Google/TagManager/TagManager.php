@@ -1,9 +1,9 @@
 <?php
 
-namespace ForkCMS\Google\TagManager;
+namespace ForkCMS\Core\Common\ForkCMS\Google\TagManager;
 
-use Common\ModulesSettings;
-use ForkCMS\Privacy\ConsentDialog;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Core\Common\ForkCMS\Privacy\ConsentDialog;
 
 class TagManager
 {

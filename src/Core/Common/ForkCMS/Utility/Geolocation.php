@@ -1,9 +1,9 @@
 <?php
 
-namespace ForkCMS\Utility;
+namespace ForkCMS\Core\Common\ForkCMS\Utility;
 
-use Backend\Core\Language\Language;
-use Common\ModulesSettings;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Core\Common\ModulesSettings;
 use JeroenDesloovere\Geolocation\Geolocation as API;
 use JeroenDesloovere\Geolocation\Result\Coordinates;
 use JeroenDesloovere\Geolocation\Exception;

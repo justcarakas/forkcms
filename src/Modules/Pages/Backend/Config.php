@@ -1,8 +1,8 @@
 <?php
 
-namespace Backend\Modules\Pages;
+namespace ForkCMS\Modules\Pages\Backend;
 
-use Backend\Core\Engine\Base\Config as BackendBaseConfig;
+use ForkCMS\Core\Backend\Domain\Config\Config as BackendBaseConfig;
 
 /**
  * This is the configuration-object for the pages module

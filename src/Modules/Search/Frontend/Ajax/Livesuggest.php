@@ -1,16 +1,16 @@
 <?php
 
-namespace Frontend\Modules\Search\Ajax;
+namespace ForkCMS\Modules\Search\Frontend\Ajax;
 
-use Common\ModulesSettings;
+use ForkCMS\Core\Common\ModulesSettings;
 use DateInterval;
 use Psr\Cache\CacheItemPoolInterface;
-use Frontend\Core\Engine\Base\AjaxAction as FrontendBaseAJAXAction;
-use Frontend\Core\Engine\Exception as FrontendException;
-use Frontend\Core\Engine\Navigation as FrontendNavigation;
-use Frontend\Core\Engine\Theme;
-use Frontend\Core\Engine\TwigTemplate;
-use Frontend\Modules\Search\Engine\Model as FrontendSearchModel;
+use ForkCMS\Core\Frontend\Helper\Base\AjaxAction as FrontendBaseAJAXAction;
+use ForkCMS\Core\Frontend\Helper\Exception as FrontendException;
+use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
+use ForkCMS\Core\Frontend\Helper\Theme;
+use ForkCMS\Core\Frontend\Helper\TwigTemplate;
+use ForkCMS\Modules\Search\Frontend\Helper\Model as FrontendSearchModel;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

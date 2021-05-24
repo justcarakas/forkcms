@@ -1,7 +1,8 @@
 <?php
 
-namespace Common\Form;
+namespace ForkCMS\Core\Common\Form;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Common;
+namespace ForkCMS\Core\Common;
 
 use ForkCMS\App\AppKernel;
 use ForkCMS\App\BaseModel;
@@ -10,7 +10,7 @@ use Symfony\Component\FileSystem\Filesystem;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DomCrawler\Form;
 use Symfony\Component\DomCrawler\Crawler;
-use Backend\Core\Engine\Authentication;
+use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

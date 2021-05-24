@@ -1,16 +1,16 @@
 <?php
 
-namespace Backend\Modules\ContentBlocks\Actions;
+namespace ForkCMS\Modules\ContentBlocks\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionDelete as BackendBaseActionDelete;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Language\Locale;
-use Backend\Form\Type\DeleteType;
-use Backend\Modules\ContentBlocks\Domain\ContentBlock\Command\DeleteContentBlock;
-use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
-use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
-use Backend\Modules\ContentBlocks\Domain\ContentBlock\Event\ContentBlockDeleted;
-use Backend\Modules\ContentBlocks\Domain\ContentBlock\Exception\ContentBlockNotFound;
+use ForkCMS\Core\Backend\Domain\Action\ActionDelete as BackendBaseActionDelete;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Core\Backend\Domain\Form\DeleteType;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Command\DeleteContentBlock;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Event\ContentBlockDeleted;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Exception\ContentBlockNotFound;
 
 /**
  * This is the delete-action, it will delete an item.

@@ -1,16 +1,16 @@
 <?php
 
-namespace Backend\Modules\Pages\Actions;
+namespace ForkCMS\Modules\Pages\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
-use Backend\Core\Engine\Exception as BackendException;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Language\Locale;
-use Backend\Modules\Pages\Domain\Page\CopyPageDataTransferObject;
-use Backend\Modules\Pages\Domain\Page\Form\CopyPageToOtherLanguageType;
-use Backend\Modules\Pages\Domain\Page\PageRepository;
+use ForkCMS\Core\Backend\Domain\Action\ActionIndex as BackendBaseActionIndex;
+use ForkCMS\Core\Backend\Exception as BackendException;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Pages\Domain\Page\CopyPageDataTransferObject;
+use ForkCMS\Modules\Pages\Domain\Page\Form\CopyPageToOtherLanguageType;
+use ForkCMS\Modules\Pages\Domain\Page\PageRepository;
 use Exception;
-use ForkCMS\Utility\Module\CopyContentToOtherLocale\CopyContentFromModulesToOtherLocaleManager;
+use ForkCMS\Core\Common\ForkCMS\Utility\Module\CopyContentToOtherLocale\CopyContentFromModulesToOtherLocaleManager;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**

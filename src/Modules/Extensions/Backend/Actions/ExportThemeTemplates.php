@@ -1,11 +1,11 @@
 <?php
 
-namespace Backend\Modules\Extensions\Actions;
+namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionEdit;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Extensions\Engine\Model;
-use Common\ModulesSettings;
+use ForkCMS\Core\Backend\Domain\Action\ActionEdit;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Extensions\Backend\Helper\Model;
+use ForkCMS\Core\Common\ModulesSettings;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

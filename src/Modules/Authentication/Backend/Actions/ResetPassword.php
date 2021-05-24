@@ -1,14 +1,14 @@
 <?php
 
-namespace Backend\Modules\Authentication\Actions;
+namespace ForkCMS\Modules\Authentication\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionAdd as BackendBaseActionAdd;
-use Backend\Core\Engine\Authentication as BackendAuthentication;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Language\Language as BL;
-use Backend\Core\Engine\User as BackendUser;
-use Backend\Modules\Users\Engine\Model as BackendUsersModel;
+use ForkCMS\Core\Backend\Domain\Action\ActionAdd as BackendBaseActionAdd;
+use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Users\Backend\Helper\User as BackendUser;
+use ForkCMS\Modules\Users\Backend\Helper\Model as BackendUsersModel;
 
 /**
  * This is the reset password action, it will display a form that allows the user to reset his/her password.

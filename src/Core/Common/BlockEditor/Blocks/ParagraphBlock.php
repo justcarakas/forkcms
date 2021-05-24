@@ -1,8 +1,8 @@
 <?php
 
-namespace Common\BlockEditor\Blocks;
+namespace ForkCMS\Core\Common\BlockEditor\Blocks;
 
-use Common\Language;
+use ForkCMS\Core\Common\Language;
 
 final class ParagraphBlock extends AbstractBlock
 {

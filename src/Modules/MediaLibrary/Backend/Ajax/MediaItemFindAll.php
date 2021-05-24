@@ -1,19 +1,19 @@
 <?php
 
-namespace Backend\Modules\MediaLibrary\Ajax;
+namespace ForkCMS\Modules\MediaLibrary\Backend\Ajax;
 
-use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
-use Backend\Core\Language\Language;
-use Backend\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFound;
-use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
-use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
-use Backend\Modules\MediaLibrary\Domain\MediaGroup\Exception\MediaGroupNotFound;
-use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
-use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupRepository;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\AspectRatio;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
-use Common\Exception\AjaxExitException;
+use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BackendBaseAJAXAction;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFound;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\Exception\MediaGroupNotFound;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupRepository;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\AspectRatio;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
+use ForkCMS\Core\Common\Exception\AjaxExitException;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

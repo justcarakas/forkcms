@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\DataCollector;
+namespace ForkCMS\Core\Common\DataCollector;
 
 use SpoonDatabase;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;

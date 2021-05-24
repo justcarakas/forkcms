@@ -1,14 +1,14 @@
 <?php
 
-namespace Frontend\Modules\Search\Ajax;
+namespace ForkCMS\Modules\Search\Frontend\Ajax;
 
-use Common\ModulesSettings;
+use ForkCMS\Core\Common\ModulesSettings;
 use DateInterval;
 use Psr\Cache\CacheItemPoolInterface;
-use Frontend\Core\Engine\Base\AjaxAction as FrontendBaseAJAXAction;
-use Frontend\Core\Language\Language as FL;
-use Frontend\Core\Engine\Navigation as FrontendNavigation;
-use Frontend\Modules\Search\Engine\Model as FrontendSearchModel;
+use ForkCMS\Core\Frontend\Helper\Base\AjaxAction as FrontendBaseAJAXAction;
+use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
+use ForkCMS\Modules\Search\Frontend\Helper\Model as FrontendSearchModel;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

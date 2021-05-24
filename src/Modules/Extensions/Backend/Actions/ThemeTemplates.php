@@ -1,15 +1,15 @@
 <?php
 
-namespace Backend\Modules\Extensions\Actions;
+namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
-use Backend\Core\Engine\Authentication as BackendAuthentication;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Engine\DataGridDatabase as BackendDataGridDatabase;
-use Backend\Core\Language\Language as BL;
-use Backend\Modules\Extensions\Engine\Model as BackendExtensionsModel;
-use Common\ModulesSettings;
+use ForkCMS\Core\Backend\Domain\Action\ActionEdit as BackendBaseActionEdit;
+use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Core\Backend\Domain\DataGrid\DataGridDatabase as BackendDataGridDatabase;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Extensions\Backend\Helper\Model as BackendExtensionsModel;
+use ForkCMS\Core\Common\ModulesSettings;
 
 /**
  * This is the templates-action, it will display the templates-overview

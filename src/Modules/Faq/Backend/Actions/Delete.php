@@ -1,11 +1,11 @@
 <?php
 
-namespace Backend\Modules\Faq\Actions;
+namespace ForkCMS\Modules\Faq\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionDelete as BackendBaseActionDelete;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Form\Type\DeleteType;
-use Backend\Modules\Faq\Engine\Model as BackendFaqModel;
+use ForkCMS\Core\Backend\Domain\Action\ActionDelete as BackendBaseActionDelete;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Core\Backend\Domain\Form\DeleteType;
+use ForkCMS\Modules\Faq\Backend\Helper\Model as BackendFaqModel;
 
 /**
  * This action will delete a question

@@ -1,16 +1,16 @@
 <?php
 
-namespace Backend\Modules\Dashboard\Actions;
+namespace ForkCMS\Modules\Dashboard\Backend\Actions;
 
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Filesystem\Filesystem;
-use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
-use Backend\Core\Engine\Base\Widget as BackendBaseWidget;
-use Backend\Core\Engine\Authentication as BackendAuthentication;
-use Backend\Core\Engine\Exception as BackendException;
-use Backend\Core\Language\Language as BL;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Groups\Engine\Model as BackendGroupsModel;
+use ForkCMS\Core\Backend\Domain\Action\ActionIndex as BackendBaseActionIndex;
+use ForkCMS\Core\Backend\Domain\Widget\Widget as BackendBaseWidget;
+use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
+use ForkCMS\Core\Backend\Exception as BackendException;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Groups\Backend\Helper\Model as BackendGroupsModel;
 
 /**
  * This is the index-action (default), it will display the login screen

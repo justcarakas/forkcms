@@ -1,11 +1,11 @@
 <?php
 
-namespace Backend\Modules\Blog\Actions;
+namespace ForkCMS\Modules\Blog\Backend\Actions;
 
-use Backend\Core\Engine\Base\Action as BackendBaseAction;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
-use Common\ModulesSettings;
+use ForkCMS\Core\Backend\Domain\Action\Action as BackendBaseAction;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Blog\Backend\Helper\Model as BackendBlogModel;
+use ForkCMS\Core\Common\ModulesSettings;
 
 /**
  * This action is used to update one or more comments (status, delete, ...)

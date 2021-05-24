@@ -1,15 +1,15 @@
 <?php
 
-namespace Backend\Modules\MediaGalleries\Actions;
+namespace ForkCMS\Modules\MediaGalleries\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
-use Backend\Core\Engine\Model;
-use Backend\Form\Type\DeleteType;
-use Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\UpdateMediaGallery;
-use Backend\Modules\MediaGalleries\Domain\MediaGallery\Exception\MediaGalleryNotFound;
-use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGallery;
-use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
-use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryType;
+use ForkCMS\Core\Backend\Domain\Action\ActionEdit as BackendBaseActionEdit;
+use ForkCMS\Core\Backend\Helper\Model;
+use ForkCMS\Core\Backend\Domain\Form\DeleteType;
+use ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\Command\UpdateMediaGallery;
+use ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\Exception\MediaGalleryNotFound;
+use ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\MediaGallery;
+use ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
+use ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryType;
 
 /**
  * This is the class to Edit a MediaGallery

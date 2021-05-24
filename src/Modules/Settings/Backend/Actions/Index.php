@@ -1,16 +1,16 @@
 <?php
 
-namespace Backend\Modules\Settings\Actions;
+namespace ForkCMS\Modules\Settings\Backend\Actions;
 
-use Common\ModulesSettings;
-use SpoonFilter;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Core\Backend\Domain\Action\ActionIndex as BackendBaseActionIndex;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Extensions\Backend\Helper\Model as BackendExtensionsModel;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Settings\Backend\Helper\Model as BackendSettingsModel;
 use TijsVerkoyen\Akismet\Akismet;
-use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Language\Language as BL;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Extensions\Engine\Model as BackendExtensionsModel;
-use Backend\Modules\Settings\Engine\Model as BackendSettingsModel;
+use SpoonFilter;
 
 /**
  * This is the index-action (default), it will display the setting-overview
@@ -199,7 +199,7 @@ class Index extends BackendBaseActionIndex
         $this->form->addRadiobutton(
             'google_recaptcha_version',
             $googleRecaptchaVersions,
-            $this->get('fork.settings')->get('Core', 'google_recaptcha_version', 'v2invisible')
+            $this->get(ModulesSettings::class)->get('Core', 'google_recaptcha_version', 'v2invisible')
         );
 
         $activeLanguages = [];
@@ -523,7 +523,7 @@ class Index extends BackendBaseActionIndex
                 }
 
                 // google recaptcha settings
-                $this->get('fork.settings')->set(
+                $this->get(ModulesSettings::class)->set(
                     'Core',
                     'google_recaptcha_version',
                     $this->form->getField('google_recaptcha_version')->getValue()

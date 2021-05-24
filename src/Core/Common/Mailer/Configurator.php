@@ -1,12 +1,12 @@
 <?php
 
-namespace Common\Mailer;
+namespace ForkCMS\Core\Common\Mailer;
 
 use PDOException;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Common\ModulesSettings;
+use ForkCMS\Core\Common\ModulesSettings;
 
 class Configurator
 {

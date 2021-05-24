@@ -1,10 +1,10 @@
 <?php
 
-namespace Backend\Modules\Tags\Actions;
+namespace ForkCMS\Modules\Tags\Backend\Actions;
 
-use Backend\Core\Engine\Base\Action as BackendBaseAction;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
+use ForkCMS\Core\Backend\Domain\Action\Action as BackendBaseAction;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Tags\Backend\Helper\Model as BackendTagsModel;
 
 /**
  * This action is used to perform mass actions on tags (delete, ...)

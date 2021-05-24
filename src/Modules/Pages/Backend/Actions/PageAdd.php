@@ -1,17 +1,17 @@
 <?php
 
-namespace Backend\Modules\Pages\Actions;
+namespace ForkCMS\Modules\Pages\Backend\Actions;
 
-use Backend\Core\Engine\Base\Action;
-use Backend\Core\Language\Locale;
-use Backend\Modules\Pages\Domain\Page\Command\CreatePage;
-use Backend\Modules\Pages\Domain\Page\Form\PageType;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Pages\Domain\Page\Page;
-use Backend\Modules\Pages\Domain\Page\PageRepository;
-use Backend\Modules\Pages\Domain\Page\Status;
-use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
-use Common\ModulesSettings;
+use ForkCMS\Core\Backend\Domain\Action\Action;
+use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Pages\Domain\Page\Command\CreatePage;
+use ForkCMS\Modules\Pages\Domain\Page\Form\PageType;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Pages\Domain\Page\Page;
+use ForkCMS\Modules\Pages\Domain\Page\PageRepository;
+use ForkCMS\Modules\Pages\Domain\Page\Status;
+use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
+use ForkCMS\Core\Common\ModulesSettings;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpKernel\KernelInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Utility\Module\CopyContentToOtherLocale;
+namespace ForkCMS\Core\Common\ForkCMS\Utility\Module\CopyContentToOtherLocale;
 
 interface CopyModuleContentToOtherLocaleHandlerInterface
 {

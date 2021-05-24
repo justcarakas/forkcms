@@ -1,9 +1,9 @@
 <?php
 
-namespace Common\BlockEditor\Twig;
+namespace ForkCMS\Core\Common\BlockEditor\Twig;
 
-use Common\BlockEditor\Blocks\AbstractBlock;
-use Common\BlockEditor\Blocks\ParagraphBlock;
+use ForkCMS\Core\Common\BlockEditor\Blocks\AbstractBlock;
+use ForkCMS\Core\Common\BlockEditor\Blocks\ParagraphBlock;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Twig\Extension\AbstractExtension;

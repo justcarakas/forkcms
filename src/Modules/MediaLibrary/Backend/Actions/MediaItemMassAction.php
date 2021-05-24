@@ -1,18 +1,18 @@
 <?php
 
-namespace Backend\Modules\MediaLibrary\Actions;
+namespace ForkCMS\Modules\MediaLibrary\Backend\Actions;
 
-use Backend\Core\Engine\Base\Action as BackendBaseAction;
-use Backend\Core\Engine\Model;
-use Backend\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFound;
-use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\Command\DeleteMediaItem;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\Command\UpdateMediaItem;
-use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\Exception\MediaItemNotFound;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\Type;
+use ForkCMS\Core\Backend\Domain\Action\Action as BackendBaseAction;
+use ForkCMS\Core\Backend\Helper\Model;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFound;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\Command\DeleteMediaItem;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\Command\UpdateMediaItem;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\Exception\MediaItemNotFound;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\Type;
 use Exception;
 
 /**

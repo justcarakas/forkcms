@@ -2,9 +2,9 @@
 
 namespace ForkCMS\Core\Installer\Domain\Module;
 
-use Backend\Core\Engine\Model;
-use Backend\Modules\Pages\Domain\ModuleExtra\ModuleExtra;
-use Common\Doctrine\Entity\CreateSchema;
+use ForkCMS\Core\Backend\Helper\Model;
+use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtra;
+use ForkCMS\Core\Common\Doctrine\Entity\CreateSchema;
 
 /**
  * Installer for the core

@@ -1,12 +1,12 @@
 <?php
 
-namespace Common\DataCollector;
+namespace ForkCMS\Core\Common\DataCollector;
 
-use Common\ModulesSettings;
-use Frontend\Core\Engine\Block\ExtraInterface;
-use Frontend\Core\Engine\Block\ModuleExtraInterface;
-use Frontend\Core\Engine\Block\Widget;
-use Frontend\Core\Engine\Page;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Core\Frontend\Helper\Block\ExtraInterface;
+use ForkCMS\Core\Frontend\Helper\Block\ModuleExtraInterface;
+use ForkCMS\Core\Frontend\Helper\Block\Widget;
+use ForkCMS\Core\Frontend\Helper\Page;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;

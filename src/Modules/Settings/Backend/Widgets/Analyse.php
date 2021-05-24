@@ -1,9 +1,9 @@
 <?php
 
-namespace Backend\Modules\Settings\Widgets;
+namespace ForkCMS\Modules\Settings\Backend\Widgets;
 
-use Backend\Core\Engine\Base\Widget as BackendBaseWidget;
-use Backend\Modules\Settings\Engine\Model as BackendSettingsModel;
+use ForkCMS\Core\Backend\Domain\Widget\Widget as BackendBaseWidget;
+use ForkCMS\Modules\Settings\Backend\Helper\Model as BackendSettingsModel;
 
 /**
  * This widget will analyze the CMS warnings

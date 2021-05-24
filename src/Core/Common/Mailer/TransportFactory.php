@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\Mailer;
+namespace ForkCMS\Core\Common\Mailer;
 
 use Swift_SendmailTransport;
 use Swift_SmtpTransport;

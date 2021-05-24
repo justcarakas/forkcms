@@ -1,20 +1,20 @@
 <?php
 
-namespace Backend\Modules\Blog\Actions;
+namespace ForkCMS\Modules\Blog\Backend\Actions;
 
-use Backend\Modules\Pages\Domain\Page\Page;
-use Common\ModulesSettings;
+use ForkCMS\Modules\Pages\Domain\Page\Page;
+use ForkCMS\Core\Common\ModulesSettings;
 use Symfony\Component\Filesystem\Filesystem;
-use Backend\Core\Engine\Base\ActionAdd as BackendBaseActionAdd;
-use Backend\Core\Engine\Authentication as BackendAuthentication;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Language\Language as BL;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Engine\Meta as BackendMeta;
-use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
-use Backend\Modules\Search\Engine\Model as BackendSearchModel;
-use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
-use Backend\Modules\Users\Engine\Model as BackendUsersModel;
+use ForkCMS\Core\Backend\Domain\Action\ActionAdd as BackendBaseActionAdd;
+use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Core\Backend\Domain\Meta\Meta as BackendMeta;
+use ForkCMS\Modules\Blog\Backend\Helper\Model as BackendBlogModel;
+use ForkCMS\Modules\Search\Backend\Helper\Model as BackendSearchModel;
+use ForkCMS\Modules\Tags\Backend\Helper\Model as BackendTagsModel;
+use ForkCMS\Modules\Users\Backend\Helper\Model as BackendUsersModel;
 
 /**
  * This is the add-action, it will display a form to create a new item

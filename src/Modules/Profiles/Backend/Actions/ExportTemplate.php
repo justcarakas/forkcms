@@ -1,11 +1,11 @@
 <?php
 
-namespace Backend\Modules\Profiles\Actions;
+namespace ForkCMS\Modules\Profiles\Backend\Actions;
 
-use Backend\Core\Engine\Authentication;
-use Backend\Core\Engine\Base\ActionAdd as BackendBaseActionAdd;
-use Common\Exception\RedirectException;
-use ForkCMS\Utility\Csv\Writer;
+use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication;
+use ForkCMS\Core\Backend\Domain\Action\ActionAdd as BackendBaseActionAdd;
+use ForkCMS\Core\Common\Exception\RedirectException;
+use ForkCMS\Core\Common\ForkCMS\Utility\Csv\Writer;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 /**

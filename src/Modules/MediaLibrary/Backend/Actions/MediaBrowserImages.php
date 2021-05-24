@@ -1,12 +1,12 @@
 <?php
 
-namespace Backend\Modules\MediaLibrary\Actions;
+namespace ForkCMS\Modules\MediaLibrary\Backend\Actions;
 
-use Backend\Core\Language\Language;
-use Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
-use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupType;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemSelectionDataGrid;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\Type;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupType;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\MediaItemSelectionDataGrid;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\Type;
 
 class MediaBrowserImages extends MediaBrowser
 {

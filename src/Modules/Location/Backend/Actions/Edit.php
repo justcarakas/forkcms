@@ -1,18 +1,18 @@
 <?php
 
-namespace Backend\Modules\Location\Actions;
+namespace ForkCMS\Modules\Location\Backend\Actions;
 
-use Backend\Core\Engine\Authentication as BackendAuthentication;
-use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Language\Language as BL;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Form\Type\DeleteType;
-use Backend\Modules\Location\Engine\Model as BackendLocationModel;
-use Common\ModulesSettings;
-use ForkCMS\Utility\Geolocation;
+use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
+use ForkCMS\Core\Backend\Domain\Action\ActionEdit as BackendBaseActionEdit;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Core\Backend\Domain\Form\DeleteType;
+use ForkCMS\Modules\Location\Backend\Helper\Model as BackendLocationModel;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Core\Common\ForkCMS\Utility\Geolocation;
 use Symfony\Component\Intl\Intl;
-use Frontend\Modules\Location\Engine\Model as FrontendLocationModel;
+use ForkCMS\Modules\Location\Frontend\Helper\Model as FrontendLocationModel;
 
 /**
  * This is the edit-action, it will display a form to create a new item
