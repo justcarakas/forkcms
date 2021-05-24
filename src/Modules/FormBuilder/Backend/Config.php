@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Modules\FormBuilder;
+namespace ForkCMS\Modules\FormBuilder\Backend;
 
 use ForkCMS\Core\Backend\Domain\Config\Config as BackendBaseConfig;
 
