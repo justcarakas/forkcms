@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
-use Webmozart\Assert\Assert;
+use Assert\Assertion;
 
 final class ModuleName
 {
@@ -12,7 +12,7 @@ final class ModuleName
 
     private function __construct(string $name)
     {
-        Assert::regex($name, self::NAME_VALIDATION_REGEX, 'Invalid module name');
+        Assertion::regex($name, self::NAME_VALIDATION_REGEX, 'Invalid module name');
 
         $this->name = $name;
     }
