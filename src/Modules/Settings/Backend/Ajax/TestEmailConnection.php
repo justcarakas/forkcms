@@ -1,10 +1,10 @@
 <?php
 
-namespace Backend\Modules\Settings\Ajax;
+namespace ForkCMS\Modules\Settings\Backend\Ajax;
 
-use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
-use Backend\Core\Language\Language as BL;
-use Common\Mailer\TransportFactory;
+use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BackendBaseAJAXAction;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Core\Common\Mailer\TransportFactory;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

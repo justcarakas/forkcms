@@ -1,8 +1,8 @@
 <?php
 
-namespace ForkCMS\Bundle\CoreBundle;
+namespace ForkCMS\Core\Common\ForkCMS\Bundle\CoreBundle;
 
-use ForkCMS\Bundle\CoreBundle\DependencyInjection\Compiler\CopyModulesToOtherLocalePass;
+use ForkCMS\Core\Common\ForkCMS\Bundle\CoreBundle\DependencyInjection\Compiler\CopyModulesToOtherLocalePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

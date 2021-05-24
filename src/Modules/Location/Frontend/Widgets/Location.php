@@ -1,11 +1,11 @@
 <?php
 
-namespace Frontend\Modules\Location\Widgets;
+namespace ForkCMS\Modules\Location\Frontend\Widgets;
 
-use Common\ModulesSettings;
-use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
-use Frontend\Core\Language\Locale;
-use Frontend\Modules\Location\Engine\Model as FrontendLocationModel;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Core\Frontend\Helper\Base\Widget as FrontendBaseWidget;
+use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Location\Frontend\Helper\Model as FrontendLocationModel;
 
 /**
  * This is the location-widget: 1 specific address

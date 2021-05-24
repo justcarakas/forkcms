@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Backend\Core\Engine\Model as BackendModel;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 
 /**
  * Builds the form to select modules to install

@@ -1,8 +1,8 @@
 <?php
 
-namespace Common\EventListener;
+namespace ForkCMS\Core\Common\EventListener;
 
-use Common\Core\Cookie;
+use ForkCMS\Core\Common\Cookie;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class ForkCookieSetter

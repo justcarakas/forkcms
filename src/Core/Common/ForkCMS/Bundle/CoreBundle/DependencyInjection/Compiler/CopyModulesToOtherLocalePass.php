@@ -1,8 +1,8 @@
 <?php
 
-namespace ForkCMS\Bundle\CoreBundle\DependencyInjection\Compiler;
+namespace ForkCMS\Core\Common\ForkCMS\Bundle\CoreBundle\DependencyInjection\Compiler;
 
-use ForkCMS\Utility\Module\CopyContentToOtherLocale\CopyContentFromModulesToOtherLocaleManager;
+use ForkCMS\Core\Common\ForkCMS\Utility\Module\CopyContentToOtherLocale\CopyContentFromModulesToOtherLocaleManager;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;

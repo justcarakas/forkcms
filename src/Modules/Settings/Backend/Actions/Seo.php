@@ -1,13 +1,13 @@
 <?php
 
-namespace Backend\Modules\Settings\Actions;
+namespace ForkCMS\Modules\Settings\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Language\Language as BL;
-use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
-use Common\ModulesSettings;
+use ForkCMS\Core\Backend\Domain\Action\ActionIndex as BackendBaseActionIndex;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
+use ForkCMS\Core\Common\ModulesSettings;
 
 /**
  * This is the SEO-action, it will display a form to set SEO settings

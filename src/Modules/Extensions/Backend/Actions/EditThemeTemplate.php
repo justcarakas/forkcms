@@ -1,17 +1,17 @@
 <?php
 
-namespace Backend\Modules\Extensions\Actions;
+namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Language\Language as BL;
-use Backend\Form\Type\DeleteType;
-use Backend\Modules\Extensions\Engine\Model as BackendExtensionsModel;
-use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
-use Common\ModulesSettings;
-use Common\Uri;
-use ForkCMS\Utility\Thumbnails;
+use ForkCMS\Core\Backend\Domain\Action\ActionEdit as BackendBaseActionEdit;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Core\Backend\Domain\Form\DeleteType;
+use ForkCMS\Modules\Extensions\Backend\Helper\Model as BackendExtensionsModel;
+use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Core\Common\Uri;
+use ForkCMS\Core\Common\ForkCMS\Utility\Thumbnails;
 
 /**
  * This is the edit-action, it will display a form to edit an item

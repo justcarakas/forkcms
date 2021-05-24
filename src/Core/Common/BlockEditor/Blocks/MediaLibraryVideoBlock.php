@@ -1,8 +1,8 @@
 <?php
 
-namespace Common\BlockEditor\Blocks;
+namespace ForkCMS\Core\Common\BlockEditor\Blocks;
 
-use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class MediaLibraryVideoBlock extends AbstractBlock

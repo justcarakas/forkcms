@@ -1,11 +1,11 @@
 <?php
 
-namespace Frontend\Modules\Blog\Widgets;
+namespace ForkCMS\Modules\Blog\Frontend\Widgets;
 
-use Common\ModulesSettings;
-use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
-use Frontend\Core\Engine\Navigation as FrontendNavigation;
-use Frontend\Modules\Blog\Engine\Model as FrontendBlogModel;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Core\Frontend\Helper\Base\Widget as FrontendBaseWidget;
+use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
+use ForkCMS\Modules\Blog\Frontend\Helper\Model as FrontendBlogModel;
 
 /**
  * This is a widget with recent blog-articles

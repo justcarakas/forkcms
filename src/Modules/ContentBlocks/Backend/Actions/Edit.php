@@ -1,20 +1,20 @@
 <?php
 
-namespace Backend\Modules\ContentBlocks\Actions;
+namespace ForkCMS\Modules\ContentBlocks\Backend\Actions;
 
-use Backend\Core\Engine\Authentication;
-use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Language\Locale;
-use Backend\Form\Type\DeleteType;
-use Backend\Modules\ContentBlocks\Domain\ContentBlock\Command\UpdateContentBlock;
-use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
-use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
-use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRevisionDataGrid;
-use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockType;
-use Backend\Modules\ContentBlocks\Domain\ContentBlock\Event\ContentBlockUpdated;
-use Backend\Modules\ContentBlocks\Domain\ContentBlock\Exception\ContentBlockNotFound;
-use Common\ModulesSettings;
+use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication;
+use ForkCMS\Core\Backend\Domain\Action\ActionEdit as BackendBaseActionEdit;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Core\Backend\Domain\Form\DeleteType;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Command\UpdateContentBlock;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRevisionDataGrid;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockType;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Event\ContentBlockUpdated;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Exception\ContentBlockNotFound;
+use ForkCMS\Core\Common\ModulesSettings;
 use Symfony\Component\Form\Form;
 
 /**

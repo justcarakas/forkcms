@@ -1,12 +1,12 @@
 <?php
 
-namespace Backend\Modules\Profiles\Actions;
+namespace ForkCMS\Modules\Profiles\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionAdd as BackendBaseActionAdd;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Language\Language as BL;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Profiles\Engine\Model as BackendProfilesModel;
+use ForkCMS\Core\Backend\Domain\Action\ActionAdd as BackendBaseActionAdd;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Profiles\Backend\Helper\Model as BackendProfilesModel;
 
 /**
  * This is the add_profile_group-action, it will display a form to add a profile to a group.

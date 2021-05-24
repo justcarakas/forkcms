@@ -1,9 +1,9 @@
 <?php
 
-namespace Backend\Modules\Tags\Ajax;
+namespace ForkCMS\Modules\Tags\Backend\Ajax;
 
-use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
-use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
+use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BackendBaseAJAXAction;
+use ForkCMS\Modules\Tags\Backend\Helper\Model as BackendTagsModel;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

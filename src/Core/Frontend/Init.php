@@ -1,6 +1,6 @@
 <?php
 
-namespace Frontend;
+namespace ForkCMS\Core\Frontend;
 
 /**
  * This class will initiate the frontend-application

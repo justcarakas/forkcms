@@ -1,10 +1,10 @@
 <?php
 
-namespace Frontend\Modules\Faq\Actions;
+namespace ForkCMS\Modules\Faq\Frontend\Actions;
 
-use Common\ModulesSettings;
-use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
-use Frontend\Modules\Faq\Engine\Model as FrontendFaqModel;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
+use ForkCMS\Modules\Faq\Frontend\Helper\Model as FrontendFaqModel;
 
 /**
  * This is the index-action

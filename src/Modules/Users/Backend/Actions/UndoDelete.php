@@ -1,11 +1,11 @@
 <?php
 
-namespace Backend\Modules\Users\Actions;
+namespace ForkCMS\Modules\Users\Backend\Actions;
 
-use Backend\Core\Engine\Base\Action as BackendBaseAction;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Engine\User as BackendUser;
-use Backend\Modules\Users\Engine\Model as BackendUsersModel;
+use ForkCMS\Core\Backend\Domain\Action\Action as BackendBaseAction;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Users\Backend\Helper\User as BackendUser;
+use ForkCMS\Modules\Users\Backend\Helper\Model as BackendUsersModel;
 
 /**
  * This is the undo-delete-action, it will restore a deleted user

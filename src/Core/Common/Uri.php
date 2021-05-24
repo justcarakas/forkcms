@@ -1,6 +1,6 @@
 <?php
 
-namespace Common;
+namespace ForkCMS\Core\Common;
 
 use Behat\Transliterator\Transliterator;
 

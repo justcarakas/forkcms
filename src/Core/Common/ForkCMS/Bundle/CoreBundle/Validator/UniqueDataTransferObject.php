@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Bundle\CoreBundle\Validator;
+namespace ForkCMS\Core\Common\ForkCMS\Bundle\CoreBundle\Validator;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;

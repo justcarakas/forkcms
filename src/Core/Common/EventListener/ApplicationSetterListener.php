@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\EventListener;
+namespace ForkCMS\Core\Common\EventListener;
 
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 

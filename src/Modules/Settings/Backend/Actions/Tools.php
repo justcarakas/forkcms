@@ -1,8 +1,8 @@
 <?php
 
-namespace Backend\Modules\Settings\Actions;
+namespace ForkCMS\Modules\Settings\Backend\Actions;
 
-use Backend\Core\Engine\Base\Action;
+use ForkCMS\Core\Backend\Domain\Action\Action;
 
 class Tools extends Action
 {

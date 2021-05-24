@@ -1,9 +1,9 @@
 <?php
 
-namespace ForkCMS\Utility\Module\CopyContentToOtherLocale;
+namespace ForkCMS\Core\Common\ForkCMS\Utility\Module\CopyContentToOtherLocale;
 
-use Backend\Modules\Pages\Domain\Page\Page;
-use Common\Locale;
+use ForkCMS\Modules\Pages\Domain\Page\Page;
+use ForkCMS\Core\Common\Locale;
 use SimpleBus\Message\Bus\Middleware\MessageBusSupportingMiddleware;
 
 final class CopyContentFromModulesToOtherLocaleManager

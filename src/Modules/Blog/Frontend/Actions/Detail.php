@@ -1,16 +1,16 @@
 <?php
 
-namespace Frontend\Modules\Blog\Actions;
+namespace ForkCMS\Modules\Blog\Frontend\Actions;
 
-use Common\Doctrine\Entity\Meta;
-use Common\ModulesSettings;
-use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
-use Frontend\Core\Engine\Form as FrontendForm;
-use Frontend\Core\Header\MetaLink;
-use Frontend\Core\Language\Language as FL;
-use Frontend\Core\Engine\Model as FrontendModel;
-use Frontend\Core\Engine\Navigation as FrontendNavigation;
-use Frontend\Modules\Blog\Engine\Model as FrontendBlogModel;
+use ForkCMS\Core\Common\Doctrine\Entity\Meta;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
+use ForkCMS\Core\Frontend\Helper\Form as FrontendForm;
+use ForkCMS\Core\Frontend\Domain\Header\MetaLink;
+use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Core\Frontend\Helper\Model as FrontendModel;
+use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
+use ForkCMS\Modules\Blog\Frontend\Helper\Model as FrontendBlogModel;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Detail extends FrontendBaseBlock

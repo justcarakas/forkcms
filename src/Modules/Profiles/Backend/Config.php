@@ -1,8 +1,8 @@
 <?php
 
-namespace Backend\Modules\Profiles;
+namespace ForkCMS\Modules\Profiles\Backend;
 
-use Backend\Core\Engine\Base\Config as BackendBaseConfig;
+use ForkCMS\Core\Backend\Domain\Config\Config as BackendBaseConfig;
 
 /**
  * This is the configuration-object for the profiles module.

@@ -1,10 +1,10 @@
 <?php
 
-namespace Frontend\Modules\MediaGalleries\Widgets;
+namespace ForkCMS\Modules\MediaGalleries\Frontend\Widgets;
 
-use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGallery;
-use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
-use Frontend\Core\Engine\Base\Widget as BackendBaseWidget;
+use ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\MediaGallery;
+use ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
+use ForkCMS\Core\Frontend\Helper\Base\Widget as BackendBaseWidget;
 
 /**
  * This will show a MediaGallery.

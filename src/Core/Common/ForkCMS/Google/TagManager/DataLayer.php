@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ForkCMS\Google\TagManager;
+namespace ForkCMS\Core\Common\ForkCMS\Google\TagManager;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 

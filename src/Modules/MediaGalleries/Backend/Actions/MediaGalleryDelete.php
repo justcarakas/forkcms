@@ -1,14 +1,14 @@
 <?php
 
-namespace Backend\Modules\MediaGalleries\Actions;
+namespace ForkCMS\Modules\MediaGalleries\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionDelete as BackendBaseActionDelete;
-use Backend\Core\Engine\Model;
-use Backend\Form\Type\DeleteType;
-use Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\DeleteMediaGallery;
-use Backend\Modules\MediaGalleries\Domain\MediaGallery\Exception\MediaGalleryNotFound;
-use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGallery;
-use Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
+use ForkCMS\Core\Backend\Domain\Action\ActionDelete as BackendBaseActionDelete;
+use ForkCMS\Core\Backend\Helper\Model;
+use ForkCMS\Core\Backend\Domain\Form\DeleteType;
+use ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\Command\DeleteMediaGallery;
+use ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\Exception\MediaGalleryNotFound;
+use ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\MediaGallery;
+use ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository;
 
 /**
  * This is the class to Delete a MediaGallery

@@ -1,11 +1,11 @@
 <?php
 
-namespace Backend\Modules\Pages\Ajax;
+namespace ForkCMS\Modules\Pages\Backend\Ajax;
 
-use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
-use Backend\Core\Language\Language as BL;
-use Backend\Core\Language\Locale;
-use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
+use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BackendBaseAJAXAction;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

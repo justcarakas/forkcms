@@ -1,10 +1,10 @@
 <?php
 
-namespace Common\Doctrine\Type;
+namespace ForkCMS\Core\Common\Doctrine\Type;
 
-use Backend\Core\Language\Locale as BackendLocale;
-use Common\Locale;
-use Frontend\Core\Language\Locale as FrontendLocale;
+use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale as BackendLocale;
+use ForkCMS\Core\Common\Locale;
+use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale as FrontendLocale;
 use Doctrine\DBAL\Types\TextType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 

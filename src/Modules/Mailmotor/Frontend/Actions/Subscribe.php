@@ -1,15 +1,15 @@
 <?php
 
-namespace Frontend\Modules\Mailmotor\Actions;
+namespace ForkCMS\Modules\Mailmotor\Frontend\Actions;
 
-use Common\ModulesSettings;
+use ForkCMS\Core\Common\ModulesSettings;
 use Exception;
-use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
-use Frontend\Core\Engine\Navigation as FrontendNavigation;
-use Frontend\Core\Language\Locale;
-use Frontend\Modules\Mailmotor\Domain\Subscription\Command\Subscription;
-use Frontend\Modules\Mailmotor\Domain\Subscription\Event\NotImplementedSubscribedEvent;
-use Frontend\Modules\Mailmotor\Domain\Subscription\SubscribeType;
+use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
+use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
+use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Mailmotor\Domain\Subscription\Command\Subscription;
+use ForkCMS\Modules\Mailmotor\Domain\Subscription\Event\NotImplementedSubscribedEvent;
+use ForkCMS\Modules\Mailmotor\Domain\Subscription\SubscribeType;
 use MailMotor\Bundle\MailMotorBundle\Exception\NotImplementedException;
 
 /**

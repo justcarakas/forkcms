@@ -2,14 +2,14 @@
 
 namespace ForkCMS\Core\Installer\Domain\Installer;
 
-use Backend\Core\Engine\Model;
-use Backend\Modules\Locale\Engine\Model as BackendLocaleModel;
-use Backend\Modules\Pages\Domain\ModuleExtra\ModuleExtra;
-use Backend\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository;
-use Backend\Modules\Pages\Domain\Page\PageRepository;
-use Backend\Modules\Pages\Domain\PageBlock\PageBlock;
-use Backend\Modules\Pages\Domain\PageBlock\PageBlockRepository;
-use Backend\Modules\Pages\Domain\PageBlock\Type as PageBlockType;
+use ForkCMS\Core\Backend\Helper\Model;
+use ForkCMS\Modules\Locale\Backend\Helper\Model as BackendLocaleModel;
+use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtra;
+use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository;
+use ForkCMS\Modules\Pages\Domain\Page\PageRepository;
+use ForkCMS\Modules\Pages\Domain\PageBlock\PageBlock;
+use ForkCMS\Modules\Pages\Domain\PageBlock\PageBlockRepository;
+use ForkCMS\Modules\Pages\Domain\PageBlock\Type as PageBlockType;
 use ForkCMS\Core\Installer\Domain\Module\CoreInstaller;
 use ForkCMS\Core\Installer\Domain\Module\ModuleInstaller;
 use Symfony\Component\DependencyInjection\ContainerInterface;

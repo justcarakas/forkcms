@@ -1,10 +1,10 @@
 <?php
 
-namespace Frontend\Modules\ContentBlocks\Widgets;
+namespace ForkCMS\Modules\ContentBlocks\Frontend\Widgets;
 
-use Backend\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
-use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
-use Frontend\Core\Language\Locale;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
+use ForkCMS\Core\Frontend\Helper\Base\Widget as FrontendBaseWidget;
+use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
 
 /**
  * This is the detail widget.

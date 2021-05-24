@@ -1,18 +1,18 @@
 <?php
 
-namespace Backend\Modules\FormBuilder\Actions;
+namespace ForkCMS\Modules\FormBuilder\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Language\Language as BL;
-use Backend\Form\Type\DeleteType;
-use Backend\Modules\FormBuilder\Engine\Autocomplete;
-use Common\ModulesSettings;
-use Frontend\Core\Language\Language as FL;
-use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
-use Backend\Modules\FormBuilder\Engine\Helper as FormBuilderHelper;
-use Backend\Modules\Pages\Engine\Model as BackendPagesModel;
+use ForkCMS\Core\Backend\Domain\Action\ActionEdit as BackendBaseActionEdit;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Core\Backend\Domain\Form\DeleteType;
+use ForkCMS\Modules\FormBuilder\Backend\Helper\Autocomplete;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Modules\FormBuilder\Backend\Helper\Model as BackendFormBuilderModel;
+use ForkCMS\Modules\FormBuilder\Backend\Helper\Helper as FormBuilderHelper;
+use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
 
 /**
  * This is the edit-action, it will display a form to edit an existing item

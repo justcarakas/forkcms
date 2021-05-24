@@ -1,11 +1,11 @@
 <?php
 
-namespace Backend\Modules\Tags\Ajax;
+namespace ForkCMS\Modules\Tags\Backend\Ajax;
 
-use Backend\Core\Engine\Base\AjaxAction as BackendBaseAJAXAction;
-use Backend\Core\Language\Language as BL;
-use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
-use Common\Uri as CommonUri;
+use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BackendBaseAJAXAction;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Tags\Backend\Helper\Model as BackendTagsModel;
+use ForkCMS\Core\Common\Uri as CommonUri;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

@@ -1,8 +1,8 @@
 <?php
 
-namespace Common\BlockEditor\Blocks;
+namespace ForkCMS\Core\Common\BlockEditor\Blocks;
 
-use Frontend\Core\Engine\TwigTemplate;
+use ForkCMS\Core\Frontend\Helper\TwigTemplate;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 abstract class AbstractBlock

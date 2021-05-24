@@ -1,8 +1,8 @@
 <?php
 
-namespace Frontend\Modules\Pages\Widgets;
+namespace ForkCMS\Modules\Pages\Frontend\Widgets;
 
-use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
+use ForkCMS\Core\Frontend\Helper\Base\Widget as FrontendBaseWidget;
 
 /**
  * This is a widget wherein the sitemap lives

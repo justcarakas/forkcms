@@ -1,11 +1,11 @@
 <?php
 
-namespace Common\Doctrine\Repository;
+namespace ForkCMS\Core\Common\Doctrine\Repository;
 
-use Backend\Core\Engine\Exception;
-use Backend\Core\Engine\Model;
-use Common\Doctrine\Entity\Meta;
-use Common\Uri;
+use ForkCMS\Core\Backend\Exception;
+use ForkCMS\Core\Backend\Helper\Model;
+use ForkCMS\Core\Common\Doctrine\Entity\Meta;
+use ForkCMS\Core\Common\Uri;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use SpoonFilter;

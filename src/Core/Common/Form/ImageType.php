@@ -1,9 +1,9 @@
 <?php
 
-namespace Common\Form;
+namespace ForkCMS\Core\Common\Form;
 
-use Common\Core\Model;
-use Common\Doctrine\ValueObject\AbstractImage;
+use ForkCMS\Core\Common\Model;
+use ForkCMS\Core\Common\Doctrine\ValueObject\AbstractImage;
 use stdClass;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;

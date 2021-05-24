@@ -1,14 +1,14 @@
 <?php
 
-namespace Backend\Modules\Blog\Actions;
+namespace ForkCMS\Modules\Blog\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Engine\Meta as BackendMeta;
-use Backend\Core\Language\Language as BL;
-use Backend\Form\Type\DeleteType;
-use Backend\Modules\Blog\Engine\Model as BackendBlogModel;
+use ForkCMS\Core\Backend\Domain\Action\ActionEdit as BackendBaseActionEdit;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Core\Backend\Domain\Meta\Meta as BackendMeta;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Core\Backend\Domain\Form\DeleteType;
+use ForkCMS\Modules\Blog\Backend\Helper\Model as BackendBlogModel;
 
 /**
  * This is the edit category action, it will display a form to edit an existing category.

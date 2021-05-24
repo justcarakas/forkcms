@@ -1,10 +1,10 @@
 <?php
 
-namespace Frontend\Modules\Tags\Actions;
+namespace ForkCMS\Modules\Tags\Frontend\Actions;
 
-use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
-use Frontend\Core\Language\Language as FL;
-use Frontend\Modules\Tags\Engine\Model as FrontendTagsModel;
+use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
+use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Modules\Tags\Frontend\Helper\Model as FrontendTagsModel;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Detail extends FrontendBaseBlock

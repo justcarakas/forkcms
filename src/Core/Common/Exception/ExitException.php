@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\Exception;
+namespace ForkCMS\Core\Common\Exception;
 
 use Symfony\Component\HttpFoundation\Response;
 

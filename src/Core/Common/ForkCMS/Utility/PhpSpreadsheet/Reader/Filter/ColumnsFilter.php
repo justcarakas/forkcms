@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Utility\PhpSpreadsheet\Reader\Filter;
+namespace ForkCMS\Core\Common\ForkCMS\Utility\PhpSpreadsheet\Reader\Filter;
 
 use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 

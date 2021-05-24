@@ -1,8 +1,8 @@
 <?php
 
-namespace Backend\Modules\Error;
+namespace ForkCMS\Modules\Error\Backend;
 
-use Backend\Core\Engine\Base\Config as BackendBaseConfig;
+use ForkCMS\Core\Backend\Domain\Config\Config as BackendBaseConfig;
 
 /**
  * This is the configuration-object

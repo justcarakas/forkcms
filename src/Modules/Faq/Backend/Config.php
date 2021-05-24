@@ -1,8 +1,8 @@
 <?php
 
-namespace Backend\Modules\Faq;
+namespace ForkCMS\Modules\Faq\Backend;
 
-use Backend\Core\Engine\Base\Config as BackendBaseConfig;
+use ForkCMS\Core\Backend\Domain\Config\Config as BackendBaseConfig;
 
 /**
  * This is the configuration-object for the faq module

@@ -1,8 +1,8 @@
 <?php
 
-namespace ForkCMS\Utility\Csv;
+namespace ForkCMS\Core\Common\ForkCMS\Utility\Csv;
 
-use ForkCMS\Utility\PhpSpreadsheet\Reader\Filter\ChunkReadFilter;
+use ForkCMS\Core\Common\ForkCMS\Utility\PhpSpreadsheet\Reader\Filter\ChunkReadFilter;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
 

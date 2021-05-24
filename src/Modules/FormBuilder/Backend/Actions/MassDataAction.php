@@ -1,10 +1,10 @@
 <?php
 
-namespace Backend\Modules\FormBuilder\Actions;
+namespace ForkCMS\Modules\FormBuilder\Backend\Actions;
 
-use Backend\Core\Engine\Base\Action as BackendBaseAction;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
+use ForkCMS\Core\Backend\Domain\Action\Action as BackendBaseAction;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\FormBuilder\Backend\Helper\Model as BackendFormBuilderModel;
 
 /**
  * This action is used to update one or more data items

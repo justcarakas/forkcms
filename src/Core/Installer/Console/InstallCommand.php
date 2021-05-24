@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Installer\Console;
 
-use ForkCMS\Console\Install\PrepareForReinstallCommand;
+use ForkCMS\Core\Console\Install\PrepareForReinstallCommand;
 use ForkCMS\Core\Installer\Domain\Database\DatabaseHandler;
 use ForkCMS\Core\Installer\Domain\Installer\ForkInstaller;
 use ForkCMS\Core\Installer\Domain\Installer\InstallationData;

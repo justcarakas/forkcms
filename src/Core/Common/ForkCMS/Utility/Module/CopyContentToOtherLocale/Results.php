@@ -1,8 +1,8 @@
 <?php
 
-namespace ForkCMS\Utility\Module\CopyContentToOtherLocale;
+namespace ForkCMS\Core\Common\ForkCMS\Utility\Module\CopyContentToOtherLocale;
 
-use ForkCMS\Utility\Module\CopyContentToOtherLocale\Exception\CopiedModuleContentToOtherLocaleNotFound;
+use ForkCMS\Core\Common\ForkCMS\Utility\Module\CopyContentToOtherLocale\Exception\CopiedModuleContentToOtherLocaleNotFound;
 
 final class Results
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace Backend\Modules\Faq\Actions;
+namespace ForkCMS\Modules\Faq\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionAdd as BackendBaseActionAdd;
-use Backend\Core\Engine\Form as BackendForm;
-use Backend\Core\Language\Language as BL;
-use Backend\Core\Engine\Meta as BackendMeta;
-use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Faq\Engine\Model as BackendFaqModel;
-use Backend\Modules\Pages\Domain\Page\Page;
-use Common\ModulesSettings;
+use ForkCMS\Core\Backend\Domain\Action\ActionAdd as BackendBaseActionAdd;
+use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Core\Backend\Domain\Meta\Meta as BackendMeta;
+use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Faq\Backend\Helper\Model as BackendFaqModel;
+use ForkCMS\Modules\Pages\Domain\Page\Page;
+use ForkCMS\Core\Common\ModulesSettings;
 
 /**
  * This is the add-action, it will display a form to create a new category

@@ -1,8 +1,8 @@
 <?php
 
-namespace Frontend\Modules\ContentBlocks;
+namespace ForkCMS\Modules\ContentBlocks\Frontend;
 
-use Frontend\Core\Engine\Base\Config as BaseConfig;
+use ForkCMS\Core\Frontend\Helper\Base\Config as BaseConfig;
 
 /**
  * This is the configuration-object

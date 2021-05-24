@@ -1,13 +1,13 @@
 <?php
 
-namespace Backend\Modules\MediaLibrary\Actions;
+namespace ForkCMS\Modules\MediaLibrary\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionDelete as BackendBaseActionDelete;
-use Backend\Core\Engine\Model;
-use Backend\Form\Type\DeleteType;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\Exception\MediaItemNotFound;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
-use Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
+use ForkCMS\Core\Backend\Domain\Action\ActionDelete as BackendBaseActionDelete;
+use ForkCMS\Core\Backend\Helper\Model;
+use ForkCMS\Core\Backend\Domain\Form\DeleteType;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\Exception\MediaItemNotFound;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository;
 
 class MediaItemDelete extends BackendBaseActionDelete
 {

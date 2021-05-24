@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\BlockEditor\Blocks;
+namespace ForkCMS\Core\Common\BlockEditor\Blocks;
 
 final class RawBlock extends AbstractBlock
 {

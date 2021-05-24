@@ -1,10 +1,10 @@
 <?php
 
-namespace Frontend\Modules\MediaLibrary\Widgets\Base;
+namespace ForkCMS\Modules\MediaLibrary\Frontend\Widgets\Base;
 
-use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
-use Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupRepository;
-use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
+use ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupRepository;
+use ForkCMS\Core\Frontend\Helper\Base\Widget as FrontendBaseWidget;
 
 /**
  * This has some methods to help for our FrontendMediaWidget

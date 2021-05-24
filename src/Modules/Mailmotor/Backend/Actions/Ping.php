@@ -1,13 +1,13 @@
 <?php
 
-namespace Backend\Modules\Mailmotor\Actions;
+namespace ForkCMS\Modules\Mailmotor\Backend\Actions;
 
-use Backend\Core\Engine\Base\ActionIndex;
-use Backend\Core\Engine\Model;
-use Backend\Core\Language\Language;
-use Backend\Modules\Mailmotor\Domain\Settings\Command\SaveSettings;
-use Backend\Modules\Mailmotor\Domain\Settings\Event\SettingsSavedEvent;
-use Common\ModulesSettings;
+use ForkCMS\Core\Backend\Domain\Action\ActionIndex;
+use ForkCMS\Core\Backend\Helper\Model;
+use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Mailmotor\Domain\Settings\Command\SaveSettings;
+use ForkCMS\Modules\Mailmotor\Domain\Settings\Event\SettingsSavedEvent;
+use ForkCMS\Core\Common\ModulesSettings;
 
 /**
  * This tests the api

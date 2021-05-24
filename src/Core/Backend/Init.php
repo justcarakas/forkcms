@@ -1,6 +1,6 @@
 <?php
 
-namespace Backend;
+namespace ForkCMS\Core\Backend;
 
 use SpoonFilter;
 use Symfony\Component\HttpKernel\KernelInterface;

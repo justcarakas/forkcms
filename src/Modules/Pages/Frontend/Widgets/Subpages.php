@@ -1,11 +1,11 @@
 <?php
 
-namespace Frontend\Modules\Pages\Widgets;
+namespace ForkCMS\Modules\Pages\Frontend\Widgets;
 
-use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
-use Frontend\Core\Engine\Exception as FrontendException;
-use Frontend\Core\Engine\Theme as FrontendTheme;
-use Frontend\Modules\Pages\Engine\Model as FrontendPagesModel;
+use ForkCMS\Core\Frontend\Helper\Base\Widget as FrontendBaseWidget;
+use ForkCMS\Core\Frontend\Helper\Exception as FrontendException;
+use ForkCMS\Core\Frontend\Helper\Theme as FrontendTheme;
+use ForkCMS\Modules\Pages\Frontend\Helper\Model as FrontendPagesModel;
 
 /**
  * This is a widget which shows the subpages.

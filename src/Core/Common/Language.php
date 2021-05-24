@@ -1,9 +1,9 @@
 <?php
 
-namespace Common;
+namespace ForkCMS\Core\Common;
 
-use Common\Core\Model;
-use Frontend\Core\Language\Language as FrontendLanguage;
+use ForkCMS\Core\Common\Model;
+use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FrontendLanguage;
 use InvalidArgumentException;
 use Symfony\Component\Translation\IdentityTranslator;
 

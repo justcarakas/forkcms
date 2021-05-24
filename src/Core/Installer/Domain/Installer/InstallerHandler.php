@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Installer\Domain\Installer;
 
-use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 abstract class InstallerHandler
 {
-    final public function process(Form $form, Request $request): bool
+    final public function process(FormInterface $form, Request $request): bool
     {
         if (!$request->isMethod('POST')) {
             return false;

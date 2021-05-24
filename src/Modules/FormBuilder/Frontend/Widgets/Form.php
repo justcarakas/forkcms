@@ -1,18 +1,17 @@
 <?php
 
-namespace Frontend\Modules\FormBuilder\Widgets;
+namespace ForkCMS\Modules\FormBuilder\Frontend\Widgets;
 
-use Common\Exception\RedirectException;
-use Common\ModulesSettings;
-use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
-use Frontend\Core\Engine\Form as FrontendForm;
-use Frontend\Core\Engine\Navigation as FrontendNavigation;
-use Frontend\Core\Language\Language as FL;
-use Frontend\Core\Engine\Model as FrontendModel;
-use Frontend\Core\Language\Locale;
-use Frontend\Modules\FormBuilder\Engine\Model as FrontendFormBuilderModel;
-use Frontend\Modules\FormBuilder\FormBuilderEvents;
-use Frontend\Modules\FormBuilder\Event\FormBuilderSubmittedEvent;
+use ForkCMS\Core\Common\Exception\RedirectException;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Core\Frontend\Helper\Base\Widget as FrontendBaseWidget;
+use ForkCMS\Core\Frontend\Helper\Form as FrontendForm;
+use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
+use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Core\Frontend\Helper\Model as FrontendModel;
+use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\FormBuilder\Frontend\Helper\Model as FrontendFormBuilderModel;
+use ForkCMS\Modules\FormBuilder\Frontend\Helper\FormBuilderSubmittedEvent;
 use ReCaptcha\ReCaptcha;
 use ReCaptcha\RequestMethod\CurlPost;
 use SpoonFormAttributes;
@@ -561,7 +560,7 @@ class Form extends FrontendBaseWidget
                 }
 
                 $this->get('event_dispatcher')->dispatch(
-                    FormBuilderEvents::FORM_SUBMITTED,
+                    FormBuilderSubmittedEvent::EVENT_NAME,
                     new FormBuilderSubmittedEvent($this->item, $fields, $dataId)
                 );
 

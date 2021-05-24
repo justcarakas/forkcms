@@ -1,15 +1,15 @@
 <?php
 
-namespace Frontend\Modules\Blog\Actions;
+namespace ForkCMS\Modules\Blog\Frontend\Actions;
 
-use Common\ModulesSettings;
-use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
-use Frontend\Core\Language\Language as FL;
-use Frontend\Core\Engine\Navigation as FrontendNavigation;
-use Frontend\Core\Engine\Rss as FrontendRSS;
-use Frontend\Core\Engine\RssItem as FrontendRSSItem;
-use Frontend\Core\Engine\User as FrontendUser;
-use Frontend\Modules\Blog\Engine\Model as FrontendBlogModel;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
+use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
+use ForkCMS\Core\Frontend\Helper\Rss as FrontendRSS;
+use ForkCMS\Core\Frontend\Helper\RssItem as FrontendRSSItem;
+use ForkCMS\Core\Frontend\Helper\User as FrontendUser;
+use ForkCMS\Modules\Blog\Frontend\Helper\Model as FrontendBlogModel;
 use SpoonFilter;
 
 class Rss extends FrontendBaseBlock

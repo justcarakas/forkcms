@@ -1,9 +1,9 @@
 <?php
 
-namespace Frontend\Modules\Tags\Actions;
+namespace ForkCMS\Modules\Tags\Frontend\Actions;
 
-use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
-use Frontend\Modules\Tags\Engine\Model as FrontendTagsModel;
+use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
+use ForkCMS\Modules\Tags\Frontend\Helper\Model as FrontendTagsModel;
 
 class Index extends FrontendBaseBlock
 {

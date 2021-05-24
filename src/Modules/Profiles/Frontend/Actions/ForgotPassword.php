@@ -1,15 +1,15 @@
 <?php
 
-namespace Frontend\Modules\Profiles\Actions;
+namespace ForkCMS\Modules\Profiles\Frontend\Actions;
 
-use Common\Mailer\Message;
-use Common\ModulesSettings;
-use Frontend\Core\Engine\Base\Block as FrontendBaseBlock;
-use Frontend\Core\Engine\Form as FrontendForm;
-use Frontend\Core\Language\Language as FL;
-use Frontend\Core\Engine\Navigation as FrontendNavigation;
-use Frontend\Modules\Profiles\Engine\Authentication as FrontendProfilesAuthentication;
-use Frontend\Modules\Profiles\Engine\Model as FrontendProfilesModel;
+use ForkCMS\Core\Common\Mailer\Message;
+use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
+use ForkCMS\Core\Frontend\Helper\Form as FrontendForm;
+use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
+use ForkCMS\Modules\Profiles\Frontend\Helper\Authentication as FrontendProfilesAuthentication;
+use ForkCMS\Modules\Profiles\Frontend\Helper\Model as FrontendProfilesModel;
 
 /**
  * Request a reset password email.
