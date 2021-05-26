@@ -10,6 +10,12 @@ services:
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
     bind:
       string $rootDir: '%kernel.project_dir%'
+      Traversable $availableModules: !tagged_iterator { tag: 'forkcms.module.installer' }
+
+  _instanceof:
+    ForkCMS\Core\Domain\MessageHandler\InstallerHandlerInterface:
+      tags:
+        - { name: messenger.message_handler, bus: installer.bus }
 
   ForkCMS\Core\Installer\:
     resource: '../src/Core/Installer/*'

@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Modules\Extensions\Domain\Module;
+namespace ForkCMS\Core\Domain\Module;
 
 use Doctrine\DBAL\Types\StringType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
