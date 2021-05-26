@@ -1,12 +1,12 @@
 <?php
 
-namespace ForkCMS\Modules\Extensions\Domain\Module;
+namespace ForkCMS\Core\Domain\Module;
 
 use Assert\Assertion;
 
 final class ModuleName
 {
-    public const NAME_VALIDATION_REGEX = '^[A-Z][A-Za-z0-9]*$';
+    public const NAME_VALIDATION_REGEX = '/^[A-Z][A-Za-z0-9]*$/';
 
     private string $name;
 

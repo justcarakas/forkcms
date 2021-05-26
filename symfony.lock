@@ -3,7 +3,7 @@
         "version": "3.176.2"
     },
     "beberlei/assert": {
-        "version": "v2.9.9"
+        "version": "v3.3.1"
     },
     "beberlei/doctrineextensions": {
         "version": "v1.3.0"
@@ -358,11 +358,8 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
-    "simple-bus/doctrine-orm-bridge": {
-        "version": "v4.0.0"
-    },
-    "simple-bus/message-bus": {
-        "version": "v2.2.2"
+    "spatie/enum": {
+        "version": "3.9.0"
     },
     "spoon/library": {
         "version": "3.2.9"
