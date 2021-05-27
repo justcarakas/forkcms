@@ -2,12 +2,15 @@
 
 namespace ForkCMS\Core\DependencyInjection;
 
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+use Symfony\Component\DependencyInjection\Loader\FileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 
-class BackendExtension extends Extension implements PrependExtensionInterface
+class CoreExtension extends Extension implements PrependExtensionInterface
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -16,6 +19,9 @@ class BackendExtension extends Extension implements PrependExtensionInterface
 
     public function prepend(ContainerBuilder $container): void
     {
+        $this->getLoader($container)->load('doctrine.yaml');
+
+        return;
         $filesystem = new Filesystem();
         foreach ((array) $container->getParameter('installed_modules') as $module) {
             $dir = $container->getParameter('kernel.project_dir') . '/src/Backend/Modules/' . $module . '/Entity';
@@ -48,5 +54,10 @@ class BackendExtension extends Extension implements PrependExtensionInterface
                 ]
             );
         }
+    }
+
+    private function getLoader(ContainerBuilder $container): YamlFileLoader
+    {
+        return  new YamlFileLoader($container, new FileLocator(__DIR__ . '/../config'));
     }
 }
