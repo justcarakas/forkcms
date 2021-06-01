@@ -4,6 +4,7 @@ namespace ForkCMS\Core\Installer\Domain\Module;
 
 use ForkCMS\Core\Backend\Helper\Model;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Core\Domain\Locale\Locale;
 use ForkCMS\Modules\Locale\Backend\Helper\Model as BackendLocaleModel;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtra;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository;
@@ -21,7 +22,6 @@ use ForkCMS\Core\Common\Doctrine\Entity\Meta;
 use ForkCMS\Core\Common\Doctrine\Repository\MetaRepository;
 use ForkCMS\Core\Common\Uri as CommonUri;
 use DateTime;
-use ForkCMS\Core\Installer\Domain\Locale\Locale;
 use SpoonDatabase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -586,7 +586,7 @@ class ModuleInstaller
     {
         $pageRepository = BackendModel::getContainer()->get(PageRepository::class);
 
-        $maximumPageId =  $pageRepository->getMaximumPageId(Locale::fromString($language), true);
+        $maximumPageId =  $pageRepository->getMaximumPageId(Locale::from($language), true);
 
         return ++$maximumPageId;
     }
@@ -594,13 +594,13 @@ class ModuleInstaller
     private function archiveAllRevisionsOfAPageForLanguage(int $pageId, string $language): void
     {
         $pageRepository = BackendModel::getContainer()->get(PageRepository::class);
-        $pageRepository->archive($pageId, Locale::fromString($language));
+        $pageRepository->archive($pageId, Locale::from($language));
     }
 
     private function getNextPageSequence(string $locale, int $parentId, string $type): int
     {
         $pageRepository = BackendModel::getContainer()->get(PageRepository::class);
-        $maximumPageSequence = $pageRepository->getMaximumSequence($parentId, Locale::fromString($locale), $type);
+        $maximumPageSequence = $pageRepository->getMaximumSequence($parentId, Locale::from($locale), $type);
 
         return ++$maximumPageSequence;
     }
@@ -730,7 +730,7 @@ class ModuleInstaller
             $revision['parent_id'],
             $revision['template_id'],
             $meta,
-            Locale::fromString($revision['language']),
+            Locale::from($revision['language']),
             $revision['title'],
             $revision['navigation_title'],
             null,

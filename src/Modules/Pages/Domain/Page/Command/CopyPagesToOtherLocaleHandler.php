@@ -16,7 +16,7 @@ use ForkCMS\Modules\Search\Backend\Helper\Model as BackendSearchModel;
 use ForkCMS\Modules\Tags\Backend\Helper\Model as BackendTagsModel;
 use ForkCMS\Core\Common\Doctrine\Entity\Meta;
 use ForkCMS\Core\Common\Doctrine\Repository\MetaRepository;
-use ForkCMS\Core\Common\Locale;
+use ForkCMS\Core\Domain\Locale\Locale;
 use DateTime;
 use ForkCMS\Core\Common\ForkCMS\Utility\Module\CopyContentToOtherLocale\CopyModuleContentToOtherLocaleHandlerInterface;
 use ForkCMS\Core\Common\ForkCMS\Utility\Module\CopyContentToOtherLocale\CopyModuleContentToOtherLocaleInterface;
