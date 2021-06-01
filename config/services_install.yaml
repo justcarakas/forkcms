@@ -1,5 +1,4 @@
 parameters:
-  doctrine.dbal.connection_factory.class: ForkCMS\Bundle\InstallerBundle\Service\InstallerConnectionFactory
   fork.is_installed: false
   fork.form.theme: '@@ForkCMSInstaller/form_theme.html.twig'
 
@@ -27,3 +26,8 @@ services:
   ForkCMS\Core\Installer\Controller\:
     resource: '../src/Core/Installer/Controller/*'
     public: true
+
+  doctrine.dbal.connection_factory:
+    class: ForkCMS\Core\Installer\Domain\Installer\InstallerConnectionFactory
+    arguments:
+      - "%doctrine.dbal.connection_factory.types%"
