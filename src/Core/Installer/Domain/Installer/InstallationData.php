@@ -2,6 +2,8 @@
 
 namespace ForkCMS\Core\Installer\Domain\Installer;
 
+use ForkCMS\Core\Domain\Module\ModuleName;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class InstallationData
@@ -599,5 +601,14 @@ class InstallationData
             || empty($this->email)
             || empty($this->password)
         );
+    }
+
+    public static function fromSession(SessionInterface $session): self
+    {
+        if (!$session->has('installation_data')) {
+            $session->set('installation_data', new self());
+        }
+
+        return $session->get('installation_data');
     }
 }
