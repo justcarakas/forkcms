@@ -43,7 +43,7 @@ abstract class AbstractStepController
             return new RedirectResponse($this->router->generate('install_step1'));
         }
 
-        $form = $this->formFactory->create($formTypeClass, $this->getInstallationData($request));
+        $form = $this->formFactory->create($formTypeClass, InstallationData::fromSession($request->getSession()));
         if ($handler->process($form, $request)) {
             return new RedirectResponse($this->router->generate('install_step' . ($step + 1)));
         }
@@ -56,14 +56,5 @@ abstract class AbstractStepController
                 ]
             )
         );
-    }
-
-    final protected function getInstallationData(Request $request): InstallationData
-    {
-        if (!$request->getSession()->has('installation_data')) {
-            $request->getSession()->set('installation_data', new InstallationData());
-        }
-
-        return $request->getSession()->get('installation_data');
     }
 }
