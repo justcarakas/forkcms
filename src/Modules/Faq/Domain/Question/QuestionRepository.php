@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\Faq\Domain\Question;
 
 use ForkCMS\Modules\Faq\Domain\Category\Category;
 use ForkCMS\Core\Common\Model;
-use ForkCMS\Core\Common\Locale;
+use ForkCMS\Core\Domain\Locale\Locale;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

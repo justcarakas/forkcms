@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Pages\Domain\Page\Command;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
 use ForkCMS\Modules\Pages\Domain\Page\PageDataTransferObject;
 use ForkCMS\Modules\Pages\Domain\Page\Type;
-use ForkCMS\Core\Common\Locale;
+use ForkCMS\Core\Domain\Locale\Locale;
 
 final class CreatePage extends PageDataTransferObject
 {

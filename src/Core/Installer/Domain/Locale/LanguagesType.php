@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Core\Installer\Domain\Locale;
 
+use ForkCMS\Core\Domain\Locale\Locale;
 use ForkCMS\Core\Installer\Domain\Installer\InstallationData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -16,7 +17,7 @@ class LanguagesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $availableLocale = array_flip(Locale::AVAILABLE_LOCALE);
+        $availableLocale = array_flip(Locale::toArray());
         $builder
             ->add(
                 'language_type',

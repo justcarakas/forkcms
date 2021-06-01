@@ -19,7 +19,7 @@ use ForkCMS\Modules\Pages\Domain\PageBlock\Type as PageBlockType;
 use ForkCMS\Modules\Tags\Backend\Helper\Model as BackendTagsModel;
 use ForkCMS\Core\Common\Doctrine\Entity\Meta;
 use ForkCMS\Core\Common\Doctrine\Repository\MetaRepository;
-use ForkCMS\Core\Common\Locale as AbstractLocale;
+use ForkCMS\Core\Domain\Locale\Locale as AbstractLocale;
 use ForkCMS\Core\Common\ModulesSettings;
 use InvalidArgumentException;
 use RuntimeException;

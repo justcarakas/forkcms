@@ -6,7 +6,7 @@ use ForkCMS\Core\Backend\Helper\Model;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtra;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraNotFountException;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository;
-use ForkCMS\Core\Common\Locale;
+use ForkCMS\Core\Domain\Locale\Locale;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 

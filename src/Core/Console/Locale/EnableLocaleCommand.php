@@ -246,8 +246,8 @@ class EnableLocaleCommand extends Command
         BackendModel::getContainer()
             ->get(CopyContentFromModulesToOtherLocaleManager::class)
             ->copyAll(
-                Locale::fromString($this->defaultEnabledLocale),
-                Locale::fromString($this->workingLocale)
+                Locale::from($this->defaultEnabledLocale),
+                Locale::from($this->workingLocale)
             );
 
         return true;

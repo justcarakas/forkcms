@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\Pages\Domain\PageBlock;
 
 use ForkCMS\Modules\Pages\Domain\Page\Page;
 use ForkCMS\Modules\Pages\Domain\Page\Status;
-use ForkCMS\Core\Common\Locale;
+use ForkCMS\Core\Domain\Locale\Locale;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\AbstractQuery;

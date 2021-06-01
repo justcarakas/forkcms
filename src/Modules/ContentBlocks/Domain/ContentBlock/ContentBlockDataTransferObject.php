@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\ContentBlocks\Domain\ContentBlock;
 
-use ForkCMS\Core\Common\Locale;
+use ForkCMS\Core\Domain\Locale\Locale;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ContentBlockDataTransferObject

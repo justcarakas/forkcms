@@ -334,7 +334,7 @@ class Model extends \Common\Core\Model
             $language = BackendLanguage::getWorkingLanguage();
         }
 
-        return BackendPagesModel::getCacheBuilder()->getKeys(Locale::fromString($language));
+        return BackendPagesModel::getCacheBuilder()->getKeys(Locale::from($language));
     }
 
     /**
@@ -391,7 +391,7 @@ class Model extends \Common\Core\Model
 
         $cacheBuilder = BackendPagesModel::getCacheBuilder();
 
-        return $cacheBuilder->getNavigation(Locale::fromString($language));
+        return $cacheBuilder->getNavigation(Locale::from($language));
     }
 
     /**
@@ -490,7 +490,7 @@ class Model extends \Common\Core\Model
         }
 
         $pageIdForUrl = null;
-        $navigation = self::getNavigation(Locale::fromString($language));
+        $navigation = self::getNavigation(Locale::from($language));
 
         $dataMatch = false;
         // loop types

@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\Pages\Domain\PageBlock;
 
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtra;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
-use ForkCMS\Core\Common\Locale;
+use ForkCMS\Core\Domain\Locale\Locale;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class PageBlockDataTransferObject

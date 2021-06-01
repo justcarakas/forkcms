@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Blog\Domain\Comment;
 
-use ForkCMS\Core\Common\Locale;
+use ForkCMS\Core\Domain\Locale\Locale;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 

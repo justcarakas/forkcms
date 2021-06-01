@@ -6,7 +6,7 @@ use ForkCMS\Modules\Tags\Domain\ModuleTag\ModuleTag;
 use ForkCMS\Modules\Tags\Domain\ModuleTag\ModuleTagRepository;
 use ForkCMS\Modules\Tags\Domain\Tag\Tag;
 use ForkCMS\Modules\Tags\Domain\Tag\TagRepository;
-use ForkCMS\Core\Common\Locale;
+use ForkCMS\Core\Domain\Locale\Locale;
 use ForkCMS\Core\Frontend\Helper\Exception as FrontendException;
 use ForkCMS\Core\Frontend\Helper\Model as FrontendModel;
 use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;

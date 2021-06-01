@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Locale\Backend\Domain\Locale;
 
-use ForkCMS\Core\Common\Locale as CommonLocale;
+use ForkCMS\Core\Domain\Locale\Locale as CommonLocale;
 
 final class Locale extends CommonLocale
 {
