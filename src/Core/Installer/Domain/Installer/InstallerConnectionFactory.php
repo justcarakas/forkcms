@@ -9,9 +9,19 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Exception\ConnectionException;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class InstallerConnectionFactory extends ConnectionFactory
 {
+    private SessionInterface $session;
+
+    public function __construct(array $typesConfig, SessionInterface $session)
+    {
+        parent::__construct($typesConfig);
+
+        $this->session = $session;
+    }
+
     public function createConnection(
         array $params,
         Configuration $config = null,
@@ -39,11 +49,7 @@ class InstallerConnectionFactory extends ConnectionFactory
 
     private function getInstallationData(): InstallationData
     {
-        if (InstallerController::$installationData instanceof InstallationData) {
-            return InstallerController::$installationData;
-        }
-
-        return new InstallationData();
+        return InstallationData::fromSession($this->session);
     }
 
     private function getInstallerConnection(
