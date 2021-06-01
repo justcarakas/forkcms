@@ -179,7 +179,7 @@ class Navigation extends KernelLoader
      */
     public static function getKeys(string $language = null): array
     {
-        return BackendPagesModel::getCacheBuilder()->getKeys(Locale::fromString($language ?? LANGUAGE));
+        return BackendPagesModel::getCacheBuilder()->getKeys(Locale::from($language ?? LANGUAGE));
     }
 
     /**
@@ -192,7 +192,7 @@ class Navigation extends KernelLoader
      */
     public static function getNavigation(string $language = null): array
     {
-        return BackendPagesModel::getCacheBuilder()->getNavigation(Locale::fromString($language ?? LANGUAGE));
+        return BackendPagesModel::getCacheBuilder()->getNavigation(Locale::from($language ?? LANGUAGE));
     }
 
     /**

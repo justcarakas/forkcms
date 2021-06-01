@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Console\Locale;
 
 use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
-use ForkCMS\Core\Common\Locale as CommonLocale;
+use ForkCMS\Core\Domain\Locale\Locale as CommonLocale;
 use ForkCMS\Core\Common\ModulesSettings;
 use ForkCMS\Core\Common\ForkCMS\Utility\Module\CopyContentToOtherLocale\CopyContentFromModulesToOtherLocaleManager;
 use Symfony\Component\Console\Command\Command;
@@ -64,7 +64,7 @@ class CopyLocaleCommand extends Command
 
     private function askFromLocale(): CommonLocale
     {
-        return Locale::fromString($this->formatter->choice(
+        return Locale::from($this->formatter->choice(
             'What locale would you like to copy?',
             $this->getActiveLocale()
         ));
@@ -72,7 +72,7 @@ class CopyLocaleCommand extends Command
 
     private function askToLocale(CommonLocale $fromLocale): CommonLocale
     {
-        return Locale::fromString($this->formatter->choice(
+        return Locale::from($this->formatter->choice(
             'To which locale would you like to copy it?',
             $this->getToLocale($fromLocale)
         ));

@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\ContentBlocks\Domain\ContentBlock;
 
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Exception\ContentBlockNotFound;
-use ForkCMS\Core\Common\Locale;
+use ForkCMS\Core\Domain\Locale\Locale;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

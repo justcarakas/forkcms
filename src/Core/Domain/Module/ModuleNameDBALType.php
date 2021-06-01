@@ -19,6 +19,6 @@ class ModuleNameDBALType extends StringType
 
     public function getName(): string
     {
-        return 'extensions_module_name';
+        return 'core_module_modulename';
     }
 }

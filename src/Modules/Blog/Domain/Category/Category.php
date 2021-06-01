@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Blog\Domain\Category;
 
 use ForkCMS\Core\Common\Doctrine\Entity\Meta;
-use ForkCMS\Core\Common\Locale;
+use ForkCMS\Core\Domain\Locale\Locale;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

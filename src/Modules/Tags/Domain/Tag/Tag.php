@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Tags\Domain\Tag;
 
 use ForkCMS\Modules\Tags\Domain\ModuleTag\ModuleTag;
-use ForkCMS\Core\Common\Locale;
+use ForkCMS\Core\Domain\Locale\Locale;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

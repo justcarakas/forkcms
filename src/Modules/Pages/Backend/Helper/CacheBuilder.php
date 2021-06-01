@@ -7,7 +7,7 @@ use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository;
 use ForkCMS\Modules\Pages\Domain\Page\PageRepository;
 use ForkCMS\Modules\Pages\Domain\Page\Status;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
-use ForkCMS\Core\Common\Locale;
+use ForkCMS\Core\Domain\Locale\Locale;
 use Doctrine\ORM\NoResultException;
 use Psr\Cache\CacheItemPoolInterface;
 use RuntimeException;

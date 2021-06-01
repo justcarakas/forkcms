@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Common\ForkCMS\Utility\Module\CopyContentToOtherLocale;
 
 use ForkCMS\Modules\Pages\Domain\Page\Page;
-use ForkCMS\Core\Common\Locale;
+use ForkCMS\Core\Domain\Locale\Locale;
 use Exception;
 use RuntimeException;
 
