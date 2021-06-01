@@ -12,9 +12,13 @@ services:
       Traversable $availableModules: !tagged_iterator { tag: 'forkcms.module.installer' }
 
   _instanceof:
-    ForkCMS\Core\Domain\MessageHandler\InstallerHandlerInterface:
+    ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface:
       tags:
-        - { name: messenger.message_handler, bus: installer.bus }
+        - { name: messenger.message_handler, bus: command.bus }
+
+    ForkCMS\Core\Domain\MessageHandler\EventHandlerInterface:
+      tags:
+        - { name: messenger.message_handler, bus: event.bus }
 
   ForkCMS\Core\Installer\:
     resource: '../src/Core/Installer/*'
