@@ -134,3 +134,7 @@
 .has-error .control-label {
     color: #d0021b;
 }
+
+option:disabled {
+  display:none;
+}
