@@ -3,58 +3,64 @@
 namespace ForkCMS\Core\Installer\Controller;
 
 use ForkCMS\Core\Installer\Domain\Installer\InstallationData;
-use ForkCMS\Core\Installer\Domain\Installer\InstallerHandler;
+use ForkCMS\Core\Installer\Domain\Installer\InstallerConfiguration;
+use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;
 use ForkCMS\Core\Installer\Domain\Requirement\RequirementsChecker;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 
 abstract class AbstractStepController
 {
-    protected Environment $twig;
-    protected RouterInterface $router;
-    protected RequirementsChecker $requirementsChecker;
-    protected FormFactoryInterface $formFactory;
-
     public function __construct(
-        Environment $twig,
-        RouterInterface $router,
-        RequirementsChecker $requirementsChecker,
-        FormFactoryInterface $formFactory
+        protected Environment $twig,
+        protected RouterInterface $router,
+        protected RequirementsChecker $requirementsChecker,
+        protected FormFactoryInterface $formFactory,
+        protected MessageBusInterface $commandBus
     ) {
-        $this->twig = $twig;
-        $this->router = $router;
-        $this->requirementsChecker = $requirementsChecker;
-        $this->formFactory = $formFactory;
     }
 
     abstract public function __invoke(Request $request): Response;
 
     final protected function handleInstallationStep(
-        int $step,
+        InstallerStep $step,
         string $formTypeClass,
-        InstallerHandler $handler,
+        string $dataClass,
         Request $request
     ): Response {
         if ($this->requirementsChecker->hasErrors()) {
-            return new RedirectResponse($this->router->generate('install_step1'));
+            return new RedirectResponse($this->router->generate(InstallerStep::requirements()->route()));
         }
 
-        $form = $this->formFactory->create($formTypeClass, InstallationData::fromSession($request->getSession()));
-        if ($handler->process($form, $request)) {
-            return new RedirectResponse($this->router->generate('install_step' . ($step + 1)));
+        $form = $this->formFactory->create(
+            $formTypeClass,
+            $this->getFormData($dataClass, InstallationData::fromSession($request->getSession()))
+        );
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->commandBus->dispatch($form->getData());
+
+            return new RedirectResponse($this->router->generate($step->next()->route()));
         }
 
         return new Response(
             $this->twig->render(
-                'step' . $step . '.html.twig',
+                $step->template(),
                 [
                     'form' => $form->createView(),
                 ]
             )
         );
+    }
+
+    private function getFormData(string $dataClass, InstallationData $fromSession): InstallerConfiguration
+    {
+        return $dataClass($fromSession);
     }
 }
