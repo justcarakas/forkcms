@@ -1,28 +1,27 @@
 // Bootstrap
 @import "~bootstrap/scss/functions";
 @import '~bootstrap/scss/variables';
-@import 'src/Core/Backend/Core/Layout/Sass/bootstrap-variables';
-@import 'src/Core/Backend/Core/Layout/Sass/fork-variables';
-@import 'src/Core/Backend/Core/Layout/Sass/bootstrap-imports';
+@import '../Backend/bootstrap-variables';
+@import '../Backend/bootstrap-imports';
 
 // Plugins
 @import '~bootstrap-tagsinput/src/bootstrap-tagsinput';
 @import '~bootstrap-tagsinput/dist/bootstrap-tagsinput-typeahead';
 @import '~select2/src/scss/core';
-@import '~select2-theme-bootstrap4/src/select2-bootstrap';
+//@import '~select2-theme-bootstrap4/src/select2-bootstrap';
 
 // Base
-@import 'src/Core/Backend/Core/Layout/Sass/base/base';
-@import 'src/Core/Backend/Core/Layout/Sass/base/typography';
+@import '../Backend/base/base';
+@import '../Backend/base/typography';
 
 // Components
 // Insert components here. Put all components in the components/ directory
 // eg. @import 'components/buttons';
-@import 'src/Core/Backend/Core/Layout/Sass/components/cards';
-@import 'src/Core/Backend/Core/Layout/Sass/components/header';
-@import 'src/Core/Backend/Core/Layout/Sass/components/content-wrapper';
+@import '../Backend/components/cards';
+@import '../Backend/components/header';
+@import '../Backend/components/content-wrapper';
 @import 'components/installer';
 
 // Layout
-@import 'src/Core/Backend/Core/Layout/Sass/layouts/fork';
-@import 'src/Core/Backend/Core/Layout/Sass/layouts/footer';
+@import '../Backend/layouts/fork';
+@import '../Backend/layouts/footer';
