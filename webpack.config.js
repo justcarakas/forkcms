@@ -27,11 +27,11 @@ Encore
   .setPublicPath('/build/installer')
   .setManifestKeyPrefix('public/build/installer')
 
-  .addEntry('installer', './src/Core/Installer/Resources/Js/Installer.js')
-  .addStyleEntry('screen', './src/Core/Installer/Resources/Sass/screen.scss')
+  .addEntry('installer', './src/Core/assets/js/Installer/Installer.js')
+  .addStyleEntry('screen', './src/Core/assets/sass/Installer/screen.scss')
 
   .copyFiles({
-    from: './src/Core/Installer/Resources/public/images',
+    from: './src/Core/assets/images/Installer',
     to: './images/[path][name].[ext]'
   })
 
