@@ -1,5 +1,5 @@
 export class Step2 {
-  constructor () {
+  constructor() {
     this.toggleLanguageType()
     this.handleLanguageChanges()
     this.setInterfaceDefaultLanguage()
@@ -8,110 +8,101 @@ export class Step2 {
   /**
    * Toggles between multiple and single lexanguage site
    */
-  toggleLanguageType () {
-    if ($('#install_languages_language_type_1').is(':checked')) {
-      $('#languages').show()
-    }
-
-    if ($('#install_languages_language_type_0').is(':checked')) {
-      $('#language').show()
-    }
-
-    // multiple languages
-    $('#install_languages_language_type_1').on('change', () => {
-      if ($('#install_languages_language_type_1').is(':checked')) {
-        $('#languages').show()
-        $('#language').hide()
-        $('#install_languages_default_language option').prop('disabled', true)
-        $('#languages input:checked').each((index, element) => {
-          $('#install_languages_default_language option[value=' + $(element).val() + ']').removeAttr('disabled')
+  toggleLanguageType() {
+    $('[data-fork-cms-role="multilingual"]').on('change', (event) => {
+      if ($(event.target).is(':checked')) {
+        $('[data-fork-cms-role="multilingual-wrapper"]').show()
+        $('[data-fork-cms-role="default-locale"] option').prop('disabled', true)
+        $('[data-fork-cms-role="locales"] input:checked').each((index, element) => {
+          $('[data-fork-cms-role="default-locale"] option[value=' + $(element).val() + ']').removeAttr('disabled')
         })
-        if ($('#install_languages_default_language option[value=' + $('#install_languages_default_language').val() + ']').length === 0) $('#install_languages_default_language').val($('#install_languages_default_language option:enabled:first').val())
-      }
-
-      this.setInterfaceDefaultLanguage()
-    })
-
-    // single languages
-    $('#install_languages_language_type_0').on('change', () => {
-      if ($('#install_languages_language_type_0').is(':checked')) {
-        $('#languages').hide()
-        $('#language').show()
-        $('#install_languages_default_language option').removeAttr('disabled')
-      }
-
-      this.setInterfaceDefaultLanguage()
-    })
-  }
-
-  setInterfaceDefaultLanguage () {
-    // same language as frontend
-    if ($('#install_languages_same_interface_language').is(':checked')) {
-      // just 1 language selected = only selected frontend language is available as interface language
-      if ($('#install_languages_language_type_0').is(':checked')) {
-        $('#install_languages_default_interface_language option').prop('disabled', true)
-        $('#install_languages_default_interface_language option[value=' + $('#install_languages_default_language').val() + ']').removeAttr('disabled')
-        $('#install_languages_default_interface_language').val($('#install_languages_default_interface_language option:enabled:first').val())
-      } else if ($('#install_languages_language_type_1').is(':checked')) {
-        $('#install_languages_default_interface_language option').prop('disabled', true)
-        $('#languages input:checked').each((index, element) => {
-          $('#install_languages_default_interface_language option[value=' + $(element).val() + ']').removeAttr('disabled')
-        })
-
-        if ($('#install_languages_default_interface_language option[value=' + $('#install_languages_default_interface_language').val() + ']').length === 0) {
-          $('#install_languages_default_interface_language').val($('#install_languages_default_interface_language option:enabled:first').val())
+        let $defaultLocaleSelector = $('[data-fork-cms-role="default-locale"]');
+        if ($('[data-fork-cms-role="default-locale"] option[value=' + $defaultLocaleSelector.val() + ']').length === 0) {
+          $defaultLocaleSelector.val($('[data-fork-cms-role="default-locale"] option:enabled:first').val())
         }
       }
-    } else {
+
+      this.setInterfaceDefaultLanguage()
+    }).trigger('change')
+
+    // single languages
+    $('[data-fork-cms-role="not-multilingual"]').on('change', (event) => {
+      if ($(event.target).is(':checked')) {
+        $('[data-fork-cms-role="multilingual-wrapper"]').hide()
+        $('[data-fork-cms-role="default-locale"] option').removeAttr('disabled')
+      }
+
+      this.setInterfaceDefaultLanguage()
+    }).trigger('change')
+  }
+
+  setInterfaceDefaultLanguage() {
+    let $defaultInterfaceLocale = $('[data-fork-cms-role="default-interface-locale"]')
+    let $defaultInterfaceLocaleOptions = $defaultInterfaceLocale.find('option')
+    // same language as frontend
+    if ($('[data-fork-cms-role="same-interface-locale"]').is(':checked')) {
+      // just 1 language selected = only selected frontend language is available as interface language
+      if ($('[data-fork-cms-role="not-multilingual"]').is(':checked')) {
+        $defaultInterfaceLocaleOptions.prop('disabled', true)
+        $('[data-fork-cms-role="default-interface-locale"] option[value=' + $('[data-fork-cms-role="default-locale"]').val() + ']').removeAttr('disabled')
+        $defaultInterfaceLocale.val($('[data-fork-cms-role="default-interface-locale"] option:enabled:first').val())
+      }
+      else if ($('[data-fork-cms-role="multilingual"]').is(':checked')) {
+        $defaultInterfaceLocaleOptions.prop('disabled', true)
+        $('[data-fork-cms-role="locales"] input:checked').each((index, element) => {
+          $('[data-fork-cms-role="default-interface-locale"] option[value=' + $(element).val() + ']').removeAttr('disabled')
+        })
+
+        if ($('[data-fork-cms-role="default-interface-locale"] option[value=' + $defaultInterfaceLocale.val() + ']').length === 0) {
+          $defaultInterfaceLocale.val($('[data-fork-cms-role="default-interface-locale"] option:enabled:first').val())
+        }
+      }
+    }
+    else {
       // different languages than frontend
-      $('#install_languages_default_interface_language option').prop('disabled', true)
-      $('#interfaceLanguages input:checked').each((index, element) => {
-        $('#install_languages_default_interface_language option[value=' + $(element).val() + ']').removeAttr('disabled')
+      $defaultInterfaceLocaleOptions.prop('disabled', true)
+      $('[data-fork-cms-role="interface-locales"] input:checked').each((index, element) => {
+        $('[data-fork-cms-role="default-interface-locale"] option[value=' + $(element).val() + ']').removeAttr('disabled')
       })
-      if ($('#install_languages_default_interface_language option[value=' + $('#install_languages_default_interface_language').val() + ']').length === 0) {
-        $('#install_languages_default_interface_language').val($('#install_languages_default_interface_language option:enabled:first').val())
+      if ($('[data-fork-cms-role="default-interface-locale"] option[value=' + $defaultInterfaceLocale.val() + ']').length === 0) {
+        $defaultInterfaceLocale.val($('[data-fork-cms-role="default-interface-locale"] option:enabled:first').val())
       }
     }
   }
 
-  handleLanguageChanges () {
-    $('#languages input:checkbox').on('change', () => {
-      $('#install_languages_default_language option').prop('disabled', true)
-      $('#languages input:checked').each((index, element) => {
-        $('#install_languages_default_language option[value=' + $(element).val() + ']').removeAttr('disabled')
+  handleLanguageChanges() {
+    $('[data-fork-cms-role="locales"] input:checkbox').on('change', () => {
+      $('[data-fork-cms-role="default-locale"] option').prop('disabled', true)
+      $('[data-fork-cms-role="locales"] input:checked').each((index, element) => {
+        $('[data-fork-cms-role="default-locale"] option[value=' + $(element).val() + ']').removeAttr('disabled')
       })
-      if ($('#install_languages_default_language option[value=' + $('#install_languages_default_language').val() + ']').length === 0) {
-        $('#install_languages_default_language').val($('#install_languages_default_language option:enabled:first').val())
+      let $defaultLocale = $('[data-fork-cms-role="default-locale"]')
+      if ($('[data-fork-cms-role="default-locale"] option[value=' + $defaultLocale.val() + ']').length === 0) {
+        $defaultLocale.val($('[data-fork-cms-role="default-locale"] option:enabled:first').val())
       }
 
       this.setInterfaceDefaultLanguage()
     })
 
-    $('#install_languages_default_language').on('change', () => {
+    $('[data-fork-cms-role="default-locale"]').on('change', () => {
       this.setInterfaceDefaultLanguage()
     })
 
     // interface language
-    if ($('#install_languages_same_interface_language').is(':checked')) {
-      $('#interfaceLanguagesExplanation').hide()
-      $('#interfaceLanguages').hide()
-
-      this.setInterfaceDefaultLanguage()
-    }
-
-    $('#install_languages_same_interface_language').on('change', () => {
-      if ($('#install_languages_same_interface_language').is(':checked')) {
-        $('#interfaceLanguagesExplanation').hide()
-        $('#interfaceLanguages').hide()
-      } else {
-        $('#interfaceLanguagesExplanation').show()
-        $('#interfaceLanguages').show()
+    $('[data-fork-cms-role="same-interface-locale"]').on('change', () => {
+      if ($('[data-fork-cms-role="same-interface-locale"]').is(':checked')) {
+        $('[data-fork-cms-role="interface-locales-explanation"]').hide()
+        $('[data-fork-cms-role="interface-locales"]').hide()
+      }
+      else {
+        $('[data-fork-cms-role="interface-locales-explanation"]').show()
+        $('[data-fork-cms-role="interface-locales"]').show()
       }
 
       this.setInterfaceDefaultLanguage()
-    })
+    }).trigger('change')
 
-    $('#interfaceLanguages input:checkbox').on('change', () => {
+    $('[data-fork-cms-role="interface-locales"] input:checkbox').on('change', () => {
       this.setInterfaceDefaultLanguage()
     })
   }
