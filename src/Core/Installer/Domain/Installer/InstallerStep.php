@@ -43,6 +43,11 @@ final class InstallerStep extends Enum
         return self::from($this->value - 1);
     }
 
+    public function hasPrevious(): bool
+    {
+        return self::tryFrom($this->value - 1) !== null;
+    }
+
     public function route(): string
     {
         return 'install_step' . $this->value;
