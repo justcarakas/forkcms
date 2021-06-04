@@ -105,16 +105,10 @@ class LocalesType extends AbstractType implements DataTransformerInterface
     public function reverseTransform($value): LocalesStepConfiguration
     {
         if (!$value instanceof LocalesStepConfiguration) {
-            throw new InvalidArgumentException('Only an instance of LocalesConfiguration is allowed here');
+            throw new InvalidArgumentException('Only an instance of LocalesStepConfiguration is allowed here');
         }
 
-        if (!$value->multilingual) {
-            $value->locales = [$value->defaultLocale];
-        }
-
-        if ($value->sameInterfaceLocale) {
-            $value->interfaceLocales = $value->locales;
-        }
+        $value->normalise();
 
         return $value;
     }
