@@ -68,7 +68,7 @@ final class AuthenticationStepConfiguration implements InstallerStepConfiguratio
 
         return new self(
             $installerConfiguration->getAdminEmail(),
-            $installerConfiguration->getAdminPasswordEmail(),
+            $installerConfiguration->getAdminPassword(),
             $installerConfiguration->hasDifferentDebugEmail(),
             $installerConfiguration->getDebugEmail()
         );
