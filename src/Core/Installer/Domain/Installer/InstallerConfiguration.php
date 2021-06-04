@@ -185,7 +185,7 @@ final class InstallerConfiguration
         return $this->databasePort;
     }
 
-    public function withAuthenticationStep(AuthenticationStepConfiguration $authenticationStepConfiguration)
+    public function withAuthenticationStep(AuthenticationStepConfiguration $authenticationStepConfiguration): void
     {
         $authenticationStepConfiguration->normalise();
 

@@ -2,6 +2,6 @@ doctrine:
   dbal:
     types:
       core_locale_locale: ForkCMS\Core\Domain\Locale\LocaleDBALType
-      core_module_modulename: ForkCMS\Core\Domain\Locale\ModuleNameDBALType
+      core_module_modulename: ForkCMS\Core\Domain\Module\ModuleNameDBALType
   orm:
     mappings:
