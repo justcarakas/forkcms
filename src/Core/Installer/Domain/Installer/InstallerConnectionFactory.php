@@ -6,9 +6,8 @@ use Doctrine\Bundle\DoctrineBundle\ConnectionFactory;
 use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\DriverManager;
-use Doctrine\DBAL\Exception\ConnectionException;
+use Exception;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class InstallerConnectionFactory extends ConnectionFactory
@@ -29,8 +28,8 @@ class InstallerConnectionFactory extends ConnectionFactory
         array $mappingTypes = []
     ): Connection {
         try {
-            $installationData = $this->getInstallationData();
-            if ($installationData->getDatabaseHostname() === null) {
+            $installationData = $this->getInstallerConfiguration();
+            if (!$installationData->hasStep(InstallerStep::database())) {
                 return $this->getInstallerConnection($params, $config, $eventManager);
             }
 
@@ -42,14 +41,14 @@ class InstallerConnectionFactory extends ConnectionFactory
 
             //continue with regular connection creation using new params
             return parent::createConnection($params, $config, $eventManager, $mappingTypes);
-        } catch (ConnectionException | DBALException $e) {
+        } catch (Exception) {
             return $this->getInstallerConnection($params, $config, $eventManager);
         }
     }
 
-    private function getInstallationData(): InstallationData
+    private function getInstallerConfiguration(): InstallerConfiguration
     {
-        return InstallationData::fromSession($this->session);
+        return InstallerConfiguration::fromSession($this->session);
     }
 
     private function getInstallerConnection(
