@@ -48,6 +48,11 @@ final class InstallerConfiguration
         $this->withSteps[$installerStep->value] = $installerStep;
     }
 
+    public function withRequirementsStep(): void
+    {
+        $this->addStep(InstallerStep::requirements());
+    }
+
     public function withLocaleStep(LocalesStepConfiguration $localesStepConfiguration): void
     {
         $this->multilingual = $localesStepConfiguration->multilingual;
