@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Core\Installer\Controller;
 
+use ForkCMS\Core\Installer\Domain\Installer\InstallerConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;
 use ForkCMS\Core\Installer\Domain\Requirement\RequirementsChecker;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -35,6 +36,8 @@ final class RequirementCheckerController extends AbstractStepController
 
         // if all our requirements are met, go to the next step
         if ($this->requirementsChecker->passes()) {
+            InstallerConfiguration::fromSession($request->getSession())->withRequirementsStep();
+
             return new RedirectResponse($this->router->generate($step->next()->route()));
         }
 
