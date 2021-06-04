@@ -79,6 +79,17 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
         );
     }
 
+    public function normalise(): void
+    {
+        if (!$this->multilingual) {
+            $this->locales = [$this->defaultLocale];
+        }
+
+        if ($this->sameInterfaceLocale) {
+            $this->interfaceLocales = $this->locales;
+        }
+    }
+
     private function setLocales(Locale ...$locales): void
     {
         $this->locales = $locales;

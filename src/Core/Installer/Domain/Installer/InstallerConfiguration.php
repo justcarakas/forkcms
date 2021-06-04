@@ -3,7 +3,9 @@
 namespace ForkCMS\Core\Installer\Domain\Installer;
 
 use ForkCMS\Core\Domain\Locale\Locale;
+use ForkCMS\Core\Domain\Module\ModuleInstallerLocator;
 use ForkCMS\Core\Installer\Domain\Locale\LocalesStepConfiguration;
+use ForkCMS\Core\Installer\Domain\Module\ModulesStepConfiguration;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -55,6 +57,7 @@ final class InstallerConfiguration
 
     public function withLocaleStep(LocalesStepConfiguration $localesStepConfiguration): void
     {
+        $localesStepConfiguration->normalise();
         $this->multilingual = $localesStepConfiguration->multilingual;
         $this->defaultLocale = $localesStepConfiguration->defaultLocale
                                ?? throw new InvalidArgumentException('A default locale is missing');
