@@ -8,7 +8,7 @@ use Spatie\Enum\Enum;
 
 /**
  * @method static self requirements()
- * @method static self languages()
+ * @method static self locales()
  * @method static self modules()
  * @method static self database()
  * @method static self login()
@@ -20,7 +20,7 @@ final class InstallerStep extends Enum
     {
         return [
             'requirements' => 1,
-            'languages' => 2,
+            'locales' => 2,
             'modules' => 3,
             'database' => 4,
             'login' => 5,
