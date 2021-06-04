@@ -50,11 +50,11 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
     public ?Locale $defaultInterfaceLocale = null;
 
     private function __construct(
-        bool $multilingual,
-        array $locales,
-        array $interfaceLocales,
-        ?Locale $defaultLocale,
-        ?Locale $defaultInterfaceLocale,
+        bool $multilingual = false,
+        array $locales = [],
+        array $interfaceLocales = [],
+        ?Locale $defaultLocale = null,
+        ?Locale $defaultInterfaceLocale = null,
     ) {
         $this->multilingual = $multilingual;
         $this->setLocales(...$locales);
@@ -67,7 +67,7 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
     public static function fromInstallerConfiguration(InstallerConfiguration $installerConfiguration): static
     {
         if (!$installerConfiguration->hasStep(self::getStep())) {
-            return new self(false, [], [], null, null);
+            return new self();
         }
 
         return new self(

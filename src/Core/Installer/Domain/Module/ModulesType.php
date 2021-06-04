@@ -2,88 +2,90 @@
 
 namespace ForkCMS\Core\Installer\Domain\Module;
 
-use ForkCMS\Core\Installer\Domain\Installer\ForkInstaller;
-use ForkCMS\Core\Installer\Domain\Installer\InstallationData;
+use ForkCMS\Core\Domain\Module\ModuleInstallerLocator;
+use ForkCMS\Core\Domain\Module\ModuleName;
+use ForkCMS\Modules\Blog\Installer\BlogInstaller;
+use InvalidArgumentException;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 
 /**
  * Builds the form to select modules to install
  */
-class ModulesType extends AbstractType
+class ModulesType extends AbstractType implements DataTransformerInterface
 {
+    public function __construct(private ModuleInstallerLocator $moduleInstallerLocator)
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add(
-                'modules',
-                ChoiceType::class,
-                [
-                    'choices' => $this->getInstallableModules(),
-                    'expanded' => true,
-                    'multiple' => true,
-                ]
-            )
-            ->add(
-                'example_data',
-                CheckboxType::class,
-                [
-                    'label' => 'Install example data',
-                    'required' => false,
-                ]
-            )
-            ->add(
-                'different_debug_email',
-                CheckboxType::class,
-                [
-                    'label' => 'Use a specific debug email address',
-                    'required' => false,
-                ]
-            )
-            ->add(
-                'debug_email',
-                EmailType::class,
-                [
-                    'required' => false,
-                ]
-            )
-        ;
+        $requiredModules = $this->moduleInstallerLocator->getRequiredModuleNames();
+        $builder->add(
+            'modules',
+            ChoiceType::class,
+            [
+                'choices' => $this->moduleInstallerLocator->getModuleNamesForOverview(),
+                'choice_value' => static fn(ModuleName $moduleName): string => $moduleName->getName(),
+                'choice_label' => static fn(ModuleName $moduleName): string => $moduleName->getName(),
+                'preferred_choices' => static function (ModuleName $moduleName) use ($requiredModules): bool {
+                    return in_array($moduleName, $requiredModules);
+                },
+                'choice_attr' => static function (ModuleName $moduleName) use ($requiredModules): array {
+                    if (in_array($moduleName, $requiredModules)) {
+                        return [
+                            'checked' => 'checked',
+                            'disabled' => 'disabled',
+                        ];
+                    }
 
-        // make sure the required modules are selected when submitting
-        $builder->addEventListener(
-            FormEvents::PRE_SUBMIT,
-            function (FormEvent $event) {
-                $data = $event->getData();
-
-                // add the modules array if it doesn't exit
-                if (!isset($data['modules'])) {
-                    $data['modules'] = [];
-                }
-
-                $data['modules'] = array_merge(
-                    $data['modules'],
-                    ForkInstaller::getRequiredModules()
-                );
-
-                $event->setData($data);
-            }
-        );
+                    return [];
+                },
+                'expanded' => true,
+                'multiple' => true,
+                'choice_translation_domain' => false,
+            ]
+        )->add(
+            'installExampleData',
+            CheckboxType::class,
+            [
+                'label' => 'Install example data',
+                'required' => false,
+            ]
+        )->add(
+            'differentDebugEmail',
+            CheckboxType::class,
+            [
+                'label' => 'Use a specific debug email address',
+                'required' => false,
+                'attr' => [
+                    'data-fork-cms-role' => 'different-debug-email',
+                ],
+            ]
+        )->add(
+            'debugEmail',
+            EmailType::class,
+            [
+                'required' => false,
+                'attr' => [
+                    'data-fork-cms-role' => 'debug-email',
+                ],
+            ]
+        )->addModelTransformer($this);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'data_class' => InstallationData::class,
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => ModulesStepConfiguration::class,
+            ]
+        );
     }
 
     public function getBlockPrefix(): string
@@ -91,45 +93,19 @@ class ModulesType extends AbstractType
         return 'install_modules';
     }
 
-    protected function getInstallableModules(): array
+    public function transform($value): ModulesStepConfiguration
     {
-        $modules = array_unique(array_merge(
-            ForkInstaller::getRequiredModules(),
-            BackendModel::getModulesOnFilesystem(false)
-        ));
-        $this->removeHiddenModules($modules);
-
-        return array_combine($modules, $modules);
+        return $value;
     }
 
-    /**
-     * Make sure the required modules are checked and can't be disabled
-     *
-     * @param FormView      $view    The FormView generated by Symfony
-     * @param FormInterface $form    The form itself
-     * @param array         $options The array options
-     */
-    public function finishView(FormView $view, FormInterface $form, array $options): void
+    public function reverseTransform($value): ModulesStepConfiguration
     {
-        foreach ($view->children['modules']->children as $module) {
-            if (in_array($module->vars['value'], ForkInstaller::getRequiredModules(), true)) {
-                $module->vars['attr']['disabled'] = 'disabled';
-                $module->vars['checked'] = true;
-            }
+        if (!$value instanceof ModulesStepConfiguration) {
+            throw new InvalidArgumentException('Only an instance of ModulesStepConfiguration is allowed here');
         }
-    }
 
-    /**
-     * Remove the hidden modules from the modules array
-     *
-     * @param array $modules The modules we wan't to clean up
-     */
-    protected function removeHiddenModules(&$modules): void
-    {
-        foreach ($modules as $key => $module) {
-            if (in_array($module, ForkInstaller::getHiddenModules(), true)) {
-                unset($modules[$key]);
-            }
-        }
+        $value->normalise($this->moduleInstallerLocator);
+
+        return $value;
     }
 }
