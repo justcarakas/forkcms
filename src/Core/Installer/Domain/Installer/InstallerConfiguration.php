@@ -5,9 +5,11 @@ namespace ForkCMS\Core\Installer\Domain\Installer;
 use ForkCMS\Core\Domain\Locale\Locale;
 use ForkCMS\Core\Domain\Module\ModuleInstallerLocator;
 use ForkCMS\Core\Domain\Module\ModuleName;
+use ForkCMS\Core\Installer\Domain\Database\DatabaseStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Locale\LocalesStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Module\ModulesStepConfiguration;
 use InvalidArgumentException;
+use LogicException;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 final class InstallerConfiguration
@@ -22,10 +24,15 @@ final class InstallerConfiguration
     /** @var Locale[] */
     private array $interfaceLocales;
     /** @var ModuleName[] */
-    public array $modules = [];
-    public bool $installExampleData;
-    public bool $differentDebugEmail;
-    public ?string $debugEmail;
+    private array $modules = [];
+    private bool $installExampleData;
+    private bool $differentDebugEmail;
+    private ?string $debugEmail;
+    private string $databaseHostname;
+    private string $databaseUsername;
+    private string $databasePassword;
+    private string $databaseName;
+    private int $databasePort;
 
     public static function fromSession(SessionInterface $session): self
     {
@@ -145,5 +152,45 @@ final class InstallerConfiguration
     public function getDebugEmail(): ?string
     {
         return $this->debugEmail;
+    }
+
+    public function withDatabaseStep(DatabaseStepConfiguration $databaseStepConfiguration): void
+    {
+        if (!$databaseStepConfiguration->canConnectToDatabase()) {
+            throw new LogicException('Invalid database credentials');
+        }
+
+        $this->databaseHostname = (string) $databaseStepConfiguration->databaseHostname;
+        $this->databaseName = (string) $databaseStepConfiguration->databaseName;
+        $this->databaseUsername = (string) $databaseStepConfiguration->databaseUsername;
+        $this->databasePassword = (string) $databaseStepConfiguration->databasePassword;
+        $this->databasePort = $databaseStepConfiguration->databasePort;
+
+        $this->addStep($databaseStepConfiguration::getStep());
+    }
+
+    public function getDatabaseHostname(): string
+    {
+        return $this->databaseHostname;
+    }
+
+    public function getDatabaseUsername(): string
+    {
+        return $this->databaseUsername;
+    }
+
+    public function getDatabasePassword(): string
+    {
+        return $this->databasePassword;
+    }
+
+    public function getDatabaseName(): string
+    {
+        return $this->databaseName;
+    }
+
+    public function getDatabasePort(): int
+    {
+        return $this->databasePort;
     }
 }
