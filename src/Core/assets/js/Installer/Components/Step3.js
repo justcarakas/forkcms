@@ -1,23 +1,16 @@
 export class Step3 {
-  constructor () {
+  constructor() {
     this.toggleDebugEmail()
   }
 
-  toggleDebugEmail () {
-    $('#debugEmailHolder').hide()
-
-    if ($('#install_modules_different_debug_email').is(':checked')) {
-      $('#debugEmailHolder').show()
-    }
-
-    // multiple languages
-    $('#install_modules_different_debug_email').on('change', () => {
-      if ($('#install_modules_different_debug_email').is(':checked')) {
-        $('#debugEmailHolder').show()
-        $('#install_modules_debug_email').focus()
+  toggleDebugEmail() {
+    $('[data-fork-cms-role="different-debug-email"]').on('change', () => {
+      if ($('[data-fork-cms-role="different-debug-email"]').is(':checked')) {
+        $('[data-fork-cms-role="different-debug-email-wrapper"]').show()
+        $('[data-fork-cms-role="debug-email"]').focus()
       } else {
-        $('#debugEmailHolder').hide()
+        $('[data-fork-cms-role="different-debug-email-wrapper"]').hide()
       }
-    })
+    }).trigger('change')
   }
 }

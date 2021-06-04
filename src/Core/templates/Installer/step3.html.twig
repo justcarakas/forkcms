@@ -1,7 +1,5 @@
-{% extends '@ForkCMSInstaller/Installer/base.html.twig' %}
-{% import '@ForkCMSInstaller/Installer/navigation.html.twig' as nav %}
-
-{% form_theme form '@ForkCMSInstaller/Installer/form_theme.html.twig' %}
+{% extends 'base.html.twig' %}
+{% import 'navigation.html.twig' as nav %}
 
 {% block navigation %}
   {{ nav.navigation('step-3') }}
@@ -24,6 +22,7 @@
           <label>Which modules would you like to install?</label>
           <div id="moduleList" class="form-group">
             {{ form_widget(form.modules) }}
+            {{ form_errors(form.modules) }}
           </div>
         </fieldset>
         <fieldset>
@@ -33,20 +32,22 @@
             <small class="text-muted form-text">(The blog-module is required and will be installed)</small>
           </legend>
           <div class="form-group">
-            {{ form_row(form.example_data) }}
+            {{ form_row(form.installExampleData) }}
+            {{ form_errors(form.installExampleData) }}
           </div>
         </fieldset>
         <fieldset class="last">
           <legend>
             Debug mode<br>
             <small class="text-muted form-text">Warning: debug mode is only useful when developing on Fork CMS.</small>
-            <small class="text-muted form-text">You can enable debug mode by adding "<code>SetEnv APP_DEBUG 1</code>" in your virtualhosts file.</small>
+            <small class="text-muted form-text">You can enable debug mode by adding "<code>SetEnv APP_DEBUG 1</code>" in your virtualhosts or .env.local file.</small>
             <small class="text-muted form-text">(Exception emails will be sent to this email address)</small>
           </legend>
           <div class="form-group last">
-            {{ form_row(form.different_debug_email) }}
-            <div id="debugEmailHolder">
-              {{ form_widget(form.debug_email) }}
+            {{ form_row(form.differentDebugEmail) }}
+            <div data-fork-cms-role="different-debug-email-wrapper" style="display: none;">
+              {{ form_widget(form.debugEmail) }}
+              {{ form_errors(form.debugEmail) }}
             </div>
           </div>
         </fieldset>

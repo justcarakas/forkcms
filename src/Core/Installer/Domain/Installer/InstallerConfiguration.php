@@ -4,6 +4,7 @@ namespace ForkCMS\Core\Installer\Domain\Installer;
 
 use ForkCMS\Core\Domain\Locale\Locale;
 use ForkCMS\Core\Domain\Module\ModuleInstallerLocator;
+use ForkCMS\Core\Domain\Module\ModuleName;
 use ForkCMS\Core\Installer\Domain\Locale\LocalesStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Module\ModulesStepConfiguration;
 use InvalidArgumentException;
@@ -16,8 +17,15 @@ final class InstallerConfiguration
     private bool $multilingual;
     private Locale $defaultLocale;
     private Locale $defaultInterfaceLocale;
+    /** @var Locale[] */
     private array $locales;
+    /** @var Locale[] */
     private array $interfaceLocales;
+    /** @var ModuleName[] */
+    public array $modules = [];
+    public bool $installExampleData;
+    public bool $differentDebugEmail;
+    public ?string $debugEmail;
 
     public static function fromSession(SessionInterface $session): self
     {
@@ -99,5 +107,43 @@ final class InstallerConfiguration
     public function getInterfaceLocales(): array
     {
         return $this->interfaceLocales;
+    }
+
+    public function withModulesStep(
+        ModulesStepConfiguration $modulesStepConfiguration,
+        ModuleInstallerLocator $moduleInstallerLocator
+    ): void {
+        $modulesStepConfiguration->normalise($moduleInstallerLocator);
+
+        $this->modules = array_map(
+            static fn(ModuleName $moduleName) => $moduleName,
+            $modulesStepConfiguration->modules
+        );
+        $this->installExampleData = $modulesStepConfiguration->installExampleData;
+        $this->differentDebugEmail = $modulesStepConfiguration->differentDebugEmail;
+        $this->debugEmail = $modulesStepConfiguration->debugEmail;
+
+        $this->addStep($modulesStepConfiguration::getStep());
+    }
+
+    /** @return ModuleName[] */
+    public function getModules(): array
+    {
+        return $this->modules;
+    }
+
+    public function shouldInstallExampleData(): bool
+    {
+        return $this->installExampleData;
+    }
+
+    public function hasDifferentDebugEmail(): bool
+    {
+        return $this->differentDebugEmail;
+    }
+
+    public function getDebugEmail(): ?string
+    {
+        return $this->debugEmail;
     }
 }
