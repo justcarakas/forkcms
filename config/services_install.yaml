@@ -9,7 +9,6 @@ services:
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
     bind:
       string $rootDir: '%kernel.project_dir%'
-      Traversable $availableModules: !tagged_iterator { tag: 'forkcms.module.installer' }
 
   _instanceof:
     ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface:
@@ -20,12 +19,16 @@ services:
       tags:
         - { name: messenger.message_handler, bus: event.bus }
 
+    ForkCMS\Core\Domain\Module\ModuleInstaller:
+      tags:
+        - { name: forkcms.module.installer }
+
   ForkCMS\Core\Installer\:
     resource: '../src/Core/Installer/*'
     exclude:
-      '../src/Core/Installer/Console'
-      '../src/Core/Installer/Controller'
-      '../src/Core/Installer/Domain/Installer/InstallerConnectionFactory.php'
+      - '../src/Core/Installer/Console'
+      - '../src/Core/Installer/Controller'
+      - '../src/Core/Installer/Domain/Installer/InstallerConnectionFactory.php'
 
   ForkCMS\Core\Installer\Controller\:
     resource: '../src/Core/Installer/Controller/*'
@@ -35,3 +38,7 @@ services:
     class: ForkCMS\Core\Installer\Domain\Installer\InstallerConnectionFactory
     arguments:
       - "%doctrine.dbal.connection_factory.types%"
+
+  ForkCMS\Core\Domain\Module\ModuleInstallerLocator:
+    arguments:
+      - !tagged_iterator { tag: 'forkcms.module.installer' }
