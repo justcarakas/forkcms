@@ -11,7 +11,7 @@ use Spatie\Enum\Enum;
  * @method static self locales()
  * @method static self modules()
  * @method static self database()
- * @method static self login()
+ * @method static self authentication()
  * @method static self install()
  */
 final class InstallerStep extends Enum
@@ -23,7 +23,7 @@ final class InstallerStep extends Enum
             'locales' => 2,
             'modules' => 3,
             'database' => 4,
-            'login' => 5,
+            'authentication' => 5,
             'install' => 6,
         ];
     }

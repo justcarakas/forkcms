@@ -1,7 +1,5 @@
-{% extends '@ForkCMSInstaller/Installer/base.html.twig' %}
-{% import '@ForkCMSInstaller/Installer/navigation.html.twig' as nav %}
-
-{% form_theme form '@ForkCMSInstaller/Installer/form_theme.html.twig' %}
+{% extends 'base.html.twig' %}
+{% import 'navigation.html.twig' as nav %}
 
 {% block navigation %}
   {{ nav.navigation('step-5') }}
@@ -19,7 +17,7 @@
         <h3 class="card-title">Settings</h3>
       </div>
       <div class="card-body">
-        <fieldset class="last">
+        <fieldset>
           <legend>
             Enter the e-mail address and password you'd like to use to log in.
           </legend>
@@ -31,31 +29,9 @@
 
           <div class="form-group{% if form.password.first.vars.errors|length %} has-error{% endif %}">
             {{ form_label(form.password.first) }}
-           {# <table id="passwordStrengthMeter" class="passwordStrength" data-id="install_login_password_first">
-              <tr>
-                <td class="strength" id="passwordStrength">
-                  <p class="strength none">
-                    <span class="label label-default">None</span>
-                  </p>
-                  <p class="strength weak">
-                    <span class="label label-danger">Weak</span>
-                  </p>
-                  <p class="strength average">
-                    <span class="label label-warning">Average</span>
-                  </p>
-                  <p class="strength strong">
-                    <span class="label label-success">Strong</span>
-                  </p>
-                </td>
-                <td>
-                  <p class="help-block">&nbsp;Strong passwords consist of a combination of capitals, small letters, digits and special characters.</p>
-                </td>
-              </tr>
-            </table>#}
-
 
             <div class="mb-2">
-              <span class="passwordStrength ms-auto" data-id="install_login_password_first" data-role="password-strength-meter">
+              <span class="passwordStrength ms-auto" data-id="install_authentication_password_first" data-role="password-strength-meter">
                 <span class="badge bg-middle badge-sm" data-role="password-strength" data-strength="none">None</span>
                 <span class="badge bg-danger badge-sm" data-role="password-strength" data-strength="weak">Weak</span>
                 <span class="badge bg-warning badge-sm" data-role="password-strength" data-strength="average">Average</span>
@@ -70,6 +46,21 @@
 
           {{ form_row(form.password.second) }}
 
+        </fieldset>
+        <fieldset class="last">
+          <legend>
+            Debug mode<br>
+            <small class="text-muted form-text">Warning: debug mode is only useful when developing on Fork CMS.</small>
+            <small class="text-muted form-text">You can enable debug mode by adding "<code>SetEnv APP_DEBUG 1</code>" in your virtualhosts or .env.local file.</small>
+            <small class="text-muted form-text">(Exception emails will be sent to this email address)</small>
+          </legend>
+          <div class="form-group last">
+            {{ form_row(form.differentDebugEmail) }}
+            <div data-fork-cms-role="different-debug-email-wrapper" style="display: none;">
+              {{ form_widget(form.debugEmail) }}
+              {{ form_errors(form.debugEmail) }}
+            </div>
+          </div>
         </fieldset>
       </div>
       <div class="card-footer">

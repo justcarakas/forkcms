@@ -5,6 +5,7 @@ namespace ForkCMS\Core\Installer\Domain\Installer;
 use ForkCMS\Core\Domain\Locale\Locale;
 use ForkCMS\Core\Domain\Module\ModuleInstallerLocator;
 use ForkCMS\Core\Domain\Module\ModuleName;
+use ForkCMS\Core\Installer\Domain\Authentication\AuthenticationStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Database\DatabaseStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Locale\LocalesStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Module\ModulesStepConfiguration;
@@ -33,6 +34,8 @@ final class InstallerConfiguration
     private string $databasePassword;
     private string $databaseName;
     private int $databasePort;
+    private string $adminEmail;
+    private string $adminPassword;
 
     public static function fromSession(SessionInterface $session): self
     {
@@ -127,8 +130,6 @@ final class InstallerConfiguration
             $modulesStepConfiguration->modules
         );
         $this->installExampleData = $modulesStepConfiguration->installExampleData;
-        $this->differentDebugEmail = $modulesStepConfiguration->differentDebugEmail;
-        $this->debugEmail = $modulesStepConfiguration->debugEmail;
 
         $this->addStep($modulesStepConfiguration::getStep());
     }
@@ -142,16 +143,6 @@ final class InstallerConfiguration
     public function shouldInstallExampleData(): bool
     {
         return $this->installExampleData;
-    }
-
-    public function hasDifferentDebugEmail(): bool
-    {
-        return $this->differentDebugEmail;
-    }
-
-    public function getDebugEmail(): ?string
-    {
-        return $this->debugEmail;
     }
 
     public function withDatabaseStep(DatabaseStepConfiguration $databaseStepConfiguration): void
@@ -192,5 +183,37 @@ final class InstallerConfiguration
     public function getDatabasePort(): int
     {
         return $this->databasePort;
+    }
+
+    public function withAuthenticationStep(AuthenticationStepConfiguration $authenticationStepConfiguration)
+    {
+        $authenticationStepConfiguration->normalise();
+
+        $this->adminEmail = (string) $authenticationStepConfiguration->email;
+        $this->adminPassword = (string) $authenticationStepConfiguration->password;
+        $this->differentDebugEmail = $authenticationStepConfiguration->differentDebugEmail;
+        $this->debugEmail = $authenticationStepConfiguration->debugEmail;
+
+        $this->addStep($authenticationStepConfiguration::getStep());
+    }
+
+    public function getAdminEmail(): string
+    {
+        return $this->adminEmail;
+    }
+
+    public function getAdminPassword(): string
+    {
+        return $this->adminPassword;
+    }
+
+    public function hasDifferentDebugEmail(): bool
+    {
+        return $this->differentDebugEmail;
+    }
+
+    public function getDebugEmail(): ?string
+    {
+        return $this->debugEmail;
     }
 }

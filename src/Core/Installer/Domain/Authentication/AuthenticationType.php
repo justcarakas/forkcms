@@ -1,0 +1,66 @@
+<?php
+
+namespace ForkCMS\Core\Installer\Domain\Authentication;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+/**
+ * Builds the form to set up login information
+ */
+class AuthenticationType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('email', EmailType::class)
+            ->add(
+                'password',
+                RepeatedType::class,
+                [
+                    'type' => PasswordType::class,
+                    'invalid_message' => 'The passwords do not match.',
+                    'first_options' => ['label' => 'Password'],
+                    'second_options' => ['label' => 'Confirm'],
+                ]
+            )->add(
+                'differentDebugEmail',
+                CheckboxType::class,
+                [
+                    'label' => 'Use a specific debug email address',
+                    'required' => false,
+                    'attr' => [
+                        'data-fork-cms-role' => 'different-debug-email',
+                    ],
+                ]
+            )->add(
+                'debugEmail',
+                EmailType::class,
+                [
+                    'required' => false,
+                    'attr' => [
+                        'data-fork-cms-role' => 'debug-email',
+                    ],
+                ]
+            );
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults(
+            [
+                'data_class' => AuthenticationStepConfiguration::class,
+            ]
+        );
+    }
+
+    public function getBlockPrefix(): string
+    {
+        return 'install_authentication';
+    }
+}
