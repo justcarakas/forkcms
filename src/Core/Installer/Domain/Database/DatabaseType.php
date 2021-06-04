@@ -2,14 +2,10 @@
 
 namespace ForkCMS\Core\Installer\Domain\Database;
 
-use ForkCMS\Core\Installer\Domain\Installer\InstallationData;
-use SpoonDatabase;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -22,65 +18,11 @@ class DatabaseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add(
-                'databaseHostname',
-                TextType::class,
-                [
-                    'required' => true,
-                ]
-            )
-            ->add(
-                'databasePort',
-                TextType::class,
-                [
-                    'required' => true,
-                ]
-            )
-            ->add(
-                'databaseName',
-                TextType::class,
-                [
-                    'required' => true,
-                ]
-            )
-            ->add(
-                'databaseUsername',
-                TextType::class,
-                [
-                    'required' => true,
-                ]
-            )
-            ->add(
-                'databasePassword',
-                PasswordType::class
-            );
-
-        // make sure the default data is set
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) {
-                $data = $event->getData();
-
-                $databaseHostname = $data->getDatabaseHostname();
-                if (empty($databaseHostname) && isset($_SERVER['HTTP_HOST'])) {
-                    // guess database & username
-                    $host = $_SERVER['HTTP_HOST'];
-                    $chunks = explode('.', $host);
-
-                    // seems like windows can't handle localhost...
-                    $data->setDatabaseHostname('127.0.0.1');
-
-                    // remove tld
-                    array_pop($chunks);
-
-                    // create base
-                    $data->setDatabaseName(implode('_', $chunks));
-                    $data->setDatabaseUsername(implode('_', $chunks));
-
-                    $event->setData($data);
-                }
-            }
-        );
+            ->add('databaseHostname', TextType::class)
+            ->add('databasePort', TextType::class)
+            ->add('databaseName', TextType::class)
+            ->add('databaseUsername', TextType::class)
+            ->add('databasePassword', PasswordType::class);
     }
 
     public function getBlockPrefix(): string
@@ -95,37 +37,18 @@ class DatabaseType extends AbstractType
                 'constraints' => [
                     new Callback(
                         [
-                            'callback' => function (InstallationData $data, ExecutionContextInterface $context): void {
-                                try {
-                                    // create instance
-                                    $database = new SpoonDatabase(
-                                        'mysql',
-                                        $data->getDatabaseHostname(),
-                                        $data->getDatabaseUsername(),
-                                        $data->getDatabasePassword(),
-                                        $data->getDatabaseName(),
-                                        $data->getDatabasePort()
-                                    );
-
-                                    // test table
-                                    $table = 'test' . time();
-
-                                    // attempt to create table
-                                    $database->execute('DROP TABLE IF EXISTS ' . $table);
-                                    $database->execute(
-                                        'CREATE TABLE ' . $table . ' (id int(11) NOT NULL) ENGINE=MyISAM'
-                                    );
-
-                                    // drop table
-                                    $database->drop($table);
-                                } catch (\Exception $e) {
+                            'callback' => static function (
+                                DatabaseStepConfiguration $data,
+                                ExecutionContextInterface $context
+                            ): void {
+                                if (!$data->canConnectToDatabase()) {
                                     $context->addViolation('Problem with database credentials');
                                 }
                             },
                         ]
                     ),
                 ],
-                'data_class' => InstallationData::class,
+                'data_class' => DatabaseStepConfiguration::class,
             ]
         );
     }

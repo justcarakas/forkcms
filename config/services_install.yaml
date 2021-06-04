@@ -42,3 +42,7 @@ services:
   ForkCMS\Core\Domain\Module\ModuleInstallerLocator:
     arguments:
       - !tagged_iterator { tag: 'forkcms.module.installer' }
+
+  module_installers:
+    namespace: ForkCMS\Modules\
+    resource: '../src/Modules/*/Installer'

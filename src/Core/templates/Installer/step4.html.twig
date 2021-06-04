@@ -1,7 +1,5 @@
-{% extends '@ForkCMSInstaller/Installer/base.html.twig' %}
-{% import '@ForkCMSInstaller/Installer/navigation.html.twig' as nav %}
-
-{% form_theme form '@ForkCMSInstaller/Installer/form_theme.html.twig' %}
+{% extends 'base.html.twig' %}
+{% import 'navigation.html.twig' as nav %}
 
 {% block navigation %}
   {{ nav.navigation('step-4') }}
@@ -33,7 +31,7 @@
               <div class="d-flex align-items-center">
                 {{ form_widget(form.databaseHostname, {'attr': {'class': 'w-auto me-2'}}) }} : {{ form_widget(form.databasePort, {'attr': {'class': 'w-auto ms-2'}}) }}
               </div>
-              <small class="text-muted form-text">If you are working locally, your hostname is probably <strong>localhost</strong>.</small>
+              <small class="text-muted form-text">If you are working locally, your hostname is probably <code>127.0.0.1</code> or <code>localhost</code>.</small>
             </div>
           </div>
           <div class="form-group">
