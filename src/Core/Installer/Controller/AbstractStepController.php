@@ -2,9 +2,8 @@
 
 namespace ForkCMS\Core\Installer\Controller;
 
-use ForkCMS\Core\Installer\Domain\Installer\InstallationData;
+use ForkCMS\Core\Installer\Domain\Installer\InstallerConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
-use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;
 use ForkCMS\Core\Installer\Domain\Requirement\RequirementsChecker;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -32,15 +31,16 @@ abstract class AbstractStepController
         string $dataClass,
         Request $request
     ): Response {
-        if ($this->requirementsChecker->hasErrors()) {
-            return new RedirectResponse($this->router->generate(InstallerStep::requirements()->route()));
-        }
-
-        $installerConfiguration = $this->getFormData($dataClass, InstallationData::fromSession($request->getSession()));
-        $form = $this->formFactory->create($formTypeClass, $installerConfiguration);
-        $form->handleRequest($request);
+        $installerConfiguration = InstallerConfiguration::fromSession($request->getSession());
+        $installerStepConfiguration = $this->getFormData($dataClass, $installerConfiguration);
         /** @var $dataClass InstallerStepConfiguration */
         $step = $dataClass::getStep();
+        if (!$installerConfiguration->isValidForStep($step)) {
+            return new RedirectResponse($this->router->generate($step->previous()->route()));
+        }
+
+        $form = $this->formFactory->create($formTypeClass, $installerStepConfiguration);
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->commandBus->dispatch($form->getData());
 
@@ -57,9 +57,11 @@ abstract class AbstractStepController
         );
     }
 
-    private function getFormData(string $dataClass, InstallationData $fromSession): InstallerStepConfiguration
-    {
+    private function getFormData(
+        string $dataClass,
+        InstallerConfiguration $installerConfiguration
+    ): InstallerStepConfiguration {
         /** @var $dataClass InstallerStepConfiguration */
-        return $dataClass::fromInstallationData($fromSession);
+        return $dataClass::fromInstallerConfiguration($installerConfiguration);
     }
 }
