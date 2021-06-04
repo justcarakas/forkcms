@@ -1,4 +1,4 @@
-export class Step3 {
+export class Step5 {
   constructor() {
     this.toggleDebugEmail()
   }

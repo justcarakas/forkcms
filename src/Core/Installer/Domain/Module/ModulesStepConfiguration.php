@@ -25,27 +25,12 @@ final class ModulesStepConfiguration implements InstallerStepConfiguration
      */
     public bool $installExampleData = true;
 
-    /**
-     * Do we use a different debug emailaddress
-     */
-    public bool $differentDebugEmail;
-
-    /**
-     * The custom debug emailaddress, if applicable
-     * @Assert\Email()
-     */
-    public ?string $debugEmail;
-
     private function __construct(
         array $modules = [],
-        bool $installExampleData = false,
-        bool $differentDebugEmail = false,
-        ?string $debugEmail = null
+        bool $installExampleData = false
     ) {
         $this->modules = $modules;
         $this->installExampleData = $installExampleData;
-        $this->differentDebugEmail = $differentDebugEmail;
-        $this->debugEmail = $debugEmail;
     }
 
     public static function getStep(): InstallerStep
@@ -62,8 +47,6 @@ final class ModulesStepConfiguration implements InstallerStepConfiguration
         return new self(
             $installerConfiguration->getModules(),
             $installerConfiguration->shouldInstallExampleData(),
-            $installerConfiguration->hasDifferentDebugEmail(),
-            $installerConfiguration->getDebugEmail(),
         );
     }
 
@@ -75,9 +58,5 @@ final class ModulesStepConfiguration implements InstallerStepConfiguration
         }
 
         $this->modules = array_unique($modules);
-
-        if (!$this->differentDebugEmail) {
-            $this->debugEmail = null;
-        }
     }
 }
