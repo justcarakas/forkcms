@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Installer\Controller;
 
 use ForkCMS\Core\Installer\Domain\Installer\InstallationData;
-use ForkCMS\Core\Installer\Domain\Installer\InstallerConfiguration;
+use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;
 use ForkCMS\Core\Installer\Domain\Requirement\RequirementsChecker;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -28,7 +28,6 @@ abstract class AbstractStepController
     abstract public function __invoke(Request $request): Response;
 
     final protected function handleInstallationStep(
-        InstallerStep $step,
         string $formTypeClass,
         string $dataClass,
         Request $request
@@ -37,12 +36,11 @@ abstract class AbstractStepController
             return new RedirectResponse($this->router->generate(InstallerStep::requirements()->route()));
         }
 
-        $form = $this->formFactory->create(
-            $formTypeClass,
-            $this->getFormData($dataClass, InstallationData::fromSession($request->getSession()))
-        );
+        $installerConfiguration = $this->getFormData($dataClass, InstallationData::fromSession($request->getSession()));
+        $form = $this->formFactory->create($formTypeClass, $installerConfiguration);
         $form->handleRequest($request);
-
+        /** @var $dataClass InstallerStepConfiguration */
+        $step = $dataClass::getStep();
         if ($form->isSubmitted() && $form->isValid()) {
             $this->commandBus->dispatch($form->getData());
 
@@ -59,8 +57,9 @@ abstract class AbstractStepController
         );
     }
 
-    private function getFormData(string $dataClass, InstallationData $fromSession): InstallerConfiguration
+    private function getFormData(string $dataClass, InstallationData $fromSession): InstallerStepConfiguration
     {
-        return $dataClass($fromSession);
+        /** @var $dataClass InstallerStepConfiguration */
+        return $dataClass::fromInstallationData($fromSession);
     }
 }
