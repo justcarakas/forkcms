@@ -14,7 +14,7 @@ final class ModuleInstallerLocator
     {
         $this->moduleInstallers = [];
         foreach ($moduleInstallers as $moduleInstaller) {
-            $this->moduleInstallers[$moduleInstaller->getModuleName()->getName()] = $moduleInstaller;
+            $this->moduleInstallers[$moduleInstaller::getModuleName()->getName()] = $moduleInstaller;
         }
     }
 
@@ -59,7 +59,7 @@ final class ModuleInstallerLocator
     private function moduleInstallersToModuleNames(array $moduleInstallers): array
     {
         return array_map(
-            static fn(ModuleInstaller $moduleInstaller): ModuleName => $moduleInstaller->getModuleName(),
+            static fn(ModuleInstaller $moduleInstaller): ModuleName => $moduleInstaller::getModuleName(),
             $moduleInstallers
         );
     }

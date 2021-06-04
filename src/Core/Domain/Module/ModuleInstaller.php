@@ -7,7 +7,7 @@ abstract class ModuleInstaller
     protected bool $isVisibleInOverview = true;
     protected bool $isRequired = false;
 
-    abstract public function getModuleName(): ModuleName;
+    abstract public static function getModuleName(): ModuleName;
 
     abstract public function install(): void;
 
