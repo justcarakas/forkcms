@@ -8,6 +8,7 @@ use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Exception;
+use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class InstallerConnectionFactory extends ConnectionFactory

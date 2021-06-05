@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Installer\Controller;
 
-use ForkCMS\Core\Installer\Domain\Installer\InstallerConfiguration;
+use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Requirement\RequirementsChecker;
 use Symfony\Component\Form\FormFactoryInterface;

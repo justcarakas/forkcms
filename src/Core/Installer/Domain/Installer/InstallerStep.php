@@ -2,8 +2,6 @@
 
 namespace ForkCMS\Core\Installer\Domain\Installer;
 
-use Closure;
-use InvalidArgumentException;
 use Spatie\Enum\Enum;
 
 /**
