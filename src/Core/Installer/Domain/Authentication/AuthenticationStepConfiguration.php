@@ -35,20 +35,33 @@ final class AuthenticationStepConfiguration implements InstallerStepConfiguratio
      */
     public ?string $debugEmail;
 
+    /**
+     * Save the configuration to a yaml file
+     */
+    public bool $saveConfiguration;
+
+    /**
+     * Include passwords in the configuration yaml file
+     */
+    public bool $saveConfigurationWithCredentials;
+
     public function __construct(
         ?string $email = null,
         ?string $password = null,
         bool $differentDebugEmail = false,
-        ?string $debugEmail = null
+        ?string $debugEmail = null,
+        bool $saveConfiguration = false,
+        bool $saveConfigurationWithCredentials = false
     ) {
         $this->email = $email ?? $this->getDefaultEmail();
         $this->password = $password;
         $this->differentDebugEmail = $differentDebugEmail;
         $this->debugEmail = $debugEmail;
+        $this->saveConfiguration = $saveConfiguration;
+        $this->saveConfigurationWithCredentials = $saveConfigurationWithCredentials;
     }
 
-    private
-    function getDefaultEmail(): string
+    private function getDefaultEmail(): string
     {
         $host = $_SERVER['SERVER_NAME'] ?? $_SERVER['HTTP_HOST'] ?? '127.0.0.1';
         if (str_starts_with($host, '127.0.0.1') || str_starts_with($host, 'localhost')) {
@@ -58,8 +71,7 @@ final class AuthenticationStepConfiguration implements InstallerStepConfiguratio
         return 'info@' . $host;
     }
 
-    public
-    static function fromInstallerConfiguration(
+    public static function fromInstallerConfiguration(
         InstallerConfiguration $installerConfiguration
     ): static {
         if (!$installerConfiguration->hasStep(self::getStep())) {
@@ -70,7 +82,9 @@ final class AuthenticationStepConfiguration implements InstallerStepConfiguratio
             $installerConfiguration->getAdminEmail(),
             $installerConfiguration->getAdminPassword(),
             $installerConfiguration->hasDifferentDebugEmail(),
-            $installerConfiguration->getDebugEmail()
+            $installerConfiguration->getDebugEmail(),
+            $installerConfiguration->shouldSaveConfiguration(),
+            $installerConfiguration->shouldSaveConfigurationWithCredentials(),
         );
     }
 
@@ -83,6 +97,10 @@ final class AuthenticationStepConfiguration implements InstallerStepConfiguratio
     {
         if (!$this->differentDebugEmail) {
             $this->debugEmail = null;
+        }
+
+        if (!$this->saveConfiguration) {
+            $this->saveConfigurationWithCredentials = false;
         }
     }
 }

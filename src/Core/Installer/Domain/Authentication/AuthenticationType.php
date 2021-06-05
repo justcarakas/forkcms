@@ -47,6 +47,23 @@ class AuthenticationType extends AbstractType
                         'data-fork-cms-role' => 'debug-email',
                     ],
                 ]
+            )->add(
+                'saveConfiguration',
+                CheckboxType::class,
+                [
+                    'label' => 'Save the installation configuration to a yaml file for future use',
+                    'required' => false,
+                    'attr' => [
+                        'data-fork-cms-role' => 'save-configuration',
+                    ],
+                ]
+            )->add(
+                'saveConfigurationWithCredentials',
+                CheckboxType::class,
+                [
+                    'label' => 'Include database and admin credentials (at own risk)',
+                    'required' => false,
+                ]
             );
     }
 
