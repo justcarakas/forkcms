@@ -4,7 +4,7 @@ namespace ForkCMS\Core\Installer\Domain\Module;
 
 use ForkCMS\Core\Domain\Module\ModuleInstallerLocator;
 use ForkCMS\Core\Domain\Module\ModuleName;
-use ForkCMS\Core\Installer\Domain\Installer\InstallerConfiguration;
+use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
 use ForkCMS\Modules\Blog\Installer\BlogInstaller;

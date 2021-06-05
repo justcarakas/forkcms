@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Installer\Domain\Locale;
 
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
-use ForkCMS\Core\Installer\Domain\Installer\InstallerConfiguration;
+use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 final class LocalesStepConfigurationHandler implements CommandHandlerInterface
