@@ -47,7 +47,7 @@
           {{ form_row(form.password.second) }}
 
         </fieldset>
-        <fieldset class="last">
+        <fieldset>
           <legend>
             Debug mode<br>
             <small class="text-muted form-text">Warning: debug mode is only useful when developing on Fork CMS.</small>
@@ -59,6 +59,19 @@
             <div data-fork-cms-role="different-debug-email-wrapper" style="display: none;">
               {{ form_widget(form.debugEmail) }}
               {{ form_errors(form.debugEmail) }}
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="last">
+          <legend>
+            Save installation configuration<br>
+            <small class="text-muted form-text">Warning: if you enable this a file with the name <code>fork-cms-installation-configuration.yaml</code> will be created in the root directory.</small>
+          </legend>
+          <div class="form-group last">
+            {{ form_row(form.saveConfiguration) }}
+            <div data-fork-cms-role="save-configuration-wrapper" style="display: none;">
+              {{ form_widget(form.saveConfigurationWithCredentials) }}
+              {{ form_errors(form.saveConfigurationWithCredentials) }}
             </div>
           </div>
         </fieldset>
