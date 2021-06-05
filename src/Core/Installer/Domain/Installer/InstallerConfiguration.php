@@ -36,6 +36,8 @@ final class InstallerConfiguration
     private int $databasePort;
     private string $adminEmail;
     private string $adminPassword;
+    private bool $saveConfiguration;
+    private bool $saveConfigurationWithCredentials;
 
     public static function fromSession(SessionInterface $session): self
     {
@@ -193,6 +195,8 @@ final class InstallerConfiguration
         $this->adminPassword = (string) $authenticationStepConfiguration->password;
         $this->differentDebugEmail = $authenticationStepConfiguration->differentDebugEmail;
         $this->debugEmail = $authenticationStepConfiguration->debugEmail;
+        $this->saveConfiguration = $authenticationStepConfiguration->saveConfiguration;
+        $this->saveConfigurationWithCredentials = $authenticationStepConfiguration->saveConfigurationWithCredentials;
 
         $this->addStep($authenticationStepConfiguration::getStep());
     }
@@ -215,5 +219,15 @@ final class InstallerConfiguration
     public function getDebugEmail(): ?string
     {
         return $this->debugEmail;
+    }
+
+    public function shouldSaveConfiguration(): bool
+    {
+        return $this->saveConfiguration;
+    }
+
+    public function shouldSaveConfigurationWithCredentials(): bool
+    {
+        return $this->saveConfigurationWithCredentials;
     }
 }
