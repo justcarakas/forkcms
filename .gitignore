@@ -2,6 +2,8 @@
 /config/parameters.yaml
 /config/cli-install.yaml
 
+fork-cms-installation-configuration.yaml
+
 # Libraries
 /vendor/*
 /node_modules/*

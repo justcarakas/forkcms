@@ -3,19 +3,19 @@
 namespace ForkCMS\Core\Installer\Domain\Configuration;
 
 use ForkCMS\Core\Domain\Locale\Locale;
+use ForkCMS\Core\Domain\Module\ModuleInstallerLocator;
 use ForkCMS\Core\Domain\Module\ModuleName;
 use ForkCMS\Core\Installer\Domain\Authentication\AuthenticationStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Database\DatabaseStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Locale\LocalesStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Module\ModulesStepConfiguration;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
+use InvalidArgumentException;
 use Symfony\Component\Yaml\Tag\TaggedValue;
 use Symfony\Component\Yaml\Yaml;
 
 final class ConfigurationParser
 {
-    public function __construct(private string $rootDir)
+    public function __construct(private string $rootDir, private ModuleInstallerLocator $moduleInstallerLocator)
     {
     }
 
@@ -34,14 +34,14 @@ final class ConfigurationParser
         $configuration = [
             'admin-email' => $withCredentials ? $authentication->email : null,
             'admin-password' => $withCredentials ? $authentication->password : null,
-            'different-debug-email' => (int) $authentication->differentDebugEmail,
+            'different-debug-email' => $authentication->differentDebugEmail,
             'debug-email' => $authentication->debugEmail,
             'database-hostname' => $withCredentials ? $database->databaseHostname : null,
             'database-port' => $withCredentials ? $database->databasePort : null,
             'database-name' => $withCredentials ? $database->databaseName : null,
             'database-username' => $withCredentials ? $database->databaseUsername : null,
             'database-password' => $withCredentials ? $database->databasePassword : null,
-            'multilingual' => (int) $locales->multilingual,
+            'multilingual' => $locales->multilingual,
             'locales' => array_map(
                 static fn(Locale $locale) => new TaggedValue('fork-cms_locale', $locale->value),
                 $locales->locales
@@ -56,20 +56,53 @@ final class ConfigurationParser
                 static fn(ModuleName $moduleName) => new TaggedValue('fork-cms_module', $moduleName->getName()),
                 $modules->modules
             ),
-            'install-example-data' => (int) $modules->installExampleData,
+            'install-example-data' => $modules->installExampleData,
         ];
 
         return Yaml::dump($configuration);
     }
 
-    public function fromYaml(string $yamlComfiguration): InstallerConfiguration
+    public function loadFromYaml(InstallerConfiguration $installerConfiguration, string $yamlComfiguration): void
     {
+        $configuration = Yaml::parse($yamlComfiguration, Yaml::PARSE_CUSTOM_TAGS);
+        $moduleNameMap = $this->moduleInstallerLocator->getAllModuleNames();
+        $configuration['modules'] = array_map(
+            static function (TaggedValue $taggedModule) use ($moduleNameMap): ModuleName {
+                if (!array_key_exists($taggedModule->getValue(), $moduleNameMap)) {
+                    throw new InvalidArgumentException(
+                        'The module "' . $taggedModule->getValue() . '" does not exist.'
+                    );
+                }
 
+                return $moduleNameMap[$taggedModule->getValue()];
+            },
+            $configuration['modules'],
+        );
+        $configuration['locales'] = array_map(
+            static fn(TaggedValue $taggedLocale) => Locale::from($taggedLocale->getValue()),
+            $configuration['locales'],
+        );
+        $configuration['default-locale'] = Locale::from($configuration['default-locale']->getValue());
+        $configuration['interface-locales'] = array_map(
+            static fn(TaggedValue $taggedLocale) => Locale::from($taggedLocale->getValue()),
+            $configuration['interface-locales'],
+        );
+        $configuration['default-interface-locale'] = Locale::from(
+            $configuration['default-interface-locale']->getValue()
+        );
+
+        $installerConfiguration->withLocaleStep(LocalesStepConfiguration::fromArray($configuration));
+        $installerConfiguration->withModulesStep(
+            ModulesStepConfiguration::fromArray($configuration),
+            $this->moduleInstallerLocator
+        );
+        $installerConfiguration->withDatabaseStep(DatabaseStepConfiguration::fromArray($configuration));
+        $installerConfiguration->withAuthenticationStep(AuthenticationStepConfiguration::fromArray($configuration));
     }
 
-    public function fromFile(): InstallerConfiguration
+    public function loadFromFile(InstallerConfiguration $installerConfiguration): void
     {
-        return $this->fromYaml(file_get_contents($this->getFilename()));
+        $this->loadFromYaml($installerConfiguration, file_get_contents($this->getFilename()));
     }
 
     public function configurationFileExists(): bool

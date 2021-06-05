@@ -78,6 +78,17 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
         );
     }
 
+    public static function fromArray(array $configuration): static
+    {
+        return new self(
+            $configuration['multilingual'],
+            $configuration['locales'],
+            $configuration['interface-locales'],
+            $configuration['default-locale'],
+            $configuration['default-interface-locale']
+        );
+    }
+
     public function normalise(): void
     {
         if (!$this->multilingual) {
