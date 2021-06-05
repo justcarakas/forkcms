@@ -71,6 +71,16 @@ final class AuthenticationStepConfiguration implements InstallerStepConfiguratio
         return 'info@' . $host;
     }
 
+    public static function fromArray(array $configuration): static
+    {
+        return new self(
+            $configuration['admin-email'],
+            $configuration['admin-password'],
+            $configuration['different-debug-email'],
+            $configuration['debug-email']
+        );
+    }
+
     public static function fromInstallerConfiguration(
         InstallerConfiguration $installerConfiguration
     ): static {

@@ -58,6 +58,17 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
         return implode('_', $chunks);
     }
 
+    public static function fromArray(array $configuration): static
+    {
+        return new self(
+            $configuration['database-hostname'],
+            $configuration['database-username'],
+            $configuration['database-password'],
+            $configuration['database-name'],
+            $configuration['database-port'],
+        );
+    }
+
     public static function fromInstallerConfiguration(InstallerConfiguration $installerConfiguration): static
     {
         if (!$installerConfiguration->hasStep(self::getStep())) {

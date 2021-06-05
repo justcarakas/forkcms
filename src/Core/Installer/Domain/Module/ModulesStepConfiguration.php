@@ -38,6 +38,14 @@ final class ModulesStepConfiguration implements InstallerStepConfiguration
         return InstallerStep::modules();
     }
 
+    public static function fromArray(array $configuration): static
+    {
+        return new self(
+            $configuration['modules'],
+            $configuration['install-example-data']
+        );
+    }
+
     public static function fromInstallerConfiguration(InstallerConfiguration $installerConfiguration): static
     {
         if (!$installerConfiguration->hasStep(self::getStep())) {

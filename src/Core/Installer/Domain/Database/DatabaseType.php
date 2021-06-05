@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Core\Installer\Domain\Database;
 
+use ForkCMS\Core\Installer\Domain\Authentication\InstallerPasswordType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,7 +23,7 @@ class DatabaseType extends AbstractType
             ->add('databasePort', TextType::class)
             ->add('databaseName', TextType::class)
             ->add('databaseUsername', TextType::class)
-            ->add('databasePassword', PasswordType::class);
+            ->add('databasePassword', InstallerPasswordType::class);
     }
 
     public function getBlockPrefix(): string
