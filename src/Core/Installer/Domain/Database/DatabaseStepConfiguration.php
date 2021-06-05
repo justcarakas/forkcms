@@ -40,7 +40,7 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
         $defaultName = $this->getDefaultName();
         $this->databaseHostname = $databaseHostname ?? $_SERVER['MYSQL_HOST'] ?? '127.0.0.1';
         $this->databaseUsername = $databaseUsername ?? $defaultName;
-        $this->databasePassword = $databasePassword;
+        $this->databasePassword = $databasePassword ?? $defaultName;
         $this->databaseName = $databaseName ?? $defaultName;
         $this->databasePort = $databasePort;
     }
@@ -64,7 +64,13 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
             return new self();
         }
 
-        return new self();
+        return new self(
+            $installerConfiguration->getDatabaseHostname(),
+            $installerConfiguration->getDatabaseUsername(),
+            $installerConfiguration->getDatabasePassword(),
+            $installerConfiguration->getDatabaseName(),
+            $installerConfiguration->getDatabasePort()
+        );
     }
 
     public function canConnectToDatabase(): bool
