@@ -3,8 +3,8 @@
 namespace ForkCMS\Core\Installer\Domain\Configuration;
 
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
-use ForkCMS\Core\Domain\Module\ModuleInstallerLocator;
-use ForkCMS\Core\Domain\Module\ModuleName;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Core\Installer\Domain\Authentication\AuthenticationStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Database\DatabaseStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Locale\LocalesStepConfiguration;

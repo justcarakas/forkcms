@@ -2,8 +2,8 @@
 
 namespace ForkCMS\Modules\Internationalization\Installer;
 
-use ForkCMS\Core\Domain\Module\ModuleInstaller;
-use ForkCMS\Core\Domain\Module\ModuleName;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 
 final class InternationalisationInstaller extends ModuleInstaller
 {
