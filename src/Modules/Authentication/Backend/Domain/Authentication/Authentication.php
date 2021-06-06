@@ -3,9 +3,10 @@
 namespace ForkCMS\Modules\Authentication\Backend\Domain\Authentication;
 
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Modules\Users\Backend\Helper\Model as BackendUsersModel;
 use ForkCMS\Core\Common\Events\ForkEvents;
 use ForkCMS\Core\Common\Events\ForkSessionIdChangedEvent;
+use ForkCMS\Modules\Users\Backend\Helper\Model as BackendUsersModel;
+use ForkCMS\Modules\Users\Backend\Helper\User;
 use RuntimeException;
 
 /**
