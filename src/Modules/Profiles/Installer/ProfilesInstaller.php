@@ -2,8 +2,8 @@
 
 namespace ForkCMS\Modules\Profiles\Installer;
 
-use ForkCMS\Core\Domain\Module\ModuleInstaller;
-use ForkCMS\Core\Domain\Module\ModuleName;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 
 final class ProfilesInstaller extends ModuleInstaller
 {

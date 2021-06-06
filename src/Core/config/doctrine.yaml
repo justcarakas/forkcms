@@ -2,6 +2,5 @@ doctrine:
   dbal:
     types:
       core_application_application: ForkCMS\Core\Domain\Application\ApplicationDBALType
-      core_module_modulename: ForkCMS\Core\Domain\Module\ModuleNameDBALType
   orm:
     mappings:
