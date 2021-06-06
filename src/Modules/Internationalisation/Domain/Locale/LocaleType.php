@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Core\Domain\Locale;
+namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;

@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Installer\Domain\Locale;
 
-use ForkCMS\Core\Domain\Locale\LocaleType;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\LocaleType;
 use InvalidArgumentException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;

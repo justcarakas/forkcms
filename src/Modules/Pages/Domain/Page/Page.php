@@ -6,7 +6,7 @@ use ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\MediaGroup;
 use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\MediaItem;
 use ForkCMS\Modules\Pages\Domain\PageBlock\PageBlock;
 use ForkCMS\Core\Common\Doctrine\Entity\Meta;
-use ForkCMS\Core\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
