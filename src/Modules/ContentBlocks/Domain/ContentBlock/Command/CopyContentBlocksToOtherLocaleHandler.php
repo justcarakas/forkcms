@@ -9,7 +9,7 @@ use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtra;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraType;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
-use ForkCMS\Core\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Core\Common\ForkCMS\Utility\Module\CopyContentToOtherLocale\CopyModuleContentToOtherLocaleHandlerInterface;
 use ForkCMS\Core\Common\ForkCMS\Utility\Module\CopyContentToOtherLocale\CopyModuleContentToOtherLocaleInterface;
 use RuntimeException;

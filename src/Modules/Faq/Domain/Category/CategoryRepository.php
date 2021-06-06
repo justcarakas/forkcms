@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Faq\Domain\Category;
 
 use ForkCMS\Core\Common\Model;
-use ForkCMS\Core\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

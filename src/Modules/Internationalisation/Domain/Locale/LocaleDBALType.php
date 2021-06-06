@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Core\Domain\Locale;
+namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
 use Doctrine\DBAL\Types\TextType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;

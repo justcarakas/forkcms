@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Tags\Domain\Tag;
 
 use ForkCMS\Core\Backend\Helper\Model;
-use ForkCMS\Core\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Core\Common\Uri;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;

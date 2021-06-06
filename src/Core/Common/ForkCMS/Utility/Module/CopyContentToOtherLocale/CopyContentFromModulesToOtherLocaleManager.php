@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Common\ForkCMS\Utility\Module\CopyContentToOtherLocale;
 
 use ForkCMS\Modules\Pages\Domain\Page\Page;
-use ForkCMS\Core\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use SimpleBus\Message\Bus\Middleware\MessageBusSupportingMiddleware;
 
 final class CopyContentFromModulesToOtherLocaleManager

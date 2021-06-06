@@ -9,7 +9,7 @@ use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraType;
 use ForkCMS\Modules\Pages\Domain\PageBlock\PageBlock;
 use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
 use ForkCMS\Core\Common\Doctrine\Entity\Meta;
-use ForkCMS\Core\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

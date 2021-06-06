@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Faq\Domain\Question;
 use ForkCMS\Modules\Faq\Domain\Category\Category;
 use ForkCMS\Modules\Faq\Domain\Feedback\Feedback;
 use ForkCMS\Core\Common\Doctrine\Entity\Meta;
-use ForkCMS\Core\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

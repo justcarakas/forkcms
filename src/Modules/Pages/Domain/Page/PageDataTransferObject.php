@@ -7,7 +7,7 @@ use ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\Type as MediaGroupType;
 use ForkCMS\Modules\Pages\Domain\PageBlock\PageBlockDataTransferObject;
 use ForkCMS\Modules\Tags\Backend\Helper\Model;
 use ForkCMS\Core\Common\Doctrine\Entity\Meta;
-use ForkCMS\Core\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;

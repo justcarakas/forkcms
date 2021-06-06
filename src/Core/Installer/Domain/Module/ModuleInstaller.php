@@ -4,7 +4,7 @@ namespace ForkCMS\Core\Installer\Domain\Module;
 
 use ForkCMS\Core\Backend\Helper\Model;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Core\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Locale\Backend\Helper\Model as BackendLocaleModel;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtra;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository;

@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Faq\Domain\Category;
 use ForkCMS\Modules\Faq\Domain\Question\Question;
 use ForkCMS\Core\Common\Doctrine\Entity\Meta;
 use ForkCMS\Core\Common\Exception\CanNotSetExtraIdException;
-use ForkCMS\Core\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

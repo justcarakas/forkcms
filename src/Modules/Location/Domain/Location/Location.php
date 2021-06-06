@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\Location\Domain\Location;
 
 use ForkCMS\Modules\Location\Domain\LocationSetting\LocationSetting;
 use ForkCMS\Core\Common\Exception\CanNotSetExtraIdException;
-use ForkCMS\Core\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale as BackendLocale;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;

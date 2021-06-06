@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Installer\Domain\Locale;
 
-use ForkCMS\Core\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;

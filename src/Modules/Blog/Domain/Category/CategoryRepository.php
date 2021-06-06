@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Blog\Domain\Category;
 
 use ForkCMS\Core\Common\Model;
-use ForkCMS\Core\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

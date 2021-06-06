@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Core\Domain\Locale;
+namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
 use Serializable;
 use Spatie\Enum\Enum;
