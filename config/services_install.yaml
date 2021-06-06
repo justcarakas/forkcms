@@ -19,7 +19,7 @@ services:
       tags:
         - { name: messenger.message_handler, bus: event.bus }
 
-    ForkCMS\Core\Domain\Module\ModuleInstaller:
+    ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller:
       tags:
         - { name: forkcms.module.installer }
 
@@ -39,7 +39,7 @@ services:
     arguments:
       - "%doctrine.dbal.connection_factory.types%"
 
-  ForkCMS\Core\Domain\Module\ModuleInstallerLocator:
+  ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator:
     arguments:
       - !tagged_iterator { tag: 'forkcms.module.installer' }
 

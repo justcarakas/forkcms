@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Core\Domain\Module;
+namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 abstract class ModuleInstaller
 {

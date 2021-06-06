@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Core\Domain\Module;
+namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use Doctrine\DBAL\Types\StringType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
@@ -19,6 +19,6 @@ class ModuleNameDBALType extends StringType
 
     public function getName(): string
     {
-        return 'core_module_modulename';
+        return 'module_extensions_module_name';
     }
 }
