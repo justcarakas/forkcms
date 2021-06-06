@@ -1,11 +1,11 @@
 <?php
 
-namespace ForkCMS\Modules\Locale\Installer;
+namespace ForkCMS\Modules\Internationalization\Installer;
 
 use ForkCMS\Core\Domain\Module\ModuleInstaller;
 use ForkCMS\Core\Domain\Module\ModuleName;
 
-final class LocaleInstaller extends ModuleInstaller
+final class InternationalisationInstaller extends ModuleInstaller
 {
     public function __construct()
     {
@@ -14,7 +14,7 @@ final class LocaleInstaller extends ModuleInstaller
 
     public static function getModuleName(): ModuleName
     {
-        return ModuleName::fromString('Locale');
+        return ModuleName::fromString('Internationalization');
     }
 
     public function install(): void
