@@ -50,9 +50,9 @@ final class Locale extends Enum implements Serializable
         return $this->value;
     }
 
-    public function unserialize($serialized): void
+    public function unserialize($data): void
     {
-        $this->value = self::from($serialized)->value;
+        $this->value = self::from($data)->value;
     }
 
     public function asTranslatable(): string
