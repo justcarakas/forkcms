@@ -13,26 +13,17 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 final class ModuleRepository extends ServiceEntityRepository
 {
-    /** @var Traversable|InstallableModule[] */
-    private Traversable $availableModules;
-
-    public function __construct(Traversable $availableModules, ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Module::class);
-
-        $this->availableModules = $availableModules;
     }
 
-    public function add(Module $module): void
+    public function save(Module $module): void
     {
         $entityManager = $this->getEntityManager();
-        $entityManager->persist($module);
+        if (!$entityManager->contains($module)) {
+            $entityManager->persist($module);
+        }
         $entityManager->flush();
-    }
-
-    /** @return  Traversable|ModuleName[] */
-    public function getAvailableModules(): Traversable
-    {
-        return $this->availableModules;
     }
 }
