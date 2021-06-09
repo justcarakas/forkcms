@@ -4,7 +4,7 @@ namespace ForkCMS\Core\Frontend\Helper\Block;
 
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraType;
-use ForkCMS\App\KernelLoader;
+use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use ForkCMS\Core\Frontend\Helper\Base\Config;
 use ForkCMS\Core\Frontend\Helper\Base\Widget as FrontendBaseWidget;
 use ForkCMS\Core\Frontend\Helper\Exception as FrontendException;

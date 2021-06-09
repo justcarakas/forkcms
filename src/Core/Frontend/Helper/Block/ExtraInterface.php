@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Frontend\Helper\Block;
 
-use ForkCMS\App\KernelLoader;
+use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use ForkCMS\Core\Frontend\Helper\TwigTemplate;
 use ForkCMS\Core\Frontend\Helper\Url;
 use Symfony\Component\HttpKernel\KernelInterface;

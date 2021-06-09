@@ -5,7 +5,7 @@ namespace ForkCMS\Core\Backend\Domain\Action;
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication;
 use ForkCMS\Core\Backend\Domain\Twig\TwigTemplate;
 use ForkCMS\Core\Common\Exception\RedirectException;
-use ForkCMS\App\KernelLoader;
+use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
