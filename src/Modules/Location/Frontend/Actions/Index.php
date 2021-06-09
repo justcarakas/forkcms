@@ -4,8 +4,8 @@ namespace ForkCMS\Modules\Location\Frontend\Actions;
 
 use ForkCMS\Core\Common\ModulesSettings;
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
-use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language;
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use ForkCMS\Modules\Location\Frontend\Helper\Model as FrontendLocationModel;
 
 /**

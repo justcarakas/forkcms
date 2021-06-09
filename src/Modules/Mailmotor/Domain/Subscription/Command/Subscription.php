@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Mailmotor\Domain\Subscription\Command;
 
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use Symfony\Component\Validator\Constraints as Assert;
 use ForkCMS\Modules\Mailmotor\Domain\Subscription\Validator\Constraints as MailingListAssert;
 

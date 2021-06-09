@@ -4,7 +4,7 @@ namespace ForkCMS\Core\Console\Locale;
 
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Core\Common\ModulesSettings;
 use Exception;
 use ForkCMS\Bundle\InstallerBundle\Language\Locale as InstallableLocale;

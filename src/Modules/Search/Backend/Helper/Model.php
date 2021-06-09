@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Search\Backend\Helper;
 
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**

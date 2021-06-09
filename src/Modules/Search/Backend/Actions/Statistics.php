@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Search\Backend\Actions;
 use ForkCMS\Core\Backend\Domain\Action\Action;
 use ForkCMS\Core\Backend\Domain\DataGrid\DataGridDatabase as BackendDataGridDatabase;
 use ForkCMS\Core\Backend\Domain\DataGrid\DataGridFunctions as BackendDataGridFunctions;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Modules\Search\Backend\Helper\Model as BackendSearchModel;
 
 /**

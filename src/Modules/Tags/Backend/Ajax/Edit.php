@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Tags\Backend\Ajax;
 
 use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BackendBaseAJAXAction;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Modules\Tags\Backend\Helper\Model as BackendTagsModel;
 use ForkCMS\Core\Common\Uri as CommonUri;
 use Symfony\Component\HttpFoundation\Response;

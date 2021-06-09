@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Modules\Locale\Domain\Translator;
+namespace ForkCMS\Modules\Internationalisation\Domain\Translator;
 
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;

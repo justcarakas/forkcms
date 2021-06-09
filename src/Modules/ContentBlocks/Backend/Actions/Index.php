@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\ContentBlocks\Backend\Actions;
 
 use ForkCMS\Core\Backend\Domain\Action\ActionIndex as BackendBaseActionIndex;
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockDataGrid;
 
 /**

@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\Pages\Tests\Backend\Model;
 
 use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Core\Common\WebTestCase;
+use ForkCMS\Core\Tests\WebTestCase;
 
 class ModelTest extends WebTestCase
 {

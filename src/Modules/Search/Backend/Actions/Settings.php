@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\Search\Backend\Actions;
 
 use ForkCMS\Core\Backend\Domain\Action\ActionEdit as BackendBaseActionEdit;
 use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Search\Backend\Helper\Model as BackendSearchModel;
 use ForkCMS\Core\Common\ModulesSettings;

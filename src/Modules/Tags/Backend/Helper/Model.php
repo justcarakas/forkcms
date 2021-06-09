@@ -2,12 +2,12 @@
 
 namespace ForkCMS\Modules\Tags\Backend\Helper;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Modules\Tags\Domain\ModuleTag\ModuleTag;
 use ForkCMS\Modules\Tags\Domain\ModuleTag\ModuleTagRepository;
 use ForkCMS\Modules\Tags\Domain\Tag\Tag;
 use ForkCMS\Modules\Tags\Domain\Tag\TagRepository;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Search\Backend\Helper\Model as BackendSearchModel;
 use ForkCMS\Core\Common\Uri;

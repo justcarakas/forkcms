@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Mailmotor\Domain\Subscription\Event;
 
 use ForkCMS\Modules\Mailmotor\Domain\Subscription\Command\Unsubscription;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 final class NotImplementedUnsubscribedEvent extends Event
 {

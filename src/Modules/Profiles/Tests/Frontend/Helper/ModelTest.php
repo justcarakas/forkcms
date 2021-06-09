@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Profiles\Tests\Frontend\Helper;
 use ForkCMS\Modules\Profiles\Domain\Profile\Profile;
 use ForkCMS\Modules\Profiles\Tests\DataFixtures\LoadProfilesProfile;
 use ForkCMS\Modules\Profiles\Frontend\Helper\Model;
-use ForkCMS\Core\Common\WebTestCase;
+use ForkCMS\Core\Tests\WebTestCase;
 use ForkCMS\Core\Tests\Frontend\FrontendWebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 

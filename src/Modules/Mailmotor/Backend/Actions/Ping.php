@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\Mailmotor\Backend\Actions;
 
 use ForkCMS\Core\Backend\Domain\Action\ActionIndex;
 use ForkCMS\Core\Backend\Helper\Model;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 use ForkCMS\Modules\Mailmotor\Domain\Settings\Command\SaveSettings;
 use ForkCMS\Modules\Mailmotor\Domain\Settings\Event\SettingsSavedEvent;
 use ForkCMS\Core\Common\ModulesSettings;

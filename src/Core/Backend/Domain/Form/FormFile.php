@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Backend\Domain\Form;
 
 use SpoonFilter;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BackendLanguage;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BackendLanguage;
 
 /**
  * This is our extended version of \SpoonFormFile

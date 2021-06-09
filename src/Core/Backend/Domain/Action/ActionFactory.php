@@ -7,7 +7,7 @@ use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 use ForkCMS\Core\Backend\Domain\Action\Action as BackendBaseAction;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BackendLanguage;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BackendLanguage;
 
 /**
  * This class is the real code, it creates an action, loads the config file, ...

@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Pages\Domain\Page;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 
 final class CopyPageDataTransferObject
 {

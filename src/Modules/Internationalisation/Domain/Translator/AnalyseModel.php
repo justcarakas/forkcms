@@ -1,10 +1,10 @@
 <?php
 
-namespace ForkCMS\Modules\Locale\Domain\Translator;
+namespace ForkCMS\Modules\Internationalisation\Domain\Translator;
 
 use ForkCMS\Core\Frontend\Helper\Theme;
-use Symfony\Component\Finder\Finder;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
+use ForkCMS\Modules\Internationalisation\Backend\Helper\Model;
 
 /**
  * In this file we store all generic functions that we will be using in the locale module

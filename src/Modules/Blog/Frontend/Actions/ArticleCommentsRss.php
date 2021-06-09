@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\Blog\Frontend\Actions;
 
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
 use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
-use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FL;
 use ForkCMS\Core\Frontend\Helper\Rss as FrontendRSS;
 use ForkCMS\Core\Frontend\Helper\RssItem as FrontendRSSItem;
 use ForkCMS\Modules\Blog\Frontend\Helper\Model as FrontendBlogModel;
