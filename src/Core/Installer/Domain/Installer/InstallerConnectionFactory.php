@@ -8,18 +8,15 @@ use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Exception;
+use ForkCMS\Core\Installer\Domain\Configuration\ConfigurationParser;
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class InstallerConnectionFactory extends ConnectionFactory
 {
-    private SessionInterface $session;
-
-    public function __construct(array $typesConfig, SessionInterface $session)
+    public function __construct(array $typesConfig, private SessionInterface $session)
     {
         parent::__construct($typesConfig);
-
-        $this->session = $session;
     }
 
     public function createConnection(

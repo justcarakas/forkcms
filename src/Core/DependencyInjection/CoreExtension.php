@@ -2,28 +2,32 @@
 
 namespace ForkCMS\Core\DependencyInjection;
 
+use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader\FileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class CoreExtension extends Extension implements PrependExtensionInterface
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
-        // Nothing needs to be loaded here
+
     }
 
     public function prepend(ContainerBuilder $container): void
     {
+
         $this->getLoader($container)->load('doctrine.yaml');
 
-        return;
-        $filesystem = new Filesystem();
-        foreach ((array) $container->getParameter('installed_modules') as $module) {
+
+        $modules = $this->getModulesForDependencyInjection($container);
+
+        foreach ($modules as $module) {
             $dir = $container->getParameter('kernel.project_dir') . '/src/Backend/Modules/' . $module . '/Entity';
 
             if (!$filesystem->exists($dir)) {
@@ -59,5 +63,15 @@ class CoreExtension extends Extension implements PrependExtensionInterface
     private function getLoader(ContainerBuilder $container): YamlFileLoader
     {
         return  new YamlFileLoader($container, new FileLocator(__DIR__ . '/../config'));
+    }
+
+    /** @return ModuleName[] */
+    private function getModulesForDependencyInjection(ContainerBuilder $container): array
+    {
+        if (!$container->getParameter('fork.is_installed')) {
+            return InstallerConfiguration::fromSession(new Session())?->getModules() ?? [];
+        }
+
+        throw new \RuntimeException('not implemented yet');
     }
 }
