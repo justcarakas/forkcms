@@ -13,6 +13,10 @@ final class InstallForkCMSHandler implements CommandHandlerInterface
 
     public function __invoke(InstallForkCMS $installForkCMS)
     {
+        // extend execution limit
+        set_time_limit(0);
+        ini_set('memory_limit', '512M');
+
         $installerConfiguration = $installForkCMS->getInstallerConfiguration();
         if ($installerConfiguration->shouldSaveConfiguration()) {
             $this->configurationParser->toFile($installForkCMS->getInstallerConfiguration());
