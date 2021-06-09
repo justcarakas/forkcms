@@ -8,7 +8,7 @@ use ForkCMS\Core\Common\Header\JsData;
 use ForkCMS\Core\Common\Header\Minifier;
 use ForkCMS\Core\Common\Header\Priority;
 use ForkCMS\Core\Common\ModulesSettings;
-use ForkCMS\App\KernelLoader;
+use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\HttpKernel\KernelInterface;
 use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
 

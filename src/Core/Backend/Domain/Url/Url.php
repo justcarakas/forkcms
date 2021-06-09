@@ -7,7 +7,7 @@ use ForkCMS\Core\Backend\Domain\Config\Config as BackendBaseConfig;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Core\Common\Exception\RedirectException;
 use ForkCMS\Core\Common\ModulesSettings;
-use ForkCMS\App\KernelLoader;
+use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

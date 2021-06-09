@@ -5,7 +5,7 @@ namespace ForkCMS\Core\Backend\Domain\Ajax;
 use ForkCMS\Core\Backend\Helper\Model;
 use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
 use ForkCMS\Core\Common\Exception\RedirectException;
-use ForkCMS\App\KernelLoader;
+use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

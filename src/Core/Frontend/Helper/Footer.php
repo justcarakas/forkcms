@@ -4,7 +4,7 @@ namespace ForkCMS\Core\Frontend\Helper;
 
 use ForkCMS\Modules\Pages\Domain\Page\Page as PageEntity;
 use ForkCMS\Core\Common\ModulesSettings;
-use ForkCMS\App\KernelLoader;
+use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\HttpKernel\KernelInterface;
 use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
 

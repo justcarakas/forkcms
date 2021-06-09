@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Backend;
 
 use ForkCMS\Core\Common\ApplicationInterface;
-use ForkCMS\App\KernelLoader;
+use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

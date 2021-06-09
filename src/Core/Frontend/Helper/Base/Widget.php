@@ -4,7 +4,7 @@ namespace ForkCMS\Core\Frontend\Helper\Base;
 
 use ForkCMS\Core\Common\Header\Priority;
 use ForkCMS\Core\Common\Exception\RedirectException;
-use ForkCMS\App\KernelLoader;
+use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use ForkCMS\Core\Frontend\Helper\Model;
 use ForkCMS\Core\Frontend\Helper\Url;
 use ForkCMS\Core\Frontend\Domain\Header\Header;

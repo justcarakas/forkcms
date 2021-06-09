@@ -5,7 +5,7 @@ namespace ForkCMS\Core\Frontend\Helper;
 use ForkCMS\Core\Common\BlockEditor\Twig\ParseBlocksExtension;
 use ForkCMS\Core\Common\Exception\RedirectException;
 use ForkCMS\Core\Common\ModulesSettings;
-use ForkCMS\App\KernelLoader;
+use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use ForkCMS\Core\Common\ForkCMS\Privacy\ConsentDialog;
 use ForkCMS\Core\Frontend\Helper\Block\ModuleExtraInterface;
 use ForkCMS\Core\Frontend\Domain\Header\Header;

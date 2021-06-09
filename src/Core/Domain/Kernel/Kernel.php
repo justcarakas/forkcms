@@ -100,4 +100,9 @@ class Kernel extends BaseKernel
     {
         $routes->import(self::ROOT_DIR . 'config/{routes}/install/*.yaml');
     }
+
+    public function getContainerClass(): string
+    {
+        return parent::getContainerClass();
+    }
 }

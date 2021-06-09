@@ -4,7 +4,7 @@ namespace ForkCMS\Core\Backend\Domain\Ajax;
 
 use ForkCMS\Core\Backend\Domain\Config\Config;
 use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BaseAjaxAction;
-use ForkCMS\App\KernelLoader;
+use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 

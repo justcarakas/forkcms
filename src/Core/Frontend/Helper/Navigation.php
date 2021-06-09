@@ -6,7 +6,7 @@ use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtra;
 use ForkCMS\Modules\Pages\Domain\Page\Page as PageEntity;
 use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
 use ForkCMS\Core\Common\ModulesSettings;
-use ForkCMS\App\KernelLoader;
+use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use ForkCMS\Core\Frontend\Helper\Model as FrontendModel;
 use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language;
 use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;

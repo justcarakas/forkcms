@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Frontend\Helper;
 
 use ForkCMS\Modules\Pages\Domain\Page\Page as PageEntity;
-use ForkCMS\App\KernelLoader;
+use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
