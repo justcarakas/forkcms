@@ -16,7 +16,6 @@ class CoreExtension extends Extension implements PrependExtensionInterface
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
-
     }
 
     public function prepend(ContainerBuilder $container): void
@@ -25,44 +24,46 @@ class CoreExtension extends Extension implements PrependExtensionInterface
         $this->getLoader($container)->load('doctrine.yaml');
 
 
+        $filesystem = new Filesystem();
         $modules = $this->getModulesForDependencyInjection($container);
 
         foreach ($modules as $module) {
-            $dir = $container->getParameter('kernel.project_dir') . '/src/Backend/Modules/' . $module . '/Entity';
+            $moduleDirectory = $container->getParameter('kernel.project_dir') . '/src/Modules/' . $module;
 
-            if (!$filesystem->exists($dir)) {
+            if (!$filesystem->exists($moduleDirectory)) {
                 continue;
             }
 
-            /*
-             * Find and load entities in the backend folder.
-             * We do this by looping all installed modules and looking for an Entity directory.
-             * If the Entity map is found, a configuration will be prepended to the configuration.
-             * So it's basically like if you would add every single module by hand, but automagically.
-             *
-             * @TODO Check for YAML/XML files and set the type accordingly
-             */
-            $container->prependExtensionConfig(
-                'doctrine',
-                [
-                    'orm' => [
-                        'mappings' => [
-                            $module => [
-                                'type' => 'annotation',
-                                'is_bundle' => false,
-                                'dir' => $dir,
-                                'prefix' => 'Backend\\Modules\\' . $module . '\\Entity',
+            $domainDirectory = $moduleDirectory . '/Domain';
+            if ($filesystem->exists($domainDirectory)) {
+                $container->prependExtensionConfig(
+                    'doctrine',
+                    [
+                        'orm' => [
+                            'mappings' => [
+                                $module->getName() => [
+                                    'type' => 'annotation',
+                                    'is_bundle' => false,
+                                    'dir' => $domainDirectory,
+                                    'prefix' => 'ForkCMS\\Modules\\' . $module . '\\Domain',
+                                ],
                             ],
                         ],
-                    ],
-                ]
-            );
+                    ]
+                );
+            }
+
+            $dependencyInjectionExtension = 'ForkCMS\\Modules\\' . $module . '\\DependencyInjection\\' . $module . 'Extension';
+
+            if (class_exists($dependencyInjectionExtension)) {
+                $container->registerExtension(new $dependencyInjectionExtension());
+            }
         }
     }
 
     private function getLoader(ContainerBuilder $container): YamlFileLoader
     {
-        return  new YamlFileLoader($container, new FileLocator(__DIR__ . '/../config'));
+        return new YamlFileLoader($container, new FileLocator(__DIR__ . '/../config'));
     }
 
     /** @return ModuleName[] */
