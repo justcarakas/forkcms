@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Core\Installer\Domain\Configuration;
 
+use ForkCMS\Core\Domain\Kernel\Command\ClearContainerCache;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
@@ -13,6 +14,7 @@ use ForkCMS\Core\Installer\Domain\Module\ModulesStepConfiguration;
 use InvalidArgumentException;
 use LogicException;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class InstallerConfiguration
 {
@@ -124,7 +126,8 @@ final class InstallerConfiguration
 
     public function withModulesStep(
         ModulesStepConfiguration $modulesStepConfiguration,
-        ModuleInstallerLocator $moduleInstallerLocator
+        ModuleInstallerLocator $moduleInstallerLocator,
+        MessageBusInterface $commandBus
     ): void {
         $modulesStepConfiguration->normalise($moduleInstallerLocator);
 
@@ -135,6 +138,7 @@ final class InstallerConfiguration
         $this->installExampleData = $modulesStepConfiguration->installExampleData;
 
         $this->addStep($modulesStepConfiguration::getStep());
+        $commandBus->dispatch(new ClearContainerCache());
     }
 
     /** @return ModuleName[] */
