@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Common;
 
 use ForkCMS\Core\Common\Exception\InvalidInitTypeException;
-use ForkCMS\App\KernelLoader;
+use ForkCMS\Core\Domain\Kernel\KernelLoader;
 
 /**
  * This class will initiate the application
