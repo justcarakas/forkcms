@@ -10,13 +10,17 @@ use ForkCMS\Core\Installer\Domain\Database\DatabaseStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Locale\LocalesStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Module\ModulesStepConfiguration;
 use InvalidArgumentException;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Yaml\Tag\TaggedValue;
 use Symfony\Component\Yaml\Yaml;
 
 final class ConfigurationParser
 {
-    public function __construct(private string $rootDir, private ModuleInstallerLocator $moduleInstallerLocator)
-    {
+    public function __construct(
+        private string $rootDir,
+        private ModuleInstallerLocator $moduleInstallerLocator,
+        private MessageBusInterface $commandBus
+    ) {
     }
 
     public function toFile(InstallerConfiguration $installerConfiguration): void
@@ -94,7 +98,8 @@ final class ConfigurationParser
         $installerConfiguration->withLocaleStep(LocalesStepConfiguration::fromArray($configuration));
         $installerConfiguration->withModulesStep(
             ModulesStepConfiguration::fromArray($configuration),
-            $this->moduleInstallerLocator
+            $this->moduleInstallerLocator,
+            $this->commandBus
         );
         $installerConfiguration->withDatabaseStep(DatabaseStepConfiguration::fromArray($configuration));
         $installerConfiguration->withAuthenticationStep(AuthenticationStepConfiguration::fromArray($configuration));
@@ -102,6 +107,10 @@ final class ConfigurationParser
 
     public function loadFromFile(InstallerConfiguration $installerConfiguration): void
     {
+        if (!$this->configurationFileExists()) {
+            return;
+        }
+
         $this->loadFromYaml($installerConfiguration, file_get_contents($this->getFilename()));
     }
 

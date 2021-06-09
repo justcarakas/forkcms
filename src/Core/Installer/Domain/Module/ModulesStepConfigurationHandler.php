@@ -6,12 +6,14 @@ use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class ModulesStepConfigurationHandler implements CommandHandlerInterface
 {
     public function __construct(
         private SessionInterface $session,
-        private ModuleInstallerLocator $moduleInstallerLocator
+        private ModuleInstallerLocator $moduleInstallerLocator,
+        private MessageBusInterface $commandBus
     ) {
     }
 
@@ -19,7 +21,8 @@ final class ModulesStepConfigurationHandler implements CommandHandlerInterface
     {
         InstallerConfiguration::fromSession($this->session)->withModulesStep(
             $modulesStepConfiguration,
-            $this->moduleInstallerLocator
+            $this->moduleInstallerLocator,
+            $this->commandBus
         );
     }
 }
