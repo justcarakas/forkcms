@@ -6,8 +6,8 @@ use ForkCMS\Core\Backend\Domain\DataGrid\DataGridDatabase;
 use ForkCMS\Core\Backend\Domain\Twig\TemplateModifiers;
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
 use ForkCMS\Core\Backend\Helper\Model;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use SpoonFilter;
 
 /**

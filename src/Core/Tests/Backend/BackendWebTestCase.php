@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Tests\Backend;
 
-use ForkCMS\Core\Common\WebTestCase;
+use ForkCMS\Core\Tests\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\HttpFoundation\Session\Session;
 

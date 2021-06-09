@@ -1,9 +1,9 @@
 <?php
 
-namespace ForkCMS\Modules\Locale\Backend\Domain\Translator;
+namespace ForkCMS\Modules\Internationalisation\Backend\Domain\Translator;
 
 use ForkCMS\Core\Backend\Helper\Model;
-use ForkCMS\Modules\Locale\Backend\Helper\Model as BackendLocaleModel;
+use ForkCMS\Modules\Internationalisation\Backend\Helper\Model as BackendLocaleModel;
 use ForkCMS\Core\Common\ModulesSettings;
 use RuntimeException;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;

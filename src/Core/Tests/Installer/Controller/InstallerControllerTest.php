@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Tests\Installer\Controller;
 
-use ForkCMS\Core\Common\WebTestCase;
+use ForkCMS\Core\Tests\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;

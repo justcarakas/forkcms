@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Pages\Domain\PageBlock;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Common\Language;
 use JsonSerializable;
 use RuntimeException;

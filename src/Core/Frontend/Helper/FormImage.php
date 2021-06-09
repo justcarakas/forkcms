@@ -5,7 +5,7 @@ namespace ForkCMS\Core\Frontend\Helper;
 use ForkCMS\Core\Common\ForkCMS\Utility\Thumbnails;
 use SpoonFormImage;
 use Symfony\Component\Filesystem\Filesystem;
-use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FL;
 
 /**
  * This is our extended version of \SpoonFormImage

@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Error\Backend\Actions;
 
 use ForkCMS\Core\Backend\Domain\Action\ActionIndex as BackendBaseActionIndex;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Common\Exception\ExitException;
 use Symfony\Component\HttpFoundation\Response;
 

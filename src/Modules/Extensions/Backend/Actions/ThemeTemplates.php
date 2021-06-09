@@ -7,7 +7,7 @@ use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication 
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
 use ForkCMS\Core\Backend\Domain\DataGrid\DataGridDatabase as BackendDataGridDatabase;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Modules\Extensions\Backend\Helper\Model as BackendExtensionsModel;
 use ForkCMS\Core\Common\ModulesSettings;
 

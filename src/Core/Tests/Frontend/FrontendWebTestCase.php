@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Tests\Frontend;
 
-use ForkCMS\Core\Common\WebTestCase;
+use ForkCMS\Core\Tests\WebTestCase;
 
 abstract class FrontendWebTestCase extends WebTestCase
 {

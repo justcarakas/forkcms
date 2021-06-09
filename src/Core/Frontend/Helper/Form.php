@@ -15,7 +15,7 @@ use SpoonFormTime;
 /**
  * This is our extended version of SpoonForm.
  */
-class Form extends \Common\Core\Form
+class Form extends \ForkCMS\Core\Common\Form
 {
     /**
      * Adds a single file field.

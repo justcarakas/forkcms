@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Faq\Backend\Helper;
 
 use ForkCMS\Modules\Faq\Domain\Category\Category;
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Modules\Faq\Domain\Category\CategoryRepository;
 use ForkCMS\Modules\Faq\Domain\Feedback\Feedback;
 use ForkCMS\Modules\Faq\Domain\Feedback\FeedbackRepository;
@@ -12,7 +12,7 @@ use ForkCMS\Modules\Faq\Domain\Question\QuestionRepository;
 use ForkCMS\Core\Common\Doctrine\Repository\MetaRepository;
 use ForkCMS\Core\Common\ModulesSettings;
 use ForkCMS\Core\Common\Uri as CommonUri;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraType;
 use ForkCMS\Modules\Tags\Backend\Helper\Model as BackendTagsModel;

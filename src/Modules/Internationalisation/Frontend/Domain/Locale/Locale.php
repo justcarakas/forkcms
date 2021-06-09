@@ -1,10 +1,10 @@
 <?php
 
-namespace ForkCMS\Modules\Locale\Frontend\Domain\Locale;
+namespace ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale;
 
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale as CommonLocale;
 
-final class Locale extends CommonLocale
+final class Locale
 {
     public static function frontendLanguage(): ?self
     {

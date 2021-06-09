@@ -1,11 +1,11 @@
 <?php
 
-namespace ForkCMS\Modules\Locale\Backend\Actions;
+namespace ForkCMS\Modules\Internationalisation\Backend\Actions;
 
 use ForkCMS\Core\Backend\Domain\Action\ActionIndex as BackendBaseActionIndex;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
-use ForkCMS\Modules\Locale\Backend\Helper\Model as BackendLocaleModel;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Helper\Model as BackendLocaleModel;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

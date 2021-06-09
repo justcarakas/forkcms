@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Profiles\Tests\Frontend\Helper;
 use ForkCMS\Modules\Profiles\Tests\DataFixtures\LoadProfilesProfile;
 use ForkCMS\Core\Tests\Frontend\FrontendWebTestCase;
 use ForkCMS\Modules\Profiles\Domain\Profile\Status;
-use ForkCMS\Core\Common\WebTestCase;
+use ForkCMS\Core\Tests\WebTestCase;
 use ForkCMS\Core\Frontend\Helper\Model as FrontendModel;
 use ForkCMS\Modules\Profiles\Frontend\Helper\Authentication;
 use SpoonDatabase;

@@ -5,7 +5,7 @@ namespace ForkCMS\Core\Frontend;
 /**
  * This class will initiate the frontend-application
  */
-class Init extends \Common\Core\Init
+class Init extends \ForkCMS\Core\Common\Init
 {
     protected $allowedTypes = ['Frontend', 'FrontendAjax'];
 }

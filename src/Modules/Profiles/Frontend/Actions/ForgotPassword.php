@@ -6,7 +6,7 @@ use ForkCMS\Core\Common\Mailer\Message;
 use ForkCMS\Core\Common\ModulesSettings;
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
 use ForkCMS\Core\Frontend\Helper\Form as FrontendForm;
-use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FL;
 use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
 use ForkCMS\Modules\Profiles\Frontend\Helper\Authentication as FrontendProfilesAuthentication;
 use ForkCMS\Modules\Profiles\Frontend\Helper\Model as FrontendProfilesModel;

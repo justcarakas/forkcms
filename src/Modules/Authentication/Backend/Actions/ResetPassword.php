@@ -6,7 +6,7 @@ use ForkCMS\Core\Backend\Domain\Action\ActionAdd as BackendBaseActionAdd;
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
 use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Modules\Users\Backend\Helper\User as BackendUser;
 use ForkCMS\Modules\Users\Backend\Helper\Model as BackendUsersModel;
 

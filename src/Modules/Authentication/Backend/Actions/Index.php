@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Authentication\Backend\Actions;
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
 use ForkCMS\Core\Backend\Domain\Action\ActionIndex as BackendBaseActionIndex;
 use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Users\Backend\Helper\User;
 use ForkCMS\Modules\Users\Backend\Helper\Model as BackendUsersModel;

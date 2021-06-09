@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\Mailmotor\Domain\Subscription\Validator\Constraints;
 
 use ForkCMS\Core\Common\ModulesSettings;
 use ForkCMS\Core\Frontend\Helper\Model;
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use MailMotor\Bundle\MailMotorBundle\Exception\NotImplementedException;
 use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
 use Symfony\Component\Validator\Constraint;

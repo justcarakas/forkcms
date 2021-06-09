@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Mailmotor\Domain\Settings\Event;
 
 use ForkCMS\Modules\Mailmotor\Domain\Settings\Command\SaveSettings;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Mailmotor settings saved Event

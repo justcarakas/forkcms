@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Pages\Backend\Actions;
 
 use ForkCMS\Core\Backend\Domain\Action\Action;
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Modules\Pages\Domain\Page\Command\CreatePage;
 use ForkCMS\Modules\Pages\Domain\Page\Form\PageType;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;

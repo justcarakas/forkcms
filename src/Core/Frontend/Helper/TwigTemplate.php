@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Frontend\Helper;
 
 use ForkCMS\Core\Common\ModulesSettings;
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use ForkCMS\Core\Common\Twig\BaseTwigTemplate;
 use ForkCMS\Core\Common\Twig\Extensions\TwigFilters;
 use Symfony\Bridge\Twig\Form\TwigRendererEngine;

@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\MediaLibrary\Domain\MediaItem;
 use ForkCMS\Core\Backend\Domain\DataGrid\DataGridDatabase;
 use ForkCMS\Core\Backend\Domain\DataGrid\DataGridFunctions as BackendDataGridFunctions;
 use ForkCMS\Core\Backend\Helper\Model;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 use ForkCMS\Modules\MediaLibrary\Backend\Actions\MediaItemMassAction;
 use SpoonFilter;
 use SpoonFormDropdown;

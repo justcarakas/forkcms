@@ -1,13 +1,13 @@
 <?php
 
-namespace ForkCMS\Modules\Locale\Backend\Actions;
+namespace ForkCMS\Modules\Internationalisation\Backend\Actions;
 
 use ForkCMS\Core\Backend\Domain\Action\ActionIndex as BackendBaseActionIndex;
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
 use ForkCMS\Core\Backend\Domain\DataGrid\DataGridArray as BackendDataGridArray;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Modules\Locale\Domain\Translator\AnalyseModel as BackendLocaleModel;
+use ForkCMS\Modules\Internationalisation\Domain\Translator\AnalyseModel as BackendLocaleModel;
 
 /**
  * This is the analyse-action, it will display an overview of used locale.

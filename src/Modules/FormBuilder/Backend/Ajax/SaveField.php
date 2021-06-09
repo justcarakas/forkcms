@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\FormBuilder\Backend\Ajax;
 
 use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BackendBaseAJAXAction;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Modules\FormBuilder\Backend\Helper\Autocomplete;
 use ForkCMS\Modules\FormBuilder\Backend\Helper\Helper as FormBuilderHelper;
 use ForkCMS\Modules\FormBuilder\Backend\Helper\Model as BackendFormBuilderModel;

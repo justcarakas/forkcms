@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Mailmotor\Domain\Subscription;
 use ForkCMS\Core\Common\ModulesSettings;
 use DateTime;
 use ForkCMS\Core\Frontend\Helper\Navigation;
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use ForkCMS\Modules\Mailmotor\Domain\Subscription\Command\Subscription;
 use MailMotor\Bundle\MailMotorBundle\Exception\NotImplementedException;
 use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;

@@ -5,8 +5,8 @@ namespace ForkCMS\Modules\Blog\Backend\Actions;
 use ForkCMS\Core\Backend\Domain\Action\ActionEdit as BackendBaseActionEdit;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 use ForkCMS\Modules\Blog\Backend\Helper\Model as BackendBlogModel;
 
 /**

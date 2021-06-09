@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 /**
  * This class will initiate the backend-application
  */
-class Init extends \Common\Core\Init
+class Init extends \ForkCMS\Core\Common\Init
 {
     public function __construct(KernelInterface $kernel)
     {

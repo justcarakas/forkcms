@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Backend\Domain\Ajax;
 
 use ForkCMS\Core\Backend\Helper\Model;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 use ForkCMS\Core\Common\Exception\RedirectException;
 use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\HttpFoundation\JsonResponse;

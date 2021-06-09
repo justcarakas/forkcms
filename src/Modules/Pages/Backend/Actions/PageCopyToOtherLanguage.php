@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Pages\Backend\Actions;
 use ForkCMS\Core\Backend\Domain\Action\ActionIndex as BackendBaseActionIndex;
 use ForkCMS\Core\Backend\Exception as BackendException;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Modules\Pages\Domain\Page\CopyPageDataTransferObject;
 use ForkCMS\Modules\Pages\Domain\Page\Form\CopyPageToOtherLanguageType;
 use ForkCMS\Modules\Pages\Domain\Page\PageRepository;

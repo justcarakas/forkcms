@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\Mailmotor\Frontend\Widgets;
 
 use ForkCMS\Core\Frontend\Helper\Base\Widget as FrontendBaseWidget;
 use ForkCMS\Modules\Mailmotor\Domain\Subscription\Command\Subscription;
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use ForkCMS\Modules\Mailmotor\Domain\Subscription\SubscribeType;
 
 /**

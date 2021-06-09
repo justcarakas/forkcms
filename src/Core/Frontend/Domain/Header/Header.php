@@ -15,7 +15,7 @@ use ForkCMS\Core\Frontend\Helper\Model;
 use ForkCMS\Core\Frontend\Helper\Theme;
 use ForkCMS\Core\Frontend\Helper\TwigTemplate;
 use ForkCMS\Core\Frontend\Helper\Url;
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**

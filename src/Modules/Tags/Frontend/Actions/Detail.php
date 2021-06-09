@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Tags\Frontend\Actions;
 
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
-use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FL;
 use ForkCMS\Modules\Tags\Frontend\Helper\Model as FrontendTagsModel;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

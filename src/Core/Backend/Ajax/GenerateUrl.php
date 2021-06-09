@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Backend\Ajax;
 
 use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BackendBaseAJAXAction;
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Core\Common\Doctrine\Repository\MetaRepository;
 use Symfony\Component\HttpFoundation\Response;
 
