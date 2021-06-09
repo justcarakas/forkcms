@@ -6,7 +6,7 @@ use ForkCMS\Core\Common\ModulesSettings;
 use DateInterval;
 use Psr\Cache\CacheItemPoolInterface;
 use ForkCMS\Core\Frontend\Helper\Base\AjaxAction as FrontendBaseAJAXAction;
-use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FL;
 use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
 use ForkCMS\Modules\Search\Frontend\Helper\Model as FrontendSearchModel;
 use Symfony\Component\HttpFoundation\Response;

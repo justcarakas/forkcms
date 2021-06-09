@@ -2,12 +2,12 @@
 
 namespace ForkCMS\Core\Backend\Domain\Navigation;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
-use ForkCMS\App\KernelLoader;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
+use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\HttpKernel\KernelInterface;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BackendLanguage;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BackendLanguage;
 
 final class Navigation extends KernelLoader
 {

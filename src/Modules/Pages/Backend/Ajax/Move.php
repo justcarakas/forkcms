@@ -3,8 +3,8 @@
 namespace ForkCMS\Modules\Pages\Backend\Ajax;
 
 use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BackendBaseAJAXAction;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
 use Symfony\Component\HttpFoundation\Response;
 

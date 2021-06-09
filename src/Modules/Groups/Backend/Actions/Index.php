@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Groups\Backend\Actions;
 use ForkCMS\Core\Backend\Domain\Action\ActionIndex as BackendBaseActionIndex;
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
 use ForkCMS\Core\Backend\Domain\DataGrid\DataGridDatabase as BackendDataGridDatabase;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Groups\Backend\Helper\Model as BackendGroupsModel;
 

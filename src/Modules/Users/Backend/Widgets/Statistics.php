@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\Users\Backend\Widgets;
 
 use ForkCMS\Core\Backend\Domain\Widget\Widget as BackendBaseWidget;
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 
 /**
  * This widget will show the statistics of the authenticated user.

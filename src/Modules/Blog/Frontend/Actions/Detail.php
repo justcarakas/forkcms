@@ -7,7 +7,7 @@ use ForkCMS\Core\Common\ModulesSettings;
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
 use ForkCMS\Core\Frontend\Helper\Form as FrontendForm;
 use ForkCMS\Core\Frontend\Domain\Header\MetaLink;
-use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FL;
 use ForkCMS\Core\Frontend\Helper\Model as FrontendModel;
 use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
 use ForkCMS\Modules\Blog\Frontend\Helper\Model as FrontendBlogModel;

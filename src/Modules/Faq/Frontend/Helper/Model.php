@@ -12,7 +12,7 @@ use Doctrine\ORM\NoResultException;
 use ForkCMS\Core\Frontend\Helper\Model as FrontendModel;
 use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
 use ForkCMS\Core\Frontend\Helper\Url as FrontendUrl;
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use ForkCMS\Modules\Tags\Frontend\Helper\Model as FrontendTagsModel;
 use ForkCMS\Modules\Tags\Frontend\Helper\TagsInterface as FrontendTagsInterface;
 

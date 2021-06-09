@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Pages\Domain\PageBlock;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 use ForkCMS\Modules\Extensions\Backend\Helper\Model as BackendExtensionsModel;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtra;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository;

@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="ForkCMS\Modules\Extensions\Domain\Module\ModuleRepository")
  * @ORM\Table(name="modules")
  */
-final class Module
+class Module
 {
     /**
      * @ORM\Id

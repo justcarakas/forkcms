@@ -2,14 +2,14 @@
 
 namespace ForkCMS\Core\Backend\Helper;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
 use ForkCMS\Core\Common\ModulesSettings;
 use InvalidArgumentException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BackendLanguage;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BackendLanguage;
 use ForkCMS\Modules\Extensions\Backend\Helper\Model as BackendExtensionsModel;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtra;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraNotFountException;
@@ -17,12 +17,12 @@ use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraType;
 use ForkCMS\Modules\Pages\Domain\PageBlock\PageBlockRepository;
 use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
-use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FrontendLanguage;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FrontendLanguage;
 
 /**
  * In this file we store all generic functions that we will be using in the backend.
  */
-class Model extends \Common\Core\Model
+class Model extends \ForkCMS\Core\Common\Model
 {
     /**
      * Checks the settings and optionally returns an array with warnings

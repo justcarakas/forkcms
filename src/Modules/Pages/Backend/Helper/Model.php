@@ -4,8 +4,8 @@ namespace ForkCMS\Modules\Pages\Backend\Helper;
 
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Modules\Extensions\Backend\Helper\Model as BackendExtensionsModel;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository;
 use ForkCMS\Modules\Pages\Domain\Page\Page;

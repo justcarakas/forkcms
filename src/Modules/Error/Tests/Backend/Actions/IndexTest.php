@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Error\Tests\Backend\Actions;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 use ForkCMS\Core\Tests\Backend\BackendWebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\HttpFoundation\Response;

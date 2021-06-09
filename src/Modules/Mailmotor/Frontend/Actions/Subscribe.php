@@ -6,7 +6,7 @@ use ForkCMS\Core\Common\ModulesSettings;
 use Exception;
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
 use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use ForkCMS\Modules\Mailmotor\Domain\Subscription\Command\Subscription;
 use ForkCMS\Modules\Mailmotor\Domain\Subscription\Event\NotImplementedSubscribedEvent;
 use ForkCMS\Modules\Mailmotor\Domain\Subscription\SubscribeType;

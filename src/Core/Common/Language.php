@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Common;
 
 use ForkCMS\Core\Common\Model;
-use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FrontendLanguage;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FrontendLanguage;
 use InvalidArgumentException;
 use Symfony\Component\Translation\IdentityTranslator;
 

@@ -17,7 +17,7 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use ForkCMS\App\ForkController;
-use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language;
 
 /**
  * @method Page|null find($id, $lockMode = null, $lockVersion = null)

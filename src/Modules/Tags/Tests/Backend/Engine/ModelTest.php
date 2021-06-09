@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Tags\Tests\Backend\Engine;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 use ForkCMS\Modules\Tags\Tests\DataFixtures\LoadTagsModulesTags;
 use ForkCMS\Modules\Tags\Tests\DataFixtures\LoadTagsTags;
 use ForkCMS\Modules\Tags\Backend\Helper\Model as TagsModel;

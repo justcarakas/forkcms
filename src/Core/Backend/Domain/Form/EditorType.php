@@ -4,7 +4,7 @@ namespace ForkCMS\Core\Backend\Domain\Form;
 
 use ForkCMS\Core\Backend\Domain\Header\Header;
 use ForkCMS\Core\Backend\Helper\Model;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 use ForkCMS\Core\Common\BlockEditor\Blocks\AbstractBlock;
 use ForkCMS\Core\Common\BlockEditor\Blocks\ButtonBlock;
 use ForkCMS\Core\Common\BlockEditor\Blocks\HeaderBlock;

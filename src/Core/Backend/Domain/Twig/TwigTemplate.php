@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Backend\Domain\Twig;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Common\Twig\BaseTwigTemplate;
 use ForkCMS\Core\Common\Twig\Extensions\TwigFilters;
 use ForkCMS\Core\Common\ModulesSettings;

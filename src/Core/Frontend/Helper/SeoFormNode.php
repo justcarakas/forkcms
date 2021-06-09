@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Frontend\Helper;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BackendLanguage;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BackendLanguage;
 use SpoonFilter;
 use Twig\Compiler;
 use Twig\Node\Node;

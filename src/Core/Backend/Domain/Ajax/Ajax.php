@@ -6,7 +6,7 @@ use ForkCMS\Core\Common\ApplicationInterface;
 use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\HttpFoundation\Response;
 use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BackendBaseAJAXAction;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BackendLanguage;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BackendLanguage;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 /**

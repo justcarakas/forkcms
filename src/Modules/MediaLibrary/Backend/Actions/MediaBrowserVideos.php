@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\MediaLibrary\Backend\Actions;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
 use ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupType;
 use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\MediaItemSelectionDataGrid;

@@ -6,8 +6,7 @@ use ForkCMS\Modules\Pages\Domain\Page\Page as PageEntity;
 use ForkCMS\Modules\Pages\Domain\Page\PageRepository;
 use ForkCMS\Modules\Pages\Domain\Page\Status;
 use ForkCMS\Core\Common\ModulesSettings;
-use Doctrine\ORM\EntityManager;
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use DateTime;
 use InvalidArgumentException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -15,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * In this file we store all generic functions that we will be using in the frontend.
  */
-class Model extends \Common\Core\Model
+class Model extends \ForkCMS\Core\Common\Model
 {
     /**
      * Visitor id from tracking cookie

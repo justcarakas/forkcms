@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\ContentBlocks\Frontend\Widgets;
 
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
 use ForkCMS\Core\Frontend\Helper\Base\Widget as FrontendBaseWidget;
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 
 /**
  * This is the detail widget.

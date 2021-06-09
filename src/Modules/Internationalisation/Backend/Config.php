@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Modules\Locale\Backend;
+namespace ForkCMS\Modules\Internationalisation\Backend;
 
 use ForkCMS\Core\Backend\Domain\Config\Config as BackendBaseConfig;
 

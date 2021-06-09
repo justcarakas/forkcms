@@ -9,7 +9,7 @@ use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use ForkCMS\Core\Common\ForkCMS\Privacy\ConsentDialog;
 use ForkCMS\Core\Frontend\Helper\Block\ModuleExtraInterface;
 use ForkCMS\Core\Frontend\Domain\Header\Header;
-use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

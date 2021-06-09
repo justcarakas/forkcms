@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Mailmotor\Domain\Subscription\Event;
 
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use MailMotor\Bundle\MailMotorBundle\Factory\MailMotorFactory;
 use MailMotor\Bundle\MailMotorBundle\Gateway\SubscriberGateway;
 use ForkCMS\Core\Common\ModulesSettings;

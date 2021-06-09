@@ -6,8 +6,8 @@ use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication 
 use ForkCMS\Core\Backend\Domain\DataGrid\DataGridFunctions as BackendDataGridFunctions;
 use ForkCMS\Core\Backend\Exception;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
-use ForkCMS\Modules\Locale\Backend\Helper\Model as BackendLocaleModel;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Helper\Model as BackendLocaleModel;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraType;
 use ForkCMS\Modules\Pages\Domain\PageBlock\PageBlockRepository;

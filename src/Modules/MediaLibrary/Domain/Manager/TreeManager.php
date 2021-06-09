@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\MediaLibrary\Domain\Manager;
 
 use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderCache;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\MediaLibrary\Domain\MediaItem\MediaFolderCacheItem;
 use SpoonFilter;

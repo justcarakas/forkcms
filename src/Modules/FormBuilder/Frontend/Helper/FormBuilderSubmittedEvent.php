@@ -2,7 +2,8 @@
 
 namespace ForkCMS\Modules\FormBuilder\Frontend\Helper;
 
-use Symfony\Component\EventDispatcher\Event;
+
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * This class is in fact an immutable event class holding all the data

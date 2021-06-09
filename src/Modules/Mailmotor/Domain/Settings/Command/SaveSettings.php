@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Mailmotor\Domain\Settings\Command;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 use ForkCMS\Core\Common\ModulesSettings;
 use Symfony\Component\Validator\Constraints as Assert;
 

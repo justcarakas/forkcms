@@ -5,12 +5,12 @@ namespace ForkCMS\Modules\Location\Domain\Location;
 use ForkCMS\Modules\Location\Domain\LocationSetting\LocationSetting;
 use ForkCMS\Core\Common\Exception\CanNotSetExtraIdException;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale as BackendLocale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale as BackendLocale;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale as FrontendLocale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale as FrontendLocale;
 
 /**
  * @ORM\Table(name="location")

@@ -1,12 +1,12 @@
 <?php
 
-namespace ForkCMS\Modules\Locale\Backend\Actions;
+namespace ForkCMS\Modules\Internationalisation\Backend\Actions;
 
 use ForkCMS\Core\Backend\Domain\Action\ActionAdd as BackendBaseActionAdd;
 use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Modules\Locale\Backend\Helper\Model as BackendLocaleModel;
+use ForkCMS\Modules\Internationalisation\Backend\Helper\Model as BackendLocaleModel;
 use SimpleXMLElement;
 
 /**

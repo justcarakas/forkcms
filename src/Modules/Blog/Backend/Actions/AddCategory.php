@@ -6,7 +6,7 @@ use ForkCMS\Core\Backend\Domain\Action\ActionAdd as BackendBaseActionAdd;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
 use ForkCMS\Core\Backend\Domain\Meta\Meta as BackendMeta;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Modules\Blog\Backend\Helper\Model as BackendBlogModel;
 
 /**

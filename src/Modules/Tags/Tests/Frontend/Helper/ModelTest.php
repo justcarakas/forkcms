@@ -6,7 +6,7 @@ use ForkCMS\Modules\Tags\Tests\DataFixtures\LoadTagsModulesTags;
 use ForkCMS\Modules\Tags\Tests\DataFixtures\LoadTagsTags;
 use ForkCMS\Core\Frontend\Helper\Exception as FrontendException;
 use ForkCMS\Core\Frontend\Helper\Model as FrontendModel;
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use ForkCMS\Modules\Search\Frontend\Helper\Model as SearchModel;
 use ForkCMS\Modules\Pages\Frontend\Helper\Model as PagesModel;
 use ForkCMS\Modules\Tags\Frontend\Helper\Model as TagsModel;

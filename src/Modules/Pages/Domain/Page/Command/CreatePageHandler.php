@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Pages\Domain\Page\Command;
 
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication;
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
 use ForkCMS\Modules\Pages\Domain\Page\PageRepository;
 use ForkCMS\Modules\Pages\Domain\PageBlock\PageBlock;

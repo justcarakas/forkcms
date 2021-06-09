@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Pages\Domain\Page\Form;
 
 use ForkCMS\Core\Backend\Helper\Model;
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Modules\Pages\Domain\Page\CopyPageDataTransferObject;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
 use ForkCMS\Modules\Pages\Domain\Page\PageRepository;

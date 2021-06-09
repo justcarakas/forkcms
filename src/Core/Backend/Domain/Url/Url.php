@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BackendLanguage;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BackendLanguage;
 
 /**
  * This class will handle the incoming URL.

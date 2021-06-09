@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Location\Backend\Helper;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Location\Domain\Location\Location;
 use ForkCMS\Modules\Location\Domain\Location\LocationRepository;

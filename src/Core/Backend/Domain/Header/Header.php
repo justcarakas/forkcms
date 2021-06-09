@@ -10,7 +10,7 @@ use ForkCMS\Core\Common\Header\Priority;
 use ForkCMS\Core\Common\ModulesSettings;
 use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\HttpKernel\KernelInterface;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 
 /**
  * This class will be used to alter the head-part of the HTML-document that will be created by he Backend

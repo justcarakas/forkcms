@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\MediaLibrary\Backend\Ajax;
 
 use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BackendBaseAJAXAction;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\Exception\MediaFolderNotFound;
 use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\MediaFolder;
 use ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository;

@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\FormBuilder\Backend\Actions;
 
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication;
 use ForkCMS\Core\Backend\Domain\Action\Action as BackendBaseAction;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\FormBuilder\Backend\Helper\Model as BackendFormBuilderModel;
 use ForkCMS\Core\Common\Exception\RedirectException;

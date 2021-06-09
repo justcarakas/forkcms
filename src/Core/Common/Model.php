@@ -2,8 +2,7 @@
 
 namespace ForkCMS\Core\Common;
 
-use ForkCMS\Core\Common\ModulesSettings;
-use ForkCMS\App\BaseModel;
+use ForkCMS\Core\Common\BaseModel;
 use ForkCMS\Core\Common\ForkCMS\Utility\Thumbnails;
 use InvalidArgumentException;
 use RuntimeException;

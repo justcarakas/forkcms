@@ -10,8 +10,8 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Core\Frontend\Helper\Exception as FrontendException;
 use ForkCMS\Core\Frontend\Helper\Model as FrontendModel;
 use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
-use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language;
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale as FrontendLocale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale as FrontendLocale;
 
 /**
  * In this file we store all generic functions that we will be using in the tags module

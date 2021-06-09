@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Mailmotor\Domain\Subscription\Command;
 
 use ForkCMS\Core\Common\ModulesSettings;
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
 use MailMotor\Bundle\MailMotorBundle\Exception\NotImplementedException;
 

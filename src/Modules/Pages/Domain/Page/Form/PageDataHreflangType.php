@@ -2,8 +2,8 @@
 
 namespace ForkCMS\Modules\Pages\Domain\Page\Form;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

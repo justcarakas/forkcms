@@ -8,8 +8,8 @@ use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
 use ForkCMS\Core\Common\ModulesSettings;
 use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use ForkCMS\Core\Frontend\Helper\Model as FrontendModel;
-use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language;
-use ForkCMS\Modules\Locale\Frontend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use ForkCMS\Modules\Profiles\Frontend\Helper\Authentication as FrontendAuthentication;
 use Symfony\Component\HttpKernel\KernelInterface;
 

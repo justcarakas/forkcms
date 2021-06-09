@@ -1,8 +1,8 @@
 <?php
 
-namespace ForkCMS\Modules\Locale\Frontend\Domain\Translator;
+namespace ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator;
 
-use ForkCMS\Modules\Locale\Domain\Translator\CacheBuilder;
+use ForkCMS\Modules\Internationalisation\Domain\Translator\CacheBuilder;
 use ForkCMS\Core\Common\Model;
 use ForkCMS\Core\Common\ModulesSettings;
 use ForkCMS\Core\Frontend\Helper\Exception;

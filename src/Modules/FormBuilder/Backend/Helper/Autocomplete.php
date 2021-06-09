@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\FormBuilder\Backend\Helper;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 
 /**
  * The autocomplete values can be found on

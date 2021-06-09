@@ -6,7 +6,7 @@ use ForkCMS\Core\Common\Doctrine\Entity\Meta as MetaEntity;
 use ForkCMS\Core\Common\Doctrine\Repository\MetaRepository;
 use ForkCMS\Core\Common\Uri as CommonUri;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BackendLanguage;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BackendLanguage;
 
 /**
  * This class represents a META-object

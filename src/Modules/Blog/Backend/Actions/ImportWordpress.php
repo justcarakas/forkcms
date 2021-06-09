@@ -7,7 +7,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use ForkCMS\Core\Backend\Domain\Action\ActionEdit as BackendBaseActionEdit;
 use ForkCMS\Core\Backend\Exception;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BL;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Domain\Form\Form;
 use ForkCMS\Modules\Blog\Backend\Helper\Model;
 

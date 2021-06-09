@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Backend\Domain\Form;
 
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language as BackendLanguage;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BackendLanguage;
 use SpoonFormButton;
 use SpoonFormFile;
 use SpoonFormTextarea;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 /**
  * This is our extended version of \SpoonForm
  */
-class Form extends \Common\Core\Form
+class Form extends \ForkCMS\Core\Common\Form
 {
     /**
      * Show the global error

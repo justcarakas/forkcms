@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\Pages\Backend\Actions;
 
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication;
 use ForkCMS\Core\Backend\Domain\Action\Action;
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Core\Backend\Domain\Form\DeleteType;
 use ForkCMS\Modules\Pages\Domain\Page\Command\UpdatePage;
 use ForkCMS\Modules\Pages\Domain\Page\CopyPageDataTransferObject;

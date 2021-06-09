@@ -1,8 +1,7 @@
 <?php
 
-namespace ForkCMS\Modules\Locale\Backend\Domain\Locale;
+namespace ForkCMS\Modules\Internationalisation\Backend\Domain\Locale;
 
-use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale as CommonLocale;
 
 final class Locale
 {

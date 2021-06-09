@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\ContentBlocks\Backend\Actions;
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication;
 use ForkCMS\Core\Backend\Domain\Action\ActionEdit as BackendBaseActionEdit;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Core\Backend\Domain\Form\DeleteType;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Command\UpdateContentBlock;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;

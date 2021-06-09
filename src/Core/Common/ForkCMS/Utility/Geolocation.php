@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Common\ForkCMS\Utility;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 use ForkCMS\Core\Common\ModulesSettings;
 use JeroenDesloovere\Geolocation\Geolocation as API;
 use JeroenDesloovere\Geolocation\Result\Coordinates;

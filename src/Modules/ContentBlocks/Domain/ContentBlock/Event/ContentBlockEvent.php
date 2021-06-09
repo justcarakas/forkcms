@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Event;
 
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 abstract class ContentBlockEvent extends Event
 {

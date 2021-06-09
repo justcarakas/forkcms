@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Faq\Backend\Ajax;
 
 use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction as BackendBaseAJAXAction;
-use ForkCMS\Modules\Locale\Backend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
 use ForkCMS\Modules\Faq\Backend\Helper\Model as BackendFaqModel;
 use Symfony\Component\HttpFoundation\Response;
 

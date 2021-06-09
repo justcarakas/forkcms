@@ -4,8 +4,6 @@ namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use ForkCMS\Core\Installer\Domain\Installer\InstallableModule;
-use Traversable;
 
 /**
  * @method Module|null find($id, $lockMode = null, $lockVersion = null)

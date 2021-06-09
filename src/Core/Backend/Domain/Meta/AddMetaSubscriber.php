@@ -3,12 +3,11 @@
 namespace ForkCMS\Core\Backend\Domain\Meta;
 
 use ForkCMS\Core\Backend\Helper\Model;
-use ForkCMS\Core\Backend\Domain\Meta\MetaType;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
 use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Use this class to add meta url generating to your symfony form.

@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
 use ForkCMS\Core\Frontend\Helper\Base\Config;
 use ForkCMS\Core\Frontend\Helper\Exception as FrontendException;
-use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language as FL;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FL;
 
 /**
  * This class will handle all stuff related to blocks

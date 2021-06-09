@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Console\Locale;
 
-use ForkCMS\Modules\Locale\Backend\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale as CommonLocale;
 use ForkCMS\Core\Common\ModulesSettings;
 use ForkCMS\Core\Common\ForkCMS\Utility\Module\CopyContentToOtherLocale\CopyContentFromModulesToOtherLocaleManager;

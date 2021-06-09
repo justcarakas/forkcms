@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\FormBuilder\Frontend\Helper;
 use ForkCMS\Core\Common\Mailer\Message;
 use Swift_Mailer;
 use ForkCMS\Core\Common\ModulesSettings;
-use ForkCMS\Modules\Locale\Frontend\Domain\Translator\Language;
+use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language;
 use ForkCMS\Core\Frontend\Helper\Model as FrontendModel;
 use ForkCMS\Modules\FormBuilder\Frontend\Helper\FormBuilderSubmittedEvent;
 use Swift_Mime_SimpleMessage;
