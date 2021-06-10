@@ -10,6 +10,8 @@ final class ModuleName
 
     private string $name;
 
+    private static array $moduleNameInstances = [];
+
     private function __construct(string $name)
     {
         Assertion::regex($name, self::NAME_VALIDATION_REGEX, 'Invalid module name');
@@ -24,7 +26,11 @@ final class ModuleName
 
     public static function fromString(string $name): self
     {
-        return new self($name);
+        if (!array_key_exists($name, self::$moduleNameInstances)) {
+            self::$moduleNameInstances[$name] = new self($name);
+        }
+
+        return self::$moduleNameInstances[$name];
     }
 
     public function __toString(): string
