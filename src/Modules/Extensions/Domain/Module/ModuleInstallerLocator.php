@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use InvalidArgumentException;
+use RuntimeException;
 
 final class ModuleInstallerLocator
 {
@@ -10,7 +11,7 @@ final class ModuleInstallerLocator
     private array $moduleInstallers;
 
     /** @param iterable|ModuleInstaller[] $moduleInstallers */
-    public function __construct(iterable $moduleInstallers)
+    public function __construct(iterable $moduleInstallers, private bool $forkIsInstalled)
     {
         $this->moduleInstallers = [];
         foreach ($moduleInstallers as $moduleInstaller) {
@@ -52,6 +53,36 @@ final class ModuleInstallerLocator
         );
     }
 
+    /** @return array<string, ModuleInstaller> */
+    public function getSortedInstallersForModuleNames(ModuleName ...$moduleNames): array
+    {
+        $moduleInstallers = array_combine(
+            array_map(static fn(ModuleName $moduleName): string => $moduleName->getName(), $moduleNames),
+            array_map(
+                fn(ModuleName $moduleName): ModuleInstaller => $this->getModuleInstaller($moduleName),
+                $moduleNames
+            )
+        );
+
+        $sortedModuleInstallers = $this->getInstalledModules();
+        while (count($moduleInstallers) > 0) {
+            $foundMatch = false;
+            foreach ($moduleInstallers as $name => $moduleInstaller) {
+                if (count(array_diff_key($moduleInstaller->getModuleDependencies(), $sortedModuleInstallers)) === 0) {
+                    $sortedModuleInstallers[$name] = $moduleInstaller;
+                    $foundMatch = true;
+                    unset($moduleInstallers[$name]);
+                }
+            }
+
+            if (!$foundMatch) {
+                throw new RuntimeException('Circular reference found in module dependencies');
+            }
+        }
+
+        return $sortedModuleInstallers;
+    }
+
     /**
      * @param ModuleInstaller[] $moduleInstallers
      * @return ModuleName[]
@@ -62,5 +93,14 @@ final class ModuleInstallerLocator
             static fn(ModuleInstaller $moduleInstaller): ModuleName => $moduleInstaller::getModuleName(),
             $moduleInstallers
         );
+    }
+
+    private function getInstalledModules(): array
+    {
+        if (!$this->forkIsInstalled) {
+            return [];
+        }
+
+        throw new RuntimeException('Not implemented yet');
     }
 }
