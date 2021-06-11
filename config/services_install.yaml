@@ -12,9 +12,13 @@ services:
       bool $forkIsInstalled: '%fork.is_installed%'
 
   _instanceof:
-    ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller:
+    ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface:
       tags:
-        - { name: forkcms.module.installer }
+        - { name: messenger.message_handler, bus: command.bus }
+
+    ForkCMS\Core\Domain\MessageHandler\EventHandlerInterface:
+      tags:
+        - { name: messenger.message_handler, bus: event.bus }
 
 
   ForkCMS\Core\Installer\:

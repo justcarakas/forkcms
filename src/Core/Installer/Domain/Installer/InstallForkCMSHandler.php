@@ -4,11 +4,15 @@ namespace ForkCMS\Core\Installer\Domain\Installer;
 
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
 use ForkCMS\Core\Installer\Domain\Configuration\ConfigurationParser;
+use ForkCMS\Modules\Extensions\Domain\Module\InstallModules;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class InstallForkCMSHandler implements CommandHandlerInterface
 {
-    public function __construct(private ConfigurationParser $configurationParser)
-    {
+    public function __construct(
+        private ConfigurationParser $configurationParser,
+        private MessageBusInterface $commandBus
+    ) {
     }
 
     public function __invoke(InstallForkCMS $installForkCMS)
@@ -21,5 +25,7 @@ final class InstallForkCMSHandler implements CommandHandlerInterface
         if ($installerConfiguration->shouldSaveConfiguration()) {
             $this->configurationParser->toFile($installForkCMS->getInstallerConfiguration());
         }
+
+        $this->commandBus->dispatch(new InstallModules(...$installerConfiguration->getModules()));
     }
 }
