@@ -1,11 +1,11 @@
 services:
   mailmotor.handler.save_settings:
-    class: Backend\Modules\Mailmotor\Domain\Settings\Command\SaveSettingsHandler
+    class: ForkCMS\Modules\Mailmotor\Domain\Settings\Command\SaveSettingsHandler
     public: true
     arguments:
       - '@Common\ModulesSettings'
     tags:
-      - { name: command_handler, handles: Backend\Modules\Mailmotor\Domain\Settings\Command\SaveSettings }
+      - { name: command_handler, handles: ForkCMS\Modules\Mailmotor\Domain\Settings\Command\SaveSettings }
 
   mailmotor.handler.subscription:
     class: Frontend\Modules\Mailmotor\Domain\Subscription\Command\SubscriptionHandler

@@ -1,8 +1,8 @@
-services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-
-    Backend\Modules\MediaLibrary\Console\CacheClearCommand:
-        tags:
-            -  { name: console.command }
+#services:
+#    _defaults:
+#        autowire: true
+#        autoconfigure: true
+#
+#    ForkCMS\Modules\MediaLibrary\Console\CacheClearCommand:
+#        tags:
+#            -  { name: console.command }

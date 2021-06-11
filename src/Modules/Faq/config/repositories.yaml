@@ -4,8 +4,8 @@ services:
         autoconfigure: true
         public: true
 
-    Backend\Modules\Faq\Domain\Category\CategoryRepository:
+    ForkCMS\Modules\Faq\Domain\Category\CategoryRepository:
 
-    Backend\Modules\Faq\Domain\Question\QuestionRepository:
+    ForkCMS\Modules\Faq\Domain\Question\QuestionRepository:
 
-    Backend\Modules\Faq\Domain\Feedback\FeedbackRepository:
+    ForkCMS\Modules\Faq\Domain\Feedback\FeedbackRepository:

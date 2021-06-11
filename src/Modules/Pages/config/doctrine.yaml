@@ -1,27 +1,27 @@
 doctrine:
     dbal:
         types:
-            module_extra_type: Backend\Modules\Pages\Domain\ModuleExtra\ModuleExtraDBALType
-            pages_page_block_type: Backend\Modules\Pages\Domain\PageBlock\TypeDBALType
-            page_status: Backend\Modules\Pages\Domain\Page\StatusDBALType
-            pages_page_type: Backend\Modules\Pages\Domain\Page\TypeDBALType
+            module_extra_type: ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraDBALType
+            pages_page_block_type: ForkCMS\Modules\Pages\Domain\PageBlock\TypeDBALType
+            page_status: ForkCMS\Modules\Pages\Domain\Page\StatusDBALType
+            pages_page_type: ForkCMS\Modules\Pages\Domain\Page\TypeDBALType
     orm:
         mappings:
             module_extra:
                 type: annotation
                 is_bundle: false
-                dir: "%kernel.project_dir%/src/Backend/Modules/Pages/Domain/ModuleExtra"
+                dir: "%kernel.project_dir%/src/Modules/Pages/Domain/ModuleExtra"
                 alias: PagesModuleExtra
-                prefix: Backend\Modules\Pages\Domain\ModuleExtra
+                prefix: ForkCMS\Modules\Pages\Domain\ModuleExtra
             page_block:
                 type: annotation
                 is_bundle: false
-                dir: "%kernel.project_dir%/src/Backend/Modules/Pages/Domain/PageBlock"
+                dir: "%kernel.project_dir%/src/Modules/Pages/Domain/PageBlock"
                 alias: PagesPageBlock
-                prefix: Backend\Modules\Pages\Domain\PageBlock
+                prefix: ForkCMS\Modules\Pages\Domain\PageBlock
             page:
                 type: annotation
                 is_bundle: false
-                dir: "%kernel.project_dir%/src/Backend/Modules/Pages/Domain/Page"
+                dir: "%kernel.project_dir%/src/Modules/Pages/Domain/Page"
                 alias: PagesPage
-                prefix: Backend\Modules\Pages\Domain\Page
+                prefix: ForkCMS\Modules\Pages\Domain\Page

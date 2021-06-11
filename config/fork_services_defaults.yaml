@@ -1,0 +1,14 @@
+services:
+  # default configuration for services in Fork when they import this file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  _instanceof:
+    ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface:
+      tags:
+        - { name: messenger.message_handler, bus: command.bus }
+
+    ForkCMS\Core\Domain\MessageHandler\EventHandlerInterface:
+      tags:
+        - { name: messenger.message_handler, bus: event.bus }

@@ -1,12 +1,12 @@
 doctrine:
   dbal:
     types:
-      media_gallery_status: Backend\Modules\MediaGalleries\Domain\MediaGallery\StatusDBALType
+      media_gallery_status: ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\StatusDBALType
   orm:
     mappings:
       media_gallery:
         type: annotation
         is_bundle: false
-        dir: "%kernel.project_dir%/src/Backend/Modules/MediaGalleries/Domain/MediaGallery"
+        dir: "%kernel.project_dir%/src/Modules/MediaGalleries/Domain/MediaGallery"
         alias: MediaGalleriesMediaGallery
-        prefix: Backend\Modules\MediaGalleries\Domain\MediaGallery
+        prefix: ForkCMS\Modules\MediaGalleries\Domain\MediaGallery

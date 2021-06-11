@@ -4,10 +4,10 @@ services:
         autoconfigure: true
         public: true
 
-    Backend\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository:
+    ForkCMS\Modules\MediaLibrary\Domain\MediaFolder\MediaFolderRepository:
 
-    Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupRepository:
+    ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupRepository:
 
-    Backend\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItemRepository:
+    ForkCMS\Modules\MediaLibrary\Domain\MediaGroupMediaItem\MediaGroupMediaItemRepository:
 
-    Backend\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository:
+    ForkCMS\Modules\MediaLibrary\Domain\MediaItem\MediaItemRepository:

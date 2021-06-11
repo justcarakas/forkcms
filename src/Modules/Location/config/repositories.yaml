@@ -4,6 +4,6 @@ services:
         autoconfigure: true
         public: true
 
-    Backend\Modules\Location\Domain\Location\LocationRepository:
+    ForkCMS\Modules\Location\Domain\Location\LocationRepository:
 
-    Backend\Modules\Location\Domain\LocationSetting\LocationSettingRepository:
+    ForkCMS\Modules\Location\Domain\LocationSetting\LocationSettingRepository:

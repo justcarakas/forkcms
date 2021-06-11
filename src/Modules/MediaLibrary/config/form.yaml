@@ -1,14 +1,14 @@
-services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        bind:
-            $commandBus: '@command_bus' # Generic // This should be replaced with the Messenger component
-
-    Backend\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupType:
-        tags:
-            - { name: form.type }
-
-    Backend\Modules\MediaLibrary\Domain\MediaGroup\SingleMediaGroupType:
-        tags:
-            - { name: form.type }
+#services:
+#    _defaults:
+#        autowire: true
+#        autoconfigure: true
+#        bind:
+#            $commandBus: '@command_bus' # Generic // This should be replaced with the Messenger component
+#
+#    ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\MediaGroupType:
+#        tags:
+#            - { name: form.type }
+#
+#    ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\SingleMediaGroupType:
+#        tags:
+#            - { name: form.type }

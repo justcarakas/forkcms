@@ -4,12 +4,12 @@ doctrine:
       tags_tag:
         type: annotation
         is_bundle: false
-        dir: "%kernel.project_dir%/src/Backend/Modules/Tags/Domain/Tag"
+        dir: "%kernel.project_dir%/src/Modules/Tags/Domain/Tag"
         alias: Tag
-        prefix: Backend\Modules\Tags\Domain\Tag
+        prefix: ForkCMS\Modules\Tags\Domain\Tag
       tags_moduletag:
         type: annotation
         is_bundle: false
-        dir: "%kernel.project_dir%/src/Backend/Modules/Tags/Domain/ModuleTag"
+        dir: "%kernel.project_dir%/src/Modules/Tags/Domain/ModuleTag"
         alias: Tag
-        prefix: Backend\Modules\Tags\Domain\ModuleTag
+        prefix: ForkCMS\Modules\Tags\Domain\ModuleTag

@@ -1,6 +1,6 @@
 services:
   mailmotor.listener.settings_saved:
-    class: Backend\Modules\Mailmotor\EventListener\SettingsSavedListener
+    class: ForkCMS\Modules\Mailmotor\EventListener\SettingsSavedListener
     arguments:
       - "%kernel.cache_dir%"
     tags:
