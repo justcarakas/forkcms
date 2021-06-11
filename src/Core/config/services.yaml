@@ -1,41 +1,22 @@
-parameters:
-  fork.is_installed: false
-  fork.form.theme: '@@ForkCMSInstaller/form_theme.html.twig'
-
 services:
-  # default configuration for services in *this* file
   _defaults:
-    autowire: true      # Automatically injects dependencies in your services.
-    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-    bind:
-      string $rootDir: '%kernel.project_dir%'
-      bool $forkIsInstalled: '%fork.is_installed%'
-
-  _instanceof:
-    ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller:
-      tags:
-        - { name: forkcms.module.installer }
+    autowire: true
+    autoconfigure: true
 
   ForkCMS\Core\:
-    resource: '../src/Core/*'
+    resource: '../*'
     exclude:
-      - '../src/Core/Backend/Domain/Meta/AddMetaSubscriber.php'
-      - '../src/Core/Common/DataCollector/DatabaseDataCollector.php'
-      - '../src/Core/Common/ForkCMS/Utility/Module/CopyContentToOtherLocale/CopyContentFromModulesToOtherLocaleManager.php'
-      - '../src/Core/Common/ForkCMS/Utility/Thumbnails.php'
-      - '../src/Core/Common/ModulesSettings.php'
-      - '../src/Core/Console/Install/PrepareForReinstallCommand.php'
-      - '../src/Core/Console/Locale/CopyLocaleCommand.php'
-      - '../src/Core/Console/Locale/EnableLocaleCommand.php'
-      - '../src/Core/Console/Thumbnails/GenerateThumbnailsCommand.php'
-      - '../src/Core/Installer/Console'
-      - '../src/Core/Installer/Controller'
-      - '../src/Core/Installer/Domain/Installer/InstallerConnectionFactory.php'
-      - '../src/Core/Tests'
-
-  ForkCMS\Core\Installer\Controller\:
-    resource: '../src/Core/Installer/Controller/*'
-    public: true
+      - '../Backend/Domain/Meta/AddMetaSubscriber.php'
+      - '../Common/DataCollector/DatabaseDataCollector.php'
+      - '../Common/ForkCMS/Utility/Module/CopyContentToOtherLocale/CopyContentFromModulesToOtherLocaleManager.php'
+      - '../Common/ForkCMS/Utility/Thumbnails.php'
+      - '../Common/ModulesSettings.php'
+      - '../Console/Install/PrepareForReinstallCommand.php'
+      - '../Console/Locale/CopyLocaleCommand.php'
+      - '../Console/Locale/EnableLocaleCommand.php'
+      - '../Console/Thumbnails/GenerateThumbnailsCommand.php'
+      - '../Installer'
+      - '../Tests'
 
   doctrine.dbal.connection_factory:
     class: ForkCMS\Core\Installer\Domain\Installer\InstallerConnectionFactory
@@ -48,4 +29,4 @@ services:
 
   module_installers:
     namespace: ForkCMS\Modules\
-    resource: '../src/Modules/*/Installer'
+    resource: '../../Modules/*/Installer'
