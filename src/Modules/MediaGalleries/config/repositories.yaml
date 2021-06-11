@@ -4,4 +4,4 @@ services:
         autoconfigure: true
         public: true
 
-    Backend\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository:
+    ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\MediaGalleryRepository:

@@ -1,9 +1,3 @@
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: true
-
-    Backend\Modules\Blog\Domain\Comment\CommentRepository:
-
-    Backend\Modules\Blog\Domain\Category\CategoryRepository:
+    ForkCMS\Modules\Blog\Domain\Comment\CommentRepository:
+    ForkCMS\Modules\Blog\Domain\Category\CategoryRepository:

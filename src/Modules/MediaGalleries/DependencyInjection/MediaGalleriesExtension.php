@@ -2,27 +2,23 @@
 
 namespace ForkCMS\Modules\MediaGalleries\DependencyInjection;
 
+use ForkCMS\Core\Domain\DependencyInjection\ForkModuleExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader;
 
 /**
- * This is the class that loads and manages your bundle configuration
+ * This is the class that loads and manages your module configuration
+ *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class MediaGalleriesExtension extends Extension implements PrependExtensionInterface
+class MediaGalleriesExtension extends ForkModuleExtension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.yaml');
+        $this->getLoader($container)->load('services.yaml');
     }
 
     public function prepend(ContainerBuilder $container): void
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('doctrine.yaml');
+        $this->getLoader($container)->load('doctrine.yaml');
     }
 }

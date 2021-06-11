@@ -4,6 +4,6 @@ services:
     autoconfigure: true
     public: true
 
-  Backend\Modules\Tags\Domain\Tag\TagRepository:
+  ForkCMS\Modules\Tags\Domain\Tag\TagRepository:
 
-  Backend\Modules\Tags\Domain\ModuleTag\ModuleTagRepository:
+  ForkCMS\Modules\Tags\Domain\ModuleTag\ModuleTagRepository:

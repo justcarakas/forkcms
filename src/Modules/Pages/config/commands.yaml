@@ -4,14 +4,14 @@ services:
         autoconfigure: true
         public: true
 
-    Backend\Modules\Pages\Domain\Page\Command\CopyPagesToOtherLocaleHandler:
-        tags:
-            - { name: command_handler, handles: Backend\Modules\Pages\Domain\Page\Command\CopyPagesToOtherLocale }
-
-    Backend\Modules\Pages\Domain\Page\Command\CreatePageHandler:
-        tags:
-            - { name: command_handler, handles: Backend\Modules\Pages\Domain\Page\Command\CreatePage }
-
-    Backend\Modules\Pages\Domain\Page\Command\UpdatePageHandler:
-        tags:
-            - { name: command_handler, handles: Backend\Modules\Pages\Domain\Page\Command\UpdatePage }
+#    ForkCMS\Modules\Pages\Domain\Page\Command\CopyPagesToOtherLocaleHandler:
+#        tags:
+#            - { name: command_handler, handles: ForkCMS\Modules\Pages\Domain\Page\Command\CopyPagesToOtherLocale }
+#
+#    ForkCMS\Modules\Pages\Domain\Page\Command\CreatePageHandler:
+#        tags:
+#            - { name: command_handler, handles: ForkCMS\Modules\Pages\Domain\Page\Command\CreatePage }
+#
+#    ForkCMS\Modules\Pages\Domain\Page\Command\UpdatePageHandler:
+#        tags:
+#            - { name: command_handler, handles: ForkCMS\Modules\Pages\Domain\Page\Command\UpdatePage }

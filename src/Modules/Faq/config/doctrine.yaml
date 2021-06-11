@@ -4,18 +4,18 @@ doctrine:
       faq_category:
         type: annotation
         is_bundle: false
-        dir: "%kernel.project_dir%/src/Backend/Modules/Faq/Domain/Category"
+        dir: "%kernel.project_dir%/src/Modules/Faq/Domain/Category"
         alias: Category
-        prefix: Backend\Modules\Faq\Domain\Category
+        prefix: ForkCMS\Modules\Faq\Domain\Category
       faq_question:
         type: annotation
         is_bundle: false
-        dir: "%kernel.project_dir%/src/Backend/Modules/Faq/Domain/Question"
+        dir: "%kernel.project_dir%/src/Modules/Faq/Domain/Question"
         alias: Category
-        prefix: Backend\Modules\Faq\Domain\Question
+        prefix: ForkCMS\Modules\Faq\Domain\Question
       faq_feedback:
         type: annotation
         is_bundle: false
-        dir: "%kernel.project_dir%/src/Backend/Modules/Faq/Domain/Feedback"
+        dir: "%kernel.project_dir%/src/Modules/Faq/Domain/Feedback"
         alias: Category
-        prefix: Backend\Modules\Faq\Domain\Feedback
+        prefix: ForkCMS\Modules\Faq\Domain\Feedback

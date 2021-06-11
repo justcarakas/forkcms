@@ -1,4 +1,4 @@
 pages_api:
     type:     annotation
     prefix:   /api
-    resource: Backend\Modules\Pages\Api\PageController
+    resource: ForkCMS\Modules\Pages\Api\PageController
