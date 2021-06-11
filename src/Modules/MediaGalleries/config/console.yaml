@@ -1,10 +1,10 @@
-services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        bind:
-            $commandBus: '@command_bus' # Generic // This should be replaced with the Messenger component
-
-    Backend\Modules\MediaGalleries\Console\MediaGalleryDeleteAllCommand:
-        tags:
-            - { name: console.command }
+#services:
+#    _defaults:
+#        autowire: true
+#        autoconfigure: true
+#        bind:
+#            $commandBus: '@command_bus' # Generic // This should be replaced with the Messenger component
+#
+#    ForkCMS\Modules\MediaGalleries\Console\MediaGalleryDeleteAllCommand:
+#        tags:
+#            - { name: console.command }

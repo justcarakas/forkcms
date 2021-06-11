@@ -1,17 +1,17 @@
-services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: true
-
-    Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\CreateMediaGalleryHandler:
-        tags:
-            - { name: command_handler, handles: Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\CreateMediaGallery }
-
-    Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\UpdateMediaGalleryHandler:
-        tags:
-            - { name: command_handler, handles: Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\UpdateMediaGallery }
-
-    Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\DeleteMediaGalleryHandler:
-        tags:
-            - { name: command_handler, handles: Backend\Modules\MediaGalleries\Domain\MediaGallery\Command\DeleteMediaGallery }
+#services:
+#    _defaults:
+#        autowire: true
+#        autoconfigure: true
+#        public: true
+#
+#    ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\Command\CreateMediaGalleryHandler:
+#        tags:
+#            - { name: command_handler, handles: ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\Command\CreateMediaGallery }
+#
+#    ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\Command\UpdateMediaGalleryHandler:
+#        tags:
+#            - { name: command_handler, handles: ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\Command\UpdateMediaGallery }
+#
+#    ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\Command\DeleteMediaGalleryHandler:
+#        tags:
+#            - { name: command_handler, handles: ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\Command\DeleteMediaGallery }

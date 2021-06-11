@@ -3,9 +3,15 @@
 namespace ForkCMS\Core\Domain\Kernel;
 
 use ForkCMS\Core\DependencyInjection\CoreExtension;
+use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
@@ -49,6 +55,8 @@ class Kernel extends BaseKernel
         $container = parent::buildContainer();
 
         $container->registerExtension(new CoreExtension());
+
+        $this->registerModuleExtensions($container);
 
         return $container;
     }
@@ -104,5 +112,59 @@ class Kernel extends BaseKernel
     public function getContainerClass(): string
     {
         return parent::getContainerClass();
+    }
+
+    private function registerModuleExtensions(ContainerBuilder $container)
+    {
+
+        $filesystem = new Filesystem();
+        $modules = $this->getModulesForDependencyInjection($container);
+        $moduleExtensions = [];
+
+        foreach ($modules as $module) {
+            $moduleDirectory = $container->getParameter('kernel.project_dir') . '/src/Modules/' . $module;
+
+            if (!$filesystem->exists($moduleDirectory)) {
+                continue;
+            }
+
+            $domainDirectory = $moduleDirectory . '/Domain';
+            if ($filesystem->exists($domainDirectory)) {
+                $container->prependExtensionConfig(
+                    'doctrine',
+                    [
+                        'orm' => [
+                            'mappings' => [
+                                $module->getName() => [
+                                    'type' => 'annotation',
+                                    'is_bundle' => false,
+                                    'dir' => $domainDirectory,
+                                    'prefix' => 'ForkCMS\\Modules\\' . $module . '\\Domain',
+                                ],
+                            ],
+                        ],
+                    ]
+                );
+            }
+
+            $dependencyInjectionExtension = 'ForkCMS\\Modules\\' . $module . '\\DependencyInjection\\' . $module . 'Extension';
+
+            if (class_exists($dependencyInjectionExtension)) {
+                $container->registerExtension(new $dependencyInjectionExtension());
+            }
+        }
+
+        // ensure these extensions are implicitly loaded
+        $container->getCompilerPassConfig()->setMergePass(new MergeExtensionConfigurationPass(array_keys($container->getExtensions())));
+    }
+
+    /** @return ModuleName[] */
+    private function getModulesForDependencyInjection(ContainerBuilder $container): array
+    {
+        if (!$container->getParameter('fork.is_installed')) {
+            return InstallerConfiguration::fromSession(new Session())?->getModules() ?? [];
+        }
+
+        throw new \RuntimeException('not implemented yet');
     }
 }

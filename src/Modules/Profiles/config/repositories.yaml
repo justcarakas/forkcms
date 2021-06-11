@@ -4,12 +4,12 @@ services:
         autoconfigure: true
         public: true
 
-    Backend\Modules\Profiles\Domain\Profile\ProfileRepository:
+    ForkCMS\Modules\Profiles\Domain\Profile\ProfileRepository:
 
-    Backend\Modules\Profiles\Domain\Setting\SettingRepository:
+    ForkCMS\Modules\Profiles\Domain\Setting\SettingRepository:
 
-    Backend\Modules\Profiles\Domain\Group\GroupRepository:
+    ForkCMS\Modules\Profiles\Domain\Group\GroupRepository:
 
-    Backend\Modules\Profiles\Domain\GroupRight\GroupRightRepository:
+    ForkCMS\Modules\Profiles\Domain\GroupRight\GroupRightRepository:
 
-    Backend\Modules\Profiles\Domain\Session\SessionRepository:
+    ForkCMS\Modules\Profiles\Domain\Session\SessionRepository:

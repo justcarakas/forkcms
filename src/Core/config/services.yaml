@@ -16,21 +16,36 @@ services:
       tags:
         - { name: forkcms.module.installer }
 
-
-  ForkCMS\Core\Installer\:
-    resource: '../src/Core/Installer/*'
+  ForkCMS\Core\:
+    resource: '../src/Core/*'
     exclude:
+      - '../src/Core/Backend/Domain/Meta/AddMetaSubscriber.php'
+      - '../src/Core/Common/DataCollector/DatabaseDataCollector.php'
+      - '../src/Core/Common/ForkCMS/Utility/Module/CopyContentToOtherLocale/CopyContentFromModulesToOtherLocaleManager.php'
+      - '../src/Core/Common/ForkCMS/Utility/Thumbnails.php'
+      - '../src/Core/Common/ModulesSettings.php'
+      - '../src/Core/Console/Install/PrepareForReinstallCommand.php'
+      - '../src/Core/Console/Locale/CopyLocaleCommand.php'
+      - '../src/Core/Console/Locale/EnableLocaleCommand.php'
+      - '../src/Core/Console/Thumbnails/GenerateThumbnailsCommand.php'
       - '../src/Core/Installer/Console'
       - '../src/Core/Installer/Controller'
       - '../src/Core/Installer/Domain/Installer/InstallerConnectionFactory.php'
+      - '../src/Core/Tests'
 
   ForkCMS\Core\Installer\Controller\:
     resource: '../src/Core/Installer/Controller/*'
     public: true
 
-  ForkCMS\Modules\Extensions\Domain\:
-    resource: '../src/Modules/Extensions/Domain/*'
+  doctrine.dbal.connection_factory:
+    class: ForkCMS\Core\Installer\Domain\Installer\InstallerConnectionFactory
+    arguments:
+      - "%doctrine.dbal.connection_factory.types%"
 
   ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator:
     arguments:
       - !tagged_iterator { tag: 'forkcms.module.installer' }
+
+  module_installers:
+    namespace: ForkCMS\Modules\
+    resource: '../src/Modules/*/Installer'
