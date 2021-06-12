@@ -1,0 +1,29 @@
+<?php
+
+namespace ForkCMS\Core\Domain\Doctrine;
+
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\SchemaTool;
+
+class CreateSchema
+{
+    public function __construct(private EntityManagerInterface $entityManager)
+    {
+    }
+
+    /**
+     * Adds new doctrine entities in the database
+     */
+    public function forEntityClasses(string ...$entityClasses): void
+    {
+        $schemaTool = new SchemaTool($this->entityManager);
+
+        $schemaTool->updateSchema(
+            array_map(
+                [$this->entityManager, 'getClassMetadata'],
+                $entityClasses
+            ),
+            true
+        );
+    }
+}
