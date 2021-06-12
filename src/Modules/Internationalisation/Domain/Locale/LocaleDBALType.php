@@ -28,6 +28,6 @@ final class LocaleDBALType extends TextType
 
     public function getName(): string
     {
-        return 'core_locale_locale';
+        return 'modules_internationalisation_locale';
     }
 }

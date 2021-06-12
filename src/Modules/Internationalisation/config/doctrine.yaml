@@ -1,7 +1,8 @@
 doctrine:
   dbal:
     types:
-      module_internationalisation_locale: ForkCMS\Modules\Internationalisation\Domain\Locale\LocaleDBALType
+      modules_internationalisation_locale: ForkCMS\Modules\Internationalisation\Domain\Locale\LocaleDBALType
+      modules_internationalisation_type: ForkCMS\Modules\Internationalisation\Domain\Locale\LocaleDBALType
   orm:
     mappings:
       internationalisation_translation:
