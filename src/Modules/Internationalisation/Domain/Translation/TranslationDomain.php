@@ -15,7 +15,7 @@ class TranslationDomain
     private Application $application;
 
     /**
-     * @ORM\Column(type="core_module_modulename")
+     * @ORM\Column(type="modules_extensions_module_name")
      */
     private ModuleName $moduleName;
 
