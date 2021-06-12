@@ -7,10 +7,7 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 
 final class ContentBlocksInstaller extends ModuleInstaller
 {
-    public function __construct()
-    {
-        $this->isRequired = true;
-    }
+    public const IS_REQUIRED = true;
 
     public static function getModuleName(): ModuleName
     {
