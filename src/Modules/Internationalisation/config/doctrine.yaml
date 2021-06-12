@@ -4,3 +4,9 @@ doctrine:
       module_internationalisation_locale: ForkCMS\Modules\Internationalisation\Domain\Locale\LocaleDBALType
   orm:
     mappings:
+      internationalisation_translation:
+        type: annotation
+        is_bundle: false
+        dir: "%kernel.project_dir%/src/Modules/Internationalisation/Domain/Translation"
+        alias: InternationalisationTranslation
+        prefix: ForkCMS\Modules\Internationalisation\Domain\Translation
