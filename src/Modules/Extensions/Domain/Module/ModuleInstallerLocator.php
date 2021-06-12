@@ -37,7 +37,7 @@ final class ModuleInstallerLocator
         return $this->moduleInstallersToModuleNames(
             array_filter(
                 $this->moduleInstallers,
-                static fn(ModuleInstaller $moduleInstaller) => $moduleInstaller->isRequired()
+                static fn(ModuleInstaller $moduleInstaller) => $moduleInstaller::IS_REQUIRED
             )
         );
     }
@@ -48,7 +48,7 @@ final class ModuleInstallerLocator
         return $this->moduleInstallersToModuleNames(
             array_filter(
                 $this->moduleInstallers,
-                static fn(ModuleInstaller $moduleInstaller) => $moduleInstaller->isVisibleInOverview()
+                static fn(ModuleInstaller $moduleInstaller) => $moduleInstaller::IS_VISIBLE_IN_OVERVIEW
             )
         );
     }

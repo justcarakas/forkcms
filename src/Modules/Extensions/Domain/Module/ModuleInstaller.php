@@ -10,8 +10,12 @@ use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller
 
 abstract class ModuleInstaller
 {
+    public const IS_REQUIRED = false;
+
+    /** If the module should show up on a list of installed or installable modules */
+    public const IS_VISIBLE_IN_OVERVIEW = true;
+
     protected bool $isVisibleInOverview = true;
-    protected bool $isRequired = false;
     /** @var array<string,ModuleName> */
     private array $moduleDependencies = [];
     private ?array $defaultModuleDependencies = null;
@@ -36,22 +40,9 @@ abstract class ModuleInstaller
     {
     }
 
-    /**
-     * If the module should show up on a list of installed or installable modules
-     */
-    final public function isVisibleInOverview(): bool
-    {
-        return $this->isVisibleInOverview;
-    }
-
     final public function registerModule(): void
     {
         $this->moduleRepository->save(Module::fromModuleName(static::getModuleName()));
-    }
-
-    final public function isRequired(): bool
-    {
-        return $this->isRequired;
     }
 
     final protected function addModuleDependency(ModuleName $moduleName): void

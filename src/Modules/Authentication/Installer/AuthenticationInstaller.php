@@ -7,11 +7,8 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 
 final class AuthenticationInstaller extends ModuleInstaller
 {
-    public function __construct()
-    {
-        $this->isVisibleInOverview = false;
-        $this->isRequired = true;
-    }
+    public const IS_REQUIRED = true;
+    public const IS_VISIBLE_IN_OVERVIEW = false;
 
     public static function getModuleName(): ModuleName
     {
