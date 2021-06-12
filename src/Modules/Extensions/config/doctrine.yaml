@@ -4,3 +4,9 @@ doctrine:
       modules_extensions_module_name: ForkCMS\Modules\Extensions\Domain\Module\ModuleNameDBALType
   orm:
     mappings:
+      extensions_module:
+        type: annotation
+        is_bundle: false
+        dir: "%kernel.project_dir%/src/Modules/Extensions/Domain/Module"
+        alias: ExtensionsModule
+        prefix: ForkCMS\Modules\Extensions\Domain\Module
