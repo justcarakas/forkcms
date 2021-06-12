@@ -33,6 +33,11 @@ class Module
         return new self($name, new DateTimeImmutable());
     }
 
+    public static function fromModuleName(ModuleName $moduleName): self
+    {
+        return new self($moduleName->getName(), new DateTimeImmutable());
+    }
+
     public function getName(): string
     {
         return $this->name;
