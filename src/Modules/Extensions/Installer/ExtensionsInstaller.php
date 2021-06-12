@@ -2,11 +2,9 @@
 
 namespace ForkCMS\Modules\Extensions\Installer;
 
-use ForkCMS\Core\Domain\Doctrine\CreateSchema;
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
-use ForkCMS\Modules\Extensions\Domain\Module\ModuleRepository;
 
 final class ExtensionsInstaller extends ModuleInstaller
 {
@@ -15,6 +13,11 @@ final class ExtensionsInstaller extends ModuleInstaller
     public static function getModuleName(): ModuleName
     {
         return ModuleName::fromString('Extensions');
+    }
+
+    public function preInstall(): void
+    {
+        $this->createDatabasesForEntities(Module::class);
     }
 
     public function install(): void
