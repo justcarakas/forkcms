@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
+use ForkCMS\Core\Domain\Doctrine\CreateSchema;
 use ForkCMS\Modules\Backend\Installer\BackendInstaller;
 use ForkCMS\Modules\Error\Installer\ErrorInstaller;
 use ForkCMS\Modules\Extensions\Installer\ExtensionsInstaller;
@@ -15,7 +16,18 @@ abstract class ModuleInstaller
     private array $moduleDependencies = [];
     private ?array $defaultModuleDependencies = null;
 
+    public function __construct(
+        private CreateSchema $createSchema,
+        private ModuleRepository $moduleRepository,
+    ) {
+    }
+
     abstract public static function getModuleName(): ModuleName;
+
+    /**
+     * Use this method to perform the actions needed to install the module
+     */
+    abstract public function install(): void;
 
     /**
      * Use this method to perform actions before the uninstalled module dependencies are installed
@@ -24,11 +36,17 @@ abstract class ModuleInstaller
     {
     }
 
-    abstract public function install(): void;
-
+    /**
+     * If the module should show up on a list of installed or installable modules
+     */
     final public function isVisibleInOverview(): bool
     {
         return $this->isVisibleInOverview;
+    }
+
+    final public function registerModule(): void
+    {
+        $this->moduleRepository->save(Module::fromModuleName(static::getModuleName()));
     }
 
     final public function isRequired(): bool
@@ -39,13 +57,17 @@ abstract class ModuleInstaller
     final protected function addModuleDependency(ModuleName $moduleName): void
     {
         $this->moduleDependencies[$moduleName->getName()] = $moduleName;
-        $this->defaultModuleDependencies = null; // reset cache
     }
 
     /** @return array<string,ModuleName> */
     final public function getModuleDependencies(): array
     {
         return array_merge($this->moduleDependencies, $this->getDefaultModuleDependencies());
+    }
+
+    final public function createDatabasesForEntities(string ...$entityClasses): void
+    {
+        $this->createSchema->forEntityClasses(...$entityClasses);
     }
 
     /** @return array<string,ModuleName> */

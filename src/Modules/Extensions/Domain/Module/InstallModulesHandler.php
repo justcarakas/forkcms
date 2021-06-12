@@ -22,6 +22,7 @@ final class InstallModulesHandler implements CommandHandlerInterface
 
         foreach ($moduleInstallers as $moduleInstaller) {
             $moduleInstaller->install();
+            $moduleInstaller->registerModule();
         }
     }
 }
