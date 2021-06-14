@@ -3,8 +3,9 @@
 namespace ForkCMS\Modules\Pages\Domain\Page;
 
 use JsonSerializable;
+use Stringable;
 
-final class Status implements JsonSerializable
+final class Status implements JsonSerializable, Stringable
 {
     public const ACTIVE = 'active';
     public const ARCHIVE = 'archive';

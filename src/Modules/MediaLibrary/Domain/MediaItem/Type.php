@@ -4,8 +4,9 @@ namespace ForkCMS\Modules\MediaLibrary\Domain\MediaItem;
 
 use ForkCMS\Core\Backend\Helper\Model;
 use InvalidArgumentException;
+use Stringable;
 
-final class Type
+final class Type implements Stringable
 {
     // Possible MediaItem types
     public const AUDIO = 'audio';

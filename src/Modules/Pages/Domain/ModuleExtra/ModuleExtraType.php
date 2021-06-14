@@ -5,8 +5,9 @@ namespace ForkCMS\Modules\Pages\Domain\ModuleExtra;
 use ForkCMS\Modules\Pages\Domain\PageBlock\Type;
 use ForkCMS\Core\Common\Exception\InvalidModuleExtraType;
 use JsonSerializable;
+use Stringable;
 
-final class ModuleExtraType implements JsonSerializable
+final class ModuleExtraType implements JsonSerializable, Stringable
 {
     private const BLOCK = 'block';
     private const WIDGET = 'widget';

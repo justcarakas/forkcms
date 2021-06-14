@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use Spatie\Enum\Enum;
+use Stringable;
 
 /**
  * @method static self message()
@@ -10,7 +11,7 @@ use Spatie\Enum\Enum;
  * @method static self slug()
  * @method static self error()
  */
-final class Type extends Enum
+final class Type extends Enum implements Stringable
 {
     protected static function values(): array
     {

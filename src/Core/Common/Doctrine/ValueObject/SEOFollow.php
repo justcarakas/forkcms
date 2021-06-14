@@ -2,7 +2,9 @@
 
 namespace ForkCMS\Core\Common\Doctrine\ValueObject;
 
-final class SEOFollow
+use Stringable;
+
+final class SEOFollow implements Stringable
 {
     private const NONE = 'none';
     private const FOLLOW = 'follow';

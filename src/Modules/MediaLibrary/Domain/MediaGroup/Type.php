@@ -2,7 +2,9 @@
 
 namespace ForkCMS\Modules\MediaLibrary\Domain\MediaGroup;
 
-final class Type
+use Stringable;
+
+final class Type implements Stringable
 {
     // Possible MediaGroup types
     const ALL = 'all';

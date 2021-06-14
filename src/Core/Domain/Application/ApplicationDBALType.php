@@ -2,32 +2,19 @@
 
 namespace ForkCMS\Core\Domain\Application;
 
-use Doctrine\DBAL\Types\TextType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use ForkCMS\Modules\Backend\Domain\Navigation\ValueObjectDBALType;
+use Stringable;
 
-final class ApplicationDBALType extends TextType
+final class ApplicationDBALType extends ValueObjectDBALType
 {
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         return 'VARCHAR(10)';
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform): ?Application
+    protected function fromValue(string $value): Stringable
     {
-        if ($value === null) {
-            return null;
-        }
-
         return Application::from($value);
-    }
-
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): string
-    {
-        return (string) $value;
-    }
-
-    public function getName(): string
-    {
-        return 'core_application_application';
     }
 }

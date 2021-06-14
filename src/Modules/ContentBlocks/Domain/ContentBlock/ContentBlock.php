@@ -59,7 +59,7 @@ class ContentBlock
     /**
      * @var Locale
      *
-     * @ORM\Column(type="locale", name="language")
+     * @ORM\Column(type="modules-internationalisation-locale-locale", name="language")
      */
     private $locale;
 
@@ -87,7 +87,7 @@ class ContentBlock
     /**
      * @var Status
      *
-     * @ORM\Column(type="content_blocks_status", options={"default" = "active"})
+     * @ORM\Column(type="modules-content_blocks-content_block-status", options={"default" = "active"})
      */
     private $status;
 

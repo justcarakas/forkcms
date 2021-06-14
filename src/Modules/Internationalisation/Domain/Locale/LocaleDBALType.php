@@ -2,32 +2,19 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
-use Doctrine\DBAL\Types\TextType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use ForkCMS\Modules\Backend\Domain\Navigation\ValueObjectDBALType;
+use Stringable;
 
-final class LocaleDBALType extends TextType
+final class LocaleDBALType extends ValueObjectDBALType
 {
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
+    protected function fromValue(string $value): Stringable
     {
-        return 'VARCHAR(5)';
-    }
-
-    public function convertToPHPValue($value, AbstractPlatform $platform): ?Locale
-    {
-        if ($value === null) {
-            return null;
-        }
-
         return Locale::from($value);
     }
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): string
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
-        return (string) $value;
-    }
-
-    public function getName(): string
-    {
-        return 'modules_internationalisation_locale';
+        return 'VARCHAR(5)';
     }
 }

@@ -1,10 +1,10 @@
 doctrine:
     dbal:
         types:
-            module_extra_type: ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraDBALType
-            pages_page_block_type: ForkCMS\Modules\Pages\Domain\PageBlock\TypeDBALType
-            page_status: ForkCMS\Modules\Pages\Domain\Page\StatusDBALType
-            pages_page_type: ForkCMS\Modules\Pages\Domain\Page\TypeDBALType
+            modules-pages-module_extra-module_extra_type: ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraDBALType
+            modules-pages-page_block-type: ForkCMS\Modules\Pages\Domain\PageBlock\TypeDBALType
+            modules-pages-page-status: ForkCMS\Modules\Pages\Domain\Page\StatusDBALType
+            modules-pages-page-type: ForkCMS\Modules\Pages\Domain\Page\TypeDBALType
     orm:
         mappings:
             module_extra:
