@@ -1,0 +1,3 @@
+services:
+  ForkCMS\Modules\Backend\Domain\:
+    resource: '../Domain/*'

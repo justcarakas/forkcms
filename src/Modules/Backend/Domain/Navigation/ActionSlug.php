@@ -6,9 +6,10 @@ use Assert\Assert;
 use ForkCMS\Modules\Extensions\Domain\Action\ActionName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use InvalidArgumentException;
+use Stringable;
 use Symfony\Component\DependencyInjection\Container;
 
-final class ActionSlug
+final class ActionSlug implements Stringable
 {
     private function __construct(private ModuleName $moduleName, private ActionName $actionName)
     {
