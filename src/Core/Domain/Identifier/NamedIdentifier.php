@@ -12,7 +12,7 @@ trait NamedIdentifier
 
     private function __construct(string $name)
     {
-        Assertion::regex($name, '/^[A-Z][A-Za-z0-9]*$/', 'Invalid name');
+        Assertion::regex($name, '/^[A-Z][A-Za-z0-9]*$/', 'Invalid name: ' . $name);
 
         $this->name = $name;
     }
