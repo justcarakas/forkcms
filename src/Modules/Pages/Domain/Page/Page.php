@@ -104,14 +104,14 @@ class Page
     /**
      * @var Locale
      *
-     * @ORM\Column(type="locale")
+     * @ORM\Column(type="modules-internationalisation-locale-locale")
      */
     private $locale;
 
     /**
      * @var Type
      *
-     * @ORM\Column(type="pages_page_type")
+     * @ORM\Column(type="modules-pages-page-type")
      */
     private $type;
 
@@ -153,7 +153,7 @@ class Page
      *
      * @var Status
      *
-     * @ORM\Column(type="page_status", length=243)
+     * @ORM\Column(type="modules-pages-page-status", length=243)
      */
     private $status;
 

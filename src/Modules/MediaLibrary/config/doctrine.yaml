@@ -1,11 +1,10 @@
 doctrine:
   dbal:
     types:
-      uuid: Ramsey\Uuid\Doctrine\UuidType
-      media_item_storage_type: ForkCMS\Modules\MediaLibrary\Domain\MediaItem\StorageTypeDBALType
-      media_item_type: ForkCMS\Modules\MediaLibrary\Domain\MediaItem\TypeDBALType
-      media_item_aspect_ratio: ForkCMS\Modules\MediaLibrary\Domain\MediaItem\AspectRatioDBALType
-      media_group_type: ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\TypeDBALType
+      media_library-media_item-storage_type: ForkCMS\Modules\MediaLibrary\Domain\MediaItem\StorageTypeDBALType
+      media_library-media_item-type: ForkCMS\Modules\MediaLibrary\Domain\MediaItem\TypeDBALType
+      media_library-media_item-aspect_ratio: ForkCMS\Modules\MediaLibrary\Domain\MediaItem\AspectRatioDBALType
+      media_library-media_group-type: ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\TypeDBALType
   orm:
     mappings:
       media_folder:

@@ -2,23 +2,13 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
-use Doctrine\DBAL\Types\StringType;
-use Doctrine\DBAL\Platforms\AbstractPlatform;
+use ForkCMS\Modules\Backend\Domain\Navigation\ValueObjectDBALType;
+use Stringable;
 
-class ModuleNameDBALType extends StringType
+class ModuleNameDBALType extends ValueObjectDBALType
 {
-    public function convertToPHPValue($moduleName, AbstractPlatform $platform): ModuleName
+    protected function fromValue(string $value): Stringable
     {
-        return ModuleName::fromString($moduleName);
-    }
-
-    public function convertToDatabaseValue($moduleName, AbstractPlatform $platform): string
-    {
-        return (string) $moduleName;
-    }
-
-    public function getName(): string
-    {
-        return 'modules_extensions_module_name';
+        return ModuleName::fromString($value);
     }
 }

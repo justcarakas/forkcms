@@ -7,8 +7,9 @@ use ForkCMS\Core\Common\Language;
 use JsonSerializable;
 use RuntimeException;
 use SpoonFilter;
+use Stringable;
 
-final class Type implements JsonSerializable
+final class Type implements JsonSerializable, Stringable
 {
     private const RICH_TEXT = 'rich_text';
     private const BLOCK = 'block';

@@ -2,29 +2,13 @@
 
 namespace ForkCMS\Modules\Pages\Domain\PageBlock;
 
-use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\StringType;
+use ForkCMS\Modules\Backend\Domain\Navigation\ValueObjectDBALType;
+use Stringable;
 
-final class TypeDBALType extends StringType
+final class TypeDBALType extends ValueObjectDBALType
 {
-    public const NAME = 'pages_page_block_type';
-
-    public function getName(): string
+    protected function fromValue(string $value): Stringable
     {
-        return self::NAME;
-    }
-
-    public function convertToPHPValue($value, AbstractPlatform $platform): ?Type
-    {
-        if ($value === null) {
-            return null;
-        }
-
         return new Type($value);
-    }
-
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): string
-    {
-        return (string) $value;
     }
 }

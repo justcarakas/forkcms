@@ -2,25 +2,13 @@
 
 namespace ForkCMS\Modules\Profiles\Domain\Profile;
 
-use Doctrine\DBAL\Types\StringType;
-use Doctrine\DBAL\Platforms\AbstractPlatform;
+use ForkCMS\Modules\Backend\Domain\Navigation\ValueObjectDBALType;
+use Stringable;
 
-class StatusDBALType extends StringType
+class StatusDBALType extends ValueObjectDBALType
 {
-    const PROFILES_STATUS = 'profiles_status';
-
-    public function convertToPHPValue($status, AbstractPlatform $platform): Status
+    protected function fromValue(string $value): Stringable
     {
-        return Status::fromString($status);
-    }
-
-    public function convertToDatabaseValue($status, AbstractPlatform $platform): string
-    {
-        return (string) $status;
-    }
-
-    public function getName(): string
-    {
-        return self::PROFILES_STATUS;
+        return Status::fromString($value);
     }
 }

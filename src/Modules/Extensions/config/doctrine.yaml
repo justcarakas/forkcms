@@ -1,7 +1,7 @@
 doctrine:
   dbal:
     types:
-      modules_extensions_module_name: ForkCMS\Modules\Extensions\Domain\Module\ModuleNameDBALType
+      modules-extensions-module-module_name: ForkCMS\Modules\Extensions\Domain\Module\ModuleNameDBALType
   orm:
     mappings:
       extensions_module:

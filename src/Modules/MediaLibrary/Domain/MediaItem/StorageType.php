@@ -3,8 +3,9 @@
 namespace ForkCMS\Modules\MediaLibrary\Domain\MediaItem;
 
 use InvalidArgumentException;
+use Stringable;
 
-final class StorageType
+final class StorageType implements Stringable
 {
     // Possible MediaItem types
     const EXTERNAL = 'external';

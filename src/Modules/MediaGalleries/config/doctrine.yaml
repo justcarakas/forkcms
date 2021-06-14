@@ -1,7 +1,7 @@
 doctrine:
   dbal:
     types:
-      media_gallery_status: ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\StatusDBALType
+      modules-media_galleries-media_gallery_status: ForkCMS\Modules\MediaGalleries\Domain\MediaGallery\StatusDBALType
   orm:
     mappings:
       media_gallery:

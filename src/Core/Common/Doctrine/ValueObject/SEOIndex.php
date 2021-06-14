@@ -2,7 +2,9 @@
 
 namespace ForkCMS\Core\Common\Doctrine\ValueObject;
 
-final class SEOIndex
+use Stringable;
+
+final class SEOIndex implements Stringable
 {
     private const NONE = 'none';
     private const INDEX = 'index';

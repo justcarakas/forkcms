@@ -3,39 +3,18 @@
 namespace ForkCMS\Core\Common\Doctrine\Type;
 
 use ForkCMS\Core\Common\Doctrine\ValueObject\SEOIndex;
-use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\StringType;
+use ForkCMS\Modules\Backend\Domain\Navigation\ValueObjectDBALType;
+use Stringable;
 
-final class SEOIndexType extends StringType
+final class SEOIndexType extends ValueObjectDBALType
 {
-    const SEO_INDEX = 'seo_index';
-
-    /**
-     * @param SEOIndex $seoIndex
-     * @param AbstractPlatform $platform
-     *
-     * @return string
-     */
-    public function convertToDatabaseValue($seoIndex, AbstractPlatform $platform): ?string
+    protected function fromValue(string $value): Stringable
     {
-        if ($seoIndex === null) {
-            return null;
-        }
-
-        return (string) $seoIndex;
-    }
-
-    public function convertToPHPValue($seoIndex, AbstractPlatform $platform): ?SEOIndex
-    {
-        if ($seoIndex === null) {
-            return null;
-        }
-
-        return SEOIndex::fromString($seoIndex);
+        return SEOIndex::fromString($value);
     }
 
     public function getName(): string
     {
-        return self::SEO_INDEX;
+        return 'seo_index';
     }
 }

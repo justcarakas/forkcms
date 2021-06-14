@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
 use Serializable;
 use Spatie\Enum\Enum;
+use Stringable;
 
 /**
  * @method static self en()
@@ -22,7 +23,7 @@ use Spatie\Enum\Enum;
  * @method static self pl()
  * @method static self pt()
  */
-final class Locale extends Enum implements Serializable
+final class Locale extends Enum implements Serializable, Stringable
 {
     protected static function labels(): array
     {

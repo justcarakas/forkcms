@@ -1,7 +1,7 @@
 doctrine:
   dbal:
     types:
-      content_blocks_status: ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\StatusDBALType
+      modules-content_blocks-content_block-status: ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\StatusDBALType
   orm:
     mappings:
       content_block:

@@ -3,39 +3,18 @@
 namespace ForkCMS\Core\Common\Doctrine\Type;
 
 use ForkCMS\Core\Common\Doctrine\ValueObject\SEOFollow;
-use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\StringType;
+use ForkCMS\Modules\Backend\Domain\Navigation\ValueObjectDBALType;
+use Stringable;
 
-final class SEOFollowType extends StringType
+final class SEOFollowType extends ValueObjectDBALType
 {
-    const SEO_FOLLOW = 'seo_follow';
-
-    /**
-     * @param SEOFollow $seoFollow
-     * @param AbstractPlatform $platform
-     *
-     * @return string
-     */
-    public function convertToDatabaseValue($seoFollow, AbstractPlatform $platform): ?string
+    protected function fromValue(string $value): Stringable
     {
-        if ($seoFollow === null) {
-            return null;
-        }
-
-        return (string) $seoFollow;
-    }
-
-    public function convertToPHPValue($seoFollow, AbstractPlatform $platform): ?SEOFollow
-    {
-        if ($seoFollow === null) {
-            return null;
-        }
-
-        return SEOFollow::fromString($seoFollow);
+        return SEOFollow::fromString($value);
     }
 
     public function getName(): string
     {
-        return self::SEO_FOLLOW;
+        return 'seo_follow';
     }
 }

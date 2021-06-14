@@ -2,25 +2,13 @@
 
 namespace ForkCMS\Modules\MediaLibrary\Domain\MediaItem;
 
-use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\StringType;
+use ForkCMS\Modules\Backend\Domain\Navigation\ValueObjectDBALType;
+use Stringable;
 
-final class StorageTypeDBALType extends StringType
+final class StorageTypeDBALType extends ValueObjectDBALType
 {
-    const NAME = 'media_item_storage_type';
-
-    public function getName(): string
-    {
-        return self::NAME;
-    }
-
-    public function convertToPHPValue($value, AbstractPlatform $platform): StorageType
+    protected function fromValue(string $value): Stringable
     {
         return StorageType::fromString($value);
-    }
-
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): string
-    {
-        return (string) $value;
     }
 }

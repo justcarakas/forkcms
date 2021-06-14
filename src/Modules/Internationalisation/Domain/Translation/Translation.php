@@ -35,7 +35,7 @@ class Translation
     private TranslationKey $key;
 
     /**
-     * @ORM\Column(type="modules_internationalisation_locale")
+     * @ORM\Column(type="modules-internationalisation-locale-locale")
      */
     private Locale $locale;
 
