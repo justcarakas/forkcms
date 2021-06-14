@@ -2,12 +2,12 @@
 
 namespace ForkCMS\Modules\Pages\Domain\PageBlock;
 
-use ForkCMS\Modules\Backend\Domain\Navigation\ValueObjectDBALType;
+use ForkCMS\Core\Domain\Doctrine\ValueObjectDBALType;
 use Stringable;
 
 final class TypeDBALType extends ValueObjectDBALType
 {
-    protected function fromValue(string $value): Stringable
+    protected function fromString(string $value): Stringable
     {
         return new Type($value);
     }

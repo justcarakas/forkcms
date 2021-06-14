@@ -3,12 +3,12 @@
 namespace ForkCMS\Core\Common\Doctrine\Type;
 
 use ForkCMS\Core\Common\Doctrine\ValueObject\SEOFollow;
-use ForkCMS\Modules\Backend\Domain\Navigation\ValueObjectDBALType;
+use ForkCMS\Core\Domain\Doctrine\ValueObjectDBALType;
 use Stringable;
 
 final class SEOFollowType extends ValueObjectDBALType
 {
-    protected function fromValue(string $value): Stringable
+    protected function fromString(string $value): Stringable
     {
         return SEOFollow::fromString($value);
     }
