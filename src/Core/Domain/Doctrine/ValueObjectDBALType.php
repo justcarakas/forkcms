@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Modules\Backend\Domain\Navigation;
+namespace ForkCMS\Core\Domain\Doctrine;
 
 use Doctrine\DBAL\Types\StringType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
@@ -16,7 +16,7 @@ abstract class ValueObjectDBALType extends StringType
             return null;
         }
 
-        return $this->fromValue($value);
+        return $this->fromString($value);
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
@@ -60,5 +60,5 @@ abstract class ValueObjectDBALType extends StringType
         throw new InvalidArgumentException('Cauld not automatically determine the unique DBAL type name');
     }
 
-    abstract protected function fromValue(string $value): Stringable;
+    abstract protected function fromString(string $value): Stringable;
 }

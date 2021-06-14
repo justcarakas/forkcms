@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use ForkCMS\Modules\Backend\Domain\Navigation\ValueObjectDBALType;
+use ForkCMS\Core\Domain\Doctrine\ValueObjectDBALType;
 use Stringable;
 
 final class TypeDBALType extends ValueObjectDBALType
@@ -13,7 +13,7 @@ final class TypeDBALType extends ValueObjectDBALType
         return 'VARCHAR(7)';
     }
 
-    protected function fromValue(string $value): Stringable
+    protected function fromString(string $value): Stringable
     {
         return Type::from($value);
     }

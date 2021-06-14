@@ -3,12 +3,12 @@
 namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use ForkCMS\Modules\Backend\Domain\Navigation\ValueObjectDBALType;
+use ForkCMS\Core\Domain\Doctrine\ValueObjectDBALType;
 use Stringable;
 
 final class LocaleDBALType extends ValueObjectDBALType
 {
-    protected function fromValue(string $value): Stringable
+    protected function fromString(string $value): Stringable
     {
         return Locale::from($value);
     }
