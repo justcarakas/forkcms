@@ -32,7 +32,7 @@ class MediaGroup implements JsonSerializable, Countable
     /**
      * @var Type
      *
-     * @ORM\Column(type="media_group_type")
+     * @ORM\Column(type="media_library-media_group-type")
      */
     protected $type;
 

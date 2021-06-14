@@ -3,8 +3,9 @@
 namespace ForkCMS\Modules\Pages\Domain\Page;
 
 use InvalidArgumentException;
+use Stringable;
 
-final class Type
+final class Type implements Stringable
 {
     private const ROOT = 'root';
     private const PAGE = 'page';

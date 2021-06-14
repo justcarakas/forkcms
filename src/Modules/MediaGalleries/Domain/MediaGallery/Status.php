@@ -3,8 +3,9 @@
 namespace ForkCMS\Modules\MediaGalleries\Domain\MediaGallery;
 
 use InvalidArgumentException;
+use Stringable;
 
-final class Status
+final class Status implements Stringable
 {
     private const ACTIVE = 'active';
     private const HIDDEN = 'hidden';

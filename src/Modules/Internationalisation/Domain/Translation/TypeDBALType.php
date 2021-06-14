@@ -2,32 +2,19 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
-use Doctrine\DBAL\Types\TextType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use ForkCMS\Modules\Backend\Domain\Navigation\ValueObjectDBALType;
+use Stringable;
 
-final class TypeDBALType extends TextType
+final class TypeDBALType extends ValueObjectDBALType
 {
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         return 'VARCHAR(7)';
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform): ?Type
+    protected function fromValue(string $value): Stringable
     {
-        if ($value === null) {
-            return null;
-        }
-
         return Type::from($value);
-    }
-
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): string
-    {
-        return (string) $value;
-    }
-
-    public function getName(): string
-    {
-        return 'modules_internationalisation_type';
     }
 }

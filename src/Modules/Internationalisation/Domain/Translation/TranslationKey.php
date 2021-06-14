@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Container;
 class TranslationKey
 {
     /**
-     * @ORM\Column(type="modules_internationalisation_type")
+     * @ORM\Column(type="modules-internationalisation-locale-type")
      */
     private Type $type;
 

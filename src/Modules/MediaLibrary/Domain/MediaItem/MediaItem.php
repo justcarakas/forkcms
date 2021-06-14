@@ -60,14 +60,14 @@ class MediaItem implements JsonSerializable
     /**
      * @var StorageType
      *
-     * @ORM\Column(type="media_item_storage_type", options={"default"="local"})
+     * @ORM\Column(type="media_library-media_item-storage_type", options={"default"="local"})
      */
     protected $storageType;
 
     /**
      * @var Type
      *
-     * @ORM\Column(type="media_item_type")
+     * @ORM\Column(type="media_library-media_item-type")
      */
     protected $type;
 

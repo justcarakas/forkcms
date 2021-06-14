@@ -3,8 +3,9 @@
 namespace ForkCMS\Modules\Profiles\Domain\Profile;
 
 use InvalidArgumentException;
+use Stringable;
 
-final class Status
+final class Status implements Stringable
 {
     private const STATUS_ACTIVE = 'active';
     private const STATUS_INACTIVE = 'inactive';

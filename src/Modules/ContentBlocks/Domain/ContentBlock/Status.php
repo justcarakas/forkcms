@@ -3,8 +3,9 @@
 namespace ForkCMS\Modules\ContentBlocks\Domain\ContentBlock;
 
 use InvalidArgumentException;
+use Stringable;
 
-final class Status
+final class Status implements Stringable
 {
     private const STATUS_ARCHIVED = 'archived';
     private const STATUS_ACTIVE = 'active';
