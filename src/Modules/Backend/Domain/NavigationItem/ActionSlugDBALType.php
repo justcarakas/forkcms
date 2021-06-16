@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Modules\Backend\Domain\Navigation;
+namespace ForkCMS\Modules\Backend\Domain\NavigationItem;
 
 use ForkCMS\Core\Domain\Doctrine\ValueObjectDBALType;
 use Stringable;
