@@ -1,7 +1,7 @@
 doctrine:
   dbal:
     types:
-      modules-backend-navigation-action_slug: ForkCMS\Modules\Backend\Domain\Navigation\ActionSlugDBALType
+      modules-backend-navigation-action_slug: ForkCMS\Modules\Backend\Domain\NavigationItem\ActionSlugDBALType
 
   orm:
     mappings:
@@ -10,4 +10,4 @@ doctrine:
         is_bundle: false
         dir: "%kernel.project_dir%/src/Modules/Backend/Domain/Navigation"
         alias: BackendNavigation
-        prefix: ForkCMS\Modules\Backend\Domain\Navigation
+        prefix: ForkCMS\Modules\Backend\Domain\NavigationItem
