@@ -67,4 +67,14 @@ final class ActionSlug implements Stringable
     {
         return $this->getSlug();
     }
+
+    public function getModuleName(): ModuleName
+    {
+        return $this->moduleName;
+    }
+
+    public function getActionName(): ActionName
+    {
+        return $this->actionName;
+    }
 }
