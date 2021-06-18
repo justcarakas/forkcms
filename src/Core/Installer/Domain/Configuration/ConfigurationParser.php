@@ -37,18 +37,16 @@ final class ConfigurationParser
                      || $_SERVER['SERVER_PORT'] === '443';
 
         return sprintf(
-            'FORK_DATABASE_DRIVER=%1$s
-FORK_DATABASE_HOST=%2$s
-FORK_DATABASE_PORT=%3$s
-FORK_DATABASE_NAME=%4$s
-FORK_DATABASE_USER=%5$s
-FORK_DATABASE_PASSWORD=%6$s
-FORK_DEBUG_EMAIL=%7$s
-SITE_PROTOCOL=%8$s
-SITE_DOMAIN=%9$s
-SITE_MULTILANGUAGE=%10$s
-SITE_DEFAULT_LANGUAGE=%11$s',
-            'mysql',
+            'FORK_DATABASE_HOST=%1$s
+FORK_DATABASE_PORT=%2$s
+FORK_DATABASE_NAME=%3$s
+FORK_DATABASE_USER=%4$s
+FORK_DATABASE_PASSWORD=%5$s
+FORK_DEBUG_EMAIL=%6$s
+SITE_PROTOCOL=%7$s
+SITE_DOMAIN=%8$s
+SITE_MULTILANGUAGE=%9$s
+SITE_DEFAULT_LANGUAGE=%10$s',
             $installerConfiguration->getDatabaseHostname(),
             $installerConfiguration->getDatabasePort(),
             $installerConfiguration->getDatabaseName(),
