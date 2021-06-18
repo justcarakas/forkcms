@@ -42,7 +42,7 @@ class Profile
     /**
      * @var Status
      *
-     * @ORM\Column(type="modules-profiles-profile-status")
+     * @ORM\Column(type="modules__profiles__profile__status")
      */
     private $status;
 

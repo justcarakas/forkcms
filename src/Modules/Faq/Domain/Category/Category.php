@@ -28,7 +28,7 @@ class Category
     /**
      * @var Locale
      *
-     * @ORM\Column(type="modules-internationalisation-locale-locale")
+     * @ORM\Column(type="modules__internationalisation__locale__locale")
      */
     private $locale;
 

@@ -1,7 +1,4 @@
 doctrine:
   dbal:
     types:
-      uuid: Ramsey\Uuid\Doctrine\UuidType
-      core-application-application: ForkCMS\Core\Domain\Application\ApplicationDBALType
-  orm:
-    mappings:
+      core__application__application: ForkCMS\Core\Domain\Application\ApplicationDBALType

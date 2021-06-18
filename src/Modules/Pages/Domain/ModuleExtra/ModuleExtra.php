@@ -40,7 +40,7 @@ class ModuleExtra
     /**
      * @var string
      *
-     * @ORM\Column(type="modules-pages-module_extra-module_extra_type", name="type")
+     * @ORM\Column(type="modules__pages__module_extra__module_extra_type", name="type")
      */
     private $type;
 
