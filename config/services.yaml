@@ -15,8 +15,16 @@ services:
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
     bind:
+      string $rootDir: '%kernel.project_dir%'
+      bool $forkIsInstalled: '%fork.is_installed%'
 #      $commandBus: '@command_bus' # Generic // This should be replaced with the Messenger component
 #      $database: '@database'
+
+  ForkCMS\Core\Installer\Domain\Requirement\RequirementsChecker:
+
+  ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator:
+    arguments:
+      - !tagged_iterator { tag: 'forkcms.module.installer' }
 
   # makes classes in src/ available to be used as services
   # this creates a service per class whose id is the fully-qualified class name
