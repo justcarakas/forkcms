@@ -107,21 +107,32 @@ abstract class ModuleInstaller
         TranslationKey $label,
         ?ActionSlug $slug = null,
         ?NavigationItem $parent = null,
+        array $selectedFor = [],
         ?int $sequence = null,
+        bool $visibleInNavigationMenu = true,
     ): NavigationItem {
-        $navigationItem = $this->navigationRepository->findOneBy(
-            [
-                'label' => $label,
-                'slug' => $slug,
-                'parent' => $parent,
-            ]
+        $navigationItem = $this->navigationRepository->findUnique(
+            $label,
+            $slug,
+            $parent
         );
         if ($navigationItem instanceof NavigationItem) {
             return $navigationItem;
         }
 
-        $navigationItem = new NavigationItem($label, $slug, $parent, $sequence);
+        $navigationItem = new NavigationItem($label, $slug, $parent, $visibleInNavigationMenu, $sequence);
         $this->navigationRepository->save($navigationItem);
+
+        foreach ($selectedFor as $selectedForLabel => $selectedForSlug) {
+            $this->getOrCreateBackendNavigationItem(
+                TranslationKey::label($selectedForLabel),
+                $selectedForSlug,
+                $navigationItem,
+                [],
+                null,
+                false
+            );
+        }
 
         return $navigationItem;
     }
@@ -132,6 +143,7 @@ abstract class ModuleInstaller
             TranslationKey::label('Modules'),
             null,
             null,
+            [],
             4,
         );
     }
@@ -142,6 +154,7 @@ abstract class ModuleInstaller
             TranslationKey::label('Settings'),
             null,
             null,
+            [],
             999,
         );
     }
