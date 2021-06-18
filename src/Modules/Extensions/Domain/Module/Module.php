@@ -13,16 +13,16 @@ class Module
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="modules__extensions__module__module_name")
      */
-    private string $name;
+    private ModuleName $name;
 
     /**
      * @ORM\Column(type="datetime_immutable")
      */
     private DateTimeImmutable $installedOn;
 
-    private function __construct(string $name, DateTimeImmutable $installedOn)
+    private function __construct(ModuleName $name, DateTimeImmutable $installedOn)
     {
         $this->name = $name;
         $this->installedOn = $installedOn;
@@ -30,15 +30,15 @@ class Module
 
     public static function fromString(string $name): self
     {
-        return new self($name, new DateTimeImmutable());
+        return new self(ModuleName::fromString($name), new DateTimeImmutable());
     }
 
     public static function fromModuleName(ModuleName $moduleName): self
     {
-        return new self($moduleName->getName(), new DateTimeImmutable());
+        return new self($moduleName, new DateTimeImmutable());
     }
 
-    public function getName(): string
+    public function getName(): ModuleName
     {
         return $this->name;
     }
@@ -50,6 +50,6 @@ class Module
 
     public function __toString(): string
     {
-        return $this->name;
+        return $this->name->getName();
     }
 }
