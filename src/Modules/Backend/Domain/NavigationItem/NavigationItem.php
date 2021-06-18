@@ -26,7 +26,7 @@ class NavigationItem
 
     /**
      * @Orm\ManyToOne(targetEntity="NavigationItem", inversedBy="children")
-     * @Orm\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @Orm\JoinColumn(referencedColumnName="id")
      */
     private ?self $parent;
 
@@ -42,9 +42,14 @@ class NavigationItem
     private TranslationKey $label;
 
     /**
-     * @ORM\Column(type="modules__backend__navigation__action_slug")
+     * @ORM\Column(type="modules__backend__navigation__action_slug", nullable=true)
      */
     private ?ActionSlug $slug;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $visibleInNavigationMenu;
 
     /**
      * @ORM\Column(type="integer", options={"unsigned"=true})
@@ -55,11 +60,13 @@ class NavigationItem
         TranslationKey $label,
         ?ActionSlug $slug = null,
         ?self $parent = null,
+        bool $visibleInNavigationMenu = true,
         ?int $sequence = null
     ) {
         $this->label = $label;
         $this->slug = $slug;
         $this->parent = $parent;
+        $this->visibleInNavigationMenu = $visibleInNavigationMenu;
         $this->sequence = $sequence ?? $this->getFallbackSequence($parent);
         $this->children = new ArrayCollection();
         if ($parent instanceof self) {
@@ -91,6 +98,11 @@ class NavigationItem
     public function getSlug(): ?ActionSlug
     {
         return $this->slug;
+    }
+
+    public function isVisibleInNavigationMenu(): bool
+    {
+        return $this->visibleInNavigationMenu;
     }
 
     public function getSequence(): int

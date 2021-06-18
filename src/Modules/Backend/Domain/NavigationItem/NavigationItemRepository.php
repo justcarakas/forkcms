@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Backend\Domain\NavigationItem;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Throwable;
 
 /**
@@ -34,5 +35,20 @@ final class NavigationItemRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->persist($navigationItem);
         $this->getEntityManager()->flush();
+    }
+
+    public function findUnique(
+        TranslationKey $label,
+        ?ActionSlug $slug,
+        ?NavigationItem $parent
+    ): ?NavigationItem {
+        return $this->findOneBy(
+            [
+                'label.type' => $label->getType(),
+                'label.name' => $label->getName(),
+                'slug' => $slug,
+                'parent' => $parent,
+            ]
+        );
     }
 }
