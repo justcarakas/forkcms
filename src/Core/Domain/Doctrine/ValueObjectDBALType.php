@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Container;
 
 abstract class ValueObjectDBALType extends StringType
 {
-    public function convertToPHPValue($value, AbstractPlatform $platform): ?Stringable
+    final public function convertToPHPValue($value, AbstractPlatform $platform): ?Stringable
     {
         if ($value === null) {
             return null;
@@ -19,13 +19,13 @@ abstract class ValueObjectDBALType extends StringType
         return $this->fromString($value);
     }
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
+    final public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if ($value === null) {
             return null;
         }
 
-        return (string) $value;
+        return $this->toString($value);
     }
 
     public function getName(): string
@@ -61,4 +61,9 @@ abstract class ValueObjectDBALType extends StringType
     }
 
     abstract protected function fromString(string $value): Stringable;
+
+    protected function toString(Stringable $value): string
+    {
+        return (string) $value;
+    }
 }
