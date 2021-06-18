@@ -23,9 +23,11 @@ final class InstallForkCMSHandler implements CommandHandlerInterface
 
         $installerConfiguration = $installForkCMS->getInstallerConfiguration();
         if ($installerConfiguration->shouldSaveConfiguration()) {
-            $this->configurationParser->toFile($installForkCMS->getInstallerConfiguration());
+            $this->configurationParser->toYamlFile($installForkCMS->getInstallerConfiguration());
         }
 
         $this->commandBus->dispatch(new InstallModules(...$installerConfiguration->getModules()));
+
+        $this->configurationParser->toDotEnvFile($installerConfiguration);
     }
 }
