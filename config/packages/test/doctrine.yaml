@@ -1,7 +1,5 @@
 doctrine:
   dbal:
-    types:
-#      locale: ForkCMS\Bundle\InstallerBundle\DBALType\LocaleDBALType
     connections:
       default:
-#        dbname: "%database.name%_test"
+        dbname: "%env(FORK_DATABASE_NAME)%_test"

@@ -5,9 +5,10 @@ namespace ForkCMS\Core\Domain\Kernel;
 use ForkCMS\Core\DependencyInjection\CoreExtension;
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use PDO;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -116,10 +117,8 @@ class Kernel extends BaseKernel
 
     private function registerModuleExtensions(ContainerBuilder $container)
     {
-
         $filesystem = new Filesystem();
         $modules = $this->getModulesForDependencyInjection($container);
-        $moduleExtensions = [];
 
         foreach ($modules as $module) {
             $moduleDirectory = $container->getParameter('kernel.project_dir') . '/src/Modules/' . $module;
@@ -155,7 +154,9 @@ class Kernel extends BaseKernel
         }
 
         // ensure these extensions are implicitly loaded
-        $container->getCompilerPassConfig()->setMergePass(new MergeExtensionConfigurationPass(array_keys($container->getExtensions())));
+        $container->getCompilerPassConfig()->setMergePass(
+            new MergeExtensionConfigurationPass(array_keys($container->getExtensions()))
+        );
     }
 
     /** @return ModuleName[] */
@@ -165,6 +166,24 @@ class Kernel extends BaseKernel
             return InstallerConfiguration::fromSession(new Session())?->getModules() ?? [];
         }
 
-        throw new \RuntimeException('not implemented yet');
+        $connection = new PDO(
+            sprintf(
+                '%1$s:host=%2$s;port=%3$s;dbname=%4$s',
+                $_ENV['FORK_DATABASE_DRIVER'],
+                $_ENV['FORK_DATABASE_HOST'],
+                $_ENV['FORK_DATABASE_PORT'],
+                $_ENV['FORK_DATABASE_NAME'],
+            ), $_ENV['FORK_DATABASE_USER'], $_ENV['FORK_DATABASE_PASSWORD']
+        );
+
+        $modulesQuery = $connection->query('SELECT name from Modules');
+        if (!$modulesQuery->execute()) {
+            throw new RuntimeException('Cannot get installed modules from database');
+        }
+
+        return array_map(
+            static fn(string $moduleName): ModuleName => ModuleName::fromString($moduleName),
+            $modulesQuery->fetchAll(PDO::FETCH_COLUMN, 0)
+        );
     }
 }
