@@ -1,12 +1,4 @@
 doctrine:
   dbal:
     types:
-      modules-content_blocks-content_block-status: ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\StatusDBALType
-  orm:
-    mappings:
-      content_block:
-        type: annotation
-        is_bundle: false
-        dir: "%kernel.project_dir%/src/Modules/ContentBlocks/Domain/ContentBlock"
-        alias: ContentBlocksContentBlock
-        prefix: ForkCMS\Modules\ContentBlocks\Domain\ContentBlock
+      modules__content_blocks__content_block__status: ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\StatusDBALType

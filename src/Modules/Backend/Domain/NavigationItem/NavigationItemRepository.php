@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Backend\Domain\NavigationItem;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Throwable;
 
 /**
  * @method NavigationItem|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,7 +16,13 @@ final class NavigationItemRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, NavigationItem::class);
+        try {
+            parent::__construct($registry, NavigationItem::class);
+        } catch (Throwable $throwable) {
+            if (getenv('FORK_DATABASE_HOST')) {
+                throw $throwable; // needed during the installer
+            }
+        }
     }
 
     public function remove(NavigationItem $navigationItem): void
@@ -25,10 +32,7 @@ final class NavigationItemRepository extends ServiceEntityRepository
 
     public function save(NavigationItem $navigationItem): void
     {
-        if (!$this->getEntityManager()->contains($navigationItem)) {
-            $this->getEntityManager()->persist($navigationItem);
-        }
-
+        $this->getEntityManager()->persist($navigationItem);
         $this->getEntityManager()->flush();
     }
 }

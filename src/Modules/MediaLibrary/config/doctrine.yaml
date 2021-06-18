@@ -1,33 +1,7 @@
 doctrine:
   dbal:
     types:
-      media_library-media_item-storage_type: ForkCMS\Modules\MediaLibrary\Domain\MediaItem\StorageTypeDBALType
-      media_library-media_item-type: ForkCMS\Modules\MediaLibrary\Domain\MediaItem\TypeDBALType
-      media_library-media_item-aspect_ratio: ForkCMS\Modules\MediaLibrary\Domain\MediaItem\AspectRatioDBALType
-      media_library-media_group-type: ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\TypeDBALType
-  orm:
-    mappings:
-      media_folder:
-        type: annotation
-        is_bundle: false
-        dir: "%kernel.project_dir%/src/Modules/MediaLibrary/Domain/MediaFolder"
-        alias: MediaLibraryMediaFolder
-        prefix: ForkCMS\Modules\MediaLibrary\Domain\MediaFolder
-      media_group:
-        type: annotation
-        is_bundle: false
-        dir: "%kernel.project_dir%/src/Modules/MediaLibrary/Domain/MediaGroup"
-        alias: MediaLibraryMediaGroup
-        prefix: ForkCMS\Modules\MediaLibrary\Domain\MediaGroup
-      media_group_media_item:
-        type: annotation
-        is_bundle: false
-        dir: "%kernel.project_dir%/src/Modules/MediaLibrary/Domain/MediaGroupMediaItem"
-        alias: MediaLibraryMediaGroupMediaItem
-        prefix: ForkCMS\Modules\MediaLibrary\Domain\MediaGroupMediaItem
-      media_item:
-        type: annotation
-        is_bundle: false
-        dir: "%kernel.project_dir%/src/Modules/MediaLibrary/Domain/MediaItem"
-        alias: MediaLibraryMediaItem
-        prefix: ForkCMS\Modules\MediaLibrary\Domain\MediaItem
+      media_library__media_item__storage_type: ForkCMS\Modules\MediaLibrary\Domain\MediaItem\StorageTypeDBALType
+      media_library__media_item__type: ForkCMS\Modules\MediaLibrary\Domain\MediaItem\TypeDBALType
+      media_library__media_item__aspect_ratio: ForkCMS\Modules\MediaLibrary\Domain\MediaItem\AspectRatioDBALType
+      media_library__media_group__type: ForkCMS\Modules\MediaLibrary\Domain\MediaGroup\TypeDBALType

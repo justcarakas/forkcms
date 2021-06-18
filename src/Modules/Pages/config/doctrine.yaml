@@ -1,27 +1,7 @@
 doctrine:
     dbal:
         types:
-            modules-pages-module_extra-module_extra_type: ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraDBALType
-            modules-pages-page_block-type: ForkCMS\Modules\Pages\Domain\PageBlock\TypeDBALType
-            modules-pages-page-status: ForkCMS\Modules\Pages\Domain\Page\StatusDBALType
-            modules-pages-page-type: ForkCMS\Modules\Pages\Domain\Page\TypeDBALType
-    orm:
-        mappings:
-            module_extra:
-                type: annotation
-                is_bundle: false
-                dir: "%kernel.project_dir%/src/Modules/Pages/Domain/ModuleExtra"
-                alias: PagesModuleExtra
-                prefix: ForkCMS\Modules\Pages\Domain\ModuleExtra
-            page_block:
-                type: annotation
-                is_bundle: false
-                dir: "%kernel.project_dir%/src/Modules/Pages/Domain/PageBlock"
-                alias: PagesPageBlock
-                prefix: ForkCMS\Modules\Pages\Domain\PageBlock
-            page:
-                type: annotation
-                is_bundle: false
-                dir: "%kernel.project_dir%/src/Modules/Pages/Domain/Page"
-                alias: PagesPage
-                prefix: ForkCMS\Modules\Pages\Domain\Page
+            modules__pages__module_extra__module_extra_type: ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraTypeDBALType
+            modules__pages__page_block__type: ForkCMS\Modules\Pages\Domain\PageBlock\TypeDBALType
+            modules__pages__page__status: ForkCMS\Modules\Pages\Domain\Page\StatusDBALType
+            modules__pages__page__type: ForkCMS\Modules\Pages\Domain\Page\TypeDBALType

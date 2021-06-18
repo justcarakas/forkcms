@@ -37,7 +37,7 @@ abstract class ValueObjectDBALType extends StringType
             $matches
         )) {
             return sprintf(
-                'modules-%s-%s-%s',
+                'modules__%s__%s__%s',
                 Container::underscore($matches[1]),
                 Container::underscore($matches[2]),
                 Container::underscore($matches[3])
@@ -51,7 +51,7 @@ abstract class ValueObjectDBALType extends StringType
             $matches
         )) {
             return sprintf(
-                'core-%s-%s',
+                'core__%s__%s',
                 Container::underscore($matches[1]),
                 Container::underscore($matches[2])
             );

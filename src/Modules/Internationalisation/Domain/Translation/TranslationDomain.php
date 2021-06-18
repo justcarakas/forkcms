@@ -10,12 +10,12 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 class TranslationDomain
 {
     /**
-     * @ORM\Column(type="core-application-application")
+     * @ORM\Column(type="core__application__application")
      */
     private Application $application;
 
     /**
-     * @ORM\Column(type="modules-extensions-module-module_name")
+     * @ORM\Column(type="modules__extensions__module__module_name")
      */
     private ModuleName $moduleName;
 

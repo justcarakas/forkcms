@@ -1,13 +1,5 @@
 doctrine:
   dbal:
     types:
-      modules-internationalisation-locale-locale: ForkCMS\Modules\Internationalisation\Domain\Locale\LocaleDBALType
-      modules-internationalisation-locale-type: ForkCMS\Modules\Internationalisation\Domain\Locale\LocaleDBALType
-  orm:
-    mappings:
-      internationalisation_translation:
-        type: annotation
-        is_bundle: false
-        dir: "%kernel.project_dir%/src/Modules/Internationalisation/Domain/Translation"
-        alias: InternationalisationTranslation
-        prefix: ForkCMS\Modules\Internationalisation\Domain\Translation
+      modules__internationalisation__locale__locale: ForkCMS\Modules\Internationalisation\Domain\Locale\LocaleDBALType
+      modules__internationalisation__locale__type: ForkCMS\Modules\Internationalisation\Domain\Locale\LocaleDBALType
