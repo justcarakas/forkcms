@@ -30,7 +30,10 @@ abstract class ModuleInstaller
     ) {
     }
 
-    abstract public static function getModuleName(): ModuleName;
+    final public static function getModuleName(): ModuleName
+    {
+        return ModuleName::fromFQCN(static::class);
+    }
 
     /**
      * Use this method to perform the actions needed to install the module
