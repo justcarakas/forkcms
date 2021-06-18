@@ -15,7 +15,7 @@ use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Exception\ContentBlockNotF
 /**
  * This is the delete-action, it will delete an item.
  */
-class Delete extends BackendBaseActionDelete
+class ContentBlockDelete extends BackendBaseActionDelete
 {
     public function execute(): void
     {

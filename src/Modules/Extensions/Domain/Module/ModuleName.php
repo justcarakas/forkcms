@@ -3,8 +3,6 @@
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use ForkCMS\Core\Domain\Identifier\NamedIdentifier;
-use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
-use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use InvalidArgumentException;
 use Stringable;
 
@@ -24,10 +22,5 @@ final class ModuleName implements Stringable
         }
 
         return self::fromString($matches[1]);
-    }
-
-    public function asLabel(): TranslationKey
-    {
-        return TranslationKey::label($this->getName());
     }
 }
