@@ -3,6 +3,7 @@
 namespace ForkCMS\Core\Domain\Identifier;
 
 use Assert\Assertion;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 
 trait NamedIdentifier
 {
@@ -34,5 +35,10 @@ trait NamedIdentifier
     final public function __toString(): string
     {
         return $this->name;
+    }
+
+    final public function asLabel(): TranslationKey
+    {
+        return TranslationKey::label($this->getName());
     }
 }
