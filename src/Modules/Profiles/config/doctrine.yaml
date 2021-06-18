@@ -1,36 +1,4 @@
 doctrine:
   dbal:
     types:
-      modules-profiles-profile-status: ForkCMS\Modules\Profiles\Domain\Profile\StatusDBALType
-  orm:
-    mappings:
-      profile:
-        type: annotation
-        is_bundle: false
-        dir: "%kernel.project_dir%/src/Modules/Profiles/Domain/Profile"
-        alias: ProfilesProfile
-        prefix: ForkCMS\Modules\Profiles\Domain\Profile
-      profile_group:
-        type: annotation
-        is_bundle: false
-        dir: "%kernel.project_dir%/src/Modules/Profiles/Domain/Group"
-        alias: ProfilesGroup
-        prefix: ForkCMS\Modules\Profiles\Domain\Group
-      profile_group_right:
-        type: annotation
-        is_bundle: false
-        dir: "%kernel.project_dir%/src/Modules/Profiles/Domain/GroupRight"
-        alias: ProfilesGroupRight
-        prefix: ForkCMS\Modules\Profiles\Domain\GroupRight
-      profile_setting:
-        type: annotation
-        is_bundle: false
-        dir: "%kernel.project_dir%/src/Modules/Profiles/Domain/Setting"
-        alias: ProfilesSetting
-        prefix: ForkCMS\Modules\Profiles\Domain\Setting
-      profile_session:
-        type: annotation
-        is_bundle: false
-        dir: "%kernel.project_dir%/src/Modules/Profiles/Domain/Session"
-        alias: ProfilesSession
-        prefix: ForkCMS\Modules\Profiles\Domain\Session
+      modules__profiles__profile__status: ForkCMS\Modules\Profiles\Domain\Profile\StatusDBALType

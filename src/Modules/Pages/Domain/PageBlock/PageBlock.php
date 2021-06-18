@@ -43,7 +43,7 @@ class PageBlock
     /**
      * @var Type
      *
-     * @ORM\Column(type="modules-pages-page_block-type", name="extra_type", options={"default": "rich_text"})
+     * @ORM\Column(type="modules__pages__page_block__type", name="extra_type", options={"default": "rich_text"})
      */
     private $extraType;
 

@@ -76,7 +76,7 @@ class MediaGallery
     /**
      * @var Status
      *
-     * @ORM\Column(type="modules-media_galleries-media_gallery_status")
+     * @ORM\Column(type="modules__media_galleries__media_gallery__status")
      */
     protected $status;
 

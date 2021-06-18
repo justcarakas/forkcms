@@ -25,13 +25,13 @@ class NavigationItem
     private int $id;
 
     /**
-     * @Orm\ManyToOne(targetEntity="Navigation", inversedBy="children")
+     * @Orm\ManyToOne(targetEntity="NavigationItem", inversedBy="children")
      * @Orm\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     private ?self $parent;
 
     /**
-     * @Orm\OneToMany(targetEntity="Navigation", mappedBy="parent")
+     * @Orm\OneToMany(targetEntity="NavigationItem", mappedBy="parent")
      * @Orm\OrderBy({"sequence" = "ASC"})
      */
     private Collection $children;
@@ -42,7 +42,7 @@ class NavigationItem
     private TranslationKey $label;
 
     /**
-     * @ORM\Column(type="modules-backend-navigation-action_slug")
+     * @ORM\Column(type="modules__backend__navigation__action_slug")
      */
     private ?ActionSlug $slug;
 
