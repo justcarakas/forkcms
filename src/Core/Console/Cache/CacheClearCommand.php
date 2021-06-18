@@ -22,17 +22,18 @@ class CacheClearCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-
-        $this->removeFilesInFolder('/src/Frontend/Cache/CompiledTemplates', $io, 'frontend compiled templates');
-        $this->removeFilesInFolder('/src/Frontend/Cache/Locale', $io, 'frontend cached locale');
-        $this->removeFilesInFolder('/src/Frontend/Cache/MinifiedCss', $io, 'frontend minified css');
-        $this->removeFilesInFolder('/src/Frontend/Cache/MinifiedJs', $io, 'frontend minified js');
-        $this->removeFilesInFolder('/src/Frontend/Cache/Navigation', $io, 'frontend cached navigation');
-
-        $this->removeFilesInFolder('/src/Backend/Cache/CompiledTemplates', $io, 'backend compiled templates');
-        $this->removeFilesInFolder('/src/Backend/Cache/Locale', $io, 'backend cached locale');
-        $this->removeFilesInFolder('/src/Backend/Cache/MinifiedCss', $io, 'backend minified css');
-        $this->removeFilesInFolder('/src/Backend/Cache/MinifiedJs', $io, 'backend minified js');
+        // @TODO check if we still need this
+//
+//        $this->removeFilesInFolder('/src/Frontend/Cache/CompiledTemplates', $io, 'frontend compiled templates');
+//        $this->removeFilesInFolder('/src/Frontend/Cache/Locale', $io, 'frontend cached locale');
+//        $this->removeFilesInFolder('/src/Frontend/Cache/MinifiedCss', $io, 'frontend minified css');
+//        $this->removeFilesInFolder('/src/Frontend/Cache/MinifiedJs', $io, 'frontend minified js');
+//        $this->removeFilesInFolder('/src/Frontend/Cache/Navigation', $io, 'frontend cached navigation');
+//
+//        $this->removeFilesInFolder('/src/Backend/Cache/CompiledTemplates', $io, 'backend compiled templates');
+//        $this->removeFilesInFolder('/src/Backend/Cache/Locale', $io, 'backend cached locale');
+//        $this->removeFilesInFolder('/src/Backend/Cache/MinifiedCss', $io, 'backend minified css');
+//        $this->removeFilesInFolder('/src/Backend/Cache/MinifiedJs', $io, 'backend minified js');
 
         $symfonyCacheClearCommand = $this->getApplication()->find('cache:clear');
         $symfonyCacheClearCommand->run(new ArrayInput(['--no-warmup' => true]), $output);
