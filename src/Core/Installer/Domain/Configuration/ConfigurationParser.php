@@ -23,9 +23,48 @@ final class ConfigurationParser
     ) {
     }
 
-    public function toFile(InstallerConfiguration $installerConfiguration): void
+    public function toDotEnvFile(InstallerConfiguration $installerConfiguration): void
     {
-        file_put_contents($this->getFilename(), $this->toYaml($installerConfiguration));
+        file_put_contents($this->getDotEnvFilename(), $this->toDotEnv($installerConfiguration));
+    }
+
+    public function toDotEnv(InstallerConfiguration $installerConfiguration): string
+    {
+        $debugEmail = $installerConfiguration->hasDifferentDebugEmail()
+            ? $installerConfiguration->getDebugEmail() : $installerConfiguration->getAdminEmail();
+
+        $isOnHttps = !empty($_SERVER['HTTPS'] && strtolower($_SERVER['HTTPS']) !== 'off')
+                     || $_SERVER['SERVER_PORT'] === '443';
+
+        return sprintf(
+            'FORK_DATABASE_DRIVER=%1$s
+FORK_DATABASE_HOST=%2$s
+FORK_DATABASE_PORT=%3$s
+FORK_DATABASE_NAME=%4$s
+FORK_DATABASE_USER=%5$s
+FORK_DATABASE_PASSWORD=%6$s
+FORK_DEBUG_EMAIL=%7$s
+SITE_PROTOCOL=%8$s
+SITE_DOMAIN=%9$s
+SITE_MULTILANGUAGE=%10$s
+SITE_DEFAULT_LANGUAGE=%11$s',
+            'mysql',
+            $installerConfiguration->getDatabaseHostname(),
+            $installerConfiguration->getDatabasePort(),
+            $installerConfiguration->getDatabaseName(),
+            $installerConfiguration->getDatabaseUsername(),
+            $installerConfiguration->getDatabasePassword(),
+            $debugEmail,
+            $isOnHttps ? 'https' : 'http',
+            $_SERVER['SERVER_NAME'] ?? $_SERVER['HTTP_HOST'] ?? '127.0.0.1',
+            $installerConfiguration->isMultilingual() ? 'true' : 'false',
+            $installerConfiguration->getDefaultLocale(),
+        );
+    }
+
+    public function toYamlFile(InstallerConfiguration $installerConfiguration): void
+    {
+        file_put_contents($this->getYamlFilename(), $this->toYaml($installerConfiguration));
     }
 
     public function toYaml(InstallerConfiguration $installerConfiguration): string
@@ -111,16 +150,21 @@ final class ConfigurationParser
             return;
         }
 
-        $this->loadFromYaml($installerConfiguration, file_get_contents($this->getFilename()));
+        $this->loadFromYaml($installerConfiguration, file_get_contents($this->getYamlFilename()));
     }
 
     public function configurationFileExists(): bool
     {
-        return file_exists($this->getFilename());
+        return file_exists($this->getYamlFilename());
     }
 
-    private function getFilename(): string
+    private function getYamlFilename(): string
     {
         return $this->rootDir . '/fork-cms-installation-configuration.yaml';
+    }
+
+    private function getDotEnvFilename(): string
+    {
+        return $this->rootDir . '/.env.local';
     }
 }
