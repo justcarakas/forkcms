@@ -1,40 +1,42 @@
 security:
-    encoders:
-        ForkCMS\Modules\Backend\Domain\User:
-            algorithm: auto
+  encoders:
+    ForkCMS\Modules\Backend\Domain\User:
+      algorithm: auto
 
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
-    providers:
-        # used to reload user from session & other features (e.g. switch_user)
-        backend_user_provider:
-            entity:
-                class: ForkCMS\Modules\Backend\Domain\User
-                property: email
-    firewalls:
-        backend:
-            pattern: ^/private
-            anonymous: true
-            lazy: true
-            provider: backend_user_provider
-            remember_me:
-                secret: '%kernel.secret%'
-                path: /private
-                samesite: 'strict'
-                token_provider: 'Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider'
-                secure: true
-        frontend:
-            pattern: ^/
-            security: false
+  # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+  providers:
+    # used to reload user from session & other features (e.g. switch_user)
+    backend_user_provider:
+      entity:
+        class: ForkCMS\Modules\Backend\Domain\User
+        property: email
+  firewalls:
+    backend:
+      pattern: ^/private
+      anonymous: true
+      lazy: true
+      provider: backend_user_provider
+      remember_me:
+        secret: '%kernel.secret%'
+        path: /private
+        samesite: 'strict'
+        token_provider: 'Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider'
+        secure: true
+      login_throttling:
+        max_attempts: 3
+    frontend:
+      pattern: ^/
+      security: false
 
 
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#firewalls-authentication
+      # activate different ways to authenticate
+      # https://symfony.com/doc/current/security.html#firewalls-authentication
 
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+      # https://symfony.com/doc/current/security/impersonating_user.html
+      # switch_user: true
 
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
-    access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+  # Easy way to control access for large sections of your site
+  # Note: Only the *first* access control that matches will be used
+  access_control:
+  # - { path: ^/admin, roles: ROLE_ADMIN }
+  # - { path: ^/profile, roles: ROLE_USER }
