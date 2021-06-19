@@ -2,7 +2,10 @@
 
 namespace ForkCMS\Modules\Backend\Domain\User;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Modules\Backend\Domain\UserSetting\UserSetting;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -42,6 +45,31 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private bool $superAdmin;
+
+    /**
+     * @Orm\OneToMany(
+     *     targetEntity="ForkCMS\Modules\Backend\Domain\UserSetting\UserSetting",
+     *     mappedBy="user",
+     *     indexBy="key",
+     *     cascade={"persist", "remove"}
+     * )
+     */
+    private Collection $settings;
+
+    public function __construct(
+        string $email,
+        string $password,
+        bool $accessToBackend,
+        bool $deleted,
+        bool $superAdmin
+    ) {
+        $this->email = $email;
+        $this->password = $password;
+        $this->accessToBackend = $accessToBackend;
+        $this->deleted = $deleted;
+        $this->superAdmin = $superAdmin;
+        $this->settings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -106,5 +134,26 @@ class User implements UserInterface
     public function eraseCredentials(): void
     {
         // we don't use plain text passwords here
+    }
+
+    public function isAccessToBackend(): bool
+    {
+        return $this->accessToBackend;
+    }
+
+    public function isDeleted(): bool
+    {
+        return $this->deleted;
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->superAdmin;
+    }
+
+    /** @return Collection&UserSetting[] */
+    public function getSettings(): Collection
+    {
+        return $this->settings;
     }
 }
