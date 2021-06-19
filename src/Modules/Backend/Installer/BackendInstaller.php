@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Backend\Installer;
 
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItem;
+use ForkCMS\Modules\Backend\Domain\User\RememberMeToken;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
 
@@ -16,6 +17,7 @@ final class BackendInstaller extends ModuleInstaller
         $this->createDatabasesForEntities(
             NavigationItem::class,
             User::class,
+            RememberMeToken::class,
         );
     }
 
