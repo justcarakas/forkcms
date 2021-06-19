@@ -1,15 +1,25 @@
 security:
+    encoders:
+        ForkCMS\Modules\Backend\Domain\User:
+            algorithm: auto
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        users_in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        backend_user_provider:
+            entity:
+                class: ForkCMS\Modules\Backend\Domain\User
+                property: email
     firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-        main:
+        backend:
+            pattern: ^/private
             anonymous: true
             lazy: true
-            provider: users_in_memory
+            provider: backend_user_provider
+        frontend:
+            pattern: ^/
+            security: false
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -22,5 +32,3 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-
-# @TODO check if we can make this usefull in fork
