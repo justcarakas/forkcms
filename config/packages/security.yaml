@@ -1,4 +1,5 @@
 security:
+  enable_authenticator_manager: true
   encoders:
     ForkCMS\Modules\Backend\Domain\User:
       algorithm: auto
@@ -13,7 +14,6 @@ security:
   firewalls:
     backend:
       pattern: ^/private
-      anonymous: true
       lazy: true
       provider: backend_user_provider
       remember_me:
