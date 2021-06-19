@@ -116,12 +116,10 @@ abstract class ModuleInstaller
             $slug,
             $parent
         );
-        if ($navigationItem instanceof NavigationItem) {
-            return $navigationItem;
+        if (!$navigationItem instanceof NavigationItem) {
+            $navigationItem = new NavigationItem($label, $slug, $parent, $visibleInNavigationMenu, $sequence);
+            $this->navigationRepository->save($navigationItem);
         }
-
-        $navigationItem = new NavigationItem($label, $slug, $parent, $visibleInNavigationMenu, $sequence);
-        $this->navigationRepository->save($navigationItem);
 
         foreach ($selectedFor as $selectedForLabel => $selectedForSlug) {
             $this->getOrCreateBackendNavigationItem(
