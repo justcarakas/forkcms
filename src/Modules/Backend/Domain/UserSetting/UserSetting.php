@@ -9,7 +9,7 @@ use ForkCMS\Modules\Backend\Domain\User\User;
  * @ORM\Entity()
  * @ORM\Table(name="users_settings")
  */
-final class UserSetting
+class UserSetting
 {
     /**
      * @ORM\Id

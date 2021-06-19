@@ -44,6 +44,9 @@
     "doctrine/dbal": {
         "version": "2.12.1"
     },
+    "doctrine/deprecations": {
+        "version": "v0.5.3"
+    },
     "doctrine/doctrine-bundle": {
         "version": "2.3",
         "recipe": {
@@ -498,6 +501,18 @@
     "symfony/intl": {
         "version": "v5.2.7"
     },
+    "symfony/lock": {
+        "version": "5.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.2",
+            "ref": "13350583a83fa636bf45a5fb62da3bdc73be52a1"
+        },
+        "files": [
+            "config/packages/lock.yaml"
+        ]
+    },
     "symfony/mailer": {
         "version": "4.3",
         "recipe": {
@@ -558,6 +573,9 @@
     "symfony/orm-pack": {
         "version": "v2.1.0"
     },
+    "symfony/password-hasher": {
+        "version": "v5.3.2"
+    },
     "symfony/phpunit-bridge": {
         "version": "5.1",
         "recipe": {
@@ -603,6 +621,9 @@
     "symfony/polyfill-php80": {
         "version": "v1.22.1"
     },
+    "symfony/polyfill-php81": {
+        "version": "v1.23.0"
+    },
     "symfony/process": {
         "version": "v5.2.7"
     },
@@ -617,6 +638,9 @@
     },
     "symfony/proxy-manager-bridge": {
         "version": "v5.2.4"
+    },
+    "symfony/rate-limiter": {
+        "version": "v5.3.0"
     },
     "symfony/redis-messenger": {
         "version": "v5.2.7"
