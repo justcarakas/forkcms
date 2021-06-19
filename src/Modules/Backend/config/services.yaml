@@ -1,3 +1,5 @@
 services:
   ForkCMS\Modules\Backend\Domain\:
     resource: '../Domain/*'
+
+  Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider: ~

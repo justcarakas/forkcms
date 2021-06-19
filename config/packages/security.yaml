@@ -16,6 +16,12 @@ security:
             anonymous: true
             lazy: true
             provider: backend_user_provider
+            remember_me:
+                secret: '%kernel.secret%'
+                path: /private
+                samesite: 'strict'
+                token_provider: 'Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider'
+                secure: true
         frontend:
             pattern: ^/
             security: false
