@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Modules\Backend\Domain\User;
+namespace ForkCMS\Modules\Backend\Domain\RememberMeToken;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
