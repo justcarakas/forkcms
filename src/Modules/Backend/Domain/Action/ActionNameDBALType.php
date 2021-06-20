@@ -1,14 +1,14 @@
 <?php
 
-namespace ForkCMS\Modules\Backend\Domain\NavigationItem;
+namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use ForkCMS\Core\Domain\Doctrine\ValueObjectDBALType;
 use Stringable;
 
-class ActionSlugDBALType extends ValueObjectDBALType
+class ActionNameDBALType extends ValueObjectDBALType
 {
     protected function fromString(string $value): Stringable
     {
-        return ActionSlug::fromSlug($value);
+        return ActionName::fromString($value);
     }
 }

@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Backend\Domain\NavigationItem;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use InvalidArgumentException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -42,7 +43,7 @@ class NavigationItem
     private TranslationKey $label;
 
     /**
-     * @ORM\Column(type="modules__backend__navigation__action_slug", nullable=true)
+     * @ORM\Column(type="modules__backend__action__action_slug", nullable=true)
      */
     private ?ActionSlug $slug;
 
