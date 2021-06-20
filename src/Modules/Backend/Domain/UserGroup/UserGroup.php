@@ -89,6 +89,9 @@ class UserGroup
         $this->name = $name;
         $this->users = new ArrayCollection();
         $this->settings = new ArrayCollection();
+        $this->modules = new ArrayCollection();
+        $this->actions = new ArrayCollection();
+        $this->widgets = new ArrayCollection();
     }
 
     public function getId(): int

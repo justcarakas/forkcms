@@ -3,9 +3,13 @@
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use ForkCMS\Core\Domain\Doctrine\CreateSchema;
-use ForkCMS\Modules\Backend\Domain\NavigationItem\ActionSlug;
+use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
+use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItem;
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItemRepository;
+use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
+use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupRepository;
+use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use ForkCMS\Modules\Backend\Installer\BackendInstaller;
 use ForkCMS\Modules\Error\Installer\ErrorInstaller;
 use ForkCMS\Modules\Extensions\Installer\ExtensionsInstaller;
@@ -27,6 +31,7 @@ abstract class ModuleInstaller
         private CreateSchema $createSchema,
         private ModuleRepository $moduleRepository,
         private NavigationItemRepository $navigationRepository,
+        private UserGroupRepository $userGroupRepository,
     ) {
     }
 
@@ -132,6 +137,10 @@ abstract class ModuleInstaller
             );
         }
 
+        if ($slug instanceof ActionSlug) {
+            $this->allowGroupToAccessModuleAction($slug->asModuleAction());
+        }
+
         return $navigationItem;
     }
 
@@ -164,5 +173,24 @@ abstract class ModuleInstaller
             null,
             $this->getSettingsNavigationItem(),
         );
+    }
+
+    /**
+     * @param UserGroup|null $userGroup Defaults to the admin user group
+     */
+    protected function allowGroupToAccessModuleAction(ModuleAction $moduleAction, UserGroup $userGroup = null): void
+    {
+        $userGroup = $userGroup ?? $this->userGroupRepository->getAdminUserGroup();
+        $userGroup->addModule($moduleAction->getModule());
+        $userGroup->addAction($moduleAction);
+    }
+
+    /**
+     * @param UserGroup|null $userGroup Defaults to the admin user group
+     */    protected function allowGroupToAccessModuleWidget(ModuleWidget $moduleWidget, UserGroup $userGroup = null): void
+    {
+        $userGroup = $userGroup ?? $this->userGroupRepository->getAdminUserGroup();
+        $userGroup->addModule($moduleWidget->getModule());
+        $userGroup->addWidget($moduleWidget);
     }
 }
