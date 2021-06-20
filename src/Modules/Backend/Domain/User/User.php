@@ -5,13 +5,16 @@ namespace ForkCMS\Modules\Backend\Domain\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use ForkCMS\Modules\Backend\Domain\UserSetting\UserSetting;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="users")
  */
+#[UniqueEntity(fields: ['email'])]
 class User implements UserInterface
 {
     /**
@@ -47,6 +50,8 @@ class User implements UserInterface
     private bool $superAdmin;
 
     /**
+     * @var Collection&UserSetting[]
+     *
      * @Orm\OneToMany(
      *     targetEntity="ForkCMS\Modules\Backend\Domain\UserSetting\UserSetting",
      *     mappedBy="user",
@@ -55,6 +60,22 @@ class User implements UserInterface
      * )
      */
     private Collection $settings;
+
+    /**
+     * @var Collection&UserGroup[]
+     *
+     * @ORM\ManyToMany(targetEntity="ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup", inversedBy="users")
+     * @ORM\JoinTable(
+     *  name="users_have_user_groups",
+     *  joinColumns={
+     *      @ORM\JoinColumn(referencedColumnName="id")
+     *  },
+     *  inverseJoinColumns={
+     *      @ORM\JoinColumn(referencedColumnName="id")
+     *  }
+     * )
+     */
+    protected Collection $userGroups;
 
     public function __construct(
         string $email,
@@ -69,6 +90,7 @@ class User implements UserInterface
         $this->deleted = $deleted;
         $this->superAdmin = $superAdmin;
         $this->settings = new ArrayCollection();
+        $this->userGroups = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,14 +110,14 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return $this->getUserIdentifier();
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
     }
 
     /**
@@ -125,7 +147,7 @@ class User implements UserInterface
 
     public function getSalt(): ?string
     {
-        return null; // we don't need a salt because we use a modern hashing alhorithm
+        return null; // we don't need a salt because we use a modern hashing algorithm
     }
 
     /**
@@ -155,5 +177,31 @@ class User implements UserInterface
     public function getSettings(): Collection
     {
         return $this->settings;
+    }
+
+    /** @var Collection&UserGroup[] */
+    public function getUserGroups(): Collection
+    {
+        return $this->userGroups;
+    }
+
+    public function addUserGroup(UserGroup $userGroup)
+    {
+        if ($this->userGroups->contains($userGroup)) {
+            return;
+        }
+
+        $this->userGroups->add($userGroup);
+        $userGroup->addUser($this);
+    }
+
+    public function removeUserGroup(UserGroup $userGroup)
+    {
+        if (!$this->userGroups->contains($userGroup)) {
+            return;
+        }
+
+        $this->userGroups->removeElement($userGroup);
+        $userGroup->removeUser($this);
     }
 }

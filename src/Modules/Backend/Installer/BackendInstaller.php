@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Backend\Installer;
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItem;
 use ForkCMS\Modules\Backend\Domain\RememberMeToken\RememberMeToken;
 use ForkCMS\Modules\Backend\Domain\User\User;
+use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use ForkCMS\Modules\Backend\Domain\UserSetting\UserSetting;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
 
@@ -20,6 +21,7 @@ final class BackendInstaller extends ModuleInstaller
             User::class,
             UserSetting::class,
             RememberMeToken::class,
+            UserGroup::class,
         );
     }
 
