@@ -29,9 +29,8 @@ class UserGroupModule
      */
     private ModuleName $moduleName;
 
-    public function __construct(int $id, UserGroup $userGroup, ModuleName $moduleName)
+    public function __construct(UserGroup $userGroup, ModuleName $moduleName)
     {
-        $this->id = $id;
         $this->userGroup = $userGroup;
         $this->moduleName = $moduleName;
     }
