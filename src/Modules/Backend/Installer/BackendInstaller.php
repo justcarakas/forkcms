@@ -5,9 +5,12 @@ namespace ForkCMS\Modules\Backend\Installer;
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItem;
 use ForkCMS\Modules\Backend\Domain\RememberMeToken\RememberMeToken;
 use ForkCMS\Modules\Backend\Domain\User\User;
+use ForkCMS\Modules\Backend\Domain\User\UserSetting;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
-use ForkCMS\Modules\Backend\Domain\UserGroupSetting\UserGroupSetting;
-use ForkCMS\Modules\Backend\Domain\UserSetting\UserSetting;
+use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupAction;
+use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupModule;
+use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupSetting;
+use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupWidget;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
 
 final class BackendInstaller extends ModuleInstaller
@@ -24,6 +27,9 @@ final class BackendInstaller extends ModuleInstaller
             RememberMeToken::class,
             UserGroup::class,
             UserGroupSetting::class,
+            UserGroupModule::class,
+            UserGroupAction::class,
+            UserGroupWidget::class,
         );
     }
 

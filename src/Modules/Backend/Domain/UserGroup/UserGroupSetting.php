@@ -1,22 +1,21 @@
 <?php
 
-namespace ForkCMS\Modules\Backend\Domain\UserSetting;
+namespace ForkCMS\Modules\Backend\Domain\UserGroup;
 
 use Doctrine\ORM\Mapping as ORM;
-use ForkCMS\Modules\Backend\Domain\User\User;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="users_settings")
+ * @ORM\Table(name="user_group_settings")
  */
-class UserSetting
+class UserGroupSetting
 {
     /**
      * @ORM\Id
-     * @Orm\ManyToOne(targetEntity="ForkCMS\Modules\Backend\Domain\User\User", inversedBy="settings")
+     * @Orm\ManyToOne(targetEntity="UserGroup", inversedBy="settings")
      * @Orm\JoinColumn(referencedColumnName="id")
      */
-    private User $user;
+    private UserGroup $userGroup;
 
     /**
      * @ORM\Id
@@ -27,16 +26,16 @@ class UserSetting
     /** @ORM\Column(type="object") */
     private mixed $value;
 
-    public function __construct(User $user, string $key, mixed $value)
+    public function __construct(UserGroup $userGroup, string $key, mixed $value)
     {
-        $this->user = $user;
+        $this->userGroup = $userGroup;
         $this->key = $key;
         $this->value = $value;
     }
 
-    public function getUser(): User
+    public function getUserGroup(): UserGroup
     {
-        return $this->user;
+        return $this->userGroup;
     }
 
     public function getKey(): string
