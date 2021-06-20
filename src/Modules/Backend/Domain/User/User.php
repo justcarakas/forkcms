@@ -178,13 +178,33 @@ class User implements UserInterface
         return $this->settings;
     }
 
+    public function setSetting(string $key, mixed $value): void
+    {
+        if ($this->settings->containsKey($key)) {
+            $this->settings[$key]->setValue($value);
+
+            return;
+        }
+
+        $this->settings->set($key, new UserSetting($this, $key, $value));
+    }
+
+    public function removeSetting(string $key): void
+    {
+        if (!$this->settings->containsKey($key)) {
+            return;
+        }
+
+        $this->settings->remove($key);
+    }
+
     /** @var Collection&UserGroup[] */
     public function getUserGroups(): Collection
     {
         return $this->userGroups;
     }
 
-    public function addUserGroup(UserGroup $userGroup)
+    public function addUserGroup(UserGroup $userGroup): void
     {
         if ($this->userGroups->contains($userGroup)) {
             return;
@@ -194,7 +214,7 @@ class User implements UserInterface
         $userGroup->addUser($this);
     }
 
-    public function removeUserGroup(UserGroup $userGroup)
+    public function removeUserGroup(UserGroup $userGroup): void
     {
         if (!$this->userGroups->contains($userGroup)) {
             return;
