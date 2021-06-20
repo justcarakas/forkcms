@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
-use ForkCMS\Modules\Backend\Domain\UserSetting\UserSetting;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -53,7 +52,7 @@ class User implements UserInterface
      * @var Collection&UserSetting[]
      *
      * @Orm\OneToMany(
-     *     targetEntity="ForkCMS\Modules\Backend\Domain\UserSetting\UserSetting",
+     *     targetEntity="UserSetting",
      *     mappedBy="user",
      *     indexBy="key",
      *     cascade={"persist", "remove"}

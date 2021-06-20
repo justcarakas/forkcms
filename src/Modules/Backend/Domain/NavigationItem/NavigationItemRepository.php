@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Backend\Domain\NavigationItem;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Throwable;
 
