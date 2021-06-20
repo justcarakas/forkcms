@@ -56,7 +56,7 @@ final class ActionSlug implements Stringable
         return new self($moduleAction->getModule(), $moduleAction->getAction());
     }
 
-    public function getModuleAction(): ModuleAction
+    public function asModuleAction(): ModuleAction
     {
         return new ModuleAction($this->getModuleName(), $this->getActionName());
     }
