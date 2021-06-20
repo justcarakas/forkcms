@@ -6,8 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Backend\Domain\User\User;
-use ForkCMS\Modules\Backend\Domain\UserGroupSetting\UserGroupSetting;
-use ForkCMS\Modules\Backend\Domain\UserSetting\UserSetting;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -40,13 +38,49 @@ class UserGroup
      * @var Collection&UserGroupSetting[]
      *
      * @Orm\OneToMany(
-     *     targetEntity="ForkCMS\Modules\Backend\Domain\UserGroupSetting\UserGroupSetting",
+     *     targetEntity="UserGroupSetting",
      *     mappedBy="userGroup",
      *     indexBy="key",
      *     cascade={"persist", "remove"}
      * )
      */
     private Collection $settings;
+
+    /**
+     * @var Collection&UserGroupSetting[]
+     *
+     * @Orm\OneToMany(
+     *     targetEntity="UserGroupModule",
+     *     mappedBy="userGroup",
+     *     indexBy="key",
+     *     cascade={"persist", "remove"}
+     * )
+     */
+    private Collection $modules;
+
+    /**
+     * @var Collection&UserGroupSetting[]
+     *
+     * @Orm\OneToMany(
+     *     targetEntity="UserGroupAction",
+     *     mappedBy="userGroup",
+     *     indexBy="key",
+     *     cascade={"persist", "remove"}
+     * )
+     */
+    private Collection $actions;
+
+    /**
+     * @var Collection&UserGroupWidget[]
+     *
+     * @Orm\OneToMany(
+     *     targetEntity="UserGroupSetting",
+     *     mappedBy="userGroup",
+     *     indexBy="key",
+     *     cascade={"persist", "remove"}
+     * )
+     */
+    private Collection $widgets;
 
     public function __construct(int $id, string $name)
     {
