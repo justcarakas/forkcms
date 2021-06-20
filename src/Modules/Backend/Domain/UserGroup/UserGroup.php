@@ -5,7 +5,10 @@ namespace ForkCMS\Modules\Backend\Domain\UserGroup;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\User\User;
+use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -148,5 +151,110 @@ class UserGroup
         }
 
         $this->settings->remove($key);
+    }
+
+    /** @return Collection&UserGroupModule[] */
+    public function getModules(): Collection
+    {
+        return $this->modules;
+    }
+
+    public function addModule(ModuleName $moduleName): void
+    {
+        if ($this->getUserGroupModuleForModuleName($moduleName) instanceof UserGroupModule) {
+            return;
+        }
+
+        $this->modules->add(new UserGroupModule($this, $moduleName));
+    }
+
+    public function removeModule(ModuleName $moduleName): void
+    {
+        $userGroupModule = $this->getUserGroupModuleForModuleName($moduleName);
+
+        if ($userGroupModule === null) {
+            return;
+        }
+
+        $this->modules->removeElement($userGroupModule);
+    }
+
+    private function getUserGroupModuleForModuleName(ModuleName $moduleName): ?UserGroupModule
+    {
+        $userGroupModule = $this->modules->filter(
+            static fn(UserGroupModule $userGroupModule) => $userGroupModule->getModuleName() === $moduleName
+        )->first();
+
+        return $userGroupModule instanceof UserGroupModule ? $userGroupModule : null;
+    }
+
+    /** @return Collection&UserGroupAction[] */
+    public function getActions(): Collection
+    {
+        return $this->actions;
+    }
+
+    public function addAction(ModuleAction $moduleAction): void
+    {
+        if ($this->getUserGroupActionForModuleAction($moduleAction) instanceof UserGroupAction) {
+            return;
+        }
+
+        $this->actions->add(new UserGroupAction($this, $moduleAction));
+    }
+
+    public function removeAction(ModuleAction $moduleAction): void
+    {
+        $userGroupAction = $this->getUserGroupActionForModuleAction($moduleAction);
+
+        if ($userGroupAction === null) {
+            return;
+        }
+
+        $this->actions->removeElement($userGroupAction);
+    }
+
+    private function getUserGroupActionForModuleAction(ModuleAction $moduleAction): ?UserGroupAction
+    {
+        $userGroupAction = $this->actions->filter(
+            static fn(UserGroupAction $userGroupAction) => $userGroupAction->getModuleAction() === $moduleAction
+        )->first();
+
+        return $userGroupAction instanceof UserGroupAction ? $userGroupAction : null;
+    }
+
+    /** @return Collection&UserGroupWidget[] */
+    public function getWidgets(): Collection
+    {
+        return $this->widgets;
+    }
+
+    public function addWidget(ModuleWidget $moduleWidget): void
+    {
+        if ($this->getUserGroupWidgetForModuleWidget($moduleWidget) instanceof UserGroupWidget) {
+            return;
+        }
+
+        $this->widgets->add(new UserGroupWidget($this, $moduleWidget));
+    }
+
+    public function removeWidget(ModuleWidget $moduleWidget): void
+    {
+        $userGroupWidget = $this->getUserGroupWidgetForModuleWidget($moduleWidget);
+
+        if ($userGroupWidget === null) {
+            return;
+        }
+
+        $this->widgets->removeElement($userGroupWidget);
+    }
+
+    private function getUserGroupWidgetForModuleWidget(ModuleWidget $moduleWidget): ?UserGroupWidget
+    {
+        $userGroupWidget = $this->widgets->filter(
+            static fn(UserGroupWidget $userGroupWidget) => $userGroupWidget->getModuleWidget() === $moduleWidget
+        )->first();
+
+        return $userGroupWidget instanceof UserGroupWidget ? $userGroupWidget : null;
     }
 }
