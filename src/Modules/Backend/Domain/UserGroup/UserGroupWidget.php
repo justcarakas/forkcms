@@ -29,9 +29,8 @@ class UserGroupWidget
      */
     private ModuleWidget $moduleWidget;
 
-    public function __construct(int $id, UserGroup $userGroup, ModuleWidget $moduleWidget)
+    public function __construct(UserGroup $userGroup, ModuleWidget $moduleWidget)
     {
-        $this->id = $id;
         $this->userGroup = $userGroup;
         $this->moduleWidget = $moduleWidget;
     }
