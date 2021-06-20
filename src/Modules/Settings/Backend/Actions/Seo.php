@@ -7,7 +7,7 @@ use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 /**
  * This is the SEO-action, it will display a form to set SEO settings
@@ -62,11 +62,11 @@ class Seo extends BackendBaseActionIndex
     private function loadForm(): void
     {
         $this->form = new BackendForm('settingsSeo');
-        $this->form->addCheckbox('seo_noodp', $this->get(ModulesSettings::class)->get('Core', 'seo_noodp', false));
-        $this->form->addCheckbox('seo_noydir', $this->get(ModulesSettings::class)->get('Core', 'seo_noydir', false));
+        $this->form->addCheckbox('seo_noodp', $this->get(ModuleSettingRepository::class)->get('Core', 'seo_noodp', false));
+        $this->form->addCheckbox('seo_noydir', $this->get(ModuleSettingRepository::class)->get('Core', 'seo_noydir', false));
         $this->form->addCheckbox(
             'seo_nofollow_in_comments',
-            $this->get(ModulesSettings::class)->get('Core', 'seo_nofollow_in_comments', false)
+            $this->get(ModuleSettingRepository::class)->get('Core', 'seo_nofollow_in_comments', false)
         );
 
         if ($this->isMultiLangual) {
@@ -110,9 +110,9 @@ class Seo extends BackendBaseActionIndex
             // no errors ?
             if ($this->form->isCorrect()) {
                 // smtp settings
-                $this->get(ModulesSettings::class)->set('Core', 'seo_noodp', $this->form->getField('seo_noodp')->getValue());
-                $this->get(ModulesSettings::class)->set('Core', 'seo_noydir', $this->form->getField('seo_noydir')->getValue());
-                $this->get(ModulesSettings::class)->set(
+                $this->get(ModuleSettingRepository::class)->set('Core', 'seo_noodp', $this->form->getField('seo_noodp')->getValue());
+                $this->get(ModuleSettingRepository::class)->set('Core', 'seo_noydir', $this->form->getField('seo_noydir')->getValue());
+                $this->get(ModuleSettingRepository::class)->set(
                     'Core',
                     'seo_nofollow_in_comments',
                     $this->form->getField('seo_nofollow_in_comments')->getValue()

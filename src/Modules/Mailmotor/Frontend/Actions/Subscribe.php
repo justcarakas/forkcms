@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Mailmotor\Frontend\Actions;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use Exception;
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
 use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
@@ -50,7 +50,7 @@ class Subscribe extends FrontendBaseBlock
         $subscription = $form->getData();
 
         /** @var bool $doubleOptIn */
-        $doubleOptIn = $this->get(ModulesSettings::class)->get('Mailmotor', 'double_opt_in', false);
+        $doubleOptIn = $this->get(ModuleSettingRepository::class)->get('Mailmotor', 'double_opt_in', false);
 
         try {
             // The command bus will handle the subscription

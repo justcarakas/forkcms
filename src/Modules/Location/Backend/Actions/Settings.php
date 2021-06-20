@@ -7,7 +7,7 @@ use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication 
 use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Modules\Location\Backend\Helper\Model as BackendLocationModel;
 
 /**
@@ -29,9 +29,9 @@ class Settings extends BackendBaseActionEdit
         $this->form = new BackendForm('settings');
 
         // add map info (widgets)
-        $this->form->addDropdown('zoom_level_widget', array_combine(array_merge(['auto'], range(3, 18)), array_merge([BL::lbl('Auto', $this->getModule())], range(3, 18))), $this->get(ModulesSettings::class)->get($this->url->getModule(), 'zoom_level_widget', 13));
-        $this->form->addText('width_widget', $this->get(ModulesSettings::class)->get($this->url->getModule(), 'width_widget'));
-        $this->form->addText('height_widget', $this->get(ModulesSettings::class)->get($this->url->getModule(), 'height_widget'));
+        $this->form->addDropdown('zoom_level_widget', array_combine(array_merge(['auto'], range(3, 18)), array_merge([BL::lbl('Auto', $this->getModule())], range(3, 18))), $this->get(ModuleSettingRepository::class)->get($this->url->getModule(), 'zoom_level_widget', 13));
+        $this->form->addText('width_widget', $this->get(ModuleSettingRepository::class)->get($this->url->getModule(), 'width_widget'));
+        $this->form->addText('height_widget', $this->get(ModuleSettingRepository::class)->get($this->url->getModule(), 'height_widget'));
         $this->form->addDropdown(
             'map_type_widget',
             [
@@ -41,7 +41,7 @@ class Settings extends BackendBaseActionEdit
                 'TERRAIN' => BL::lbl('Terrain', $this->getModule()),
                 'STREET_VIEW' => BL::lbl('StreetView', $this->getModule()),
             ],
-            $this->get(ModulesSettings::class)->get(
+            $this->get(ModuleSettingRepository::class)->get(
                 $this->url->getModule(),
                 'map_type_widget',
                 'roadmap'
@@ -68,17 +68,17 @@ class Settings extends BackendBaseActionEdit
                 if ($width > 800) {
                     $width = 800;
                 } elseif ($width < 300) {
-                    $width = $this->get(ModulesSettings::class)->get('Location', 'width_widget');
+                    $width = $this->get(ModuleSettingRepository::class)->get('Location', 'width_widget');
                 }
                 if ($height < 150) {
-                    $height = $this->get(ModulesSettings::class)->get('Location', 'height_widget');
+                    $height = $this->get(ModuleSettingRepository::class)->get('Location', 'height_widget');
                 }
 
                 // set our settings (widgets)
-                $this->get(ModulesSettings::class)->set($this->url->getModule(), 'zoom_level_widget', (string) $this->form->getField('zoom_level_widget')->getValue());
-                $this->get(ModulesSettings::class)->set($this->url->getModule(), 'width_widget', $width);
-                $this->get(ModulesSettings::class)->set($this->url->getModule(), 'height_widget', $height);
-                $this->get(ModulesSettings::class)->set($this->url->getModule(), 'map_type_widget', (string) $this->form->getField('map_type_widget')->getValue());
+                $this->get(ModuleSettingRepository::class)->set($this->url->getModule(), 'zoom_level_widget', (string) $this->form->getField('zoom_level_widget')->getValue());
+                $this->get(ModuleSettingRepository::class)->set($this->url->getModule(), 'width_widget', $width);
+                $this->get(ModuleSettingRepository::class)->set($this->url->getModule(), 'height_widget', $height);
+                $this->get(ModuleSettingRepository::class)->set($this->url->getModule(), 'map_type_widget', (string) $this->form->getField('map_type_widget')->getValue());
 
                 $locations = BackendLocationModel::getAllWithDefaultMapSettings();
                 foreach ($locations as $location) {

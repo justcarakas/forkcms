@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Faq\Frontend\Actions;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
 use ForkCMS\Modules\Faq\Frontend\Helper\Model as FrontendFaqModel;
 
@@ -27,7 +27,7 @@ class Index extends FrontendBaseBlock
 
     private function getData(): void
     {
-        $limit = $this->get(ModulesSettings::class)->get($this->getModule(), 'overview_num_items_per_category', 10);
+        $limit = $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'overview_num_items_per_category', 10);
 
         $categoriesWithQuestions = array_map(
             function (array $category) use ($limit) {
@@ -51,7 +51,7 @@ class Index extends FrontendBaseBlock
         $this->template->assign('faqCategories', $this->categories);
         $this->template->assign(
             'allowMultipleCategories',
-            $this->get(ModulesSettings::class)->get($this->getModule(), 'allow_multiple_categories', true)
+            $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'allow_multiple_categories', true)
         );
     }
 }

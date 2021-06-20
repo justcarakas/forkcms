@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Blog\Frontend\Widgets;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Frontend\Helper\Base\Widget as FrontendBaseWidget;
 use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
 use ForkCMS\Modules\Blog\Frontend\Helper\Model as FrontendBlogModel;
@@ -22,7 +22,7 @@ class RecentArticlesFull extends FrontendBaseWidget
     private function parse(): void
     {
         // get RSS-link
-        $rssTitle = $this->get(ModulesSettings::class)->get('Blog', 'rss_title_' . LANGUAGE, SITE_DEFAULT_TITLE);
+        $rssTitle = $this->get(ModuleSettingRepository::class)->get('Blog', 'rss_title_' . LANGUAGE, SITE_DEFAULT_TITLE);
         $rssLink = FrontendNavigation::getUrlForBlock('Blog', 'Rss');
 
         // add RSS-feed
@@ -31,7 +31,7 @@ class RecentArticlesFull extends FrontendBaseWidget
         // assign comments
         $this->template->assign(
             'widgetBlogRecentArticlesFull',
-            FrontendBlogModel::getAll($this->get(ModulesSettings::class)->get('Blog', 'recent_articles_full_num_items', 5))
+            FrontendBlogModel::getAll($this->get(ModuleSettingRepository::class)->get('Blog', 'recent_articles_full_num_items', 5))
         );
         $this->template->assign('widgetBlogRecentArticlesFullRssLink', $rssLink);
     }

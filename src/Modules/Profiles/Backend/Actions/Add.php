@@ -7,7 +7,7 @@ use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Profiles\Backend\Helper\Model as BackendProfilesModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use Symfony\Component\Intl\Intl as Intl;
 
 /**
@@ -42,13 +42,13 @@ class Add extends BackendBaseActionAdd
 
     public function getData(): void
     {
-        $this->notifyAdmin = $this->get(ModulesSettings::class)->get(
+        $this->notifyAdmin = $this->get(ModuleSettingRepository::class)->get(
             $this->url->getModule(),
             'send_new_profile_admin_mail',
             false
         );
 
-        $this->notifyProfile = $this->get(ModulesSettings::class)->get(
+        $this->notifyProfile = $this->get(ModuleSettingRepository::class)->get(
             $this->url->getModule(),
             'send_new_profile_mail',
             false

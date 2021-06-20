@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\FormBuilder\Frontend\Helper;
 
 use ForkCMS\Core\Common\Mailer\Message;
 use Swift_Mailer;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language;
 use ForkCMS\Core\Frontend\Helper\Model as FrontendModel;
 use ForkCMS\Modules\FormBuilder\Frontend\Helper\FormBuilderSubmittedEvent;
@@ -49,8 +49,8 @@ final class FormBuilderSubmittedMailSubscriber
                 $field['settings']['send_confirmation_mail_to'] === true
             ) {
                 $to = $fieldData[$field['id']]['value'];
-                $from = FrontendModel::get(ModulesSettings::class)->get('Core', 'mailer_from');
-                $replyTo = FrontendModel::get(ModulesSettings::class)->get('Core', 'mailer_reply_to');
+                $from = FrontendModel::get(ModuleSettingRepository::class)->get('Core', 'mailer_from');
+                $replyTo = FrontendModel::get(ModuleSettingRepository::class)->get('Core', 'mailer_reply_to');
                 $message = Message::newInstance($field['settings']['confirmation_mail_subject'])
                     ->setFrom([$from['email'] => $from['name']])
                     ->setTo($to)

@@ -5,7 +5,7 @@ namespace ForkCMS\Core\Frontend\Helper;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtra;
 use ForkCMS\Modules\Pages\Domain\Page\Page as PageEntity;
 use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use ForkCMS\Core\Frontend\Helper\Model as FrontendModel;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language;
@@ -204,7 +204,7 @@ class Navigation extends KernelLoader
      */
     private static function hasMetaNavigation(array $navigation): bool
     {
-        return isset($navigation['meta']) && Model::get(ModulesSettings::class)->get('Pages', 'meta_navigation', true);
+        return isset($navigation['meta']) && Model::get(ModuleSettingRepository::class)->get('Pages', 'meta_navigation', true);
     }
 
     /**

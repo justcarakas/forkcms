@@ -95,7 +95,7 @@ services:
 #      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 #      - { name: kernel.event_listener, event: console.command, method: onConsoleCommand }
 #    arguments:
-#      - '@Common\ModulesSettings'
+#      - '@ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository'
 #      - "@service_container"
 #
 #  cache.filesystem.adapter:
@@ -130,7 +130,7 @@ services:
 #      - "@database"
 #      - "@cache.pool"
 #
-#  Common\ModulesSettings:
+#  ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository:
 #    public: true
 #    arguments:
 #      - "@database"
@@ -225,7 +225,7 @@ services:
 #  ForkCMS\Privacy\ConsentDialog:
 #    public: true
 #    arguments:
-#      - '@Common\ModulesSettings'
+#      - '@ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository'
 #      - "@fork.cookie"
 #
 #  templating: #@TODO check this

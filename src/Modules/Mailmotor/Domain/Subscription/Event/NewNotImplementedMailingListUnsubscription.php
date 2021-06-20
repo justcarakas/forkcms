@@ -6,7 +6,7 @@ use ForkCMS\Core\Common\Language;
 use ForkCMS\Core\Common\Mailer\Message;
 use ForkCMS\Modules\Mailmotor\Domain\Subscription\Event\NotImplementedUnsubscribedEvent;
 use Swift_Mailer;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 /**
  * New mailing list unsubscription

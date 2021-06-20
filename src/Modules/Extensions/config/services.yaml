@@ -1,3 +1,10 @@
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
   ForkCMS\Modules\Extensions\Domain\:
     resource: '../Domain/*'
+
+  ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository:
+    public: true

@@ -4,7 +4,7 @@ namespace ForkCMS\Core\Frontend\Helper;
 
 use ForkCMS\Core\Common\BlockEditor\Twig\ParseBlocksExtension;
 use ForkCMS\Core\Common\Exception\RedirectException;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use ForkCMS\Core\Common\ForkCMS\Privacy\ConsentDialog;
 use ForkCMS\Core\Frontend\Helper\Block\ModuleExtraInterface;
@@ -110,7 +110,7 @@ class Page extends KernelLoader
     public function load(): void
     {
         // @deprecated remove this in Fork 6, the privacy consent dialog should be used
-        if (!$this->getContainer()->get(ModulesSettings::class)->get('Core', 'show_consent_dialog', false)) {
+        if (!$this->getContainer()->get(ModuleSettingRepository::class)->get('Core', 'show_consent_dialog', false)) {
             // set tracking cookie
             Model::getVisitorId();
         }
@@ -199,7 +199,7 @@ class Page extends KernelLoader
             // @deprecated remove this in Fork 6, the privacy consent dialog should be used
             $this->template->assignGlobal(
                 'cookieBarHide',
-                !$this->get(ModulesSettings::class)->get('Core', 'show_cookie_bar', false)
+                !$this->get(ModuleSettingRepository::class)->get('Core', 'show_cookie_bar', false)
                 || $this->getContainer()->get('fork.cookie')->hasHiddenCookieBar()
             );
             $this->parsePrivacyConsents();

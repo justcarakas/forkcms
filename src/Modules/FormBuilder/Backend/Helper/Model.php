@@ -6,7 +6,7 @@ use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraType;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FL;
 use Symfony\Component\Finder\Finder;
 
@@ -611,7 +611,7 @@ class Model
         $finder->in(FRONTEND_MODULES_PATH . '/FormBuilder/Layout/Templates/Mails');
 
         // if there is a custom theme we should include the templates there also
-        $theme = BackendModel::get(ModulesSettings::class)->get('Core', 'theme', 'Fork');
+        $theme = BackendModel::get(ModuleSettingRepository::class)->get('Core', 'theme', 'Fork');
         if ($theme !== 'core') {
             $path = FRONTEND_PATH . '/Themes/' . $theme . '/Modules/FormBuilder/Layout/Templates/Mails';
             if (is_dir($path)) {

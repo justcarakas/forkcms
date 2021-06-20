@@ -9,7 +9,7 @@ use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
 use ForkCMS\Core\Backend\Domain\DataGrid\DataGridDatabase as BackendDataGridDatabase;
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Modules\Extensions\Backend\Helper\Model as BackendExtensionsModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 /**
  * This is the templates-action, it will display the templates-overview
@@ -57,7 +57,7 @@ class ThemeTemplates extends BackendBaseActionEdit
 
         // determine selected theme, based upon submitted form or default theme
         if (!array_key_exists($this->selectedTheme, $this->availableThemes)) {
-            $this->selectedTheme = $this->get(ModulesSettings::class)->get('Core', 'theme', 'Fork');
+            $this->selectedTheme = $this->get(ModuleSettingRepository::class)->get('Core', 'theme', 'Fork');
         }
     }
 

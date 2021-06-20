@@ -5,7 +5,7 @@ namespace ForkCMS\Core\Backend\Domain\Twig;
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Common\Twig\BaseTwigTemplate;
 use ForkCMS\Core\Common\Twig\Extensions\TwigFilters;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Frontend\Helper\FormExtension;
 use ReflectionClass;
 use Symfony\Bridge\Twig\AppVariable;
@@ -41,7 +41,7 @@ class TwigTemplate extends BaseTwigTemplate
             $container->set('template', $this);
         }
 
-        $this->forkSettings = $container->get(ModulesSettings::class);
+        $this->forkSettings = $container->get(ModuleSettingRepository::class);
         if ($this->debugMode) {
             $this->enableAutoReload();
             $this->setCache(false);
@@ -182,7 +182,7 @@ class TwigTemplate extends BaseTwigTemplate
         // assign some variable constants (such as site-title)
         $this->assign(
             'SITE_TITLE',
-            Model::get(ModulesSettings::class)->get('Core', 'site_title_' . BL::getWorkingLanguage(), SITE_DEFAULT_TITLE)
+            Model::get(ModuleSettingRepository::class)->get('Core', 'site_title_' . BL::getWorkingLanguage(), SITE_DEFAULT_TITLE)
         );
     }
 

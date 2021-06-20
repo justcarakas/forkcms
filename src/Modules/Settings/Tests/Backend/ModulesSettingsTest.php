@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Settings\Tests\Backend;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use MatthiasMullie\Scrapbook\Adapters\MemoryStore;
 use MatthiasMullie\Scrapbook\Psr6\Pool;
 use PHPUnit\Framework\TestCase;

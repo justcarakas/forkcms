@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Mailmotor\Domain\Subscription\Validator\Constraints;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Frontend\Helper\Model;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use MailMotor\Bundle\MailMotorBundle\Exception\NotImplementedException;
@@ -36,7 +36,7 @@ class EmailUnsubscriptionValidator extends ConstraintValidator
             // The email doesn't exists in the mailing list
             if (!$this->subscriber->exists(
                 $value,
-                Model::get(ModulesSettings::class)->get('Mailmotor', 'list_id_' . Locale::frontendLanguage())
+                Model::get(ModuleSettingRepository::class)->get('Mailmotor', 'list_id_' . Locale::frontendLanguage())
             )) {
                 $this->context->buildViolation($constraint->notExistsMessage)->addViolation();
             } elseif ($this->subscriber->isUnsubscribed($value)) {

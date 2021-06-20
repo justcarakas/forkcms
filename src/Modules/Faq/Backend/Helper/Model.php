@@ -10,7 +10,7 @@ use ForkCMS\Modules\Faq\Domain\Feedback\FeedbackRepository;
 use ForkCMS\Modules\Faq\Domain\Question\Question;
 use ForkCMS\Modules\Faq\Domain\Question\QuestionRepository;
 use ForkCMS\Core\Common\Doctrine\Repository\MetaRepository;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Common\Uri as CommonUri;
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
@@ -61,7 +61,7 @@ class Model
 
     public static function deleteCategoryAllowed(int $id): bool
     {
-        if (!BackendModel::get(ModulesSettings::class)->get('Faq', 'allow_multiple_categories', true)
+        if (!BackendModel::get(ModuleSettingRepository::class)->get('Faq', 'allow_multiple_categories', true)
             && self::getCategoryCount() == 1
         ) {
             return false;

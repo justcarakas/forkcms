@@ -7,7 +7,7 @@ use ForkCMS\Core\Backend\Helper\Model;
 use ForkCMS\Modules\Mailmotor\Domain\Settings\Command\SaveSettings;
 use ForkCMS\Modules\Mailmotor\Domain\Settings\Event\SettingsSavedEvent;
 use ForkCMS\Modules\Mailmotor\Domain\Settings\SettingsType;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 /**
  * This is the settings-action (default),
@@ -21,7 +21,7 @@ final class Settings extends ActionIndex
 
         $form = $this->createForm(
             SettingsType::class,
-            new SaveSettings($this->get(ModulesSettings::class))
+            new SaveSettings($this->get(ModuleSettingRepository::class))
         );
 
         $form->handleRequest($this->getRequest());

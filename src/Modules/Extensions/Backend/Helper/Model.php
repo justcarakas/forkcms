@@ -11,7 +11,7 @@ use ForkCMS\Modules\Internationalisation\Backend\Helper\Model as BackendLocaleMo
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository;
 use ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraType;
 use ForkCMS\Modules\Pages\Domain\PageBlock\PageBlockRepository;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
@@ -150,7 +150,7 @@ class Model
         }
 
         // check if the akismet key is available if there are modules that require it
-        if (!empty($akismetModules) && BackendModel::get(ModulesSettings::class)->get('Core', 'akismet_key', null) == '') {
+        if (!empty($akismetModules) && BackendModel::get(ModuleSettingRepository::class)->get('Core', 'akismet_key', null) == '') {
             // add warning
             $warnings[] = [
                 'message' => sprintf(
@@ -162,7 +162,7 @@ class Model
 
         // check if the google maps key is available if there are modules that require it
         if (!empty($googleMapsModules)
-            && BackendModel::get(ModulesSettings::class)->get('Core', 'google_maps_key', null) == '') {
+            && BackendModel::get(ModuleSettingRepository::class)->get('Core', 'google_maps_key', null) == '') {
             // add warning
             $warnings[] = [
                 'message' => sprintf(
@@ -218,7 +218,7 @@ class Model
         }
 
         // we can't delete the default template
-        if ($id == BackendModel::get(ModulesSettings::class)->get('Pages', 'default_template')) {
+        if ($id == BackendModel::get(ModuleSettingRepository::class)->get('Pages', 'default_template')) {
             return false;
         }
         if (self::isTemplateInUse($id)) {
@@ -524,7 +524,7 @@ class Model
         }
 
         /** @var ModulesSettings $moduleSettings */
-        $moduleSettings = BackendModel::get(ModulesSettings::class);
+        $moduleSettings = BackendModel::get(ModuleSettingRepository::class);
 
         return array_filter(
             BackendModel::getModules(),
@@ -548,7 +548,7 @@ class Model
         $theme = \SpoonFilter::getValue(
             (string) $theme,
             null,
-            BackendModel::get(ModulesSettings::class)->get('Core', 'theme', 'Fork')
+            BackendModel::get(ModuleSettingRepository::class)->get('Core', 'theme', 'Fork')
         );
 
         $templates = (array) $database->getRecords(
@@ -873,7 +873,7 @@ class Model
             $item['description'] = $cronjob[0];
 
             // check if cronjob has already been run
-            $cronjobs = (array) BackendModel::get(ModulesSettings::class)->get('Core', 'cronjobs');
+            $cronjobs = (array) BackendModel::get(ModuleSettingRepository::class)->get('Core', 'cronjobs');
             $item['active'] = in_array($information['name'] . '.' . $attributes['action'], $cronjobs);
 
             $information['cronjobs'][] = $item;

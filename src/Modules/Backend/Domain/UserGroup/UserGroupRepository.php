@@ -31,7 +31,9 @@ final class UserGroupRepository extends ServiceEntityRepository
             throw new InvalidArgumentException('Deleting the admin group is not allowed');
         }
 
-        $this->getEntityManager()->remove($userGroup);
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($userGroup);
+        $entityManager->flush();
     }
 
 

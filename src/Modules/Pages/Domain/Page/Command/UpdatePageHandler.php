@@ -12,7 +12,7 @@ use ForkCMS\Modules\Pages\Domain\PageBlock\PageBlockRepository;
 use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
 use ForkCMS\Modules\Search\Backend\Helper\Model as BackendSearchModel;
 use ForkCMS\Modules\Tags\Backend\Helper\Model as BackendTagsModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 final class UpdatePageHandler
 {

@@ -6,7 +6,7 @@ use ForkCMS\Modules\Blog\Domain\Category\CategoryRepository;
 use ForkCMS\Modules\Blog\Domain\Comment\CommentRepository;
 use ForkCMS\Core\Common\Doctrine\Repository\MetaRepository;
 use ForkCMS\Core\Common\Mailer\Message;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use Doctrine\ORM\NoResultException;
 use ForkCMS\Core\Common\ForkCMS\Utility\Thumbnails;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FL;
@@ -100,7 +100,7 @@ class Model implements FrontendTagsInterface
             $items[$key]['allow_comments'] = (bool) $row['allow_comments'];
 
             // reset allow comments
-            if (!FrontendModel::get(ModulesSettings::class)->get('Blog', 'allow_comments')) {
+            if (!FrontendModel::get(ModuleSettingRepository::class)->get('Blog', 'allow_comments')) {
                 $items[$key]['allow_comments'] = false;
             }
 
@@ -260,7 +260,7 @@ class Model implements FrontendTagsInterface
             $items[$key]['allow_comments'] = (bool) $row['allow_comments'];
 
             // reset allow comments
-            if (!FrontendModel::get(ModulesSettings::class)->get('Blog', 'allow_comments')) {
+            if (!FrontendModel::get(ModuleSettingRepository::class)->get('Blog', 'allow_comments')) {
                 $items[$key]['allow_comments'] = false;
             }
 
@@ -359,7 +359,7 @@ class Model implements FrontendTagsInterface
             $items[$key]['allow_comments'] = (bool) $row['allow_comments'];
 
             // reset allow comments
-            if (!FrontendModel::get(ModulesSettings::class)->get('Blog', 'allow_comments')) {
+            if (!FrontendModel::get(ModuleSettingRepository::class)->get('Blog', 'allow_comments')) {
                 $items[$key]['allow_comments'] = false;
             }
 
@@ -817,12 +817,12 @@ class Model implements FrontendTagsInterface
         }
 
         // get settings
-        $notifyByMailOnComment = FrontendModel::get(ModulesSettings::class)->get(
+        $notifyByMailOnComment = FrontendModel::get(ModuleSettingRepository::class)->get(
             'Blog',
             'notify_by_email_on_new_comment',
             false
         );
-        $notifyByMailOnCommentToModerate = FrontendModel::get(ModulesSettings::class)->get(
+        $notifyByMailOnCommentToModerate = FrontendModel::get(ModuleSettingRepository::class)->get(
             'Blog',
             'notify_by_email_on_new_comment_to_moderate',
             false
@@ -851,9 +851,9 @@ class Model implements FrontendTagsInterface
                 );
             }
 
-            $to = FrontendModel::get(ModulesSettings::class)->get('Core', 'mailer_to');
-            $from = FrontendModel::get(ModulesSettings::class)->get('Core', 'mailer_from');
-            $replyTo = FrontendModel::get(ModulesSettings::class)->get('Core', 'mailer_reply_to');
+            $to = FrontendModel::get(ModuleSettingRepository::class)->get('Core', 'mailer_to');
+            $from = FrontendModel::get(ModuleSettingRepository::class)->get('Core', 'mailer_from');
+            $replyTo = FrontendModel::get(ModuleSettingRepository::class)->get('Core', 'mailer_reply_to');
             $message = Message::newInstance(FL::msg('NotificationSubject'))
                               ->setFrom([$from['email'] => $from['name']])
                               ->setTo([$to['email'] => $to['name']])
@@ -873,9 +873,9 @@ class Model implements FrontendTagsInterface
                 [$comment['author'], $url, $comment['post_title'], $backendUrl]
             );
 
-            $to = FrontendModel::get(ModulesSettings::class)->get('Core', 'mailer_to');
-            $from = FrontendModel::get(ModulesSettings::class)->get('Core', 'mailer_from');
-            $replyTo = FrontendModel::get(ModulesSettings::class)->get('Core', 'mailer_reply_to');
+            $to = FrontendModel::get(ModuleSettingRepository::class)->get('Core', 'mailer_to');
+            $from = FrontendModel::get(ModuleSettingRepository::class)->get('Core', 'mailer_from');
+            $replyTo = FrontendModel::get(ModuleSettingRepository::class)->get('Core', 'mailer_reply_to');
             $message = Message::newInstance(FL::msg('NotificationSubject'))
                               ->setFrom([$from['email'] => $from['name']])
                               ->setTo([$to['email'] => $to['name']])

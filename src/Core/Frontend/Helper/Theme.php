@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Frontend\Helper;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use Exception;
 
 /**
@@ -66,7 +66,7 @@ class Theme
     {
         // theme name has not yet been saved, fetch and save it
         if (!self::$theme) {
-            self::$theme = Model::get(ModulesSettings::class)->get('Core', 'theme', null);
+            self::$theme = Model::get(ModuleSettingRepository::class)->get('Core', 'theme', null);
         }
 
         // return theme name

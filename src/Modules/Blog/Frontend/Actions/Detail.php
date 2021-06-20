@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Blog\Frontend\Actions;
 
 use ForkCMS\Core\Common\Doctrine\Entity\Meta;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
 use ForkCMS\Core\Frontend\Helper\Form as FrontendForm;
 use ForkCMS\Core\Frontend\Domain\Header\MetaLink;
@@ -106,7 +106,7 @@ class Detail extends FrontendBaseBlock
 
     private function getModuleSettings(): array
     {
-        $moduleSettings = $this->get(ModulesSettings::class)->getForModule($this->getModule());
+        $moduleSettings = $this->get(ModuleSettingRepository::class)->getForModule($this->getModule());
 
         // Ignore the individual setting if the blog module doesn't allow comments
         if (!$moduleSettings['allow_comments']) {
@@ -127,7 +127,7 @@ class Detail extends FrontendBaseBlock
     {
         // General rss feed
         $this->header->addRssLink(
-            $this->get(ModulesSettings::class)->get($this->getModule(), 'rss_title_' . LANGUAGE, SITE_DEFAULT_TITLE),
+            $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'rss_title_' . LANGUAGE, SITE_DEFAULT_TITLE),
             FrontendNavigation::getUrlForBlock($this->getModule(), 'Rss')
         );
 
@@ -154,7 +154,7 @@ class Detail extends FrontendBaseBlock
         $this->header->addOpenGraphData('url', SITE_URL . $this->blogPost['full_url'], true);
         $this->header->addOpenGraphData(
             'site_name',
-            $this->get(ModulesSettings::class)->get('Core', 'site_title_' . LANGUAGE, SITE_DEFAULT_TITLE),
+            $this->get(ModuleSettingRepository::class)->get('Core', 'site_title_' . LANGUAGE, SITE_DEFAULT_TITLE),
             true
         );
 

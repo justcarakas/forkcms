@@ -4,7 +4,7 @@ namespace ForkCMS\Core\Common\Twig;
 
 use ForkCMS\Core\Common\Form;
 use ForkCMS\Core\Common\Model;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use SpoonForm;
 use Twig\Environment;
 

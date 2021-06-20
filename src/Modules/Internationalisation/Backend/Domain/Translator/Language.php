@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\Internationalisation\Backend\Domain\Translator;
 
 use ForkCMS\Core\Backend\Helper\Model;
 use ForkCMS\Modules\Internationalisation\Backend\Helper\Model as BackendLocaleModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use RuntimeException;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
@@ -60,7 +60,7 @@ class Language
     {
         // validate the cache
         if (empty(self::$activeLanguages)) {
-            self::$activeLanguages = (array) Model::get(ModulesSettings::class)->get('Core', 'active_languages');
+            self::$activeLanguages = (array) Model::get(ModuleSettingRepository::class)->get('Core', 'active_languages');
         }
 
         // return from cache
@@ -150,7 +150,7 @@ class Language
         $languages = [];
 
         // grab the languages from the settings & loop language to reset the label
-        foreach ((array) Model::get(ModulesSettings::class)->get('Core', 'interface_languages', ['en']) as $key) {
+        foreach ((array) Model::get(ModuleSettingRepository::class)->get('Core', 'interface_languages', ['en']) as $key) {
             // fetch language's translation
             $languages[$key] = self::getLabel(mb_strtoupper($key), 'Core');
         }
@@ -225,7 +225,7 @@ class Language
         $languages = [];
 
         // grab the languages from the settings & loop language to reset the label
-        foreach ((array) Model::get(ModulesSettings::class)->get('Core', 'languages', ['en']) as $key) {
+        foreach ((array) Model::get(ModuleSettingRepository::class)->get('Core', 'languages', ['en']) as $key) {
             // fetch the language's translation
             $languages[$key] = self::getLabel(mb_strtoupper($key), 'Core');
         }

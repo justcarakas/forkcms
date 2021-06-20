@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Users\Backend\Helper;
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Users\Backend\Helper\User as BackendUser;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 /**
  * In this file we store all generic functions that we will be using in the users module.
@@ -196,7 +196,7 @@ class Model
         $possibleFormats = [];
 
         // loop available formats
-        foreach ((array) BackendModel::get(ModulesSettings::class)->get('Users', 'date_formats') as $format) {
+        foreach ((array) BackendModel::get(ModuleSettingRepository::class)->get('Users', 'date_formats') as $format) {
             $possibleFormats[$format] = \SpoonDate::getDate(
                 $format,
                 null,
@@ -273,7 +273,7 @@ class Model
         $possibleFormats = [];
 
         // loop available formats
-        foreach ((array) BackendModel::get(ModulesSettings::class)->get('Core', 'number_formats') as $format => $example) {
+        foreach ((array) BackendModel::get(ModuleSettingRepository::class)->get('Core', 'number_formats') as $format => $example) {
             $possibleFormats[$format] = $example;
         }
 
@@ -305,7 +305,7 @@ class Model
         $possibleFormats = [];
 
         // loop available formats
-        foreach (BackendModel::get(ModulesSettings::class)->get('Users', 'time_formats') as $format) {
+        foreach (BackendModel::get(ModuleSettingRepository::class)->get('Users', 'time_formats') as $format) {
             $possibleFormats[$format] = \SpoonDate::getDate(
                 $format,
                 null,

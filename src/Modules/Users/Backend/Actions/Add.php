@@ -9,7 +9,7 @@ use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as B
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Users\Backend\Helper\Model as BackendUsersModel;
 use ForkCMS\Modules\Groups\Backend\Helper\Model as BackendGroupsModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 /**
  * This is the add-action, it will display a form to create a new user
@@ -58,7 +58,7 @@ class Add extends BackendBaseActionAdd
         $this->form->addDropdown(
             'interface_language',
             BL::getInterfaceLanguages(),
-            $this->get(ModulesSettings::class)->get('Core', 'default_interface_language')
+            $this->get(ModuleSettingRepository::class)->get('Core', 'default_interface_language')
         );
         $this->form->addDropdown(
             'preferred_editor',

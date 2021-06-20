@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Mailmotor\Domain\Subscription;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use DateTime;
 use ForkCMS\Core\Frontend\Helper\Navigation;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;

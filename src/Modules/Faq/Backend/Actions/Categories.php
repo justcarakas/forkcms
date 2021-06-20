@@ -8,7 +8,7 @@ use ForkCMS\Core\Backend\Domain\DataGrid\DataGridDatabase as BackendDataGridData
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Faq\Backend\Helper\Model as BackendFaqModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 /**
  * This is the categories-action, it will display the overview of faq categories
@@ -35,7 +35,7 @@ class Categories extends BackendBaseActionIndex
     private function loadDataGrid(): void
     {
         // are multiple categories allowed?
-        $this->multipleCategoriesAllowed = $this->get(ModulesSettings::class)->get('Faq', 'allow_multiple_categories', true);
+        $this->multipleCategoriesAllowed = $this->get(ModuleSettingRepository::class)->get('Faq', 'allow_multiple_categories', true);
 
         // create dataGrid
         $this->dataGrid = new BackendDataGridDatabase(

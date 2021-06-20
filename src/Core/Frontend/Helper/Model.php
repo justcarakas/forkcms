@@ -5,7 +5,7 @@ namespace ForkCMS\Core\Frontend\Helper;
 use ForkCMS\Modules\Pages\Domain\Page\Page as PageEntity;
 use ForkCMS\Modules\Pages\Domain\Page\PageRepository;
 use ForkCMS\Modules\Pages\Domain\Page\Status;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use DateTime;
 use InvalidArgumentException;
@@ -255,7 +255,7 @@ class Model extends \ForkCMS\Core\Common\Model
             ? $cookie->get('track')
             : md5(uniqid('', true) . self::getSession()->getId());
 
-        if ($cookie->hasAllowedCookies() || !self::get(ModulesSettings::class)->get('Core', 'show_cookie_bar', false)) {
+        if ($cookie->hasAllowedCookies() || !self::get(ModuleSettingRepository::class)->get('Core', 'show_cookie_bar', false)) {
             $cookie->set('track', self::$visitorId, 86400 * 365);
         }
 

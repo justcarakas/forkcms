@@ -13,7 +13,7 @@ use ForkCMS\Modules\Blog\Domain\Category\Category;
 use ForkCMS\Modules\Blog\Domain\Comment\CommentRepository;
 use ForkCMS\Modules\Tags\Backend\Helper\Model as BackendTagsModel;
 use ForkCMS\Core\Common\Doctrine\Repository\MetaRepository;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Common\ForkCMS\Utility\Thumbnails;
 use ForkCMS\Core\Common\Doctrine\Entity\Meta;
 
@@ -111,7 +111,7 @@ class Model
         // check if this action is allowed
         if (BackendAuthentication::isAllowedAction('Settings', 'Blog')) {
             // rss title
-            $rssTitle = BackendModel::get(ModulesSettings::class)->get(
+            $rssTitle = BackendModel::get(ModuleSettingRepository::class)->get(
                 'Blog',
                 'rss_title_' . BL::getWorkingLanguage(),
                 null
@@ -126,7 +126,7 @@ class Model
             }
 
             // rss description
-            $rssDescription = BackendModel::get(ModulesSettings::class)->get(
+            $rssDescription = BackendModel::get(ModuleSettingRepository::class)->get(
                 'Blog',
                 'rss_description_' . BL::getWorkingLanguage(),
                 null
@@ -916,7 +916,7 @@ class Model
         unset($item['revision_id']);
 
         // how many revisions should we keep
-        $rowsToKeep = (int) BackendModel::get(ModulesSettings::class)->get('Blog', 'max_num_revisions', 20);
+        $rowsToKeep = (int) BackendModel::get(ModuleSettingRepository::class)->get('Blog', 'max_num_revisions', 20);
 
         // set type of archive
         $archiveType = ($item['status'] === 'active' ? 'archived' : $item['status']);

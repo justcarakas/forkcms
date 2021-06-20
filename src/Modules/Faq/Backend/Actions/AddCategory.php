@@ -9,7 +9,7 @@ use ForkCMS\Core\Backend\Domain\Meta\Meta as BackendMeta;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Faq\Backend\Helper\Model as BackendFaqModel;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 /**
  * This is the add-action, it will display a form to create a new category
@@ -19,7 +19,7 @@ class AddCategory extends BackendBaseActionAdd
     public function execute(): void
     {
         // only one category allowed, so we redirect
-        if (!$this->get(ModulesSettings::class)->get('Faq', 'allow_multiple_categories', true)) {
+        if (!$this->get(ModuleSettingRepository::class)->get('Faq', 'allow_multiple_categories', true)) {
             $this->redirect(BackendModel::createUrlForAction('Categories') . '&error=only-one-category-allowed');
         }
 

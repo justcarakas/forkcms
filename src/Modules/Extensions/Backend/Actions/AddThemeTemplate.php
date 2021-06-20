@@ -7,7 +7,7 @@ use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Extensions\Backend\Helper\Model as BackendExtensionsModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Common\Uri;
 
 /**
@@ -67,7 +67,7 @@ class AddThemeTemplate extends BackendBaseActionAdd
 
         // determine selected theme, based upon submitted form or default theme
         if (!array_key_exists($this->selectedTheme, $this->availableThemes)) {
-            $this->selectedTheme = $this->get(ModulesSettings::class)->get('Core', 'theme', 'Fork');
+            $this->selectedTheme = $this->get(ModuleSettingRepository::class)->get('Core', 'theme', 'Fork');
         }
     }
 
@@ -306,8 +306,8 @@ class AddThemeTemplate extends BackendBaseActionAdd
                 $item['id'] = BackendExtensionsModel::insertTemplate($item);
 
                 // set default template
-                if ($this->form->getField('default')->getChecked() && $item['theme'] == $this->get(ModulesSettings::class)->get('Core', 'theme', 'Fork')) {
-                    $this->get(ModulesSettings::class)->set($this->getModule(), 'default_template', $item['id']);
+                if ($this->form->getField('default')->getChecked() && $item['theme'] == $this->get(ModuleSettingRepository::class)->get('Core', 'theme', 'Fork')) {
+                    $this->get(ModuleSettingRepository::class)->set($this->getModule(), 'default_template', $item['id']);
                 }
 
                 // everything is saved, so redirect to the overview

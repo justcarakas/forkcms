@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Frontend\Domain\Header;
 
 use ForkCMS\Core\Common\Cookie;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Common\ForkCMS\Privacy\ConsentDialog;
 
 final class GoogleAnalytics

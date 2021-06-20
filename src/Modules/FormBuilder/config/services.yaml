@@ -3,6 +3,6 @@
 #        class: ForkCMS\Modules\FormBuilder\Frontend\Helper\FormBuilderSubmittedMailSubscriber
 #        arguments:
 #            - "@mailer"
-#            - '@Common\ModulesSettings'
+#            - '@ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository'
 #        tags:
 #            - { name: kernel.event_listener, event: form.submitted, method: onFormSubmitted }

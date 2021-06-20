@@ -9,7 +9,7 @@ use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Location\Backend\Helper\Model as BackendLocationModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Modules\Location\Frontend\Helper\Model as FrontendLocationModel;
 
 /**
@@ -36,7 +36,7 @@ class Index extends BackendBaseActionIndex
         parent::execute();
 
         // define Google Maps API key
-        $apikey = $this->get(ModulesSettings::class)->get('Core', 'google_maps_key');
+        $apikey = $this->get(ModuleSettingRepository::class)->get('Core', 'google_maps_key');
 
         // check Google Maps API key, otherwise redirect to settings
         if ($apikey === null) {
@@ -68,7 +68,7 @@ class Index extends BackendBaseActionIndex
 
         // load the settings from the general settings
         if (empty($this->settings)) {
-            $this->settings = $this->get(ModulesSettings::class)->getForModule('Location');
+            $this->settings = $this->get(ModuleSettingRepository::class)->getForModule('Location');
 
             $this->settings['map_type'] = $this->settings['map_type_widget'];
             $this->settings['map_style'] = $this->settings['map_style_widget'] ?? 'standard';

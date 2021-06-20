@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Frontend\Helper;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use ForkCMS\Core\Common\Twig\BaseTwigTemplate;
 use ForkCMS\Core\Common\Twig\Extensions\TwigFilters;
@@ -30,7 +30,7 @@ class TwigTemplate extends BaseTwigTemplate
         LoaderInterface $loader
     ) {
         $container = Model::getContainer();
-        $this->forkSettings = $container->get(ModulesSettings::class);
+        $this->forkSettings = $container->get(ModuleSettingRepository::class);
         $this->language = Locale::frontendLanguage();
 
         parent::__construct($loader);

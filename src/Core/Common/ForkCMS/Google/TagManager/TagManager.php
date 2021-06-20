@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Common\ForkCMS\Google\TagManager;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Common\ForkCMS\Privacy\ConsentDialog;
 
 class TagManager

@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Frontend\Helper;
 
 use ForkCMS\Modules\Pages\Domain\Page\Page as PageEntity;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\HttpKernel\KernelInterface;
 use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
@@ -45,17 +45,17 @@ class Footer extends KernelLoader
         $footerLinks = (array) Navigation::getFooterLinks();
         $this->template->assignGlobal('footerLinks', $footerLinks);
 
-        $siteHTMLEndOfBody = (string) $this->get(ModulesSettings::class)->get('Core', 'site_html_end_of_body', $this->get(ModulesSettings::class)->get('Core', 'site_html_footer', null));
+        $siteHTMLEndOfBody = (string) $this->get(ModuleSettingRepository::class)->get('Core', 'site_html_end_of_body', $this->get(ModuleSettingRepository::class)->get('Core', 'site_html_footer', null));
 
         // @deprecated remove this in Fork 6, Facebook should not be added automaticall
-        $facebookAppId = $this->get(ModulesSettings::class)->get('Core', 'facebook_app_id', null);
+        $facebookAppId = $this->get(ModuleSettingRepository::class)->get('Core', 'facebook_app_id', null);
         if ($facebookAppId !== null) {
             // add Facebook container
             $siteHTMLEndOfBody .= $this->getFacebookHtml($facebookAppId);
         }
 
         // add Google sitelinks search box code if wanted.
-        if ($this->get(ModulesSettings::class)->get('Search', 'use_sitelinks_search_box', true)) {
+        if ($this->get(ModuleSettingRepository::class)->get('Search', 'use_sitelinks_search_box', true)) {
             $searchUrl = FrontendNavigation::getUrlForBlock('Search');
             $url404 = FrontendNavigation::getUrl(PageEntity::ERROR_PAGE_ID);
             if ($searchUrl !== $url404) {

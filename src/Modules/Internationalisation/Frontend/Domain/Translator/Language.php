@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator;
 
 use ForkCMS\Modules\Internationalisation\Domain\Translator\CacheBuilder;
 use ForkCMS\Core\Common\Model;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Frontend\Helper\Exception;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -115,7 +115,7 @@ class Language
         // validate the cache
         if (empty(self::$languages['active'])) {
             // grab from settings
-            $activeLanguages = (array) Model::get(ModulesSettings::class)->get('Core', 'active_languages');
+            $activeLanguages = (array) Model::get(ModuleSettingRepository::class)->get('Core', 'active_languages');
 
             // store in cache
             self::$languages['active'] = $activeLanguages;
@@ -294,7 +294,7 @@ class Language
         // validate the cache
         if (empty(self::$languages['possible_redirect'])) {
             // grab from settings
-            $redirectLanguages = (array) Model::get(ModulesSettings::class)->get('Core', 'redirect_languages');
+            $redirectLanguages = (array) Model::get(ModuleSettingRepository::class)->get('Core', 'redirect_languages');
 
             // store in cache
             self::$languages['possible_redirect'] = $redirectLanguages;

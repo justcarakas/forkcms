@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Profiles\Frontend\Actions;
 
 use ForkCMS\Core\Common\Mailer\Message;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
 use ForkCMS\Core\Frontend\Helper\Form as FrontendForm;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FL;
@@ -116,8 +116,8 @@ class Register extends FrontendBaseBlock
     private function sendActivationEmail(array $profile, string $activationKey): void
     {
         $activationUrl = SITE_URL . FrontendNavigation::getUrlForBlock($this->getModule(), 'Activate');
-        $from = $this->get(ModulesSettings::class)->get('Core', 'mailer_from');
-        $replyTo = $this->get(ModulesSettings::class)->get('Core', 'mailer_reply_to');
+        $from = $this->get(ModuleSettingRepository::class)->get('Core', 'mailer_from');
+        $replyTo = $this->get(ModuleSettingRepository::class)->get('Core', 'mailer_reply_to');
         $message = Message::newInstance(FL::getMessage('RegisterSubject'))
             ->setFrom([$from['email'] => $from['name']])
             ->setTo([$profile['email'] => $profile['display_name']])
