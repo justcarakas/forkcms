@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Faq\Frontend\Widgets;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Frontend\Helper\Base\Widget as FrontendBaseWidget;
 use ForkCMS\Modules\Faq\Frontend\Helper\Model as FrontendFaqModel;
 
@@ -26,7 +26,7 @@ class CategoryList extends FrontendBaseWidget
             'widgetFaqCategoryList',
             FrontendFaqModel::getAllForCategory(
                 $this->data['id'],
-                $this->get(ModulesSettings::class)->get($this->getModule(), 'most_read_num_items', 10)
+                $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'most_read_num_items', 10)
             )
         );
     }

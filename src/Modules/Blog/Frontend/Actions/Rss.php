@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Blog\Frontend\Actions;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FL;
 use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
@@ -26,16 +26,16 @@ class Rss extends FrontendBaseBlock
         $blogPosts = FrontendBlogModel::getAll(30);
 
         $rss = new FrontendRSS(
-            $this->get(ModulesSettings::class)->get('Blog', 'rss_title_' . LANGUAGE, SITE_DEFAULT_TITLE),
+            $this->get(ModuleSettingRepository::class)->get('Blog', 'rss_title_' . LANGUAGE, SITE_DEFAULT_TITLE),
             SITE_URL . FrontendNavigation::getUrlForBlock($this->getModule()),
-            $this->get(ModulesSettings::class)->get('Blog', 'rss_description_' . LANGUAGE, '')
+            $this->get(ModuleSettingRepository::class)->get('Blog', 'rss_description_' . LANGUAGE, '')
         );
 
         foreach ($blogPosts as $blogPost) {
             $rss->addItem(
                 $this->getRssFeedItemForBlogPost(
                     $blogPost,
-                    $this->get(ModulesSettings::class)->get($this->getModule(), 'rss_meta_' . LANGUAGE, true)
+                    $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'rss_meta_' . LANGUAGE, true)
                 )
             );
         }

@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Blog\Backend\Actions;
 use ForkCMS\Core\Backend\Domain\Action\Action as BackendBaseAction;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Blog\Backend\Helper\Model as BackendBlogModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 /**
  * This action is used to update one or more comments (status, delete, ...)
@@ -43,7 +43,7 @@ class MassCommentAction extends BackendBaseAction
             BackendBlogModel::deleteComments($ids);
         } elseif ($action == 'spam') {
             // is the spamfilter active?
-            if ($this->get(ModulesSettings::class)->get($this->url->getModule(), 'spamfilter', false)) {
+            if ($this->get(ModuleSettingRepository::class)->get($this->url->getModule(), 'spamfilter', false)) {
                 // get data
                 $comments = BackendBlogModel::getComments($ids);
 
@@ -81,7 +81,7 @@ class MassCommentAction extends BackendBaseAction
             // published?
             if ($action == 'published') {
                 // is the spamfilter active?
-                if ($this->get(ModulesSettings::class)->get($this->url->getModule(), 'spamfilter', false)) {
+                if ($this->get(ModuleSettingRepository::class)->get($this->url->getModule(), 'spamfilter', false)) {
                     // get data
                     $comments = BackendBlogModel::getComments($ids);
 

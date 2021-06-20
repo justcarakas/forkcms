@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
+use RuntimeException;
 
 final class InstallModulesHandler implements CommandHandlerInterface
 {
@@ -21,7 +22,11 @@ final class InstallModulesHandler implements CommandHandlerInterface
         }
 
         foreach ($moduleInstallers as $moduleInstaller) {
-            $moduleInstaller->install();
+            try {
+                $moduleInstaller->install();
+            } catch (RuntimeException) {
+                //ignore for now while developing
+            }
             $moduleInstaller->registerModule();
         }
     }

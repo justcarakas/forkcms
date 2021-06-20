@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Blog\Frontend\Actions;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use DateTimeImmutable;
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
 use ForkCMS\Core\Frontend\Helper\Model;
@@ -53,7 +53,7 @@ class Archive extends FrontendBaseBlock
             $this->endDate->getTimestamp()
         );
 
-        $limit = $this->get(ModulesSettings::class)->get($this->getModule(), 'overview_num_items', 10);
+        $limit = $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'overview_num_items', 10);
         $numberOfPages = (int) ceil($numberOfItems / $limit);
 
         // Check if the page exists
@@ -161,7 +161,7 @@ class Archive extends FrontendBaseBlock
         $this->template->assign('items', $this->articles);
         $this->template->assign(
             'allowComments',
-            $this->get(ModulesSettings::class)->get($this->getModule(), 'allow_comments')
+            $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'allow_comments')
         );
     }
 
@@ -194,7 +194,7 @@ class Archive extends FrontendBaseBlock
     private function addLinkToRssFeed(): void
     {
         $this->header->addRssLink(
-            $this->get(ModulesSettings::class)->get($this->getModule(), 'rss_title_' . LANGUAGE, SITE_DEFAULT_TITLE),
+            $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'rss_title_' . LANGUAGE, SITE_DEFAULT_TITLE),
             FrontendNavigation::getUrlForBlock($this->getModule(), 'Rss')
         );
     }

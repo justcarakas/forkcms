@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Backend\Ajax;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use Symfony\Component\Filesystem\Filesystem;
 use ForkCMS\Core\Backend\Domain\Ajax\AjaxAction;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ class Templates extends AjaxAction
     public function execute(): void
     {
         $this->templates = [];
-        $theme = $this->get(ModulesSettings::class)->get('Core', 'theme');
+        $theme = $this->get(ModuleSettingRepository::class)->get('Core', 'theme');
         $files = [BACKEND_PATH . '/Core/Layout/EditorTemplates/templates.json'];
         $themePath = FRONTEND_PATH . '/Themes/' . $theme . '/Core/Layout/EditorTemplates/templates.js';
 

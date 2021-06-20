@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Blog\Frontend\Actions;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FL;
 use ForkCMS\Core\Frontend\Helper\Navigation as FrontendNavigation;
@@ -52,7 +52,7 @@ class Category extends FrontendBaseBlock
         $requestedPage = $this->url->getParameter('page', 'int', 1);
         $numberOfItems = FrontendBlogModel::getAllForCategoryCount($this->category['url']);
 
-        $limit = $this->get(ModulesSettings::class)->get($this->getModule(), 'overview_num_items', 10);
+        $limit = $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'overview_num_items', 10);
         $numberOfPages = (int) ceil($numberOfItems / $limit);
 
         if ($numberOfPages === 0) {
@@ -89,7 +89,7 @@ class Category extends FrontendBaseBlock
     private function addLinkToRssFeed(): void
     {
         $this->header->addRssLink(
-            $this->get(ModulesSettings::class)->get($this->getModule(), 'rss_title_' . LANGUAGE, SITE_DEFAULT_TITLE),
+            $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'rss_title_' . LANGUAGE, SITE_DEFAULT_TITLE),
             FrontendNavigation::getUrlForBlock($this->getModule(), 'Rss')
         );
     }

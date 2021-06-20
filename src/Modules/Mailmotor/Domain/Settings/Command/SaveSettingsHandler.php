@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Mailmotor\Domain\Settings\Command;
 
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 final class SaveSettingsHandler
 {

@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Frontend\Domain\Header;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Frontend\Helper\Theme;
 
 final class Facebook

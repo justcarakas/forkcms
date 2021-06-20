@@ -7,7 +7,7 @@ use ForkCMS\Core\Common\Header\AssetCollection;
 use ForkCMS\Core\Common\Header\JsData;
 use ForkCMS\Core\Common\Header\Minifier;
 use ForkCMS\Core\Common\Header\Priority;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\HttpKernel\KernelInterface;
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
@@ -200,9 +200,9 @@ final class Header extends KernelLoader
         $this->jsData->add('editor', 'language', $this->getCKEditorLanguage());
         $this->jsData->add('Core', 'session_timeout', $this->getFirstPossibleSessionTimeout());
 
-        if (!empty($this->get(ModulesSettings::class)->get('Core', 'theme'))) {
-            $this->jsData->add('theme', 'theme', $this->get(ModulesSettings::class)->get('Core', 'theme'));
-            $themePath = FRONTEND_PATH . '/Themes/' . $this->get(ModulesSettings::class)->get('Core', 'theme');
+        if (!empty($this->get(ModuleSettingRepository::class)->get('Core', 'theme'))) {
+            $this->jsData->add('theme', 'theme', $this->get(ModuleSettingRepository::class)->get('Core', 'theme'));
+            $themePath = FRONTEND_PATH . '/Themes/' . $this->get(ModuleSettingRepository::class)->get('Core', 'theme');
             $this->jsData->add('theme', 'path', $themePath);
             $this->jsData->add('theme', 'has_css', is_file($themePath . '/Core/Layout/Css/screen.css'));
             $this->jsData->add('theme', 'has_editor_css', is_file($themePath . '/Core/Layout/Css/editor_content.css'));

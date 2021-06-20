@@ -6,7 +6,7 @@ use ForkCMS\Core\Backend\Config;
 use ForkCMS\Core\Backend\Domain\Config\Config as BackendBaseConfig;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Core\Common\Exception\RedirectException;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -231,7 +231,7 @@ class Url extends KernelLoader
 
     private function setLocale(): void
     {
-        $defaultLocale = $this->get(ModulesSettings::class)->get('Core', 'default_interface_language');
+        $defaultLocale = $this->get(ModuleSettingRepository::class)->get('Core', 'default_interface_language');
         $locale = $this->getInterfaceLanguage();
         $possibleLocale = array_keys(BackendLanguage::getInterfaceLanguages());
 
@@ -245,7 +245,7 @@ class Url extends KernelLoader
 
     private function getInterfaceLanguage(): string
     {
-        $default = $this->get(ModulesSettings::class)->get('Core', 'default_interface_language', SITE_DEFAULT_LANGUAGE);
+        $default = $this->get(ModuleSettingRepository::class)->get('Core', 'default_interface_language', SITE_DEFAULT_LANGUAGE);
 
         if (Authentication::getUser()->isAuthenticated()) {
             return Authentication::getUser()->getSetting('interface_language', $default);

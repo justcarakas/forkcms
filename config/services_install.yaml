@@ -35,6 +35,9 @@ services:
   ForkCMS\Modules\Extensions\Domain\:
     resource: '../src/Modules/Extensions/Domain/*'
 
+  ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository:
+    public: true
+
   ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator:
     arguments:
       - !tagged_iterator { tag: 'forkcms.module.installer' }

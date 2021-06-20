@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Profiles\Frontend\Actions;
 
 use ForkCMS\Core\Common\Mailer\Message;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
 use ForkCMS\Core\Frontend\Helper\Form as FrontendForm;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FL;
@@ -94,8 +94,8 @@ class ForgotPassword extends FrontendBaseBlock
 
     private function sendForgotPasswordEmail(int $profileId, string $resetUrl): void
     {
-        $from = $this->get(ModulesSettings::class)->get('Core', 'mailer_from');
-        $replyTo = $this->get(ModulesSettings::class)->get('Core', 'mailer_reply_to');
+        $from = $this->get(ModuleSettingRepository::class)->get('Core', 'mailer_from');
+        $replyTo = $this->get(ModuleSettingRepository::class)->get('Core', 'mailer_reply_to');
         $message = Message::newInstance(FL::getMessage('ForgotPasswordSubject'))
             ->setFrom([$from['email'] => $from['name']])
             ->setTo([$this->form->getField('email')->getValue() => ''])

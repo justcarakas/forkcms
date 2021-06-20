@@ -7,7 +7,7 @@ use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Search\Backend\Helper\Model as BackendSearchModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 /**
  * This is the settings-action, it will display a form to set general search settings
@@ -49,23 +49,23 @@ class Settings extends BackendBaseActionEdit
         $this->form->addDropdown(
             'overview_num_items',
             array_combine(range(1, 30), range(1, 30)),
-            $this->get(ModulesSettings::class)->get($this->getModule(), 'overview_num_items', 20)
+            $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'overview_num_items', 20)
         );
         $this->form->addDropdown(
             'autocomplete_num_items',
             array_combine(range(1, 30), range(1, 30)),
-            $this->get(ModulesSettings::class)->get($this->getModule(), 'autocomplete_num_items', 20)
+            $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'autocomplete_num_items', 20)
         );
         $this->form->addDropdown(
             'autosuggest_num_items',
             array_combine(range(1, 30), range(1, 30)),
-            $this->get(ModulesSettings::class)->get($this->getModule(), 'autosuggest_num_items', 20)
+            $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'autosuggest_num_items', 20)
         );
 
         // add checkbox for the sitelinks search box in Google
         $this->form->addCheckbox(
             'use_sitelinks_search_box',
-            $this->get(ModulesSettings::class)->get($this->getModule(), 'use_sitelinks_search_box', true)
+            $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'use_sitelinks_search_box', true)
         );
 
         // modules that, no matter what, can not be searched
@@ -140,22 +140,22 @@ class Settings extends BackendBaseActionEdit
             // form is validated
             if ($this->form->isCorrect()) {
                 // set our settings
-                $this->get(ModulesSettings::class)->set(
+                $this->get(ModuleSettingRepository::class)->set(
                     $this->getModule(),
                     'overview_num_items',
                     $this->form->getField('overview_num_items')->getValue()
                 );
-                $this->get(ModulesSettings::class)->set(
+                $this->get(ModuleSettingRepository::class)->set(
                     $this->getModule(),
                     'autocomplete_num_items',
                     $this->form->getField('autocomplete_num_items')->getValue()
                 );
-                $this->get(ModulesSettings::class)->set(
+                $this->get(ModuleSettingRepository::class)->set(
                     $this->getModule(),
                     'autosuggest_num_items',
                     $this->form->getField('autosuggest_num_items')->getValue()
                 );
-                $this->get(ModulesSettings::class)->set(
+                $this->get(ModuleSettingRepository::class)->set(
                     $this->getModule(),
                     'use_sitelinks_search_box',
                     $this->form->getField('use_sitelinks_search_box')->isChecked()

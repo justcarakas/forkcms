@@ -20,7 +20,7 @@ use ForkCMS\Modules\Tags\Backend\Helper\Model as BackendTagsModel;
 use ForkCMS\Core\Common\Doctrine\Entity\Meta;
 use ForkCMS\Core\Common\Doctrine\Repository\MetaRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale as AbstractLocale;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use InvalidArgumentException;
 use RuntimeException;
 use SpoonFilter;
@@ -473,7 +473,7 @@ class Model
         );
 
         $treeBranches = [];
-        if (BackendModel::get(ModulesSettings::class)->get('Pages', 'meta_navigation', false)) {
+        if (BackendModel::get(ModuleSettingRepository::class)->get('Pages', 'meta_navigation', false)) {
             $treeBranches['meta'] = BL::lbl('Meta');
         }
         $treeBranches['footer'] = BL::lbl('Footer');
@@ -574,7 +574,7 @@ class Model
             'label' => 'MainNavigation',
             'pages' => self::getSubtree(Type::page(), $navigation, 0),
         ];
-        if (BackendModel::get(ModulesSettings::class)->get('Pages', 'meta_navigation', false)) {
+        if (BackendModel::get(ModuleSettingRepository::class)->get('Pages', 'meta_navigation', false)) {
             $tree['meta'] = [
                 'name' => 'meta',
                 'label' => 'Meta',
@@ -630,7 +630,7 @@ class Model
         $treeNames = ['footer', 'root'];
 
         // only show meta if needed
-        if (BackendModel::get(ModulesSettings::class)->get('Pages', 'meta_navigation', false)) {
+        if (BackendModel::get(ModuleSettingRepository::class)->get('Pages', 'meta_navigation', false)) {
             $treeNames[] = 'meta';
         }
 
@@ -714,7 +714,7 @@ class Model
     public static function loadUserTemplates(): array
     {
         $themePath = FRONTEND_PATH . '/Themes/';
-        $themePath .= BackendModel::get(ModulesSettings::class)->get('Core', 'theme', 'Fork');
+        $themePath .= BackendModel::get(ModuleSettingRepository::class)->get('Core', 'theme', 'Fork');
         $filePath = $themePath . '/Core/Layout/Templates/UserTemplates/Templates.json';
 
         $userTemplates = [];
@@ -726,7 +726,7 @@ class Model
             foreach ($userTemplates as &$userTemplate) {
                 $userTemplate['file'] =
                     '/src/Frontend/Themes/' .
-                    BackendModel::get(ModulesSettings::class)->get('Core', 'theme', 'Fork') .
+                    BackendModel::get(ModuleSettingRepository::class)->get('Core', 'theme', 'Fork') .
                     '/Core/Layout/Templates/UserTemplates/' .
                     $userTemplate['file'];
             }
@@ -873,7 +873,7 @@ class Model
         $pageRepository->save($pageEntity);
 
         // how many revisions should we keep
-        $rowsToKeep = (int) BackendModel::get(ModulesSettings::class)->get('Pages', 'max_num_revisions', 20);
+        $rowsToKeep = (int) BackendModel::get(ModuleSettingRepository::class)->get('Pages', 'max_num_revisions', 20);
 
         // get revision-ids for items to keep
         $revisionIdsToKeep = $pageRepository->getRevisionIdsToKeep($page['id'], $rowsToKeep);

@@ -3,7 +3,10 @@
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSetting;
 
 /**
  * @ORM\Entity(repositoryClass="ForkCMS\Modules\Extensions\Domain\Module\ModuleRepository")
@@ -22,10 +25,23 @@ class Module
      */
     private DateTimeImmutable $installedOn;
 
+    /**
+     * @var Collection&ModuleSetting[]
+     *
+     * @Orm\OneToMany(
+     *     targetEntity="ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSetting",
+     *     mappedBy="module",
+     *     indexBy="key",
+     *     cascade={"persist", "remove"}
+     * )
+     */
+    private Collection $settings;
+
     private function __construct(ModuleName $name, DateTimeImmutable $installedOn)
     {
         $this->name = $name;
         $this->installedOn = $installedOn;
+        $this->settings = new ArrayCollection();
     }
 
     public static function fromString(string $name): self
@@ -46,6 +62,14 @@ class Module
     public function getInstalledOn(): DateTimeImmutable
     {
         return $this->installedOn;
+    }
+
+    /**
+     * @return Collection&ModuleSetting[]
+     */
+    public function getSettings(): Collection
+    {
+        return $this->settings;
     }
 
     public function __toString(): string

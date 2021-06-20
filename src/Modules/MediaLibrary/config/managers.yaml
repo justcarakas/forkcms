@@ -11,7 +11,7 @@
 #    ForkCMS\Modules\MediaLibrary\Manager\FileManager:
 #        public: true
 #        arguments:
-#            - '@Common\ModulesSettings'
+#            - '@ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository'
 #
 #    media_library.manager.item:
 #        class: ForkCMS\Modules\MediaLibrary\Manager\MediaItemManager

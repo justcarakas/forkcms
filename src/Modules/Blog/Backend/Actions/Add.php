@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Blog\Backend\Actions;
 
 use ForkCMS\Modules\Pages\Domain\Page\Page;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use Symfony\Component\Filesystem\Filesystem;
 use ForkCMS\Core\Backend\Domain\Action\ActionAdd as BackendBaseActionAdd;
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
@@ -39,7 +39,7 @@ class Add extends BackendBaseActionAdd
 
     private function loadForm(): void
     {
-        $this->imageIsAllowed = $this->get(ModulesSettings::class)->get($this->url->getModule(), 'show_image_form', true);
+        $this->imageIsAllowed = $this->get(ModuleSettingRepository::class)->get($this->url->getModule(), 'show_image_form', true);
 
         $this->form = new BackendForm('add');
 
@@ -58,7 +58,7 @@ class Add extends BackendBaseActionAdd
         $this->form->addEditor('text')->makeRequired();
         $this->form->addEditor('introduction');
         $this->form->addRadiobutton('hidden', $rbtHiddenValues, 0);
-        $this->form->addCheckbox('allow_comments', $this->get(ModulesSettings::class)->get($this->getModule(), 'allow_comments', false));
+        $this->form->addCheckbox('allow_comments', $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'allow_comments', false));
         $this->form->addDropdown('category_id', $categories, $this->getRequest()->query->getInt('category'));
         if (count($categories) !== 2) {
             $this->form->getField('category_id')->setDefaultElement('');

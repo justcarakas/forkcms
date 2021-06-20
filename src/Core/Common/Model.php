@@ -2,8 +2,8 @@
 
 namespace ForkCMS\Core\Common;
 
-use ForkCMS\Core\Common\BaseModel;
 use ForkCMS\Core\Common\ForkCMS\Utility\Thumbnails;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use InvalidArgumentException;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
@@ -272,7 +272,7 @@ class Model extends BaseModel
 
     protected static function getAkismet(): Akismet
     {
-        $akismetKey = self::get(ModulesSettings::class)->get('Core', 'akismet_key');
+        $akismetKey = self::get(ModuleSettingRepository::class)->get('Core', 'akismet_key');
 
         // invalid key, so we can't detect spam
         if (empty($akismetKey)) {

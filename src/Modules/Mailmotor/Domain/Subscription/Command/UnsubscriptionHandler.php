@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Mailmotor\Domain\Subscription\Command;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
 

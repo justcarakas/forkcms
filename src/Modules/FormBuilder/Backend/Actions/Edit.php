@@ -8,7 +8,7 @@ use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Domain\Form\DeleteType;
 use ForkCMS\Modules\FormBuilder\Backend\Helper\Autocomplete;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FL;
 use ForkCMS\Modules\FormBuilder\Backend\Helper\Model as BackendFormBuilderModel;
 use ForkCMS\Modules\FormBuilder\Backend\Helper\Helper as FormBuilderHelper;
@@ -203,7 +203,7 @@ class Edit extends BackendBaseActionEdit
         $this->form->addText('heading');
 
         // mailmotor dialog
-        $settings = BackendModel::get(ModulesSettings::class);
+        $settings = BackendModel::get(ModuleSettingRepository::class);
         $this->form->addText(
             'mailmotor_list_id',
             $settings->get('Mailmotor', 'list_id_' . BL::getWorkingLanguage()) ?? $settings->get('Mailmotor', 'list_id')
@@ -226,7 +226,7 @@ class Edit extends BackendBaseActionEdit
 
         $this->template->assign('id', $this->record['id']);
         $this->template->assign('name', $this->record['name']);
-        $settings = BackendModel::get(ModulesSettings::class);
+        $settings = BackendModel::get(ModuleSettingRepository::class);
         $recaptchaSiteKey = $settings->get('Core', 'google_recaptcha_site_key');
         $recaptchaSecretKey = $settings->get('Core', 'google_recaptcha_secret_key');
         $mailmotorListId = $settings->get('Mailmotor', 'list_id');
