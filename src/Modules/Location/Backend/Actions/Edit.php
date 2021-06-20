@@ -9,7 +9,7 @@ use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as B
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Core\Backend\Domain\Form\DeleteType;
 use ForkCMS\Modules\Location\Backend\Helper\Model as BackendLocationModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Common\ForkCMS\Utility\Geolocation;
 use Symfony\Component\Intl\Intl;
 use ForkCMS\Modules\Location\Frontend\Helper\Model as FrontendLocationModel;
@@ -41,7 +41,7 @@ class Edit extends BackendBaseActionEdit
             parent::execute();
 
             // define Google Maps API key
-            $apikey = $this->get(ModulesSettings::class)->get('Core', 'google_maps_key');
+            $apikey = $this->get(ModuleSettingRepository::class)->get('Core', 'google_maps_key');
 
             // check Google Maps API key, otherwise redirect to settings
             if ($apikey === null) {
@@ -78,7 +78,7 @@ class Edit extends BackendBaseActionEdit
 
         // load the settings from the general settings
         if (empty($this->settings)) {
-            $settings = $this->get(ModulesSettings::class)->getForModule('Location');
+            $settings = $this->get(ModuleSettingRepository::class)->getForModule('Location');
 
             $this->settings['width'] = $settings['width_widget'];
             $this->settings['height'] = $settings['height_widget'];

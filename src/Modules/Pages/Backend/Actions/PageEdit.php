@@ -15,7 +15,7 @@ use ForkCMS\Modules\Pages\Domain\Page\Page;
 use ForkCMS\Modules\Pages\Domain\Page\PageRepository;
 use ForkCMS\Modules\Pages\Domain\Page\Status;
 use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use SimpleBus\Message\Bus\MessageBus;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -38,7 +38,7 @@ final class PageEdit extends Action
     {
         parent::setKernel($kernel);
 
-        $this->settings = $this->getContainer()->get(ModulesSettings::class);
+        $this->settings = $this->getContainer()->get(ModuleSettingRepository::class);
         $this->pageRepository = $this->getContainer()->get(PageRepository::class);
         $this->commandBus = $this->getContainer()->get('command_bus');
     }

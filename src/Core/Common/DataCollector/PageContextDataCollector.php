@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Common\DataCollector;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Frontend\Helper\Block\ExtraInterface;
 use ForkCMS\Core\Frontend\Helper\Block\ModuleExtraInterface;
 use ForkCMS\Core\Frontend\Helper\Block\Widget;
@@ -31,7 +31,7 @@ class PageContextDataCollector extends DataCollector
         }
 
         $this->page = $container->get('page');
-        $this->theme = $container->get(ModulesSettings::class)->get('Core', 'theme', 'Fork');
+        $this->theme = $container->get(ModuleSettingRepository::class)->get('Core', 'theme', 'Fork');
         $this->sitePath = $container->getParameter('site.path_www');
     }
 

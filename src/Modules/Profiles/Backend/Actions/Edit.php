@@ -11,7 +11,7 @@ use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as B
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Core\Backend\Domain\Form\DeleteType;
 use ForkCMS\Modules\Profiles\Backend\Helper\Model as BackendProfilesModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use Symfony\Component\Intl\Intl as Intl;
 
 /**
@@ -62,7 +62,7 @@ class Edit extends BackendBaseActionEdit
         // get general info
         $this->profile = BackendProfilesModel::get($this->id);
 
-        $this->notifyProfile = $this->get(ModulesSettings::class)->get(
+        $this->notifyProfile = $this->get(ModuleSettingRepository::class)->get(
             $this->url->getModule(),
             'send_new_profile_mail',
             false

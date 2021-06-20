@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\ContentBlocks\Backend\Actions;
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication;
 use ForkCMS\Core\Backend\Domain\Action\ActionAdd as BackendBaseActionAdd;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Command\CreateContentBlock;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockType;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Event\ContentBlockCreated;
@@ -74,7 +74,7 @@ class Add extends BackendBaseActionAdd
         $form = $this->createForm(
             ContentBlockType::class,
             new CreateContentBlock(),
-            ['theme' => $this->get(ModulesSettings::class)->get('Core', 'theme', 'Fork')]
+            ['theme' => $this->get(ModuleSettingRepository::class)->get('Core', 'theme', 'Fork')]
         );
 
         $form->handleRequest($this->getRequest());

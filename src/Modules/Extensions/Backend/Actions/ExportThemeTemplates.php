@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Extensions\Backend\Actions;
 use ForkCMS\Core\Backend\Domain\Action\ActionEdit;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Extensions\Backend\Helper\Model;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -42,7 +42,7 @@ class ExportThemeTemplates extends ActionEdit
 
         // determine selected theme, based upon submitted form or default theme
         if (!array_key_exists($this->selectedTheme, $this->availableThemes)) {
-            $this->selectedTheme = $this->get(ModulesSettings::class)->get('Core', 'theme', 'Fork');
+            $this->selectedTheme = $this->get(ModuleSettingRepository::class)->get('Core', 'theme', 'Fork');
         }
     }
 

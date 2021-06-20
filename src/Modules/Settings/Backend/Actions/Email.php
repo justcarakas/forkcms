@@ -6,7 +6,7 @@ use ForkCMS\Core\Backend\Domain\Action\ActionIndex as BackendBaseActionIndex;
 use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication as BackendAuthentication;
 use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use SpoonFilter;
 
 /**
@@ -44,19 +44,19 @@ class Email extends BackendBaseActionIndex
         $this->form = new BackendForm('settingsEmail');
 
         // email settings
-        $mailerFrom = $this->get(ModulesSettings::class)->get('Core', 'mailer_from');
+        $mailerFrom = $this->get(ModuleSettingRepository::class)->get('Core', 'mailer_from');
         $this->form->addText('mailer_from_name', $mailerFrom['name'] ?? '');
         $this->form
             ->addText('mailer_from_email', $mailerFrom['email'] ?? '')
             ->setAttribute('type', 'email')
         ;
-        $mailerTo = $this->get(ModulesSettings::class)->get('Core', 'mailer_to');
+        $mailerTo = $this->get(ModuleSettingRepository::class)->get('Core', 'mailer_to');
         $this->form->addText('mailer_to_name', $mailerTo['name'] ?? '');
         $this->form
             ->addText('mailer_to_email', $mailerTo['email'] ?? '')
             ->setAttribute('type', 'email')
         ;
-        $mailerReplyTo = $this->get(ModulesSettings::class)->get('Core', 'mailer_reply_to');
+        $mailerReplyTo = $this->get(ModuleSettingRepository::class)->get('Core', 'mailer_reply_to');
         $this->form->addText('mailer_reply_to_name', $mailerReplyTo['name'] ?? '');
         $this->form
             ->addText('mailer_reply_to_email', $mailerReplyTo['email'] ?? '')
@@ -64,18 +64,18 @@ class Email extends BackendBaseActionIndex
         ;
 
         if ($this->isGod) {
-            $mailerType = $this->get(ModulesSettings::class)->get('Core', 'mailer_type', 'sendmail');
+            $mailerType = $this->get(ModuleSettingRepository::class)->get('Core', 'mailer_type', 'sendmail');
             $this->form->addDropdown('mailer_type', ['sendmail' => 'sendmail', 'smtp' => 'SMTP'], $mailerType);
 
             // smtp settings
-            $this->form->addText('smtp_server', $this->get(ModulesSettings::class)->get('Core', 'smtp_server', ''));
-            $this->form->addText('smtp_port', $this->get(ModulesSettings::class)->get('Core', 'smtp_port', 25));
-            $this->form->addText('smtp_username', $this->get(ModulesSettings::class)->get('Core', 'smtp_username', ''));
-            $this->form->addPassword('smtp_password', $this->get(ModulesSettings::class)->get('Core', 'smtp_password', ''));
+            $this->form->addText('smtp_server', $this->get(ModuleSettingRepository::class)->get('Core', 'smtp_server', ''));
+            $this->form->addText('smtp_port', $this->get(ModuleSettingRepository::class)->get('Core', 'smtp_port', 25));
+            $this->form->addText('smtp_username', $this->get(ModuleSettingRepository::class)->get('Core', 'smtp_username', ''));
+            $this->form->addPassword('smtp_password', $this->get(ModuleSettingRepository::class)->get('Core', 'smtp_password', ''));
             $this->form->addDropdown(
                 'smtp_secure_layer',
                 ['no' => SpoonFilter::ucfirst(BL::lbl('None')), 'ssl' => 'SSL', 'tls' => 'TLS'],
-                $this->get(ModulesSettings::class)->get('Core', 'smtp_secure_layer', 'no')
+                $this->get(ModuleSettingRepository::class)->get('Core', 'smtp_secure_layer', 'no')
             );
         }
 
@@ -114,7 +114,7 @@ class Email extends BackendBaseActionIndex
             // no errors ?
             if ($this->form->isCorrect()) {
                 // e-mail settings
-                $this->get(ModulesSettings::class)->set(
+                $this->get(ModuleSettingRepository::class)->set(
                     'Core',
                     'mailer_from',
                     [
@@ -122,7 +122,7 @@ class Email extends BackendBaseActionIndex
                         'email' => $this->form->getField('mailer_from_email')->getValue(),
                     ]
                 );
-                $this->get(ModulesSettings::class)->set(
+                $this->get(ModuleSettingRepository::class)->set(
                     'Core',
                     'mailer_to',
                     [
@@ -130,7 +130,7 @@ class Email extends BackendBaseActionIndex
                         'email' => $this->form->getField('mailer_to_email')->getValue(),
                     ]
                 );
-                $this->get(ModulesSettings::class)->set(
+                $this->get(ModuleSettingRepository::class)->set(
                     'Core',
                     'mailer_reply_to',
                     [
@@ -140,30 +140,30 @@ class Email extends BackendBaseActionIndex
                 );
 
                 if ($this->isGod) {
-                    $this->get(ModulesSettings::class)->set(
+                    $this->get(ModuleSettingRepository::class)->set(
                         'Core',
                         'mailer_type',
                         $this->form->getField('mailer_type')->getValue()
                     );
 
                     // smtp settings
-                    $this->get(ModulesSettings::class)->set(
+                    $this->get(ModuleSettingRepository::class)->set(
                         'Core',
                         'smtp_server',
                         $this->form->getField('smtp_server')->getValue()
                     );
-                    $this->get(ModulesSettings::class)->set('Core', 'smtp_port', $this->form->getField('smtp_port')->getValue());
-                    $this->get(ModulesSettings::class)->set(
+                    $this->get(ModuleSettingRepository::class)->set('Core', 'smtp_port', $this->form->getField('smtp_port')->getValue());
+                    $this->get(ModuleSettingRepository::class)->set(
                         'Core',
                         'smtp_username',
                         $this->form->getField('smtp_username')->getValue()
                     );
-                    $this->get(ModulesSettings::class)->set(
+                    $this->get(ModuleSettingRepository::class)->set(
                         'Core',
                         'smtp_password',
                         $this->form->getField('smtp_password')->getValue()
                     );
-                    $this->get(ModulesSettings::class)->set(
+                    $this->get(ModuleSettingRepository::class)->set(
                         'Core',
                         'smtp_secure_layer',
                         $this->form->getField('smtp_secure_layer')->getValue()

@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\MediaLibrary\Domain\Manager;
 
 use Symfony\Component\Filesystem\Filesystem;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Common\Uri;
 
 final class FileManager

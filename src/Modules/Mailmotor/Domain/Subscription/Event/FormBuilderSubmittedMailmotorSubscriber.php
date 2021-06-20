@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Mailmotor\Domain\Subscription\Event;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Locale\Locale;
 use MailMotor\Bundle\MailMotorBundle\Factory\MailMotorFactory;
 use MailMotor\Bundle\MailMotorBundle\Gateway\SubscriberGateway;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Modules\FormBuilder\Frontend\Helper\FormBuilderSubmittedEvent;
 use MailMotor\Bundle\MailMotorBundle\Helper\Subscriber;
 

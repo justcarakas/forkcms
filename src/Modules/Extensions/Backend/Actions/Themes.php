@@ -8,7 +8,7 @@ use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
 use ForkCMS\Modules\Extensions\Backend\Helper\Model as BackendExtensionsModel;
 use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 /**
  * This is the themes-action, it will display the overview of modules.
@@ -75,7 +75,7 @@ class Themes extends BackendBaseActionIndex
         // set selected theme
         $selected = $this->getRequest()->request->has('installedThemes')
             ? $this->getRequest()->request->get('installedThemes')
-            : $this->get(ModulesSettings::class)->get('Core', 'theme', 'Fork');
+            : $this->get(ModuleSettingRepository::class)->get('Core', 'theme', 'Fork');
 
         // no themes found
         if (empty($themes)) {
@@ -120,7 +120,7 @@ class Themes extends BackendBaseActionIndex
             if ($this->form->isCorrect()) {
                 // determine themes
                 $newTheme = $this->form->getField('installedThemes')->getValue();
-                $oldTheme = $this->get(ModulesSettings::class)->get('Core', 'theme', 'Fork');
+                $oldTheme = $this->get(ModuleSettingRepository::class)->get('Core', 'theme', 'Fork');
 
                 // check if we actually switched themes
                 if ($newTheme != $oldTheme) {
@@ -137,7 +137,7 @@ class Themes extends BackendBaseActionIndex
                     }
 
                     // fetch current default template
-                    $oldDefaultTemplatePath = $oldTemplates[$this->get(ModulesSettings::class)->get('Pages', 'default_template')]['path'];
+                    $oldDefaultTemplatePath = $oldTemplates[$this->get(ModuleSettingRepository::class)->get('Pages', 'default_template')]['path'];
 
                     // loop new templates
                     foreach ($newTemplates as $newTemplateId => $newTemplate) {
@@ -156,10 +156,10 @@ class Themes extends BackendBaseActionIndex
                     }
 
                     // update theme
-                    $this->get(ModulesSettings::class)->set('Core', 'theme', $newTheme);
+                    $this->get(ModuleSettingRepository::class)->set('Core', 'theme', $newTheme);
 
                     // save new default template
-                    $this->get(ModulesSettings::class)->set('Pages', 'default_template', $newDefaultTemplateId);
+                    $this->get(ModuleSettingRepository::class)->set('Pages', 'default_template', $newDefaultTemplateId);
 
                     // loop old templates
                     foreach ($oldTemplates as $oldTemplateId => $oldTemplate) {

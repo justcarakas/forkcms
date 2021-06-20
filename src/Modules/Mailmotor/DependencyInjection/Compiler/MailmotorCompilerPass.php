@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Mailmotor\DependencyInjection\Compiler;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -12,19 +12,19 @@ class MailmotorCompilerPass implements CompilerPassInterface
     {
         try {
             // @TODO check if this is still needed
-            if ($container->has(ModulesSettings::class) && !is_a($container->get(ModulesSettings::class), 'stdClass')) {
+            if ($container->has(ModuleSettingRepository::class) && !is_a($container->get(ModuleSettingRepository::class), 'stdClass')) {
                 // we must set these parameters to be usable
                 $container->setParameter(
                     'mailmotor.mail_engine',
-                    $container->get(ModulesSettings::class)->get('Mailmotor', 'mail_engine', 'not_implemented')
+                    $container->get(ModuleSettingRepository::class)->get('Mailmotor', 'mail_engine', 'not_implemented')
                 );
                 $container->setParameter(
                     'mailmotor.api_key',
-                    $container->get(ModulesSettings::class)->get('Mailmotor', 'api_key')
+                    $container->get(ModuleSettingRepository::class)->get('Mailmotor', 'api_key')
                 );
                 $container->setParameter(
                     'mailmotor.list_id',
-                    $container->get(ModulesSettings::class)->get('Mailmotor', 'list_id')
+                    $container->get(ModuleSettingRepository::class)->get('Mailmotor', 'list_id')
                 );
             } else {
                 // @TODO check if this is still the case

@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Faq\Frontend\Actions;
 
 use ForkCMS\Core\Common\Mailer\Message;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Frontend\Helper\Base\Block as FrontendBaseBlock;
 use ForkCMS\Core\Frontend\Helper\Form as FrontendForm;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language as FL;
@@ -53,7 +53,7 @@ class Detail extends FrontendBaseBlock
      */
     private function getSetting(string $name, $default = null)
     {
-        return $this->get(ModulesSettings::class)->get($this->getModule(), $name, $default);
+        return $this->get(ModuleSettingRepository::class)->get($this->getModule(), $name, $default);
     }
 
     private function getQuestion(): array
@@ -163,7 +163,7 @@ class Detail extends FrontendBaseBlock
         $this->template->assign('item', $this->question);
         $this->template->assign('inSameCategory', $this->getRelatedQuestionsFromTheSameCategory());
         $this->template->assign('related', $this->getRelatedQuestions());
-        $this->template->assign('settings', $this->get(ModulesSettings::class)->getForModule($this->getModule()));
+        $this->template->assign('settings', $this->get(ModuleSettingRepository::class)->getForModule($this->getModule()));
 
         if ($this->hasStatus()) {
             $this->template->assign($this->getStatus(), true);
@@ -298,9 +298,9 @@ class Detail extends FrontendBaseBlock
     {
         $feedback['question'] = $this->question['question'];
 
-        $to = $this->get(ModulesSettings::class)->get('Core', 'mailer_to');
-        $from = $this->get(ModulesSettings::class)->get('Core', 'mailer_from');
-        $replyTo = $this->get(ModulesSettings::class)->get('Core', 'mailer_reply_to');
+        $to = $this->get(ModuleSettingRepository::class)->get('Core', 'mailer_to');
+        $from = $this->get(ModuleSettingRepository::class)->get('Core', 'mailer_from');
+        $replyTo = $this->get(ModuleSettingRepository::class)->get('Core', 'mailer_reply_to');
         $message = Message::newInstance(
             sprintf(FL::getMessage('FaqFeedbackSubject'), $feedback['question'])
         )

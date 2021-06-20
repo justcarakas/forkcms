@@ -7,7 +7,7 @@ use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Translator\Language as BL;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
 use ForkCMS\Modules\Profiles\Frontend\Helper\Model;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 /**
  * This is the settings-action, it will display a form to set general profiles settings
@@ -32,7 +32,7 @@ class Settings extends BackendBaseActionEdit
 
         $this->form->addCheckbox(
             'limit_display_name_changes',
-            $this->get(ModulesSettings::class)->get(
+            $this->get(ModuleSettingRepository::class)->get(
                 $this->url->getModule(),
                 'limit_display_name_changes',
                 false
@@ -41,7 +41,7 @@ class Settings extends BackendBaseActionEdit
 
         $this->form->addText(
             'max_display_name_changes',
-            $this->get(ModulesSettings::class)->get(
+            $this->get(ModuleSettingRepository::class)->get(
                 $this->url->getModule(),
                 'max_display_name_changes',
                 Model::MAX_DISPLAY_NAME_CHANGES
@@ -51,7 +51,7 @@ class Settings extends BackendBaseActionEdit
         // send email for new profile to admin
         $this->form->addCheckbox(
             'send_new_profile_admin_mail',
-            $this->get(ModulesSettings::class)->get(
+            $this->get(ModuleSettingRepository::class)->get(
                 $this->url->getModule(),
                 'send_new_profile_admin_mail',
                 false
@@ -60,7 +60,7 @@ class Settings extends BackendBaseActionEdit
 
         $this->form->addCheckbox(
             'overwrite_profile_notification_email',
-            (bool) ($this->get(ModulesSettings::class)->get(
+            (bool) ($this->get(ModuleSettingRepository::class)->get(
                 $this->url->getModule(),
                 'profile_notification_email',
                 null
@@ -69,7 +69,7 @@ class Settings extends BackendBaseActionEdit
 
         $this->form->addText(
             'profile_notification_email',
-            $this->get(ModulesSettings::class)->get(
+            $this->get(ModuleSettingRepository::class)->get(
                 $this->url->getModule(),
                 'profile_notification_email',
                 null
@@ -79,7 +79,7 @@ class Settings extends BackendBaseActionEdit
         // send email for new profile to profile
         $this->form->addCheckbox(
             'send_new_profile_mail',
-            $this->get(ModulesSettings::class)->get(
+            $this->get(ModuleSettingRepository::class)->get(
                 $this->url->getModule(),
                 'send_new_profile_mail',
                 false
@@ -108,7 +108,7 @@ class Settings extends BackendBaseActionEdit
 
             if ($this->form->isCorrect()) {
                 // set our settings
-                $this->get(ModulesSettings::class)->set(
+                $this->get(ModuleSettingRepository::class)->set(
                     $this->url->getModule(),
                     'send_new_profile_admin_mail',
                     (bool) $this->form->getField('send_new_profile_admin_mail')->getValue()
@@ -120,24 +120,24 @@ class Settings extends BackendBaseActionEdit
                     $profileNotificationEmail = $this->form->getField('profile_notification_email')->getValue();
                 }
 
-                $this->get(ModulesSettings::class)->set(
+                $this->get(ModuleSettingRepository::class)->set(
                     $this->url->getModule(),
                     'profile_notification_email',
                     $profileNotificationEmail
                 );
-                $this->get(ModulesSettings::class)->set(
+                $this->get(ModuleSettingRepository::class)->set(
                     $this->url->getModule(),
                     'send_new_profile_mail',
                     (bool) $this->form->getField('send_new_profile_mail')->getValue()
                 );
 
-                $this->get(ModulesSettings::class)->set(
+                $this->get(ModuleSettingRepository::class)->set(
                     $this->url->getModule(),
                     'limit_display_name_changes',
                     $this->form->getField('limit_display_name_changes')->isChecked()
                 );
 
-                $this->get(ModulesSettings::class)->set(
+                $this->get(ModuleSettingRepository::class)->set(
                     $this->url->getModule(),
                     'max_display_name_changes',
                     intval($this->form->getField('max_display_name_changes')->getValue())

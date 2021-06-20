@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Common\ForkCMS\Privacy;
 
 use ForkCMS\Core\Common\Cookie;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 class ConsentDialog
 {

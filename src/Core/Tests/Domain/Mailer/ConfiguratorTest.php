@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Tests\Domain\Mailer;
 
 use ForkCMS\Core\Common\Mailer\Configurator;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
@@ -83,7 +83,7 @@ class ConfiguratorTest extends TestCase
 
     private function getModulesSettingsMock(): ModulesSettings
     {
-        return $this->createMock(ModulesSettings::class);
+        return $this->createMock(ModuleSettingRepository::class);
     }
 
     private function getContainerMock(): ContainerInterface

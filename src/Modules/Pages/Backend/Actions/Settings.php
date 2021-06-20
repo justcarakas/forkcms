@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Pages\Backend\Actions;
 use ForkCMS\Core\Backend\Domain\Action\ActionEdit as BackendBaseActionEdit;
 use ForkCMS\Core\Backend\Domain\Form\Form as BackendForm;
 use ForkCMS\Core\Backend\Helper\Model as BackendModel;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 
 /**
  * This is the settings-action, it will display a form to set general pages settings
@@ -29,7 +29,7 @@ class Settings extends BackendBaseActionEdit
         // add fields for meta navigation
         $this->form->addCheckbox(
             'meta_navigation',
-            $this->get(ModulesSettings::class)->get($this->getModule(), 'meta_navigation', false)
+            $this->get(ModuleSettingRepository::class)->get($this->getModule(), 'meta_navigation', false)
         );
     }
 
@@ -40,7 +40,7 @@ class Settings extends BackendBaseActionEdit
             // form is validated
             if ($this->form->isCorrect()) {
                 // set our settings
-                $this->get(ModulesSettings::class)->set(
+                $this->get(ModuleSettingRepository::class)->set(
                     $this->getModule(),
                     'meta_navigation',
                     (bool) $this->form->getField('meta_navigation')->getValue()

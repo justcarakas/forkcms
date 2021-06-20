@@ -4,7 +4,7 @@ namespace ForkCMS\Core\Backend\Helper;
 
 use ForkCMS\Modules\Internationalisation\Backend\Domain\Locale\Locale;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use InvalidArgumentException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -243,7 +243,7 @@ class Model extends \ForkCMS\Core\Common\Model
         $possibleFormats = [];
 
         // loop available formats
-        foreach ((array) self::get(ModulesSettings::class)->get('Core', 'date_formats_long') as $format) {
+        foreach ((array) self::get(ModuleSettingRepository::class)->get('Core', 'date_formats_long') as $format) {
             // get date based on given format
             $possibleFormats[$format] = \SpoonDate::getDate(
                 $format,
@@ -265,7 +265,7 @@ class Model extends \ForkCMS\Core\Common\Model
         $possibleFormats = [];
 
         // loop available formats
-        foreach ((array) self::get(ModulesSettings::class)->get('Core', 'date_formats_short') as $format) {
+        foreach ((array) self::get(ModuleSettingRepository::class)->get('Core', 'date_formats_short') as $format) {
             // get date based on given format
             $possibleFormats[$format] = \SpoonDate::getDate(
                 $format,
@@ -401,7 +401,7 @@ class Model extends \ForkCMS\Core\Common\Model
      */
     public static function getNumberFormats(): array
     {
-        return (array) self::get(ModulesSettings::class)->get('Core', 'number_formats');
+        return (array) self::get(ModuleSettingRepository::class)->get('Core', 'number_formats');
     }
 
     /**
@@ -414,7 +414,7 @@ class Model extends \ForkCMS\Core\Common\Model
         $possibleFormats = [];
         $interfaceLanguage = Authentication::getUser()->getSetting('interface_language');
 
-        foreach (self::get(ModulesSettings::class)->get('Core', 'time_formats') as $format) {
+        foreach (self::get(ModuleSettingRepository::class)->get('Core', 'time_formats') as $format) {
             $possibleFormats[$format] = \SpoonDate::getDate($format, null, $interfaceLanguage);
         }
 

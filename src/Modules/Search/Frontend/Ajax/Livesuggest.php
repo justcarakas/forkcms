@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Search\Frontend\Ajax;
 
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use DateInterval;
 use Psr\Cache\CacheItemPoolInterface;
 use ForkCMS\Core\Frontend\Helper\Base\AjaxAction as FrontendBaseAJAXAction;
@@ -48,7 +48,7 @@ class Livesuggest extends FrontendBaseAJAXAction
     private function display(): void
     {
         $this->requestedPage = 1;
-        $this->limit = (int) $this->get(ModulesSettings::class)->get('Search', 'overview_num_items', 20);
+        $this->limit = (int) $this->get(ModuleSettingRepository::class)->get('Search', 'overview_num_items', 20);
         $this->offset = ($this->requestedPage * $this->limit) - $this->limit;
         $this->cache = $this->get('cache.search');
         $this->cacheKey = implode(

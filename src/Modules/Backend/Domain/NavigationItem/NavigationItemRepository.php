@@ -29,7 +29,9 @@ final class NavigationItemRepository extends ServiceEntityRepository
 
     public function remove(NavigationItem $navigationItem): void
     {
-        $this->getEntityManager()->remove($navigationItem);
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($navigationItem);
+        $entityManager->flush();
     }
 
     public function save(NavigationItem $navigationItem): void

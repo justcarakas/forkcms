@@ -4,7 +4,7 @@ namespace ForkCMS\Core\Frontend\Helper;
 
 use ForkCMS\Modules\Pages\Domain\Page\Page as PageEntity;
 use ForkCMS\Core\Common\Exception\RedirectException;
-use ForkCMS\Core\Common\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Core\Domain\Kernel\KernelLoader;
 use ForkCMS\Modules\Internationalisation\Frontend\Domain\Translator\Language;
 use SpoonFilter;
@@ -222,7 +222,7 @@ class Url extends KernelLoader
     private function determineLanguage(string $queryString): string
     {
         if (!$this->getContainer()->getParameter('site.multilanguage')) {
-            return $this->get(ModulesSettings::class)->get('Core', 'default_language', SITE_DEFAULT_LANGUAGE);
+            return $this->get(ModuleSettingRepository::class)->get('Core', 'default_language', SITE_DEFAULT_LANGUAGE);
         }
 
         // get possible languages

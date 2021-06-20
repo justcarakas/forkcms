@@ -28,9 +28,7 @@ final class ModuleRepository extends ServiceEntityRepository
     public function save(Module $module): void
     {
         $entityManager = $this->getEntityManager();
-        if (!$entityManager->contains($module)) {
-            $entityManager->persist($module);
-        }
+        $entityManager->persist($module);
         $entityManager->flush();
     }
 }
