@@ -14,7 +14,7 @@ class ModuleSetting
     /**
      * @ORM\Id
      * @Orm\ManyToOne(targetEntity="ForkCMS\Modules\Extensions\Domain\Module\Module", inversedBy="settings")
-     * @Orm\JoinColumn(referencedColumnName="id")
+     * @Orm\JoinColumn(referencedColumnName="name")
      */
     private Module $module;
 
