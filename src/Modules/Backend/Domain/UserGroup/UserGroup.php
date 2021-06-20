@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Backend\Domain\User\User;
+use ForkCMS\Modules\Backend\Domain\UserGroupSetting\UserGroupSetting;
+use ForkCMS\Modules\Backend\Domain\UserSetting\UserSetting;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -34,11 +36,24 @@ class UserGroup
      */
     protected $users;
 
+    /**
+     * @var Collection&UserGroupSetting[]
+     *
+     * @Orm\OneToMany(
+     *     targetEntity="ForkCMS\Modules\Backend\Domain\UserGroupSetting\UserGroupSetting",
+     *     mappedBy="userGroup",
+     *     indexBy="key",
+     *     cascade={"persist", "remove"}
+     * )
+     */
+    private Collection $settings;
+
     public function __construct(int $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
         $this->users = new ArrayCollection();
+        $this->settings = new ArrayCollection();
     }
 
     public function getId(): int
@@ -75,5 +90,11 @@ class UserGroup
     public function getUsers(): Collection
     {
         return $this->users;
+    }
+
+    /** @return Collection&UserGroupSetting[] */
+    public function getSettings(): Collection
+    {
+        return $this->settings;
     }
 }
