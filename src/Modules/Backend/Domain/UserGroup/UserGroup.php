@@ -9,12 +9,14 @@ use ForkCMS\Modules\Backend\Domain\User\User;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="UserGroupRepository")
  * @ORM\Table(name="user_groups")
  */
 #[UniqueEntity(fields: ['name'])]
 class UserGroup
 {
+    public const ADMIN_GROUP_ID = 1;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -47,24 +49,22 @@ class UserGroup
     private Collection $settings;
 
     /**
-     * @var Collection&UserGroupSetting[]
+     * @var Collection&UserGroupModule[]
      *
      * @Orm\OneToMany(
      *     targetEntity="UserGroupModule",
      *     mappedBy="userGroup",
-     *     indexBy="key",
      *     cascade={"persist", "remove"}
      * )
      */
     private Collection $modules;
 
     /**
-     * @var Collection&UserGroupSetting[]
+     * @var Collection&UserGroupAction[]
      *
      * @Orm\OneToMany(
      *     targetEntity="UserGroupAction",
      *     mappedBy="userGroup",
-     *     indexBy="key",
      *     cascade={"persist", "remove"}
      * )
      */
@@ -74,17 +74,15 @@ class UserGroup
      * @var Collection&UserGroupWidget[]
      *
      * @Orm\OneToMany(
-     *     targetEntity="UserGroupSetting",
+     *     targetEntity="UserGroupWidget",
      *     mappedBy="userGroup",
-     *     indexBy="key",
      *     cascade={"persist", "remove"}
      * )
      */
     private Collection $widgets;
 
-    public function __construct(int $id, string $name)
+    public function __construct(string $name)
     {
-        $this->id = $id;
         $this->name = $name;
         $this->users = new ArrayCollection();
         $this->settings = new ArrayCollection();
@@ -100,7 +98,7 @@ class UserGroup
         return $this->name;
     }
 
-    public function addUser(User $user)
+    public function addUser(User $user): void
     {
         if ($this->users->contains($user)) {
             return;
@@ -110,7 +108,7 @@ class UserGroup
         $user->addUserGroup($this);
     }
 
-    public function removeUser(User $user)
+    public function removeUser(User $user): void
     {
         if (!$this->users->contains($user)) {
             return;
@@ -130,5 +128,25 @@ class UserGroup
     public function getSettings(): Collection
     {
         return $this->settings;
+    }
+
+    public function setSetting(string $key, mixed $value): void
+    {
+        if ($this->settings->containsKey($key)) {
+            $this->settings[$key]->setValue($value);
+
+            return;
+        }
+
+        $this->settings->set($key, new UserGroupSetting($this, $key, $value));
+    }
+
+    public function removeSetting(string $key): void
+    {
+        if (!$this->settings->containsKey($key)) {
+            return;
+        }
+
+        $this->settings->remove($key);
     }
 }
