@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use InvalidArgumentException;
+use LogicException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -120,5 +121,18 @@ class NavigationItem
         }
 
         return $parent->getChildren()->count() + 1;
+    }
+
+    public function getVisibleNavigationItemForMenu(): self
+    {
+        if ($this->visibleInNavigationMenu) {
+            return $this;
+        }
+
+        if ($this->parent instanceof self) {
+            return $this->parent->forNavigationMenu();
+        }
+
+        throw new LogicException('Cannot find a visible navigation menu for this navigation item');
     }
 }
