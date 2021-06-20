@@ -1,9 +1,8 @@
 <?php
 
-namespace ForkCMS\Modules\Backend\Domain\NavigationItem;
+namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use Assert\Assert;
-use ForkCMS\Modules\Extensions\Domain\Action\ActionName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use InvalidArgumentException;
 use Stringable;
@@ -50,6 +49,16 @@ final class ActionSlug implements Stringable
     public function getFQCN(): string
     {
         return 'ForkCMS\\Modules\\' . $this->moduleName . '\\Backend\\Actions\\' . $this->actionName;
+    }
+
+    public static function fromModuleAction(ModuleAction $moduleAction): self
+    {
+        return new self($moduleAction->getModule(), $moduleAction->getAction());
+    }
+
+    public function getModuleAction(): ModuleAction
+    {
+        return new ModuleAction($this->getModuleName(), $this->getActionName());
     }
 
     public function getSlug(): string
