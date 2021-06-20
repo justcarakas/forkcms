@@ -43,3 +43,8 @@ services:
     resource: '../src/Modules/Backend/Domain/*'
     exclude:
       - '../src/Modules/Backend/Domain/Module/Module.php'
+
+  doctrine.dbal.connection_factory:
+    class: ForkCMS\Core\Installer\Domain\Installer\InstallerConnectionFactory
+    arguments:
+      - "%doctrine.dbal.connection_factory.types%"

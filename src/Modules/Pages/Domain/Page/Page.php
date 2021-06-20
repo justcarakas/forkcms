@@ -111,7 +111,7 @@ class Page
     /**
      * @var Type
      *
-     * @ORM\Column(type="modules-pages-page-type")
+     * @ORM\Column(type="modules__pages__page__type")
      */
     private $type;
 
