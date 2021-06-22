@@ -12,6 +12,7 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupRepository;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use ForkCMS\Modules\Backend\Installer\BackendInstaller;
 use ForkCMS\Modules\Error\Installer\ErrorInstaller;
+use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Modules\Extensions\Installer\ExtensionsInstaller;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller;
@@ -28,10 +29,11 @@ abstract class ModuleInstaller
     private ?array $defaultModuleDependencies = null;
 
     public function __construct(
-        private CreateSchema $createSchema,
-        private ModuleRepository $moduleRepository,
-        private NavigationItemRepository $navigationRepository,
-        private UserGroupRepository $userGroupRepository,
+        protected CreateSchema $createSchema,
+        protected ModuleRepository $moduleRepository,
+        protected NavigationItemRepository $navigationRepository,
+        protected UserGroupRepository $userGroupRepository,
+        protected ModuleSettingRepository $moduleSettingRepository,
     ) {
     }
 
@@ -187,10 +189,16 @@ abstract class ModuleInstaller
 
     /**
      * @param UserGroup|null $userGroup Defaults to the admin user group
-     */    protected function allowGroupToAccessModuleWidget(ModuleWidget $moduleWidget, UserGroup $userGroup = null): void
+     */
+    protected function allowGroupToAccessModuleWidget(ModuleWidget $moduleWidget, UserGroup $userGroup = null): void
     {
         $userGroup = $userGroup ?? $this->userGroupRepository->getAdminUserGroup();
         $userGroup->addModule($moduleWidget->getModule());
         $userGroup->addWidget($moduleWidget);
+    }
+
+    protected function setSetting(string $key, mixed $value, ModuleName $moduleName = null): void
+    {
+        $this->moduleSettingRepository->set($moduleName ?? self::getModuleName(), $key, $value);
     }
 }
