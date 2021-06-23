@@ -22,15 +22,15 @@ class ModuleSetting
      * @ORM\Id
      * @ORM\Column(type="string")
      */
-    private string $key;
+    private string $name;
 
-    /** @ORM\Column(type="object") */
+    /** @ORM\Column(type="object", name="serialisedValue") */
     private mixed $value;
 
-    public function __construct(Module $module, string $key, mixed $value)
+    public function __construct(Module $module, string $name, mixed $value)
     {
         $this->module = $module;
-        $this->key = $key;
+        $this->name = $name;
         $this->value = $value;
     }
 
@@ -39,9 +39,9 @@ class ModuleSetting
         return $this->module;
     }
 
-    public function getKey(): string
+    public function getName(): string
     {
-        return $this->key;
+        return $this->name;
     }
 
     public function getValue(): mixed
