@@ -4,14 +4,16 @@ namespace ForkCMS\Core\Domain\Kernel;
 
 use ForkCMS\Core\DependencyInjection\CoreExtension;
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
+use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use PDO;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
@@ -37,7 +39,7 @@ class Kernel extends BaseKernel
 
     private function isInstalled(): bool
     {
-        return $this->isInstalled || !str_ends_with($this->environment, 'installer');
+        return $this->isInstalled || !str_ends_with($this->environment, 'install');
     }
 
     protected function configureContainer(ContainerConfigurator $container): void
@@ -115,12 +117,13 @@ class Kernel extends BaseKernel
         return parent::getContainerClass();
     }
 
-    private function registerModuleExtensions(ContainerBuilder $container)
+    private function registerModuleExtensions(ContainerBuilder $container): void
     {
         $filesystem = new Filesystem();
-        $modules = $this->getModulesForDependencyInjection($container);
+        $finder = new Finder();
+        $installedModules = new InstalledModules($container->getParameter('fork.is_installed'));
 
-        foreach ($modules as $module) {
+        foreach ($installedModules() as $module) {
             $moduleDirectory = $container->getParameter('kernel.project_dir') . '/src/Modules/' . $module;
 
             if (!$filesystem->exists($moduleDirectory)) {
@@ -146,44 +149,26 @@ class Kernel extends BaseKernel
                 );
             }
 
-            $dependencyInjectionExtension = 'ForkCMS\\Modules\\' . $module . '\\DependencyInjection\\' . $module . 'Extension';
+            $dependencyInjectionNamespace = 'ForkCMS\\Modules\\' . $module . '\\DependencyInjection\\';
+            $dependencyInjectionExtension = $dependencyInjectionNamespace . $module . 'Extension';
 
             if (class_exists($dependencyInjectionExtension)) {
                 $container->registerExtension(new $dependencyInjectionExtension());
+            }
+
+            $compilerPassDirectory = $moduleDirectory . '/DependencyInjection/CompilerPass/';
+            if ($filesystem->exists($compilerPassDirectory)) {
+                $compilerPassNamespace = $dependencyInjectionNamespace . 'CompilerPass\\';
+                foreach ($finder->in($compilerPassDirectory)->files()->name('*.php') as $compilerPass) {
+                    $compilerPassFQCN = $compilerPassNamespace . substr($compilerPass->getFilename(), 0, -4);
+                    $container->addCompilerPass(new $compilerPassFQCN());
+                }
             }
         }
 
         // ensure these extensions are implicitly loaded
         $container->getCompilerPassConfig()->setMergePass(
             new MergeExtensionConfigurationPass(array_keys($container->getExtensions()))
-        );
-    }
-
-    /** @return ModuleName[] */
-    private function getModulesForDependencyInjection(ContainerBuilder $container): array
-    {
-        if (!$container->getParameter('fork.is_installed')) {
-            return InstallerConfiguration::fromSession(new Session())?->getModules() ?? [];
-        }
-
-        $connection = new PDO(
-            sprintf(
-                '%1$s:host=%2$s;port=%3$s;dbname=%4$s',
-                $_ENV['FORK_DATABASE_DRIVER'],
-                $_ENV['FORK_DATABASE_HOST'],
-                $_ENV['FORK_DATABASE_PORT'],
-                $_ENV['FORK_DATABASE_NAME'],
-            ), $_ENV['FORK_DATABASE_USER'], $_ENV['FORK_DATABASE_PASSWORD']
-        );
-
-        $modulesQuery = $connection->query('SELECT name from Modules');
-        if (!$modulesQuery->execute()) {
-            throw new RuntimeException('Cannot get installed modules from database');
-        }
-
-        return array_map(
-            static fn(string $moduleName): ModuleName => ModuleName::fromString($moduleName),
-            $modulesQuery->fetchAll(PDO::FETCH_COLUMN, 0)
         );
     }
 }

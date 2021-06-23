@@ -1,0 +1,39 @@
+doctrine:
+  dbal:
+    default_connection: default
+    connections:
+      default:
+        driver: "pdo_%env(FORK_DATABASE_DRIVER)%"
+        host: "%env(FORK_DATABASE_HOST)%"
+        port: "%env(FORK_DATABASE_PORT)%"
+        dbname: "%env(FORK_DATABASE_NAME)%"
+        user: "%env(FORK_DATABASE_USER)%"
+        password: "%env(FORK_DATABASE_PASSWORD)%"
+        charset: utf8mb4
+        default_table_options:
+          charset: utf8mb4
+          collate: utf8mb4_unicode_ci
+  orm:
+    auto_generate_proxy_classes: "%kernel.debug%"
+    entity_managers:
+      default:
+        connection: default
+        auto_mapping: true
+        dql:
+          numeric_functions:
+            ceil: DoctrineExtensions\Query\Mysql\Ceil
+            unix_timestamp: DoctrineExtensions\Query\Mysql\UnixTimestamp
+            least: DoctrineExtensions\Query\Mysql\Least
+          string_functions:
+            group_concat: DoctrineExtensions\Query\Mysql\GroupConcat
+            ifelse: DoctrineExtensions\Query\Mysql\IfElse
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  doctrine.dbal.connection_factory:
+    class: ForkCMS\Core\Installer\Domain\Installer\InstallerConnectionFactory
+    arguments:
+      - "%doctrine.dbal.connection_factory.types%"
