@@ -9,6 +9,7 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use InvalidArgumentException;
 use Psr\Cache\CacheItemPoolInterface;
 use RuntimeException;
+use Symfony\Component\DependencyInjection\Container;
 use Throwable;
 
 /**
@@ -32,13 +33,13 @@ final class ModuleSettingRepository extends ServiceEntityRepository
         }
     }
 
-    public function get(ModuleName $moduleName, string $key, mixed $defaultValue = null): mixed
+    public function get(ModuleName $moduleName, string $name, mixed $defaultValue = null): mixed
     {
         $settings = $this->getSettingsFromCache();
 
         // don't use ?? since the setting value might also just be null
-        if (isset($settings[$moduleName->getName()][$key])) {
-            return $settings[$moduleName->getName()][$key];
+        if (isset($settings[$moduleName->getName()][$name])) {
+            return $settings[$moduleName->getName()][$name];
         }
 
         return $defaultValue;
@@ -59,11 +60,11 @@ final class ModuleSettingRepository extends ServiceEntityRepository
         return $settings[$moduleName->getName()] ?? [];
     }
 
-    public function set(ModuleName $moduleName, string $key, mixed $value): void
+    public function set(ModuleName $moduleName, string $name, mixed $value): void
     {
-        $moduleSetting = $this->findOneBy(['module' => $this->getModuleReference($moduleName), 'key' => $key]);
+        $moduleSetting = $this->findOneBy(['module' => $this->getModuleReference($moduleName), 'name' => $name]);
         if (!$moduleSetting instanceof ModuleSetting) {
-            $this->saveModuleSetting(new ModuleSetting($this->getModuleReference($moduleName), $key, $value));
+            $this->saveModuleSetting(new ModuleSetting($this->getModuleReference($moduleName), $name, $value));
             $this->invalidateCache();
 
             return;
@@ -75,9 +76,9 @@ final class ModuleSettingRepository extends ServiceEntityRepository
         }
     }
 
-    public function delete(ModuleName $moduleName, string $key): void
+    public function delete(ModuleName $moduleName, string $name): void
     {
-        $moduleSetting = $this->findOneBy(['module' => $this->getModuleReference($moduleName), 'key' => $key]);
+        $moduleSetting = $this->findOneBy(['module' => $this->getModuleReference($moduleName), 'name' => $name]);
         if (!$moduleSetting instanceof ModuleSetting) {
             return;
         }
@@ -129,7 +130,8 @@ final class ModuleSettingRepository extends ServiceEntityRepository
      */
     private function invalidateCache(): void
     {
-        if ($this->cache->hasItem(self::class) && !$this->cache->deleteItem(self::class)) {
+        $cacheKey = $this->getCacheKey();
+        if ($this->cache->hasItem($cacheKey) && !$this->cache->deleteItem($cacheKey)) {
             throw new RuntimeException('Failed to clear the module settings cache');
         }
     }
@@ -146,18 +148,23 @@ final class ModuleSettingRepository extends ServiceEntityRepository
 
     private function getSettingsFromCache(): array
     {
-        $item = $this->cache->getItem(self::class);
+        $item = $this->cache->getItem($this->getCacheKey());
         if ($item->isHit()) {
             return $item->get();
         }
 
         $groupedSettings = [];
         foreach ($this->findAll() as $setting) {
-            $groupedSettings[$setting->getModule()->getName()->getName()][$setting->getKey()] = $setting->getValue();
+            $groupedSettings[$setting->getModule()->getName()->getName()][$setting->getname()] = $setting->getValue();
         }
         $item->set($groupedSettings);
         $this->cache->save($item);
 
         return $groupedSettings;
+    }
+
+    private function getCacheKey(): string
+    {
+        return str_replace('\\', '_', Container::underscore(self::class));
     }
 }
