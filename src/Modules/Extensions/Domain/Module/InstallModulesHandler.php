@@ -22,12 +22,12 @@ final class InstallModulesHandler implements CommandHandlerInterface
         }
 
         foreach ($moduleInstallers as $moduleInstaller) {
+            $moduleInstaller->registerModule();
             try {
                 $moduleInstaller->install();
             } catch (RuntimeException) {
                 //ignore for now while developing
             }
-            $moduleInstaller->registerModule();
         }
     }
 }
