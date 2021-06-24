@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ INTERFACE_LANGUAGE }}">
 {% include "@Backend/base/head.html.twig" %}
-<body>
+<body {% spaceless %}{% block bodyAttributes %}{% endblock %}{% endspaceless %}>
 {% block content %}
 
 {% endblock %}
