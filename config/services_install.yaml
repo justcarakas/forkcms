@@ -35,6 +35,9 @@ services:
   ForkCMS\Modules\Extensions\Domain\:
     resource: '../src/Modules/Extensions/Domain/*'
 
+  ForkCMS\Modules\Internationalisation\Domain\:
+    resource: '../src/Modules/Internationalisation/Domain/*'
+
   ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository:
     public: true
 
@@ -48,3 +51,10 @@ services:
       - '../src/Modules/Backend/Domain/Module/Module.php'
 
   ForkCMS\Modules\Extensions\Domain\Module\InstalledModules:
+
+  ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository:
+
+  doctrine.dbal.connection_factory:
+    class: ForkCMS\Core\Installer\Domain\Installer\InstallerConnectionFactory
+    arguments:
+      - "%doctrine.dbal.connection_factory.types%"

@@ -21,7 +21,7 @@ final class NavigationItemRepository extends ServiceEntityRepository
         try {
             parent::__construct($registry, NavigationItem::class);
         } catch (Throwable $throwable) {
-            if (getenv('FORK_DATABASE_HOST')) {
+            if (isset($_ENV['FORK_DATABASE_HOST'])) {
                 throw $throwable; // needed during the installer
             }
         }

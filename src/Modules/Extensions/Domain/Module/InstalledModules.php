@@ -2,15 +2,22 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
+use ForkCMS\Core\Domain\PDO\ForkConnection;
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use PDO;
 use RuntimeException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 final class InstalledModules
 {
-    public function __construct(private bool $forkIsInstalled = false)
+    public function __construct(private bool $forkIsInstalled)
     {
+    }
+
+    public static function fromContainer(ContainerInterface $container)
+    {
+        return new self($container->getParameter('fork.is_installed'));
     }
 
     /** @return ModuleName[] */
@@ -19,18 +26,9 @@ final class InstalledModules
         if (!$this->forkIsInstalled) {
             return InstallerConfiguration::fromSession(new Session())?->getModules() ?? [];
         }
+        dump('test');
 
-        $connection = new PDO(
-            sprintf(
-                '%1$s:host=%2$s;port=%3$s;dbname=%4$s',
-                $_ENV['FORK_DATABASE_DRIVER'],
-                $_ENV['FORK_DATABASE_HOST'],
-                $_ENV['FORK_DATABASE_PORT'],
-                $_ENV['FORK_DATABASE_NAME'],
-            ), $_ENV['FORK_DATABASE_USER'], $_ENV['FORK_DATABASE_PASSWORD']
-        );
-
-        $modulesQuery = $connection->query('SELECT name from Modules');
+        $modulesQuery = ForkConnection::get()->query('SELECT name from Modules');
         if (!$modulesQuery->execute()) {
             throw new RuntimeException('Cannot get installed modules from database');
         }
