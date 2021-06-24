@@ -1,5 +1,12 @@
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
   ForkCMS\Modules\Backend\Domain\:
     resource: '../Domain/*'
 
   Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider: ~
+
+  ForkCMS\Modules\Backend\Controller\BackendController:
+    public: true
