@@ -53,15 +53,6 @@ class TwigFilters
         $twig->addFilter(new TwigFilter('tolabel', $app.'::toLabel'));
         $twig->addFilter(new TwigFilter('cleanupplaintext', $app.'::cleanupPlainText'));
 
-        // exposed PHP functions
-        $twig->addFilter(new TwigFilter('urlencode', 'urlencode'));
-        $twig->addFilter(new TwigFilter('rawurlencode', 'rawurlencode'));
-        $twig->addFilter(new TwigFilter('striptags', 'strip_tags'));
-        $twig->addFilter(new TwigFilter('addslashes', 'addslashes'));
-        $twig->addFilter(new TwigFilter('count', 'count'));
-        $twig->addFilter(new TwigFilter('is_array', 'is_array'));
-        $twig->addFilter(new TwigFilter('ucfirst', 'ucfirst'));
-
         // Functions navigation
         $twig->addFunction(
             new TwigFunction(
