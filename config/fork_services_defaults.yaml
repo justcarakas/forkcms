@@ -16,3 +16,10 @@ services:
     ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller:
       tags:
         - { name: forkcms.module.installer }
+
+    ForkCMS\Core\Domain\Router\ModuleRouteLoader:
+      bind:
+        $locator: '@file_locator'
+        $env: '%kernel.environment%'
+      tags:
+        - { name: routing.loader }

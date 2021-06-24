@@ -1,0 +1,12 @@
+backend:
+  path: /private/{_locale}/{module}/{action}
+  defaults:
+    _controller: ForkCMS\Modules\Backend\Controller\BackendController
+    _locale: ~
+    module: ~
+    action: ~
+
+backend_ajax:
+  path: /backend/ajax
+  defaults:
+    _controller: ForkCMS\Modules\Backend\Controller\BackendAjaxController
