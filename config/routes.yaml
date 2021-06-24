@@ -1,17 +1,7 @@
-## Backend controller
-#backend:
-#  path: /private/{_locale}/{module}/{action}
-#  defaults:
-#    _controller: \ForkCMS\App\ForkController::backendController
-#    _locale: ~
-#    module: ~
-#    action: ~
-#
-##Ajax controllers
-#backend_ajax:
-#  path: /backend/ajax
-#  defaults:
-#    _controller: \ForkCMS\App\ForkController::backendAjaxController
+app_extra:
+  resource: .
+  type: fork
+
 #frontend_ajax:
 #  path: /frontend/ajax
 #  defaults:
