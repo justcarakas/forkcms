@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ INTERFACE_LANGUAGE }}">
+{% include "@Backend/base/head.html.twig" %}
+<body>
+{% block content %}
+
+{% endblock %}
+
+{% include "@Backend/base/messaging.html.twig" %}
+
+<div class="footer-login">
+  {% include "@Backend/base/footer.html.twig" %}
+</div>
+
+{% include '@Backend/base/deleteConfirmationModal.html.twig' %}
+</body>
+</html>
