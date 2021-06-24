@@ -15,9 +15,8 @@ webpack_encore:
 
   # if you have multiple builds:
   builds:
-    installerConfig: '%kernel.project_dir%/src/ForkCMS/Bundle/InstallerBundle/Resources/public/build'
-    backendConfig: '%kernel.project_dir%/src/Backend/Core/build'
-    frontendConfig: '%kernel.project_dir%/src/Frontend/Core/build'
+    backendConfig: '%kernel.project_dir%/public/build/backend'
+    frontendConfig: '%kernel.project_dir%/public/build/frontend'
     frontendThemeConfig: '%kernel.project_dir%/src/Frontend/Themes/%env(resolve:FORK_CMS_THEME)%/Core/build'
   # pass "frontend" as the 3rg arg to the Twig functions
   # {{ encore_entry_script_tags('entry1', null, 'frontend') }}
