@@ -26,7 +26,6 @@ final class InstalledModules
         if (!$this->forkIsInstalled) {
             return InstallerConfiguration::fromSession(new Session())?->getModules() ?? [];
         }
-        dump('test');
 
         $modulesQuery = ForkConnection::get()->query('SELECT name from Modules');
         if (!$modulesQuery->execute()) {
