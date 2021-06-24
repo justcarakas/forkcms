@@ -3,13 +3,8 @@
 namespace ForkCMS\Core\Domain\Kernel;
 
 use ForkCMS\Core\DependencyInjection\CoreExtension;
-use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
-use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
-use PDO;
-use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\Filesystem\Filesystem;
