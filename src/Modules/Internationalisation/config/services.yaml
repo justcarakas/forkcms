@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  ForkCMS\Modules\Internationalisation\Domain\:
+    resource: '../Domain/*'
+    exclude:
+      - '../Domain/Translator/ForkTranslator.php'
+
+  ForkCMS\Modules\Internationalisation\Domain\Translation\ForkTranslationLoader:
+    tags:
+      - { name: translation.loader, alias: db }
