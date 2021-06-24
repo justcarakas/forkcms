@@ -10,3 +10,5 @@ services:
 
   ForkCMS\Modules\Backend\Controller\BackendController:
     public: true
+    arguments:
+      - !tagged_locator { tag: forkcms.backend.action }
