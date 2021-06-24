@@ -6,6 +6,9 @@ services:
   ForkCMS\Modules\Backend\Domain\:
     resource: '../Domain/*'
 
+  ForkCMS\Modules\Backend\Backend\Actions\:
+    resource: '../Backend/Actions/*'
+
   Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider: ~
 
   ForkCMS\Modules\Backend\Controller\BackendController:
