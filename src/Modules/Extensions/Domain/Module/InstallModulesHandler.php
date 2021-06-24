@@ -2,13 +2,17 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
+use ForkCMS\Core\Domain\Kernel\Command\ClearContainerCache;
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
 use RuntimeException;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class InstallModulesHandler implements CommandHandlerInterface
 {
-    public function __construct(private ModuleInstallerLocator $moduleInstallerLocator)
-    {
+    public function __construct(
+        private ModuleInstallerLocator $moduleInstallerLocator,
+        private MessageBusInterface $commandBus
+    ) {
     }
 
     public function __invoke(InstallModules $installModules): void
@@ -29,5 +33,7 @@ final class InstallModulesHandler implements CommandHandlerInterface
                 //ignore for now while developing
             }
         }
+
+        $this->commandBus->dispatch(new ClearContainerCache());
     }
 }
