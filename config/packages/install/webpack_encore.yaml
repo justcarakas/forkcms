@@ -4,4 +4,3 @@ webpack_encore:
 
   builds:
     installerConfig: '%kernel.project_dir%/public/build/installer'
-    backendConfig: '%kernel.project_dir%/public/build/backend'

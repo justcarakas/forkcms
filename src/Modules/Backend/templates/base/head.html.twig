@@ -19,7 +19,7 @@
   {{ encore_entry_script_tags('backend', null, 'backendConfig') }}
   {{ encore_entry_link_tags('screen', null, 'backendConfig') }}
 
-  {% if debug %}
+  {% if app.debug %}
     <script src="http://localhost:35729/livereload.js"></script>
   {% endif %}
 
