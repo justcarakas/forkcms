@@ -23,3 +23,7 @@ services:
         $env: '%kernel.environment%'
       tags:
         - { name: routing.loader }
+
+    Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface:
+      tags:
+        - { name: controller.argument_value_resolver }
