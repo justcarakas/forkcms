@@ -31,3 +31,7 @@ services:
     ForkCMS\Modules\Backend\Domain\Action\ActionControllerInterface:
       tags:
         - { name: forkcms.backend.action }
+
+    Twig\Extension\ExtensionInterface:
+      tags:
+        - { name: twig.extension }

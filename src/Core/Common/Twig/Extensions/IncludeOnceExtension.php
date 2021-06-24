@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Core\Common\Twig\Extensions;
+namespace ForkCMS\Core\Domain\Twig;
 
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -10,8 +10,7 @@ use Twig\TwigFunction;
 
 final class IncludeOnceExtension extends AbstractExtension
 {
-    /** @var array */
-    private $includedTemplates = [];
+    private array $includedTemplates = [];
 
     public function getFunctions(): array
     {
