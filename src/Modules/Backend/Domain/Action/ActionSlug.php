@@ -2,17 +2,21 @@
 
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
-use Assert\Assert;
+use Assert\Assertion;
+use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
+use ForkCMS\Modules\Backend\Backend\Actions\NotFound;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use InvalidArgumentException;
 use Stringable;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Request;
+use Throwable;
 
 final class ActionSlug implements Stringable
 {
     private function __construct(private ModuleName $moduleName, private ActionName $actionName)
     {
-        Assert::that($this->getFQCN())->classExists('Action class not found');
+        Assertion::classExists($this->getFQCN(), 'Action class does not exist');
     }
 
     public static function fromSlug(string $slug): self
@@ -44,6 +48,22 @@ final class ActionSlug implements Stringable
         }
 
         return new self(ModuleName::fromString($matches[1]), ActionName::fromString($matches[2]));
+    }
+
+    public static function fromRequest(Request $request): self
+    {
+        $module = $request->get('module');
+        $action = $request->get('action');
+
+        if ($module === null && $action === null) {
+            return self::fromFQCN(AuthenticationLogin::class);
+        }
+
+        try {
+            return new self(ModuleName::fromString($module), ActionName::fromString($action));
+        } catch (Throwable) {
+            return self::fromFQCN(NotFound::class);
+        }
     }
 
     public function getFQCN(): string
