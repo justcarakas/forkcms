@@ -50,7 +50,7 @@
 {% macro alert(type, message, dismissable = false, id, extraAttributes = [], active = true, showIcon = true) %}
   {% import _self as macro %}
 
-  {% set extraAttributes = extraAttributes|merge({'class': 'toast toast-' ~ type ~ (extraAttributes.class|length > 0 ? ' ' ~ extraAttributes.class|default('')) }) %}
+  {% set extraAttributes = extraAttributes|merge({'class': 'toast toast-' ~ type ~ (extraAttributes.class is defined and extraAttributes.class|length > 0 ? ' ' ~ extraAttributes.class|default('')) }) %}
 
   {% if active %}
     {% set extraAttributes = extraAttributes|merge({'class': extraAttributes.class|default('') ~ ' show'}) %}

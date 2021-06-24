@@ -7,9 +7,9 @@
 
   {{ macro.alert('danger', 'err.CookiesNotEnabled'|trans|ucfirst, null, 'noCookies', [], false) }}
 
-  {% if form_error %}{{ macro.alert('danger', 'err.FormError'|trans|ucfirst) }}{% endif %}
-  {% if usingRevision %}{{ macro.alert('info', 'msg.UsingARevision'|trans|ucfirst, null, null, {'class': 'toast-inline'}) }}{% endif %}
-  {% if usingDraft %}{{ macro.alert('info', 'msg.UsingADraft'|trans|ucfirst, null, null, {'class': 'toast-inline'}) }}{% endif %}
-  {% if report %}{{ macro.alert('success', reportMessage|raw) }}{% endif %}
-  {% if errorMessage %}{{ macro.alert('danger', errorMessage|raw) }}{% endif %}
+  {% if form_error is defined and form_error %}{{ macro.alert('danger', 'err.FormError'|trans|ucfirst) }}{% endif %}
+  {% if usingRevision is defined and usingRevision %}{{ macro.alert('info', 'msg.UsingARevision'|trans|ucfirst, null, null, {'class': 'toast-inline'}) }}{% endif %}
+  {% if usingDraft is defined and usingDraft %}{{ macro.alert('info', 'msg.UsingADraft'|trans|ucfirst, null, null, {'class': 'toast-inline'}) }}{% endif %}
+  {% if report is defined and report %}{{ macro.alert('success', reportMessage|raw) }}{% endif %}
+  {% if errorMessage is defined and errorMessage %}{{ macro.alert('danger', errorMessage|raw) }}{% endif %}
 </div>
