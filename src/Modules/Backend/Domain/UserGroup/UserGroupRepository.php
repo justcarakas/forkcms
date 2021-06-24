@@ -20,7 +20,7 @@ final class UserGroupRepository extends ServiceEntityRepository
         try {
             parent::__construct($registry, UserGroup::class);
         } catch (Throwable $throwable) {
-            if (isset($_ENV['FORK_DATABASE_HOST'])) {
+            if (!empty($_ENV['FORK_DATABASE_HOST'])) {
                 throw $throwable; // needed during the installer
             }
         }

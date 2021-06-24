@@ -4,6 +4,9 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItem;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
+use Throwable;
 
 /**
  * @method Translation|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,7 +18,13 @@ final class TranslationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Translation::class);
+        try {
+            parent::__construct($registry, Translation::class);
+        } catch (Throwable $throwable) {
+            if (!empty($_ENV['FORK_DATABASE_HOST'])) {
+                throw $throwable; // needed during the installer
+            }
+        }
     }
 
     public function remove(Translation $translation): void

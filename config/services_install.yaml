@@ -37,6 +37,8 @@ services:
 
   ForkCMS\Modules\Internationalisation\Domain\:
     resource: '../src/Modules/Internationalisation/Domain/*'
+    exclude:
+      - '../src/Modules/Internationalisation/Domain/Translator/ForkTranslator.php'
 
   ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository:
     public: true

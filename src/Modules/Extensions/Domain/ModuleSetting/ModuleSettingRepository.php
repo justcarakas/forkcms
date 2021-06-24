@@ -27,7 +27,7 @@ final class ModuleSettingRepository extends ServiceEntityRepository
         try {
             parent::__construct($registry, ModuleSetting::class);
         } catch (Throwable $throwable) {
-            if (getenv('FORK_DATABASE_HOST')) {
+            if (!empty($_ENV['FORK_DATABASE_HOST'])) {
                 throw $throwable;
             }
         }
