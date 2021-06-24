@@ -120,10 +120,10 @@ class Kernel extends BaseKernel
     private function registerModuleExtensions(ContainerBuilder $container): void
     {
         $filesystem = new Filesystem();
-        $finder = new Finder();
-        $installedModules = new InstalledModules($container->getParameter('fork.is_installed'));
+        $installedModules = InstalledModules::fromContainer($container);
 
         foreach ($installedModules() as $module) {
+            $finder = new Finder();
             $moduleDirectory = $container->getParameter('kernel.project_dir') . '/src/Modules/' . $module;
 
             if (!$filesystem->exists($moduleDirectory)) {

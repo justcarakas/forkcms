@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Backend\Domain\UserGroup;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use InvalidArgumentException;
+use Throwable;
 
 /**
  * @method UserGroup|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,7 +17,13 @@ final class UserGroupRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, UserGroup::class);
+        try {
+            parent::__construct($registry, UserGroup::class);
+        } catch (Throwable $throwable) {
+            if (isset($_ENV['FORK_DATABASE_HOST'])) {
+                throw $throwable; // needed during the installer
+            }
+        }
     }
 
     public function save(UserGroup $userGroup): void

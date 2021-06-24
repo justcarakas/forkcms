@@ -27,13 +27,3 @@ doctrine:
           string_functions:
             group_concat: DoctrineExtensions\Query\Mysql\GroupConcat
             ifelse: DoctrineExtensions\Query\Mysql\IfElse
-
-services:
-  _defaults:
-    autowire: true
-    autoconfigure: true
-
-  doctrine.dbal.connection_factory:
-    class: ForkCMS\Core\Installer\Domain\Installer\InstallerConnectionFactory
-    arguments:
-      - "%doctrine.dbal.connection_factory.types%"
