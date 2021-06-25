@@ -24,7 +24,7 @@ abstract class AbstractActionController implements ActionControllerInterface
             $actionSlug->getActionName()
         );
 
-        $this->pageTitle = $actionSlug->getModuleName()->asLabel();
+        $this->pageTitle = $this->translator->trans($actionSlug->getModuleName()->getName());
     }
 
     final public function changeTemplatePath(string $templatePath): void

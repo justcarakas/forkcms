@@ -3,9 +3,11 @@
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use Assert\Assertion;
+use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
 use ForkCMS\Modules\Backend\Backend\Actions\NotFound;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
 use InvalidArgumentException;
 use Stringable;
 use Symfony\Component\DependencyInjection\Container;
@@ -105,5 +107,10 @@ final class ActionSlug implements Stringable
     public function getActionName(): ActionName
     {
         return $this->actionName;
+    }
+
+    public function getTranslationDomain(): TranslationDomain
+    {
+        return new TranslationDomain(Application::backend(), $this->moduleName);
     }
 }
