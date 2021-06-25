@@ -6,21 +6,22 @@
 {% endblock %}
 
 {% block content %}
-<div class="page-header text-center">
-  <h1>{{ SITE_TITLE }}</h1>
-</div>
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card card-default">
-        <div class="card-heading">
-          <h2>{{ 'lbl.Error'|trans|ucfirst }}</h2>
-        </div>
-        <div class="card-body">
-          <p>{{ message }}</p>
+  <div id="root">
+    <nav class="navbar navbar-dark align-content-center justify-content-center">
+      <a class="navbar-brand" href="{{ path('backend') }}">
+        <h1 class="text-white">{{ SITE_TITLE }}</h1>
+      </a>
+    </nav>
+    <div class="bg-primary">
+      <div class="container">
+        <div class="d-flex justify-content-center">
+          <img src="{{ asset('build/backend/images/404.png') }}" class="img-fluid" alt="404">
         </div>
       </div>
     </div>
+
+    <div class="container text-center">
+      <h2 class="display-3 pt-5">{{ message|trans }}</h2>
+    </div>
   </div>
-</div>
 {% endblock %}

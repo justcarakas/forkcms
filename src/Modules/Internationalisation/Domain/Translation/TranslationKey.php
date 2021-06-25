@@ -5,9 +5,11 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 use Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Contracts\Translation\TranslatableInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /** @ORM\Embeddable */
-class TranslationKey
+class TranslationKey implements TranslatableInterface
 {
     /**
      * @ORM\Column(type="modules__internationalisation__translation__type")
@@ -64,5 +66,10 @@ class TranslationKey
     public function __toString(): string
     {
         return $this->type->value . '.' . $this->name;
+    }
+
+    public function trans(TranslatorInterface $translator, string $locale = null): string
+    {
+        return $translator->trans((string) $this, [], null, $locale);
     }
 }
