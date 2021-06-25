@@ -15,6 +15,7 @@ use ForkCMS\Modules\Error\Installer\ErrorInstaller;
 use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Modules\Extensions\Installer\ExtensionsInstaller;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller;
 
 abstract class ModuleInstaller
@@ -34,6 +35,7 @@ abstract class ModuleInstaller
         protected NavigationItemRepository $navigationRepository,
         protected UserGroupRepository $userGroupRepository,
         protected ModuleSettingRepository $moduleSettingRepository,
+        protected TranslationRepository $translationRepository,
     ) {
     }
 
@@ -95,12 +97,6 @@ abstract class ModuleInstaller
         }
         $this->defaultModuleDependencies[$internationalisationInstaller->getName()] = $internationalisationInstaller;
 
-        $errorInstaller = ErrorInstaller::getModuleName();
-        if ($errorInstaller === static::getModuleName()) {
-            return $this->defaultModuleDependencies;
-        }
-        $this->defaultModuleDependencies[$errorInstaller->getName()] = $errorInstaller;
-
         $extensionInstaller = ExtensionsInstaller::getModuleName();
         if ($extensionInstaller === static::getModuleName()) {
             return $this->defaultModuleDependencies;
@@ -110,7 +106,7 @@ abstract class ModuleInstaller
         return $this->defaultModuleDependencies;
     }
 
-    protected function getOrCreateBackendNavigationItem(
+    final protected function getOrCreateBackendNavigationItem(
         TranslationKey $label,
         ?ActionSlug $slug = null,
         ?NavigationItem $parent = null,
@@ -146,7 +142,7 @@ abstract class ModuleInstaller
         return $navigationItem;
     }
 
-    protected function getModulesNavigationItem(): NavigationItem
+    final protected function getModulesNavigationItem(): NavigationItem
     {
         return $this->getOrCreateBackendNavigationItem(
             TranslationKey::label('Modules'),
@@ -157,7 +153,7 @@ abstract class ModuleInstaller
         );
     }
 
-    protected function getSettingsNavigationItem(): NavigationItem
+    final protected function getSettingsNavigationItem(): NavigationItem
     {
         return $this->getOrCreateBackendNavigationItem(
             TranslationKey::label('Settings'),
@@ -168,7 +164,7 @@ abstract class ModuleInstaller
         );
     }
 
-    protected function getModuleSettingsNavigationItem(): NavigationItem
+    final protected function getModuleSettingsNavigationItem(): NavigationItem
     {
         return $this->getOrCreateBackendNavigationItem(
             TranslationKey::label('Modules'),
@@ -180,8 +176,10 @@ abstract class ModuleInstaller
     /**
      * @param UserGroup|null $userGroup Defaults to the admin user group
      */
-    protected function allowGroupToAccessModuleAction(ModuleAction $moduleAction, UserGroup $userGroup = null): void
-    {
+    final protected function allowGroupToAccessModuleAction(
+        ModuleAction $moduleAction,
+        UserGroup $userGroup = null
+    ): void {
         $userGroup = $userGroup ?? $this->userGroupRepository->getAdminUserGroup();
         $userGroup->addModule($moduleAction->getModule());
         $userGroup->addAction($moduleAction);
@@ -190,15 +188,24 @@ abstract class ModuleInstaller
     /**
      * @param UserGroup|null $userGroup Defaults to the admin user group
      */
-    protected function allowGroupToAccessModuleWidget(ModuleWidget $moduleWidget, UserGroup $userGroup = null): void
-    {
+    final protected function allowGroupToAccessModuleWidget(
+        ModuleWidget $moduleWidget,
+        UserGroup $userGroup = null
+    ): void {
         $userGroup = $userGroup ?? $this->userGroupRepository->getAdminUserGroup();
         $userGroup->addModule($moduleWidget->getModule());
         $userGroup->addWidget($moduleWidget);
     }
 
-    protected function setSetting(string $key, mixed $value, ModuleName $moduleName = null): void
+    final protected function setSetting(string $key, mixed $value, ModuleName $moduleName = null): void
     {
         $this->moduleSettingRepository->set($moduleName ?? self::getModuleName(), $key, $value);
+    }
+
+    final protected function importTranslations(
+        string $translationPath = __DIR__ . '/../assets/installer/translations.xml',
+        bool $overwriteConflicts = false
+    ): void {
+
     }
 }

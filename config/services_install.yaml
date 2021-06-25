@@ -60,3 +60,7 @@ services:
     class: ForkCMS\Core\Installer\Domain\Installer\InstallerConnectionFactory
     arguments:
       - "%doctrine.dbal.connection_factory.types%"
+
+  ForkCMS\Modules\Internationalisation\Domain\Translation\ForkTranslationLoader:
+    tags:
+      - { name: translation.loader, alias: db }
