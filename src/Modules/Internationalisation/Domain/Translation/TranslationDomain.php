@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use Symfony\Component\DependencyInjection\Container;
 
 /** @ORM\Embeddable */
 class TranslationDomain
@@ -35,8 +36,23 @@ class TranslationDomain
         return $this->moduleName;
     }
 
+    public function getDomain(): string
+    {
+        return Container::underscore($this->application . $this->moduleName);
+    }
+
     public function __toString(): string
     {
-        return $this->application . '.' . $this->moduleName;
+        return $this->getDomain();
+    }
+
+    public static function fromDomain(string $domain): self
+    {
+        [$application, $moduleName] = explode('_', $domain, 2);
+
+        return new self(
+            Application::from(Container::camelize($application)),
+            ModuleName::fromString(Container::camelize($moduleName))
+        );
     }
 }
