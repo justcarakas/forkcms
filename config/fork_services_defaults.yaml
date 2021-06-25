@@ -35,3 +35,7 @@ services:
     Twig\Extension\ExtensionInterface:
       tags:
         - { name: twig.extension }
+
+    ForkCMS\Modules\Internationalisation\Domain\Importer\ImporterInterface:
+      tags:
+        - { name: forkcms.translation.importer }

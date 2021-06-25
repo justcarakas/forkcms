@@ -11,9 +11,9 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupRepository;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use ForkCMS\Modules\Backend\Installer\BackendInstaller;
-use ForkCMS\Modules\Error\Installer\ErrorInstaller;
 use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Modules\Extensions\Installer\ExtensionsInstaller;
+use ForkCMS\Modules\Internationalisation\Domain\Importer\Importer;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller;
@@ -36,6 +36,7 @@ abstract class ModuleInstaller
         protected UserGroupRepository $userGroupRepository,
         protected ModuleSettingRepository $moduleSettingRepository,
         protected TranslationRepository $translationRepository,
+        protected Importer $importer,
     ) {
     }
 
@@ -203,9 +204,9 @@ abstract class ModuleInstaller
     }
 
     final protected function importTranslations(
-        string $translationPath = __DIR__ . '/../assets/installer/translations.xml',
+        string $translationPath,
         bool $overwriteConflicts = false
     ): void {
-
+        $this->importer->import($translationPath, $overwriteConflicts);
     }
 }

@@ -20,6 +20,9 @@ services:
       tags:
         - { name: messenger.message_handler, bus: event.bus }
 
+    ForkCMS\Modules\Internationalisation\Domain\Importer\ImporterInterface:
+      tags:
+        - { name: forkcms.translation.importer }
 
   ForkCMS\Core\Installer\:
     resource: '../src/Core/Installer/*'
@@ -39,6 +42,7 @@ services:
     resource: '../src/Modules/Internationalisation/Domain/*'
     exclude:
       - '../src/Modules/Internationalisation/Domain/Translator/ForkTranslator.php'
+      - '../src/Modules/Internationalisation/Domain/Importer/Importer.php'
 
   ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository:
     public: true

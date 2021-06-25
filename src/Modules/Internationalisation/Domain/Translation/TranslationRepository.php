@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\Persistence\ManagerRegistry;
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItem;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
@@ -16,7 +17,7 @@ use Throwable;
  */
 final class TranslationRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private ManagerRegistry $managerRegistry)
     {
         try {
             parent::__construct($registry, Translation::class);
@@ -29,15 +30,21 @@ final class TranslationRepository extends ServiceEntityRepository
 
     public function remove(Translation $translation): void
     {
-        $this->getEntityManager()->remove($translation);
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($translation);
+        $entityManager->flush();
     }
 
     public function save(Translation $translation): void
     {
-        if (!$this->getEntityManager()->contains($translation)) {
-            $this->getEntityManager()->persist($translation);
-        }
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($translation);
 
-        $this->getEntityManager()->flush();
+        try {
+            $entityManager->flush();
+        } catch (UniqueConstraintViolationException $uniqueConstraintViolationException) {
+            $this->managerRegistry->resetManager();
+            throw $uniqueConstraintViolationException;
+        }
     }
 }

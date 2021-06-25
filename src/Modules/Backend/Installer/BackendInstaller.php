@@ -35,5 +35,6 @@ final class BackendInstaller extends ModuleInstaller
 
     public function install(): void
     {
+        $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');
     }
 }

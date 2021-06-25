@@ -20,7 +20,7 @@ final class TwigExtensionPass implements CompilerPassInterface
         }
 
         $modulesDirectory = $container->getParameter('kernel.project_dir') . '/src/Modules/';
-        foreach ($container->get(InstalledModules::class)() as $moduleName) {
+        foreach (InstalledModules::fromContainer($container)() as $moduleName) {
             $moduleTemplates = $modulesDirectory . $moduleName . '/templates';
             if ($filesystem->exists($moduleTemplates)) {
                 $twigLoaderDefinition->addMethodCall(

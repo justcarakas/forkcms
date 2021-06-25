@@ -4,13 +4,15 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use ForkCMS\Modules\Authentication\Backend\Domain\Authentication\Authentication;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use Symfony\Component\Translation\TranslatableMessage;
 
 /**
  * @ORM\Entity(repositoryClass="ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository")
- * @ORM\Table(name="translations")
+ * @ORM\Table(
+ *     name="translations",
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="unique_translation",columns={"domain_application", "domain_moduleName", "key_type", "key_name", "locale"})}
+ * )
  * @ORM\HasLifecycleCallbacks
  */
 class Translation
@@ -83,7 +85,7 @@ class Translation
     {
 
         $this->createdOn = $this->editedOn = new DateTimeImmutable();
-        $this->createdBy = Authentication::getUser()->getUserId();
+        $this->editedBy = $this->createdBy = 1; //@TODO fix this
     }
 
     /**
@@ -92,7 +94,7 @@ class Translation
     public function postPersist(): void
     {
         $this->editedOn = new DateTimeImmutable();
-        $this->editedBy = Authentication::getUser()->getUserId();
+        $this->editedBy = 1; //@TODO fix this
     }
 
     public function getId(): int
