@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
-class Kernel extends BaseKernel
+final class Kernel extends BaseKernel
 {
     private const ROOT_DIR = __DIR__ . '/../../../../';
 
