@@ -14,8 +14,8 @@ services:
       - { name: translation.loader, alias: db }
 
   ForkCMS\Modules\Internationalisation\Domain\Importer\XmlImporter:
-    tags:
-      - { name: forkcms.translation.importer }
+    arguments:
+      - '%kernel.project_dir%'
 
   ForkCMS\Modules\Internationalisation\Domain\Importer\Importer:
     arguments:

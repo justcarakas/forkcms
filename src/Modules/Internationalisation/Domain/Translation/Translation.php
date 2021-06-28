@@ -47,6 +47,11 @@ class Translation
     private string $value;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $source;
+
+    /**
      * @ORM\Column(type="datetime_immutable")
      */
     private DateTimeImmutable $createdOn;
@@ -70,12 +75,14 @@ class Translation
         TranslationDomain $domain,
         TranslationKey $key,
         Locale $locale,
-        string $value
+        string $value,
+        string $source = null,
     ) {
         $this->domain = $domain;
         $this->key = $key;
         $this->locale = $locale;
         $this->value = $value;
+        $this->source = $source;
     }
 
     /**
@@ -145,5 +152,10 @@ class Translation
     public function getTranslatable(array $parameters = []): TranslatableMessage
     {
         return new TranslatableMessage($this->key->__toString(), $parameters, $this->domain->__toString());
+    }
+
+    public function getSource(): string
+    {
+        return $this->source;
     }
 }
