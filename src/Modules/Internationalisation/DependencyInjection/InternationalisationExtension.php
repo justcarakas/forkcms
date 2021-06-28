@@ -12,6 +12,11 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class InternationalisationExtension extends ForkModuleExtension
 {
+    public function load(array $configs, ContainerBuilder $container): void
+    {
+        $this->getLoader($container)->load('services.yaml');
+    }
+
     public function prepend(ContainerBuilder $container): void
     {
         $this->getLoader($container)->load('doctrine.yaml');

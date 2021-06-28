@@ -2,4 +2,4 @@ doctrine:
   dbal:
     types:
       modules__internationalisation__locale__locale: ForkCMS\Modules\Internationalisation\Domain\Locale\LocaleDBALType
-      modules__internationalisation__locale__type: ForkCMS\Modules\Internationalisation\Domain\Locale\LocaleDBALType
+      modules__internationalisation__translation__type: ForkCMS\Modules\Internationalisation\Domain\Translation\TypeDBALType
