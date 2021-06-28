@@ -1,12 +1,19 @@
-backend:
-  path: /private/{_locale}/{module}/{action}
-  defaults:
-    _controller: ForkCMS\Modules\Backend\Controller\BackendController
-    _locale: ~
-    module: ~
-    action: ~
 
 backend_ajax:
   path: /backend/ajax
+  controller: ForkCMS\Modules\Backend\Controller\BackendAjaxController
+
+backend_logout:
+  path: /private/{_locale}/backend/logout
+
+backend_login:
+  path: /private/{_locale}/backend/login
+  controller: ForkCMS\Modules\Backend\Controller\LoginController
+
+backend:
+  path: /private/{_locale}/{module}/{action}
+  controller: ForkCMS\Modules\Backend\Controller\BackendController
   defaults:
-    _controller: ForkCMS\Modules\Backend\Controller\BackendAjaxController
+    _locale: ~
+    module: ~
+    action: ~
