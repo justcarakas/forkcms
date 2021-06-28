@@ -17,6 +17,8 @@ use ForkCMS\Modules\Internationalisation\Domain\Importer\Importer;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller;
+use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 abstract class ModuleInstaller
 {
@@ -37,6 +39,8 @@ abstract class ModuleInstaller
         protected ModuleSettingRepository $moduleSettingRepository,
         protected TranslationRepository $translationRepository,
         protected Importer $importer,
+        private MessageBusInterface $commandBus,
+        private MessageBusInterface $eventBus,
     ) {
     }
 
@@ -208,5 +212,15 @@ abstract class ModuleInstaller
         bool $overwriteConflicts = false
     ): void {
         $this->importer->import($translationPath, $overwriteConflicts);
+    }
+
+    public function dispatchCommand(object $command, array $stamps = []): Envelope
+    {
+        return $this->commandBus->dispatch($command, $stamps);
+    }
+
+    public function dispatchEvent(object $event, array $stamps = []): Envelope
+    {
+        return $this->eventBus->dispatch($event, $stamps);
     }
 }
