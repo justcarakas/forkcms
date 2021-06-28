@@ -6,14 +6,20 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\Translation;
 
 final class ImportResult
 {
-    private int $successCount = 0;
+    private int $importedCount = 0;
+    private int $updatedCount = 0;
 
     /** @var Translation[] */
     private array $failed = [];
 
-    public function getSuccessCount(): int
+    public function getImportedCount(): int
     {
-        return $this->successCount;
+        return $this->importedCount;
+    }
+
+    public function getUpdatedCount(): int
+    {
+        return $this->updatedCount;
     }
 
     public function getFailedCount(): int
@@ -32,8 +38,13 @@ final class ImportResult
         $this->failed[] = $translation;
     }
 
-    public function addSuccess(Translation $translation): void
+    public function addImported(Translation $translation): void
     {
-        ++$this->successCount;
+        ++$this->importedCount;
+    }
+
+    public function addUpdated(Translation $translation): void
+    {
+        ++$this->updatedCount;
     }
 }
