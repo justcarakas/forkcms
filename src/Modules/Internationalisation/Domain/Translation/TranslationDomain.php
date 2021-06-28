@@ -16,11 +16,11 @@ class TranslationDomain
     private Application $application;
 
     /**
-     * @ORM\Column(type="modules__extensions__module__module_name")
+     * @ORM\Column(type="modules__extensions__module__module_name", nullable=true)
      */
-    private ModuleName $moduleName;
+    private ?ModuleName $moduleName;
 
-    public function __construct(Application $application, ModuleName $moduleName)
+    public function __construct(Application $application, ?ModuleName $moduleName)
     {
         $this->application = $application;
         $this->moduleName = $moduleName;
@@ -31,7 +31,7 @@ class TranslationDomain
         return $this->application;
     }
 
-    public function getModuleName(): ModuleName
+    public function getModuleName(): ?ModuleName
     {
         return $this->moduleName;
     }
@@ -48,11 +48,11 @@ class TranslationDomain
 
     public static function fromDomain(string $domain): self
     {
-        [$application, $moduleName] = explode('_', $domain, 2);
+        $domainParts = explode('_', $domain, 2);
 
         return new self(
-            Application::from(Container::camelize($application)),
-            ModuleName::fromString(Container::camelize($moduleName))
+            Application::from(Container::camelize($domainParts[0])),
+            array_key_exists(1, $domainParts) ? ModuleName::fromString(Container::camelize($domainParts[1])) : null
         );
     }
 }

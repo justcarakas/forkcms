@@ -22,6 +22,7 @@ use Stringable;
  * @method static self uk()
  * @method static self pl()
  * @method static self pt()
+ * @method static self tr()
  */
 final class Locale extends Enum implements Serializable, Stringable
 {
@@ -43,6 +44,7 @@ final class Locale extends Enum implements Serializable, Stringable
             'uk' => 'Ukrainian',
             'pl' => 'Polish',
             'pt' => 'Portuguese',
+            'tr' => 'Turkish',
         ];
     }
 
