@@ -5,7 +5,7 @@ namespace ForkCMS\Core\Domain\Doctrine;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 
-class CreateSchema
+final class CreateSchema
 {
     public function __construct(private EntityManagerInterface $entityManager)
     {
