@@ -10,7 +10,7 @@ use Frontend\Core\Engine\Model as FrontendModel;
 /**
  * This class is used in several Fork applications to bubble down the AppKernel/Kernel object.
  */
-class KernelLoader
+final class KernelLoader
 {
     /**
      * @var KernelInterface
