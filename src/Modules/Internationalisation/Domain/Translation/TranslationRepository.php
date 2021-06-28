@@ -5,8 +5,6 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\Persistence\ManagerRegistry;
-use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItem;
-use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use Throwable;
 
 /**
