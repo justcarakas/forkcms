@@ -1,161 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
   <Backend>
-    <Backend>
-      <item type="error" name="NotFound">
-        <translation locale="nl"><![CDATA[Deze pagina is verloren gegaan op zee.]]></translation>
-        <translation locale="en"><![CDATA[This page was lost at sea.]]></translation>
-        <translation locale="de"><![CDATA[Diese Seite ging auf See verloren.]]></translation>
-        <translation locale="fr"><![CDATA[Cette page a été perdue en mer.]]></translation>
-        <translation locale="es"><![CDATA[Esta página se perdió en el mar.]]></translation>
-        <translation locale="it"><![CDATA[Questa pagina è stata persa in mare.]]></translation>
-        <translation locale="pl"><![CDATA[Ta strona została zagubiona na morzu.]]></translation>
-        <translation locale="ru"><![CDATA[Эта страница была потеряна в море.]]></translation>
-      </item>
-      <item type="label" name="RememberMe">
-        <translation language="nl"><![CDATA[onthoud mij]]></translation>
-        <translation language="en"><![CDATA[remember me]]></translation>
-        <translation language="fr"><![CDATA[conservez mes coordonnées]]></translation>
-        <translation language="hu"><![CDATA[emlékezz rám]]></translation>
-        <translation language="it"><![CDATA[ricordami]]></translation>
-        <translation language="ru"><![CDATA[Запомнить меня]]></translation>
-        <translation language="zh"><![CDATA[记住我]]></translation>
-        <translation language="de"><![CDATA[merken]]></translation>
-        <translation language="es"><![CDATA[recordarme]]></translation>
-        <translation language="lt"><![CDATA[atsiminti]]></translation>
-        <translation language="uk"><![CDATA[Запам'ятати мене]]></translation>
-        <translation language="sv"><![CDATA[kom ihåg mig]]></translation>
-        <translation language="el"><![CDATA[απομνημόνευση]]></translation>
-        <translation language="pl"><![CDATA[zapamietaj  mnie]]></translation>
-        <translation language="tr"><![CDATA[Beni hatırla]]></translation>
-        <translation language="pt"><![CDATA[recordar-me]]></translation>
-      </item>
-      <item type="label" name="Password">
-        <translation language="nl"><![CDATA[wachtwoord]]></translation>
-        <translation language="en"><![CDATA[password]]></translation>
-        <translation language="fr"><![CDATA[mot de passe]]></translation>
-        <translation language="hu"><![CDATA[jelszó]]></translation>
-        <translation language="it"><![CDATA[password]]></translation>
-        <translation language="ru"><![CDATA[Пароль]]></translation>
-        <translation language="zh"><![CDATA[密码]]></translation>
-        <translation language="de"><![CDATA[Passwort]]></translation>
-        <translation language="es"><![CDATA[contraseña]]></translation>
-        <translation language="lt"><![CDATA[slaptažodis]]></translation>
-        <translation language="uk"><![CDATA[Пароль]]></translation>
-        <translation language="sv"><![CDATA[lösenord]]></translation>
-        <translation language="el"><![CDATA[κωδικός]]></translation>
-        <translation language="pl"><![CDATA[hasło]]></translation>
-        <translation language="tr"><![CDATA[şifre]]></translation>
-        <translation language="pt"><![CDATA[senha]]></translation>
-      </item>
-      <item type="message" name="ForgotPassword">
-        <translation language="nl"><![CDATA[Wachtwoord vergeten?]]></translation>
-        <translation language="en"><![CDATA[Forgot your password?]]></translation>
-        <translation language="fr"><![CDATA[Mot de passe oublié?]]></translation>
-        <translation language="hu"><![CDATA[Elfelejtetted a jelszavad?]]></translation>
-        <translation language="it"><![CDATA[Password dimenticata?]]></translation>
-        <translation language="ru"><![CDATA[Забыли пароль?]]></translation>
-        <translation language="zh"><![CDATA[忘记密码]]></translation>
-        <translation language="de"><![CDATA[Passwort vergessen?]]></translation>
-        <translation language="es"><![CDATA[¿Contraseña olvidada?]]></translation>
-        <translation language="lt"><![CDATA[Priminti slaptažodį?]]></translation>
-        <translation language="uk"><![CDATA[Забули пароль?]]></translation>
-        <translation language="sv"><![CDATA[Glömt ditt lösenord?]]></translation>
-        <translation language="el"><![CDATA[Ξεχάσατε τον Κωδικό σας;]]></translation>
-        <translation language="pl"><![CDATA[zapomniałes hasła?]]></translation>
-        <translation language="tr"><![CDATA[Şifrenizi mi unuttunuz?]]></translation>
-        <translation language="pt"><![CDATA[Esqueceu-se da sua senha?]]></translation>
-      </item>
-      <item type="label" name="LogIn">
-        <translation language="nl"><![CDATA[aanmelden]]></translation>
-        <translation language="en"><![CDATA[log in]]></translation>
-        <translation language="hu"><![CDATA[belépés]]></translation>
-        <translation language="ru"><![CDATA[Логин]]></translation>
-        <translation language="it"><![CDATA[accedi]]></translation>
-        <translation language="zh"><![CDATA[登录]]></translation>
-        <translation language="de"><![CDATA[einloggen]]></translation>
-        <translation language="fr"><![CDATA[connexion]]></translation>
-        <translation language="es"><![CDATA[entrar]]></translation>
-        <translation language="lt"><![CDATA[jungtis]]></translation>
-        <translation language="uk"><![CDATA[Логін]]></translation>
-        <translation language="sv"><![CDATA[logga in]]></translation>
-        <translation language="el"><![CDATA[σύνδεση]]></translation>
-        <translation language="tr"><![CDATA[Giriş]]></translation>
-        <translation language="pt"><![CDATA[login]]></translation>
-        <translation language="pl"><![CDATA[zaloguj się]]></translation>
-      </item>
-      <item type="label" name="Email">
-        <translation language="nl"><![CDATA[e-mail]]></translation>
-        <translation language="en"><![CDATA[e-mail]]></translation>
-        <translation language="hu"><![CDATA[e-mail]]></translation>
-        <translation language="it"><![CDATA[email]]></translation>
-        <translation language="fr"><![CDATA[e-mail]]></translation>
-        <translation language="ru"><![CDATA[e-mail]]></translation>
-        <translation language="zh"><![CDATA[Email]]></translation>
-        <translation language="de"><![CDATA[E-Mail]]></translation>
-        <translation language="es"><![CDATA[e-mail]]></translation>
-        <translation language="uk"><![CDATA[e-mail]]></translation>
-        <translation language="lt"><![CDATA[el.paštas]]></translation>
-        <translation language="sv"><![CDATA[e-post]]></translation>
-        <translation language="el"><![CDATA[e-mail]]></translation>
-        <translation language="pl"><![CDATA[e-mail]]></translation>
-        <translation language="tr"><![CDATA[e-posta]]></translation>
-        <translation language="pt"><![CDATA[e-mail]]></translation>
-      </item>
-      <item type="label" name="Cancel">
-        <translation language="nl"><![CDATA[annuleer]]></translation>
-        <translation language="en"><![CDATA[cancel]]></translation>
-        <translation language="hu"><![CDATA[törölni]]></translation>
-        <translation language="it"><![CDATA[cancella]]></translation>
-        <translation language="ru"><![CDATA[Отмена]]></translation>
-        <translation language="zh"><![CDATA[取消]]></translation>
-        <translation language="de"><![CDATA[abbrechen]]></translation>
-        <translation language="fr"><![CDATA[annuler]]></translation>
-        <translation language="es"><![CDATA[cancelar]]></translation>
-        <translation language="lt"><![CDATA[atšaukti]]></translation>
-        <translation language="uk"><![CDATA[Відміна]]></translation>
-        <translation language="sv"><![CDATA[avbryt]]></translation>
-        <translation language="el"><![CDATA[ακύρωση]]></translation>
-        <translation language="pl"><![CDATA[anuluj]]></translation>
-        <translation language="tr"><![CDATA[iptal et]]></translation>
-        <translation language="pt"><![CDATA[cancelar]]></translation>
-      </item>
-      <item type="label" name="Close">
-        <translation language="nl"><![CDATA[sluiten]]></translation>
-        <translation language="en"><![CDATA[close]]></translation>
-        <translation language="hu"><![CDATA[bezár]]></translation>
-        <translation language="it"><![CDATA[chiudi]]></translation>
-        <translation language="fr"><![CDATA[fermer]]></translation>
-        <translation language="ru"><![CDATA[Закрыть]]></translation>
-        <translation language="zh"><![CDATA[关闭]]></translation>
-        <translation language="de"><![CDATA[schließen]]></translation>
-        <translation language="es"><![CDATA[Cerrar]]></translation>
-        <translation language="uk"><![CDATA[Закрити]]></translation>
-        <translation language="lt"><![CDATA[uždaryti]]></translation>
-        <translation language="sv"><![CDATA[stäng]]></translation>
-        <translation language="el"><![CDATA[κλείσιμο]]></translation>
-        <translation language="pl"><![CDATA[zakmnij]]></translation>
-        <translation language="tr"><![CDATA[kapat]]></translation>
-        <translation language="pt"><![CDATA[fechar]]></translation>
-      </item>
-      <item type="label" name="Send">
-        <translation language="nl"><![CDATA[verstuur]]></translation>
-        <translation language="en"><![CDATA[send]]></translation>
-        <translation language="hu"><![CDATA[küld]]></translation>
-        <translation language="it"><![CDATA[invia]]></translation>
-        <translation language="fr"><![CDATA[envoyer]]></translation>
-        <translation language="ru"><![CDATA[Отправить]]></translation>
-        <translation language="zh"><![CDATA[发送]]></translation>
-        <translation language="de"><![CDATA[senden]]></translation>
-        <translation language="es"><![CDATA[enviar]]></translation>
-        <translation language="lt"><![CDATA[siųsti]]></translation>
-        <translation language="uk"><![CDATA[Надіслати]]></translation>
-        <translation language="sv"><![CDATA[skicka]]></translation>
-        <translation language="el"><![CDATA[αποστολή]]></translation>
-        <translation language="pl"><![CDATA[wyslij]]></translation>
-        <translation language="tr"><![CDATA[gönder]]></translation>
-        <translation language="pt"><![CDATA[enviar]]></translation>
-      </item>
-    </Backend>
+    <item type="error" name="NotFound">
+      <translation locale="nl"><![CDATA[Deze pagina is verloren gegaan op zee.]]></translation>
+      <translation locale="en"><![CDATA[This page was lost at sea.]]></translation>
+      <translation locale="de"><![CDATA[Diese Seite ging auf See verloren.]]></translation>
+      <translation locale="fr"><![CDATA[Cette page a été perdue en mer.]]></translation>
+      <translation locale="es"><![CDATA[Esta página se perdió en el mar.]]></translation>
+      <translation locale="it"><![CDATA[Questa pagina è stata persa in mare.]]></translation>
+      <translation locale="pl"><![CDATA[Ta strona została zagubiona na morzu.]]></translation>
+      <translation locale="ru"><![CDATA[Эта страница была потеряна в море.]]></translation>
+    </item>
+    <item type="label" name="RememberMe">
+      <translation locale="nl"><![CDATA[onthoud mij]]></translation>
+      <translation locale="en"><![CDATA[remember me]]></translation>
+      <translation locale="fr"><![CDATA[conservez mes coordonnées]]></translation>
+      <translation locale="hu"><![CDATA[emlékezz rám]]></translation>
+      <translation locale="it"><![CDATA[ricordami]]></translation>
+      <translation locale="ru"><![CDATA[Запомнить меня]]></translation>
+      <translation locale="zh"><![CDATA[记住我]]></translation>
+      <translation locale="de"><![CDATA[merken]]></translation>
+      <translation locale="es"><![CDATA[recordarme]]></translation>
+      <translation locale="lt"><![CDATA[atsiminti]]></translation>
+      <translation locale="uk"><![CDATA[Запам'ятати мене]]></translation>
+      <translation locale="sv"><![CDATA[kom ihåg mig]]></translation>
+      <translation locale="el"><![CDATA[απομνημόνευση]]></translation>
+      <translation locale="pl"><![CDATA[zapamietaj  mnie]]></translation>
+      <translation locale="tr"><![CDATA[Beni hatırla]]></translation>
+      <translation locale="pt"><![CDATA[recordar-me]]></translation>
+    </item>
+    <item type="label" name="Password">
+      <translation locale="nl"><![CDATA[wachtwoord]]></translation>
+      <translation locale="en"><![CDATA[password]]></translation>
+      <translation locale="fr"><![CDATA[mot de passe]]></translation>
+      <translation locale="hu"><![CDATA[jelszó]]></translation>
+      <translation locale="it"><![CDATA[password]]></translation>
+      <translation locale="ru"><![CDATA[Пароль]]></translation>
+      <translation locale="zh"><![CDATA[密码]]></translation>
+      <translation locale="de"><![CDATA[Passwort]]></translation>
+      <translation locale="es"><![CDATA[contraseña]]></translation>
+      <translation locale="lt"><![CDATA[slaptažodis]]></translation>
+      <translation locale="uk"><![CDATA[Пароль]]></translation>
+      <translation locale="sv"><![CDATA[lösenord]]></translation>
+      <translation locale="el"><![CDATA[κωδικός]]></translation>
+      <translation locale="pl"><![CDATA[hasło]]></translation>
+      <translation locale="tr"><![CDATA[şifre]]></translation>
+      <translation locale="pt"><![CDATA[senha]]></translation>
+    </item>
+    <item type="message" name="ForgotPassword">
+      <translation locale="nl"><![CDATA[Wachtwoord vergeten?]]></translation>
+      <translation locale="en"><![CDATA[Forgot your password?]]></translation>
+      <translation locale="fr"><![CDATA[Mot de passe oublié?]]></translation>
+      <translation locale="hu"><![CDATA[Elfelejtetted a jelszavad?]]></translation>
+      <translation locale="it"><![CDATA[Password dimenticata?]]></translation>
+      <translation locale="ru"><![CDATA[Забыли пароль?]]></translation>
+      <translation locale="zh"><![CDATA[忘记密码]]></translation>
+      <translation locale="de"><![CDATA[Passwort vergessen?]]></translation>
+      <translation locale="es"><![CDATA[¿Contraseña olvidada?]]></translation>
+      <translation locale="lt"><![CDATA[Priminti slaptažodį?]]></translation>
+      <translation locale="uk"><![CDATA[Забули пароль?]]></translation>
+      <translation locale="sv"><![CDATA[Glömt ditt lösenord?]]></translation>
+      <translation locale="el"><![CDATA[Ξεχάσατε τον Κωδικό σας;]]></translation>
+      <translation locale="pl"><![CDATA[zapomniałes hasła?]]></translation>
+      <translation locale="tr"><![CDATA[Şifrenizi mi unuttunuz?]]></translation>
+      <translation locale="pt"><![CDATA[Esqueceu-se da sua senha?]]></translation>
+    </item>
+    <item type="label" name="LogIn">
+      <translation locale="nl"><![CDATA[aanmelden]]></translation>
+      <translation locale="en"><![CDATA[log in]]></translation>
+      <translation locale="hu"><![CDATA[belépés]]></translation>
+      <translation locale="ru"><![CDATA[Логин]]></translation>
+      <translation locale="it"><![CDATA[accedi]]></translation>
+      <translation locale="zh"><![CDATA[登录]]></translation>
+      <translation locale="de"><![CDATA[einloggen]]></translation>
+      <translation locale="fr"><![CDATA[connexion]]></translation>
+      <translation locale="es"><![CDATA[entrar]]></translation>
+      <translation locale="lt"><![CDATA[jungtis]]></translation>
+      <translation locale="uk"><![CDATA[Логін]]></translation>
+      <translation locale="sv"><![CDATA[logga in]]></translation>
+      <translation locale="el"><![CDATA[σύνδεση]]></translation>
+      <translation locale="tr"><![CDATA[Giriş]]></translation>
+      <translation locale="pt"><![CDATA[login]]></translation>
+      <translation locale="pl"><![CDATA[zaloguj się]]></translation>
+    </item>
+    <item type="label" name="Email">
+      <translation locale="nl"><![CDATA[e-mail]]></translation>
+      <translation locale="en"><![CDATA[e-mail]]></translation>
+      <translation locale="hu"><![CDATA[e-mail]]></translation>
+      <translation locale="it"><![CDATA[email]]></translation>
+      <translation locale="fr"><![CDATA[e-mail]]></translation>
+      <translation locale="ru"><![CDATA[e-mail]]></translation>
+      <translation locale="zh"><![CDATA[Email]]></translation>
+      <translation locale="de"><![CDATA[E-Mail]]></translation>
+      <translation locale="es"><![CDATA[e-mail]]></translation>
+      <translation locale="uk"><![CDATA[e-mail]]></translation>
+      <translation locale="lt"><![CDATA[el.paštas]]></translation>
+      <translation locale="sv"><![CDATA[e-post]]></translation>
+      <translation locale="el"><![CDATA[e-mail]]></translation>
+      <translation locale="pl"><![CDATA[e-mail]]></translation>
+      <translation locale="tr"><![CDATA[e-posta]]></translation>
+      <translation locale="pt"><![CDATA[e-mail]]></translation>
+    </item>
+    <item type="label" name="Cancel">
+      <translation locale="nl"><![CDATA[annuleer]]></translation>
+      <translation locale="en"><![CDATA[cancel]]></translation>
+      <translation locale="hu"><![CDATA[törölni]]></translation>
+      <translation locale="it"><![CDATA[cancella]]></translation>
+      <translation locale="ru"><![CDATA[Отмена]]></translation>
+      <translation locale="zh"><![CDATA[取消]]></translation>
+      <translation locale="de"><![CDATA[abbrechen]]></translation>
+      <translation locale="fr"><![CDATA[annuler]]></translation>
+      <translation locale="es"><![CDATA[cancelar]]></translation>
+      <translation locale="lt"><![CDATA[atšaukti]]></translation>
+      <translation locale="uk"><![CDATA[Відміна]]></translation>
+      <translation locale="sv"><![CDATA[avbryt]]></translation>
+      <translation locale="el"><![CDATA[ακύρωση]]></translation>
+      <translation locale="pl"><![CDATA[anuluj]]></translation>
+      <translation locale="tr"><![CDATA[iptal et]]></translation>
+      <translation locale="pt"><![CDATA[cancelar]]></translation>
+    </item>
+    <item type="label" name="Close">
+      <translation locale="nl"><![CDATA[sluiten]]></translation>
+      <translation locale="en"><![CDATA[close]]></translation>
+      <translation locale="hu"><![CDATA[bezár]]></translation>
+      <translation locale="it"><![CDATA[chiudi]]></translation>
+      <translation locale="fr"><![CDATA[fermer]]></translation>
+      <translation locale="ru"><![CDATA[Закрыть]]></translation>
+      <translation locale="zh"><![CDATA[关闭]]></translation>
+      <translation locale="de"><![CDATA[schließen]]></translation>
+      <translation locale="es"><![CDATA[Cerrar]]></translation>
+      <translation locale="uk"><![CDATA[Закрити]]></translation>
+      <translation locale="lt"><![CDATA[uždaryti]]></translation>
+      <translation locale="sv"><![CDATA[stäng]]></translation>
+      <translation locale="el"><![CDATA[κλείσιμο]]></translation>
+      <translation locale="pl"><![CDATA[zakmnij]]></translation>
+      <translation locale="tr"><![CDATA[kapat]]></translation>
+      <translation locale="pt"><![CDATA[fechar]]></translation>
+    </item>
+    <item type="label" name="Send">
+      <translation locale="nl"><![CDATA[verstuur]]></translation>
+      <translation locale="en"><![CDATA[send]]></translation>
+      <translation locale="hu"><![CDATA[küld]]></translation>
+      <translation locale="it"><![CDATA[invia]]></translation>
+      <translation locale="fr"><![CDATA[envoyer]]></translation>
+      <translation locale="ru"><![CDATA[Отправить]]></translation>
+      <translation locale="zh"><![CDATA[发送]]></translation>
+      <translation locale="de"><![CDATA[senden]]></translation>
+      <translation locale="es"><![CDATA[enviar]]></translation>
+      <translation locale="lt"><![CDATA[siųsti]]></translation>
+      <translation locale="uk"><![CDATA[Надіслати]]></translation>
+      <translation locale="sv"><![CDATA[skicka]]></translation>
+      <translation locale="el"><![CDATA[αποστολή]]></translation>
+      <translation locale="pl"><![CDATA[wyslij]]></translation>
+      <translation locale="tr"><![CDATA[gönder]]></translation>
+      <translation locale="pt"><![CDATA[enviar]]></translation>
+    </item>
+    <item type="error" name="EmailIsRequired">
+      <translation locale="nl"><![CDATA[E-mail is een verplicht veld.]]></translation>
+      <translation locale="en"><![CDATA[E-mail is a required field.]]></translation>
+      <translation locale="hu"><![CDATA[Az e-mail mező kötelező.]]></translation>
+      <translation locale="it"><![CDATA[Email è un campo obbligatorio.]]></translation>
+      <translation locale="fr"><![CDATA[E-mail est un champ requis.]]></translation>
+      <translation locale="ru"><![CDATA[E-mail - обязательное поле.]]></translation>
+      <translation locale="zh"><![CDATA[Email是必填项。]]></translation>
+      <translation locale="de"><![CDATA[E-Mail-Adresse ist ein Pflichtfeld.]]></translation>
+      <translation locale="es"><![CDATA[E-mail es un campo requerido.]]></translation>
+      <translation locale="lt"><![CDATA[El.paštas - būtinas laukas.]]></translation>
+      <translation locale="uk"><![CDATA[E-mail - обов'язкове поле.]]></translation>
+      <translation locale="sv"><![CDATA[E-post är ett obligatoriskt fält.]]></translation>
+      <translation locale="el"><![CDATA[Το Email είναι υποχρεωτικό πεδίο.]]></translation>
+      <translation locale="pl"><![CDATA[Pole e-mail jest wymagane.]]></translation>
+      <translation locale="pt"><![CDATA[Endereço de email é um campo obrigatório.]]></translation>
+    </item>
   </Backend>
 </translations>
