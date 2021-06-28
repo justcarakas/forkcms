@@ -9,22 +9,16 @@ use Symfony\Component\Translation\TranslatableMessage;
 
 /**
  * @ORM\Entity(repositoryClass="ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository")
- * @ORM\Table(
- *     name="translations",
- *     uniqueConstraints={@ORM\UniqueConstraint(name="unique_translation",columns={"domain_application", "domain_moduleName", "key_type", "key_name", "locale"})}
- * )
+ * @ORM\Table(name="translations")
  * @ORM\HasLifecycleCallbacks
  */
 class Translation
 {
     /**
-     * @var int
-     *
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", unique=true, length=32)
      */
-    private int $id;
+    private string $id;
 
     /**
      * @ORM\Embedded(class="TranslationDomain")
@@ -78,6 +72,7 @@ class Translation
         string $value,
         string $source = null,
     ) {
+        $this->id = md5(implode('$', [$domain, $locale, $key]));
         $this->domain = $domain;
         $this->key = $key;
         $this->locale = $locale;
@@ -104,7 +99,7 @@ class Translation
         $this->editedBy = 1; //@TODO fix this
     }
 
-    public function getId(): int
+    public function getId(): string
     {
         return $this->id;
     }
@@ -157,5 +152,10 @@ class Translation
     public function getSource(): string
     {
         return $this->source;
+    }
+
+    public function change(string $value): void
+    {
+        $this->value = $value;
     }
 }

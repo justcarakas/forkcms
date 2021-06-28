@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Importer;
 use Assert\Assertion;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
+use LogicException;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -29,8 +30,15 @@ final class Importer
         foreach ($translations as $translation) {
             try {
                 $this->translationRepository->save($translation);
-                $importResult->addSuccess($translation);
+                $importResult->addImported($translation);
             } catch (UniqueConstraintViolationException) {
+                $existingTranslation = $this->translationRepository->find($translation->getId());
+                if ($overwriteConflicts && $existingTranslation !== null) {
+                    $existingTranslation->change($translation->getValue());
+                    $this->translationRepository->save($existingTranslation);
+                    $importResult->addUpdated($existingTranslation);
+                    continue;
+                }
                 $importResult->addFailed($translation);
             }
         }
