@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Builds the form to set up login information
  */
-class AuthenticationType extends AbstractType
+final class AuthenticationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

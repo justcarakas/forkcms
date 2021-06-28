@@ -11,7 +11,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * This command will clear all the cache
  */
-class CacheClearCommand extends Command
+final class CacheClearCommand extends Command
 {
     protected function configure(): void
     {
