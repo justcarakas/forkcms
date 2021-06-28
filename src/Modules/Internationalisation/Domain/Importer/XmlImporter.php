@@ -15,21 +15,30 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
 final class XmlImporter implements ImporterInterface
 {
+    public function __construct(private string $rootDir)
+    {
+    }
+
     public function getTranslations(File $translationFile): Generator
     {
+        $source = str_replace(realpath($this->rootDir), '', $translationFile->getRealPath());
         $xmlDecoder = new XmlEncoder;
         $xmlData = $xmlDecoder->decode($translationFile->getContent(), 'xml');
 
         foreach ($xmlData as $application => $modules) {
             $application = Application::from($application);
             if (array_key_exists('item', $modules)) {
-                yield from $this->makeTranslations($modules['item'], TranslationDomain::fromDomain($application));
+                yield from $this->makeTranslations(
+                    $modules['item'],
+                    TranslationDomain::fromDomain($application),
+                    $source
+                );
                 unset($modules['item']);
             }
 
             foreach ($modules as $module => $translationItems) {
                 $domain = new TranslationDomain($application, ModuleName::fromString($module));
-                yield from $this->makeTranslations($translationItems['item'], $domain);
+                yield from $this->makeTranslations($translationItems['item'], $domain, $source);
             }
         }
     }
@@ -39,12 +48,12 @@ final class XmlImporter implements ImporterInterface
         return 'xml';
     }
 
-    public function makeTranslations(array $translationItems, TranslationDomain $domain): Generator
+    public function makeTranslations(array $translationItems, TranslationDomain $domain, string $source): Generator
     {
         foreach ($translationItems as $translationItem) {
             $key = TranslationKey::forType(Type::from($translationItem['@type']), $translationItem['@name']);
             foreach ($translationItem['translation'] as $translation) {
-                yield new Translation($domain, $key, Locale::from($translation['@locale']), $translation['#']);
+                yield new Translation($domain, $key, Locale::from($translation['@locale']), $translation['#'], $source);
             }
         }
     }
