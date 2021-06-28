@@ -11,6 +11,9 @@ services:
 
   Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider: ~
 
+  ForkCMS\Modules\Backend\Controller\LoginController:
+    public: true
+
   ForkCMS\Modules\Backend\Controller\BackendController:
     public: true
     arguments:

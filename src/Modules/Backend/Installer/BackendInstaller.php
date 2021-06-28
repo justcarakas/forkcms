@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Backend\Installer;
 
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItem;
-use ForkCMS\Modules\Backend\Domain\RememberMeToken\RememberMeToken;
+use ForkCMS\Modules\Backend\Domain\Authentication\RememberMeToken;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\User\UserSetting;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
