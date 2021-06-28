@@ -14,7 +14,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * This command will run the requirements checks of fork
  */
-class CheckRequirementsCommand extends Command
+final class CheckRequirementsCommand extends Command
 {
     public const RETURN_SERVER_DOES_NOT_MEET_REQUIREMENTS = 2;
     public const RETURN_SERVER_MEETS_REQUIREMENTS = 0;
