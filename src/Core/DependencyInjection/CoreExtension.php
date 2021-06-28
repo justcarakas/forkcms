@@ -5,7 +5,7 @@ namespace ForkCMS\Core\DependencyInjection;
 use ForkCMS\Core\Domain\DependencyInjection\ForkModuleExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class CoreExtension extends ForkModuleExtension
+final class CoreExtension extends ForkModuleExtension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
