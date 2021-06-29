@@ -22,11 +22,11 @@ final class InstallerConfiguration
     private array $withSteps = [];
     private bool $multilingual;
     private Locale $defaultLocale;
-    private Locale $defaultInterfaceLocale;
+    private Locale $defaultUserLocale;
     /** @var Locale[] */
-    private array $locales;
+    private array $locales = [];
     /** @var Locale[] */
-    private array $interfaceLocales;
+    private array $userLocales = [];
     /** @var ModuleName[] */
     private array $modules = [];
     private bool $installExampleData;
@@ -88,11 +88,11 @@ final class InstallerConfiguration
             static fn(Locale $locale) => $locale,
             $localesStepConfiguration->locales
         );
-        $this->defaultInterfaceLocale = $localesStepConfiguration->defaultInterfaceLocale
+        $this->defaultUserLocale = $localesStepConfiguration->defaultUserLocale
                                         ?? throw new InvalidArgumentException('A default interface locale is missing');
-        $this->interfaceLocales = array_map(
+        $this->userLocales = array_map(
             static fn(Locale $locale) => $locale,
-            $localesStepConfiguration->interfaceLocales
+            $localesStepConfiguration->userLocales
         );
         $this->addStep($localesStepConfiguration::getStep());
     }
@@ -107,9 +107,9 @@ final class InstallerConfiguration
         return $this->defaultLocale;
     }
 
-    public function getDefaultInterfaceLocale(): Locale
+    public function getDefaultUserLocale(): Locale
     {
-        return $this->defaultInterfaceLocale;
+        return $this->defaultUserLocale;
     }
 
     /** @return Locale[] */
@@ -119,9 +119,9 @@ final class InstallerConfiguration
     }
 
     /** @return Locale[] */
-    public function getInterfaceLocales(): array
+    public function getUserLocales(): array
     {
-        return $this->interfaceLocales;
+        return $this->userLocales;
     }
 
     public function withModulesStep(

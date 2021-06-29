@@ -25,8 +25,8 @@ class LocalesType extends AbstractType implements DataTransformerInterface
                 'expanded' => true,
                 'multiple' => false,
                 'choices' => [
-                    'Just one locale' => false,
-                    'Multiple locales' => true,
+                    'Just one locale (i.e. mysite.com/blog)' => false,
+                    'Multiple locales (i.e. mysite.com/en/blog)' => true,
                 ],
                 'choice_attr' => static function (bool $multilingual) {
                     return [
@@ -48,6 +48,7 @@ class LocalesType extends AbstractType implements DataTransformerInterface
             'defaultLocale',
             LocaleType::class,
             [
+                'label' => 'What is the default locale for your website?',
                 'attr' => [
                     'data-fork-cms-role' => 'default-locale',
                 ],
@@ -56,28 +57,30 @@ class LocalesType extends AbstractType implements DataTransformerInterface
             'sameInterfaceLocale',
             CheckboxType::class,
             [
-                'label' => 'Use the same locale(s) for the CMS interface.',
+                'label' => 'Use the same locale(s) for the users in the CMS interface.',
                 'required' => false,
                 'attr' => [
-                    'data-fork-cms-role' => 'same-interface-locale',
+                    'data-fork-cms-role' => 'same-user-locale',
                 ],
             ]
         )->add(
-            'defaultInterfaceLocale',
+            'defaultUserLocale',
             LocaleType::class,
             [
+                'label' => 'What is the default locale for users in the CMS interface?',
                 'attr' => [
-                    'data-fork-cms-role' => 'default-interface-locale',
+                    'data-fork-cms-role' => 'default-user-locale',
                 ],
             ]
         )->add(
-            'interfaceLocales',
+            'userLocales',
             LocaleType::class,
             [
+                'label' => 'Select the locale(s) users can choose in the CMS interface.',
                 'multiple' => true,
                 'expanded' => true,
                 'attr' => [
-                    'data-fork-cms-role' => 'interface-locales',
+                    'data-fork-cms-role' => 'user-locales',
                 ],
             ]
         )->addModelTransformer($this);
