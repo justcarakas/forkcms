@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * )
  * @ORM\HasLifecycleCallbacks
  */
-final class InstalledLocale
+class InstalledLocale
 {
     /**
      * @ORM\Id
