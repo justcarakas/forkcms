@@ -1,4 +1,3 @@
-
 backend_ajax:
   path: /backend/ajax
   controller: ForkCMS\Modules\Backend\Controller\BackendAjaxController

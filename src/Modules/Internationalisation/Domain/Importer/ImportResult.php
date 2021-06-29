@@ -8,6 +8,7 @@ final class ImportResult
 {
     private int $importedCount = 0;
     private int $updatedCount = 0;
+    private int $skippedCount = 0;
 
     /** @var Translation[] */
     private array $failed = [];
@@ -20,6 +21,11 @@ final class ImportResult
     public function getUpdatedCount(): int
     {
         return $this->updatedCount;
+    }
+
+    public function getSkippedCount(): int
+    {
+        return $this->skippedCount;
     }
 
     public function getFailedCount(): int
@@ -46,5 +52,10 @@ final class ImportResult
     public function addUpdated(Translation $translation): void
     {
         ++$this->updatedCount;
+    }
+
+    public function addSkipped(Translation $translation): void
+    {
+        ++$this->skippedCount;
     }
 }

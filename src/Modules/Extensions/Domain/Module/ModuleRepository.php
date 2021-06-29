@@ -31,4 +31,12 @@ final class ModuleRepository extends ServiceEntityRepository
         $entityManager->persist($module);
         $entityManager->flush();
     }
+
+    /**
+     * @return array<string, Module>
+     */
+    public function findAllIndexed(): array
+    {
+        return $this->createQueryBuilder('m', 'm.name')->getQuery()->getResult();
+    }
 }

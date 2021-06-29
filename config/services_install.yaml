@@ -69,3 +69,7 @@ services:
   ForkCMS\Modules\Internationalisation\Domain\Translation\ForkTranslationLoader:
     tags:
       - { name: translation.loader, alias: db }
+
+  ForkCMS\Modules\Internationalisation\Domain\Importer\Importer:
+    arguments:
+      - !tagged_locator { tag: 'forkcms.translation.importer', default_index_method: 'forExtension' }
