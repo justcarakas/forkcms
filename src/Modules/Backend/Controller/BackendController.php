@@ -18,7 +18,6 @@ final class BackendController
 
     public function __invoke(
         Request $request,
-        ?string $locale,
         ActionSlug $actionSlug
     ): Response {
         try {
