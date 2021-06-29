@@ -45,8 +45,8 @@ FORK_DATABASE_PASSWORD=%5$s
 FORK_DEBUG_EMAIL=%6$s
 SITE_PROTOCOL=%7$s
 SITE_DOMAIN=%8$s
-SITE_MULTILANGUAGE=%9$s
-SITE_DEFAULT_LANGUAGE=%10$s',
+SITE_MULTILINGUAL=%9$s
+SITE_FALLBACK_LOCALE=%10$s',
             $installerConfiguration->getDatabaseHostname(),
             $installerConfiguration->getDatabasePort(),
             $installerConfiguration->getDatabaseName(),
@@ -90,9 +90,9 @@ SITE_DEFAULT_LANGUAGE=%10$s',
             'default-locale' => new TaggedValue('fork-cms_locale', $locales->defaultLocale->value),
             'interface-locales' => array_map(
                 static fn(Locale $locale) => new TaggedValue('fork-cms_locale', $locale->value),
-                $locales->interfaceLocales
+                $locales->userLocales
             ),
-            'default-interface-locale' => new TaggedValue('fork-cms_locale', $locales->defaultInterfaceLocale->value),
+            'default-interface-locale' => new TaggedValue('fork-cms_locale', $locales->defaultUserLocale->value),
             'modules' => array_map(
                 static fn(ModuleName $moduleName) => new TaggedValue('fork-cms_module', $moduleName->getName()),
                 $modules->modules
