@@ -45,8 +45,7 @@ FORK_DATABASE_PASSWORD=%5$s
 FORK_DEBUG_EMAIL=%6$s
 SITE_PROTOCOL=%7$s
 SITE_DOMAIN=%8$s
-SITE_MULTILINGUAL=%9$s
-SITE_FALLBACK_LOCALE=%10$s',
+SITE_MULTILINGUAL=%9$s',
             $installerConfiguration->getDatabaseHostname(),
             $installerConfiguration->getDatabasePort(),
             $installerConfiguration->getDatabaseName(),
@@ -56,7 +55,6 @@ SITE_FALLBACK_LOCALE=%10$s',
             $isOnHttps ? 'https' : 'http',
             $_SERVER['SERVER_NAME'] ?? $_SERVER['HTTP_HOST'] ?? '127.0.0.1',
             $installerConfiguration->isMultilingual() ? 'true' : 'false',
-            $installerConfiguration->getDefaultLocale(),
         );
     }
 
