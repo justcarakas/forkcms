@@ -38,4 +38,12 @@ final class InstalledLocaleRepository extends ServiceEntityRepository
         $entityManager->persist($installedLocale);
         $entityManager->flush();
     }
+
+    /**
+     * @return array<string, InstalledLocale>
+     */
+    public function findAllIndexed(): array
+    {
+        return $this->createQueryBuilder('l', 'l.locale')->getQuery()->getResult();
+    }
 }
