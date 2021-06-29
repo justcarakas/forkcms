@@ -53,8 +53,6 @@ services:
   ForkCMS\Modules\Backend\Domain\:
     resource: '../src/Modules/Backend/Domain/*'
     exclude:
-      - '../src/Modules/*.todo
-      - '../src/Modules/*.deprecated
       - '../src/Modules/Backend/Domain/Module/Module.php'
 
   ForkCMS\Modules\Extensions\Domain\Module\InstalledModules:
