@@ -2,7 +2,7 @@ export class Step2 {
   constructor() {
     this.toggleLanguageType()
     this.handleLanguageChanges()
-    this.setInterfaceDefaultLanguage()
+    this.setUserDefaultLanguage()
   }
 
   /**
@@ -22,7 +22,7 @@ export class Step2 {
         }
       }
 
-      this.setInterfaceDefaultLanguage()
+      this.setUserDefaultLanguage()
     }).trigger('change')
 
     // single languages
@@ -32,40 +32,40 @@ export class Step2 {
         $('[data-fork-cms-role="default-locale"] option').removeAttr('disabled')
       }
 
-      this.setInterfaceDefaultLanguage()
+      this.setUserDefaultLanguage()
     }).trigger('change')
   }
 
-  setInterfaceDefaultLanguage() {
-    let $defaultInterfaceLocale = $('[data-fork-cms-role="default-interface-locale"]')
-    let $defaultInterfaceLocaleOptions = $defaultInterfaceLocale.find('option')
+  setUserDefaultLanguage() {
+    let $defaultUserLocale = $('[data-fork-cms-role="default-user-locale"]')
+    let $defaultUserLocaleOptions = $defaultUserLocale.find('option')
     // same language as frontend
-    if ($('[data-fork-cms-role="same-interface-locale"]').is(':checked')) {
-      // just 1 language selected = only selected frontend language is available as interface language
+    if ($('[data-fork-cms-role="same-user-locale"]').is(':checked')) {
+      // just 1 language selected = only selected frontend language is available as user language
       if ($('[data-fork-cms-role="not-multilingual"]').is(':checked')) {
-        $defaultInterfaceLocaleOptions.prop('disabled', true)
-        $('[data-fork-cms-role="default-interface-locale"] option[value=' + $('[data-fork-cms-role="default-locale"]').val() + ']').removeAttr('disabled')
-        $defaultInterfaceLocale.val($('[data-fork-cms-role="default-interface-locale"] option:enabled:first').val())
+        $defaultUserLocaleOptions.prop('disabled', true)
+        $('[data-fork-cms-role="default-user-locale"] option[value=' + $('[data-fork-cms-role="default-locale"]').val() + ']').removeAttr('disabled')
+        $defaultUserLocale.val($('[data-fork-cms-role="default-user-locale"] option:enabled:first').val())
       }
       else if ($('[data-fork-cms-role="multilingual"]').is(':checked')) {
-        $defaultInterfaceLocaleOptions.prop('disabled', true)
+        $defaultUserLocaleOptions.prop('disabled', true)
         $('[data-fork-cms-role="locales"] input:checked').each((index, element) => {
-          $('[data-fork-cms-role="default-interface-locale"] option[value=' + $(element).val() + ']').removeAttr('disabled')
+          $('[data-fork-cms-role="default-user-locale"] option[value=' + $(element).val() + ']').removeAttr('disabled')
         })
 
-        if ($('[data-fork-cms-role="default-interface-locale"] option[value=' + $defaultInterfaceLocale.val() + ']').length === 0) {
-          $defaultInterfaceLocale.val($('[data-fork-cms-role="default-interface-locale"] option:enabled:first').val())
+        if ($('[data-fork-cms-role="default-user-locale"] option[value=' + $defaultUserLocale.val() + ']').length === 0) {
+          $defaultUserLocale.val($('[data-fork-cms-role="default-user-locale"] option:enabled:first').val())
         }
       }
     }
     else {
       // different languages than frontend
-      $defaultInterfaceLocaleOptions.prop('disabled', true)
-      $('[data-fork-cms-role="interface-locales"] input:checked').each((index, element) => {
-        $('[data-fork-cms-role="default-interface-locale"] option[value=' + $(element).val() + ']').removeAttr('disabled')
+      $defaultUserLocaleOptions.prop('disabled', true)
+      $('[data-fork-cms-role="user-locales"] input:checked').each((index, element) => {
+        $('[data-fork-cms-role="default-user-locale"] option[value=' + $(element).val() + ']').removeAttr('disabled')
       })
-      if ($('[data-fork-cms-role="default-interface-locale"] option[value=' + $defaultInterfaceLocale.val() + ']').length === 0) {
-        $defaultInterfaceLocale.val($('[data-fork-cms-role="default-interface-locale"] option:enabled:first').val())
+      if ($('[data-fork-cms-role="default-user-locale"] option[value=' + $defaultUserLocale.val() + ']').length === 0) {
+        $defaultUserLocale.val($('[data-fork-cms-role="default-user-locale"] option:enabled:first').val())
       }
     }
   }
@@ -81,29 +81,27 @@ export class Step2 {
         $defaultLocale.val($('[data-fork-cms-role="default-locale"] option:enabled:first').val())
       }
 
-      this.setInterfaceDefaultLanguage()
+      this.setUserDefaultLanguage()
     })
 
     $('[data-fork-cms-role="default-locale"]').on('change', () => {
-      this.setInterfaceDefaultLanguage()
+      this.setUserDefaultLanguage()
     })
 
-    // interface language
-    $('[data-fork-cms-role="same-interface-locale"]').on('change', () => {
-      if ($('[data-fork-cms-role="same-interface-locale"]').is(':checked')) {
-        $('[data-fork-cms-role="interface-locales-explanation"]').hide()
-        $('[data-fork-cms-role="interface-locales"]').hide()
+    // user language
+    $('[data-fork-cms-role="same-user-locale"]').on('change', () => {
+      if ($('[data-fork-cms-role="same-user-locale"]').is(':checked')) {
+        $('[data-fork-cms-role="user-locales"]').hide()
       }
       else {
-        $('[data-fork-cms-role="interface-locales-explanation"]').show()
-        $('[data-fork-cms-role="interface-locales"]').show()
+        $('[data-fork-cms-role="user-locales"]').show()
       }
 
-      this.setInterfaceDefaultLanguage()
+      this.setUserDefaultLanguage()
     }).trigger('change')
 
-    $('[data-fork-cms-role="interface-locales"] input:checkbox').on('change', () => {
-      this.setInterfaceDefaultLanguage()
+    $('[data-fork-cms-role="user-locales"] input:checkbox').on('change', () => {
+      this.setUserDefaultLanguage()
     })
   }
 }

@@ -1,5 +1,5 @@
 framework:
-    default_locale: '%env(SITE_DEFAULT_LANGUAGE)%'
+    default_locale: '%env(SITE_FALLBACK_LOCALE)%'
     translator:
       fallbacks:
         - en

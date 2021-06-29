@@ -34,7 +34,7 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
      * @var Locale[]
      * @Assert\Count(min=1)
      */
-    public array $interfaceLocales = [];
+    public array $userLocales = [];
 
     /**
      * The default locale for this Fork installation
@@ -46,21 +46,21 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
      * The default locale for the Fork backend
      * @Assert\NotBlank()
      */
-    public ?Locale $defaultInterfaceLocale = null;
+    public ?Locale $defaultUserLocale = null;
 
     private function __construct(
         bool $multilingual = false,
         array $locales = [],
-        array $interfaceLocales = [],
+        array $userLocales = [],
         ?Locale $defaultLocale = null,
-        ?Locale $defaultInterfaceLocale = null,
+        ?Locale $defaultUserLocale = null,
     ) {
         $this->multilingual = $multilingual;
         $this->setLocales(...$locales);
-        $this->setInterfaceLocales(...$interfaceLocales);
-        $this->sameInterfaceLocale = $this->locales === $this->interfaceLocales;
+        $this->setUserLocales(...$userLocales);
+        $this->sameInterfaceLocale = $this->locales === $this->userLocales;
         $this->defaultLocale = $defaultLocale;
-        $this->defaultInterfaceLocale = $defaultInterfaceLocale;
+        $this->defaultUserLocale = $defaultUserLocale;
     }
 
     public static function fromInstallerConfiguration(InstallerConfiguration $installerConfiguration): static
@@ -72,9 +72,9 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
         return new self(
             $installerConfiguration->isMultilingual(),
             $installerConfiguration->getLocales(),
-            $installerConfiguration->getInterfaceLocales(),
+            $installerConfiguration->getUserLocales(),
             $installerConfiguration->getDefaultLocale(),
-            $installerConfiguration->getDefaultInterfaceLocale(),
+            $installerConfiguration->getDefaultUserLocale(),
         );
     }
 
@@ -96,7 +96,7 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
         }
 
         if ($this->sameInterfaceLocale) {
-            $this->interfaceLocales = $this->locales;
+            $this->userLocales = $this->locales;
         }
     }
 
@@ -105,9 +105,9 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
         $this->locales = $locales;
     }
 
-    private function setInterfaceLocales(Locale ...$interfaceLocales): void
+    private function setUserLocales(Locale ...$userLocales): void
     {
-        $this->interfaceLocales = $interfaceLocales;
+        $this->userLocales = $userLocales;
     }
 
     public static function getStep(): InstallerStep
