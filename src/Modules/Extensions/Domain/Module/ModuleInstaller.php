@@ -14,9 +14,11 @@ use ForkCMS\Modules\Backend\Installer\BackendInstaller;
 use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Modules\Extensions\Installer\ExtensionsInstaller;
 use ForkCMS\Modules\Internationalisation\Domain\Importer\Importer;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -38,7 +40,9 @@ abstract class ModuleInstaller
         protected UserGroupRepository $userGroupRepository,
         protected ModuleSettingRepository $moduleSettingRepository,
         protected TranslationRepository $translationRepository,
+        protected InstalledLocaleRepository $installedLocaleRepository,
         protected Importer $importer,
+        protected SessionInterface $session,
         private MessageBusInterface $commandBus,
         private MessageBusInterface $eventBus,
     ) {
