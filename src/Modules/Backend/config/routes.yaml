@@ -3,10 +3,10 @@ backend_ajax:
   controller: ForkCMS\Modules\Backend\Controller\BackendAjaxController
 
 backend_logout:
-  path: /private/{_locale}/backend/logout
+  path: /private/{_locale}/backend/authentication_logout
 
 backend_login:
-  path: /private/{_locale}/backend/login
+  path: /private/{_locale}/backend/authentication_login
   controller: ForkCMS\Modules\Backend\Controller\LoginController
 
 backend:

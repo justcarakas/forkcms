@@ -9,5 +9,6 @@ final class AuthenticationLogin extends AbstractActionController
 {
     protected function execute(Request $request): void
     {
+        // placeholder for easy url generation, actual code at ForkCMS\Modules\Backend\Controller\LoginController
     }
 }
