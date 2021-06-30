@@ -6,11 +6,13 @@ use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
+use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
+use TypeError;
 
 /** This class will make sure that the domain is set correctly */
 final class ForkTranslator extends Translator
@@ -45,7 +47,27 @@ final class ForkTranslator extends Translator
             }
         }
 
-        return parent::trans($id, $parameters, $domain ?? $this->defaultTranslationDomain->getDomain(), $locale);
+        $domain ??= $this->defaultTranslationDomain->getDomain();
+
+        $translated = parent::trans($id, $parameters, $domain, $locale);
+
+        if ($translated !== $id) {
+            return $translated;
+        }
+
+        try {
+            $fallbackDomain = TranslationDomain::fromDomain($domain);
+        } catch (TypeError | InvalidArgumentException) {
+            // Not a fork translation domain or no fallback available
+            return $translated;
+        }
+
+        if ($fallbackDomain === null) {
+            return $translated;
+        }
+
+        // use the fallback of the application
+        return parent::trans($id, $parameters, $fallbackDomain->getDomain(), $locale);
     }
 
     public function setDefaultTranslationDomain(TranslationDomain $defaultTranslationDomain): void
