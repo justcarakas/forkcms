@@ -19,6 +19,9 @@ final class ForkTranslator extends Translator
 {
     private ?TranslationDomain $defaultTranslationDomain = null;
 
+    /** @var ?string used for debug reasons */
+    private ?string $lastUsedDomain;
+
     public function __construct(
         ContainerInterface $container,
         MessageFormatterInterface $formatter,
@@ -34,29 +37,31 @@ final class ForkTranslator extends Translator
     public function trans(?string $id, array $parameters = [], string $domain = null, string $locale = null): string
     {
         if (!$this->requestStack instanceof RequestStack) {
-            return parent::trans($id, $parameters, $domain, $locale);
+            return $this->getTranslationAndStoreDomain($id, $parameters, $domain, $locale);
         }
 
         if ($domain === null && $this->defaultTranslationDomain === null) {
             $mainRequest = $this->requestStack->getMainRequest();
             if ($mainRequest instanceof Request) {
                 $this->defaultTranslationDomain = match ($mainRequest->get('_route')) {
-                    'backend', 'backend_ajax' => ActionSlug::fromRequest($mainRequest)->getTranslationDomain(),
-                    default => new TranslationDomain(Application::frontend(), ModuleName::fromString('Core')),
+                    'backend',
+                    'backend_ajax',
+                    'backend_login' => ActionSlug::fromRequest($mainRequest)->getTranslationDomain(),
+                    default => new TranslationDomain(Application::frontend()),
                 };
             }
         }
 
         $domain ??= $this->defaultTranslationDomain->getDomain();
 
-        $translated = parent::trans($id, $parameters, $domain, $locale);
+        $translated = $this->getTranslationAndStoreDomain($id, $parameters, $domain, $locale);
 
         if ($translated !== $id) {
             return $translated;
         }
 
         try {
-            $fallbackDomain = TranslationDomain::fromDomain($domain);
+            $fallbackDomain = TranslationDomain::fromDomain($domain)->getFallback();
         } catch (TypeError | InvalidArgumentException) {
             // Not a fork translation domain or no fallback available
             return $translated;
@@ -66,12 +71,35 @@ final class ForkTranslator extends Translator
             return $translated;
         }
 
+        $domain = $fallbackDomain->getDomain();
+
         // use the fallback of the application
-        return parent::trans($id, $parameters, $fallbackDomain->getDomain(), $locale);
+        return $this->getTranslationAndStoreDomain($id, $parameters, $domain, $locale, false);
     }
 
     public function setDefaultTranslationDomain(TranslationDomain $defaultTranslationDomain): void
     {
         $this->defaultTranslationDomain = $defaultTranslationDomain;
+    }
+
+    public function getLastUsedDomain(): ?string
+    {
+        return $this->lastUsedDomain;
+    }
+
+    private function getTranslationAndStoreDomain(
+        ?string $id,
+        array $parameters = [],
+        string $domain = null,
+        string $locale = null,
+        bool $storeDomainIfTranslationWasNotFound = true
+    ): string {
+        $translated = parent::trans($id, $parameters, $domain, $locale);
+
+        if ($storeDomainIfTranslationWasNotFound || $id !== $translated) {
+            $this->lastUsedDomain = $domain;
+        }
+
+        return $translated;
     }
 }

@@ -6,9 +6,9 @@ use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Core\Domain\PDO\ForkConnection;
 use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\DataCollectorTranslator;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
 use ForkCMS\Modules\Internationalisation\Domain\Translator\ForkTranslator;
-use PDO;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -47,6 +47,10 @@ final class TranslatorPass implements CompilerPassInterface
                 );
             }
         }
+
+        if ($container->hasDefinition('translator.data_collector')) {
+            $container->getDefinition('translator.data_collector')->setClass(DataCollectorTranslator::class);
+        }
     }
 
     private function getDatabaseDomains(InstalledModules $moduleNames): array
@@ -55,7 +59,12 @@ final class TranslatorPass implements CompilerPassInterface
         $translationDomains = [];
         foreach ($moduleNames() as $moduleName) {
             foreach ($applications as $application) {
-                $translationDomains[] = new TranslationDomain($application, $moduleName);
+                $translationDomain = new TranslationDomain($application, $moduleName);
+                $translationDomains[$translationDomain->getDomain()] = $translationDomain;
+                $fallbackTranslationDomain = $translationDomain->getFallback();
+                if ($fallbackTranslationDomain !== null) {
+                    $translationDomains[$fallbackTranslationDomain->getDomain()] = $fallbackTranslationDomain;
+                }
             }
         }
 
