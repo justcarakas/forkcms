@@ -20,7 +20,7 @@ class TranslationDomain
      */
     private ?ModuleName $moduleName;
 
-    public function __construct(Application $application, ?ModuleName $moduleName)
+    public function __construct(Application $application, ?ModuleName $moduleName = null)
     {
         $this->application = $application;
         $this->moduleName = $moduleName;
@@ -54,5 +54,14 @@ class TranslationDomain
             Application::from(Container::camelize($domainParts[0])),
             array_key_exists(1, $domainParts) ? ModuleName::fromString(Container::camelize($domainParts[1])) : null
         );
+    }
+
+    public function getFallback(): ?self
+    {
+        if ($this->moduleName === null) {
+            return null;
+        }
+
+        return new self($this->application);
     }
 }
