@@ -2,7 +2,9 @@
 
 namespace ForkCMS\Core\Domain\PDO;
 
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use PDO;
+use RuntimeException;
 
 /**
  * @internal please use doctrine, this is only for use while the kernel is building and we can't use doctrine yet
@@ -26,5 +28,32 @@ final class ForkConnection extends PDO
         }
 
         return self::$instance;
+    }
+
+    /** @return ModuleName[] */
+    public function getInstalledModules(): array
+    {
+        $modulesQuery = $this->query('SELECT name from Modules');
+        if (!$modulesQuery->execute()) {
+            throw new RuntimeException('Cannot get installed modules from database');
+        }
+
+        return array_map(
+            static fn(string $moduleName): ModuleName => ModuleName::fromString($moduleName),
+            $modulesQuery->fetchAll(PDO::FETCH_COLUMN, 0)
+        );
+    }
+
+    /** @return array<string, bool> true for the default website locale */
+    public function getEnabledLocales(): array
+    {
+        return array_map(
+            static fn(string $isEnabled): bool => $isEnabled,
+            $this->query(
+                'SELECT locale, isDefaultForWebsite
+                FROM locales
+                WHERE isEnabledForWebsite = true OR isEnabledForUser = true'
+            )->fetchAll(PDO::FETCH_KEY_PAIR)
+        );
     }
 }

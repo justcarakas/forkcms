@@ -27,14 +27,6 @@ final class InstalledModules
             return InstallerConfiguration::fromSession(new Session())?->getModules() ?? [];
         }
 
-        $modulesQuery = ForkConnection::get()->query('SELECT name from Modules');
-        if (!$modulesQuery->execute()) {
-            throw new RuntimeException('Cannot get installed modules from database');
-        }
-
-        return array_map(
-            static fn(string $moduleName): ModuleName => ModuleName::fromString($moduleName),
-            $modulesQuery->fetchAll(PDO::FETCH_COLUMN, 0)
-        );
+        return ForkConnection::get()->getInstalledModules();
     }
 }
