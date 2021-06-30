@@ -71,13 +71,6 @@ final class TranslatorPass implements CompilerPassInterface
             return $locales;
         }
 
-        return array_map(
-            static fn(string $isEnabled): bool => $isEnabled,
-            ForkConnection::get()->query(
-                'SELECT locale, isDefaultForWebsite
-            FROM locales
-            WHERE isEnabledForWebsite = true OR isEnabledForUser = true'
-            )->fetchAll(PDO::FETCH_KEY_PAIR)
-        );
+        return ForkConnection::get()->getEnabledLocales();
     }
 }
