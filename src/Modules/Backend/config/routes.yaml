@@ -13,6 +13,5 @@ backend:
   path: /private/{_locale}/{module}/{action}
   controller: ForkCMS\Modules\Backend\Controller\BackendController
   defaults:
-    _locale: ~
     module: ~
     action: ~
