@@ -82,6 +82,7 @@ final class Kernel extends BaseKernel
 
     private function configureInstallerContainer(ContainerConfigurator $container): void
     {
+        $container->import(self::ROOT_DIR . 'config/{packages}/*.yaml');
         $container->import(self::ROOT_DIR . 'config/{packages}/install/*.yaml');
         if ($this->environment === 'test_install') {
             $container->import(self::ROOT_DIR . 'config/{packages}/test_install/*.yaml');

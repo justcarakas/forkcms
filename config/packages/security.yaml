@@ -3,10 +3,7 @@ security:
   encoders:
     ForkCMS\Modules\Backend\Domain\User:
       algorithm: auto
-
-  # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
   providers:
-    # used to reload user from session & other features (e.g. switch_user)
     backend_user_provider:
       entity:
         class: ForkCMS\Modules\Backend\Domain\User
@@ -31,17 +28,9 @@ security:
       pattern: ^/
       security: false
 
-
-      # activate different ways to authenticate
-      # https://symfony.com/doc/current/security.html#firewalls-authentication
-
-      # https://symfony.com/doc/current/security/impersonating_user.html
-      # switch_user: true
-
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
     - { path: ^/private/\w\w/backend/authentication_login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/private/\w\w/backend/authentication_logout, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/private, roles: ROLE_USER }
-  # - { path: ^/profile, roles: ROLE_USER }
