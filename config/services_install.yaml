@@ -15,10 +15,6 @@ services:
       tags:
         - { name: messenger.message_handler, bus: command.bus }
 
-    ForkCMS\Core\Domain\MessageHandler\EventHandlerInterface:
-      tags:
-        - { name: messenger.message_handler, bus: event.bus }
-
     ForkCMS\Modules\Internationalisation\Domain\Importer\ImporterInterface:
       tags:
         - { name: forkcms.translation.importer }
