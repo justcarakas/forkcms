@@ -37,6 +37,7 @@ final class InternationalisationInstaller extends ModuleInstaller
             array_map(static fn(Locale $locale): string => $locale->value, $installerConfiguration->getLocales()),
             $defaults
         );
+
         foreach ($installerConfiguration->getUserLocales() as $locale) {
             if (!array_key_exists($locale->value, $localeConfig)) {
                 $localeConfig[$locale->value] = $defaults;
@@ -45,8 +46,10 @@ final class InternationalisationInstaller extends ModuleInstaller
 
             $localeConfig[$locale->value]['isEnabledForUser'] = true;
         }
+
         $localeConfig[$installerConfiguration->getDefaultLocale()->value]['isDefaultForWebsite'] = true;
         $localeConfig[$installerConfiguration->getDefaultUserLocale()->value]['isDefaultForUser'] = true;
+
         foreach ($localeConfig as $locale => $config) {
             $this->installedLocaleRepository->save(
                 new InstalledLocale(

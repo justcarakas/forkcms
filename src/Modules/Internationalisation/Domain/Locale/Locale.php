@@ -62,4 +62,9 @@ final class Locale extends Enum implements Serializable, Stringable
     {
         return 'lbl.' . mb_strtoupper($this->value);
     }
+
+    public static function fallback(): self
+    {
+        return self::en();
+    }
 }
