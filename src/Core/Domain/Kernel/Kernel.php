@@ -3,6 +3,7 @@
 namespace ForkCMS\Core\Domain\Kernel;
 
 use ForkCMS\Core\DependencyInjection\CoreExtension;
+use ForkCMS\Core\Domain\PDO\ForkConnection;
 use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -94,11 +95,32 @@ final class Kernel extends BaseKernel
 
     private function configureLiveRoutes(RoutingConfigurator $routes): void
     {
-        $routes->import(self::ROOT_DIR . 'config/{routes}/' . $this->environment . '/*.yaml');
-        $routes->import(self::ROOT_DIR . 'config/{routes}/*.yaml');
+        $websiteLocales = ForkConnection::get()->getWebsiteLocales();
+        $defaults = [
+            '_locale' => array_search(true, $websiteLocales),
+        ];
+        $requirements = [
+            '_locale' => implode('|', array_keys($websiteLocales)),
+        ];
+        $importWithDefaultsAndRequirements = static function (
+            $resource,
+            string $type = null,
+            bool $ignoreErrors = false,
+            $exclude = null,
+        ) use (
+            $routes,
+            $defaults,
+            $requirements,
+        ): void {
+            $routes->import($resource, $type, $ignoreErrors, $exclude)
+                ->requirements($requirements)
+                ->defaults($defaults);
+        };
+        $importWithDefaultsAndRequirements(self::ROOT_DIR . 'config/{routes}/' . $this->environment . '/*.yaml');
+        $importWithDefaultsAndRequirements(self::ROOT_DIR . 'config/{routes}/*.yaml');
 
         if (is_file(self::ROOT_DIR . 'config/routes.yaml')) {
-            $routes->import(self::ROOT_DIR . 'config/routes.yaml');
+            $importWithDefaultsAndRequirements(self::ROOT_DIR . 'config/routes.yaml');
         }
     }
 
