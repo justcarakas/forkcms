@@ -4,6 +4,7 @@ services:
     autoconfigure: true
     bind:
       string $rootDir: '%kernel.project_dir%'
+      string $cacheDir: '%kernel.cache_dir%'
 
   ForkCMS\Modules\Internationalisation\Console\:
     resource: '../Console/*'

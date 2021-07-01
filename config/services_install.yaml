@@ -10,6 +10,7 @@ services:
     autoconfigure: true
     bind:
       string $rootDir: '%kernel.project_dir%'
+      string $cacheDir: '%kernel.cache_dir%'
       bool $forkIsInstalled: '%fork.is_installed%'
 
   _instanceof:
