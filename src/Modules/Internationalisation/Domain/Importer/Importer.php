@@ -24,7 +24,7 @@ final class Importer
     ) {
     }
 
-    public function import(string $path, bool $overwriteConflicts = false): ImportResult
+    public function import(string $path, bool $overwriteConflicts = false, ?Locale $specificLocale = null): ImportResult
     {
         $translationFile = new File($path);
         $importResult = new ImportResult();
@@ -42,6 +42,7 @@ final class Importer
             $moduleName = $translation->getDomain()->getModuleName();
             $locale = $translation->getLocale()->value;
             if (($moduleName instanceof ModuleName && !array_key_exists($moduleName->getName(), $modules))
+                || ($specificLocale !== null && !$specificLocale->equals($translation->getLocale()))
                 || (
                     $locale !== $fallbackLocale
                     && (
