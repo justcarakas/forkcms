@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
 
 /**
  * Builds the form to set up login information
@@ -26,6 +27,9 @@ final class AuthenticationType extends AbstractType
                     'invalid_message' => 'The passwords do not match.',
                     'first_options' => ['label' => 'Password'],
                     'second_options' => ['label' => 'Confirm'],
+                    'constraints' => [
+                        new NotCompromisedPassword(['skipOnError' => true])
+                    ],
                 ]
             )->add(
                 'differentDebugEmail',
