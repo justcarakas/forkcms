@@ -2,6 +2,8 @@
 
 namespace ForkCMS\Modules\Backend\Domain\User;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class UserDataTransferObject
@@ -25,12 +27,15 @@ abstract class UserDataTransferObject
 
     protected ?User $userEntity;
 
+    public Collection $userGroups;
+
     public function __construct(?User $userEntity = null)
     {
         $this->userEntity = $userEntity;
         $this->email = $userEntity?->getEmail();
         $this->accessToBackend = $userEntity?->hasAccessToBackend() ?? true;
         $this->superAdmin = $userEntity?->isSuperAdmin() ?? false;
+        $this->userGroups = $userEntity?->getUserGroups() ?? new ArrayCollection();
     }
 
     final public function hasEntity(): bool
