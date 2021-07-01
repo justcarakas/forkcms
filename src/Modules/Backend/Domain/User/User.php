@@ -6,6 +6,7 @@ use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Modules\Backend\Backend\Actions\NotFound;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use InvalidArgumentException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -166,7 +167,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             return [];
         }
 
-        $roles[] = 'ROLE_USER';
+        $roles = [
+            'ROLE_USER',
+            NotFound::getActionSlug()->asModuleAction()->asRole()
+        ];
         $groupRoles = [];
 
         foreach ($this->userGroups as $userGroup) {
