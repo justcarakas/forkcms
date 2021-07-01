@@ -25,9 +25,9 @@ class ImportLocaleCommand extends Command
     {
         $this->setDescription('Import fork translations for a specific modul or from a given file')
             ->addOption('overwrite', 'o', InputOption::VALUE_NONE, 'Overwrite the existing translations')
-            ->addOption('file', 'f', InputOption::VALUE_OPTIONAL, 'Path to the file with the translations')
-            ->addOption('module', 'm', InputOption::VALUE_OPTIONAL, 'Name of the module that contains the translations')
-            ->addOption('locale', 'l', InputOption::VALUE_OPTIONAL, 'Only install for a specific locale');
+            ->addOption('file', 'f', InputOption::VALUE_REQUIRED, 'Path to the file with the translations')
+            ->addOption('module', 'm', InputOption::VALUE_REQUIRED, 'Name of the module that contains the translations')
+            ->addOption('locale', 'l', InputOption::VALUE_REQUIRED, 'Only install for a specific locale');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
