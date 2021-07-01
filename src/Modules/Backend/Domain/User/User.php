@@ -2,11 +2,15 @@
 
 namespace ForkCMS\Modules\Backend\Domain\User;
 
+use Assert\Assertion;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
+use InvalidArgumentException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -14,7 +18,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="users")
  */
 #[UniqueEntity(fields: ['email'])]
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -31,7 +35,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string")
      */
-    private string $password;
+    private ?string $password;
 
     /**
      * @ORM\Column(type="boolean")
@@ -78,18 +82,49 @@ class User implements UserInterface
 
     public function __construct(
         string $email,
-        string $password,
+        private ?string $plainTextPassword,
         bool $accessToBackend,
-        bool $deleted,
-        bool $superAdmin
+        bool $superAdmin,
     ) {
         $this->email = $email;
-        $this->password = $password;
+        $this->plainTextPassword = trim($this->plainTextPassword);
+        $this->password = null;
         $this->accessToBackend = $accessToBackend;
-        $this->deleted = $deleted;
         $this->superAdmin = $superAdmin;
         $this->settings = new ArrayCollection();
         $this->userGroups = new ArrayCollection();
+        $this->deleted = false;
+        $this->validate();
+    }
+
+    public static function createFromDataTransferObject(UserDataTransferObject $userDataTransferObject): self
+    {
+        if ($userDataTransferObject->hasEntity()) {
+            $user = $userDataTransferObject->getEntity();
+            $user->email = $userDataTransferObject->email ?? throw new InvalidArgumentException('Email is required');
+            $user->accessToBackend = $userDataTransferObject->accessToBackend;
+            $user->superAdmin = $userDataTransferObject->superAdmin;
+            $user->plainTextPassword = trim($userDataTransferObject->plainTextPassword);
+            $user->validate();
+
+            return $user;
+        }
+
+        return new self(
+            $userDataTransferObject->email,
+            $userDataTransferObject->plainTextPassword,
+            $userDataTransferObject->accessToBackend,
+            $userDataTransferObject->superAdmin
+        );
+    }
+
+    private function validate(): void
+    {
+        Assertion::email($this->email);
+        Assertion::maxLength($this->email, 180);
+        Assertion::boolean($this->superAdmin);
+        Assertion::boolean($this->accessToBackend);
+        Assertion::boolean($this->deleted);
     }
 
     public function getId(): ?int
@@ -124,9 +159,18 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles[] = 'ROLE_USER';
+        if (!$this->accessToBackend) {
+            return [];
+        }
 
-        return array_unique($roles);
+        $roles[] = 'ROLE_USER';
+        $groupRoles = [];
+
+        foreach ($this->userGroups as $userGroup) {
+            $groupRoles[] = $userGroup->getRoles();
+        }
+
+        return array_unique(array_merge($roles, ...$groupRoles));
     }
 
     /**
@@ -154,10 +198,20 @@ class User implements UserInterface
      */
     public function eraseCredentials(): void
     {
-        // we don't use plain text passwords here
+        $this->plainTextPassword = null;
     }
 
-    public function isAccessToBackend(): bool
+    public function hashPassword(UserPasswordHasherInterface $passwordHasher): void
+    {
+        if ($this->plainTextPassword === null || $this->plainTextPassword === '') {
+            return;
+        }
+
+        $this->password = $passwordHasher->hashPassword($this, $this->plainTextPassword);
+        $this->eraseCredentials();
+    }
+
+    public function hasAccessToBackend(): bool
     {
         return $this->accessToBackend;
     }
@@ -165,6 +219,16 @@ class User implements UserInterface
     public function isDeleted(): bool
     {
         return $this->deleted;
+    }
+
+    public function delete(): void
+    {
+        $this->deleted = true;
+    }
+
+    public function undoDelete(): void
+    {
+        $this->deleted = false;
     }
 
     public function isSuperAdmin(): bool

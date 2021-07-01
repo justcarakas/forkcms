@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use InvalidArgumentException;
 use Stringable;
+use Symfony\Component\DependencyInjection\Container;
 
 /** @ORM\Embeddable */
 final class ModuleWidget implements Stringable
@@ -60,5 +61,13 @@ final class ModuleWidget implements Stringable
     public function getWidget(): WidgetName
     {
         return $this->widget;
+    }
+
+    public function asRole(): string
+    {
+        $identifier = Container::underscore($this->module->getName()) . '__' .
+                      Container::underscore($this->widget->getName());
+
+        return 'ROLE_MODULE_WIDGET__' . strtoupper($identifier);
     }
 }

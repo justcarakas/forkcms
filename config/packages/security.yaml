@@ -1,12 +1,12 @@
 security:
   enable_authenticator_manager: true
-  encoders:
-    ForkCMS\Modules\Backend\Domain\User:
+  password_hashers:
+    ForkCMS\Modules\Backend\Domain\User\User:
       algorithm: auto
   providers:
     backend_user_provider:
       entity:
-        class: ForkCMS\Modules\Backend\Domain\User
+        class: ForkCMS\Modules\Backend\Domain\User\User
         property: email
   firewalls:
     backend:

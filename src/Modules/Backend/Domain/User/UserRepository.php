@@ -5,8 +5,11 @@ namespace ForkCMS\Modules\Backend\Domain\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Throwable;
+use TypeError;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,9 +19,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 final class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private Security $security)
     {
-        parent::__construct($registry, User::class);
+        try {
+            parent::__construct($registry, User::class);
+        } catch (Throwable $throwable) {
+            if (!empty($_ENV['FORK_DATABASE_HOST'])) {
+                throw $throwable; // needed during the installer
+            }
+        }
     }
 
     /**
@@ -38,5 +47,15 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
     {
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+    }
+
+    public function getAuthenticatedUser(): User
+    {
+        $user = $this->security->getUser();
+        if ($user instanceof User) {
+            return $user;
+        }
+
+        throw new TypeError('There is no authenticated fork user');
     }
 }
