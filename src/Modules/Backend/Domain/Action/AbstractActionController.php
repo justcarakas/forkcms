@@ -27,7 +27,7 @@ abstract class AbstractActionController implements ActionControllerInterface
         $this->pageTitle = $this->translator->trans($actionSlug->getModuleName()->getName());
     }
 
-    final public function changeTemplatePath(string $templatePath): void
+    final protected function changeTemplatePath(string $templatePath): void
     {
         $this->templatePath = $templatePath;
     }
@@ -53,7 +53,7 @@ abstract class AbstractActionController implements ActionControllerInterface
         return $this->getResponse();
     }
 
-    public function assign(string $key, mixed $value): void
+    final protected function assign(string $key, mixed $value): void
     {
         $this->twigContext[$key] = $value;
     }
