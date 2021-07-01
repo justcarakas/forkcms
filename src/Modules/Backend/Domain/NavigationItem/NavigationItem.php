@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
+use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use InvalidArgumentException;
 use LogicException;
@@ -100,6 +101,15 @@ class NavigationItem
     public function getSlug(): ?ActionSlug
     {
         return $this->slug;
+    }
+
+    public function getModuleAction(): ?ModuleAction
+    {
+        if ($this->slug === null) {
+            return null;
+        }
+
+        return $this->slug->asModuleAction();
     }
 
     public function isVisibleInNavigationMenu(): bool

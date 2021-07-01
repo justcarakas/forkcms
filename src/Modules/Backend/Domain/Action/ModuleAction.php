@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use InvalidArgumentException;
 use Stringable;
+use Symfony\Component\DependencyInjection\Container;
 
 /** @ORM\Embeddable */
 final class ModuleAction implements Stringable
@@ -60,5 +61,13 @@ final class ModuleAction implements Stringable
     public function getAction(): ActionName
     {
         return $this->action;
+    }
+
+    public function asRole(): string
+    {
+        $identifier = Container::underscore($this->module->getName()) . '__' .
+                      Container::underscore($this->action->getName());
+
+        return 'ROLE_MODULE_ACTION__' . strtoupper($identifier);
     }
 }
