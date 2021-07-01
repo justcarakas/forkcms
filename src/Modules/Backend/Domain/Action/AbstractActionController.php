@@ -24,7 +24,7 @@ abstract class AbstractActionController implements ActionControllerInterface
             $actionSlug->getActionName()
         );
 
-        $this->pageTitle = $this->translator->trans($actionSlug->getModuleName()->getName());
+        $this->pageTitle = $actionSlug->getModuleName()->asLabel()->trans($this->translator);
     }
 
     final protected function changeTemplatePath(string $templatePath): void
@@ -42,7 +42,7 @@ abstract class AbstractActionController implements ActionControllerInterface
         $actionSlug = self::getActionSlug();
         $this->twig->addGlobal('INTERFACE_LANGUAGE', $request->getLocale());
         $this->twig->addGlobal('SITE_TITLE', $_ENV['SITE_DEFAULT_TITLE']);
-        $this->twig->addGlobal('page_title', $this->translator->trans($this->pageTitle));
+        $this->twig->addGlobal('page_title', $this->pageTitle);
         $this->twig->addGlobal('jsFiles', []);
         $this->twig->addGlobal('jsData', null);
         $this->twig->addGlobal('bodyID', Container::underscore($actionSlug->getModuleName()));
