@@ -1,8 +1,7 @@
 <?php
 
-namespace ForkCMS\Core\Console\Install;
+namespace ForkCMS\Core\Installer\Console;
 
-use Doctrine\DBAL\Connection;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,18 +18,14 @@ class PrepareForReinstallCommand extends Command
     public const RETURN_DID_NOT_REINSTALL = 1;
     public const RETURN_DID_NOT_CLEAR_DATABASE = 2;
 
-    public function __construct(
-        private string $rootDir,
-        private Connection $dbalConnection,
-    ) {
-        parent::__construct();
+    public function __construct(private string $rootDir)
+    {
+        parent::__construct('forkcms:installer:prepare-for-reinstall');
     }
 
     protected function configure(): void
     {
-        $this
-            ->setName('forkcms:install:prepare-for-reinstall')
-            ->setDescription('Revert Fork CMS to an uninstalled state, prompting the install wizard.');
+        $this->setDescription('Revert Fork CMS to an uninstalled state, prompting the install wizard.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -81,7 +76,7 @@ class PrepareForReinstallCommand extends Command
 
     private function clearCache(SymfonyStyle $io): void
     {
-        $command = $this->getApplication()->find('forkcms:cache:clear');
+        $command = $this->getApplication()->find('cache:clear');
         $command->run(
             new ArrayInput([]),
             new BufferedOutput(),
