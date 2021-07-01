@@ -58,4 +58,12 @@ final class ImportResult
     {
         ++$this->skippedCount;
     }
+
+    public function getTotalCount(): int
+    {
+        return $this->getSkippedCount()
+               + $this->getUpdatedCount()
+               + $this->getFailedCount()
+               + $this->getImportedCount();
+    }
 }
