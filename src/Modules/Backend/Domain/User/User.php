@@ -85,6 +85,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         private ?string $plainTextPassword,
         bool $accessToBackend,
         bool $superAdmin,
+        Collection $userGroups = null,
     ) {
         $this->email = $email;
         $this->plainTextPassword = trim($this->plainTextPassword);
@@ -92,7 +93,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->accessToBackend = $accessToBackend;
         $this->superAdmin = $superAdmin;
         $this->settings = new ArrayCollection();
-        $this->userGroups = new ArrayCollection();
+        $this->userGroups = $userGroups ?? new ArrayCollection();
         $this->deleted = false;
         $this->validate();
     }
@@ -105,6 +106,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $user->accessToBackend = $userDataTransferObject->accessToBackend;
             $user->superAdmin = $userDataTransferObject->superAdmin;
             $user->plainTextPassword = trim($userDataTransferObject->plainTextPassword);
+            $user->userGroups = $userDataTransferObject->userGroups;
             $user->validate();
 
             return $user;
@@ -114,7 +116,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $userDataTransferObject->email,
             $userDataTransferObject->plainTextPassword,
             $userDataTransferObject->accessToBackend,
-            $userDataTransferObject->superAdmin
+            $userDataTransferObject->superAdmin,
+            $userDataTransferObject->userGroups
         );
     }
 

@@ -2,8 +2,10 @@
 
 namespace ForkCMS\Modules\Backend\Installer;
 
+use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItem;
 use ForkCMS\Modules\Backend\Domain\Authentication\RememberMeToken;
+use ForkCMS\Modules\Backend\Domain\User\Command\CreateUser;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\User\UserSetting;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
@@ -31,6 +33,16 @@ final class BackendInstaller extends ModuleInstaller
             UserGroupAction::class,
             UserGroupWidget::class,
         );
+        $installerConfiguration = InstallerConfiguration::fromSession($this->session);
+
+        $createUser = new CreateUser();
+        $createUser->email = $installerConfiguration->getAdminEmail();
+        $createUser->plainTextPassword = $installerConfiguration->getAdminPassword();
+        $createUser->superAdmin = true;
+        $createUser->accessToBackend = true;
+        $createUser->userGroups->add($this->userGroupRepository->getAdminUserGroup());
+
+        $this->dispatchCommand($createUser);
     }
 
     public function install(): void
