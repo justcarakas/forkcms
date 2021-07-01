@@ -4,7 +4,6 @@ services:
     autoconfigure: true
     bind:
       string $rootDir: '%kernel.project_dir%'
-      string $cacheDir: '%kernel.cache_dir%'
 
   ForkCMS\Modules\Internationalisation\Console\:
     resource: '../Console/*'
@@ -20,9 +19,8 @@ services:
       - { name: translation.loader, alias: db }
 
   ForkCMS\Modules\Internationalisation\Domain\Importer\XmlImporter:
-    arguments:
-      - '%kernel.project_dir%'
 
   ForkCMS\Modules\Internationalisation\Domain\Importer\Importer:
     arguments:
       - !tagged_locator { tag: 'forkcms.translation.importer', default_index_method: 'forExtension' }
+      - '%kernel.cache_dir%'

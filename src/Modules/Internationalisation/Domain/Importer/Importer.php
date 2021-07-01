@@ -12,17 +12,16 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\File;
 
 final class Importer
 {
     public function __construct(
         private ServiceLocator $importers,
+        private string $cacheDir,
         private TranslationRepository $translationRepository,
         private InstalledLocaleRepository $installedLocaleRepository,
         private ModuleRepository $moduleRepository,
-        private string $cacheDir,
     ) {
     }
 
