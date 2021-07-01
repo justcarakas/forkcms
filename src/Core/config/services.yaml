@@ -4,24 +4,16 @@ services:
     autoconfigure: true
     bind:
       string $rootDir: '%kernel.project_dir%'
+      bool $forkIsInstalled: '%fork.is_installed%'
 
   ForkCMS\Core\:
     resource: '../*'
     exclude:
-      - '../Backend/Domain/Meta/AddMetaSubscriber.php'
-      - '../Common/DataCollector/DatabaseDataCollector.php'
-      - '../Common/ForkCMS/Utility/Module/CopyContentToOtherLocale/CopyContentFromModulesToOtherLocaleManager.php'
-      - '../Common/ForkCMS/Utility/Thumbnails.php'
-      - '../Common/ModulesSettings.php'
-      - '../Console/Locale/CopyLocaleCommand.php'
-      - '../Console/Locale/EnableLocaleCommand.php'
-      - '../Console/Thumbnails/GenerateThumbnailsCommand.php'
       - '../Installer'
       - '../Tests'
 
-  ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator:
-    arguments:
-      - !tagged_iterator { tag: 'forkcms.module.installer' }
+  ForkCMS\Core\Installer\Console\:
+    resource: '../Installer/Console/*'
 
   module_installers:
     namespace: ForkCMS\Modules\
