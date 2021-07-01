@@ -7,11 +7,13 @@ use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
 use ForkCMS\Modules\Backend\Backend\Actions\NotFound;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
 use InvalidArgumentException;
 use Stringable;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Throwable;
 
 final class ActionSlug implements Stringable
@@ -112,5 +114,21 @@ final class ActionSlug implements Stringable
     public function getTranslationDomain(): TranslationDomain
     {
         return new TranslationDomain(Application::backend(), $this->moduleName);
+    }
+
+    public function generateRoute(
+        UrlGeneratorInterface $router,
+        int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH,
+        ?Locale $locale = null
+    ): string {
+        $parameters = [
+            'action' => $this->actionName->getName(),
+            'module' => $this->moduleName->getName(),
+        ];
+        if ($locale instanceof Locale) {
+            $parameters['_locale'] = $locale->value;
+        }
+
+        return $router->generate('backend', $parameters, $referenceType);
     }
 }
