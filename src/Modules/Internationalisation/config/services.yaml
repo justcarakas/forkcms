@@ -2,6 +2,11 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
+    bind:
+      string $rootDir: '%kernel.project_dir%'
+
+  ForkCMS\Modules\Internationalisation\Console\:
+    resource: '../Console/*'
 
   ForkCMS\Modules\Internationalisation\Domain\:
     resource: '../Domain/*'
