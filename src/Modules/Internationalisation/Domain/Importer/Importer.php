@@ -10,8 +10,9 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
-use LogicException;
 use Symfony\Component\DependencyInjection\ServiceLocator;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\File;
 
 final class Importer
@@ -21,6 +22,7 @@ final class Importer
         private TranslationRepository $translationRepository,
         private InstalledLocaleRepository $installedLocaleRepository,
         private ModuleRepository $moduleRepository,
+        private string $cacheDir,
     ) {
     }
 
@@ -69,6 +71,12 @@ final class Importer
                 }
                 $importResult->addFailed($translation);
             }
+        }
+
+        $filesystem = new Filesystem();
+        $translationsDirectory = $this->cacheDir . '/translations';
+        if ($filesystem->exists($translationsDirectory)) {
+            $filesystem->remove($translationsDirectory);
         }
 
         return $importResult;
