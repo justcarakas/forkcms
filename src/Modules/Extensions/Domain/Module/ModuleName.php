@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Extensions\Domain\Module;
 use ForkCMS\Core\Domain\Identifier\NamedIdentifier;
 use InvalidArgumentException;
 use Stringable;
+use Symfony\Component\DependencyInjection\Container;
 
 final class ModuleName implements Stringable
 {
@@ -22,5 +23,10 @@ final class ModuleName implements Stringable
         }
 
         return self::fromString($matches[1]);
+    }
+
+    public function asRole(): string
+    {
+        return 'ROLE_MODULE__' . strtoupper(Container::underscore($this->getName()));
     }
 }

@@ -260,4 +260,19 @@ class UserGroup
 
         return $userGroupWidget instanceof UserGroupWidget ? $userGroupWidget : null;
     }
+
+    public function getRoles(): array
+    {
+        return array_merge(
+            $this->modules->map(
+                static fn(UserGroupModule $module): string => $module->getModuleName()->asRole()
+            )->toArray(),
+            $this->actions->map(
+                static fn(UserGroupAction $action): string => $action->getModuleAction()->asRole()
+            )->toArray(),
+            $this->widgets->map(
+                static fn(UserGroupWidget $widget): string => $widget->getModuleWidget()->asRole()
+            )->toArray(),
+        );
+    }
 }
