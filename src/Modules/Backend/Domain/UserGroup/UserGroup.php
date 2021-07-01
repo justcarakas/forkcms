@@ -57,7 +57,8 @@ class UserGroup
      * @Orm\OneToMany(
      *     targetEntity="UserGroupModule",
      *     mappedBy="userGroup",
-     *     cascade={"persist", "remove"}
+     *     cascade={"persist", "remove"},
+     *     fetch="EAGER"
      * )
      */
     private Collection $modules;
@@ -68,7 +69,8 @@ class UserGroup
      * @Orm\OneToMany(
      *     targetEntity="UserGroupAction",
      *     mappedBy="userGroup",
-     *     cascade={"persist", "remove"}
+     *     cascade={"persist", "remove"},
+     *     fetch="EAGER"
      * )
      */
     private Collection $actions;
@@ -79,7 +81,8 @@ class UserGroup
      * @Orm\OneToMany(
      *     targetEntity="UserGroupWidget",
      *     mappedBy="userGroup",
-     *     cascade={"persist", "remove"}
+     *     cascade={"persist", "remove"},
+     *     fetch="EAGER"
      * )
      */
     private Collection $widgets;
