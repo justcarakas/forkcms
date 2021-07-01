@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Backend\Domain\Authentication;
 
+use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,10 +51,7 @@ class BackendAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
-        // @TODO calculate first available public route
-        //return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse(AuthenticationLogin::getActionSlug()->generateRoute($this->urlGenerator));
     }
 
     protected function getLoginUrl(Request $request): string
