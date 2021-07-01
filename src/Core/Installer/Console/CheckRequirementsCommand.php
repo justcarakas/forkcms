@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Core\Console\Install;
+namespace ForkCMS\Core\Installer\Console;
 
 use ForkCMS\Core\Installer\Domain\Requirement\Requirement;
 use ForkCMS\Core\Installer\Domain\Requirement\RequirementCategory;
@@ -33,7 +33,7 @@ final class CheckRequirementsCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('forkcms:install:check-requirements')
+            ->setName('forkcms:installer:check-requirements')
             ->setDescription('Command to check if the server meets the install requirements');
     }
 
@@ -125,7 +125,7 @@ final class CheckRequirementsCommand extends Command
 
         // format urls as "text (url)" or just url if the text and url are the same
         return preg_replace_callback(
-            '|<a[\s\S]*?href="(.*?)"[\s\S]*?>(.*?)<\/a>|',
+            '|<a[\s\S]*?href="(.*?)"[\s\S]*?>(.*?)</a>|',
             static function ($matches) {
                 if ($matches[1] !== $matches[2]) {
                     return $matches[2] . ' (' . $matches[1] . ')';
