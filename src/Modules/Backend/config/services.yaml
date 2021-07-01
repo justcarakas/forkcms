@@ -10,3 +10,6 @@ services:
     resource: '../Backend/Actions/*'
 
   Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider: ~
+
+  ForkCMS\Modules\Backend\Backend\Actions\NotFound:
+    public: true
