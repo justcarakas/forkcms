@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Translator;
 
+use BadMethodCallException;
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
@@ -62,7 +63,7 @@ final class ForkTranslator extends Translator
 
         try {
             $fallbackDomain = TranslationDomain::fromDomain($domain)->getFallback();
-        } catch (TypeError | InvalidArgumentException) {
+        } catch (TypeError | InvalidArgumentException | BadMethodCallException) {
             // Not a fork translation domain or no fallback available
             return $translated;
         }
