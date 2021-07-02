@@ -2,9 +2,12 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
-    bind:
-      string $rootDir: '%kernel.project_dir%'
-      bool $forkIsInstalled: '%fork.is_installed%'
+  _instanceof:
+    Symfony\Component\Console\Command\Command:
+      bind:
+        string $rootDir: '%kernel.project_dir%'
+        string $cacheDir: '%kernel.cache_dir%'
+        bool $forkIsInstalled: '%fork.is_installed%'
 
   ForkCMS\Core\:
     resource: '../*'
@@ -14,6 +17,10 @@ services:
 
   ForkCMS\Core\Installer\Console\:
     resource: '../Installer/Console/*'
+
+  ForkCMS\Core\Installer\Domain\Configuration\ConfigurationParser:
+    arguments:
+      $rootDir: '%kernel.project_dir%'
 
   module_installers:
     namespace: ForkCMS\Modules\
