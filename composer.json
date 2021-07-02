@@ -75,7 +75,8 @@
         "spatie/enum": "^3.9",
         "beberlei/assert": "^3.3",
         "symfony/rate-limiter": "^5.3",
-        "symfony/http-client": "^5.3"
+        "symfony/http-client": "^5.3",
+        "teamtnt/tntsearch": "^2.8"
     },
     "require-dev": {
         "jdorn/sql-formatter": "1.2.17",
