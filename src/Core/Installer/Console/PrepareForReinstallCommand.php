@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * This command will prepare everything for a full reinstall
@@ -18,8 +19,11 @@ class PrepareForReinstallCommand extends Command
     public const RETURN_DID_NOT_REINSTALL = 1;
     public const RETURN_DID_NOT_CLEAR_DATABASE = 2;
 
-    public function __construct(private string $rootDir)
-    {
+    public function __construct(
+        private string $rootDir,
+        private string $cacheDir,
+        private bool $forkIsInstalled,
+    ) {
         parent::__construct('forkcms:installer:prepare-for-reinstall');
     }
 
@@ -32,13 +36,19 @@ class PrepareForReinstallCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        if (!$this->forkIsInstalled) {
+            $io->error('Fork CMS is not installed');
+
+            return self::RETURN_DID_NOT_REINSTALL;
+        }
+
         if (!$io->confirm('Are you sure you want to reinstall?')) {
             return self::RETURN_DID_NOT_REINSTALL;
         }
 
         $returnCode = $this->clearDatabase($io);
         $this->removeConfiguration($io);
-        $this->clearCache($io);
+        $io->success('Ready for reinstall.');
 
         return $returnCode;
     }
@@ -72,16 +82,5 @@ class PrepareForReinstallCommand extends Command
             unlink($fullPath);
             $io->success('Removed configuration file');
         }
-    }
-
-    private function clearCache(SymfonyStyle $io): void
-    {
-        $command = $this->getApplication()->find('cache:clear');
-        $command->run(
-            new ArrayInput([]),
-            new BufferedOutput(),
-        );
-
-        $io->success('Ready for reinstall.');
     }
 }

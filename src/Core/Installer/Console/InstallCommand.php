@@ -2,23 +2,23 @@
 
 namespace ForkCMS\Core\Installer\Console;
 
-use ForkCMS\Core\Console\Install\PrepareForReinstallCommand;
-use ForkCMS\Core\Installer\Domain\Database\DatabaseHandler;
-use ForkCMS\Core\Installer\Domain\Installer\ForkInstaller;
-use ForkCMS\Core\Installer\Domain\Installer\InstallationData;
-use ForkCMS\Core\Installer\Domain\Locale\LanguagesHandler;
-use ForkCMS\Core\Installer\Domain\Login\LoginHandler;
-use ForkCMS\Core\Installer\Domain\Module\ModulesHandler;
-use RuntimeException;
+use Assert\Assertion;
+use Assert\AssertionFailedException;
+use ForkCMS\Core\Domain\Kernel\Kernel;
+use ForkCMS\Core\Installer\Domain\Authentication\AuthenticationStepConfiguration;
+use ForkCMS\Core\Installer\Domain\Configuration\ConfigurationParser;
+use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
+use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;
+use ForkCMS\Core\Installer\Domain\Installer\InstallForkCMS;
+use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Throwable;
 
 /**
@@ -29,29 +29,21 @@ class InstallCommand extends Command
     private InputInterface $input;
     private OutputInterface $output;
     private SymfonyStyle $formatter;
-    private ForkInstaller $installer;
-    private string $installConfigPath;
-    private bool $forkIsInstalled;
-    private PrepareForReinstallCommand $prepareForReinstallCommand;
 
     public function __construct(
-        ForkInstaller $installer,
-        string $rootDir,
-        bool $forkIsInstalled,
-        PrepareForReinstallCommand $prepareForReinstallCommand
+        private bool $forkIsInstalled,
+        private ConfigurationParser $configurationParser,
+        private Kernel $kernel,
     ) {
-        $this->installer = $installer;
-        $this->installConfigPath = $rootDir . '/config/cli-install.yaml';
-        $this->forkIsInstalled = $forkIsInstalled;
-        $this->prepareForReinstallCommand = $prepareForReinstallCommand;
-        parent::__construct();
+        parent::__construct('forkcms:installer:install');
     }
 
     protected function configure(): void
     {
         $this
-            ->setName('forkcms:install:install')
-            ->setDescription('Install fork')
+            ->setDescription(
+                'Install fork from the console using the configuration in the fork-cms-installation-configuration.yaml file'
+            )
             ->addOption('email', 'u', InputOption::VALUE_REQUIRED, 'The email address of the backend user')
             ->addOption('password', 'p', InputOption::VALUE_REQUIRED, 'The password of the backend user')
             ->setHidden($this->forkIsInstalled);
@@ -63,31 +55,34 @@ class InstallCommand extends Command
         $this->output = $output;
         $this->formatter = new SymfonyStyle($input, $output);
 
-        if (!$this->isReadyForInstall()) {
+        $installerConfiguration = $this->getInstallerConfiguration();
+        if (!$installerConfiguration instanceof InstallerConfiguration) {
             return self::FAILURE;
         }
 
+        InstalledModules::setModulesToInstall(...$installerConfiguration->getModules());
+        $this->kernel->reboot(null);
+        $_SERVER['HTTPS'] = 'on';
         try {
-            if ($this->installer->install($this->getInstallationData())) {
-                $this->formatter->success('Fork CMS is installed');
-
-                return self::SUCCESS;
-            }
+            $this->kernel->getContainer()->get('messenger.default_bus')->dispatch(new InstallForkCMS($installerConfiguration));
         } catch (Throwable $throwable) {
+            if ($output->isVerbose()) {
+                throw $throwable;
+            }
             // There was a validation error
             $this->formatter->error($throwable->getMessage());
 
             return self::FAILURE;
         }
 
-        $this->formatter->error('Fork CMS was not installed');
+        $this->formatter->success('Fork CMS is installed');
 
-        return self::FAILURE;
+        return self::SUCCESS;
     }
 
     private function serverMeetsRequirements(): int
     {
-        $checkRequirementsCommand = $this->getApplication()->find('forkcms:install:check-requirements');
+        $checkRequirementsCommand = $this->getApplication()->find('forkcms:installer:check-requirements');
         $this->formatter->writeln('<info>Checking requirements</info>');
         $checkRequirementsResult = $checkRequirementsCommand->run(new ArrayInput([]), $this->output);
 
@@ -95,181 +90,62 @@ class InstallCommand extends Command
                || $checkRequirementsResult === CheckRequirementsCommand::RETURN_SERVER_MEETS_REQUIREMENTS_BUT_HAS_WARNINGS;
     }
 
-    private function getInstallationData(): InstallationData
+    private function getInstallerConfiguration(): ?InstallerConfiguration
     {
-        $config = $this->getInstallationConfig();
-        $installationData = new InstallationData();
-
-        $this->setLanguageConfig($config['language'] ?? [], $installationData);
-        $this->setModulesConfig($config['modules'] ?? [], $installationData);
-        $this->setDebugConfig($config['debug'] ?? [], $installationData);
-        $this->setDatabaseConfig($config['database'] ?? [], $installationData);
-        $this->setUserConfig($config['user'] ?? [], $installationData);
-
-        return $installationData;
-    }
-
-    private function setLanguageConfig(array $config, InstallationData $installationData): void
-    {
-        if (!$this->isConfigComplete($config, ['multiLanguage', 'defaultLanguage'])) {
-            throw new RuntimeException('Language config is not complete');
-        }
-        $installationData->setLanguageType($config['multiLanguage'] ? 'multiple' : 'single');
-        $installationData->setDefaultLanguage($config['defaultLanguage']);
-        $installationData->setDefaultInterfaceLanguage(
-            $config['defaultInterfaceLanguage'] ?? $config['defaultLanguage']
-        );
-
-        $installationData->setLanguages($config['languages'] ?? []);
-        $installationData->setInterfaceLanguages($config['interfaceLanguages'] ?? []);
-
-        (new LanguagesHandler())->processInstallationData($installationData);
-    }
-
-    private function setModulesConfig(array $config, InstallationData $installationData): void
-    {
-        $installationData->setExampleData($config['exampleData'] ?? false);
-
-        foreach (ForkInstaller::getRequiredModules() as $module) {
-            $installationData->addModule($module);
-        }
-        foreach (ForkInstaller::getHiddenModules() as $module) {
-            $installationData->addModule($module);
-        }
-        foreach ($config['install'] ?? [] as $module) {
-            $installationData->addModule($module);
-        }
-
-        (new ModulesHandler())->processInstallationData($installationData);
-    }
-
-    private function setDebugConfig(array $config, InstallationData $installationData): void
-    {
-        $installationData->setDifferentDebugEmail(array_key_exists('email', $config) && $config['email'] !== null);
-
-        if ($installationData->hasDifferentDebugEmail()) {
-            $installationData->setDebugEmail($config['email']);
-        }
-    }
-
-    private function setDatabaseConfig(array $config, InstallationData $installationData): void
-    {
-        if (!$this->isConfigComplete($config, ['hostname', 'username', 'password', 'name'])) {
-            throw new RuntimeException('Database config is not complete');
-        }
-
-        $installationData->setDatabaseHostname($config['hostname']);
-        $installationData->setDatabaseUsername($config['username']);
-        $installationData->setDatabasePassword($config['password']);
-        $installationData->setDatabaseName($config['name']);
-
-        if (array_key_exists('port', $config) && $config['port'] !== null) {
-            $installationData->setDatabasePort($config['port']);
-        }
-
-        (new DatabaseHandler())->processInstallationData($installationData);
-    }
-
-    private function setUserConfig(array $config, InstallationData $installationData): void
-    {
-        if (!array_key_exists('email', $config) || $config['email'] === null) {
-            $config['email'] = $this->formatter->askQuestion($this->getAskEmailQuestion());
-        }
-        $installationData->setEmail($config['email']);
-        if (!array_key_exists('password', $config) || $config['password'] === null) {
-            $config['password'] = $this->formatter->askQuestion($this->getAskPasswordQuestion());
-        }
-        $installationData->setPassword($config['password']);
-
-        (new LoginHandler())->processInstallationData($installationData);
-    }
-
-    private function isConfigComplete(array $config, array $required): bool
-    {
-        $cleanedUpConfig = array_filter(
-            $config,
-            static function ($var): bool {
-                return $var !== null;
-            }
-        );
-
-        return count(array_intersect_key(array_flip($required), $cleanedUpConfig)) === count($required);
-    }
-
-    private function getAskEmailQuestion(): Question
-    {
-        $question = new Question('What is the email of the main backend user?');
-        $question->setValidator(
-            static function ($email) {
-                if ('' === trim($email)) {
-                    throw new InvalidArgumentException('The email must not be empty.');
-                }
-
-                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    throw new InvalidArgumentException('Please enter a valid email address.');
-                }
-
-                return $email;
-            }
-        );
-
-        return $question;
-    }
-
-    private function getAskPasswordQuestion(): Question
-    {
-        $question = new Question('What is the password of the main backend user?');
-        $question->setValidator(
-            static function ($password) {
-                if ('' === trim($password)) {
-                    throw new InvalidArgumentException('The password must not be empty.');
-                }
-
-                return $password;
-            }
-        );
-        $question->setHidden(true);
-
-        return $question;
-    }
-
-    private function isReadyForInstall(): bool
-    {
-        if ($this->forkIsInstalled
-            && $this->prepareForReinstallCommand->run(new ArrayInput([]), $this->output) !== PrepareForReinstallCommand::RETURN_SUCCESS) {
+        if ($this->forkIsInstalled) {
             $this->formatter->error('Fork CMS is already installed');
 
-            return false;
+            return null;
         }
 
         if (!$this->serverMeetsRequirements()) {
             $this->formatter->error('This server is not compatible with Fork CMS');
 
-            return false;
+            return null;
         }
 
-        if (!is_file($this->installConfigPath)) {
+        if (!$this->configurationParser->configurationFileExists()) {
             $this->formatter->error(
-                'Please add your config/cli-install.yaml based on config/cli-install.yaml.dist'
+                'Please add the configuration file created by a previous install named fork-cms-installation-configuration.yaml before running the command in the root directory.'
             );
 
-            return false;
+            return null;
         }
 
-        return true;
-    }
+        $installerConfiguration = InstallerConfiguration::fromSession(new Session());
+        $this->configurationParser->loadFromFile($installerConfiguration);
+        $installerConfiguration->withRequirementsStep();
 
-    private function getInstallationConfig(): array
-    {
-        $config = Yaml::parse(file_get_contents($this->installConfigPath))['config'] ?? [];
+        $adminEmail = $this->input->getOption('email');
+        $adminPassword = $this->input->getOption('password');
 
-        if ($this->input->hasOption('email') && $this->input->getOption('email') !== null) {
-            $config['user']['email'] = $this->input->getOption('email');
+        if ($adminEmail !== null && $adminPassword !== null) {
+            try {
+                Assertion::email($adminEmail);
+            } catch (AssertionFailedException) {
+                $this->formatter->error('Please provide a valid email address.');
+
+                return null;
+            }
+
+            $authenticationStepConfiguration = AuthenticationStepConfiguration::fromInstallerConfiguration(
+                $installerConfiguration
+            );
+            $authenticationStepConfiguration->email = $adminEmail;
+            $authenticationStepConfiguration->password = $adminPassword;
+            $installerConfiguration->withAuthenticationStep($authenticationStepConfiguration);
         }
-        if ($this->input->hasOption('password') && $this->input->getOption('password') !== null) {
-            $config['user']['password'] = $this->input->getOption('password');
+
+        $step = InstallerStep::install();
+
+        if (!$installerConfiguration->isValidForStep($step)) {
+            $this->formatter->error(
+                'The installation configuration is not complete or valid.'
+            );
+
+            return null;
         }
 
-        return $config;
+        return $installerConfiguration;
     }
 }

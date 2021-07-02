@@ -25,7 +25,6 @@ services:
   ForkCMS\Core\Installer\:
     resource: '../src/Core/Installer/*'
     exclude:
-      - '../src/Core/Installer/Console'
       - '../src/Core/Installer/Controller'
       - '../src/Core/Installer/Domain/Installer/InstallerConnectionFactory.php'
 
