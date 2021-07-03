@@ -15,6 +15,17 @@ export class StringUtil {
   }
 
   /**
+   * underscore a string
+   *
+   * @param string input
+   * @param string splitchar
+   * @return string
+   */
+  static underscore (input, splitChar) {
+    return input.split(/(?=[A-Z])/).join(splitChar || '_').toLowerCase()
+  }
+
+  /**
    * Fix a HTML5-chunk, so IE can render it
    *
    * @return string

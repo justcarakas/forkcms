@@ -1,22 +1,24 @@
-import { Config } from './Config'
-import { Data } from './Data'
+import {Config} from './Config'
+import Translator from 'bazinga-translator'
 
 export class Locale {
-  constructor () {
-    this.initialized = false
-    this.data = {}
+  constructor() {
     this.init()
   }
 
-  init () {
+  init() {
+    if (Locale.translationsLoaded) {
+      return
+    }
+
     $.ajax({
-      url: '/src/Backend/Cache/Locale/' + Data.get('interface_language') + '.json',
+      url: '/_translations/' + Config.getCurrentLanguage() + '.json',
       type: 'GET',
       dataType: 'json',
       async: false,
-      success: (data) => {
-        this.data = data
-        this.initialized = true
+      success: (translations) => {
+        Translator.fromJSON(translations)
+        Locale.translationsLoaded = true
       },
       error: (jqXHR, textStatus, errorThrown) => {
         throw new Error('Regenerate your locale-files.')
@@ -25,58 +27,70 @@ export class Locale {
   }
 
   // get an item from the locale
-  get (type, key, module) {
-    // initialize if needed
-    if (!this.initialized) {
-      this.init()
-    }
-    const data = this.data
+  get(type, key, domain, parameters) {
+    return this.trans(type + '.' + key, parameters, domain)
+  }
 
-    // value to use when the translation was not found
-    const missingTranslation = '{$' + type + key + '}'
+  trans(id, parameters, domain, locale) {
+    let translation = Translator.trans(id, parameters, domain || Config.getDefaultTranslationDomain(), locale)
 
-    // validate
-    if (data === null || !data.hasOwnProperty(type) || data[type] === null) {
-      return missingTranslation
+    if (translation !== id) {
+      return translation
     }
 
-    // this is for the labels prefixed with "loc"
-    if (typeof (data[type][key]) === 'string') {
-      return data[type][key]
+    translation = Translator.trans(id, parameters, Config.getFallbackTranslationDomain(), locale)
+
+    if (translation !== id) {
+      return translation
     }
 
-    // if the translation does not exist for the given module, try to fall back to the core
-    if (!data[type].hasOwnProperty(module) || data[type][module] === null || !data[type][module].hasOwnProperty(key) || data[type][module][key] === null) {
-      if (!data[type].hasOwnProperty('Core') || data[type]['Core'] === null || !data[type]['Core'].hasOwnProperty(key) || data[type]['Core'][key] === null) {
-        return missingTranslation
-      }
+    console.debug('Missing translation: ' + id)
 
-      return data[type]['Core'][key]
+    return id
+  }
+
+  transChoice(id, number, parameters, domain, locale) {
+    let translation = Translator.transChoice(id, number, parameters, domain || Config.getDefaultTranslationDomain(), locale)
+
+    if (translation !== id) {
+      return translation
     }
 
-    return data[type][module][key]
+    translation = Translator.transChoice(id, number, parameters, Config.getFallbackTranslationDomain(), locale)
+
+    if (translation !== id) {
+      return translation
+    }
+
+    console.debug('Missing translation: ' + id)
+
+    return id
   }
 
   // get an error
-  err (key, module) {
-    if (typeof module === 'undefined') module = Config.getCurrentModule()
-    return this.get('err', key, module)
+  err(key, module, parameters) {
+    return this.get('err', key, module || Config.getDefaultTranslationDomain(), parameters)
   }
 
   // get a label
-  lbl (key, module) {
-    if (typeof module === 'undefined') module = Config.getCurrentModule()
-    return this.get('lbl', key, module)
+  lbl(key, module, parameters) {
+    return this.get('lbl', key, module || Config.getDefaultTranslationDomain(), parameters)
   }
 
   // get localization
-  loc (key) {
+  loc(key) {
     return this.get('loc', key)
   }
 
   // get a message
-  msg (key, module) {
-    if (typeof module === 'undefined') module = Config.getCurrentModule()
-    return this.get('msg', key, module)
+  msg(key, module, parameters) {
+    return this.get('msg', key, module || Config.getDefaultTranslationDomain(), parameters)
+  }
+
+  // get a slug
+  slg(key, module, parameters) {
+    return this.get('slg', key, module || Config.getDefaultTranslationDomain(), parameters)
   }
 }
+
+Locale.translationsLoaded = false

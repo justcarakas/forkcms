@@ -25,27 +25,20 @@ final class JsTranslationsController
         }
 
         $currentCatalog = $this->translator->getCatalogue();
+        $currentLocale = $request->getLocale();
+        $translations = [
+            'locale' => $currentLocale,
+            'translations' => [
+                $currentLocale => $currentCatalog->all(),
+            ],
+        ];
+
         $fallbackCatalog = $currentCatalog->getFallbackCatalogue();
-        $currentCatalogData = [
-            'locale' => $request->getLocale(),
-            'translations' => $currentCatalog->all(),
-        ];
-        $fallbackCatalogData = null;
         if ($fallbackCatalog instanceof MessageCatalogueInterface) {
-            $currentCatalogData['fallback'] = $fallbackCatalog->getLocale();
-            $fallbackCatalogData = [
-                'locale' => $request->getLocale(),
-                'translations' => $fallbackCatalog->all(),
-            ];
+            $translations['fallback'] = $fallbackCatalog->getLocale();
+            $translations['translations'][$translations['fallback']] = $fallbackCatalog->all();
         }
 
-        $catalogs = [
-            $currentCatalogData,
-        ];
-        if ($fallbackCatalogData !== null) {
-            $catalogs[] = $fallbackCatalogData;
-        }
-
-        return new JsonResponse($catalogs);
+        return new JsonResponse($translations);
     }
 }

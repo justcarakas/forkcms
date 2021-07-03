@@ -21,7 +21,15 @@ export class Config {
     return module
   }
 
-  static getCurrentAction () {
+  static getDefaultTranslationDomain () {
+    return StringUtil.underscore(Config.getCurrentModule())
+  }
+
+  static getFallbackTranslationDomain () {
+    return 'backend'
+  }
+
+    static getCurrentAction () {
     // set default
     let action = 'index'
 
