@@ -82,4 +82,9 @@ final class TranslatorPass implements CompilerPassInterface
 
         return ForkConnection::get()->getEnabledLocales();
     }
+
+    public function getPriority(): int
+    {
+        return 999999;
+    }
 }
