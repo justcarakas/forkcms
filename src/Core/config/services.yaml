@@ -25,3 +25,9 @@ services:
   module_installers:
     namespace: ForkCMS\Modules\
     resource: '../../Modules/*/Installer'
+
+  ForkCMS\Core\Domain\Router\ModuleRouteLoader:
+    arguments:
+      - !tagged_iterator { tag: forkcms.routing.loader }
+    tags:
+      - { name: routing.loader }

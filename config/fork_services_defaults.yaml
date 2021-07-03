@@ -13,12 +13,9 @@ services:
       tags:
         - { name: forkcms.module.installer }
 
-    ForkCMS\Core\Domain\Router\ModuleRouteLoader:
-      bind:
-        $locator: '@file_locator'
-        $env: '%kernel.environment%'
+    ForkCMS\Core\Domain\Router\ModuleRouteProviderInterface:
       tags:
-        - { name: routing.loader }
+        - { name: forkcms.routing.loader }
 
     Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface:
       tags:
