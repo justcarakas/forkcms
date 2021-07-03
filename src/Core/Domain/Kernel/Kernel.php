@@ -6,6 +6,7 @@ use ForkCMS\Core\DependencyInjection\CoreExtension;
 use ForkCMS\Core\Domain\PDO\ForkConnection;
 use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\Filesystem\Filesystem;
@@ -179,7 +180,16 @@ final class Kernel extends BaseKernel
                 $compilerPassNamespace = $dependencyInjectionNamespace . 'CompilerPass\\';
                 foreach ($finder->in($compilerPassDirectory)->files()->name('*.php') as $compilerPass) {
                     $compilerPassFQCN = $compilerPassNamespace . substr($compilerPass->getFilename(), 0, -4);
-                    $container->addCompilerPass(new $compilerPassFQCN());
+                    $compilerPass = new $compilerPassFQCN();
+                    $type = method_exists($compilerPass, 'getType')
+                        ? $compilerPass->getType() : PassConfig::TYPE_BEFORE_OPTIMIZATION;
+                    $priority = method_exists($compilerPass, 'getPriority')
+                        ? $compilerPass->getPriority() : 0;
+                    $container->addCompilerPass(
+                        $compilerPass,
+                        $type,
+                        $priority
+                    );
                 }
             }
         }
