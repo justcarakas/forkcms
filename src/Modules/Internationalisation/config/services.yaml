@@ -24,3 +24,7 @@ services:
     arguments:
       - !tagged_locator { tag: 'forkcms.translation.importer', default_index_method: 'forExtension' }
       - '%kernel.cache_dir%'
+
+  ForkCMS\Modules\Internationalisation\DependencyInjection\InternationalisationRouteLoader:
+    arguments:
+      - '@routing.loader.yml'
