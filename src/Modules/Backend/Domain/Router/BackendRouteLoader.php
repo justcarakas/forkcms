@@ -2,14 +2,18 @@
 
 namespace ForkCMS\Modules\Backend\Domain\Router;
 
-use ForkCMS\Core\Domain\Router\ModuleRouteLoader;
+use ForkCMS\Core\Domain\Router\ModuleRouteProviderInterface;
+use Symfony\Component\Routing\Loader\YamlFileLoader;
+use Symfony\Component\Routing\RouteCollection;
 
-final class BackendRouteLoader extends ModuleRouteLoader
+final class BackendRouteLoader implements ModuleRouteProviderInterface
 {
-    protected function getRouterFilePaths(): array
+    public function __construct(private YamlFileLoader $yamlFileLoader)
     {
-        return [
-            __DIR__ . '/../../config/routes.yaml'
-        ];
+    }
+
+    public function getRouteCollection(): RouteCollection
+    {
+        return $this->yamlFileLoader->load(__DIR__ . '/../../config/routes.yaml');
     }
 }
