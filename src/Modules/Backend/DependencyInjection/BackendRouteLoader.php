@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Modules\Backend\Domain\Router;
+namespace ForkCMS\Modules\Backend\DependencyInjection;
 
 use ForkCMS\Core\Domain\Router\ModuleRouteProviderInterface;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
@@ -14,6 +14,6 @@ final class BackendRouteLoader implements ModuleRouteProviderInterface
 
     public function getRouteCollection(): RouteCollection
     {
-        return $this->yamlFileLoader->load(__DIR__ . '/../../config/routes.yaml');
+        return $this->yamlFileLoader->load(__DIR__ . '/../config/routes.yaml');
     }
 }

@@ -2,8 +2,6 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
-    bind:
-      Symfony\Component\Routing\Loader\YamlFileLoader $yamlFileLoader: '@routing.loader.yml'
 
   ForkCMS\Modules\Backend\Domain\:
     resource: '../Domain/*'
@@ -15,3 +13,7 @@ services:
 
   ForkCMS\Modules\Backend\Backend\Actions\NotFound:
     public: true
+
+  ForkCMS\Modules\Backend\DependencyInjection\BackendRouteLoader:
+    arguments:
+      - '@routing.loader.yml'
