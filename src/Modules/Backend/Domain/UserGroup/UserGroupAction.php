@@ -20,9 +20,9 @@ class UserGroupAction
 
     /**
      * @Orm\ManyToOne(targetEntity="UserGroup", inversedBy="actions")
-     * @Orm\JoinColumn(referencedColumnName="id")
+     * @Orm\JoinColumn(referencedColumnName="id", nullable=false)
      */
-    private UserGroup $userGroup;
+    private ?UserGroup $userGroup;
 
     /**
      * @ORM\Embedded
