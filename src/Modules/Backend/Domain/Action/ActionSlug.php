@@ -64,7 +64,7 @@ final class ActionSlug implements Stringable
         }
 
         try {
-            return new self(ModuleName::fromString($module), ActionName::fromString($action));
+            return self::fromSlug($module . '/' . $action);
         } catch (Throwable) {
             return self::fromFQCN(NotFound::class);
         }
@@ -122,8 +122,8 @@ final class ActionSlug implements Stringable
         ?Locale $locale = null
     ): string {
         $parameters = [
-            'action' => $this->actionName->getName(),
-            'module' => $this->moduleName->getName(),
+            'action' => Container::underscore($this->actionName->getName()),
+            'module' => Container::underscore($this->moduleName->getName()),
         ];
         if ($locale instanceof Locale) {
             $parameters['_locale'] = $locale->value;

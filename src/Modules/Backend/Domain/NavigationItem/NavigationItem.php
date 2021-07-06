@@ -34,6 +34,7 @@ class NavigationItem
     private ?self $parent;
 
     /**
+     * @var Collection|NavigationItem[]
      * @Orm\OneToMany(targetEntity="NavigationItem", mappedBy="parent")
      * @Orm\OrderBy({"sequence" = "ASC"})
      */
@@ -87,7 +88,7 @@ class NavigationItem
         return $this->parent;
     }
 
-    /** @return Collection&NavigationItem[] */
+    /** @return Collection|NavigationItem[] */
     public function getChildren(): Collection
     {
         return $this->children;

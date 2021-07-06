@@ -8,10 +8,8 @@ use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
-use Generator;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Throwable;
 
 /**
@@ -27,7 +25,7 @@ final class NavigationItemRepository extends ServiceEntityRepository
         try {
             parent::__construct($registry, NavigationItem::class);
         } catch (Throwable $throwable) {
-            if (!empty($_ENV['FORK_DATABASE_HOST'])) {
+            if (!empty($_ENV['FORK_DATABASE_HOST']) && $_ENV['APP_ENV'] !== 'test') {
                 throw $throwable; // needed during the installer
             }
         }

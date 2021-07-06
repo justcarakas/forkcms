@@ -19,7 +19,7 @@ final class InstalledLocaleRepository extends ServiceEntityRepository
         try {
             parent::__construct($registry, InstalledLocale::class);
         } catch (Throwable $throwable) {
-            if (!empty($_ENV['FORK_DATABASE_HOST'])) {
+            if (!empty($_ENV['FORK_DATABASE_HOST']) && $_ENV['APP_ENV'] !== 'test') {
                 throw $throwable; // needed during the installer
             }
         }

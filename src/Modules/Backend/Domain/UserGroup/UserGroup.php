@@ -33,14 +33,14 @@ class UserGroup
     private string $name;
 
     /**
-     * @var Collection&User[]
+     * @var Collection|User[]
      *
      * @ORM\ManyToMany(targetEntity="ForkCMS\Modules\Backend\Domain\User\User", mappedBy="userGroups")
      */
     protected $users;
 
     /**
-     * @var Collection&UserGroupSetting[]
+     * @var Collection|UserGroupSetting[]
      *
      * @Orm\OneToMany(
      *     targetEntity="UserGroupSetting",
@@ -52,7 +52,7 @@ class UserGroup
     private Collection $settings;
 
     /**
-     * @var Collection&UserGroupModule[]
+     * @var Collection|UserGroupModule[]
      *
      * @Orm\OneToMany(
      *     targetEntity="UserGroupModule",
@@ -64,7 +64,7 @@ class UserGroup
     private Collection $modules;
 
     /**
-     * @var Collection&UserGroupAction[]
+     * @var Collection|UserGroupAction[]
      *
      * @Orm\OneToMany(
      *     targetEntity="UserGroupAction",
@@ -76,7 +76,7 @@ class UserGroup
     private Collection $actions;
 
     /**
-     * @var Collection&UserGroupWidget[]
+     * @var Collection|UserGroupWidget[]
      *
      * @Orm\OneToMany(
      *     targetEntity="UserGroupWidget",
@@ -127,13 +127,13 @@ class UserGroup
         $user->removeUserGroup($this);
     }
 
-    /** @return Collection&User[] */
+    /** @return Collection|User[] */
     public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    /** @return Collection&UserGroupSetting[] */
+    /** @return Collection|UserGroupSetting[] */
     public function getSettings(): Collection
     {
         return $this->settings;
@@ -159,7 +159,7 @@ class UserGroup
         $this->settings->remove($key);
     }
 
-    /** @return Collection&UserGroupModule[] */
+    /** @return Collection|UserGroupModule[] */
     public function getModules(): Collection
     {
         return $this->modules;
@@ -194,7 +194,7 @@ class UserGroup
         return $userGroupModule instanceof UserGroupModule ? $userGroupModule : null;
     }
 
-    /** @return Collection&UserGroupAction[] */
+    /** @return Collection|UserGroupAction[] */
     public function getActions(): Collection
     {
         return $this->actions;
@@ -229,7 +229,7 @@ class UserGroup
         return $userGroupAction instanceof UserGroupAction ? $userGroupAction : null;
     }
 
-    /** @return Collection&UserGroupWidget[] */
+    /** @return Collection|UserGroupWidget[] */
     public function getWidgets(): Collection
     {
         return $this->widgets;
