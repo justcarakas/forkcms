@@ -23,7 +23,9 @@ final class ForkConnection extends PDO
                     $_ENV['FORK_DATABASE_HOST'],
                     $_ENV['FORK_DATABASE_PORT'],
                     $_ENV['FORK_DATABASE_NAME'],
-                ), $_ENV['FORK_DATABASE_USER'], $_ENV['FORK_DATABASE_PASSWORD']
+                ),
+                $_ENV['FORK_DATABASE_USER'],
+                $_ENV['FORK_DATABASE_PASSWORD']
             );
         }
 
