@@ -19,16 +19,14 @@ final class ForkTranslationLoader implements LoaderInterface
         $catalogue = new MessageCatalogue($forkLocale);
         try {
             $translationDomain = TranslationDomain::fromDomain($domain);
-
-            foreach (
-                $this->translationRepository->findBy(
-                    [
-                        'locale' => $forkLocale,
-                        'domain.application' => $translationDomain->getApplication(),
-                        'domain.moduleName' => $translationDomain->getModuleName(),
-                    ]
-                ) as $translation
-            ) {
+            $translations = $this->translationRepository->findBy(
+                [
+                    'locale' => $forkLocale,
+                    'domain.application' => $translationDomain->getApplication(),
+                    'domain.moduleName' => $translationDomain->getModuleName(),
+                ]
+            );
+            foreach ($translations as $translation) {
                 $catalogue->set((string) $translation->getKey(), $translation->getValue(), $domain);
             }
         } catch (TableNotFoundException) {
