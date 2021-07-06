@@ -1,24 +1,7 @@
 parameters:
   site.multilanguage: true
   site.default_language: en
-
-framework:
-  test: ~
-  session:
-    storage_id: session.storage.mock_file
-  router:
-    resource: "%kernel.project_dir%/config/routing.yml"
+  fork.is_installed: true
 
 services:
-#  database:
-#    class: SpoonDatabase
-#    public: true
-#    arguments:
-#      - "%database.driver%"
-#      - "%database.host%"
-#      - "%database.user%"
-#      - "%database.password%"
-#      - "%database.name%_test"
-#      - "%database.port%"
-#    calls:
-#      - [ setDebug, [ "%kernel.debug%" ]]
+  ForkCMS\Core\Tests\MockArraySessionStorageFactory:
