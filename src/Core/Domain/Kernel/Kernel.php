@@ -25,7 +25,7 @@ final class Kernel extends BaseKernel
 
     public function __construct(string $environment, bool $debug)
     {
-        $this->isInstalled = file_exists(self::ROOT_DIR . '.env.local');
+        $this->isInstalled = $environment !== 'test_install' && file_exists(self::ROOT_DIR . '.env.local');
 
         if (!$this->isInstalled) {
             $environment = str_contains($environment, 'test') ? 'test_install' : 'install';
