@@ -36,7 +36,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string")
      */
-    private ?string $password;
+    private string $password;
 
     /**
      * @ORM\Column(type="boolean")
@@ -54,7 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private bool $superAdmin;
 
     /**
-     * @var Collection&UserSetting[]
+     * @var Collection|UserSetting[]
      *
      * @Orm\OneToMany(
      *     targetEntity="UserSetting",
@@ -66,7 +66,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $settings;
 
     /**
-     * @var Collection&UserGroup[]
+     * @var Collection|UserGroup[]
      *
      * @ORM\ManyToMany(targetEntity="ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup", inversedBy="users")
      * @ORM\JoinTable(
@@ -90,7 +90,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     ) {
         $this->email = $email;
         $this->plainTextPassword = trim($this->plainTextPassword);
-        $this->password = null;
+        $this->password = '';
         $this->accessToBackend = $accessToBackend;
         $this->superAdmin = $superAdmin;
         $this->settings = new ArrayCollection();
@@ -243,7 +243,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->superAdmin;
     }
 
-    /** @return Collection&UserSetting[] */
+    /** @return Collection|UserSetting[] */
     public function getSettings(): Collection
     {
         return $this->settings;
@@ -269,7 +269,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->settings->remove($key);
     }
 
-    /** @var Collection&UserGroup[] */
+    /** @var Collection|UserGroup[] */
     public function getUserGroups(): Collection
     {
         return $this->userGroups;

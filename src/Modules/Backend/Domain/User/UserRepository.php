@@ -24,7 +24,7 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
         try {
             parent::__construct($registry, User::class);
         } catch (Throwable $throwable) {
-            if (!empty($_ENV['FORK_DATABASE_HOST'])) {
+            if (!empty($_ENV['FORK_DATABASE_HOST']) && $_ENV['APP_ENV'] !== 'test') {
                 throw $throwable; // needed during the installer
             }
         }

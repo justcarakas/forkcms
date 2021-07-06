@@ -314,15 +314,15 @@ final class RequirementsChecker
         return new RequirementCategory(
             'Required permissions and files',
             Requirement::check(
-                $this->rootDir . '/var/cache/*',
-                $this->isRecursivelyWritable($this->rootDir . '/var/cache/*'),
+                $this->rootDir . '/var/cache/',
+                $this->isRecursivelyWritable($this->rootDir . '/var/cache/'),
                 'In this location the cache will be stored. This location and all subdirectories are be writable.',
                 'In this location the cache will be stored. This location and all subdirectories must be writable.',
                 RequirementStatus::error()
             ),
             Requirement::check(
-                $this->rootDir . '/var/logs/*',
-                $this->isRecursivelyWritable($this->rootDir . '/src/Frontend/Cache/'),
+                $this->rootDir . '/var/log/*',
+                $this->isRecursivelyWritable($this->rootDir . '/var/log/'),
                 'In this location the logs will be stored. This location and all subdirectories are be writable.',
                 'In this location the logs will be stored. This location and all subdirectories must be writable.',
                 RequirementStatus::error()
