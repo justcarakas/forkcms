@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0c0eb8245fc76493da83f96da54b18c",
+    "content-hash": "6acd083d34eb715538050cd4a802794f",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -4196,6 +4196,75 @@
             "time": "2020-10-15T08:29:30+00:00"
         },
         {
+            "name": "pfilsx/data-grid-bundle",
+            "version": "5.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pfilsx/DataGridBundle.git",
+                "reference": "5928fca49c7649cb74dbf51bbb354f9df1fc4ab2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pfilsx/DataGridBundle/zipball/5928fca49c7649cb74dbf51bbb354f9df1fc4ab2",
+                "reference": "5928fca49c7649cb74dbf51bbb354f9df1fc4ab2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "php": ">=7.1",
+                "symfony/asset": "^4.0 || ^5.0",
+                "symfony/config": "^4.0 || ^5.0",
+                "symfony/dependency-injection": "^4.0 || ^5.0",
+                "symfony/framework-bundle": "^4.0 || ^5.0",
+                "symfony/http-foundation": "^4.0 || ^5.0",
+                "symfony/http-kernel": "^4.0 || ^5.0",
+                "symfony/orm-pack": "*",
+                "symfony/routing": "^4.0 || ^5.0",
+                "symfony/templating": "^4.0 || ^5.0",
+                "symfony/twig-bundle": "^4.0 || ^5.0",
+                "symfony/yaml": "^4.0 || ^5.0"
+            },
+            "require-dev": {
+                "phpunit/php-code-coverage": "^7.0",
+                "phpunit/phpunit": "^8.0",
+                "symfony/maker-bundle": "*",
+                "symfony/translation": "^4.0 || ^5.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Pfilsx\\DataGrid\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filimonov Pavel",
+                    "email": "pfilsx@gmail.com"
+                }
+            ],
+            "description": "Provides a Data Grid tables for your Symfony project.",
+            "keywords": [
+                "bundle",
+                "data-table",
+                "datagrid",
+                "filters",
+                "pagination",
+                "sort",
+                "symfony4",
+                "symfony5",
+                "table"
+            ],
+            "support": {
+                "issues": "https://github.com/pfilsx/DataGridBundle/issues",
+                "source": "https://github.com/pfilsx/DataGridBundle/tree/5.0.2"
+            },
+            "time": "2020-09-11T19:28:43+00:00"
+        },
+        {
             "name": "phpdocumentor/reflection-common",
             "version": "2.2.0",
             "source": {
@@ -8209,6 +8278,53 @@
             "time": "2021-05-26T17:43:10+00:00"
         },
         {
+            "name": "symfony/orm-pack",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/orm-pack.git",
+                "reference": "357f6362067b1ebb94af321b79f8939fc9118751"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/orm-pack/zipball/357f6362067b1ebb94af321b79f8939fc9118751",
+                "reference": "357f6362067b1ebb94af321b79f8939fc9118751",
+                "shasum": ""
+            },
+            "require": {
+                "composer/package-versions-deprecated": "*",
+                "doctrine/doctrine-bundle": "*",
+                "doctrine/doctrine-migrations-bundle": "*",
+                "doctrine/orm": "*",
+                "symfony/proxy-manager-bridge": "*"
+            },
+            "type": "symfony-pack",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A pack for the Doctrine ORM",
+            "support": {
+                "issues": "https://github.com/symfony/orm-pack/issues",
+                "source": "https://github.com/symfony/orm-pack/tree/v2.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-12-22T16:33:52+00:00"
+        },
+        {
             "name": "symfony/password-hasher",
             "version": "v5.3.3",
             "source": {
@@ -10528,6 +10644,74 @@
             "time": "2021-01-25T17:31:39+00:00"
         },
         {
+            "name": "symfony/templating",
+            "version": "v5.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/templating.git",
+                "reference": "0dcfcef6c593cee370ab6945a7008b4ee5bcdea0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/templating/zipball/0dcfcef6c593cee370ab6945a7008b4ee5bcdea0",
+                "reference": "0dcfcef6c593cee370ab6945a7008b4ee5bcdea0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "require-dev": {
+                "psr/log": "~1.0"
+            },
+            "suggest": {
+                "psr/log-implementation": "For using debug logging in loaders"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Templating\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides all the tools needed to build any kind of template system",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/templating/tree/v5.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-05-26T12:52:38+00:00"
+        },
+        {
             "name": "symfony/translation",
             "version": "v5.3.3",
             "source": {
@@ -12337,6 +12521,152 @@
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
             "time": "2021-04-09T00:54:41+00:00"
+        },
+        {
+            "name": "symfony/browser-kit",
+            "version": "v5.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/browser-kit.git",
+                "reference": "379984e25eee9811b0a25a2105e1a2b3b8d9b734"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/379984e25eee9811b0a25a2105e1a2b3b8d9b734",
+                "reference": "379984e25eee9811b0a25a2105e1a2b3b8d9b734",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/dom-crawler": "^4.4|^5.0"
+            },
+            "require-dev": {
+                "symfony/css-selector": "^4.4|^5.0",
+                "symfony/http-client": "^4.4|^5.0",
+                "symfony/mime": "^4.4|^5.0",
+                "symfony/process": "^4.4|^5.0"
+            },
+            "suggest": {
+                "symfony/process": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\BrowserKit\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Simulates the behavior of a web browser, allowing you to make requests, click on links and submit forms programmatically",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/browser-kit/tree/v5.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-05-26T17:43:10+00:00"
+        },
+        {
+            "name": "symfony/dom-crawler",
+            "version": "v5.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dom-crawler.git",
+                "reference": "55fff62b19f413f897a752488ade1bc9c8a19cdd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/55fff62b19f413f897a752488ade1bc9c8a19cdd",
+                "reference": "55fff62b19f413f897a752488ade1bc9c8a19cdd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/deprecation-contracts": "^2.1",
+                "symfony/polyfill-ctype": "~1.8",
+                "symfony/polyfill-mbstring": "~1.0",
+                "symfony/polyfill-php80": "^1.15"
+            },
+            "conflict": {
+                "masterminds/html5": "<2.6"
+            },
+            "require-dev": {
+                "masterminds/html5": "^2.6",
+                "symfony/css-selector": "^4.4|^5.0"
+            },
+            "suggest": {
+                "symfony/css-selector": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\DomCrawler\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Eases DOM navigation for HTML and XML documents",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/dom-crawler/tree/v5.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-05-26T17:43:10+00:00"
         },
         {
             "name": "symfony/dotenv",

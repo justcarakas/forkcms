@@ -35,38 +35,54 @@ final class ForkConnection extends PDO
     {
         $modulesQuery = $this->query('SELECT name from Modules');
         if (!$modulesQuery->execute()) {
+            $modulesQuery->closeCursor();
             throw new RuntimeException('Cannot get installed modules from database');
         }
 
+        $installedModules = $modulesQuery->fetchAll(PDO::FETCH_COLUMN, 0);
+        $modulesQuery->closeCursor();
+
         return array_map(
             static fn(string $moduleName): ModuleName => ModuleName::fromString($moduleName),
-            $modulesQuery->fetchAll(PDO::FETCH_COLUMN, 0)
+            $installedModules
         );
     }
 
     /** @return array<string, bool> true for the default website locale */
     public function getEnabledLocales(): array
     {
-        return array_map(
-            static fn(string $isEnabled): bool => $isEnabled,
-            $this->query(
-                'SELECT locale, isDefaultForWebsite
+        $query = $this->query(
+            'SELECT locale, isDefaultForWebsite
                 FROM locales
                 WHERE isEnabledForWebsite = true OR isEnabledForUser = true'
-            )->fetchAll(PDO::FETCH_KEY_PAIR)
         );
+        $enabledLocales = $query->fetchAll(PDO::FETCH_KEY_PAIR);
+        $query->closeCursor();
+
+        return array_map(static fn(string $isEnabled): bool => $isEnabled, $enabledLocales);
     }
 
     /** @return array<string, bool> true for the default website locale */
     public function getWebsiteLocales(): array
     {
-        return array_map(
-            static fn(string $isEnabled): bool => $isEnabled,
-            $this->query(
-                'SELECT locale, isDefaultForWebsite
+        $query = $this->query(
+            'SELECT locale, isDefaultForWebsite
                 FROM locales
                 WHERE isEnabledForWebsite = true'
-            )->fetchAll(PDO::FETCH_KEY_PAIR)
         );
+        $locales = $query->fetchAll(PDO::FETCH_KEY_PAIR);
+        $query->closeCursor();
+
+        return array_map(static fn(string $isEnabled): bool => $isEnabled, $locales);
+    }
+
+    /** @return string[] */
+    public function getTables(): array
+    {
+        $query = $this->query('SHOW TABLES');
+        $tables = $query->fetchAll(self::FETCH_COLUMN, 0);
+        $query->closeCursor();
+
+        return $tables;
     }
 }

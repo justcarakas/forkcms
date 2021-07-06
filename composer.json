@@ -76,7 +76,8 @@
         "beberlei/assert": "^3.3",
         "symfony/rate-limiter": "^5.3",
         "symfony/http-client": "^5.3",
-        "teamtnt/tntsearch": "^2.8"
+        "teamtnt/tntsearch": "^2.8",
+        "pfilsx/data-grid-bundle": "^5.0"
     },
     "require-dev": {
         "jdorn/sql-formatter": "1.2.17",
@@ -90,7 +91,8 @@
         "symfony/maker-bundle": "^1.31",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "symfony/stopwatch": "^5.2",
-        "symfony/web-profiler-bundle": "^5.2"
+        "symfony/web-profiler-bundle": "^5.2",
+        "symfony/browser-kit": "^5.3"
     },
     "config": {
         "bin-dir": "bin"
@@ -100,7 +102,9 @@
         "issues": "https://github.com/forkcms/forkcms/issues"
     },
     "scripts": {
-        "test": "./bin/simple-phpunit",
+        "test": "symfony php bin/simple-phpunit",
+        "phpstan": "symfony console cache:warm -q -edev && symfony php -d memory_limit=-1 bin/phpstan analyze src",
+        "phpcs": "symfony php -d memory_limit=-1 bin/phpcs --standard=psr2 --extensions=php --warning-severity=0 --report=full src",
         "post-install-cmd": [],
         "post-update-cmd": []
     },

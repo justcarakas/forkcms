@@ -1,5 +1,0 @@
-doctrine:
-  dbal:
-    connections:
-      default:
-        dbname: "%env(FORK_DATABASE_NAME)%_test"
