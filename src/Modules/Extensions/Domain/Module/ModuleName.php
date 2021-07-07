@@ -14,11 +14,13 @@ final class ModuleName implements Stringable
     public static function fromFQCN(string $fullyQualifiedClassName): self
     {
         $matches = [];
-        if (!preg_match(
-            '/^ForkCMS\\\Modules\\\([A-Z]\w*)/',
-            $fullyQualifiedClassName,
-            $matches
-        )) {
+        if (
+            !preg_match(
+                '/^ForkCMS\\\Modules\\\([A-Z]\w*)/',
+                $fullyQualifiedClassName,
+                $matches
+            )
+        ) {
             throw new InvalidArgumentException('Can ony be created from a module classes');
         }
 
