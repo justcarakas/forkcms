@@ -22,7 +22,7 @@ final class XmlImporter implements ImporterInterface
     public function getTranslations(File $translationFile): Generator
     {
         $source = str_replace(realpath($this->rootDir), '', $translationFile->getRealPath());
-        $xmlDecoder = new XmlEncoder;
+        $xmlDecoder = new XmlEncoder();
         $xmlData = $xmlDecoder->decode($translationFile->getContent(), 'xml');
 
         foreach ($xmlData as $application => $modules) {
