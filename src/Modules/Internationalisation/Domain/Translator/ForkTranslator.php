@@ -23,6 +23,11 @@ final class ForkTranslator extends Translator
     /** @var ?string used for debug reasons */
     private ?string $lastUsedDomain;
 
+    /**
+     * @param array<string, array<int, string>>$loaderIds
+     * @param array<string, mixed>$options
+     * @param string[] $enabledLocales
+     */
     public function __construct(
         ContainerInterface $container,
         MessageFormatterInterface $formatter,
@@ -35,6 +40,7 @@ final class ForkTranslator extends Translator
         parent::__construct($container, $formatter, $defaultLocale, $loaderIds, $options, $enabledLocales);
     }
 
+    /** @param array<string, mixed> $parameters */
     public function trans(?string $id, array $parameters = [], string $domain = null, string $locale = null): string
     {
         if (!$this->requestStack instanceof RequestStack) {
@@ -88,6 +94,7 @@ final class ForkTranslator extends Translator
         return $this->lastUsedDomain;
     }
 
+    /** @param array<string, mixed> $parameters */
     private function getTranslationAndStoreDomain(
         ?string $id,
         array $parameters = [],

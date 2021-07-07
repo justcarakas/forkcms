@@ -22,7 +22,7 @@ class UserGroupModule
      * @Orm\ManyToOne(targetEntity="UserGroup", inversedBy="modules")
      * @Orm\JoinColumn(referencedColumnName="id", nullable=false)
      */
-    private ?UserGroup $userGroup;
+    private UserGroup $userGroup;
 
     /**
      * @ORM\Column(type="modules__extensions__module__module_name")

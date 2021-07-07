@@ -34,11 +34,13 @@ class LocaleType extends AbstractType implements DataTransformerInterface
         return ChoiceType::class;
     }
 
+    /** @return Locale[]|Locale|null */
     public function transform($value): array|Locale|null
     {
         return $value;
     }
 
+    /** @return Locale[]|Locale|null */
     public function reverseTransform($value): array|Locale|null
     {
         return match (true) {

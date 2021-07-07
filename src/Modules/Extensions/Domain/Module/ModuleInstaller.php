@@ -21,6 +21,7 @@ use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\StampInterface;
 
 abstract class ModuleInstaller
 {
@@ -31,6 +32,8 @@ abstract class ModuleInstaller
 
     /** @var array<string,ModuleName> */
     private array $moduleDependencies = [];
+
+    /** @var array<string,ModuleName> */
     private ?array $defaultModuleDependencies = null;
 
     public function __construct(
@@ -115,6 +118,7 @@ abstract class ModuleInstaller
         return $this->defaultModuleDependencies;
     }
 
+    /** @param array<ActionSlug> $selectedFor */
     final protected function getOrCreateBackendNavigationItem(
         TranslationKey $label,
         ?ActionSlug $slug = null,
@@ -218,11 +222,13 @@ abstract class ModuleInstaller
         $this->importer->import($translationPath, $overwriteConflicts);
     }
 
+    /** @param StampInterface[] $stamps */
     public function dispatchCommand(object $command, array $stamps = []): Envelope
     {
         return $this->commandBus->dispatch($command, $stamps);
     }
 
+    /** @param StampInterface[] $stamps */
     public function dispatchEvent(object $event, array $stamps = []): Envelope
     {
         return $this->eventBus->dispatch($event, $stamps);

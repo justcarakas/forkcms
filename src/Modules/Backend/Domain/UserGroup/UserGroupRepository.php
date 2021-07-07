@@ -12,6 +12,7 @@ use Throwable;
  * @method UserGroup|null findOneBy(array $criteria, array $orderBy = null)
  * @method UserGroup[] findAll()
  * @method UserGroup[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<UserGroup>
  */
 final class UserGroupRepository extends ServiceEntityRepository
 {

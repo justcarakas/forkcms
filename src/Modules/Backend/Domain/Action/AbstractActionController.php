@@ -2,6 +2,9 @@
 
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Pfilsx\DataGrid\Grid\DataGridFactoryInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,13 +13,17 @@ use Twig\Environment;
 
 abstract class AbstractActionController implements ActionControllerInterface
 {
-    private static ?ActionSlug $actionSlug = null;
     private string $templatePath;
     private string $pageTitle;
+    /** @var array<string, mixed> */
     private array $twigContext = [];
 
-    public function __construct(private Environment $twig, private TranslatorInterface $translator)
-    {
+    public function __construct(
+        protected DataGridFactoryInterface $dataGridFactory,
+        protected EntityManagerInterface $entityManager,
+        protected Environment $twig,
+        protected TranslatorInterface $translator,
+    ) {
         $actionSlug = self::getActionSlug();
         $this->templatePath = sprintf(
             '@%s/Backend/Actions/%s.html.twig',
@@ -34,21 +41,14 @@ abstract class AbstractActionController implements ActionControllerInterface
 
     final public static function getActionSlug(): ActionSlug
     {
-        return self::$actionSlug ?? self::$actionSlug = ActionSlug::fromFQCN(static::class);
+        return ActionSlug::fromFQCN(static::class);
     }
 
     public function __invoke(Request $request): Response
     {
-        $actionSlug = self::getActionSlug();
-        $this->twig->addGlobal('INTERFACE_LANGUAGE', $request->getLocale());
-        $this->twig->addGlobal('SITE_TITLE', $_ENV['SITE_DEFAULT_TITLE']);
-        $this->twig->addGlobal('page_title', $this->pageTitle);
-        $this->twig->addGlobal('jsFiles', []);
-        $this->twig->addGlobal('jsData', null);
-        $this->twig->addGlobal('bodyID', Container::underscore($actionSlug->getModuleName()));
-        $this->twig->addGlobal('bodyClass', str_replace('/', '_', $actionSlug->getSlug()));
-
         $this->execute($request);
+
+        $this->twig->addGlobal('page_title', $this->pageTitle);
 
         return $this->getResponse();
     }

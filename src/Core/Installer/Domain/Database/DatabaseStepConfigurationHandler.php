@@ -12,7 +12,7 @@ final class DatabaseStepConfigurationHandler implements CommandHandlerInterface
     {
     }
 
-    public function __invoke(DatabaseStepConfiguration $databaseStepConfiguration)
+    public function __invoke(DatabaseStepConfiguration $databaseStepConfiguration): void
     {
         InstallerConfiguration::fromSession($this->session)->withDatabaseStep($databaseStepConfiguration);
     }

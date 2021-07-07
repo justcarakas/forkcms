@@ -6,6 +6,7 @@ use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Requirement\RequirementsChecker;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +27,10 @@ abstract class AbstractStepController
 
     abstract public function __invoke(Request $request): Response;
 
+    /**
+     * @param class-string<FormTypeInterface> $formTypeClass
+     * @param class-string<InstallerStepConfiguration> $dataClass
+     */
     final protected function handleInstallationStep(
         string $formTypeClass,
         string $dataClass,
@@ -33,7 +38,6 @@ abstract class AbstractStepController
     ): Response {
         $installerConfiguration = InstallerConfiguration::fromSession($request->getSession());
         $installerStepConfiguration = $this->getFormData($dataClass, $installerConfiguration);
-        /** @var $dataClass InstallerStepConfiguration */
         $step = $dataClass::getStep();
         if (!$installerConfiguration->isValidForStep($step)) {
             return new RedirectResponse($this->router->generate($step->previous()->route()));

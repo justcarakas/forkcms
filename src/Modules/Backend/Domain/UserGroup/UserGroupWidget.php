@@ -22,7 +22,7 @@ class UserGroupWidget
      * @Orm\ManyToOne(targetEntity="UserGroup", inversedBy="widgets")
      * @Orm\JoinColumn(referencedColumnName="id", nullable=false)
      */
-    private ?UserGroup $userGroup;
+    private UserGroup $userGroup;
 
     /**
      * @ORM\Embedded

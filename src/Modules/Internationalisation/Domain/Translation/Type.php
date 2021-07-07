@@ -13,6 +13,7 @@ use Stringable;
  */
 final class Type extends Enum implements Stringable
 {
+    /** @return array<string, string> */
     protected static function values(): array
     {
         return [

@@ -80,7 +80,7 @@ class InstallCommand extends Command
         return self::SUCCESS;
     }
 
-    private function serverMeetsRequirements(): int
+    private function serverMeetsRequirements(): bool
     {
         $checkRequirementsCommand = $this->getApplication()->find('forkcms:installer:check-requirements');
         $this->formatter->writeln('<info>Checking requirements</info>');

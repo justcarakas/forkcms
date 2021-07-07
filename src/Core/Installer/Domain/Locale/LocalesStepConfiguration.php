@@ -48,6 +48,10 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
      */
     public ?Locale $defaultUserLocale = null;
 
+    /**
+     * @param Locale[] $locales
+     * @param Locale[] $userLocales
+     */
     private function __construct(
         bool $multilingual = false,
         array $locales = [],

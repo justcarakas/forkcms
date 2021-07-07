@@ -95,6 +95,7 @@ final class ModuleInstallerLocator
         );
     }
 
+    /** @return ModuleInstaller[] */
     private function getInstalledModules(): array
     {
         if (!$this->forkIsInstalled) {
