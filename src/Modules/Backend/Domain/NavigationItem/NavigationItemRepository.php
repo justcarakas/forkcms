@@ -65,6 +65,9 @@ final class NavigationItemRepository extends ServiceEntityRepository
         $sortedNavigationItems = $this->findSortedNavigationItems();
 
         foreach ($sortedNavigationItems as $navigationItem) {
+            if ($navigationItem->getSlug() === null) {
+                continue;
+            }
             $accessibleNavigationItem = $this->findAccessibleNavigationItemForUser($navigationItem, $user);
             if ($accessibleNavigationItem instanceof NavigationItem) {
                 return $accessibleNavigationItem;
