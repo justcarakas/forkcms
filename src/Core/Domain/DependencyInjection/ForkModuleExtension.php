@@ -26,6 +26,6 @@ abstract class ForkModuleExtension extends Extension implements PrependExtension
     {
         $reflector = new ReflectionClass(static::class);
 
-        return new ForkYamlFileLoader($container, new FileLocator($reflector->getFileName() . '/../../config'));
+        return new ForkYamlFileLoader($container, new FileLocator(((string) dirname($reflector->getFileName())) . '/../config'));
     }
 }

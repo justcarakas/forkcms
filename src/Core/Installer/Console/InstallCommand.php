@@ -34,6 +34,7 @@ class InstallCommand extends Command
         private bool $forkIsInstalled,
         private ConfigurationParser $configurationParser,
         private Kernel $kernel,
+        private MessageBusInterface $commandBus,
     ) {
         parent::__construct('forkcms:installer:install');
     }
@@ -64,7 +65,7 @@ class InstallCommand extends Command
         $this->kernel->reboot(null);
         $_SERVER['HTTPS'] = 'on';
         try {
-            $this->kernel->getContainer()->get('messenger.default_bus')->dispatch(new InstallForkCMS($installerConfiguration));
+            $this->commandBus->dispatch(new InstallForkCMS($installerConfiguration));
         } catch (Throwable $throwable) {
             if ($output->isVerbose()) {
                 throw $throwable;

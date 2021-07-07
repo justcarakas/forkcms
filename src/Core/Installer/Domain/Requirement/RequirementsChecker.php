@@ -107,7 +107,7 @@ final class RequirementsChecker
 
     private function checkWebServer(): RequirementCategory
     {
-        $reasoningBehindTheMinimumPHPVersion = 'At this moment we require php 7.4 as we follow the <a href="http://php.net/supported-versions.php">supported versions timeline of php</a>';
+        $reasoningBehindTheMinimumPHPVersion = 'At this moment we require php 8.0 as we follow the <a href="http://php.net/supported-versions.php">supported versions timeline of php</a>';
 
         return new RequirementCategory(
             'Web server',

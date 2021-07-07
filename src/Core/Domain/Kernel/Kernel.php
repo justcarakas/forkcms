@@ -17,9 +17,9 @@ use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 final class Kernel extends BaseKernel
 {
-    private const ROOT_DIR = __DIR__ . '/../../../../';
-
     use MicroKernelTrait;
+
+    private const ROOT_DIR = __DIR__ . '/../../../../';
 
     private bool $isInstalled;
 

@@ -42,7 +42,8 @@ final class Importer
             $application = $translation->getDomain()->getApplication();
             $moduleName = $translation->getDomain()->getModuleName();
             $locale = $translation->getLocale()->value;
-            if (($moduleName instanceof ModuleName && !array_key_exists($moduleName->getName(), $modules))
+            if (
+                ($moduleName instanceof ModuleName && !array_key_exists($moduleName->getName(), $modules))
                 || ($specificLocale !== null && !$specificLocale->equals($translation->getLocale()))
                 || (
                     $locale !== $fallbackLocale

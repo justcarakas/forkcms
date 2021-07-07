@@ -26,11 +26,13 @@ final class ActionSlug implements Stringable
     public static function fromSlug(string $slug): self
     {
         $matches = [];
-        if (!preg_match(
-            '#(^[a-z][a-z0-9_]*[a-z0-9]*)/([a-z][a-z0-9_]*[a-z0-9]*$)#',
-            $slug,
-            $matches
-        )) {
+        if (
+            !preg_match(
+                '#(^[a-z][a-z0-9_]*[a-z0-9]*)/([a-z][a-z0-9_]*[a-z0-9]*$)#',
+                $slug,
+                $matches
+            )
+        ) {
             throw new InvalidArgumentException('Slug could not be matched to a module and an action');
         }
 
@@ -43,11 +45,13 @@ final class ActionSlug implements Stringable
     public static function fromFQCN(string $fullyQualifiedClassName): self
     {
         $matches = [];
-        if (!preg_match(
-            '/^ForkCMS\\\Modules\\\([A-Z]\w*)\\\Backend\\\Actions\\\([A-Z]\w*$)/',
-            $fullyQualifiedClassName,
-            $matches
-        )) {
+        if (
+            !preg_match(
+                '/^ForkCMS\\\Modules\\\([A-Z]\w*)\\\Backend\\\Actions\\\([A-Z]\w*$)/',
+                $fullyQualifiedClassName,
+                $matches
+            )
+        ) {
             throw new InvalidArgumentException('Can ony be created from a backen action class name');
         }
 

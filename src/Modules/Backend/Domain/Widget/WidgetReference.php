@@ -18,11 +18,13 @@ final class WidgetReference implements Stringable
     public static function fromReference(string $reference): self
     {
         $matches = [];
-        if (!preg_match(
-            '#(^[a-z][a-z0-9_]*[a-z0-9]*)/([a-z][a-z0-9_]*[a-z0-9]*$)#',
-            $reference,
-            $matches
-        )) {
+        if (
+            !preg_match(
+                '#(^[a-z][a-z0-9_]*[a-z0-9]*)/([a-z][a-z0-9_]*[a-z0-9]*$)#',
+                $reference,
+                $matches
+            )
+        ) {
             throw new InvalidArgumentException('Reference could not be matched to a module and an widget');
         }
 
@@ -35,11 +37,13 @@ final class WidgetReference implements Stringable
     public static function fromFQCN(string $fullyQualifiedClassName): self
     {
         $matches = [];
-        if (!preg_match(
-            '/^ForkCMS\\\Modules\\\([A-Z]\w*)\\\Backend\\\Widgets\\\([A-Z]\w*$)/',
-            $fullyQualifiedClassName,
-            $matches
-        )) {
+        if (
+            !preg_match(
+                '/^ForkCMS\\\Modules\\\([A-Z]\w*)\\\Backend\\\Widgets\\\([A-Z]\w*$)/',
+                $fullyQualifiedClassName,
+                $matches
+            )
+        ) {
             throw new InvalidArgumentException('Can ony be created from a backen widget class name');
         }
 

@@ -146,7 +146,7 @@ jobs:
               run: composer install -o
 
             - name: Run PHP Codesniffer
-              run: bin/phpcs --standard=psr2 --extensions=php --warning-severity=0 --report=full "src"
+              run: bin/phpcs --standard=PSR12 --extensions=php --warning-severity=9 --exclude=Generic.Files.LineLength --report=full "src"
 
     frontend:
         name: npm test

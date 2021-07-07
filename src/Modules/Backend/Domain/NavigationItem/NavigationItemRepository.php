@@ -76,8 +76,10 @@ final class NavigationItemRepository extends ServiceEntityRepository
 
     private function findAccessibleNavigationItemForUser(NavigationItem $navigationItem, User $user): ?NavigationItem
     {
-        if ($navigationItem->getModuleAction() instanceof ModuleAction
-            && $this->authorizationChecker->isGranted($navigationItem->getModuleAction()->asRole())) {
+        if (
+            $navigationItem->getModuleAction() instanceof ModuleAction
+            && $this->authorizationChecker->isGranted($navigationItem->getModuleAction()->asRole())
+        ) {
             return $navigationItem;
         }
 
