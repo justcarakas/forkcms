@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Backend\Controller;
 
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
+use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItemRepository;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -22,6 +23,7 @@ class LoginController
         private TranslatorInterface $translator,
         private Security $security,
         private UrlGeneratorInterface $urlGenerator,
+        private NavigationItemRepository $navigationItemRepository,
     ) {
     }
 
@@ -29,7 +31,9 @@ class LoginController
     {
         $currentUser = $this->security->getUser();
         if ($currentUser instanceof User) {
-            return new RedirectResponse(AuthenticationLogin::getActionSlug()->generateRoute($this->urlGenerator));
+            return new RedirectResponse(
+                $this->navigationItemRepository->findFirstWithSlugForUser($currentUser)->getSlug()?->generateRoute($this->urlGenerator)
+            );
         }
 
         // get the login error if there is one
