@@ -2,7 +2,6 @@
 <?php
 
 use ForkCMS\Core\Domain\Kernel\Kernel;
-use ForkCMS\Core\Installer\Domain\Configuration\ConfigurationParser;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Dotenv\Dotenv;
@@ -24,6 +23,8 @@ if (!class_exists(Application::class) || !class_exists(Dotenv::class)) {
     );
 }
 
+(new Dotenv())->bootEnv(dirname(__DIR__) . '/.env');
+
 $input = new ArgvInput();
 if (null !== $env = $input->getParameterOption(['--env', '-e'], null, true)) {
     putenv('APP_ENV=' . $_SERVER['APP_ENV'] = $_ENV['APP_ENV'] = $env);
@@ -33,7 +34,6 @@ if ($input->hasParameterOption('--no-debug', true)) {
     putenv('APP_DEBUG=' . $_SERVER['APP_DEBUG'] = $_ENV['APP_DEBUG'] = '0');
 }
 
-(new Dotenv())->bootEnv(dirname(__DIR__) . '/.env');
 
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);

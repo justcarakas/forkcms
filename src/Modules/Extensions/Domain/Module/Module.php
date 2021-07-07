@@ -26,7 +26,7 @@ class Module
     private DateTimeImmutable $installedOn;
 
     /**
-     * @var Collection|ModuleSetting[]
+     * @var Collection<string, ModuleSetting>|ModuleSetting[]
      *
      * @Orm\OneToMany(
      *     targetEntity="ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSetting",
@@ -65,7 +65,7 @@ class Module
     }
 
     /**
-     * @return Collection|ModuleSetting[]
+     * @return Collection<string, ModuleSetting>|ModuleSetting[]
      */
     public function getSettings(): Collection
     {

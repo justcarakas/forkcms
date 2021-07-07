@@ -53,6 +53,7 @@ final class TranslatorPass implements CompilerPassInterface
         }
     }
 
+    /** @return array<string, TranslationDomain> */
     private function getDatabaseDomains(InstalledModules $moduleNames): array
     {
         $applications = Application::cases();

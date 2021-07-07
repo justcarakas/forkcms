@@ -26,6 +26,7 @@ use Stringable;
  */
 final class Locale extends Enum implements Serializable, Stringable
 {
+    /** @return array<string, string> */
     protected static function labels(): array
     {
         return [

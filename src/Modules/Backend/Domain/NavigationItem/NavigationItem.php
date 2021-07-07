@@ -34,7 +34,7 @@ class NavigationItem
     private ?self $parent;
 
     /**
-     * @var Collection|NavigationItem[]
+     * @var Collection<int, NavigationItem>|NavigationItem[]
      * @Orm\OneToMany(targetEntity="NavigationItem", mappedBy="parent")
      * @Orm\OrderBy({"sequence" = "ASC"})
      */
@@ -88,7 +88,7 @@ class NavigationItem
         return $this->parent;
     }
 
-    /** @return Collection|NavigationItem[] */
+    /** @return Collection<int, NavigationItem>|NavigationItem[] */
     public function getChildren(): Collection
     {
         return $this->children;
@@ -141,7 +141,7 @@ class NavigationItem
         }
 
         if ($this->parent instanceof self) {
-            return $this->parent->forNavigationMenu();
+            return $this->parent->getVisibleNavigationItemForMenu();
         }
 
         throw new LogicException('Cannot find a visible navigation menu for this navigation item');

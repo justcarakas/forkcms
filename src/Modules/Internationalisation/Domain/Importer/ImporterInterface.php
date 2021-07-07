@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\File\File;
 
 interface ImporterInterface
 {
-    /** @return Generator&Translation[] */
+    /** @return Generator|Translation[] */
     public function getTranslations(File $translationFile): Generator;
 
     public static function forExtension(): string;

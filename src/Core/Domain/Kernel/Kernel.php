@@ -178,8 +178,8 @@ final class Kernel extends BaseKernel
             $compilerPassDirectory = $moduleDirectory . '/DependencyInjection/CompilerPass/';
             if ($filesystem->exists($compilerPassDirectory)) {
                 $compilerPassNamespace = $dependencyInjectionNamespace . 'CompilerPass\\';
-                foreach ($finder->in($compilerPassDirectory)->files()->name('*.php') as $compilerPass) {
-                    $compilerPassFQCN = $compilerPassNamespace . substr($compilerPass->getFilename(), 0, -4);
+                foreach ($finder->in($compilerPassDirectory)->files()->name('*.php') as $compilerPassFile) {
+                    $compilerPassFQCN = $compilerPassNamespace . substr($compilerPassFile->getFilename(), 0, -4);
                     $compilerPass = new $compilerPassFQCN();
                     $type = method_exists($compilerPass, 'getType')
                         ? $compilerPass->getType() : PassConfig::TYPE_BEFORE_OPTIMIZATION;

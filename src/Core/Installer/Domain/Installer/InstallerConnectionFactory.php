@@ -18,6 +18,10 @@ final class InstallerConnectionFactory extends ConnectionFactory
         parent::__construct($typesConfig);
     }
 
+    /**
+     * @param array<string, mixed> $params
+     * @param array<string, string> $mappingTypes
+     */
     public function createConnection(
         array $params,
         Configuration $config = null,
@@ -48,6 +52,7 @@ final class InstallerConnectionFactory extends ConnectionFactory
         return InstallerConfiguration::fromSession($this->session);
     }
 
+    /** @param array<string, mixed> $params */
     private function getInstallerConnection(
         array $params,
         Configuration $config = null,

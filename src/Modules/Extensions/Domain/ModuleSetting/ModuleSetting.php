@@ -49,7 +49,7 @@ class ModuleSetting
         return $this->value;
     }
 
-    /** @return true of the value has changed */
+    /** @return bool true of the value has changed */
     public function setValue(mixed $value): bool
     {
         if ($this->value === $value) {

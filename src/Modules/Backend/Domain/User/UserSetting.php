@@ -47,4 +47,9 @@ class UserSetting
     {
         return $this->value;
     }
+
+    public function setValue(mixed $value): void
+    {
+        $this->value = $value;
+    }
 }

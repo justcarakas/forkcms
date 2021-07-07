@@ -14,6 +14,7 @@ use Spatie\Enum\Enum;
  */
 final class InstallerStep extends Enum
 {
+    /** @return array<string, int> */
     protected static function values(): array
     {
         return [
@@ -26,6 +27,7 @@ final class InstallerStep extends Enum
         ];
     }
 
+    /** @return array<string, int> */
     protected static function labels(): array
     {
         return self::values();

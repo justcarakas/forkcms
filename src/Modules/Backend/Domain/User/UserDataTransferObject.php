@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Backend\Domain\User;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class UserDataTransferObject
@@ -27,6 +28,7 @@ abstract class UserDataTransferObject
 
     protected ?User $userEntity;
 
+    /** @var Collection<int, UserGroup>|UserGroup[] */
     public Collection $userGroups;
 
     public function __construct(?User $userEntity = null)

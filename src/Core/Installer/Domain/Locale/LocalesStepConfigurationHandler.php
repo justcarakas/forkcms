@@ -12,7 +12,7 @@ final class LocalesStepConfigurationHandler implements CommandHandlerInterface
     {
     }
 
-    public function __invoke(LocalesStepConfiguration $localesStepConfiguration)
+    public function __invoke(LocalesStepConfiguration $localesStepConfiguration): void
     {
         InstallerConfiguration::fromSession($this->session)->withLocaleStep($localesStepConfiguration);
     }

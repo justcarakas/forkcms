@@ -17,6 +17,7 @@ use Throwable;
  * @method NavigationItem|null findOneBy(array $criteria, array $orderBy = null)
  * @method NavigationItem[] findAll()
  * @method NavigationItem[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<NavigationItem>
  */
 final class NavigationItemRepository extends ServiceEntityRepository
 {

@@ -16,7 +16,7 @@ final class InstalledModules
     {
     }
 
-    public static function fromContainer(ContainerInterface $container)
+    public static function fromContainer(ContainerInterface $container): InstalledModules
     {
         return new self($container->getParameter('fork.is_installed'));
     }
@@ -29,7 +29,7 @@ final class InstalledModules
                 return self::$modulesToInstall;
             }
 
-            return InstallerConfiguration::fromSession(new Session())?->getModules() ?? [];
+            return InstallerConfiguration::fromSession(new Session())->getModules() ?? [];
         }
 
         return ForkConnection::get()->getInstalledModules();

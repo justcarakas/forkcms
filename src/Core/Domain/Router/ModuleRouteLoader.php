@@ -12,7 +12,7 @@ final class ModuleRouteLoader implements LoaderInterface
     private bool $isLoaded = false;
     private LoaderResolverInterface $resolver;
 
-    /** @var iterable&ModuleRouteProviderInterface[] $moduleLoaders */
+    /** @param iterable<ModuleRouteProviderInterface> $moduleLoaders */
     public function __construct(private iterable $moduleLoaders)
     {
     }

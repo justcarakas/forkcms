@@ -25,6 +25,7 @@ final class ModulesStepConfiguration implements InstallerStepConfiguration
      */
     public bool $installExampleData = true;
 
+    /** @param  ModuleName[] $modules */
     private function __construct(
         array $modules = [],
         bool $installExampleData = false

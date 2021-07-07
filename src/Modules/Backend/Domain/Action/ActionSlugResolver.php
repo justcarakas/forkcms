@@ -14,6 +14,7 @@ final class ActionSlugResolver implements ArgumentValueResolverInterface
         return $argument->getType() === ActionSlug::class;
     }
 
+    /** @return Generator<ActionSlug> */
     public function resolve(Request $request, ArgumentMetadata $argument): Generator
     {
         yield ActionSlug::fromRequest($request);

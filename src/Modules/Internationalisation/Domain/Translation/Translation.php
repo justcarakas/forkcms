@@ -144,6 +144,7 @@ class Translation
         return $this->editedBy;
     }
 
+    /** @param array<int, mixed> $parameters */
     public function getTranslatable(array $parameters = []): TranslatableMessage
     {
         return new TranslatableMessage($this->key->__toString(), $parameters, $this->domain->__toString());
