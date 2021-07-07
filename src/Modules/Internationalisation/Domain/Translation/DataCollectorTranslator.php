@@ -3,11 +3,14 @@
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use ForkCMS\Modules\Internationalisation\Domain\Translator\ForkTranslator;
+use LogicException;
 use Symfony\Component\Translation\DataCollectorTranslator as SymfonyDataCollectorTranslator;
+use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class DataCollectorTranslator extends SymfonyDataCollectorTranslator
 {
+    /** @var array<int, mixed>  */
     private array $messages = [];
 
     public function __construct(private TranslatorInterface $translator)
@@ -15,9 +18,7 @@ final class DataCollectorTranslator extends SymfonyDataCollectorTranslator
         parent::__construct($this->translator);
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** @param array<string, mixed> $parameters */
     public function trans(?string $id, array $parameters = [], string $domain = null, string $locale = null): string
     {
         $trans = $this->translator->trans($id = (string) $id, $parameters, $domain, $locale);
@@ -32,13 +33,14 @@ final class DataCollectorTranslator extends SymfonyDataCollectorTranslator
     }
 
     /**
-     * @return array
+     * @return array<int, mixed>
      */
     public function getCollectedMessages(): array
     {
         return $this->messages;
     }
 
+    /** @param null|array<string, mixed> $parameters */
     private function collectMessage(
         ?string $locale,
         ?string $domain,
@@ -50,6 +52,9 @@ final class DataCollectorTranslator extends SymfonyDataCollectorTranslator
             $domain = 'messages';
         }
 
+        if (!$this->translator instanceof TranslatorBagInterface) {
+            throw new LogicException('Cannot get a catalog out of the translator');
+        }
         $catalogue = $this->translator->getCatalogue($locale);
         $locale = $catalogue->getLocale();
         $fallbackLocale = null;

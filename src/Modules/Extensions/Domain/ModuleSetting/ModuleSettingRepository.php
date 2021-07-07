@@ -17,6 +17,7 @@ use Throwable;
  * @method ModuleSetting|null findOneBy(array $criteria, array $orderBy = null)
  * @method ModuleSetting[] findAll()
  * @method ModuleSetting[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<ModuleSetting>
  */
 final class ModuleSettingRepository extends ServiceEntityRepository
 {
@@ -45,6 +46,7 @@ final class ModuleSettingRepository extends ServiceEntityRepository
         return $defaultValue;
     }
 
+    /** @return array<string, mixed> */
     public function getForModule(ModuleName $moduleName): array
     {
         $settings = $this->getSettingsFromCache();
@@ -146,6 +148,7 @@ final class ModuleSettingRepository extends ServiceEntityRepository
         throw new InvalidArgumentException('The module ' . $moduleName . ' is not installed');
     }
 
+    /** @return array<string,array<string, mixed>> */
     private function getSettingsFromCache(): array
     {
         $item = $this->cache->getItem($this->getCacheKey());

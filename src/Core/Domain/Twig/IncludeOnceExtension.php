@@ -10,6 +10,7 @@ use Twig\TwigFunction;
 
 final class IncludeOnceExtension extends AbstractExtension
 {
+    /** @var array<string, bool> */
     private array $includedTemplates = [];
 
     public function getFunctions(): array
@@ -31,6 +32,10 @@ final class IncludeOnceExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * @param array<string, mixed> $context
+     * @param array<string, mixed> $variables
+     */
     public function includeOnce(
         Environment $env,
         array $context,
@@ -54,6 +59,7 @@ final class IncludeOnceExtension extends AbstractExtension
         }
 
         if ($isSandboxed) {
+            /** @var SandboxExtension $sandbox */
             $sandbox = $env->getExtension(SandboxExtension::class);
             if (!$alreadySandboxed = $sandbox->isSandboxed()) {
                 $sandbox->enableSandbox();
@@ -63,7 +69,7 @@ final class IncludeOnceExtension extends AbstractExtension
         try {
             try {
                 $loaded = $env->resolveTemplate($template);
-                $output = $loaded ? $loaded->render($variables) : '';
+                $output = $loaded->render($variables);
             } catch (LoaderError $e) {
                 if (!$ignoreMissing) {
                     throw $e;

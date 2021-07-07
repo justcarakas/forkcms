@@ -103,7 +103,7 @@
     },
     "scripts": {
         "test": "symfony php bin/simple-phpunit",
-        "phpstan": "symfony console cache:warm -q -edev && symfony php -d memory_limit=-1 bin/phpstan analyze src",
+        "phpstan": "APP_DEBUG=1 symfony console cache:warm -q -edev && symfony php -d memory_limit=-1 bin/phpstan analyze src",
         "phpcs": "symfony php -d memory_limit=-1 bin/phpcs --standard=psr2 --extensions=php --warning-severity=0 --report=full --ignore=src/Core.deprecated,src/Modules.deprecated src",
         "post-install-cmd": [],
         "post-update-cmd": []

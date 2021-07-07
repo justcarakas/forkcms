@@ -2,13 +2,13 @@
 
 namespace ForkCMS\Core\Domain\Kernel\Command;
 
+use ForkCMS\Core\Domain\Kernel\Kernel;
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 final class ClearContainerHandler implements CommandHandlerInterface
 {
-    public function __construct(private KernelInterface $kernel)
+    public function __construct(private Kernel $kernel)
     {
     }
 

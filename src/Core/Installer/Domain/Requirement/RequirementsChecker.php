@@ -143,7 +143,7 @@ final class RequirementsChecker
 
     private function checkPHPExtensions(): RequirementCategory
     {
-        $pcreVersion = defined('PCRE_VERSION') ? (float) PCRE_VERSION : null;
+        $pcreVersion = defined('PCRE_VERSION') ? PCRE_VERSION : null;
 
         return new RequirementCategory(
             'PHP extensions',

@@ -12,7 +12,7 @@ final class AuthenticationStepConfigurationHandler implements CommandHandlerInte
     {
     }
 
-    public function __invoke(AuthenticationStepConfiguration $authenticationStepConfiguration)
+    public function __invoke(AuthenticationStepConfiguration $authenticationStepConfiguration): void
     {
         InstallerConfiguration::fromSession($this->session)->withAuthenticationStep($authenticationStepConfiguration);
     }

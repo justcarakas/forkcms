@@ -17,7 +17,7 @@ final class ModulesStepConfigurationHandler implements CommandHandlerInterface
     ) {
     }
 
-    public function __invoke(ModulesStepConfiguration $modulesStepConfiguration)
+    public function __invoke(ModulesStepConfiguration $modulesStepConfiguration): void
     {
         InstallerConfiguration::fromSession($this->session)->withModulesStep(
             $modulesStepConfiguration,

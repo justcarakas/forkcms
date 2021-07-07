@@ -15,7 +15,7 @@ final class InstallForkCMSHandler implements CommandHandlerInterface
     ) {
     }
 
-    public function __invoke(InstallForkCMS $installForkCMS)
+    public function __invoke(InstallForkCMS $installForkCMS): void
     {
         // extend execution limit
         set_time_limit(0);

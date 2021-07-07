@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 final class ForkYamlFileLoader extends YamlFileLoader
 {
+    /** @return array<string,mixed> */
     protected function loadFile($file): array
     {
         $config = array_merge_recursive(
