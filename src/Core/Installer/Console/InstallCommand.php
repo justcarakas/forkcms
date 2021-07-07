@@ -11,6 +11,7 @@ use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;
 use ForkCMS\Core\Installer\Domain\Installer\InstallForkCMS;
 use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -34,7 +35,6 @@ class InstallCommand extends Command
         private bool $forkIsInstalled,
         private ConfigurationParser $configurationParser,
         private Kernel $kernel,
-        private MessageBusInterface $commandBus,
     ) {
         parent::__construct('forkcms:installer:install');
     }
@@ -65,7 +65,12 @@ class InstallCommand extends Command
         $this->kernel->reboot(null);
         $_SERVER['HTTPS'] = 'on';
         try {
-            $this->commandBus->dispatch(new InstallForkCMS($installerConfiguration));
+            // We can't get this via DI because it only works after the kernel reboot
+            $messengerBus = $this->kernel->getContainer()->get('messenger.default_bus');
+            if (!$messengerBus instanceof MessageBusInterface) {
+                throw new RuntimeException('The messenger bus is missing');
+            }
+            $messengerBus->dispatch(new InstallForkCMS($installerConfiguration));
         } catch (Throwable $throwable) {
             if ($output->isVerbose()) {
                 throw $throwable;
