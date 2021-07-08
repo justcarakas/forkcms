@@ -6,10 +6,10 @@ use InvalidArgumentException;
 
 final class RequirementStatus
 {
-    const SUCCESS = 'success';
-    const WARNING = 'warning';
-    const ERROR = 'danger';
-    const POSSIBLE_VALUES = [
+    public const SUCCESS = 'success';
+    public const WARNING = 'warning';
+    public const ERROR = 'danger';
+    public const POSSIBLE_VALUES = [
         self::SUCCESS,
         self::WARNING,
         self::ERROR,

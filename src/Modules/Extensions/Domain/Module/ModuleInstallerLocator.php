@@ -37,7 +37,7 @@ final class ModuleInstallerLocator
         return $this->moduleInstallersToModuleNames(
             array_filter(
                 $this->moduleInstallers,
-                static fn(ModuleInstaller $moduleInstaller) => $moduleInstaller::IS_REQUIRED
+                static fn (ModuleInstaller $moduleInstaller) => $moduleInstaller::IS_REQUIRED
             )
         );
     }
@@ -48,7 +48,7 @@ final class ModuleInstallerLocator
         return $this->moduleInstallersToModuleNames(
             array_filter(
                 $this->moduleInstallers,
-                static fn(ModuleInstaller $moduleInstaller) => $moduleInstaller::IS_VISIBLE_IN_OVERVIEW
+                static fn (ModuleInstaller $moduleInstaller) => $moduleInstaller::IS_VISIBLE_IN_OVERVIEW
             )
         );
     }
@@ -57,9 +57,9 @@ final class ModuleInstallerLocator
     public function getSortedInstallersForModuleNames(ModuleName ...$moduleNames): array
     {
         $moduleInstallers = array_combine(
-            array_map(static fn(ModuleName $moduleName): string => $moduleName->getName(), $moduleNames),
+            array_map(static fn (ModuleName $moduleName): string => $moduleName->getName(), $moduleNames),
             array_map(
-                fn(ModuleName $moduleName): ModuleInstaller => $this->getModuleInstaller($moduleName),
+                fn (ModuleName $moduleName): ModuleInstaller => $this->getModuleInstaller($moduleName),
                 $moduleNames
             )
         );
@@ -85,12 +85,13 @@ final class ModuleInstallerLocator
 
     /**
      * @param ModuleInstaller[] $moduleInstallers
+     *
      * @return ModuleName[]
      */
     private function moduleInstallersToModuleNames(array $moduleInstallers): array
     {
         return array_map(
-            static fn(ModuleInstaller $moduleInstaller): ModuleName => $moduleInstaller::getModuleName(),
+            static fn (ModuleInstaller $moduleInstaller): ModuleName => $moduleInstaller::getModuleName(),
             $moduleInstallers
         );
     }

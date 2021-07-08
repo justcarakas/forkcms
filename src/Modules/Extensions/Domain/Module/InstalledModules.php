@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 final class InstalledModules
 {
-    /** @var ModuleName[] needed for the console install command  */
+    /** @var ModuleName[] needed for the console install command */
     private static array $modulesToInstall = [];
 
     public function __construct(private bool $forkIsInstalled)

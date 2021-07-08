@@ -1095,5 +1095,65 @@
       <translation locale="pt"><![CDATA[Os valores não coincidem.]]></translation>
       <translation locale="pl"><![CDATA[Wartości nie są zgodne.]]></translation>
     </item>
+    <item type="label" name="OpenNavigation">
+      <translation locale="nl"><![CDATA[klap navigatie open]]></translation>
+      <translation locale="en"><![CDATA[open navigation]]></translation>
+      <translation locale="fr"><![CDATA[ouvrir la navigation]]></translation>
+      <translation locale="ru"><![CDATA[Открытая навигация]]></translation>
+      <translation locale="el"><![CDATA[Άνοιγμα πλοήγησης]]></translation>
+      <translation locale="hu"><![CDATA[Nyissa meg a navigációt]]></translation>
+      <translation locale="zh"><![CDATA[打開導航]]></translation>
+      <translation locale="de"><![CDATA[Öffnen Sie die Navigation]]></translation>
+      <translation locale="pt"><![CDATA[abrir navegação]]></translation>
+      <translation locale="pl"><![CDATA[otwórz nawigację]]></translation>
+    </item>
+    <item type="label" name="CloseNavigation">
+      <translation locale="nl"><![CDATA[navigatie dichtklappen]]></translation>
+      <translation locale="en"><![CDATA[close navigation]]></translation>
+      <translation locale="fr"><![CDATA[fermer la navigation]]></translation>
+      <translation locale="ru"><![CDATA[закрыть навигацию]]></translation>
+      <translation locale="el"><![CDATA[κλείστε την πλοήγηση]]></translation>
+      <translation locale="hu"><![CDATA[zárja be a navigációt]]></translation>
+      <translation locale="zh"><![CDATA[關閉導航]]></translation>
+      <translation locale="de"><![CDATA[schließe die Navigation]]></translation>
+      <translation locale="pt"><![CDATA[fechar navegação]]></translation>
+      <translation locale="pl"><![CDATA[zamknij nawigację]]></translation>
+    </item>
+    <item type="label" name="Next">
+      <translation locale="nl"><![CDATA[volgende]]></translation>
+      <translation locale="en"><![CDATA[next]]></translation>
+      <translation locale="hu"><![CDATA[következő]]></translation>
+      <translation locale="it"><![CDATA[successivo]]></translation>
+      <translation locale="fr"><![CDATA[suivant]]></translation>
+      <translation locale="ru"><![CDATA[Следующий]]></translation>
+      <translation locale="zh"><![CDATA[下一步]]></translation>
+      <translation locale="de"><![CDATA[nächste]]></translation>
+      <translation locale="es"><![CDATA[Siguiente]]></translation>
+      <translation locale="lt"><![CDATA[kitas]]></translation>
+      <translation locale="uk"><![CDATA[Далі]]></translation>
+      <translation locale="sv"><![CDATA[nästa]]></translation>
+      <translation locale="el"><![CDATA[επόμενη]]></translation>
+      <translation locale="pl"><![CDATA[następny]]></translation>
+      <translation locale="tr"><![CDATA[sonraki]]></translation>
+      <translation locale="pt"><![CDATA[seguinte]]></translation>
+    </item>
+    <item type="label" name="Previous">
+      <translation locale="nl"><![CDATA[vorige]]></translation>
+      <translation locale="en"><![CDATA[previous]]></translation>
+      <translation locale="hu"><![CDATA[előző]]></translation>
+      <translation locale="it"><![CDATA[precedente]]></translation>
+      <translation locale="fr"><![CDATA[précédent]]></translation>
+      <translation locale="ru"><![CDATA[Предыдущий]]></translation>
+      <translation locale="zh"><![CDATA[上一步]]></translation>
+      <translation locale="de"><![CDATA[vorherige]]></translation>
+      <translation locale="es"><![CDATA[previo]]></translation>
+      <translation locale="lt"><![CDATA[atgal]]></translation>
+      <translation locale="uk"><![CDATA[Попередній]]></translation>
+      <translation locale="sv"><![CDATA[föregående]]></translation>
+      <translation locale="el"><![CDATA[προηγούμενη]]></translation>
+      <translation locale="pl"><![CDATA[poprzedni]]></translation>
+      <translation locale="tr"><![CDATA[önceki]]></translation>
+      <translation locale="pt"><![CDATA[anterior]]></translation>
+    </item>
   </Backend>
 </translations>

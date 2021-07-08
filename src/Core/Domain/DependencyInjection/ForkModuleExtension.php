@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * Base class to load the config for your module. Prepends Fork CMS specific defaults and tagged services
+ * Base class to load the config for your module. Prepends Fork CMS specific defaults and tagged services.
  */
 abstract class ForkModuleExtension extends Extension implements PrependExtensionInterface
 {
@@ -26,6 +26,9 @@ abstract class ForkModuleExtension extends Extension implements PrependExtension
     {
         $reflector = new ReflectionClass(static::class);
 
-        return new ForkYamlFileLoader($container, new FileLocator(((string) dirname($reflector->getFileName())) . '/../config'));
+        return new ForkYamlFileLoader(
+            $container,
+            new FileLocator(((string) dirname($reflector->getFileName())) . '/../config')
+        );
     }
 }

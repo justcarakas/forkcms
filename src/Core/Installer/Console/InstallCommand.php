@@ -23,7 +23,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Throwable;
 
 /**
- * This command will run the requirements checks of fork
+ * This command will run the requirements checks of fork.
  */
 class InstallCommand extends Command
 {

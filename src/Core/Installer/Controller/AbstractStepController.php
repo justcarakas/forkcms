@@ -65,7 +65,7 @@ abstract class AbstractStepController
         string $dataClass,
         InstallerConfiguration $installerConfiguration
     ): InstallerStepConfiguration {
-        /** @var $dataClass InstallerStepConfiguration */
+        /* @var $dataClass InstallerStepConfiguration */
         return $dataClass::fromInstallerConfiguration($installerConfiguration);
     }
 }

@@ -3,14 +3,14 @@
 namespace ForkCMS\Core\Installer\Domain\Configuration;
 
 use ForkCMS\Core\Domain\Kernel\Command\ClearContainerCache;
-use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
-use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
-use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Core\Installer\Domain\Authentication\AuthenticationStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Database\DatabaseStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;
 use ForkCMS\Core\Installer\Domain\Locale\LocalesStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Module\ModulesStepConfiguration;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use InvalidArgumentException;
 use LogicException;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -83,15 +83,15 @@ final class InstallerConfiguration
         $localesStepConfiguration->normalise();
         $this->multilingual = $localesStepConfiguration->multilingual;
         $this->defaultLocale = $localesStepConfiguration->defaultLocale
-                               ?? throw new InvalidArgumentException('A default locale is missing');
+            ?? throw new InvalidArgumentException('A default locale is missing');
         $this->locales = array_map(
-            static fn(Locale $locale) => $locale,
+            static fn (Locale $locale) => $locale,
             $localesStepConfiguration->locales
         );
         $this->defaultUserLocale = $localesStepConfiguration->defaultUserLocale
-                                        ?? throw new InvalidArgumentException('A default interface locale is missing');
+            ?? throw new InvalidArgumentException('A default interface locale is missing');
         $this->userLocales = array_map(
-            static fn(Locale $locale) => $locale,
+            static fn (Locale $locale) => $locale,
             $localesStepConfiguration->userLocales
         );
         $this->addStep($localesStepConfiguration::getStep());
@@ -132,7 +132,7 @@ final class InstallerConfiguration
         $modulesStepConfiguration->normalise($moduleInstallerLocator);
 
         $this->modules = array_map(
-            static fn(ModuleName $moduleName) => $moduleName,
+            static fn (ModuleName $moduleName) => $moduleName,
             $modulesStepConfiguration->modules
         );
         $this->installExampleData = $modulesStepConfiguration->installExampleData;

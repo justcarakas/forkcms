@@ -57,12 +57,12 @@ abstract class ModuleInstaller
     }
 
     /**
-     * Use this method to perform the actions needed to install the module
+     * Use this method to perform the actions needed to install the module.
      */
     abstract public function install(): void;
 
     /**
-     * Use this method to perform actions before the uninstalled module dependencies are installed
+     * Use this method to perform actions before the uninstalled module dependencies are installed.
      */
     public function preInstall(): void
     {

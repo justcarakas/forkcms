@@ -44,7 +44,6 @@ final class UserGroupRepository extends ServiceEntityRepository
         $entityManager->flush();
     }
 
-
     public function getAdminUserGroup(): UserGroup
     {
         $adminUserGroup = $this->findOneBy(['id' => UserGroup::ADMIN_GROUP_ID]);

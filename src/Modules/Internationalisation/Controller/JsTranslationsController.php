@@ -10,7 +10,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class JsTranslationsController
 {
-
     public function __construct(private TranslatorInterface $translator)
     {
     }

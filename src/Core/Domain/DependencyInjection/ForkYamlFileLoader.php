@@ -17,7 +17,7 @@ final class ForkYamlFileLoader extends YamlFileLoader
         $calculateBoolean = static function (array $values) {
             return array_reduce(
                 $values,
-                static fn(bool $carry, bool $current) => $carry && $current,
+                static fn (bool $carry, bool $current) => $carry && $current,
                 true
             );
         };

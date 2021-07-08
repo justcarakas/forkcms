@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Builds the form to select locales to install
+ * Builds the form to select locales to install.
  */
 class LocalesType extends AbstractType implements DataTransformerInterface
 {

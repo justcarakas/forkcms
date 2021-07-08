@@ -10,7 +10,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class DataCollectorTranslator extends SymfonyDataCollectorTranslator
 {
-    /** @var array<int, mixed>  */
+    /** @var array<int, mixed> */
     private array $messages = [];
 
     public function __construct(private TranslatorInterface $translator)
@@ -40,7 +40,7 @@ final class DataCollectorTranslator extends SymfonyDataCollectorTranslator
         return $this->messages;
     }
 
-    /** @param null|array<string, mixed> $parameters */
+    /** @param array<string, mixed>|null $parameters */
     private function collectMessage(
         ?string $locale,
         ?string $domain,
@@ -48,7 +48,7 @@ final class DataCollectorTranslator extends SymfonyDataCollectorTranslator
         string $translation,
         ?array $parameters = []
     ): void {
-        if (null === $domain) {
+        if ($domain === null) {
             $domain = 'messages';
         }
 

@@ -8,10 +8,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Filesystem\Filesystem;
 
 /**
- * This command will prepare everything for a full reinstall
+ * This command will prepare everything for a full reinstall.
  */
 class PrepareForReinstallCommand extends Command
 {

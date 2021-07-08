@@ -18,8 +18,6 @@ final class RequirementsChecker
 
     /**
      * Are all requirements met?
-     *
-     * @return bool
      */
     public function passes(): bool
     {
@@ -27,7 +25,7 @@ final class RequirementsChecker
     }
 
     /**
-     * Get all requirements by category after running the tests
+     * Get all requirements by category after running the tests.
      *
      * @return RequirementCategory[]
      */
@@ -42,8 +40,6 @@ final class RequirementsChecker
 
     /**
      * Are there any issues with status error?
-     *
-     * @return bool
      */
     public function hasErrors(): bool
     {
@@ -65,8 +61,6 @@ final class RequirementsChecker
 
     /**
      * Are there any issues with status warning?
-     *
-     * @return bool
      */
     public function hasWarnings(): bool
     {
@@ -88,8 +82,6 @@ final class RequirementsChecker
 
     /**
      * Check all requirements and returns if everything has passed.
-     *
-     * @return bool
      */
     private function checkRequirements(): bool
     {
@@ -128,7 +120,7 @@ final class RequirementsChecker
             ),
             Requirement::check(
                 'mod_rewrite',
-                PHP_SAPI === "cli"
+                PHP_SAPI === 'cli'
                 || (bool) (getenv('MOD_REWRITE')
                            || getenv('REDIRECT_MOD_REWRITE')
                            || strtolower($_SERVER['HTTP_MOD_REWRITE'] ?? 'Off') === 'on'),
@@ -375,9 +367,7 @@ final class RequirementsChecker
     /**
      * Check if a directory and its sub-directories and its subdirectories and ... are writable.
      *
-     * @param string $path The path to check.
-     *
-     * @return bool
+     * @param string $path the path to check
      */
     private function isRecursivelyWritable(string $path): bool
     {
@@ -412,11 +402,9 @@ final class RequirementsChecker
 
     /**
      * Check if a directory is writable.
-     * The default is_writable function has problems due to Windows ACLs "bug"
+     * The default is_writable function has problems due to Windows ACLs "bug".
      *
-     * @param string $path The path to check.
-     *
-     * @return bool
+     * @param string $path the path to check
      */
     private function isWritable(string $path): bool
     {

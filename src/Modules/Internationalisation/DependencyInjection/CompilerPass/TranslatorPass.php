@@ -38,12 +38,12 @@ final class TranslatorPass implements CompilerPassInterface
             foreach ($locales as $locale => $isDefault) {
                 $translator->addMethodCall(
                     'addResource',
-                    array(
+                    [
                         'db',
                         null,
                         $locale,
                         $domain->getDomain(),
-                    )
+                    ]
                 );
             }
         }

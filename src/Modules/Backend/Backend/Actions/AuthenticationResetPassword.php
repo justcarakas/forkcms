@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class AuthenticationResetPassword
 {
-    protected function execute(Request $request): void
+    private function execute(Request $request): void
     {
     }
 }

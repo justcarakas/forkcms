@@ -3,8 +3,8 @@
 namespace ForkCMS\Core\Installer\Domain\Module;
 
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
-use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 

@@ -8,4 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 interface ActionControllerInterface
 {
     public function __invoke(Request $request): Response;
+
+    public static function getActionSlug(): ActionSlug;
 }

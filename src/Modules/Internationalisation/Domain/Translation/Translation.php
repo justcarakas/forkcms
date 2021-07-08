@@ -85,7 +85,6 @@ class Translation
      */
     public function prePersist(): void
     {
-
         $this->createdOn = $this->editedOn = new DateTimeImmutable();
         $this->editedBy = $this->createdBy = 1; //@TODO fix this
     }

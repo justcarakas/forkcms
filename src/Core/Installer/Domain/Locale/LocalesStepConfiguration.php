@@ -2,16 +2,16 @@
 
 namespace ForkCMS\Core\Installer\Domain\Locale;
 
-use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
-use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;
+use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class LocalesStepConfiguration implements InstallerStepConfiguration
 {
     /**
-     * The type of locale setup: single or multiple
+     * The type of locale setup: single or multiple.
      */
     public bool $multilingual = false;
 
@@ -21,7 +21,7 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
     public bool $sameInterfaceLocale = true;
 
     /**
-     * The locales to install Fork in
+     * The locales to install Fork in.
      *
      * @var Locale[]
      * @Assert\Count(min=1)
@@ -29,7 +29,7 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
     public array $locales = [];
 
     /**
-     * The backend interface locales to install for Fork
+     * The backend interface locales to install for Fork.
      *
      * @var Locale[]
      * @Assert\Count(min=1)
@@ -37,13 +37,15 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
     public array $userLocales = [];
 
     /**
-     * The default locale for this Fork installation
+     * The default locale for this Fork installation.
+     *
      * @Assert\NotBlank()
      */
     public ?Locale $defaultLocale = null;
 
     /**
-     * The default locale for the Fork backend
+     * The default locale for the Fork backend.
+     *
      * @Assert\NotBlank()
      */
     public ?Locale $defaultUserLocale = null;

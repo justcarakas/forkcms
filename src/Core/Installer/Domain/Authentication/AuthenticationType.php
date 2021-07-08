@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
 
 /**
- * Builds the form to set up login information
+ * Builds the form to set up login information.
  */
 final class AuthenticationType extends AbstractType
 {
@@ -28,7 +28,7 @@ final class AuthenticationType extends AbstractType
                     'first_options' => ['label' => 'Password'],
                     'second_options' => ['label' => 'Confirm'],
                     'constraints' => [
-                        new NotCompromisedPassword(['skipOnError' => true])
+                        new NotCompromisedPassword(['skipOnError' => true]),
                     ],
                 ]
             )->add(

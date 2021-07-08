@@ -3,14 +3,14 @@
 namespace ForkCMS\Core\Installer\Domain\Authentication;
 
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
-use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;
+use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class AuthenticationStepConfiguration implements InstallerStepConfiguration
 {
     /**
-     * The backend login email for the GOD user
+     * The backend login email for the GOD user.
      *
      * @Assert\NotBlank()
      * @Assert\Email()
@@ -18,30 +18,31 @@ final class AuthenticationStepConfiguration implements InstallerStepConfiguratio
     public ?string $email;
 
     /**
-     * The backend password for the GOD user
+     * The backend password for the GOD user.
      *
      * @Assert\NotBlank()
      */
     public ?string $password;
 
     /**
-     * Do we use a different debug emailaddress
+     * Do we use a different debug emailaddress.
      */
     public bool $differentDebugEmail;
 
     /**
-     * The custom debug emailaddress, if applicable
+     * The custom debug emailaddress, if applicable.
+     *
      * @Assert\Email()
      */
     public ?string $debugEmail;
 
     /**
-     * Save the configuration to a yaml file
+     * Save the configuration to a yaml file.
      */
     public bool $saveConfiguration;
 
     /**
-     * Include passwords in the configuration yaml file
+     * Include passwords in the configuration yaml file.
      */
     public bool $saveConfigurationWithCredentials;
 

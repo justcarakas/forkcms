@@ -2,13 +2,13 @@
 
 namespace ForkCMS\Core\Installer\Domain\Configuration;
 
-use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
-use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
-use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Core\Installer\Domain\Authentication\AuthenticationStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Database\DatabaseStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Locale\LocalesStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Module\ModulesStepConfiguration;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use InvalidArgumentException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Yaml\Tag\TaggedValue;
@@ -82,17 +82,17 @@ SITE_MULTILINGUAL=%9$s',
             'database-password' => $withCredentials ? $database->databasePassword : null,
             'multilingual' => $locales->multilingual,
             'locales' => array_map(
-                static fn(Locale $locale) => new TaggedValue('fork-cms_locale', $locale->value),
+                static fn (Locale $locale) => new TaggedValue('fork-cms_locale', $locale->value),
                 $locales->locales
             ),
             'default-locale' => new TaggedValue('fork-cms_locale', $locales->defaultLocale->value),
             'interface-locales' => array_map(
-                static fn(Locale $locale) => new TaggedValue('fork-cms_locale', $locale->value),
+                static fn (Locale $locale) => new TaggedValue('fork-cms_locale', $locale->value),
                 $locales->userLocales
             ),
             'default-interface-locale' => new TaggedValue('fork-cms_locale', $locales->defaultUserLocale->value),
             'modules' => array_map(
-                static fn(ModuleName $moduleName) => new TaggedValue('fork-cms_module', $moduleName->getName()),
+                static fn (ModuleName $moduleName) => new TaggedValue('fork-cms_module', $moduleName->getName()),
                 $modules->modules
             ),
             'install-example-data' => $modules->installExampleData,
@@ -108,9 +108,7 @@ SITE_MULTILINGUAL=%9$s',
         $configuration['modules'] = array_map(
             static function (TaggedValue $taggedModule) use ($moduleNameMap): ModuleName {
                 if (!array_key_exists($taggedModule->getValue(), $moduleNameMap)) {
-                    throw new InvalidArgumentException(
-                        'The module "' . $taggedModule->getValue() . '" does not exist.'
-                    );
+                    throw new InvalidArgumentException('The module "' . $taggedModule->getValue() . '" does not exist.');
                 }
 
                 return $moduleNameMap[$taggedModule->getValue()];
@@ -118,12 +116,12 @@ SITE_MULTILINGUAL=%9$s',
             $configuration['modules'],
         );
         $configuration['locales'] = array_map(
-            static fn(TaggedValue $taggedLocale) => Locale::from($taggedLocale->getValue()),
+            static fn (TaggedValue $taggedLocale) => Locale::from($taggedLocale->getValue()),
             $configuration['locales'],
         );
         $configuration['default-locale'] = Locale::from($configuration['default-locale']->getValue());
         $configuration['interface-locales'] = array_map(
-            static fn(TaggedValue $taggedLocale) => Locale::from($taggedLocale->getValue()),
+            static fn (TaggedValue $taggedLocale) => Locale::from($taggedLocale->getValue()),
             $configuration['interface-locales'],
         );
         $configuration['default-interface-locale'] = Locale::from(
