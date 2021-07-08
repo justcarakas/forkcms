@@ -17,6 +17,12 @@
     "codex-team/editor.js": {
         "version": "v2.0.7"
     },
+    "composer/semver": {
+        "version": "3.2.5"
+    },
+    "composer/xdebug-handler": {
+        "version": "2.0.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -120,6 +126,18 @@
     },
     "firebase/php-jwt": {
         "version": "v5.2.1"
+    },
+    "friendsofphp/php-cs-fixer": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "be2103eb4a20942e28a6dd87736669b757132435"
+        },
+        "files": [
+            ".php-cs-fixer.dist.php"
+        ]
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
@@ -276,6 +294,9 @@
     },
     "pfilsx/data-grid-bundle": {
         "version": "5.0.2"
+    },
+    "php-cs-fixer/diff": {
+        "version": "v2.0.2"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"

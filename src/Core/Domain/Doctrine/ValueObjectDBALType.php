@@ -2,8 +2,8 @@
 
 namespace ForkCMS\Core\Domain\Doctrine;
 
-use Doctrine\DBAL\Types\StringType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\StringType;
 use InvalidArgumentException;
 use Stringable;
 use Symfony\Component\DependencyInjection\Container;
@@ -68,6 +68,6 @@ abstract class ValueObjectDBALType extends StringType
 
     protected function toString(Stringable $value): string
     {
-        return (string)$value;
+        return (string) $value;
     }
 }

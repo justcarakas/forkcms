@@ -9,7 +9,7 @@ trait NamedIdentifier
 {
     private string $name;
 
-    /** @var array<string, static>  */
+    /** @var array<string, static> */
     private static array $nameInstances = [];
 
     private function __construct(string $name)

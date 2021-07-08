@@ -3,8 +3,8 @@
 namespace ForkCMS\Core\Installer\Domain\Database;
 
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
-use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;
+use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
 use SpoonDatabase;
 use Symfony\Component\Validator\Constraints as Assert;
 use Throwable;

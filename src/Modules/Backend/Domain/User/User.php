@@ -170,7 +170,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         $roles = [
             'ROLE_USER',
-            NotFound::getActionSlug()->asModuleAction()->asRole()
+            NotFound::getActionSlug()->asModuleAction()->asRole(),
         ];
         $groupRoles = [];
 

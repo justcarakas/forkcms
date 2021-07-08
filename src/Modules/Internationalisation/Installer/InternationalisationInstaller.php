@@ -34,7 +34,7 @@ final class InternationalisationInstaller extends ModuleInstaller
             'isDefaultForUser' => false,
         ];
         $localeConfig = array_fill_keys(
-            array_map(static fn(Locale $locale): string => $locale->value, $installerConfiguration->getLocales()),
+            array_map(static fn (Locale $locale): string => $locale->value, $installerConfiguration->getLocales()),
             $defaults
         );
 

@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * This command will run the requirements checks of fork
+ * This command will run the requirements checks of fork.
  */
 final class CheckRequirementsCommand extends Command
 {

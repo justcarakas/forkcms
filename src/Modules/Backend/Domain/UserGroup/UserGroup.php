@@ -188,7 +188,7 @@ class UserGroup
     private function getUserGroupModuleForModuleName(ModuleName $moduleName): ?UserGroupModule
     {
         $userGroupModule = $this->modules->filter(
-            static fn(UserGroupModule $userGroupModule) => $userGroupModule->getModuleName() === $moduleName
+            static fn (UserGroupModule $userGroupModule) => $userGroupModule->getModuleName() === $moduleName
         )->first();
 
         return $userGroupModule instanceof UserGroupModule ? $userGroupModule : null;
@@ -223,7 +223,7 @@ class UserGroup
     private function getUserGroupActionForModuleAction(ModuleAction $moduleAction): ?UserGroupAction
     {
         $userGroupAction = $this->actions->filter(
-            static fn(UserGroupAction $userGroupAction) => $userGroupAction->getModuleAction() === $moduleAction
+            static fn (UserGroupAction $userGroupAction) => $userGroupAction->getModuleAction() === $moduleAction
         )->first();
 
         return $userGroupAction instanceof UserGroupAction ? $userGroupAction : null;
@@ -258,7 +258,7 @@ class UserGroup
     private function getUserGroupWidgetForModuleWidget(ModuleWidget $moduleWidget): ?UserGroupWidget
     {
         $userGroupWidget = $this->widgets->filter(
-            static fn(UserGroupWidget $userGroupWidget) => $userGroupWidget->getModuleWidget() === $moduleWidget
+            static fn (UserGroupWidget $userGroupWidget) => $userGroupWidget->getModuleWidget() === $moduleWidget
         )->first();
 
         return $userGroupWidget instanceof UserGroupWidget ? $userGroupWidget : null;
@@ -269,13 +269,13 @@ class UserGroup
     {
         return array_merge(
             $this->modules->map(
-                static fn(UserGroupModule $module): string => $module->getModuleName()->asRole()
+                static fn (UserGroupModule $module): string => $module->getModuleName()->asRole()
             )->toArray(),
             $this->actions->map(
-                static fn(UserGroupAction $action): string => $action->getModuleAction()->asRole()
+                static fn (UserGroupAction $action): string => $action->getModuleAction()->asRole()
             )->toArray(),
             $this->widgets->map(
-                static fn(UserGroupWidget $widget): string => $widget->getModuleWidget()->asRole()
+                static fn (UserGroupWidget $widget): string => $widget->getModuleWidget()->asRole()
             )->toArray(),
         );
     }

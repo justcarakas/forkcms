@@ -126,9 +126,7 @@ class NavigationItem
     private function getFallbackSequence(?self $parent = null): int
     {
         if ($parent === null) {
-            throw new InvalidArgumentException(
-                'Cannot calculate next sequence, please pass a sequence as an argument'
-            );
+            throw new InvalidArgumentException('Cannot calculate next sequence, please pass a sequence as an argument');
         }
 
         return $parent->getChildren()->count() + 1;

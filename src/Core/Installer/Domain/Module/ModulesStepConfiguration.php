@@ -2,18 +2,18 @@
 
 namespace ForkCMS\Core\Installer\Domain\Module;
 
-use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
-use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
 use ForkCMS\Modules\Blog\Installer\BlogInstaller;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class ModulesStepConfiguration implements InstallerStepConfiguration
 {
     /**
-     * The modules to install Fork in
+     * The modules to install Fork in.
      *
      * @var ModuleName[]
      * @Assert\Count(min=1)

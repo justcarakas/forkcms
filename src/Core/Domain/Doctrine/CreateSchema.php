@@ -12,7 +12,7 @@ final class CreateSchema
     }
 
     /**
-     * Adds new doctrine entities in the database
+     * Adds new doctrine entities in the database.
      */
     public function forEntityClasses(string ...$entityClasses): void
     {

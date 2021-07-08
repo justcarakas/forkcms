@@ -50,6 +50,7 @@ final class XmlImporter implements ImporterInterface
 
     /**
      * @param array<string, mixed> $translationItems
+     *
      * @return Generator<Translation>
      */
     public function makeTranslations(array $translationItems, TranslationDomain $domain, string $source): Generator

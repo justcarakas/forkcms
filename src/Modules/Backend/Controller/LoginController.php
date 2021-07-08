@@ -2,7 +2,6 @@
 
 namespace ForkCMS\Modules\Backend\Controller;
 
-use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItemRepository;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;

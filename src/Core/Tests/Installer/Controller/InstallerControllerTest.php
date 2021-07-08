@@ -3,7 +3,7 @@
 namespace ForkCMS\Core\Tests\Installer\Controller;
 
 use ForkCMS\Core\Tests\WebTestCase;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -13,29 +13,31 @@ use Throwable;
  */
 class InstallerControllerTest extends WebTestCase
 {
+    protected const TEST_ENVIRONMENT = 'test_install';
+
     /** @var string */
-    private $kernelDir;
+    private $rootDir;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->kernelDir = $this->getProvidedData()[0]->getContainer()->getParameter('kernel.project_dir') . '/app';
+        $this->rootDir = $this->getProvidedData()[0]->getContainer()->getParameter('kernel.project_dir');
     }
 
     protected function onNotSuccessfulTest(Throwable $throwable): void
     {
-        // put back our parameters file
-        $this->putParametersFileBack(new Filesystem(), $this->kernelDir);
+        // put back our env.local file
+        if ($this->rootDir !== null) {
+            $this->putLocalEnvFileBack();
+        }
 
         parent::onNotSuccessfulTest($throwable);
     }
 
-    public function testNoStepActionAction(): void
+    public function testNoStepActionAction(KernelBrowser $client): void
     {
-        $client = static::createClient(['environment' => 'test_install']);
-
-        $client->request('GET', '/install');
+        $client->request('GET', '/');
         $client->followRedirect();
 
         // we should be redirected to the first step
@@ -43,50 +45,37 @@ class InstallerControllerTest extends WebTestCase
         self::assertCurrentUrlEndsWith($client, '/install/1');
     }
 
-    public function testInstallationProcess(Client $client): void
+    public function testInstallationProcess(KernelBrowser $client): void
     {
-        $container = $client->getContainer();
-        $filesystem = new Filesystem();
-        $installDatabaseConfig = [
-            'install_database[databaseHostname]' => $container->getParameter('database.host'),
-            'install_database[databasePort]' => $container->getParameter('database.port'),
-            'install_database[databaseName]' => $container->getParameter('database.name') . '_test',
-            'install_database[databaseUsername]' => $container->getParameter('database.user'),
-            'install_database[databasePassword]' => $container->getParameter('database.password'),
-        ];
-
         // make sure we have a clean slate and our parameters file is backed up
-        $this->emptyTestDatabase($container->get('database'));
+        $this->emptyTestDatabase();
+        $this->backupLocalEnvFile();
 
-        // recreate the client with the empty database because we need this in our installer checks
-
-        $this->backupParametersFile($filesystem, $this->kernelDir);
-        $client = static::createClient(['environment' => 'test_install']);
-
+        self::assertGetsRedirected($client, '/', '/install/2');
         self::assertGetsRedirected($client, '/install', '/install/2');
         $this->runTroughStep2($client);
         $this->runTroughStep3($client);
-        $this->runTroughStep4($client, $installDatabaseConfig);
+        $this->runTroughStep4($client);
         $this->runTroughStep5($client);
 
         // put back our parameters file
-        $this->putParametersFileBack($filesystem, $this->kernelDir);
+        $this->putLocalEnvFileBack();
     }
 
-    private function runTroughStep2(Client $client): void
+    private function runTroughStep2(KernelBrowser $client): void
     {
         self::assertCurrentUrlEndsWith($client, '/install/2');
 
         $form = $this->getFormForSubmitButton($client, 'Next');
-        $form['install_languages[languages][0]']->tick();
-        $form['install_languages[languages][1]']->tick();
-        $form['install_languages[languages][2]']->tick();
+        $form['install_locales[locales][0]']->tick();
+        $form['install_locales[locales][1]']->tick();
+        $form['install_locales[locales][2]']->tick();
         $this->submitForm(
             $client,
             $form,
             [
-                'install_languages[language_type]' => 'multiple',
-                'install_languages[default_language]' => 'en',
+                'install_locales[multilingual]' => '1',
+                'install_locales[defaultLocale]' => 'en',
             ]
         );
 
@@ -95,7 +84,7 @@ class InstallerControllerTest extends WebTestCase
         self::assertCurrentUrlEndsWith($client, '/install/3');
     }
 
-    private function runTroughStep3(Client $client): void
+    private function runTroughStep3(KernelBrowser $client): void
     {
         $form = $this->getFormForSubmitButton($client, 'Next');
         $form['install_modules[modules][0]']->tick();
@@ -113,7 +102,7 @@ class InstallerControllerTest extends WebTestCase
         self::assertCurrentUrlEndsWith($client, '/install/4');
     }
 
-    private function runTroughStep4(Client $client, array $installDatabaseConfig): void
+    private function runTroughStep4(KernelBrowser $client): void
     {
         // first submit with incorrect data
         $form = $this->getFormForSubmitButton($client, 'Next');
@@ -125,14 +114,19 @@ class InstallerControllerTest extends WebTestCase
 
         // submit with correct database credentials
         $form = $this->getFormForSubmitButton($client, 'Next');
-        $this->submitForm($client, $form, $installDatabaseConfig, true);
+
+        $this->submitForm($client, $form, [
+            'install_database' => [
+                'databaseHostname' => $_ENV,
+            ],
+        ], true);
 
         // we should be redirected to step 5
         self::assertIs200($client);
         self::assertCurrentUrlEndsWith($client, '/install/5');
     }
 
-    private function runTroughStep5(Client $client): void
+    private function runTroughStep5(KernelBrowser $client): void
     {
         $form = $this->getFormForSubmitButton($client, 'Finish installation');
         $this->submitForm(
@@ -153,5 +147,53 @@ class InstallerControllerTest extends WebTestCase
             0,
             $client->getCrawler()->filter('h3:contains("Installation complete")')->count()
         );
+    }
+
+    /**
+     * Copies the .env.local file to a backup version.
+     */
+    private function backupLocalEnvFile(): void
+    {
+        $filesystem = new Filesystem();
+
+        if ($filesystem->exists($this->rootDir . '/.env.local')) {
+            $filesystem->copy(
+                $this->rootDir . '/.env.local',
+                $this->rootDir . '/.env.local~backup'
+            );
+        }
+
+        if ($filesystem->exists($this->rootDir . '/var/cache/test')) {
+            $filesystem->remove($this->rootDir . '/var/cache/test');
+        }
+
+        if ($filesystem->exists($this->rootDir . '/../var/cache/test_install')) {
+            $filesystem->remove($this->rootDir . '/../var/cache/test_install');
+        }
+    }
+
+    /**
+     * Puts the backed up .env.local file back.
+     */
+    private function putLocalEnvFileBack(): void
+    {
+        $filesystem = new Filesystem();
+
+        if ($filesystem->exists($this->rootDir . '/.env.local~backup')) {
+            $filesystem->copy(
+                $this->rootDir . '/.env.local~backup',
+                $this->rootDir . '/.env.local',
+                true
+            );
+            $filesystem->remove($this->rootDir . '/.env.local~backup');
+        }
+
+        if ($filesystem->exists($this->rootDir . '/var/cache/test')) {
+            $filesystem->remove($this->rootDir . '/var/cache/test');
+        }
+
+        if ($filesystem->exists($this->rootDir . '/../var/cache/test_install')) {
+            $filesystem->remove($this->rootDir . '/../var/cache/test_install');
+        }
     }
 }

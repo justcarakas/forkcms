@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Builds the form to select modules to install
+ * Builds the form to select modules to install.
  */
 class ModulesType extends AbstractType implements DataTransformerInterface
 {
@@ -29,8 +29,8 @@ class ModulesType extends AbstractType implements DataTransformerInterface
             ChoiceType::class,
             [
                 'choices' => $this->moduleInstallerLocator->getModuleNamesForOverview(),
-                'choice_value' => static fn(ModuleName $moduleName): string => $moduleName->getName(),
-                'choice_label' => static fn(ModuleName $moduleName): string => $moduleName->getName(),
+                'choice_value' => static fn (ModuleName $moduleName): string => $moduleName->getName(),
+                'choice_label' => static fn (ModuleName $moduleName): string => $moduleName->getName(),
                 'preferred_choices' => static function (ModuleName $moduleName) use ($requiredModules): bool {
                     return in_array($moduleName, $requiredModules);
                 },

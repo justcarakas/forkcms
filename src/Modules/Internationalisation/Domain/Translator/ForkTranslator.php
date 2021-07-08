@@ -5,7 +5,6 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Translator;
 use BadMethodCallException;
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
-use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
