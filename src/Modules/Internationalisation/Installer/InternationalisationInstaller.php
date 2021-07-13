@@ -26,7 +26,7 @@ final class InternationalisationInstaller extends ModuleInstaller
 
     private function setInstalledLocales(): void
     {
-        $installerConfiguration = InstallerConfiguration::fromSession($this->session);
+        $installerConfiguration = InstallerConfiguration::fromCache();
         $defaults = [
             'isEnabledForWebsite' => true,
             'isDefaultForWebsite' => false,

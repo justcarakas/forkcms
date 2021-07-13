@@ -24,7 +24,7 @@ final class InstallController
     public function __invoke(Request $request): Response
     {
         $step = InstallerStep::install();
-        $installerConfiguration = InstallerConfiguration::fromSession($request->getSession());
+        $installerConfiguration = InstallerConfiguration::fromCache();
 
         if (!$installerConfiguration->isValidForStep($step)) {
             return new RedirectResponse($this->router->generate($step->previous()->route()));

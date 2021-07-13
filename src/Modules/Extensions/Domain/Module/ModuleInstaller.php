@@ -18,7 +18,6 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\StampInterface;
@@ -45,7 +44,6 @@ abstract class ModuleInstaller
         protected TranslationRepository $translationRepository,
         protected InstalledLocaleRepository $installedLocaleRepository,
         protected Importer $importer,
-        protected SessionInterface $session,
         private MessageBusInterface $commandBus,
         private MessageBusInterface $eventBus,
     ) {

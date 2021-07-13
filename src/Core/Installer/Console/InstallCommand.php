@@ -18,7 +18,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Throwable;
 
@@ -118,8 +117,7 @@ class InstallCommand extends Command
             return null;
         }
 
-        $installerConfiguration = InstallerConfiguration::fromSession(new Session());
-        $this->configurationParser->loadFromFile($installerConfiguration);
+        $installerConfiguration = $this->configurationParser->loadFromFile();
         $installerConfiguration->withRequirementsStep();
 
         $adminEmail = $this->input->getOption('email');

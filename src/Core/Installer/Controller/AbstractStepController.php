@@ -4,7 +4,6 @@ namespace ForkCMS\Core\Installer\Controller;
 
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
-use ForkCMS\Core\Installer\Domain\Requirement\RequirementsChecker;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -19,7 +18,6 @@ abstract class AbstractStepController
     public function __construct(
         protected Environment $twig,
         protected RouterInterface $router,
-        protected RequirementsChecker $requirementsChecker,
         protected FormFactoryInterface $formFactory,
         protected MessageBusInterface $commandBus
     ) {
@@ -36,7 +34,7 @@ abstract class AbstractStepController
         string $dataClass,
         Request $request
     ): Response {
-        $installerConfiguration = InstallerConfiguration::fromSession($request->getSession());
+        $installerConfiguration = InstallerConfiguration::fromCache();
         $installerStepConfiguration = $this->getFormData($dataClass, $installerConfiguration);
         $step = $dataClass::getStep();
         if (!$installerConfiguration->isValidForStep($step)) {

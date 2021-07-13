@@ -19,7 +19,7 @@ final class RequirementsChecker
     /**
      * Are all requirements met?
      */
-    public function passes(): bool
+    public function passes(bool $allowWarnings = false): bool
     {
         return $this->checkRequirements();
     }
@@ -83,7 +83,7 @@ final class RequirementsChecker
     /**
      * Check all requirements and returns if everything has passed.
      */
-    private function checkRequirements(): bool
+    private function checkRequirements(bool $allowWarnings = false): bool
     {
         $this->requirementCategories = [
             $this->checkWebServer(),
@@ -94,7 +94,7 @@ final class RequirementsChecker
         ];
 
         // error status
-        return !$this->hasErrors() && !$this->hasWarnings();
+        return !$this->hasErrors() && (!$this->hasWarnings() || $allowWarnings);
     }
 
     private function checkWebServer(): RequirementCategory
