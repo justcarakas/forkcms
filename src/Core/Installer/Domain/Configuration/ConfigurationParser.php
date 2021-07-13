@@ -10,16 +10,19 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use InvalidArgumentException;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Yaml\Tag\TaggedValue;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Contracts\Cache\ItemInterface;
 
 final class ConfigurationParser
 {
     public function __construct(
         private string $rootDir,
         private ModuleInstallerLocator $moduleInstallerLocator,
-        private MessageBusInterface $commandBus
+        private MessageBusInterface $commandBus,
     ) {
     }
 
@@ -33,8 +36,8 @@ final class ConfigurationParser
         $debugEmail = $installerConfiguration->hasDifferentDebugEmail()
             ? $installerConfiguration->getDebugEmail() : $installerConfiguration->getAdminEmail();
 
-        $isOnHttps = !empty($_SERVER['HTTPS'] && strtolower($_SERVER['HTTPS']) !== 'off')
-                     || $_SERVER['SERVER_PORT'] === '443';
+        $isOnHttps = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
+            || ((int) ($_SERVER['SERVER_PORT'] ?? 80)) === 443;
 
         return sprintf(
             'FORK_DATABASE_HOST=%1$s
@@ -58,9 +61,9 @@ SITE_MULTILINGUAL=%9$s',
         );
     }
 
-    public function toYamlFile(InstallerConfiguration $installerConfiguration): void
+    public function toYamlFile(InstallerConfiguration $installerConfiguration, ?string $path = null): void
     {
-        file_put_contents($this->getYamlFilename(), $this->toYaml($installerConfiguration));
+        file_put_contents($path ?? $this->getYamlFilename(), $this->toYaml($installerConfiguration));
     }
 
     public function toYaml(InstallerConfiguration $installerConfiguration): string
@@ -138,13 +141,46 @@ SITE_MULTILINGUAL=%9$s',
         $installerConfiguration->withAuthenticationStep(AuthenticationStepConfiguration::fromArray($configuration));
     }
 
-    public function loadFromFile(InstallerConfiguration $installerConfiguration): void
+    public function loadFromFile(): InstallerConfiguration
     {
-        if (!$this->configurationFileExists()) {
-            return;
+        $installerConfiguration = InstallerConfiguration::fromCache();
+
+        if ($this->configurationFileExists()) {
+            $this->loadFromYaml($installerConfiguration, file_get_contents($this->getYamlFilename()));
         }
 
-        $this->loadFromYaml($installerConfiguration, file_get_contents($this->getYamlFilename()));
+        InstallerConfiguration::toCache($installerConfiguration);
+
+        return $installerConfiguration;
+    }
+
+    private function getCache(): FilesystemAdapter
+    {
+        return new FilesystemAdapter(static::class, 3600);
+    }
+
+    public function fromCache(): InstallerConfiguration
+    {
+        return $this->getCache()->get(
+            'installer.configuration',
+            function (ItemInterface $item) {
+                $item->expiresAfter(3600);
+                $configuration = new InstallerConfiguration();
+                $item->set($configuration);
+
+                return $configuration;
+            }
+        );
+    }
+
+    public function toCache(InstallerConfiguration $installerConfiguration): void
+    {
+        $cache = $this->getCache();
+        /** @var CacheItem $cacheItem */
+        $cacheItem = $cache->getItem('installer.configuration');
+        $cacheItem->expiresAfter(3600);
+        $cacheItem->set($installerConfiguration);
+        $cache->save($cacheItem);
     }
 
     public function configurationFileExists(): bool

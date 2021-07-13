@@ -38,7 +38,7 @@ final class BackendInstaller extends ModuleInstaller
             UserGroupAction::class,
             UserGroupWidget::class,
         );
-        $installerConfiguration = InstallerConfiguration::fromSession($this->session);
+        $installerConfiguration = InstallerConfiguration::fromCache();
 
         $createUser = new CreateUser();
         $createUser->email = $installerConfiguration->getAdminEmail();

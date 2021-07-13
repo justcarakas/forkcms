@@ -2,7 +2,6 @@
 
 namespace ForkCMS\Core\Installer\Controller;
 
-use ForkCMS\Core\Installer\Domain\Configuration\ConfigurationParser;
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;
 use ForkCMS\Core\Installer\Domain\Requirement\RequirementsChecker;
@@ -19,13 +18,17 @@ final class RequirementCheckerController extends AbstractStepController
     public function __construct(
         Environment $twig,
         RouterInterface $router,
-        RequirementsChecker $requirementsChecker,
         FormFactoryInterface $formFactory,
         MessageBusInterface $commandBus,
-        private ConfigurationParser $configurationParser,
-        private string $rootDir
+        private RequirementsChecker $requirementsChecker,
+        private string $rootDir,
     ) {
-        parent::__construct($twig, $router, $requirementsChecker, $formFactory, $commandBus);
+        parent::__construct(
+            $twig,
+            $router,
+            $formFactory,
+            $commandBus,
+        );
     }
 
     public function __invoke(Request $request): Response
@@ -34,9 +37,9 @@ final class RequirementCheckerController extends AbstractStepController
 
         // if all our requirements are met, go to the next step
         if ($this->requirementsChecker->passes()) {
-            $installerConfiguration = InstallerConfiguration::fromSession($request->getSession());
+            $installerConfiguration = InstallerConfiguration::fromCache();
             $installerConfiguration->withRequirementsStep();
-            $this->configurationParser->loadFromFile($installerConfiguration);
+            InstallerConfiguration::toCache($installerConfiguration);
 
             return new RedirectResponse($this->router->generate($step->next()->route()));
         }

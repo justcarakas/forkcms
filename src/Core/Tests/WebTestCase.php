@@ -28,6 +28,7 @@ abstract class WebTestCase extends BaseWebTestCase
     {
         parent::setUp();
 
+        MockArraySessionStorageFactory::clearCurrentSession();
         // Inject the kernelBrowser in the data
         $client = static::createClient(['environment' => static::TEST_ENVIRONMENT]);
         $data = $this->getProvidedData();

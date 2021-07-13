@@ -9,11 +9,10 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Exception;
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 final class InstallerConnectionFactory extends ConnectionFactory
 {
-    public function __construct(array $typesConfig, private SessionInterface $session)
+    public function __construct(array $typesConfig)
     {
         parent::__construct($typesConfig);
     }
@@ -29,7 +28,7 @@ final class InstallerConnectionFactory extends ConnectionFactory
         array $mappingTypes = []
     ): Connection {
         try {
-            $installationData = $this->getInstallerConfiguration();
+            $installationData = InstallerConfiguration::fromCache();
             if (!$installationData->hasStep(InstallerStep::database())) {
                 return $this->getInstallerConnection($params, $config, $eventManager);
             }
@@ -45,11 +44,6 @@ final class InstallerConnectionFactory extends ConnectionFactory
         } catch (Exception) {
             return $this->getInstallerConnection($params, $config, $eventManager);
         }
-    }
-
-    private function getInstallerConfiguration(): InstallerConfiguration
-    {
-        return InstallerConfiguration::fromSession($this->session);
     }
 
     /** @param array<string, mixed> $params */

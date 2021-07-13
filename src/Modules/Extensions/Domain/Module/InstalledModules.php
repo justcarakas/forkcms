@@ -5,7 +5,6 @@ namespace ForkCMS\Modules\Extensions\Domain\Module;
 use ForkCMS\Core\Domain\PDO\ForkConnection;
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 final class InstalledModules
 {
@@ -29,7 +28,7 @@ final class InstalledModules
                 return self::$modulesToInstall;
             }
 
-            return InstallerConfiguration::fromSession(new Session())->getModules() ?? [];
+            return InstallerConfiguration::fromCache()->getModules() ?? [];
         }
 
         return ForkConnection::get()->getInstalledModules();

@@ -13,8 +13,11 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use InvalidArgumentException;
 use LogicException;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 final class InstallerConfiguration
 {
@@ -78,7 +81,7 @@ final class InstallerConfiguration
         $this->addStep(InstallerStep::requirements());
     }
 
-    public function withLocaleStep(LocalesStepConfiguration $localesStepConfiguration): void
+    public function withLocaleStep(LocalesStepConfiguration $localesStepConfiguration): self
     {
         $localesStepConfiguration->normalise();
         $this->multilingual = $localesStepConfiguration->multilingual;
@@ -95,6 +98,8 @@ final class InstallerConfiguration
             $localesStepConfiguration->userLocales
         );
         $this->addStep($localesStepConfiguration::getStep());
+
+        return $this;
     }
 
     public function isMultilingual(): bool
@@ -128,7 +133,7 @@ final class InstallerConfiguration
         ModulesStepConfiguration $modulesStepConfiguration,
         ModuleInstallerLocator $moduleInstallerLocator,
         MessageBusInterface $commandBus
-    ): void {
+    ): self {
         $modulesStepConfiguration->normalise($moduleInstallerLocator);
 
         $this->modules = array_map(
@@ -139,6 +144,8 @@ final class InstallerConfiguration
 
         $this->addStep($modulesStepConfiguration::getStep());
         $commandBus->dispatch(new ClearContainerCache());
+
+        return $this;
     }
 
     /** @return ModuleName[] */
@@ -152,7 +159,7 @@ final class InstallerConfiguration
         return $this->installExampleData;
     }
 
-    public function withDatabaseStep(DatabaseStepConfiguration $databaseStepConfiguration): void
+    public function withDatabaseStep(DatabaseStepConfiguration $databaseStepConfiguration): self
     {
         if (!$databaseStepConfiguration->canConnectToDatabase()) {
             throw new LogicException('Invalid database credentials');
@@ -165,6 +172,8 @@ final class InstallerConfiguration
         $this->databasePort = $databaseStepConfiguration->databasePort;
 
         $this->addStep($databaseStepConfiguration::getStep());
+
+        return $this;
     }
 
     public function getDatabaseHostname(): string
@@ -192,7 +201,7 @@ final class InstallerConfiguration
         return $this->databasePort;
     }
 
-    public function withAuthenticationStep(AuthenticationStepConfiguration $authenticationStepConfiguration): void
+    public function withAuthenticationStep(AuthenticationStepConfiguration $authenticationStepConfiguration): self
     {
         $authenticationStepConfiguration->normalise();
 
@@ -204,6 +213,8 @@ final class InstallerConfiguration
         $this->saveConfigurationWithCredentials = $authenticationStepConfiguration->saveConfigurationWithCredentials;
 
         $this->addStep($authenticationStepConfiguration::getStep());
+
+        return $this;
     }
 
     public function getAdminEmail(): string
@@ -234,5 +245,34 @@ final class InstallerConfiguration
     public function shouldSaveConfigurationWithCredentials(): bool
     {
         return $this->saveConfigurationWithCredentials;
+    }
+
+    private static function getCache(): FilesystemAdapter
+    {
+        return new FilesystemAdapter('forkcms_installer', 3600);
+    }
+
+    public static function fromCache(): InstallerConfiguration
+    {
+        return self::getCache()->get(
+            'installer.configuration',
+            function (ItemInterface $item) {
+                $item->expiresAfter(3600);
+                $configuration = new InstallerConfiguration();
+                $item->set($configuration);
+
+                return $configuration;
+            }
+        );
+    }
+
+    public static function toCache(InstallerConfiguration $installerConfiguration): void
+    {
+        $cache = self::getCache();
+        /** @var CacheItem $cacheItem */
+        $cacheItem = $cache->getItem('installer.configuration');
+        $cacheItem->expiresAfter(3600);
+        $cacheItem->set($installerConfiguration);
+        $cache->save($cacheItem);
     }
 }

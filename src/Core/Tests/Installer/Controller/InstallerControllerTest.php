@@ -15,8 +15,7 @@ class InstallerControllerTest extends WebTestCase
 {
     protected const TEST_ENVIRONMENT = 'test_install';
 
-    /** @var string */
-    private $rootDir;
+    private ?string $rootDir = null;
 
     protected function setUp(): void
     {
@@ -25,14 +24,14 @@ class InstallerControllerTest extends WebTestCase
         $this->rootDir = $this->getProvidedData()[0]->getContainer()->getParameter('kernel.project_dir');
     }
 
-    protected function onNotSuccessfulTest(Throwable $throwable): void
+    protected function onNotSuccessfulTest(Throwable $t): void
     {
         // put back our env.local file
         if ($this->rootDir !== null) {
             $this->putLocalEnvFileBack();
         }
 
-        parent::onNotSuccessfulTest($throwable);
+        parent::onNotSuccessfulTest($t);
     }
 
     public function testNoStepActionAction(KernelBrowser $client): void
@@ -89,12 +88,12 @@ class InstallerControllerTest extends WebTestCase
         $form = $this->getFormForSubmitButton($client, 'Next');
         $form['install_modules[modules][0]']->tick();
         $form['install_modules[modules][1]']->tick();
-        $form['install_modules[modules][2]']->tick();
-        $form['install_modules[modules][3]']->tick();
-        $form['install_modules[modules][4]']->tick();
-        $form['install_modules[modules][5]']->tick();
-        $form['install_modules[modules][6]']->tick();
-        $form['install_modules[modules][7]']->tick();
+//        $form['install_modules[modules][2]']->tick();
+//        $form['install_modules[modules][3]']->tick();
+//        $form['install_modules[modules][4]']->tick();
+//        $form['install_modules[modules][5]']->tick();
+//        $form['install_modules[modules][6]']->tick();
+//        $form['install_modules[modules][7]']->tick();
         $this->submitForm($client, $form);
 
         // we should be redirected to step 4
@@ -106,7 +105,13 @@ class InstallerControllerTest extends WebTestCase
     {
         // first submit with incorrect data
         $form = $this->getFormForSubmitButton($client, 'Next');
-        $this->submitForm($client, $form);
+        $this->submitForm(
+            $client,
+            $form,
+            [
+                'install_database[databaseHostname]' => '',
+            ]
+        );
         self::assertGreaterThan(
             0,
             $client->getCrawler()->filter('div.alert-danger:contains("Problem with database credentials")')->count()
@@ -115,11 +120,17 @@ class InstallerControllerTest extends WebTestCase
         // submit with correct database credentials
         $form = $this->getFormForSubmitButton($client, 'Next');
 
-        $this->submitForm($client, $form, [
-            'install_database' => [
-                'databaseHostname' => $_ENV,
-            ],
-        ], true);
+        $this->submitForm(
+            $client,
+            $form,
+            [
+                'install_database[databaseHostname]' => $_ENV['FORK_DATABASE_HOST'],
+                'install_database[databasePort]' => $_ENV['FORK_DATABASE_PORT'],
+                'install_database[databaseName]' => $_ENV['FORK_DATABASE_NAME'],
+                'install_database[databaseUsername]' => $_ENV['FORK_DATABASE_USER'],
+                'install_database[databasePassword]' => $_ENV['FORK_DATABASE_PASSWORD'],
+            ]
+        );
 
         // we should be redirected to step 5
         self::assertIs200($client);
@@ -133,9 +144,9 @@ class InstallerControllerTest extends WebTestCase
             $client,
             $form,
             [
-                'install_login[email]' => 'test@test.com',
-                'install_login[password][first]' => 'password',
-                'install_login[password][second]' => 'password',
+                'install_authentication[email]' => 'test@test.com',
+                'install_authentication[password][first]' => 'password',
+                'install_authentication[password][second]' => 'password',
             ],
             true
         );
@@ -170,6 +181,7 @@ class InstallerControllerTest extends WebTestCase
         if ($filesystem->exists($this->rootDir . '/../var/cache/test_install')) {
             $filesystem->remove($this->rootDir . '/../var/cache/test_install');
         }
+        $filesystem->remove($this->rootDir . '/.env.local');
     }
 
     /**
@@ -178,6 +190,7 @@ class InstallerControllerTest extends WebTestCase
     private function putLocalEnvFileBack(): void
     {
         $filesystem = new Filesystem();
+        $filesystem->remove($this->rootDir . '/.env.local');
 
         if ($filesystem->exists($this->rootDir . '/.env.local~backup')) {
             $filesystem->copy(

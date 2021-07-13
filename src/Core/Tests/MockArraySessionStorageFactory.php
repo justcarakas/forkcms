@@ -9,8 +9,15 @@ use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
 
 final class MockArraySessionStorageFactory implements SessionStorageFactoryInterface
 {
+    private static ?SessionStorageInterface $sessionStorage = null;
+
+    public static function clearCurrentSession(): void
+    {
+        self::$sessionStorage = null;
+    }
+
     public function createStorage(?Request $request): SessionStorageInterface
     {
-        return new MockArraySessionStorage();
+        return self::$sessionStorage ?? self::$sessionStorage = new MockArraySessionStorage();
     }
 }
