@@ -5,8 +5,6 @@
          bootstrap="src/bootstrap.php"
          cacheResultFile="var/cache/.phpunit/test-results"
          executionOrder="depends,defects"
-         forceCoversAnnotation="true"
-         beStrictAboutCoversAnnotation="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
          failOnRisky="true"
@@ -38,6 +36,10 @@
             <directory suffix=".php">src/Modules</directory>
             <directory suffix=".php">src/Core</directory>
         </include>
+        <exclude>
+            <directory suffix=".php">src/Core/Test</directory>
+            <directory suffix=".php">src/Modules/*/Tests</directory>
+        </exclude>
     </coverage>
     <php>
         <env name="APP_ENV" value="test"/>
