@@ -2,9 +2,13 @@
 
 namespace ForkCMS\Core\Tests\Domain\Header;
 
-use ForkCMS\Core\Common\Header\JsData;
+use ForkCMS\Core\Domain\Header\JsData;
+use ForkCMS\Modules\Blog\Installer\BlogInstaller;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \ForkCMS\Core\Domain\Header\JsData::
+ */
 class JsDataTest extends TestCase
 {
     public function testInitialData(): void
@@ -26,8 +30,11 @@ class JsDataTest extends TestCase
     {
         $jsData = new JsData();
 
-        $jsData->add('Blog', 'lorem', 'ipsum');
+        $jsData->add(BlogInstaller::getModuleName(), 'lorem', 'ipsum');
 
-        self::assertStringContainsString(json_encode(['Blog' => ['lorem' => 'ipsum']]), (string) $jsData);
+        self::assertStringContainsString(
+            json_encode([BlogInstaller::getModuleName()->getName() => ['lorem' => 'ipsum']]),
+            (string) $jsData
+        );
     }
 }
