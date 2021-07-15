@@ -65,9 +65,6 @@ final class NavigationItemRepository extends ServiceEntityRepository
         $sortedNavigationItems = $this->findSortedNavigationItems();
 
         foreach ($sortedNavigationItems as $navigationItem) {
-            if ($navigationItem->getSlug() === null) {
-                continue;
-            }
             $accessibleNavigationItem = $this->findAccessibleNavigationItemForUser($navigationItem, $user);
             if ($accessibleNavigationItem instanceof NavigationItem) {
                 return $accessibleNavigationItem;
@@ -80,7 +77,8 @@ final class NavigationItemRepository extends ServiceEntityRepository
     private function findAccessibleNavigationItemForUser(NavigationItem $navigationItem, User $user): ?NavigationItem
     {
         if (
-            $navigationItem->getModuleAction() instanceof ModuleAction
+            $navigationItem->getSlug() instanceof ActionSlug
+            && $navigationItem->getModuleAction() instanceof ModuleAction
             && $this->authorizationChecker->isGranted($navigationItem->getModuleAction()->asRole())
         ) {
             return $navigationItem;
@@ -88,7 +86,7 @@ final class NavigationItemRepository extends ServiceEntityRepository
 
         foreach ($navigationItem->getChildren() as $childNavigationItem) {
             $result = $this->findAccessibleNavigationItemForUser($childNavigationItem, $user);
-            if ($result instanceof NavigationItem) {
+            if ($result instanceof NavigationItem && $result->getSlug() instanceof ActionSlug) {
                 return $result;
             }
         }
