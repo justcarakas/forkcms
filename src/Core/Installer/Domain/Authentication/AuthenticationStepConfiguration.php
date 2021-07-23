@@ -82,9 +82,8 @@ final class AuthenticationStepConfiguration implements InstallerStepConfiguratio
         );
     }
 
-    public static function fromInstallerConfiguration(
-        InstallerConfiguration $installerConfiguration
-    ): static {
+    public static function fromInstallerConfiguration(InstallerConfiguration $installerConfiguration): static
+    {
         if (!$installerConfiguration->hasStep(self::getStep())) {
             return new self();
         }

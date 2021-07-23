@@ -10,6 +10,7 @@ use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use InvalidArgumentException;
 use LogicException;
+use RuntimeException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -132,16 +133,24 @@ class NavigationItem
         return $parent->getChildren()->count() + 1;
     }
 
-    public function getVisibleNavigationItemForMenu(): self
+    public function getFirstAvailableSlug(): ActionSlug
     {
-        if ($this->visibleInNavigationMenu) {
-            return $this;
+        return $this->getSlugRecursive() ?? throw new RuntimeException('No slug found');
+    }
+
+    private function getSlugRecursive(): ?ActionSlug
+    {
+        if ($this->slug instanceof ActionSlug) {
+            return $this->slug;
         }
 
-        if ($this->parent instanceof self) {
-            return $this->parent->getVisibleNavigationItemForMenu();
+        foreach ($this->getChildren() as $navigationItem) {
+            $slug = $navigationItem->getSlugRecursive();
+            if ($slug instanceof ActionSlug) {
+                return $slug;
+            }
         }
 
-        throw new LogicException('Cannot find a visible navigation menu for this navigation item');
+        return null;
     }
 }

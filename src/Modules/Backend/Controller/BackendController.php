@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Backend\Controller;
 
 use ForkCMS\Modules\Backend\Domain\Action\ActionControllerInterface;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
+use ForkCMS\Modules\Backend\Domain\Navigation\Navigation;
 use InvalidArgumentException;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\DependencyInjection\Container;
@@ -17,6 +18,7 @@ final class BackendController
     public function __construct(
         private ServiceLocator $actions,
         private Environment $twig,
+        private Navigation $navigation,
     ) {
     }
 
@@ -37,6 +39,7 @@ final class BackendController
 
     private function configureTwigForAction(Request $request, ActionSlug $actionSlug): void
     {
+        $this->navigation->parse($this->twig);
         $this->twig->addGlobal('INTERFACE_LANGUAGE', $request->getLocale());
         $this->twig->addGlobal('SITE_TITLE', $_ENV['SITE_DEFAULT_TITLE']);
         $this->twig->addGlobal('jsFiles', []);
