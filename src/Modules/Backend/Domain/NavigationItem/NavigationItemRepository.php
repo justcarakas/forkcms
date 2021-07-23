@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Backend\Domain\NavigationItem;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
@@ -97,14 +98,37 @@ final class NavigationItemRepository extends ServiceEntityRepository
     /** @return NavigationItem[] */
     public function findSortedNavigationItems(): array
     {
-        return $this->createQueryBuilder('n')
+        return $this->getQueryBuilderWithChildren()
             ->andWhere('n.parent IS NULL')
             ->orderBy('n.sequence, c1.sequence, c2.sequence')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /** @return NavigationItem[] */
+    public function findChildrenForParentId(?int $parentId): array
+    {
+        $queryBuilder = $this->getQueryBuilderWithChildren();
+        if ($parentId === null) {
+            $queryBuilder = $queryBuilder->andWhere('n.parent IS null');
+        } else {
+            $queryBuilder = $queryBuilder
+                ->andWhere('n.parent = :parentId')
+                ->setParameter('parentId', $parentId);
+        }
+
+        return $queryBuilder
+            ->orderBy('n.sequence, c1.sequence, c2.sequence')
+            ->getQuery()
+            ->getResult();
+    }
+
+    private function getQueryBuilderWithChildren(): QueryBuilder
+    {
+        return $this->createQueryBuilder('n')
             ->leftJoin('n.children', 'c1')
             ->addSelect('c1')
             ->leftJoin('c1.children', 'c2')
-            ->addSelect('c2')
-            ->getQuery()
-            ->getResult();
+            ->addSelect('c2');
     }
 }
