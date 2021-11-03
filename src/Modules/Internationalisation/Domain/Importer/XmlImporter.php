@@ -37,8 +37,12 @@ final class XmlImporter implements ImporterInterface
             }
 
             foreach ($modules as $module => $translationItems) {
+                if ($module === 'item') {
+                    continue;
+                }
+
                 $domain = new TranslationDomain($application, ModuleName::fromString($module));
-                yield from $this->makeTranslations($translationItems['item'], $domain, $source);
+                yield from $this->makeTranslations($translationItems, $domain, $source);
             }
         }
     }
@@ -56,7 +60,12 @@ final class XmlImporter implements ImporterInterface
     public function makeTranslations(array $translationItems, TranslationDomain $domain, string $source): Generator
     {
         foreach ($translationItems as $translationItem) {
-            $key = TranslationKey::forType(Type::from($translationItem['@type']), $translationItem['@name']);
+            try {
+                $key = TranslationKey::forType(Type::from($translationItem['@type']), $translationItem['@name']);
+            } catch (\Error) {
+                dump($translationItems);
+                die;
+            }
             foreach ($translationItem['translation'] as $translation) {
                 yield new Translation($domain, $key, Locale::from($translation['@locale']), $translation['#'], $source);
             }
