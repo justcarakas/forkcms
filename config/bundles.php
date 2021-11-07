@@ -18,5 +18,6 @@ return [
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
     Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle::class => ['all' => true],
     Symfony\Bundle\DebugBundle\DebugBundle::class => ['dev' => true, 'install' => true, 'test_install' => true],
-    Pfilsx\DataGrid\DataGridBundle::class => ['all' => true],
+    Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
+    Pageon\DoctrineDataGridBundle\PageonDoctrineDataGridBundle::class => ['all' => true],
 ];

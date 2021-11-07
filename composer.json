@@ -77,7 +77,8 @@
         "symfony/rate-limiter": "^5.3",
         "symfony/http-client": "^5.3",
         "teamtnt/tntsearch": "^2.8",
-        "pfilsx/data-grid-bundle": "^5.0"
+        "symfony/templating": "^5.3",
+        "pageon/pageon-doctrine-data-grid-bundle": "^0.1.2"
     },
     "require-dev": {
         "jdorn/sql-formatter": "1.2.17",
