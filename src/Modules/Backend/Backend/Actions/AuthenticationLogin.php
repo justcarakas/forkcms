@@ -16,7 +16,7 @@ final class AuthenticationLogin extends AbstractActionController
     public function __construct(
         private UserRepository $userRepository,
         private NavigationItemRepository $navigationItemRepository,
-        private RouterInterface $router,
+        protected RouterInterface $router,
         private NotFound $notFoundAction,
     ) {
         //no need to call the parent since we don't use it
