@@ -3,9 +3,11 @@
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Pfilsx\DataGrid\Grid\DataGridFactoryInterface;
+use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
+use ForkCMS\Core\Domain\Header\Header;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -17,10 +19,12 @@ abstract class AbstractActionController implements ActionControllerInterface
     private array $twigContext = [];
 
     public function __construct(
-        protected DataGridFactoryInterface $dataGridFactory,
+        protected DataGridFactory $dataGridFactory,
         protected EntityManagerInterface $entityManager,
         protected Environment $twig,
         protected TranslatorInterface $translator,
+        protected Header $header,
+        protected RouterInterface $router,
     ) {
         $actionSlug = self::getActionSlug();
         $this->templatePath = sprintf(
