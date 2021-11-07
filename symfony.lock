@@ -222,6 +222,12 @@
             "config/packages/prod/jms_serializer.yaml"
         ]
     },
+    "knplabs/knp-components": {
+        "version": "v3.2.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.7.0"
+    },
     "laminas/laminas-code": {
         "version": "4.3.0"
     },
@@ -286,14 +292,14 @@
     "nikic/php-parser": {
         "version": "v4.10.5"
     },
+    "pageon/pageon-doctrine-data-grid-bundle": {
+        "version": "0.0.0"
+    },
     "paragonie/constant_time_encoding": {
         "version": "v2.4.0"
     },
     "paragonie/random_compat": {
         "version": "v9.99.100"
-    },
-    "pfilsx/data-grid-bundle": {
-        "version": "5.0.2"
     },
     "php-cs-fixer/diff": {
         "version": "v2.0.2"
@@ -743,7 +749,7 @@
         ]
     },
     "symfony/templating": {
-        "version": "v5.3.0"
+        "version": "v5.3.7"
     },
     "symfony/translation": {
         "version": "3.3",
