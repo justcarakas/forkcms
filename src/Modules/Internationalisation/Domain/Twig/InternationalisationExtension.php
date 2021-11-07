@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Internationalisation\Domain\Twig;
 
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -18,7 +19,9 @@ final class InternationalisationExtension extends AbstractExtension
         return [
             new TwigFilter(
                 'tolabel',
-                static fn (string $string): string => TranslationKey::label($string)->trans($this->translator)
+                fn (string $string): string => TranslationKey::label(Container::camelize($string))->trans(
+                    $this->translator
+                )
             )
         ];
     }
