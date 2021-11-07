@@ -24,7 +24,7 @@ class TranslationKey implements TranslatableInterface
     private function __construct(Type $type, string $name)
     {
         $this->type = $type;
-        Assert::that($name)->same(Container::camelize($name), 'The name should be in CamilCase');
+        Assert::that($name)->same(Container::camelize($name), 'The name should be in CamelCase');
         $this->name = Container::camelize($name);
     }
 
