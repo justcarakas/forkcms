@@ -12,6 +12,7 @@
     "@editorjs/header": "^2.3.1",
     "@editorjs/list": "^1.4.0",
     "@editorjs/paragraph": "^2.6.0",
+    "@editorjs/underline": "^1.0.0",
     "@popperjs/core": "^2.6.0",
     "@symfony/webpack-encore": "^0.30.2",
     "bazinga-translator": "^4.0.1",
@@ -89,8 +90,5 @@
       "src/Frontend/Cache/",
       "src/Frontend/Core/Js/jquery/jquery.js"
     ]
-  },
-  "dependencies": {
-    "@editorjs/underline": "^1.0.0"
   }
 }
