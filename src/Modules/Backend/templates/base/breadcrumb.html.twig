@@ -1,0 +1,46 @@
+{% set currentAction = app.request.attributes.get('action') %}
+<ol class="breadcrumb">
+  {% for topLevelItem in navigation|filter(item => item.active) %}
+    <li>
+      <a href="{{ path('backend', {'actionSlug': topLevelItem.slug}) }}">{{- (topLevelItem.label)|trans|ucfirst -}}</a>
+    </li>
+    {% if topLevelItem.children is not empty %}
+      {% for secondaryItem in topLevelItem.children|filter(item => item.active) %}
+        <li>
+          <i class="fas fa-chevron-right fa-xs"></i>
+          <a href="{{ path('backend', {'actionSlug': secondaryItem.slug}) }}">{{- (secondaryItem.label)|trans|ucfirst -}}</a>
+        </li>
+        {% if secondaryItem.children is not empty %}
+          {% for tertiaryItem in secondaryItem.children|filter(item => item.active) %}
+            <li>
+              <i class="fas fa-chevron-right fa-xs"></i>
+              <a href="{{ path('backend', {'actionSlug': tertiaryItem.slug}) }}">{{- (tertiaryItem.label)|trans|ucfirst -}}</a>
+            </li>
+            {% if currentAction|lower not in tertiaryItem.slug and tertiaryItem.label != currentAction %}
+              <li>
+                <i class="fas fa-chevron-right fa-xs"></i>
+                <span>{{- currentAction|tolabel|ucfirst -}}</span>
+              </li>
+            {% endif %}
+          {% endfor %}
+        {% elseif currentAction|lower not in secondaryItem.slug and secondaryItem.label != currentAction %}
+          <li>
+            <i class="fas fa-chevron-right fa-xs"></i>
+            <span>{{- currentAction|tolabel|ucfirst -}}</span>
+          </li>
+        {% endif %}
+      {% endfor %}
+    {% elseif currentAction|lower not in topLevelItem.slug and topLevelItem.label != currentAction %}
+      <li>
+        <i class="fas fa-chevron-right fa-xs"></i>
+        <span>{{- currentAction|tolabel -}}</span>
+      </li>
+    {% endif %}
+  {% endfor %}
+  {% if breadcrumbDetail is defined %}
+    <li>
+      <i class="fas fa-chevron-right fa-xs"></i>
+      <span>{{- breadcrumbDetail -}}</span>
+    </li>
+  {% endif %}
+</ol>

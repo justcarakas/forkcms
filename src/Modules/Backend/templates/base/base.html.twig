@@ -30,7 +30,7 @@
               {% set _block = block('actionbar')|trim %}
               {% if _block is not empty %}
                 <div class="col-sm-6">
-{#                  {% include "@Backend/base/breadcrumb.html.twig" with { 'navigation': navigation } %}#}
+                  {% include "@Backend/base/breadcrumb.html.twig" with { 'navigation': navigation } %}
                 </div>
                 <div class="col-sm-6">
                   {% block actionbar %}{% endblock %}
@@ -38,7 +38,7 @@
               {% endif %}
               {% if _block is empty %}
                 <div class="col-12">
-{#                  {% include "@Backend/base/breadcrumb.html.twig" with { 'navigation': navigation } %}#}
+                  {% include "@Backend/base/breadcrumb.html.twig" with { 'navigation': navigation } %}
                 </div>
               {% endif %}
             </div>
