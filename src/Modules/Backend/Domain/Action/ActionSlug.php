@@ -18,7 +18,7 @@ use Throwable;
 
 final class ActionSlug implements Stringable
 {
-    private function __construct(private ModuleName $moduleName, private ActionName $actionName)
+    public function __construct(private ModuleName $moduleName, private ActionName $actionName)
     {
         Assertion::classExists($this->getFQCN(), 'Action class does not exist');
     }
