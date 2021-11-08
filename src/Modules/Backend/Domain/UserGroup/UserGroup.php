@@ -9,6 +9,10 @@ use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use Pageon\DoctrineDataGridBundle\Attribute\DataGrid;
+use Pageon\DoctrineDataGridBundle\Attribute\DataGridActionColumn;
+use Pageon\DoctrineDataGridBundle\Attribute\DataGridMethodColumn;
+use Pageon\DoctrineDataGridBundle\Attribute\DataGridPropertyColumn;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -16,6 +20,17 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="user_groups")
  */
 #[UniqueEntity(fields: ['name'])]
+#[DataGrid('UserGroup')]
+#[DataGridActionColumn(
+    route: 'backend',
+    routeAttributes: [
+        'module' => 'backend',
+        'action' => 'group_edit'
+    ],
+    routeAttributesCallback: [self::class, 'dataGridEditLinkCallback'],
+    label: 'lbl.Edit',
+    iconClass: 'far fa-edit'
+)]
 class UserGroup
 {
     public const ADMIN_GROUP_ID = 1;
@@ -30,6 +45,7 @@ class UserGroup
     /**
      * @ORM\Column(type="string", unique=true)
      */
+    #[DataGridPropertyColumn(sortable: true, filterable: true)]
     private string $name;
 
     /**
@@ -57,8 +73,7 @@ class UserGroup
      * @Orm\OneToMany(
      *     targetEntity="UserGroupModule",
      *     mappedBy="userGroup",
-     *     cascade={"persist", "remove"},
-     *     fetch="EAGER"
+     *     cascade={"persist", "remove"}
      * )
      */
     private Collection $modules;
@@ -69,8 +84,7 @@ class UserGroup
      * @Orm\OneToMany(
      *     targetEntity="UserGroupAction",
      *     mappedBy="userGroup",
-     *     cascade={"persist", "remove"},
-     *     fetch="EAGER"
+     *     cascade={"persist", "remove"}
      * )
      */
     private Collection $actions;
@@ -81,8 +95,7 @@ class UserGroup
      * @Orm\OneToMany(
      *     targetEntity="UserGroupWidget",
      *     mappedBy="userGroup",
-     *     cascade={"persist", "remove"},
-     *     fetch="EAGER"
+     *     cascade={"persist", "remove"}
      * )
      */
     private Collection $widgets;
@@ -278,5 +291,16 @@ class UserGroup
                 static fn (UserGroupWidget $widget): string => $widget->getModuleWidget()->asRole()
             )->toArray(),
         );
+    }
+
+    #[DataGridMethodColumn(label: 'lbl.NumberOfUsers')]
+    public function getUserCount(): int
+    {
+        return $this->users->count();
+    }
+
+    public static function dataGridEditLinkCallback(UserGroup $userGroup): array
+    {
+        return ['id' => $userGroup->getId()];
     }
 }
