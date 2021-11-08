@@ -2,12 +2,15 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
+    bind:
+      $twigBridgeRoutingExcension: '@twig.extension.routing'
   _instanceof:
     Symfony\Component\Console\Command\Command:
       bind:
         string $rootDir: '%kernel.project_dir%'
         string $cacheDir: '%kernel.cache_dir%'
         bool $forkIsInstalled: '%fork.is_installed%'
+
 
   ForkCMS\Core\:
     resource: '../*'
