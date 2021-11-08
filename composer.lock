@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42aa52da6a42aa595994b4d182563084",
+    "content-hash": "d793c30eb3c666b9fc69cd680fd45447",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -4239,16 +4239,16 @@
         },
         {
             "name": "pageon/pageon-doctrine-data-grid-bundle",
-            "version": "0.1.2",
+            "version": "0.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pageon/PageonDoctrineDataGridBundle.git",
-                "reference": "17101aa17e770817db40d5f3551f8c4b0b9dbfe0"
+                "reference": "38f8df3b2eb102f6c3dea4f13b5fba5ec64f98ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pageon/PageonDoctrineDataGridBundle/zipball/17101aa17e770817db40d5f3551f8c4b0b9dbfe0",
-                "reference": "17101aa17e770817db40d5f3551f8c4b0b9dbfe0",
+                "url": "https://api.github.com/repos/pageon/PageonDoctrineDataGridBundle/zipball/38f8df3b2eb102f6c3dea4f13b5fba5ec64f98ae",
+                "reference": "38f8df3b2eb102f6c3dea4f13b5fba5ec64f98ae",
                 "shasum": ""
             },
             "require": {
@@ -4276,9 +4276,9 @@
             "description": "A bundle that wraps around the knp paginator bundle and doctrine to generate a data grid from your entity",
             "support": {
                 "issues": "https://github.com/pageon/PageonDoctrineDataGridBundle/issues",
-                "source": "https://github.com/pageon/PageonDoctrineDataGridBundle/tree/0.1.2"
+                "source": "https://github.com/pageon/PageonDoctrineDataGridBundle/tree/0.1.3"
             },
-            "time": "2021-11-03T20:00:48+00:00"
+            "time": "2021-11-08T09:09:01+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
