@@ -14,9 +14,9 @@ final class NotFound extends AbstractActionController
         $this->assign('message', TranslationKey::error('NotFound'));
     }
 
-    public function getResponse(): Response
+    public function getResponse(Request $request): Response
     {
-        $response = parent::getResponse();
+        $response = parent::getResponse($request);
         $response->setStatusCode(Response::HTTP_NOT_FOUND);
 
         return $response;
