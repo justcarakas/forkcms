@@ -53,7 +53,7 @@ class UserGroup
      *
      * @ORM\ManyToMany(targetEntity="ForkCMS\Modules\Backend\Domain\User\User", mappedBy="userGroups")
      */
-    protected $users;
+    protected Collection $users;
 
     /**
      * @var Collection<string, UserGroupSetting>|UserGroupSetting[]
