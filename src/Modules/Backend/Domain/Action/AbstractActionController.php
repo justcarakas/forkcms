@@ -5,11 +5,8 @@ namespace ForkCMS\Modules\Backend\Domain\Action;
 use Doctrine\ORM\EntityManagerInterface;
 use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
 use ForkCMS\Core\Domain\Header\Header;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -28,8 +25,6 @@ abstract class AbstractActionController implements ActionControllerInterface
         protected TranslatorInterface $translator,
         protected Header $header,
         protected RouterInterface $router,
-        protected FormFactoryInterface $formFactory,
-        protected MessageBusInterface $commandBus,
     ) {
         $actionSlug = self::getActionSlug();
         $this->templatePath = sprintf(
@@ -70,27 +65,5 @@ abstract class AbstractActionController implements ActionControllerInterface
     public function getResponse(Request $request): Response
     {
         return new Response($this->twig->render($this->templatePath, $this->twigContext));
-    }
-
-    /**
-     * @param callable(FormInterface): Response|FormInterface|null $defaultCallback
-     * @param callable(FormInterface): Response|FormInterface|null $validCallback
-     */
-    protected function handleForm(
-        Request $request,
-        string $formType,
-        callable $defaultCallback,
-        callable $validCallback,
-        object $formData = null,
-        array $formOptions = [],
-    ): Response|FormInterface|null {
-        $form = $this->formFactory->create($formType, $formData, $formOptions);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            return $validCallback($form);
-        }
-
-        return $defaultCallback($form);
     }
 }
