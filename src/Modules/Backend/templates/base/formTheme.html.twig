@@ -461,3 +461,29 @@
     <legend{% for attrname,attrvalue in legend_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label }}</legend>
   {% endif %}
 {% endblock %}
+
+{% block tabs_row %}
+  <div {{ block('widget_container_attributes') }}>
+    {{ form_label(form) }}
+    {{ form_widget(form) }}
+  </div>
+{% endblock %}
+
+{% block tabs_label %}
+  <ul class="nav nav-tabs" role="tablist">
+    {% for tab in form.children %}
+      <li class="nav-item" role="presentation">
+        <button class="nav-link{% if loop.first%} active{% endif %}" id="{{ tab.vars.id }}-tab" data-bs-toggle="tab" data-bs-target="#{{ tab.vars.id }}" type="button" role="tab" aria-controls="{{ tab.vars.id }}" aria-selected="{{ loop.first ? 'true' : 'false' }}">{{ tab.vars.label|trans|ucfirst }}</button>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+{% block tabs_widget %}
+  {{ form_widget(form, {'attr': {'class': 'tab-content'}}) }}
+{% endblock %}
+
+{% block tab_row %}
+  {%- set tabClass = ' tab-pane fade' ~ (form.parent.children | keys | first == form.vars.name ? ' show active' : '') -%}
+  {{ form_widget(form, {attr: {role:'tabpanel', 'aria-labelledby': form.vars.id ~ '-tab', class: (form.vars.attr.class|default('') ~ tabClass)|trim} }) }}
+{% endblock %}
