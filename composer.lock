@@ -5492,16 +5492,16 @@
         },
         {
             "name": "spatie/enum",
-            "version": "3.9.0",
+            "version": "3.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/enum.git",
-                "reference": "5870275f3811dc63c08200b1536ab2f8618b6a52"
+                "reference": "4afe5f06bb4c3cf46d8b02328bcc34c0de652ad4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/enum/zipball/5870275f3811dc63c08200b1536ab2f8618b6a52",
-                "reference": "5870275f3811dc63c08200b1536ab2f8618b6a52",
+                "url": "https://api.github.com/repos/spatie/enum/zipball/4afe5f06bb4c3cf46d8b02328bcc34c0de652ad4",
+                "reference": "4afe5f06bb4c3cf46d8b02328bcc34c0de652ad4",
                 "shasum": ""
             },
             "require": {
@@ -5564,7 +5564,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-05-10T09:27:50+00:00"
+            "time": "2021-11-25T11:30:17+00:00"
         },
         {
             "name": "spoon/library",
@@ -13291,5 +13291,5 @@
         "ext-simplexml": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
