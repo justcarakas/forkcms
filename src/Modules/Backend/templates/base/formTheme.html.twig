@@ -487,3 +487,49 @@
   {%- set tabClass = ' tab-pane fade' ~ (form.parent.children | keys | first == form.vars.name ? ' show active' : '') -%}
   {{ form_widget(form, {attr: {role:'tabpanel', 'aria-labelledby': form.vars.id ~ '-tab', class: (form.vars.attr.class|default('') ~ tabClass)|trim} }) }}
 {% endblock %}
+
+{% block user_group_permission_row %}
+  {% import '@Backend/base/macros.html.twig' as macro %}
+  <div class="card-group card-group-column" id="permissions" role="tablist" aria-multiselectable="true">
+    {% for module, permissions in permissionsByModule %}
+      <div class="card card-default card-collapse jsGroupsPermissionsModule">
+        <div class="card-heading d-flex align-items-center" role="tab" id="permission-heading-{{ module }}">
+          <input type="checkbox" data-role="select-all" data-target="{{ module }}" class="dontCheckBeforeUnload">
+          <h4 class="card-title mb-0">
+            <a class="collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#permission-list-{{ module }}" aria-expanded="false">
+              {{ macro.icon('caret-down fa-fw') }} {{ module }}
+            </a>
+          </h4>
+        </div>
+        <div id="permission-list-{{ module }}" class="card-collapse collapse" role="tabpanel" aria-labelledby="permission-heading-{{ module }}">
+          <table class="table table-hover table-striped fork-data-grid jsDataGrid">
+            <thead>
+              <tr>
+                <th class="check">&nbsp;</th>
+                <th class="name">{{ nameLabel|trans|ucfirst }}</th>
+                <th class="description">{{ descriptionLabel|trans|ucfirst }}</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for index, permission in permissions %}
+              <tr class="{{ cycle(['odd', 'even'], loop.index0)}}">
+                {% set checkboxLabel = form.children[index].vars.label|trans({}, form.children[index].vars.translation_domain)|ucfirst %}
+                {% set checkboxLabelAttr = form.children[index].vars.label_attr|merge({'for': form.children[index].vars.id}) %}
+                {% set checkboxLabelAttr = checkboxLabelAttr|merge({'class': form.children[index].vars.label_attr.class|default('') ~ (form.children[index].vars.required ? ' required' : ' optional') }) %}
+                <td class="check">{{ form_widget(form.children[index], {label:false}) }}</td>
+                <td class="name">
+                  <label{% for attrname,attrvalue in checkboxLabelAttr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+                  {{ checkboxLabel }}{% if form.children[index].vars.required %}{{- block('label_asterisk') -}}{% endif %}
+                  </label>
+                </td>
+                <td class="description">{{ permission.description }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
+
