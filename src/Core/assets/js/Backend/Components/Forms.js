@@ -9,6 +9,7 @@ export class Forms {
     this.submitWithLinks()
     this.tagsInput()
     this.meta()
+    this.selectAll()
     this.datePicker()
     this.bootstrapTabFormValidation()
     this.imagePreview()
@@ -89,6 +90,55 @@ export class Forms {
 
     $metaTabs.each((index, element) => {
       Meta.doMeta(element.dataset, element.dataset.baseFieldSelector)
+    })
+  }
+
+  selectAll () {
+    const updateTargets = function (target) {
+      let allChecked = true
+      let noneChecked = true
+
+      // loop all actions and check if they're checked
+      $('[type="checkbox"][data-select-all-target="' + target + '"]').each((index, groupCheckbox) => {
+        if (!$(groupCheckbox).prop('checked')) {
+          allChecked = false
+        } else {
+          noneChecked = false
+        }
+      })
+
+      const parentCheckbox = $('[type="checkbox"][data-role="select-all"][data-target="' + target + '"]').get(0)
+      // some are checked? indeterminate!
+      if (!allChecked && !noneChecked) {
+        parentCheckbox.checked = false
+        parentCheckbox.indeterminate = true
+      }
+
+      // if all are checked, check massaction checkbox
+      if (allChecked) {
+        parentCheckbox.indeterminate = false
+        parentCheckbox.checked = true
+      }
+
+      // nothing is checked?
+      if (noneChecked) {
+        parentCheckbox.indeterminate = false
+        parentCheckbox.checked = false
+      }
+    }
+
+    const $selectAllCheckboxes = $('[type="checkbox"][data-role="select-all"]')
+    $selectAllCheckboxes.each((index, groupCheckbox) => {
+      updateTargets(groupCheckbox.dataset.target)
+    })
+
+    $selectAllCheckboxes.on('click', function () {
+      const $checkbox = $(this)
+      $('[type="checkbox"][data-select-all-target="' + $checkbox.attr('data-target') + '"]').prop('checked', $checkbox.prop('checked'))
+    })
+
+    $('[type="checkbox"][data-select-all-target]').on('click', function () {
+      updateTargets($(this).attr('data-select-all-target'))
     })
   }
 
