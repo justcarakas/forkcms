@@ -39,7 +39,7 @@ final class ModuleAction implements Stringable
                 $matches
             )
         ) {
-            throw new InvalidArgumentException('Can ony be created from a backen action class name');
+            throw new InvalidArgumentException('Can ony be created from a backend action class name');
         }
 
         return new self(ModuleName::fromString($matches[1]), ActionName::fromString($matches[2]));
