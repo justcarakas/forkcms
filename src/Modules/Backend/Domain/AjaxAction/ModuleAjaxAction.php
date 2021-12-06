@@ -42,7 +42,7 @@ final class ModuleAjaxAction implements Stringable
             throw new InvalidArgumentException('Can ony be created from a backend ajax action class name');
         }
 
-        return new self(ModuleName::fromString($matches[1]), ActionName::fromString($matches[2]));
+        return new self(ModuleName::fromString($matches[1]), AjaxActionName::fromString($matches[2]));
     }
 
     public function getFQCN(): string
