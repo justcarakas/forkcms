@@ -1,6 +1,9 @@
 backend_ajax:
-  path: /backend/ajax
+  path: /private/ajax/{_locale}/{module}/{action}
   controller: ForkCMS\Modules\Backend\Controller\BackendAjaxController
+  defaults:
+    module: ~
+    action: ~
 
 backend_logout:
   path: /private/{_locale}/backend/authentication_logout
