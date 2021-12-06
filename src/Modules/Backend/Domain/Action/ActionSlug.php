@@ -52,7 +52,7 @@ final class ActionSlug implements Stringable
                 $matches
             )
         ) {
-            throw new InvalidArgumentException('Can ony be created from a backen action class name');
+            throw new InvalidArgumentException('Can ony be created from a backend action class name');
         }
 
         return new self(ModuleName::fromString($matches[1]), ActionName::fromString($matches[2]));
@@ -60,6 +60,10 @@ final class ActionSlug implements Stringable
 
     public static function fromRequest(Request $request): self
     {
+        if ($request->attributes->get('_route') !== 'backend') {
+            throw new InvalidArgumentException('This is not a backend action request');
+        }
+
         $module = $request->get('module');
         $action = $request->get('action');
 
