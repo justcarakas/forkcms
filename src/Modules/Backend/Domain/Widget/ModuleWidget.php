@@ -39,7 +39,7 @@ final class ModuleWidget implements Stringable
                 $matches
             )
         ) {
-            throw new InvalidArgumentException('Can ony be created from a backen widget class name');
+            throw new InvalidArgumentException('Can ony be created from a backend widget class name');
         }
 
         return new self(ModuleName::fromString($matches[1]), WidgetName::fromString($matches[2]));
