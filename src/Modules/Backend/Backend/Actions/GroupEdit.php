@@ -5,6 +5,9 @@ namespace ForkCMS\Modules\Backend\Backend\Actions;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Edit backend user groups
+ */
 final class GroupEdit extends AbstractActionController
 {
     protected function execute(Request $request): void

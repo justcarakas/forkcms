@@ -2,14 +2,25 @@
 
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
-use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
+use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
+use ForkCMS\Modules\Backend\Domain\UserGroup\Command\CreateUserGroup;
+use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-final class GroupAdd extends AbstractActionController
+/**
+ * Add new user groups to the backend
+ */
+final class GroupAdd extends AbstractFormActionController
 {
-    protected function execute(Request $request): void
+    protected function getFormResponse(Request $request): ?Response
     {
-        // TODO: Implement execute() method.
-        throw new \Exception('Method not implemented');
+        return $this->handleForm(
+            request: $request,
+            formType: UserGroupType::class,
+            redirectResponse: new RedirectResponse(GroupIndex::getActionSlug()->generateRoute($this->router)),
+            formData: new CreateUserGroup()
+        );
     }
 }
