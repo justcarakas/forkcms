@@ -8,6 +8,9 @@ use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ *Overview of the available groups in the backend
+ */
 final class GroupIndex extends AbstractActionController
 {
     protected function execute(Request $request): void

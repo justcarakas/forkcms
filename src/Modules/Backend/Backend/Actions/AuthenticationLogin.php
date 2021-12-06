@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+/**
+ * A placeholder for the route used by symfony to log a backend user in
+ */
 final class AuthenticationLogin extends AbstractActionController
 {
     public function __construct(

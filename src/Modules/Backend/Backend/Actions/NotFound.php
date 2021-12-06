@@ -7,6 +7,9 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * This class will handle the backend 404 page
+ */
 final class NotFound extends AbstractActionController
 {
     protected function execute(Request $request): void
