@@ -2,12 +2,19 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
+    bind:
+      $backendActions: !tagged_locator { tag: forkcms.backend.action }
+      $backendAjaxActions: !tagged_locator { tag: forkcms.backend.ajax_action }
+      $backendDashboardWidgets: !tagged_locator { tag: forkcms.backend.widget }
 
   ForkCMS\Modules\Backend\Domain\:
     resource: '../Domain/*'
 
   ForkCMS\Modules\Backend\Backend\Actions\:
     resource: '../Backend/Actions/*'
+
+  ForkCMS\Modules\Backend\Backend\Ajax\:
+    resource: '../Backend/Ajax/*'
 
   Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider: ~
 

@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Translator;
 use BadMethodCallException;
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
+use ForkCMS\Modules\Backend\Domain\AjaxAction\AjaxActionSlug;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
@@ -51,8 +52,8 @@ final class ForkTranslator extends Translator
             if ($mainRequest instanceof Request) {
                 $this->defaultTranslationDomain = match ($mainRequest->get('_route')) {
                     'backend',
-                    'backend_ajax',
                     'backend_login' => ActionSlug::fromRequest($mainRequest)->getTranslationDomain(),
+                    'backend_ajax' => AjaxActionSlug::fromRequest($mainRequest)->getTranslationDomain(),
                     default => new TranslationDomain(Application::frontend()),
                 };
             }
