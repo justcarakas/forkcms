@@ -533,3 +533,30 @@
   </div>
 {% endblock %}
 
+{% block user_data_grid_choice_row %}
+  {% import '@Backend/base/macros.html.twig' as macro %}
+  <table class="table table-hover table-striped fork-data-grid">
+    <thead>
+    <tr>
+      <th class="check">&nbsp;</th>
+      <th class="name">{{ 'lbl.Email'|trans|ucfirst }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for userCheckbox in form.children %}
+      {% set user = possibleUsers[userCheckbox.vars.value] %}
+      <tr class="{{ cycle(['odd', 'even'], loop.index0)}}">
+        <td class="check">{{ form_widget(userCheckbox, {label:false}) }}</td>
+        <td>
+          {% set checkboxLabelAttr = userCheckbox.vars.label_attr|merge({'for': userCheckbox.vars.id}) %}
+          {% set checkboxLabelAttr = checkboxLabelAttr|merge({'class': userCheckbox.vars.label_attr.class|default('') ~ (userCheckbox.vars.required ? ' required' : ' optional') }) %}
+          <label{% for attrname,attrvalue in checkboxLabelAttr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+            {{ user.email }}
+          </label>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
