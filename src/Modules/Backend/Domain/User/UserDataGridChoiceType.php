@@ -1,8 +1,7 @@
 <?php
 
-namespace ForkCMS\Modules\Backend\Domain\UserGroup\Permission;
+namespace ForkCMS\Modules\Backend\Domain\User;
 
-use ForkCMS\Modules\Backend\Domain\User\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
