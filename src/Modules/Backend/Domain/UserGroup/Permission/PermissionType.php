@@ -25,11 +25,6 @@ final class PermissionType extends AbstractType
                 'choice_value' => static function (string $permission): string {
                     return (string) $permission;
                 },
-                'choice_attr' => static function (Permission $permission) {
-                    return [
-                        'data-select-all-target' => $permission->getModule(),
-                    ];
-                },
                 'choice_label' => static function (Permission $permission): string {
                     return $permission->getName();
                 },
