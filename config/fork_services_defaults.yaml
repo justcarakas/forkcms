@@ -25,6 +25,14 @@ services:
       tags:
         - { name: forkcms.backend.action }
 
+    ForkCMS\Modules\Backend\Domain\AjaxAction\AjaxActionControllerInterface:
+      tags:
+        - { name: forkcms.backend.ajax_action }
+
+    ForkCMS\Modules\Backend\Domain\Widget\WidgetControllerInterface:
+      tags:
+        - { name: forkcms.backend.widget }
+
     Twig\Extension\ExtensionInterface:
       tags:
         - { name: twig.extension }
