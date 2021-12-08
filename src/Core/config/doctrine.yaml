@@ -2,3 +2,4 @@ doctrine:
   dbal:
     types:
       core__application__application: ForkCMS\Core\Domain\Application\ApplicationDBALType
+      core__settings__settings_bag: ForkCMS\Core\Domain\Settings\SettingsBagDBALType
