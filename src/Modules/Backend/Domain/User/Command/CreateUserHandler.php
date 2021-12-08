@@ -15,12 +15,12 @@ final class CreateUserCommand implements CommandHandlerInterface
     ) {
     }
 
-    public function __invoke(CreateUser $createUser): int
+    public function __invoke(CreateUser $createUser): User
     {
         $user = User::createFromDataTransferObject($createUser);
         $user->hashPassword($this->passwordHasher);
         $this->userRepository->save($user);
 
-        return $user->getId();
+        return $user;
     }
 }
