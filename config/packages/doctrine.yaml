@@ -27,6 +27,10 @@ doctrine:
       default:
         connection: default
         auto_mapping: true
+        filters:
+          softdeleteable:
+            class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+            enabled: true
         dql:
           numeric_functions:
             ceil: DoctrineExtensions\Query\Mysql\Ceil
