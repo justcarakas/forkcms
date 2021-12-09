@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
 use ForkCMS\Core\Domain\Header\Header;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,5 +66,15 @@ abstract class AbstractActionController implements ActionControllerInterface
     public function getResponse(Request $request): Response
     {
         return new Response($this->twig->render($this->templatePath, $this->twigContext));
+    }
+
+    public function getRepository(string $entityFQCN): EntityRepository
+    {
+        return $this->entityManager->getRepository($entityFQCN);
+    }
+
+    protected function getEntityFromRequest(Request $request, string $entityFQCN, string $key = 'id'): object
+    {
+        return $this->getRepository($entityFQCN)->find($request->query->getInt($key));
     }
 }
