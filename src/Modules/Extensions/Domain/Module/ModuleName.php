@@ -9,6 +9,8 @@ use Symfony\Component\DependencyInjection\Container;
 
 final class ModuleName implements Stringable
 {
+    public const ROLE_PREFIX = 'ROLE_MODULE__';
+
     use NamedIdentifier;
 
     public static function fromFQCN(string $fullyQualifiedClassName): self
@@ -27,8 +29,23 @@ final class ModuleName implements Stringable
         return self::fromString($matches[1]);
     }
 
+    public static function fromRole(string $role): self
+    {
+        return self::tryFromRole($role)
+            ?? throw new InvalidArgumentException('Role should start with: ' . self::ROLE_PREFIX);
+    }
+
+    public static function tryFromRole(string $role): ?self
+    {
+        if (!str_starts_with($role, self::ROLE_PREFIX)) {
+            return null;
+        }
+
+        self::fromString(substr($role, strlen(self::ROLE_PREFIX)));
+    }
+
     public function asRole(): string
     {
-        return 'ROLE_MODULE__' . strtoupper(Container::underscore($this->getName()));
+        return self::ROLE_PREFIX . strtoupper(Container::underscore($this->getName()));
     }
 }
