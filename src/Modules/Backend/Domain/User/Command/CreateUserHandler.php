@@ -7,7 +7,7 @@ use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\User\UserRepository;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-final class CreateUserCommand implements CommandHandlerInterface
+final class CreateUserHandler implements CommandHandlerInterface
 {
     public function __construct(
         private UserRepository $userRepository,

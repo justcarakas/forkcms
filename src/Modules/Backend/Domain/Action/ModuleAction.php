@@ -59,9 +59,12 @@ final class ModuleAction implements Stringable
             return null;
         }
 
-        [$moduleName, $actionName] = explode('__', substr($role, strlen(self::ROLE_PREFIX)));
+        [$moduleName, $actionName] = explode('__', strtolower(substr($role, strlen(self::ROLE_PREFIX))));
 
-        return new self(ModuleName::fromString($moduleName), ActionName::fromString($actionName));
+        return new self(
+            ModuleName::fromString(Container::camelize($moduleName)),
+            ActionName::fromString(Container::camelize($actionName))
+        );
     }
 
     public function getFQCN(): string
@@ -87,7 +90,7 @@ final class ModuleAction implements Stringable
     public function asRole(): string
     {
         $identifier = Container::underscore($this->module->getName()) . '__' .
-                      Container::underscore($this->action->getName());
+            Container::underscore($this->action->getName());
 
         return self::ROLE_PREFIX . strtoupper($identifier);
     }
