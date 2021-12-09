@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Extensions\Domain\Module;
 use ForkCMS\Core\Domain\Doctrine\CreateSchema;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
+use ForkCMS\Modules\Backend\Domain\AjaxAction\ModuleAjaxAction;
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItem;
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItemRepository;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
@@ -21,6 +22,8 @@ use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\StampInterface;
+use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 abstract class ModuleInstaller
 {
@@ -44,6 +47,8 @@ abstract class ModuleInstaller
         protected TranslationRepository $translationRepository,
         protected InstalledLocaleRepository $installedLocaleRepository,
         protected Importer $importer,
+        protected AuthenticationManagerInterface $authenticationManager,
+        protected TokenStorageInterface $tokenStorage,
         private MessageBusInterface $commandBus,
         private MessageBusInterface $eventBus,
     ) {
@@ -192,8 +197,18 @@ abstract class ModuleInstaller
         UserGroup $userGroup = null
     ): void {
         $userGroup = $userGroup ?? $this->userGroupRepository->getAdminUserGroup();
-        $userGroup->addModule($moduleAction->getModule());
         $userGroup->addAction($moduleAction);
+    }
+
+    /**
+     * @param UserGroup|null $userGroup Defaults to the admin user group
+     */
+    final protected function allowGroupToAccessModuleAjaxAction(
+        ModuleAjaxAction $moduleAjaxAction,
+        UserGroup $userGroup = null
+    ): void {
+        $userGroup = $userGroup ?? $this->userGroupRepository->getAdminUserGroup();
+        $userGroup->addAjaxAxtion($moduleAjaxAction);
     }
 
     /**
@@ -204,7 +219,6 @@ abstract class ModuleInstaller
         UserGroup $userGroup = null
     ): void {
         $userGroup = $userGroup ?? $this->userGroupRepository->getAdminUserGroup();
-        $userGroup->addModule($moduleWidget->getModule());
         $userGroup->addWidget($moduleWidget);
     }
 

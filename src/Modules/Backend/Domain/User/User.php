@@ -3,11 +3,14 @@
 namespace ForkCMS\Modules\Backend\Domain\User;
 
 use Assert\Assertion;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Backend\Actions\NotFound;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
+use Gedmo\Mapping\Annotation as Gedmo;
 use InvalidArgumentException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -17,6 +20,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="users")
+ * @Gedmo\SoftDeleteable(timeAware=true)
  */
 #[UniqueEntity(fields: ['email'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -46,24 +50,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    private bool $deleted;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
     private bool $superAdmin;
 
     /**
-     * @var Collection<string, UserSetting>|UserSetting[]
-     *
-     * @Orm\OneToMany(
-     *     targetEntity="UserSetting",
-     *     mappedBy="user",
-     *     indexBy="key",
-     *     cascade={"persist", "remove"}
-     * )
+     * @ORM\Column(type="core__settings__settings_bag")
      */
-    private Collection $settings;
+    private SettingsBag $settings;
 
     /**
      * @var Collection<int, UserGroup>|UserGroup[]
@@ -79,7 +71,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *  }
      * )
      */
-    protected Collection $userGroups;
+    private Collection $userGroups;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private DateTimeImmutable|null $deletedAt = null;
 
     /** @param Collection<int, UserGroup>|UserGroup[] $userGroups */
     public function __construct(
@@ -89,27 +86,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         bool $superAdmin,
         Collection $userGroups = null,
     ) {
-        $this->email = $email;
+        $this->setEmail($email);
         $this->plainTextPassword = trim($this->plainTextPassword);
         $this->password = '';
         $this->accessToBackend = $accessToBackend;
         $this->superAdmin = $superAdmin;
-        $this->settings = new ArrayCollection();
+        $this->settings = new SettingsBag();
         $this->userGroups = $userGroups ?? new ArrayCollection();
-        $this->deleted = false;
-        $this->validate();
     }
 
     public static function createFromDataTransferObject(UserDataTransferObject $userDataTransferObject): self
     {
         if ($userDataTransferObject->hasEntity()) {
             $user = $userDataTransferObject->getEntity();
-            $user->email = $userDataTransferObject->email ?? throw new InvalidArgumentException('Email is required');
+            $user->setEmail($userDataTransferObject->email ?? throw new InvalidArgumentException('Email is required'));
             $user->accessToBackend = $userDataTransferObject->accessToBackend;
             $user->superAdmin = $userDataTransferObject->superAdmin;
             $user->plainTextPassword = trim($userDataTransferObject->plainTextPassword);
             $user->userGroups = $userDataTransferObject->userGroups;
-            $user->validate();
 
             return $user;
         }
@@ -121,15 +115,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $userDataTransferObject->superAdmin,
             $userDataTransferObject->userGroups
         );
-    }
-
-    private function validate(): void
-    {
-        Assertion::email($this->email);
-        Assertion::maxLength($this->email, 180);
-        Assertion::boolean($this->superAdmin);
-        Assertion::boolean($this->accessToBackend);
-        Assertion::boolean($this->deleted);
     }
 
     public function getId(): ?int
@@ -144,6 +129,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setEmail(string $email): self
     {
+        Assertion::email($email);
+        Assertion::maxLength($email, 180);
         $this->email = $email;
 
         return $this;
@@ -175,7 +162,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $groupRoles = [];
 
         foreach ($this->userGroups as $userGroup) {
-            $groupRoles[] = $userGroup->getRoles();
+            $groupRoles[] = array_values($userGroup->getRoles());
         }
 
         return array_unique(array_merge($roles, ...$groupRoles));
@@ -224,19 +211,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->accessToBackend;
     }
 
-    public function isDeleted(): bool
-    {
-        return $this->deleted;
-    }
-
-    public function delete(): void
-    {
-        $this->deleted = true;
-    }
-
     public function undoDelete(): void
     {
-        $this->deleted = false;
+        $this->deletedAt = null;
     }
 
     public function isSuperAdmin(): bool
@@ -244,30 +221,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->superAdmin;
     }
 
-    /** @return Collection<string, UserSetting>|UserSetting[] */
-    public function getSettings(): Collection
+    public function getSettings(): SettingsBag
     {
         return $this->settings;
-    }
-
-    public function setSetting(string $key, mixed $value): void
-    {
-        if ($this->settings->containsKey($key)) {
-            $this->settings[$key]->setValue($value);
-
-            return;
-        }
-
-        $this->settings->set($key, new UserSetting($this, $key, $value));
-    }
-
-    public function removeSetting(string $key): void
-    {
-        if (!$this->settings->containsKey($key)) {
-            return;
-        }
-
-        $this->settings->remove($key);
     }
 
     /** @return Collection<int, UserGroup>|UserGroup[] */
