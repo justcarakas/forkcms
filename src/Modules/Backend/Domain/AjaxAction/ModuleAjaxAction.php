@@ -12,6 +12,8 @@ use Symfony\Component\DependencyInjection\Container;
 /** @ORM\Embeddable */
 final class ModuleAjaxAction implements Stringable
 {
+    public const ROLE_PREFIX = 'ROLE_MODULE_AJAX_ACTION__';
+
     /**
      * @ORM\Column(type="modules__extensions__module__module_name")
      */
@@ -45,6 +47,23 @@ final class ModuleAjaxAction implements Stringable
         return new self(ModuleName::fromString($matches[1]), AjaxActionName::fromString($matches[2]));
     }
 
+    public static function fromRole(string $role): self
+    {
+        return self::tryFromRole($role)
+            ?? throw new InvalidArgumentException('Role should start with: ' . self::ROLE_PREFIX);
+    }
+
+    public static function tryFromRole(string $role): ?self
+    {
+        if (!str_starts_with($role, self::ROLE_PREFIX)) {
+            return null;
+        }
+
+        [$moduleName, $ajaxActionName] = explode('__', substr($role, strlen(self::ROLE_PREFIX)));
+
+        return new self(ModuleName::fromString($moduleName), AjaxActionName::fromString($ajaxActionName));
+    }
+
     public function getFQCN(): string
     {
         return 'ForkCMS\\Modules\\' . $this->module . '\\Backend\\Ajax\\' . $this->action;
@@ -70,6 +89,6 @@ final class ModuleAjaxAction implements Stringable
         $identifier = Container::underscore($this->module->getName()) . '__' .
                       Container::underscore($this->action->getName());
 
-        return 'ROLE_MODULE_AJAX_ACTION__' . strtoupper($identifier);
+        return self::ROLE_PREFIX . strtoupper($identifier);
     }
 }

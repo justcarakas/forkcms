@@ -12,6 +12,8 @@ use Symfony\Component\DependencyInjection\Container;
 /** @ORM\Embeddable */
 final class ModuleWidget implements Stringable
 {
+    public const ROLE_PREFIX = 'ROLE_MODULE_WIDGET__';
+
     /**
      * @ORM\Column(type="modules__extensions__module__module_name")
      */
@@ -45,6 +47,23 @@ final class ModuleWidget implements Stringable
         return new self(ModuleName::fromString($matches[1]), WidgetName::fromString($matches[2]));
     }
 
+    public static function fromRole(string $role): self
+    {
+        return self::tryFromRole($role)
+            ?? throw new InvalidArgumentException('Role should start with: ' . self::ROLE_PREFIX);
+    }
+
+    public static function tryFromRole(string $role): ?self
+    {
+        if (!str_starts_with($role, self::ROLE_PREFIX)) {
+            return null;
+        }
+
+        [$moduleName, $widgetName] = explode('__', substr($role, strlen(self::ROLE_PREFIX)));
+
+        return new self(ModuleName::fromString($moduleName), WidgetName::fromString($widgetName));
+    }
+
     public function getFQCN(): string
     {
         return 'ForkCMS\\Modules\\' . $this->module . '\\Backend\\Widgets\\' . $this->widget;
@@ -70,6 +89,6 @@ final class ModuleWidget implements Stringable
         $identifier = Container::underscore($this->module->getName()) . '__' .
                       Container::underscore($this->widget->getName());
 
-        return 'ROLE_MODULE_WIDGET__' . strtoupper($identifier);
+        return self::ROLE_PREFIX . strtoupper($identifier);
     }
 }
