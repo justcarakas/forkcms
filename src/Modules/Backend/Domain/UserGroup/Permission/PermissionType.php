@@ -3,17 +3,37 @@
 namespace ForkCMS\Modules\Backend\Domain\UserGroup\Permission;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class PermissionType extends AbstractType
 {
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        parent::buildForm($builder, $options);
+        $builder->addModelTransformer(
+            new CallbackTransformer(
+                $options['transform_callback'],
+                static function (array $permissions) {
+                    return array_map(
+                        static fn (Permission $permission): string => $permission->getValue(),
+                        $permissions
+                    );
+                }
+            )
+        );
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
         $resolver->setAllowedTypes('choices', Permission::class . '[]');
+        $resolver->setRequired('transform_callback');
+        $resolver->setAllowedTypes('transform_callback', 'callable');
         $resolver->setDefaults(
             [
                 'name_label' => 'lbl.Name',

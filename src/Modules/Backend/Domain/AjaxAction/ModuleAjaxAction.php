@@ -59,9 +59,12 @@ final class ModuleAjaxAction implements Stringable
             return null;
         }
 
-        [$moduleName, $ajaxActionName] = explode('__', substr($role, strlen(self::ROLE_PREFIX)));
+        [$moduleName, $ajaxActionName] = explode('__', strtolower(substr($role, strlen(self::ROLE_PREFIX))));
 
-        return new self(ModuleName::fromString($moduleName), AjaxActionName::fromString($ajaxActionName));
+        return new self(
+            ModuleName::fromString(Container::camelize($moduleName)),
+            AjaxActionName::fromString(Container::camelize($ajaxActionName))
+        );
     }
 
     public function getFQCN(): string

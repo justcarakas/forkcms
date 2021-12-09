@@ -41,7 +41,7 @@ final class ModuleName implements Stringable
             return null;
         }
 
-        self::fromString(substr($role, strlen(self::ROLE_PREFIX)));
+        self::fromString(Container::camelize(strtolower(substr($role, strlen(self::ROLE_PREFIX)))));
     }
 
     public function asRole(): string

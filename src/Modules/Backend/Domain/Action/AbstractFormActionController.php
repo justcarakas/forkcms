@@ -65,9 +65,7 @@ abstract class AbstractFormActionController extends AbstractActionController
             return $redirectResponse;
         };
 
-        $form = $this->formFactory->create($formType, $formData, [
-
-        ]);
+        $form = $this->formFactory->create($formType, $formData, $formOptions);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

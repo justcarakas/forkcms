@@ -9,7 +9,6 @@ use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\ModuleAjaxAction;
 use ForkCMS\Modules\Backend\Domain\User\User;
-use ForkCMS\Modules\Backend\Domain\UserGroup\Command\CreateUserGroup;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use Pageon\DoctrineDataGridBundle\Attribute\DataGrid;
@@ -83,12 +82,26 @@ class UserGroup
         return $this->id;
     }
 
-    public static function fromDataTransferObject(CreateUserGroup $createUserGroup): self
+    public static function fromDataTransferObject(UserGroupDataTransferObject $createUserGroup): self
     {
         $userGroup = new self($createUserGroup->name);
-        $userGroup->users = $createUserGroup->users;
-        dump($userGroup);
-        die;
+        $userGroup->users->clear();
+        foreach ($createUserGroup->users as $user) {
+            $userGroup->addUser($user);
+        }
+        $userGroup->settings = $createUserGroup->settings;
+        $userGroup->roles = [];
+        foreach ($createUserGroup->actions as $action) {
+            $userGroup->addAction(ModuleAction::fromFQCN($action));
+        }
+        foreach ($createUserGroup->ajaxActions as $ajaxAction) {
+            $userGroup->addAjaxAxtion(ModuleAjaxAction::fromFQCN($ajaxAction));
+        }
+        foreach ($createUserGroup->widgets as $widget) {
+            $userGroup->addWidget(ModuleWidget::fromFQCN($widget));
+        }
+
+        return $userGroup;
     }
 
     public function getName(): string
