@@ -60,7 +60,7 @@ final class ActionSlug implements Stringable
 
     public static function fromRequest(Request $request): self
     {
-        if ($request->attributes->get('_route') !== 'backend') {
+        if (!str_starts_with($request->attributes->get('_route'), 'backend')) {
             throw new InvalidArgumentException('This is not a backend action request');
         }
 
