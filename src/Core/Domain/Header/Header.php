@@ -2,7 +2,10 @@
 
 namespace ForkCMS\Core\Domain\Header;
 
+use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use LogicException;
+use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
@@ -16,7 +19,7 @@ final class Header
     private JsData $jsData;
 
     public function __construct(
-        RequestStack $requestStack,
+        private RequestStack $requestStack,
         KernelInterface $kernel,
     ) {
         $this->jsData = new JsData(
@@ -49,5 +52,21 @@ final class Header
         }
 
         return $cookieLifetime;
+    }
+
+    public function addFlashMessage(FlashMessage $flashMessage): void
+    {
+        try {
+            $this->requestStack->getSession()->getFlashBag()->add(
+                $flashMessage->getType()->value,
+                $flashMessage->getMessage()
+            );
+        } catch (SessionNotFoundException $e) {
+            throw new LogicException(
+                'You cannot use the addFlash method if sessions are disabled. Enable them in "config/packages/framework.yaml".',
+                0,
+                $e
+            );
+        }
     }
 }
