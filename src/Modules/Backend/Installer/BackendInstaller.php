@@ -3,21 +3,15 @@
 namespace ForkCMS\Modules\Backend\Installer;
 
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
-use ForkCMS\Modules\Backend\Backend\Actions\GroupAdd;
-use ForkCMS\Modules\Backend\Backend\Actions\GroupDelete;
-use ForkCMS\Modules\Backend\Backend\Actions\GroupEdit;
-use ForkCMS\Modules\Backend\Backend\Actions\GroupIndex;
+use ForkCMS\Modules\Backend\Backend\Actions\UserGroupAdd;
+use ForkCMS\Modules\Backend\Backend\Actions\UserGroupDelete;
+use ForkCMS\Modules\Backend\Backend\Actions\UserGroupEdit;
+use ForkCMS\Modules\Backend\Backend\Actions\UserGroupIndex;
 use ForkCMS\Modules\Backend\Domain\Authentication\RememberMeToken;
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItem;
 use ForkCMS\Modules\Backend\Domain\User\Command\CreateUser;
-use ForkCMS\Modules\Backend\Domain\User\Command\CreateUserHandler;
 use ForkCMS\Modules\Backend\Domain\User\User;
-use ForkCMS\Modules\Backend\Domain\User\UserSetting;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
-use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupAction;
-use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupModule;
-use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupSetting;
-use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupWidget;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
@@ -62,12 +56,12 @@ final class BackendInstaller extends ModuleInstaller
 
         $this->getOrCreateBackendNavigationItem(
             TranslationKey::label('Groups'),
-            GroupIndex::getActionSlug(),
+            UserGroupIndex::getActionSlug(),
             $this->getSettingsNavigationItem(),
             [
-                GroupAdd::getActionSlug(),
-                GroupEdit::getActionSlug(),
-                GroupDelete::getActionSlug(),
+                UserGroupAdd::getActionSlug(),
+                UserGroupEdit::getActionSlug(),
+                UserGroupDelete::getActionSlug(),
             ],
         );
     }
