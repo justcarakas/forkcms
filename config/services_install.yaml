@@ -54,6 +54,7 @@ services:
     resource: '../src/Modules/Backend/Domain/*'
     exclude:
       - '../src/Modules/Backend/Domain/Module/Module.php'
+      - '../src/Modules/Backend/Domain/UserGroup/UserGroupType.php'
 
   ForkCMS\Modules\Extensions\Domain\Module\InstalledModules:
 
