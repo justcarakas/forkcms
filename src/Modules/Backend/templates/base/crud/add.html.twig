@@ -6,7 +6,7 @@
   {{ form_rest(backend_form) }}
 
   <div class="btn-toolbar">
-    {% if is_allowed(crudIndexAction) %}
+    {% if crudIndexAction is defined and is_allowed(crudIndexAction) %}
       <div class="btn-group" role="group">
         {{ macro.buttonIcon(action_path(crudIndexAction), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default') }}
       </div>
