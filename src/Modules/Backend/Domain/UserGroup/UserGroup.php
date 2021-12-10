@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Backend\Domain\UserGroup;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Core\Domain\Doctrine\CollectionHelper;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\ModuleAjaxAction;
@@ -69,7 +70,7 @@ class UserGroup
      */
     private array $roles;
 
-    public function __construct(string $name)
+    private function __construct(string $name)
     {
         $this->name = $name;
         $this->users = new ArrayCollection();
@@ -82,22 +83,26 @@ class UserGroup
         return $this->id;
     }
 
-    public static function fromDataTransferObject(UserGroupDataTransferObject $createUserGroup): self
+    public static function fromDataTransferObject(UserGroupDataTransferObject $userDataTransferObject): self
     {
-        $userGroup = new self($createUserGroup->name);
-        $userGroup->users->clear();
-        foreach ($createUserGroup->users as $user) {
-            $userGroup->addUser($user);
-        }
-        $userGroup->settings = $createUserGroup->settings;
+        $userGroup = $userDataTransferObject->getEntity() ?? new self($userDataTransferObject->name);
+        $userGroup->name = $userDataTransferObject->name;
+        CollectionHelper::updateCollection(
+            $userDataTransferObject->users,
+            $userGroup->users,
+            fn (User $user) => $userGroup->addUser($user),
+            fn (User $user) => $userGroup->removeUser($user)
+        );
+
+        $userGroup->settings = $userDataTransferObject->settings;
         $userGroup->roles = [];
-        foreach ($createUserGroup->actions as $action) {
+        foreach ($userDataTransferObject->actions as $action) {
             $userGroup->addAction(ModuleAction::fromFQCN($action));
         }
-        foreach ($createUserGroup->ajaxActions as $ajaxAction) {
+        foreach ($userDataTransferObject->ajaxActions as $ajaxAction) {
             $userGroup->addAjaxAxtion(ModuleAjaxAction::fromFQCN($ajaxAction));
         }
-        foreach ($createUserGroup->widgets as $widget) {
+        foreach ($userDataTransferObject->widgets as $widget) {
             $userGroup->addWidget(ModuleWidget::fromFQCN($widget));
         }
 

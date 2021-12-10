@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Backend\Domain\UserGroup;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use ForkCMS\Core\Domain\Doctrine\CollectionHelper;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\ModuleAjaxAction;
@@ -14,8 +14,8 @@ abstract class UserGroupDataTransferObject
 {
     public ?string $name;
 
-    /** @var Collection<int, User> */
-    public Collection $users;
+    /** @var ArrayCollection<int, User> */
+    public ArrayCollection $users;
 
     public SettingsBag $settings;
 
@@ -31,7 +31,7 @@ abstract class UserGroupDataTransferObject
     public function __construct(protected ?UserGroup $userGroupEntity = null)
     {
         $this->name = $userGroupEntity?->getName();
-        $this->users = $userGroupEntity?->getUsers() ?? new ArrayCollection();
+        $this->users = CollectionHelper::toArrayCollection($userGroupEntity?->getUsers());
         $this->settings = $userGroupEntity?->getSettings() ?? new SettingsBag();
         $roles = $userGroupEntity?->getRoles() ?? [];
         $this->actions = array_map(
@@ -48,12 +48,7 @@ abstract class UserGroupDataTransferObject
         );
     }
 
-    final public function hasEntity(): bool
-    {
-        return $this->userGroupEntity instanceof UserGroup;
-    }
-
-    final public function getEntity(): UserGroup
+    final public function getEntity(): ?UserGroup
     {
         return $this->userGroupEntity;
     }

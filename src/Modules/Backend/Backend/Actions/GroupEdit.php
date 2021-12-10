@@ -2,17 +2,31 @@
 
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
-use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
+use Assert\Assert;
+use Assert\Assertion;
+use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
+use ForkCMS\Modules\Backend\Domain\UserGroup\Command\ChangeUserGroup;
+use ForkCMS\Modules\Backend\Domain\UserGroup\Command\CreateUserGroup;
+use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
+use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Edit backend user groups
  */
-final class GroupEdit extends AbstractActionController
+final class GroupEdit extends AbstractFormActionController
 {
-    protected function execute(Request $request): void
+    protected function getFormResponse(Request $request): ?Response
     {
-        // TODO: Implement execute() method.
-        throw new \Exception('Method not implemented');
+        /** @var UserGroup $userGroup */
+        $userGroup = $this->getEntityFromRequest($request, UserGroup::class);
+        return $this->handleForm(
+            request: $request,
+            formType: UserGroupType::class,
+            redirectResponse: new RedirectResponse(GroupIndex::getActionSlug()->generateRoute($this->router)),
+            formData: new ChangeUserGroup($userGroup)
+        );
     }
 }
