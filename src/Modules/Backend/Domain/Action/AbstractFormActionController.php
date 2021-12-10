@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use Doctrine\ORM\EntityManagerInterface;
+use ForkCMS\Core\Domain\Form\DeleteType;
 use ForkCMS\Core\Domain\Header\Header;
 use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -73,5 +74,22 @@ abstract class AbstractFormActionController extends AbstractActionController
         }
 
         return $defaultCallback($form);
+    }
+
+    protected function addDeleteForm(
+        array $data,
+        ActionSlug $deleteActionSlug,
+        string $formType = DeleteType::class,
+        array $options = []
+    ): void {
+        $this->assign('crudDeleteAction', $deleteActionSlug->getActionName());
+        $this->assign(
+            'backend_delete_form',
+            $this->formFactory->create(
+                $formType,
+                $data,
+                array_merge(['actionSlug' => $deleteActionSlug], $options)
+            )->createView()
+        );
     }
 }

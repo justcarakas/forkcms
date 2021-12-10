@@ -1,0 +1,51 @@
+{% extends '@Backend/base/base.html.twig' %}
+{% import '@Backend/base/macros.html.twig' as macro %}
+
+{% if is not crudDeleteName and breadcrumbDetail is defined %}
+  {% set crudDeleteName = breadcrumbDetail %}
+{% endif %}
+
+{% block content %}
+  {{ form_start(backend_form) }}
+  {{ form_rest(backend_form) }}
+
+  <div class="btn-toolbar d-flex">
+    <div class="btn-group" role="group">
+      {% if crudDeleteAction is defined and is_allowed(crudDeleteAction) %}
+        {{ macro.buttonIcon('', 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger', {"type":"button", "data-bs-toggle":"modal", "data-bs-target":"#confirmDelete"}) }}
+      {% endif %}
+      {% if is_allowed(crudIndexAction) %}
+        <div class="btn-group" role="group">
+          {{ macro.buttonIcon(action_path(crudIndexAction), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default') }}
+        </div>
+      {% endif %}
+    </div>
+    <div class="btn-group ms-auto" role="group">
+      {{ macro.buttonIcon('', 'save', 'lbl.Save'|trans|ucfirst, 'btn-primary', {"type":"submit", "id":"editButton", "name":"edit"}) }}
+    </div>
+  </div>
+  {{ form_end(backend_form) }}
+
+  {% if crudDeleteAction is defined and is_allowed(crudDeleteAction) %}
+    {{ form_start(backend_delete_form) }}
+    {{ form_row(backend_delete_form._token) }}
+    {{ form_row(backend_delete_form.id) }}
+    <div class="modal fade" id="confirmDelete" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="confirmDeleteTitle">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="confirmDeleteTitle">{{ 'lbl.Delete'|trans|ucfirst }}</h4>
+          </div>
+          <div class="modal-body">
+            <p>{{ 'msg.ConfirmDelete'|trans|format(crudDeleteName|e)|raw }}</p>
+          </div>
+          <div class="modal-footer">
+            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', {"type":"button", "data-bs-dismiss":"modal"}) }}
+            {{ macro.buttonIcon('', 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger', {"type":"submit"}) }}
+          </div>
+        </div>
+      </div>
+    </div>
+    {{ form_end(backend_delete_form) }}
+  {% endif %}
+{% endblock %}
