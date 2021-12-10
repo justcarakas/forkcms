@@ -21,6 +21,8 @@ class TranslationKey implements TranslatableInterface
      */
     private string $name;
 
+    private array $parameters = [];
+
     private function __construct(Type $type, string $name)
     {
         $this->type = $type;
@@ -70,6 +72,14 @@ class TranslationKey implements TranslatableInterface
 
     public function trans(TranslatorInterface $translator, string $locale = null): string
     {
-        return $translator->trans((string) $this, [], null, $locale);
+        return $translator->trans((string) $this, $this->parameters, null, $locale);
+    }
+
+    public function withParameters(array $parameters): self
+    {
+        $translationKey = clone $this;
+        $translationKey->parameters = $parameters;
+
+        return $translationKey;
     }
 }
