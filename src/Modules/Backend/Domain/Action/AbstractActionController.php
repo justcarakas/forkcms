@@ -77,4 +77,9 @@ abstract class AbstractActionController implements ActionControllerInterface
     {
         return $this->getRepository($entityFQCN)->find($request->query->getInt($key));
     }
+
+    protected function setBreadcrumbDetail(string $breadcrumbDetail): void
+    {
+        $this->assign('breadcrumbDetail', $breadcrumbDetail);
+    }
 }
