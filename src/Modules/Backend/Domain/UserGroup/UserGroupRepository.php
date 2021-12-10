@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Backend\Domain\UserGroup;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use ForkCMS\Modules\Backend\Domain\UserGroup\Command\CreateUserGroup;
 use InvalidArgumentException;
 use Throwable;
 
@@ -48,7 +49,9 @@ final class UserGroupRepository extends ServiceEntityRepository
     {
         $adminUserGroup = $this->findOneBy(['id' => UserGroup::ADMIN_GROUP_ID]);
         if (!$adminUserGroup instanceof UserGroup) {
-            $adminUserGroup = new UserGroup('Admin');
+            $userGroupDataTransferObject = new CreateUserGroup();
+            $userGroupDataTransferObject->name = 'Admin';
+            $adminUserGroup = UserGroup::fromDataTransferObject($userGroupDataTransferObject);
             $this->save($adminUserGroup);
         }
 

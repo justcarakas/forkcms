@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Delete user groups from the backend
  */
-final class GroupDelete extends AbstractActionController
+final class UserGroupDelete extends AbstractActionController
 {
     protected function execute(Request $request): void
     {
