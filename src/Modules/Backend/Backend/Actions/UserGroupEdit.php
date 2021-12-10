@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Edit backend user groups
  */
-final class GroupEdit extends AbstractFormActionController
+final class UserGroupEdit extends AbstractFormActionController
 {
     protected function getFormResponse(Request $request): ?Response
     {
@@ -27,13 +27,13 @@ final class GroupEdit extends AbstractFormActionController
 
         $this->addDeleteForm(
             ['id' => $userGroup->getId()],
-            ActionSlug::fromFQCN(GroupDelete::class)
+            ActionSlug::fromFQCN(UserGroupDelete::class)
         );
 
         return $this->handleForm(
             request: $request,
             formType: UserGroupType::class,
-            redirectResponse: new RedirectResponse(GroupIndex::getActionSlug()->generateRoute($this->router)),
+            redirectResponse: new RedirectResponse(UserGroupIndex::getActionSlug()->generateRoute($this->router)),
             formData: new ChangeUserGroup($userGroup)
         );
     }

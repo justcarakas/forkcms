@@ -12,14 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Add new user groups to the backend
  */
-final class GroupAdd extends AbstractFormActionController
+final class UserGroupAdd extends AbstractFormActionController
 {
     protected function getFormResponse(Request $request): ?Response
     {
         return $this->handleForm(
             request: $request,
             formType: UserGroupType::class,
-            redirectResponse: new RedirectResponse(GroupIndex::getActionSlug()->generateRoute($this->router)),
+            redirectResponse: new RedirectResponse(UserGroupIndex::getActionSlug()->generateRoute($this->router)),
             formData: new CreateUserGroup()
         );
     }
