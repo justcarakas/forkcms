@@ -19,12 +19,12 @@ use Twig\Environment;
 abstract class AbstractFormActionController extends AbstractActionController
 {
     public function __construct(
-        protected DataGridFactory $dataGridFactory,
-        protected EntityManagerInterface $entityManager,
-        protected Environment $twig,
-        protected TranslatorInterface $translator,
-        protected Header $header,
-        protected RouterInterface $router,
+        DataGridFactory $dataGridFactory,
+        EntityManagerInterface $entityManager,
+        Environment $twig,
+        TranslatorInterface $translator,
+        Header $header,
+        RouterInterface $router,
         protected FormFactoryInterface $formFactory,
         protected MessageBusInterface $commandBus,
     ) {
