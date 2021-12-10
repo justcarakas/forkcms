@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use Doctrine\ORM\EntityManagerInterface;
 use ForkCMS\Core\Domain\Form\DeleteType;
+use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Core\Domain\Header\Header;
 use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -45,15 +46,18 @@ abstract class AbstractFormActionController extends AbstractActionController
     /**
      * @param null|callable(FormInterface): Response|FormInterface|null $defaultCallback
      * @param null|callable(FormInterface): Response|FormInterface|null $validCallback
+     * @param null|callable(object): FlashMessage $flashMessageCallback
      */
     protected function handleForm(
         Request $request,
         string $formType,
+        object $formData = null,
+        FlashMessage $flashMessage = null,
+        ?RedirectResponse $redirectResponse = null,
+        array $formOptions = [],
         callable $defaultCallback = null,
         callable $validCallback = null,
-        ?RedirectResponse $redirectResponse = null,
-        object $formData = null,
-        array $formOptions = [],
+        callable $flashMessageCallback = null,
     ): Response|FormInterface|null {
         $defaultCallback ??= function (FormInterface $form): ?FormInterface {
             $this->assign('backend_form', $form->createView());
@@ -70,7 +74,14 @@ abstract class AbstractFormActionController extends AbstractActionController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            return $validCallback($form);
+            $response =  $validCallback($form);
+            if ($flashMessage instanceof FlashMessage) {
+                $this->header->addFlashMessage($flashMessage);
+            } elseif (is_callable($flashMessageCallback)) {
+                $this->header->addFlashMessage($flashMessageCallback($form->getData()));
+            }
+
+            return $response;
         }
 
         return $defaultCallback($form);
