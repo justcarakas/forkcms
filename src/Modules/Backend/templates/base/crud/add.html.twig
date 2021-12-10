@@ -1,0 +1,19 @@
+{% extends '@Backend/base/base.html.twig' %}
+{% import '@Backend/base/macros.html.twig' as macro %}
+
+{% block content %}
+  {{ form_start(backend_form) }}
+  {{ form_rest(backend_form) }}
+
+  <div class="btn-toolbar">
+    {% if is_allowed(crudIndexAction) %}
+      <div class="btn-group" role="group">
+        {{ macro.buttonIcon(action_path(crudIndexAction), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default') }}
+      </div>
+    {% endif %}
+    <div class="btn-group ms-auto" role="group">
+      {{ macro.buttonIcon('', 'plus-square', 'lbl.Add'|trans|ucfirst, 'btn-primary', {"id":"addButton", "type":"submit", "name":"add"}) }}
+    </div>
+  </div>
+  {{ form_end(backend_form) }}
+{% endblock %}
