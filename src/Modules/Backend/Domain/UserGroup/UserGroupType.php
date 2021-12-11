@@ -15,9 +15,9 @@ use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 final class UserGroupType extends AbstractType
 {
@@ -25,6 +25,7 @@ final class UserGroupType extends AbstractType
         private ServiceLocator $backendActions,
         private ServiceLocator $backendAjaxActions,
         private ServiceLocator $backendDashboardWidgets,
+        private AuthorizationCheckerInterface $authorizationChecker,
     ) {
     }
 
@@ -34,87 +35,94 @@ final class UserGroupType extends AbstractType
         $ajaxActions = $this->getAvailableAjaxActions();
         $widgets = $this->getAvailableWidgets();
 
+        $tabs = [
+            'lbl.Name' => static function (FormBuilderInterface $builder): void {
+                $builder->add(
+                    'name',
+                    TextType::class,
+                    [
+                        'label' => 'lbl.Name',
+                        'required' => true,
+                    ]
+                );
+            },
+        ];
+        if (count($widgets) > 0) {
+            $tabs['lbl.Dashboard'] = static function (FormBuilderInterface $builder) use ($widgets): void {
+                $builder->add(
+                    'widgets',
+                    PermissionType::class,
+                    [
+                        'choices' => $widgets,
+                        'name_label' => 'lbl.Widget',
+                        'transform_callback' => static function (array $widgetFQCNs) use ($widgets): array {
+                            $permissions = [];
+                            foreach ($widgetFQCNs as $widgetFQCN) {
+                                $permissions[] = $widgets[$widgetFQCN];
+                            }
+
+                            return $permissions;
+                        }
+                    ]
+                );
+            };
+        }
+        if (count($actions) > 0) {
+            $tabs['lbl.Actions'] = static function (FormBuilderInterface $builder) use ($actions): void {
+                $builder->add(
+                    'actions',
+                    PermissionType::class,
+                    [
+                        'choices' => $actions,
+                        'name_label' => 'lbl.Action',
+                        'transform_callback' => static function (array $actionFQCNs) use ($actions): array {
+                            $permissions = [];
+                            foreach ($actionFQCNs as $actionFQCN) {
+                                $permissions[] = $actions[$actionFQCN];
+                            }
+
+                            return $permissions;
+                        }
+                    ]
+                );
+            };
+        }
+        if (count($ajaxActions) > 0) {
+            $tabs['lbl.AjaxActions'] = static function (FormBuilderInterface $builder) use ($ajaxActions): void {
+                $builder->add(
+                    'ajaxActions',
+                    PermissionType::class,
+                    [
+                        'choices' => $ajaxActions,
+                        'name_label' => 'lbl.AjaxActions',
+                        'transform_callback' => static function (array $ajaxActionFQCNs) use ($ajaxActions
+                        ): array {
+                            $permissions = [];
+                            foreach ($ajaxActionFQCNs as $ajaxActionFQCN) {
+                                $permissions[] = $ajaxActions[$ajaxActionFQCN];
+                            }
+
+                            return $permissions;
+                        }
+                    ]
+                );
+            };
+        }
+        $tabs['lbl.Users'] = static function (FormBuilderInterface $builder): void {
+            $builder->add(
+                'users',
+                UserDataGridChoiceType::class,
+                [
+                    'required' => false,
+                ]
+            );
+        };
         $builder->add(
             'userGroup',
             TabsType::class,
             [
                 'label' => 'lbl.Name',
-                'tabs' => [
-                    'lbl.Name' => static function (FormBuilderInterface $builder): void {
-                        $builder->add(
-                            'name',
-                            TextType::class,
-                            [
-                                'label' => 'lbl.Name',
-                                'required' => true,
-                            ]
-                        );
-                    },
-                    'lbl.Dashboard' => static function (FormBuilderInterface $builder) use ($widgets): void {
-                        $builder->add(
-                            'widgets',
-                            PermissionType::class,
-                            [
-                                'choices' => $widgets,
-                                'name_label' => 'lbl.Widget',
-                                'transform_callback' => static function (array $widgetFQCNs) use ($widgets): array {
-                                    $permissions = [];
-                                    foreach ($widgetFQCNs as $widgetFQCN) {
-                                        $permissions[] = $widgets[$widgetFQCN];
-                                    }
-
-                                    return $permissions;
-                                }
-                            ]
-                        );
-                    },
-                    'lbl.Actions' => function (FormBuilderInterface $builder) use ($actions): void {
-                        $builder->add(
-                            'actions',
-                            PermissionType::class,
-                            [
-                                'choices' => $actions,
-                                'name_label' => 'lbl.Action',
-                                'transform_callback' => static function (array $actionFQCNs) use ($actions): array {
-                                    $permissions = [];
-                                    foreach ($actionFQCNs as $actionFQCN) {
-                                        $permissions[] = $actions[$actionFQCN];
-                                    }
-
-                                    return $permissions;
-                                }
-                            ]
-                        );
-                    },
-                    'lbl.AjaxActions' => function (FormBuilderInterface $builder) use ($ajaxActions): void {
-                        $builder->add(
-                            'ajaxActions',
-                            PermissionType::class,
-                            [
-                                'choices' => $ajaxActions,
-                                'name_label' => 'lbl.AjaxActions',
-                                'transform_callback' => static function (array $ajaxActionFQCNs) use ($ajaxActions
-                                ): array {
-                                    $permissions = [];
-                                    foreach ($ajaxActionFQCNs as $ajaxActionFQCN) {
-                                        $permissions[] = $ajaxActions[$ajaxActionFQCN];
-                                    }
-
-                                    return $permissions;
-                                }
-                            ]
-                        );
-                    },
-                    'lbl.Users' => static function (FormBuilderInterface $builder): void {
-                        $builder->add(
-                            'users',
-                            UserDataGridChoiceType::class,
-                            [
-                                'required' => false,
-                            ]
-                        );
-                    },
-                ]
+                'tabs' => $tabs,
             ]
         );
     }
@@ -132,8 +140,14 @@ final class UserGroupType extends AbstractType
                     self::getClassDescription($fullyQualifiedClassName),
                 );
             },
-            $this->backendActions->getProvidedServices()
+            array_filter(
+                $this->backendActions->getProvidedServices(),
+                fn (string $fullyQualifiedClassName) => $this->authorizationChecker->isGranted(
+                    ModuleAction::fromFQCN($fullyQualifiedClassName)->asRole()
+                )
+            )
         );
+
 
         unset(
             $actions[AuthenticationLogin::class],
@@ -156,7 +170,12 @@ final class UserGroupType extends AbstractType
                     self::getClassDescription($fullyQualifiedClassName),
                 );
             },
-            $this->backendDashboardWidgets->getProvidedServices()
+            array_filter(
+                $this->backendDashboardWidgets->getProvidedServices(),
+                fn (string $fullyQualifiedClassName) => $this->authorizationChecker->isGranted(
+                    ModuleWidget::fromFQCN($fullyQualifiedClassName)->asRole()
+                )
+            )
         );
     }
 
@@ -173,7 +192,12 @@ final class UserGroupType extends AbstractType
                     self::getClassDescription($fullyQualifiedClassName),
                 );
             },
-            $this->backendAjaxActions->getProvidedServices()
+            array_filter(
+                $this->backendAjaxActions->getProvidedServices(),
+                fn (string $fullyQualifiedClassName) => $this->authorizationChecker->isGranted(
+                    ModuleAjaxAction::fromFQCN($fullyQualifiedClassName)->asRole()
+                )
+            )
         );
 
         unset(

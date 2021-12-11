@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Doctrine\CollectionHelper;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
+use ForkCMS\Modules\Backend\Backend\Actions\UserGroupEdit;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\ModuleAjaxAction;
 use ForkCMS\Modules\Backend\Domain\User\User;
@@ -32,7 +33,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     ],
     routeAttributesCallback: [self::class, 'dataGridEditLinkCallback'],
     label: 'lbl.Edit',
-    iconClass: 'far fa-edit'
+    iconClass: 'far fa-edit',
+    requiredRole: ModuleAction::ROLE_PREFIX . 'BACKEND__USER_GROUP_EDIT'
 )]
 class UserGroup
 {
