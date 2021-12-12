@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
+use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
+use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationResetPassword;
 use ForkCMS\Modules\Backend\Backend\Actions\NotFound;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -158,6 +160,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $roles = [
             'ROLE_USER',
             NotFound::getActionSlug()->asModuleAction()->asRole(),
+            AuthenticationLogin::getActionSlug()->asModuleAction()->asRole(),
+            AuthenticationResetPassword::getActionSlug()->asModuleAction()->asRole(),
         ];
         $groupRoles = [];
 
