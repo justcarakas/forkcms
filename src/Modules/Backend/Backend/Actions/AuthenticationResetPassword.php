@@ -2,11 +2,12 @@
 
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
+use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
 use Symfony\Component\HttpFoundation\Request;
 
-final class AuthenticationResetPassword
+final class AuthenticationResetPassword extends AbstractActionController
 {
-    private function execute(Request $request): void
+    protected function execute(Request $request): void
     {
     }
 }
