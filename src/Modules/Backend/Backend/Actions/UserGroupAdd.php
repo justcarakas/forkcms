@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
+use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
 use ForkCMS\Modules\Backend\Domain\UserGroup\Command\CreateUserGroup;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupType;
@@ -19,8 +20,9 @@ final class UserGroupAdd extends AbstractFormActionController
         return $this->handleForm(
             request: $request,
             formType: UserGroupType::class,
-            redirectResponse: new RedirectResponse(UserGroupIndex::getActionSlug()->generateRoute($this->router)),
-            formData: new CreateUserGroup()
+            formData: new CreateUserGroup(),
+            flashMessage: FlashMessage::success('Added'),
+            redirectResponse: new RedirectResponse(UserGroupIndex::getActionSlug()->generateRoute($this->router))
         );
     }
 }
