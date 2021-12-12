@@ -1240,6 +1240,41 @@
       <translation locale="pl"><![CDATA[edytuj]]></translation>
       <translation locale="pt"><![CDATA[editar]]></translation>
     </item>
+    <item type="message" name="Added">
+      <translation locale="nl"><![CDATA[Het item werd toegevoegd.]]></translation>
+      <translation locale="en"><![CDATA[The item was added.]]></translation>
+      <translation locale="hu"><![CDATA[Az elem hozzáadva.]]></translation>
+      <translation locale="ru"><![CDATA[Добавлено.]]></translation>
+      <translation locale="it"><![CDATA[L'elemento è stato aggiunto.]]></translation>
+      <translation locale="zh"><![CDATA[条目已添加。]]></translation>
+      <translation locale="fr"><![CDATA[L'élément à été ajouté]]></translation>
+      <translation locale="de"><![CDATA[Der Eintrag wurde hinzugefügt.]]></translation>
+      <translation locale="es"><![CDATA[El objeto fue agregado.]]></translation>
+      <translation locale="lt"><![CDATA[sukurta]]></translation>
+      <translation locale="uk"><![CDATA[Додано]]></translation>
+      <translation locale="sv"><![CDATA[Objektet tillagt]]></translation>
+      <translation locale="el"><![CDATA[Το αντικείμενο προστέθηκε.]]></translation>
+      <translation locale="tr"><![CDATA[Bu öğe eklendi.]]></translation>
+      <translation locale="pt"><![CDATA[O item foi adicionado]]></translation>
+      <translation locale="pl"><![CDATA[Pozycja została dodana.]]></translation>
+    </item>
+    <item type="message" name="Edited">
+      <translation locale="nl"><![CDATA[Het item werd opgeslagen.]]></translation>
+      <translation locale="en"><![CDATA[The item was saved.]]></translation>
+      <translation locale="hu"><![CDATA[Mentve.]]></translation>
+      <translation locale="it"><![CDATA[L'elemento è stato salvato.]]></translation>
+      <translation locale="ru"><![CDATA[Сохранено.]]></translation>
+      <translation locale="zh"><![CDATA[已保存。]]></translation>
+      <translation locale="fr"><![CDATA[L'élément a été enregistré]]></translation>
+      <translation locale="de"><![CDATA[Der Eintrag wurde gespeichert.]]></translation>
+      <translation locale="es"><![CDATA[El obejto fue salvado.]]></translation>
+      <translation locale="lt"><![CDATA[išsaugota]]></translation>
+      <translation locale="uk"><![CDATA[Збережено]]></translation>
+      <translation locale="sv"><![CDATA[Objektet sparades.]]></translation>
+      <translation locale="el"><![CDATA[Το αντικείμενο αποθηκεύτηκε.]]></translation>
+      <translation locale="pl"><![CDATA[Pozycja została zapisana.]]></translation>
+      <translation locale="pt"><![CDATA[O objecto foi guardado.]]></translation>
+    </item>
     <Backend>
       <item type="label" name="NumberOfUsers">
         <translation locale="nl"><![CDATA[aantal gebruikers]]></translation>
