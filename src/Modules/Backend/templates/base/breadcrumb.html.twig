@@ -1,17 +1,17 @@
 {% set currentAction = app.request.attributes.get('action') %}
 <ol class="breadcrumb">
-  {% for topLevelItem in navigation|filter(item => item.active) %}
+  {% for topLevelItem in navigation|filter(item => item.active is defined and item.active) %}
     <li>
       <a href="{{ path('backend', {'actionSlug': topLevelItem.slug}) }}">{{- (topLevelItem.label)|trans|ucfirst -}}</a>
     </li>
     {% if topLevelItem.children is not empty %}
-      {% for secondaryItem in topLevelItem.children|filter(item => item.active) %}
+      {% for secondaryItem in topLevelItem.children|filter(item => item.active is defined and item.active) %}
         <li>
           <i class="fas fa-chevron-right fa-xs"></i>
           <a href="{{ path('backend', {'actionSlug': secondaryItem.slug}) }}">{{- (secondaryItem.label)|trans|ucfirst -}}</a>
         </li>
         {% if secondaryItem.children is not empty %}
-          {% for tertiaryItem in secondaryItem.children|filter(item => item.active) %}
+          {% for tertiaryItem in secondaryItem.children|filter(item => item.active is defined and item.active) %}
             <li>
               <i class="fas fa-chevron-right fa-xs"></i>
               <a href="{{ path('backend', {'actionSlug': tertiaryItem.slug}) }}">{{- (tertiaryItem.label)|trans|ucfirst -}}</a>
