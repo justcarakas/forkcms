@@ -33,7 +33,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     ],
     routeAttributesCallback: [self::class, 'dataGridEditLinkCallback'],
     label: 'lbl.Edit',
-    iconClass: 'far fa-edit',
+    iconClass: 'edit',
     requiredRole: ModuleAction::ROLE_PREFIX . 'BACKEND__USER_GROUP_EDIT'
 )]
 class UserGroup
@@ -50,7 +50,7 @@ class UserGroup
     /**
      * @ORM\Column(type="string", unique=true)
      */
-    #[DataGridPropertyColumn(sortable: true, filterable: true)]
+    #[DataGridPropertyColumn(sortable: true, filterable: true, label: 'lbl.Name')]
     private string $name;
 
     /**
