@@ -1275,6 +1275,23 @@
       <translation locale="pl"><![CDATA[Pozycja została zapisana.]]></translation>
       <translation locale="pt"><![CDATA[O objecto foi guardado.]]></translation>
     </item>
+    <item type="message" name="Deleted">
+      <translation locale="nl"><![CDATA[Het item werd verwijderd.]]></translation>
+      <translation locale="en"><![CDATA[The item was deleted.]]></translation>
+      <translation locale="hu"><![CDATA[Törölve.]]></translation>
+      <translation locale="ru"><![CDATA[Удалено.]]></translation>
+      <translation locale="it"><![CDATA[Questo elemento è stato eliminato.]]></translation>
+      <translation locale="zh"><![CDATA[已删除。]]></translation>
+      <translation locale="fr"><![CDATA[L'élément a été supprimé.]]></translation>
+      <translation locale="de"><![CDATA[Der Eintrag wurde gelöscht.]]></translation>
+      <translation locale="es"><![CDATA[El objeto ha sido eliminado.]]></translation>
+      <translation locale="lt"><![CDATA[Ištrinta]]></translation>
+      <translation locale="uk"><![CDATA[Видалено.]]></translation>
+      <translation locale="sv"><![CDATA[Detta objekt togs bort.]]></translation>
+      <translation locale="el"><![CDATA[Το αντικείμενο διεγράφη.]]></translation>
+      <translation locale="pt"><![CDATA[O objecto foi eliminado.]]></translation>
+      <translation locale="pl"><![CDATA[Pozycja została usunięta.]]></translation>
+    </item>
     <Backend>
       <item type="label" name="NumberOfUsers">
         <translation locale="nl"><![CDATA[aantal gebruikers]]></translation>

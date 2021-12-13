@@ -2,17 +2,22 @@
 
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
-use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
+use ForkCMS\Modules\Backend\Domain\Action\AbstractDeleteActionController;
+use ForkCMS\Modules\Backend\Domain\UserGroup\Command\DeleteUserGroup;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Delete user groups from the backend
  */
-final class UserGroupDelete extends AbstractActionController
+final class UserGroupDelete extends AbstractDeleteActionController
 {
-    protected function execute(Request $request): void
+    protected function getFormResponse(Request $request): RedirectResponse
     {
-        // TODO: Implement execute() method.
-        throw new \Exception('Method not implemented');
+        return $this->handldleDeleteForm(
+            $request,
+            DeleteUserGroup::class,
+            UserGroupIndex::getActionSlug()
+        );
     }
 }
