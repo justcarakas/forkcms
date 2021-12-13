@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Importer;
 
+use Exception;
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
@@ -59,6 +60,10 @@ final class XmlImporter implements ImporterInterface
      */
     public function makeTranslations(array $translationItems, TranslationDomain $domain, string $source): Generator
     {
+        if (array_key_exists('@type', $translationItems)) {
+            $translationItems = [$translationItems];
+        }
+
         foreach ($translationItems as $translationItem) {
             $key = TranslationKey::forType(Type::from($translationItem['@type']), $translationItem['@name']);
 
