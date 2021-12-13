@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Backend\Domain\UserGroup;
 
 use ForkCMS\Core\Domain\Form\TabsType;
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
+use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationResetPassword;
 use ForkCMS\Modules\Backend\Backend\Actions\NotFound as ActionNotFound;
 use ForkCMS\Modules\Backend\Backend\Ajax\NotFound as AjaxNotFound;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
@@ -151,6 +152,7 @@ final class UserGroupType extends AbstractType
 
         unset(
             $actions[AuthenticationLogin::class],
+            $actions[AuthenticationResetPassword::class],
             $actions[ActionNotFound::class],
         );
 
