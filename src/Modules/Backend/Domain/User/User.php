@@ -62,6 +62,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $password;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    #[DataGridPropertyColumn(sortable: true, filterable: true, label: 'lbl.DisplayName')]
+    private string $displayName;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private bool $accessToBackend;
@@ -101,6 +107,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct(
         string $email,
         private ?string $plainTextPassword,
+        string $displayName,
         bool $accessToBackend,
         bool $superAdmin,
         Collection $userGroups = null,
@@ -108,6 +115,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->setEmail($email);
         $this->plainTextPassword = trim($this->plainTextPassword);
         $this->password = '';
+        $this->displayName = $displayName;
         $this->accessToBackend = $accessToBackend;
         $this->superAdmin = $superAdmin;
         $this->settings = new SettingsBag();
@@ -123,6 +131,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $user->superAdmin = $userDataTransferObject->superAdmin;
             $user->plainTextPassword = trim($userDataTransferObject->plainTextPassword);
             $user->userGroups = $userDataTransferObject->userGroups;
+            $user->displayName = $userDataTransferObject->displayName;
 
             return $user;
         }
@@ -130,6 +139,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return new self(
             $userDataTransferObject->email,
             $userDataTransferObject->plainTextPassword,
+            $userDataTransferObject->displayName,
             $userDataTransferObject->accessToBackend,
             $userDataTransferObject->superAdmin,
             $userDataTransferObject->userGroups
@@ -144,6 +154,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getEmail(): ?string
     {
         return $this->email;
+    }
+
+    public function getDisplayName(): string
+    {
+        return $this->displayName;
     }
 
     public function setEmail(string $email): self
