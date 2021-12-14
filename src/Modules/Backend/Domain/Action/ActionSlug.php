@@ -130,18 +130,24 @@ final class ActionSlug implements Stringable
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH,
         ?Locale $locale = null
     ): string {
-        $parameters['action'] = Container::underscore($this->actionName->getName());
-        $parameters['module'] = Container::underscore($this->moduleName->getName());
+        $parameters = array_merge($parameters, $this->getRouteParameters());
 
         if ($locale instanceof Locale) {
             $parameters['_locale'] = $locale->value;
         }
-
         return $router->generate('backend', $parameters, $referenceType);
     }
 
     public function getActionNameSlug(): string
     {
         return Container::underscore($this->actionName->getName());
+    }
+
+    public function getRouteParameters(): array
+    {
+        return [
+            'action' => Container::underscore($this->actionName->getName()),
+            'module' => Container::underscore($this->moduleName->getName()),
+        ];
     }
 }

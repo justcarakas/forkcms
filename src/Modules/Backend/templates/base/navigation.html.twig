@@ -21,7 +21,7 @@
         {% endif %}
 
         <li class="nav-item nav-item-{{ item.label.name|lower }}{% if item.active %} active{% endif %}">
-          <a class="nav-link" href="{{ path('backend', {'actionSlug': item.slug}) }}" data-toggle="tooltip-nav"
+          <a class="nav-link" href="{{ path('backend', item.slug.routeParameters) }}" data-toggle="tooltip-nav"
              title="{{ item.label|trans|ucfirst }}" data-container="body" data-placement="right">
             {{ macro.icon(icon ~ ' fa-fw', iconType) }}
             <span class="nav-item-text">{{ item.label|trans|ucfirst }}</span>
