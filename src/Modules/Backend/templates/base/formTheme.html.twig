@@ -528,6 +528,7 @@
     <tr>
       <th class="check"><input type="checkbox" data-role="select-all" data-target="{{ form.vars.id }}-users" class="dontCheckBeforeUnload"></th>
       <th class="name">{{ 'lbl.Email'|trans|ucfirst }}</th>
+      <th class="name">{{ 'lbl.DisplayName'|trans|ucfirst }}</th>
     </tr>
     </thead>
     <tbody>
@@ -540,6 +541,13 @@
           {% set checkboxLabelAttr = checkboxLabelAttr|merge({'class': userCheckbox.vars.label_attr.class|default('') ~ (userCheckbox.vars.required ? ' required' : ' optional') }) %}
           <label{% for attrname,attrvalue in checkboxLabelAttr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
             {{ user.email }}
+          </label>
+        </td>
+        <td>
+          {% set checkboxLabelAttr = userCheckbox.vars.label_attr|merge({'for': userCheckbox.vars.id}) %}
+          {% set checkboxLabelAttr = checkboxLabelAttr|merge({'class': userCheckbox.vars.label_attr.class|default('') ~ (userCheckbox.vars.required ? ' required' : ' optional') }) %}
+          <label{% for attrname,attrvalue in checkboxLabelAttr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+            {{ user.displayName }}
           </label>
         </td>
       </tr>

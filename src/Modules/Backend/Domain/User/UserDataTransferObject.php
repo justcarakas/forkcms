@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Backend\Domain\User;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use ForkCMS\Core\Domain\Doctrine\CollectionHelper;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -17,10 +17,16 @@ abstract class UserDataTransferObject
     public ?string $email = null;
 
     /**
-     * @Assert\NotBlank(message="err.EmailIsRequired", groups={"create"})
-     * @Assert\Length(message="err.PasswordIsTooShort", min=12, groups={"create"})
+     * @Assert\NotBlank(message="err.PasswordIsRequired", groups={"create"})
+     * @Assert\Length(minMessage="err.PasswordIsTooShort", min=12, groups={"create"})
+     * @Assert\NotCompromisedPassword(skipOnError="true")
      */
     public ?string $plainTextPassword = null;
+
+    /**
+     * @Assert\NotBlank (message="err.FieldIsRequired")
+     */
+    public ?string $displayName = null;
 
     public bool $accessToBackend = true;
 
@@ -28,16 +34,17 @@ abstract class UserDataTransferObject
 
     protected ?User $userEntity;
 
-    /** @var Collection<int, UserGroup>|UserGroup[] */
-    public Collection $userGroups;
+    /** @var ArrayCollection<int, UserGroup> */
+    public ArrayCollection $userGroups;
 
     public function __construct(?User $userEntity = null)
     {
         $this->userEntity = $userEntity;
         $this->email = $userEntity?->getEmail();
+        $this->displayName = $userEntity?->getDisplayName();
         $this->accessToBackend = $userEntity?->hasAccessToBackend() ?? true;
         $this->superAdmin = $userEntity?->isSuperAdmin() ?? false;
-        $this->userGroups = $userEntity?->getUserGroups() ?? new ArrayCollection();
+        $this->userGroups = CollectionHelper::toArrayCollection($userEntity?->getUserGroups());
     }
 
     final public function hasEntity(): bool
