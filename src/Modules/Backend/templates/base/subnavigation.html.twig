@@ -1,5 +1,5 @@
 <ul class="nav navbar-nav navbar-sidebar">
-  {% for mainItem in navigation|filter(item => item.active) %}
+  {% for mainItem in navigation|filter(item => item.active is defined and item.active) %}
     {% for subItem in mainItem.children %}
       <li class="nav-item{% if subItem.active is defined and subItem.active %} active{% endif %}">
         <a class="nav-link" href="{{ path('backend', subItem.slug.routeParameters) }}">{{ subItem.label|trans|ucfirst }}</a>
