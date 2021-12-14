@@ -11,9 +11,13 @@ use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationResetPassword;
 use ForkCMS\Modules\Backend\Backend\Actions\NotFound;
+use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use Gedmo\Mapping\Annotation as Gedmo;
 use InvalidArgumentException;
+use Pageon\DoctrineDataGridBundle\Attribute\DataGrid;
+use Pageon\DoctrineDataGridBundle\Attribute\DataGridActionColumn;
+use Pageon\DoctrineDataGridBundle\Attribute\DataGridPropertyColumn;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -25,6 +29,18 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @Gedmo\SoftDeleteable(timeAware=true)
  */
 #[UniqueEntity(fields: ['email'])]
+#[DataGrid('User')]
+#[DataGridActionColumn(
+    route: 'backend',
+    routeAttributes: [
+        'module' => 'backend',
+        'action' => 'user_edit'
+    ],
+    routeAttributesCallback: [self::class, 'dataGridEditLinkCallback'],
+    label: 'lbl.Edit',
+    iconClass: 'edit',
+    requiredRole: ModuleAction::ROLE_PREFIX . 'BACKEND__USER_EDIT'
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -37,6 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
+    #[DataGridPropertyColumn(sortable: true, filterable: true, label: 'lbl.Email')]
     private string $email;
 
     /**
@@ -254,5 +271,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         $this->userGroups->removeElement($userGroup);
         $userGroup->removeUser($this);
+    }
+
+    public static function dataGridEditLinkCallback(self $user): array
+    {
+        return ['id' => $user->getId()];
     }
 }
