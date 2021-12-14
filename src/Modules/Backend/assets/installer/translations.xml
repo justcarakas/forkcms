@@ -1355,6 +1355,22 @@
       <translation locale="nl"><![CDATA[groepsoverzicht]]></translation>
       <translation locale="en"><![CDATA[group overview]]></translation>
     </item>
+    <item type="label" name="UserAdd">
+      <translation locale="nl"><![CDATA[gebruiker toevoegen]]></translation>
+      <translation locale="en"><![CDATA[add user]]></translation>
+    </item>
+    <item type="label" name="UserEdit">
+      <translation locale="nl"><![CDATA[gebruiker wijzigen]]></translation>
+      <translation locale="en"><![CDATA[edit user]]></translation>
+    </item>
+    <item type="label" name="UserDelete">
+      <translation locale="nl"><![CDATA[gebruiker verwijderen]]></translation>
+      <translation locale="en"><![CDATA[delete user]]></translation>
+    </item>
+    <item type="label" name="UserIndex">
+      <translation locale="nl"><![CDATA[gebruikersoverzicht]]></translation>
+      <translation locale="en"><![CDATA[user overview]]></translation>
+    </item>
     <item type="label" name="Description">
       <translation locale="nl"><![CDATA[beschrijving]]></translation>
       <translation locale="en"><![CDATA[description]]></translation>
@@ -1494,6 +1510,23 @@
       <translation locale="de"><![CDATA[keine Ergebnisse gefunden]]></translation>
       <translation locale="fr"><![CDATA[aucun résultat trouvé]]></translation>
     </item>
+    <item type="label" name="Authentication">
+      <translation locale="nl"><![CDATA[authenticatie]]></translation>
+      <translation locale="en"><![CDATA[authentication]]></translation>
+      <translation locale="hu"><![CDATA[hitelesítés]]></translation>
+      <translation locale="it"><![CDATA[autenticazione]]></translation>
+      <translation locale="ru"><![CDATA[Аутентификация]]></translation>
+      <translation locale="zh"><![CDATA[权限]]></translation>
+      <translation locale="de"><![CDATA[Authentifizierung]]></translation>
+      <translation locale="fr"><![CDATA[authentification]]></translation>
+      <translation locale="es"><![CDATA[auntentificación]]></translation>
+      <translation locale="lt"><![CDATA[autentifikavimas]]></translation>
+      <translation locale="uk"><![CDATA[Аутентифікація]]></translation>
+      <translation locale="sv"><![CDATA[autentisering]]></translation>
+      <translation locale="el"><![CDATA[πιστοποίηση]]></translation>
+      <translation locale="pt"><![CDATA[autenticação]]></translation>
+      <translation locale="pl"><![CDATA[autoryzacja]]></translation>
+    </item>
     <Backend>
       <item type="label" name="NumberOfUsers">
         <translation locale="nl"><![CDATA[aantal gebruikers]]></translation>
@@ -1610,6 +1643,59 @@
         <translation locale="tr"><![CDATA[gösterge paneli]]></translation>
         <translation locale="pt"><![CDATA[dashboard]]></translation>
         <translation locale="pl"><![CDATA[panel sterowania]]></translation>
+      </item>
+      <item type="label" name="DisplayName">
+        <translation locale="nl"><![CDATA[weergavenaam]]></translation>
+        <translation locale="en"><![CDATA[display name]]></translation>
+        <translation locale="fr"><![CDATA[nom d'affichage]]></translation>
+        <translation locale="hu"><![CDATA[becenév]]></translation>
+        <translation locale="it"><![CDATA[nome visualizzato]]></translation>
+        <translation locale="ru"><![CDATA[Имя на сайте]]></translation>
+        <translation locale="zh"><![CDATA[显示名称]]></translation>
+        <translation locale="de"><![CDATA[Nickname]]></translation>
+        <translation locale="es"><![CDATA[Nombre a mostrar]]></translation>
+        <translation locale="uk"><![CDATA[Ім'я на сайті]]></translation>
+        <translation locale="lt"><![CDATA[rodomas vardas]]></translation>
+        <translation locale="sv"><![CDATA[visningsnamn]]></translation>
+        <translation locale="el"><![CDATA[εμφανιζόμενο όνομα]]></translation>
+        <translation locale="pl"><![CDATA[Wyświetl imię i nazwisko]]></translation>
+        <translation locale="tr"><![CDATA[Görüntü ismi]]></translation>
+        <translation locale="pt"><![CDATA[Nome de exibição]]></translation>
+      </item>
+      <item type="label" name="ConfirmPassword">
+        <translation locale="nl"><![CDATA[bevestig wachtwoord]]></translation>
+        <translation locale="en"><![CDATA[confirm password]]></translation>
+        <translation locale="hu"><![CDATA[jelszó elfogadása]]></translation>
+        <translation locale="it"><![CDATA[conferma password]]></translation>
+        <translation locale="ru"><![CDATA[Подтверждение]]></translation>
+        <translation locale="zh"><![CDATA[确认密码]]></translation>
+        <translation locale="de"><![CDATA[Passwort bestätigen]]></translation>
+        <translation locale="fr"><![CDATA[confirmer le mot de passe]]></translation>
+        <translation locale="es"><![CDATA[comfirmar contraseña]]></translation>
+        <translation locale="lt"><![CDATA[patvirtinti slaptažodį]]></translation>
+        <translation locale="uk"><![CDATA[Підтверження]]></translation>
+        <translation locale="sv"><![CDATA[bekräfta lösenord]]></translation>
+        <translation locale="el"><![CDATA[επιβεβαίωση κωδικού]]></translation>
+        <translation locale="tr"><![CDATA[şifreyi onayla]]></translation>
+        <translation locale="pt"><![CDATA[confirmar senha]]></translation>
+        <translation locale="pl"><![CDATA[potwierdź hasło]]></translation>
+      </item>
+      <item type="label" name="AccessToBackend">
+        <translation locale="nl"><![CDATA[Geef deze account toegang tot het CMS.]]></translation>
+        <translation locale="en"><![CDATA[Enable CMS access for this account.]]></translation>
+        <translation locale="it"><![CDATA[Abilita l'accesso tramite CMS per questo account.]]></translation>
+        <translation locale="ru"><![CDATA[Разрешить доступ к CMS этому аккунту.]]></translation>
+        <translation locale="zh"><![CDATA[允许CMS到达这个帐户。]]></translation>
+        <translation locale="de"><![CDATA[Aktiviere CMS-Zugang für dieses Konto.]]></translation>
+        <translation locale="hu"><![CDATA[CMS hozzáférés engedélyezése a fiókhoz.]]></translation>
+        <translation locale="fr"><![CDATA[Activer l'accès CMS pour ce compte.]]></translation>
+        <translation locale="es"><![CDATA[Activa el acceso CMS para esta cuenta.]]></translation>
+        <translation locale="el"><![CDATA[Δώσε άδεια πρόσβασης στο CMS γιά αυτόν το λογαριασμό.]]></translation>
+        <translation locale="pl"><![CDATA[Włącz dostęp do CMS dla tego konta.]]></translation>
+      </item>
+      <item type="label" name="SuperAdmin">
+        <translation locale="nl"><![CDATA[super administrator (geeft toegang tot alles)]]></translation>
+        <translation locale="en"><![CDATA[super admin (grant access to everything)]]></translation>
       </item>
     </Backend>
   </Backend>
