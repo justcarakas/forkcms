@@ -159,7 +159,7 @@ class UserGroup
         return $this->users->count();
     }
 
-    public static function dataGridEditLinkCallback(UserGroup $userGroup): array
+    public static function dataGridEditLinkCallback(self $userGroup): array
     {
         return ['id' => $userGroup->getId()];
     }
