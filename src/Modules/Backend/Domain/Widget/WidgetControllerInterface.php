@@ -7,5 +7,5 @@ use Symfony\Component\HttpFoundation\Response;
 
 interface WidgetControllerInterface
 {
-    public function __invoke(Request $request): Response;
+    public function __invoke(Request $request): string;
 }
