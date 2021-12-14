@@ -17,7 +17,7 @@ final class CreateUserHandler implements CommandHandlerInterface
 
     public function __invoke(CreateUser $createUser): User
     {
-        $user = User::createFromDataTransferObject($createUser);
+        $user = User::fromDataTransferObject($createUser);
         $user->hashPassword($this->passwordHasher);
         $this->userRepository->save($user);
 

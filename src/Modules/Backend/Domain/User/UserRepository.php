@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Backend\Domain\User;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Security;
@@ -50,6 +51,15 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
         $this->getEntityManager()->flush();
     }
 
+    public function remove(User $user): void
+    {
+        if ($this->count([]) === 1) {
+            throw new TypeError('Cannot remove the last user');
+        }
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($user);
+        $entityManager->flush();
+    }
     public function getAuthenticatedUser(): User
     {
         $user = $this->security->getUser();

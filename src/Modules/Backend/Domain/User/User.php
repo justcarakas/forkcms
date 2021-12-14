@@ -7,6 +7,7 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Core\Domain\Doctrine\CollectionHelper;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationResetPassword;
@@ -122,7 +123,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->userGroups = $userGroups ?? new ArrayCollection();
     }
 
-    public static function createFromDataTransferObject(UserDataTransferObject $userDataTransferObject): self
+    public static function fromDataTransferObject(UserDataTransferObject $userDataTransferObject): self
     {
         if ($userDataTransferObject->hasEntity()) {
             $user = $userDataTransferObject->getEntity();
@@ -131,6 +132,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $user->superAdmin = $userDataTransferObject->superAdmin;
             $user->plainTextPassword = trim($userDataTransferObject->plainTextPassword);
             $user->userGroups = $userDataTransferObject->userGroups;
+            CollectionHelper::updateCollection(
+                $userDataTransferObject->userGroups,
+                $user->userGroups,
+                fn (UserGroup $userGroup) => $user->addUserGroup($userGroup),
+                fn (UserGroup $userGroup) => $user->removeUserGroup($userGroup)
+            );
             $user->displayName = $userDataTransferObject->displayName;
 
             return $user;
