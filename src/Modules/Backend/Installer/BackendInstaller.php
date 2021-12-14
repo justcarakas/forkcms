@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Backend\Installer;
 
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
+use ForkCMS\Modules\Backend\Backend\Actions\Dashboard;
 use ForkCMS\Modules\Backend\Backend\Actions\UserAdd;
 use ForkCMS\Modules\Backend\Backend\Actions\UserDelete;
 use ForkCMS\Modules\Backend\Backend\Actions\UserEdit;
@@ -58,6 +59,12 @@ final class BackendInstaller extends ModuleInstaller
     public function install(): void
     {
         $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');
+
+        $this->getOrCreateBackendNavigationItem(
+            TranslationKey::label('Dashboard'),
+            Dashboard::getActionSlug(),
+            sequence: 0,
+        );
 
         $this->getOrCreateBackendNavigationItem(
             TranslationKey::label('Users'),

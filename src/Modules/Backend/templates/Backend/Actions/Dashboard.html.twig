@@ -1,0 +1,17 @@
+{% extends '@Backend/base/base.html.twig' %}
+{% set hideActionbar = true %}
+
+{% block content %}
+  <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+    {% for widget in widgets %}
+      <div class="col">
+        <div class="card">
+          <h4 class="card-header">{{ widget.title|trans|ucfirst }}</h4>
+          <div class="card-body">
+            {{ widget.content|raw }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
