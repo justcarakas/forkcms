@@ -27,7 +27,7 @@ final class UserType extends AbstractType
             TabsType::class,
             [
                 'tabs' => [
-                    'lbl.User' => function (FormBuilderInterface $builder) use ($options): void {
+                    'lbl.Authentication' => function (FormBuilderInterface $builder) use ($options): void {
                         $builder
                             ->add('displayName', TextType::class, ['label' => 'lbl.DisplayName'])
                             ->add('email', EmailType::class, ['label' => 'lbl.Email'])

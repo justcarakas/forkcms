@@ -1,16 +1,2 @@
-{% extends '@Backend/base/base.html.twig' %}
-{% import '@Backend/base/macros.html.twig' as macro %}
-
-{% block actionbar %}
-  {% if is_allowed('UserGroupAdd') %}
-    <div class="btn-toolbar justify-content-end">
-      <div class="btn-group" role="group">
-        {{ macro.buttonIcon(action_path('UserGroupAdd'), 'plus-square', 'lbl.Add'|trans|ucfirst) }}
-      </div>
-    </div>
-  {% endif %}
-{% endblock %}
-
-{% block content %}
-  {{ pageon_datagrid(groupDataGrid) }}
-{% endblock %}
+{% extends '@Backend/base/crud/index.html.twig' %}
+{% set crudActionName = 'UserGroupAdd' %}
