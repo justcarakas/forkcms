@@ -19,7 +19,7 @@ final class UserGroupIndex extends AbstractActionController
             'groupDataGrid',
             $this->dataGridFactory->forEntity(UserGroup::class, static function (QueryBuilder $queryBuilder): void {
                 $queryBuilder
-                    ->leftJoin('UserGroup.users', 'Users', Join::WITH, 'Users.deleted = 0')
+                    ->leftJoin('UserGroup.users', 'Users', Join::WITH, 'Users.deletedAt IS NULL')
                     ->addSelect('Users');
             })
         );
