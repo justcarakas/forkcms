@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Modules\Backend\Domain\User;
+namespace ForkCMS\Modules\Backend\Domain\UserGroup;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -8,18 +8,18 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class UserDataGridChoiceType extends AbstractType
+final class UserGroupDataGridChoiceType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults(
             [
-                'class' => User::class,
+                'class' => UserGroup::class,
                 'multiple' => true,
                 'expanded' => true,
                 'label' => false,
-                'choice_label' => static fn (User $user): string => $user->getUserIdentifier(),
+                'choice_label' => static fn (UserGroup $userGroup): string => $userGroup->getName(),
             ]
         );
     }
@@ -31,13 +31,13 @@ final class UserDataGridChoiceType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'user_data_grid_choice';
+        return 'user_group_data_grid_choice';
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         parent::buildView($view, $form, $options);
 
-        $view->vars['possibleUsers'] = $options['choice_loader']->loadChoiceList()->getChoices();
+        $view->vars['possibleGroups'] = $options['choice_loader']->loadChoiceList()->getChoices();
     }
 }
