@@ -1,0 +1,57 @@
+<?php
+
+namespace ForkCMS\Core\Domain\Form\Validator;
+
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Validator\Constraint;
+
+/**
+ * Constraint for the Unique Entity validator.
+ *
+ * @Annotation
+ * @Target({"CLASS", "ANNOTATION"})
+ */
+final class UniqueDataTransferObject extends Constraint
+{
+    public const NOT_UNIQUE_ERROR = '23bd9dbf-6b9b-41cd-a99e-4844bcf3077f';
+
+    public string $message = 'err.NotUnique';
+
+    public string $service = 'unique_data_transfer_object';
+
+    public EntityManagerInterface|null $em = null;
+
+    public string|null $entityClass = null;
+
+    public string $repositoryMethod = 'findBy';
+
+    public array|string $fields = [];
+
+    public string|null $errorPath = null;
+
+    public bool $ignoreNull = true;
+
+    protected static $errorNames = [
+        self::NOT_UNIQUE_ERROR => 'NOT_UNIQUE_ERROR',
+    ];
+
+    public function getRequiredOptions(): array
+    {
+        return ['fields'];
+    }
+
+    public function validatedBy(): string
+    {
+        return $this->service;
+    }
+
+    public function getTargets(): string
+    {
+        return self::CLASS_CONSTRAINT;
+    }
+
+    public function getDefaultOption(): string
+    {
+        return 'fields';
+    }
+}
