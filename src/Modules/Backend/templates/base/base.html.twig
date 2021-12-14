@@ -9,42 +9,44 @@
 
 {% include "@Backend/base/header.html.twig" %}
 
-{#<div class="main-wrapper{% if attribute(cookies, 'navigation-collapse') == 'true' %} navigation-collapsed{% endif %}">#}
-<div class="main-wrapper">
+<div class="main-wrapper{% if hideActionbar is defined and hideActionbar %} main-wrapper-without-subnavigation{% endif %}">
   <div class="sidebar">
     {% include "@Backend/base/navigation.html.twig" %}
 
-    <div class="sub-navigation">
-      <nav id="content-subnavigation" class="fork-nav-sidebar" {% if activeParent %}aria-label="{{ activeParent }}{% endif %}">
-      <nav id="content-subnavigation" class="fork-nav-sidebar">
-        {% include "@Backend/base/subnavigation.html.twig" with { 'navigation': navigation } %}
-      </nav>
-    </div>
+    {% if hideActionbar is not defined or not hideActionbar %}
+      <div class="sub-navigation">
+        <nav id="content-subnavigation" class="fork-nav-sidebar" {% if activeParent is defined and activeParent %}aria-label="{{ activeParent }}{% endif %}">
+          {% include "@Backend/base/subnavigation.html.twig" with { 'navigation': navigation } %}
+        </nav>
+      </div>
+    {% endif %}
   </div>
   {% include "@Backend/base/messaging.html.twig" %}
   <div id="root">
     <main id="content" class="content-wrapper">
-      <div class="content-main">
-        <div class="content-action-bar">
-          <div class="container-fluid">
-            <div class="row align-items-center fork-module-heading">
-              {% set _block = block('actionbar')|trim %}
-              {% if _block is not empty %}
-                <div class="col-sm-6">
-                  {% include "@Backend/base/breadcrumb.html.twig" with { 'navigation': navigation } %}
-                </div>
-                <div class="col-sm-6">
-                  {% block actionbar %}{% endblock %}
-                </div>
-              {% endif %}
-              {% if _block is empty %}
-                <div class="col-12">
-                  {% include "@Backend/base/breadcrumb.html.twig" with { 'navigation': navigation } %}
-                </div>
-              {% endif %}
+      <div class="content-main{% if hideActionbar is not defined or not hideActionbar %} content-main-without-subnavigation{% endif %}">
+        {% if hideActionbar is not defined or not hideActionbar %}
+          <div class="content-action-bar">
+            <div class="container-fluid">
+              <div class="row align-items-center fork-module-heading">
+                {% set _block = block('actionbar')|trim %}
+                {% if _block is not empty %}
+                  <div class="col-sm-6">
+                    {% include "@Backend/base/breadcrumb.html.twig" with { 'navigation': navigation } %}
+                  </div>
+                  <div class="col-sm-6">
+                    {% block actionbar %}{% endblock %}
+                  </div>
+                {% endif %}
+                {% if _block is empty %}
+                  <div class="col-12">
+                    {% include "@Backend/base/breadcrumb.html.twig" with { 'navigation': navigation } %}
+                  </div>
+                {% endif %}
+              </div>
             </div>
           </div>
-        </div>
+        {% endif %}
         <div class="content">
           <div class="container-fluid container-fluid-large" data-content-container>
             {% block content %}

@@ -23,13 +23,6 @@ img {
   height: 100%;
 }
 
-.content-main {
-
-  &.content-main-dashboard {
-    margin-top: 20px;
-  }
-}
-
 .hiddenInModalMode {
   & > .header, & > .main-wrapper > .sidebar {
     display: none;
@@ -92,7 +85,7 @@ img {
       }
     }
 
-    &.main-wrapper-dashboard {
+    &.main-wrapper-without-subnavigation {
       padding-left: 240px;
 
       .sidebar {
