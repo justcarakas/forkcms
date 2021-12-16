@@ -80,7 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\InverseJoinColumn( referencedColumnName: 'id')]
     private Collection $userGroups;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private DateTimeImmutable|null $deletedAt = null;
 
     /** @param Collection<int, UserGroup>|UserGroup[] $userGroups */

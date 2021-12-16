@@ -36,7 +36,9 @@ final class SettingsListener
                         ?? throw new RuntimeException('Property not found');
                     /** @var SettingsBag $settingsBag */
                     $settings = $property->getValue($entity);
-                    if ($settings->hasChanges()) {
+                    if ($settings === null) {
+                        $property->setValue($entity, new SettingsBag());
+                    } elseif ($settings->hasChanges()) {
                         $property->setValue($entity, clone $property->getValue($entity));
                     }
                 }
