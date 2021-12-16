@@ -47,7 +47,7 @@ class LoginController
                     'last_username' => $lastUsername,
                     'error' => $error,
                     'INTERFACE_LANGUAGE' => $request->getLocale(),
-                    'page_title' => $this->translator->trans(TranslationKey::label('Login')),
+                    'page_title' => $this->translator->trans(TranslationKey::label('LogIn')),
                     'SITE_TITLE' => $_ENV['SITE_DEFAULT_TITLE'],
                     'SITE_URL' => $_ENV['SITE_PROTOCOL'] . '://' . $_ENV['SITE_DOMAIN'],
                     'jsFiles' => [],
