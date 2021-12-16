@@ -16,7 +16,7 @@ trait Blameable
     private User|null $createdBy;
 
     #[Gedmo\Timestampable(on: 'create')]
-    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private DateTimeImmutable $createdOn;
 
     /**
@@ -26,7 +26,7 @@ trait Blameable
     private User|null $updatedBy;
 
     #[Gedmo\Timestampable]
-    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private DateTimeImmutable $updatedOn;
 
     public function getCreatedBy(): ?User
