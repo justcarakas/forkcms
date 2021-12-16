@@ -34,3 +34,7 @@ services:
       - !tagged_iterator { tag: forkcms.routing.loader }
     tags:
       - { name: routing.loader }
+
+  ForkCMS\Core\Domain\Settings\SettingsListener:
+    tags:
+      - { name: doctrine.event_listener, event: preFlush }
