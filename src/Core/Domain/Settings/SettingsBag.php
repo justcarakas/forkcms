@@ -10,7 +10,9 @@ use function strlen;
 final class SettingsBag implements JsonSerializable
 {
     /** @var array<string, mixed>  */
-    protected array $settings = [];
+    private array $settings = [];
+
+    private bool $hasChanges = false;
 
     /**
      * @param array<string, mixed> $parameters
@@ -22,6 +24,10 @@ final class SettingsBag implements JsonSerializable
 
     public function clear(): void
     {
+        if (count($this->settings) > 0) {
+            $this->hasChanges = true;
+        }
+
         $this->settings = [];
     }
 
@@ -66,6 +72,10 @@ final class SettingsBag implements JsonSerializable
 
     public function set(string $name, mixed $value): void
     {
+        if (!array_key_exists($name, $this->settings) || $this->settings[$name] !== $value) {
+            $this->hasChanges = true;
+        }
+
         $this->settings[$name] = $value;
     }
 
@@ -76,11 +86,17 @@ final class SettingsBag implements JsonSerializable
 
     public function remove(string $name): void
     {
+        $this->hasChanges = true;
         unset($this->settings[$name]);
     }
 
     public function jsonSerialize(): array
     {
         return $this->all();
+    }
+
+    public function hasChanges(): bool
+    {
+        return $this->hasChanges;
     }
 }
