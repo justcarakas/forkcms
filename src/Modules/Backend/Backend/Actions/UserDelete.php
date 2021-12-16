@@ -14,7 +14,7 @@ final class UserDelete extends AbstractDeleteActionController
 {
     protected function getFormResponse(Request $request): RedirectResponse
     {
-        return $this->handldleDeleteForm(
+        return $this->handleDeleteForm(
             $request,
             DeleteUser::class,
             UserIndex::getActionSlug()
