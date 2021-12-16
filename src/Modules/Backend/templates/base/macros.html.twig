@@ -82,9 +82,15 @@
 
   <div{% for attrname, attrvalue in extraAttributes %} {{ attrname }}="{{ attrvalue }}"{% endfor %} role="{{ role }}" aria-live="{{ live }}" aria-atomic="true"{% if id %} id="{{ id }}"{% endif %} data-autohide="{{ autohide }}" data-delay="5000">
     <div class="toast-body">
-      <button type="button" class="close{{ dismissableClass }}" data-dismiss="toast" aria-label="Close">
-        <i class="fas fa-times"></i>
-      </button>
+      {% if dismissable == true %}
+        <button type="button" class="close{{ dismissableClass }}" data-dismiss="toast" aria-label="Close">
+          <i class="fas fa-times"></i>
+        </button>
+      {% endif %}
+      {% if showIcon == true %}
+        <i class="fas fa-{{ type }} fa-lg mr-2"></i>
+      {% endif %}
+      {{ message|raw }}
       {% if message %}
         {% if type == 'danger' %}
           {{ macro.icon('times-circle toast-icon', 'far') }}
