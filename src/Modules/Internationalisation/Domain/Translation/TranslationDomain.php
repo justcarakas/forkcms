@@ -7,17 +7,13 @@ use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use Symfony\Component\DependencyInjection\Container;
 
-/** @ORM\Embeddable */
+#[ORM\Embeddable]
 class TranslationDomain
 {
-    /**
-     * @ORM\Column(type="core__application__application")
-     */
+    #[ORM\Column(type: 'core__application__application')]
     private Application $application;
 
-    /**
-     * @ORM\Column(type="modules__extensions__module__module_name", nullable=true)
-     */
+    #[ORM\Column(type: 'modules__extensions__module__module_name', nullable: true)]
     private ?ModuleName $moduleName;
 
     public function __construct(Application $application, ?ModuleName $moduleName = null)

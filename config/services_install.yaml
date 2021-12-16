@@ -43,9 +43,6 @@ services:
       - '../src/Modules/Internationalisation/Domain/Translator/ForkTranslator.php'
       - '../src/Modules/Internationalisation/Domain/Importer/Importer.php'
 
-  ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository:
-    public: true
-
   ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator:
     arguments:
       - !tagged_iterator { tag: 'forkcms.module.installer' }
@@ -53,7 +50,6 @@ services:
   ForkCMS\Modules\Backend\Domain\:
     resource: '../src/Modules/Backend/Domain/*'
     exclude:
-      - '../src/Modules/Backend/Domain/Module/Module.php'
       - '../src/Modules/Backend/Domain/UserGroup/UserGroupType.php'
 
   ForkCMS\Modules\Extensions\Domain\Module\InstalledModules:

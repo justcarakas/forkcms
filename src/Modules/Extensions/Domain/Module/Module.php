@@ -2,56 +2,38 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
-use DateTimeImmutable;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSetting;
+use ForkCMS\Core\Domain\Settings\SettingsBag;
+use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use ForkCMS\Modules\Backend\Domain\User\UserRepository;
 
-/**
- * @ORM\Entity(repositoryClass="ForkCMS\Modules\Extensions\Domain\Module\ModuleRepository")
- * @ORM\Table(name="modules")
- */
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: 'modules')]
 class Module
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="modules__extensions__module__module_name")
-     */
+    use Blameable;
+
+    #[ORM\Id]
+    #[ORM\Column(type: 'modules__extensions__module__module_name')]
     private ModuleName $name;
 
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private DateTimeImmutable $installedOn;
+    #[ORM\Column(type: 'core__settings__settings_bag')]
+    private SettingsBag $settings;
 
-    /**
-     * @var Collection<string, ModuleSetting>|ModuleSetting[]
-     *
-     * @Orm\OneToMany(
-     *     targetEntity="ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSetting",
-     *     mappedBy="module",
-     *     indexBy="key",
-     *     cascade={"persist", "remove"}
-     * )
-     */
-    private Collection $settings;
-
-    private function __construct(ModuleName $name, DateTimeImmutable $installedOn)
+    private function __construct(ModuleName $name)
     {
         $this->name = $name;
-        $this->installedOn = $installedOn;
-        $this->settings = new ArrayCollection();
+        $this->settings = new SettingsBag();
     }
 
     public static function fromString(string $name): self
     {
-        return new self(ModuleName::fromString($name), new DateTimeImmutable());
+        return new self(ModuleName::fromString($name));
     }
 
     public static function fromModuleName(ModuleName $moduleName): self
     {
-        return new self($moduleName, new DateTimeImmutable());
+        return new self($moduleName);
     }
 
     public function getName(): ModuleName
@@ -59,15 +41,7 @@ class Module
         return $this->name;
     }
 
-    public function getInstalledOn(): DateTimeImmutable
-    {
-        return $this->installedOn;
-    }
-
-    /**
-     * @return Collection<string, ModuleSetting>|ModuleSetting[]
-     */
-    public function getSettings(): Collection
+    public function getSettings(): SettingsBag
     {
         return $this->settings;
     }

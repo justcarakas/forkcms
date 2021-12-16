@@ -14,6 +14,7 @@ final class CreateUserGroupHandler implements CommandHandlerInterface
 
     public function __invoke(CreateUserGroup $createUserGroup): void
     {
-        $this->userGroupRepository->save(UserGroup::fromDataTransferObject($createUserGroup));
+        $createUserGroup->setEntity(UserGroup::fromDataTransferObject($createUserGroup));
+        $this->userGroupRepository->save($createUserGroup->getEntity());
     }
 }

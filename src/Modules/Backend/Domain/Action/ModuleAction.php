@@ -9,19 +9,15 @@ use InvalidArgumentException;
 use Stringable;
 use Symfony\Component\DependencyInjection\Container;
 
-/** @ORM\Embeddable */
+#[ORM\Embeddable]
 final class ModuleAction implements Stringable
 {
     public const ROLE_PREFIX = 'ROLE_MODULE_ACTION__';
 
-    /**
-     * @ORM\Column(type="modules__extensions__module__module_name")
-     */
+    #[ORM\Column(type: 'modules__extensions__module__module_name')]
     private ModuleName $module;
 
-    /**
-     * @ORM\Column(type="modules__backend__action__action_name")
-     */
+    #[ORM\Column(type: 'modules__backend__action__action_name')]
     private ActionName $action;
 
     public function __construct(ModuleName $module, ActionName $action)

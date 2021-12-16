@@ -6,13 +6,21 @@ use Symfony\Contracts\Translation\TranslatableInterface;
 
 final class Widget
 {
-    public function __construct(private TranslatableInterface|string $title, private string $content)
-    {
+    public function __construct(
+        private TranslatableInterface|string $moduleLabel,
+        private TranslatableInterface|string $widgetLabel,
+        private string $content
+    ) {
     }
 
-    public function getTitle(): TranslatableInterface|string
+    public function getModuleLabel(): TranslatableInterface|string
     {
-        return $this->title;
+        return $this->moduleLabel;
+    }
+
+    public function getWidgetLabel(): TranslatableInterface|string
+    {
+        return $this->widgetLabel;
     }
 
     public function getContent(): string

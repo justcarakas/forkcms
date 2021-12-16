@@ -162,6 +162,12 @@ final class Kernel extends BaseKernel
                                     'dir' => $domainDirectory,
                                     'prefix' => 'ForkCMS\\Modules\\' . $module . '\\Domain',
                                 ],
+                                $module->getName() => [
+                                    'type' => 'attribute',
+                                    'is_bundle' => false,
+                                    'dir' => $domainDirectory,
+                                    'prefix' => 'ForkCMS\\Modules\\' . $module . '\\Domain',
+                                ],
                             ],
                         ],
                     ]

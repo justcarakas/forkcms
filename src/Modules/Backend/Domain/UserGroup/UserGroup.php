@@ -4,12 +4,13 @@ namespace ForkCMS\Modules\Backend\Domain\UserGroup;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Doctrine\CollectionHelper;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
-use ForkCMS\Modules\Backend\Backend\Actions\UserGroupEdit;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\ModuleAjaxAction;
+use ForkCMS\Modules\Backend\Domain\User\Blameable;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
@@ -19,10 +20,8 @@ use Pageon\DoctrineDataGridBundle\Attribute\DataGridMethodColumn;
 use Pageon\DoctrineDataGridBundle\Attribute\DataGridPropertyColumn;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
- * @ORM\Entity(repositoryClass="UserGroupRepository")
- * @ORM\Table(name="user_groups")
- */
+#[ORM\Entity(repositoryClass: UserGroupRepository::class)]
+#[ORM\Table(name: 'user_groups')]
 #[UniqueEntity(fields: ['name'])]
 #[DataGrid('UserGroup')]
 #[DataGridActionColumn(
@@ -38,38 +37,32 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 )]
 class UserGroup
 {
+    use Blameable;
+
     public const ADMIN_GROUP_ID = 1;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    /**
-     * @ORM\Column(type="string", unique=true)
-     */
+    #[ORM\Column(type: Types::STRING, unique: true)]
     #[DataGridPropertyColumn(sortable: true, filterable: true, label: 'lbl.Name')]
     private string $name;
 
     /**
      * @var Collection<int, User>|User[]
-     *
-     * @ORM\ManyToMany(targetEntity="ForkCMS\Modules\Backend\Domain\User\User", mappedBy="userGroups")
      */
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: "userGroups")]
     protected Collection $users;
 
-    /**
-     * @ORM\Column(type="core__settings__settings_bag")
-     */
+    #[ORM\Column(type: 'core__settings__settings_bag')]
     private SettingsBag $settings;
 
     /**
      * @var array<string, string>
-     *
-     * @ORM\Column(type="json")
      */
+    #[ORM\Column(type: Types::JSON)]
     private array $roles;
 
     private function __construct(string $name)

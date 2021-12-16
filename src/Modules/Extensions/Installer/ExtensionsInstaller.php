@@ -4,7 +4,6 @@ namespace ForkCMS\Modules\Extensions\Installer;
 
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
-use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSetting;
 
 final class ExtensionsInstaller extends ModuleInstaller
 {
@@ -14,7 +13,6 @@ final class ExtensionsInstaller extends ModuleInstaller
     {
         $this->createDatabasesForEntities(
             Module::class,
-            ModuleSetting::class,
         );
     }
 

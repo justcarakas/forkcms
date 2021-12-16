@@ -6,6 +6,7 @@ use Assert\Assertion;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Doctrine\CollectionHelper;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
@@ -25,10 +26,10 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="users")
  * @Gedmo\SoftDeleteable(timeAware=true)
  */
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: 'users')]
 #[UniqueEntity(fields: ['email'])]
 #[DataGrid('User')]
 #[DataGridActionColumn(
@@ -44,64 +45,42 @@ use Symfony\Component\Security\Core\User\UserInterface;
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    use Blameable;
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
+    #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     #[DataGridPropertyColumn(sortable: true, filterable: true, label: 'lbl.Email')]
     private string $email;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: Types::STRING)]
     private string $password;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: Types::STRING)]
     #[DataGridPropertyColumn(sortable: true, filterable: true, label: 'lbl.DisplayName')]
     private string $displayName;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $accessToBackend;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $superAdmin;
 
-    /**
-     * @ORM\Column(type="core__settings__settings_bag")
-     */
+    #[ORM\Column(type: 'core__settings__settings_bag')]
     private SettingsBag $settings;
 
     /**
      * @var Collection<int, UserGroup>|UserGroup[]
-     *
-     * @ORM\ManyToMany(targetEntity="ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup", inversedBy="users")
-     * @ORM\JoinTable(
-     *  name="users_have_user_groups",
-     *  joinColumns={
-     *      @ORM\JoinColumn(referencedColumnName="id")
-     *  },
-     *  inverseJoinColumns={
-     *      @ORM\JoinColumn(referencedColumnName="id")
-     *  }
-     * )
      */
+    #[ORM\ManyToMany(targetEntity: UserGroup::class, inversedBy: 'users')]
+    #[ORM\JoinTable(name: 'users_have_user_groups')]
+    #[ORM\InverseJoinColumn( referencedColumnName: 'id')]
     private Collection $userGroups;
 
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
     private DateTimeImmutable|null $deletedAt = null;
 
     /** @param Collection<int, UserGroup>|UserGroup[] $userGroups */

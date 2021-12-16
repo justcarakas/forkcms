@@ -9,19 +9,15 @@ use InvalidArgumentException;
 use Stringable;
 use Symfony\Component\DependencyInjection\Container;
 
-/** @ORM\Embeddable */
+#[ORM\Embeddable]
 final class ModuleAjaxAction implements Stringable
 {
     public const ROLE_PREFIX = 'ROLE_MODULE_AJAX_ACTION__';
 
-    /**
-     * @ORM\Column(type="modules__extensions__module__module_name")
-     */
+    #[ORM\Column(type: 'modules__extensions__module__module_name')]
     private ModuleName $module;
 
-    /**
-     * @ORM\Column(type="modules__backend__ajax_action__ajax_action_name")
-     */
+    #[ORM\Column(type: 'modules__backend__ajax_action__ajax_action_name')]
     private AjaxActionName $action;
 
     public function __construct(ModuleName $module, AjaxActionName $action)

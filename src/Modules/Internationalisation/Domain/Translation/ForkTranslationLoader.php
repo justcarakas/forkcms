@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use Doctrine\DBAL\Exception\TableNotFoundException;
+use Error;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\MessageCatalogue;
@@ -29,7 +30,7 @@ final class ForkTranslationLoader implements LoaderInterface
             foreach ($translations as $translation) {
                 $catalogue->set((string) $translation->getKey(), $translation->getValue(), $domain);
             }
-        } catch (TableNotFoundException) {
+        } catch (TableNotFoundException|Error) {
         }
 
         return $catalogue;

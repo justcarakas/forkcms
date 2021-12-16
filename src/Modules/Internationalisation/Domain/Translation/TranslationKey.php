@@ -3,22 +3,19 @@
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use Assert\Assert;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/** @ORM\Embeddable */
+#[ORM\Embeddable]
 class TranslationKey implements TranslatableInterface
 {
-    /**
-     * @ORM\Column(type="modules__internationalisation__translation__type")
-     */
+    #[ORM\Column(type: 'modules__internationalisation__translation__type')]
     private Type $type;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type:Types::STRING)]
     private string $name;
 
     private array $parameters = [];

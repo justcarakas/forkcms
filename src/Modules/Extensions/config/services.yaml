@@ -7,6 +7,3 @@ services:
     resource: '../Domain/*'
     exclude:
       - '../Domain/Module/InstalledModules'
-
-  ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository:
-    public: true

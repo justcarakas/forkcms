@@ -4,61 +4,48 @@ namespace ForkCMS\Modules\Backend\Domain\NavigationItem;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
+use ForkCMS\Modules\Backend\Domain\User\Blameable;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use InvalidArgumentException;
-use LogicException;
 use RuntimeException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
- * @ORM\Entity(repositoryClass="NavigationItemRepository")
- * @ORM\Table(name="backend_navigation")
- * @ORM\HasLifecycleCallbacks
- */
+#[ORM\Entity(repositoryClass: NavigationItemRepository::class)]
+#[ORM\Table(name: 'backend_navigation')]
 #[UniqueEntity(fields: ['label', 'slug', 'parent'])]
 class NavigationItem
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
-     */
+    use Blameable;
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    /**
-     * @Orm\ManyToOne(targetEntity="NavigationItem", inversedBy="children")
-     * @Orm\JoinColumn(referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: NavigationItem::class, inversedBy: 'children')]
     private ?self $parent;
 
     /**
      * @var Collection<int, NavigationItem>|NavigationItem[]
-     * @Orm\OneToMany(targetEntity="NavigationItem", mappedBy="parent")
-     * @Orm\OrderBy({"sequence" = "ASC"})
      */
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: NavigationItem::class)]
+    #[ORM\OrderBy(['sequence' => 'ASC'])]
     private Collection $children;
 
-    /**
-     * @ORM\Embedded(class="ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey")
-     */
+    #[ORM\Embedded(class: TranslationKey::class)]
     private TranslationKey $label;
 
-    /**
-     * @ORM\Column(type="modules__backend__action__action_slug", nullable=true)
-     */
+    #[ORM\Column(type: 'modules__backend__action__action_slug', nullable: true)]
     private ?ActionSlug $slug;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $visibleInNavigationMenu;
 
-    /**
-     * @ORM\Column(type="integer", options={"unsigned"=true})
-     */
+    #[ORM\Column(type: Types::INTEGER, options: ['unsigned' => true])]
     private int $sequence;
 
     public function __construct(

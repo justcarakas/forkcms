@@ -2,50 +2,35 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Modules\Backend\Domain\User\Blameable;
 
-/**
- * @ORM\Entity(repositoryClass="ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository")
- * @ORM\Table(
- *     name="locales",
- *     indexes={
- *         @ORM\Index(name="default_for_website", columns={"isDefaultForWebsite"}),
- *         @ORM\Index(name="default_for_user", columns={"isDefaultForUser"})
- *     }
- * )
- * @ORM\HasLifecycleCallbacks
- */
+#[ORM\Entity(repositoryClass: InstalledLocaleRepository::class)]
+#[ORM\Table(name: "locales")]
+#[ORM\Index(columns: ["isDefaultForWebsite"], name: "default_for_website")]
+#[ORM\Index(columns: ["isDefaultForUser"], name: "default_for_user")]
 class InstalledLocale
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="modules__internationalisation__locale__locale")
-     */
+    use Blameable;
+
+    #[ORM\Id]
+    #[ORM\Column(type: 'modules__internationalisation__locale__locale')]
     private Locale $locale;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isEnabledForWebsite;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isDefaultForWebsite;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isEnabledForBrowserLocaleRedirect;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isEnabledForUser;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isDefaultForUser;
 
     public function __construct(

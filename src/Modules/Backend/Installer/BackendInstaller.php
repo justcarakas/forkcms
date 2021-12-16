@@ -12,15 +12,13 @@ use ForkCMS\Modules\Backend\Backend\Actions\UserGroupDelete;
 use ForkCMS\Modules\Backend\Backend\Actions\UserGroupEdit;
 use ForkCMS\Modules\Backend\Backend\Actions\UserGroupIndex;
 use ForkCMS\Modules\Backend\Backend\Actions\UserIndex;
-use ForkCMS\Modules\Backend\Domain\Authentication\RememberMeToken;
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItem;
 use ForkCMS\Modules\Backend\Domain\User\Command\CreateUser;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
-use Symfony\Component\Messenger\Stamp\HandledStamp;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
 
 final class BackendInstaller extends ModuleInstaller
 {
@@ -30,10 +28,9 @@ final class BackendInstaller extends ModuleInstaller
     public function preInstall(): void
     {
         $this->createDatabasesForEntities(
-            NavigationItem::class,
             User::class,
-            RememberMeToken::class,
             UserGroup::class,
+            NavigationItem::class,
         );
         $installerConfiguration = InstallerConfiguration::fromCache();
 
@@ -44,14 +41,16 @@ final class BackendInstaller extends ModuleInstaller
         $createUser->superAdmin = true;
         $createUser->accessToBackend = true;
         $createUser->userGroups->add($this->userGroupRepository->getAdminUserGroup());
+        $this->dispatchCommand($createUser);
 
-        /** @var User $user */
-        $user = $this->dispatchCommand($createUser)->last(HandledStamp::class)->getResult();
+        $user = $createUser->getEntity();
 
         // Authenticate the created user
         $this->tokenStorage->setToken(
-            $this->authenticationManager->authenticate(
-                new UsernamePasswordToken($user, 'backend', $user->getRoles())
+            new PreAuthenticatedToken(
+                $user,
+                'backend',
+                $user->getRoles()
             )
         );
     }

@@ -3,67 +3,36 @@
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use DateTimeImmutable;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Modules\Backend\Domain\User\Blameable;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use Symfony\Component\Translation\TranslatableMessage;
 
-/**
- * @ORM\Entity(repositoryClass="ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository")
- * @ORM\Table(name="translations")
- * @ORM\HasLifecycleCallbacks
- */
+#[ORM\Entity(repositoryClass: TranslationRepository::class)]
+#[ORM\Table(name: "translations")]
 class Translation
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="string", unique=true, length=32)
-     */
+    use Blameable;
+
+    #[ORM\Id]
+    #[ORM\Column(type: Types::STRING, length: 32, unique: true)]
     private string $id;
 
-    /**
-     * @ORM\Embedded(class="TranslationDomain")
-     */
+    #[ORM\Embedded(class: TranslationDomain::class)]
     private TranslationDomain $domain;
 
-    /**
-     * @ORM\Embedded(class="TranslationKey")
-     */
+    #[ORM\Embedded(class: TranslationKey::class)]
     private TranslationKey $key;
 
-    /**
-     * @ORM\Column(type="modules__internationalisation__locale__locale")
-     */
+    #[ORM\Column(type: 'modules__internationalisation__locale__locale')]
     private Locale $locale;
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: Types::TEXT)]
     private string $value;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $source;
-
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private DateTimeImmutable $createdOn;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private int $createdBy;
-
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private DateTimeImmutable $editedOn;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private int $editedBy;
 
     public function __construct(
         TranslationDomain $domain,
@@ -78,24 +47,6 @@ class Translation
         $this->locale = $locale;
         $this->value = $value;
         $this->source = $source;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function prePersist(): void
-    {
-        $this->createdOn = $this->editedOn = new DateTimeImmutable();
-        $this->editedBy = $this->createdBy = 1; //@TODO fix this
-    }
-
-    /**
-     * @ORM\PostPersist
-     */
-    public function postPersist(): void
-    {
-        $this->editedOn = new DateTimeImmutable();
-        $this->editedBy = 1; //@TODO fix this
     }
 
     public function getId(): string
