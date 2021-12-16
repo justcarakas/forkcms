@@ -87,18 +87,14 @@
           <i class="fas fa-times"></i>
         </button>
       {% endif %}
-      {% if showIcon == true %}
-        <i class="fas fa-{{ type }} fa-lg mr-2"></i>
-      {% endif %}
-      {{ message|raw }}
       {% if message %}
-        {% if type == 'danger' %}
+        {% if showIcon == true and type == 'danger' %}
           {{ macro.icon('times-circle toast-icon', 'far') }}
-        {% elseif type == 'success' %}
+        {% elseif showIcon == true and type == 'success' %}
           {{ macro.icon('check-circle toast-icon', 'far') }}
-        {% elseif type == 'info' %}
+        {% elseif showIcon == true and type == 'info' %}
           {{ macro.icon('info-circle toast-icon') }}
-        {% elseif type == 'warning' %}
+        {% elseif showIcon == true and type == 'warning' %}
           {{ macro.icon('exclamation-triangle toast-icon') }}
         {% endif %}
         {% if '</p>' in message or '</ul>' in message %}
