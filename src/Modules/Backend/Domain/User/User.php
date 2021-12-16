@@ -224,6 +224,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             return;
         }
 
+        if ($this->password !== '') {
+            $this->settings->set('last_password_change',time());
+        }
+
         $this->password = $passwordHasher->hashPassword($this, $this->plainTextPassword);
         $this->eraseCredentials();
     }
