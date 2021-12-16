@@ -28,9 +28,7 @@ final class TranslatorPass implements CompilerPassInterface
             'framework',
             [
                 'default_locale' => $defaultLocale,
-                'translator' => [
-                    'enabled_locale' => array_keys($locales),
-                ],
+                'enabled_locales' => array_keys($locales),
             ]
         );
 

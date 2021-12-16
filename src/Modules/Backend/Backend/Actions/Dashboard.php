@@ -40,6 +40,7 @@ final class Dashboard extends AbstractActionController
             }
 
             $widgets[] = new Widget(
+                $moduleWidget->getModule()->asLabel(),
                 $moduleWidget->getWidget()->asLabel(),
                 $this->backendDashboardWidgets->get($fullyQualifiedClassName)($request)
             );

@@ -6,7 +6,7 @@
     {% for widget in widgets %}
       <div class="col">
         <div class="card">
-          <h4 class="card-header">{{ widget.title|trans|ucfirst }}</h4>
+          <h4 class="card-header">{{ widget.moduleLabel|trans|ucfirst }}: {{ widget.widgetLabel|trans|ucfirst }}</h4>
           <div class="card-body">
             {{ widget.content|raw }}
           </div>

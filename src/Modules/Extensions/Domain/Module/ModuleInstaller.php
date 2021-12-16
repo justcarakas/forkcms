@@ -12,17 +12,16 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupRepository;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use ForkCMS\Modules\Backend\Installer\BackendInstaller;
-use ForkCMS\Modules\Extensions\Domain\ModuleSetting\ModuleSettingRepository;
 use ForkCMS\Modules\Extensions\Installer\ExtensionsInstaller;
 use ForkCMS\Modules\Internationalisation\Domain\Importer\Importer;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller;
+use InvalidArgumentException;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\StampInterface;
-use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 abstract class ModuleInstaller
@@ -43,11 +42,9 @@ abstract class ModuleInstaller
         protected ModuleRepository $moduleRepository,
         protected NavigationItemRepository $navigationRepository,
         protected UserGroupRepository $userGroupRepository,
-        protected ModuleSettingRepository $moduleSettingRepository,
         protected TranslationRepository $translationRepository,
         protected InstalledLocaleRepository $installedLocaleRepository,
         protected Importer $importer,
-        protected AuthenticationManagerInterface $authenticationManager,
         protected TokenStorageInterface $tokenStorage,
         private MessageBusInterface $commandBus,
         private MessageBusInterface $eventBus,
@@ -224,7 +221,10 @@ abstract class ModuleInstaller
 
     final protected function setSetting(string $key, mixed $value, ModuleName $moduleName = null): void
     {
-        $this->moduleSettingRepository->set($moduleName ?? self::getModuleName(), $key, $value);
+        $module = $this->moduleRepository->find($moduleName ?? self::getModuleName())
+            ?? throw new InvalidArgumentException('Module not found');
+        $module?->getSettings()->set($key, $value);
+        $this->moduleRepository->save($module);
     }
 
     final protected function importTranslations(

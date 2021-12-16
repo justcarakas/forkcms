@@ -26,7 +26,6 @@ import { Config } from './Components/Config'
 
 // block editor imports
 import { BlockEditor } from './BlockEditor/BlockEditor'
-import '../../../../../vendor/pfilsx/data-grid-bundle/src/Resources/public/datagrid'
 
 // modules imports
 // import { Blog } from '../../../../Modules/Blog/Backend/Js/Blog'
