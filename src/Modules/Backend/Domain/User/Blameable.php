@@ -13,6 +13,7 @@ trait Blameable
      * @Gedmo\Blameable(on="create")
      */
     #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'createdBy')]
     private User|null $createdBy;
 
     #[Gedmo\Timestampable(on: 'create')]
@@ -23,6 +24,7 @@ trait Blameable
      * @Gedmo\Blameable(on="update")
      */
     #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'updatedBy')]
     private User|null $updatedBy;
 
     #[Gedmo\Timestampable]
