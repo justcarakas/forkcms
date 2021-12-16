@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractDeleteActionController extends AbstractFormActionController
 {
-    protected function handldleDeleteForm(Request $request, string $deleteCommandFullyQualifiedClassName, ActionSlug $redirectActionSlug): RedirectResponse
+    protected function handleDeleteForm(Request $request, string $deleteCommandFullyQualifiedClassName, ActionSlug $redirectActionSlug): RedirectResponse
     {
         $response = $this->handleForm(
             request: $request,

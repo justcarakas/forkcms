@@ -14,7 +14,7 @@ final class UserGroupDelete extends AbstractDeleteActionController
 {
     protected function getFormResponse(Request $request): RedirectResponse
     {
-        return $this->handldleDeleteForm(
+        return $this->handleDeleteForm(
             $request,
             DeleteUserGroup::class,
             UserGroupIndex::getActionSlug()
