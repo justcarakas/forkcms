@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Backend\Domain\User;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use ForkCMS\Core\Domain\Doctrine\CollectionHelper;
+use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -37,6 +38,8 @@ abstract class UserDataTransferObject
     /** @var ArrayCollection<int, UserGroup> */
     public ArrayCollection $userGroups;
 
+    public SettingsBag $settings;
+
     public function __construct(?User $userEntity = null)
     {
         $this->userEntity = $userEntity;
@@ -45,6 +48,7 @@ abstract class UserDataTransferObject
         $this->accessToBackend = $userEntity?->hasAccessToBackend() ?? true;
         $this->superAdmin = $userEntity?->isSuperAdmin() ?? false;
         $this->userGroups = CollectionHelper::toArrayCollection($userEntity?->getUserGroups());
+        $this->settings = $userEntity?->getSettings() ?? new SettingsBag();
     }
 
     final public function hasEntity(): bool

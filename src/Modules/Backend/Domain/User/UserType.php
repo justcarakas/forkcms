@@ -3,10 +3,15 @@
 namespace ForkCMS\Modules\Backend\Domain\User;
 
 use ForkCMS\Core\Domain\Form\TabsType;
+use ForkCMS\Core\Domain\Settings\SettingsBag;
+use ForkCMS\Modules\Backend\Domain\User\Event\BuildUserSettingsFormEvent;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupDataGridChoiceType;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,7 +21,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 final class UserType extends AbstractType
 {
     public function __construct(
-        private TokenStorageInterface $tokenStorage
+        private TokenStorageInterface $tokenStorage,
+        private EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
@@ -71,6 +77,26 @@ final class UserType extends AbstractType
                                 'required' => false,
                             ]
                         );
+                    },
+                    'lbl.Settings' => function (FormBuilderInterface $builder): void {
+                        $settings = $builder->add(
+                            'settings',
+                            FormType::class,
+                            [
+                                'label' => false
+                            ]
+                        )->get('settings');
+                        $settings->addModelTransformer(
+                            new CallbackTransformer(
+                                static function (SettingsBag $settingsBag): array {
+                                    return $settingsBag->all();
+                                },
+                                static function (array $settings): SettingsBag {
+                                    return new SettingsBag($settings);
+                                }
+                            )
+                        );
+                        $this->eventDispatcher->dispatch(new BuildUserSettingsFormEvent($settings));
                     },
                 ],
             ]

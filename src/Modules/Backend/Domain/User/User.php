@@ -91,6 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         bool $accessToBackend,
         bool $superAdmin,
         Collection $userGroups = null,
+        SettingsBag $settings = null
     ) {
         $this->setEmail($email);
         $this->plainTextPassword = trim($this->plainTextPassword);
@@ -98,8 +99,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->displayName = $displayName;
         $this->accessToBackend = $accessToBackend;
         $this->superAdmin = $superAdmin;
-        $this->settings = new SettingsBag();
         $this->userGroups = $userGroups ?? new ArrayCollection();
+        $this->settings = $settings ?? new SettingsBag();
     }
 
     public static function fromDataTransferObject(UserDataTransferObject $userDataTransferObject): self
@@ -118,6 +119,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 fn (UserGroup $userGroup) => $user->removeUserGroup($userGroup)
             );
             $user->displayName = $userDataTransferObject->displayName;
+            $user->settings = $userDataTransferObject->settings;
 
             return $user;
         }
@@ -128,7 +130,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $userDataTransferObject->displayName,
             $userDataTransferObject->accessToBackend,
             $userDataTransferObject->superAdmin,
-            $userDataTransferObject->userGroups
+            $userDataTransferObject->userGroups,
+            $userDataTransferObject->settings
         );
     }
 

@@ -15,11 +15,11 @@ final class SettingsBag implements JsonSerializable
     private bool $hasChanges = false;
 
     /**
-     * @param array<string, mixed> $parameters
+     * @param array<string, mixed> $settings
      */
-    public function __construct(array $parameters = [])
+    public function __construct(array $settings = [])
     {
-        $this->add($parameters);
+        $this->add($settings);
     }
 
     public function clear(): void
