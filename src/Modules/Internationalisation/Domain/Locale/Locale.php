@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
+use Locale as IntlLocale;
 use Serializable;
 use Spatie\Enum\Enum;
 use Stringable;
@@ -67,5 +68,10 @@ final class Locale extends Enum implements Serializable, Stringable
     public static function fallback(): self
     {
         return self::en();
+    }
+
+    public static function default(): self
+    {
+        return self::from(IntlLocale::getDefault());
     }
 }
