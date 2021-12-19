@@ -1,11 +1,7 @@
 <?php
 
-namespace ForkCMS\Core\Backend\Domain\Meta;
+namespace ForkCMS\Core\Domain\Meta;
 
-use ForkCMS\Core\Common\Doctrine\Entity\Meta;
-use ForkCMS\Core\Common\Doctrine\Repository\MetaRepository;
-use ForkCMS\Core\Common\Doctrine\ValueObject\SEOFollow;
-use ForkCMS\Core\Common\Doctrine\ValueObject\SEOIndex;
 use ForkCMS\Core\Common\Form\SwitchType;
 use SpoonFilter;
 use Symfony\Component\Form\AbstractType;
@@ -28,19 +24,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MetaType extends AbstractType
 {
-    /** @var MetaRepository */
-    private $metaRepository;
+    /** @var array<int, Meta> */
+    private array $meta = [];
 
-    /** @var TranslatorInterface */
-    private $translator;
-
-    /** @var Meta[] */
-    private $meta;
-
-    public function __construct(MetaRepository $metaRepository, TranslatorInterface $translator)
+    public function __construct(private MetaRepository $metaRepository, private TranslatorInterface $translator)
     {
-        $this->metaRepository = $metaRepository;
-        $this->translator = $translator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

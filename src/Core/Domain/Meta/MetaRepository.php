@@ -1,24 +1,23 @@
 <?php
 
-namespace ForkCMS\Core\Common\Doctrine\Repository;
+namespace ForkCMS\Core\Domain\Meta;
 
 use ForkCMS\Core\Backend\Exception;
-use ForkCMS\Core\Backend\Helper\Model;
-use ForkCMS\Core\Common\Doctrine\Entity\Meta;
 use ForkCMS\Core\Common\Uri;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use SpoonFilter;
+use Symfony\Contracts\Service\ServiceProviderInterface;
 
 /**
  * @method Meta|null find($id, $lockMode = null, $lockVersion = null)
  * @method Meta|null findOneBy(array $criteria, array $orderBy = null)
- * @method Meta[]    findAll()
- * @method Meta[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Meta[] findAll()
+ * @method Meta[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class MetaRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private ServiceProviderInterface $serviceProvider)
     {
         parent::__construct($registry, Meta::class);
     }
@@ -34,12 +33,13 @@ class MetaRepository extends ServiceEntityRepository
      * @throws Exception When the function does not exist
      *
      * @return string
+     * @TODO refactor
      */
     public function generateUrl(string $url, string $class, string $method, array $parameters = []): string
     {
         // check if the class is a service
-        if (Model::getContainer()->has($class)) {
-            $class = Model::getContainer()->get($class);
+        if ($this->serviceProvider->has($class)) {
+            $class = $this->serviceProvider->get($class);
         }
 
         // validate (check if the function exists)
@@ -66,19 +66,15 @@ class MetaRepository extends ServiceEntityRepository
         return call_user_func_array([$class, $method], $actualParameters);
     }
 
-    public function add(Meta $meta): void
-    {
-        $this->getEntityManager()->persist($meta);
-    }
-
     public function save(Meta $meta): void
     {
-        $this->getEntityManager()->flush($meta);
+        $this->getEntityManager()->persist($meta);
+        $this->getEntityManager()->flush();
     }
 
     public function remove(Meta $meta): void
     {
         $this->getEntityManager()->remove($meta);
-        $this->getEntityManager()->flush($meta);
+        $this->getEntityManager()->flush();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Core\Backend\Domain\Meta;
+namespace ForkCMS\Core\Domain\Meta;
 
 use ForkCMS\Core\Backend\Helper\Model;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
