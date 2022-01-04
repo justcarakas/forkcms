@@ -11,7 +11,7 @@ final class ExtensionsInstaller extends ModuleInstaller
 
     public function preInstall(): void
     {
-        $this->createDatabasesForEntities(
+        $this->createTableForEntities(
             Module::class,
         );
     }

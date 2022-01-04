@@ -2,6 +2,8 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use ForkCMS\Core\Domain\Doctrine\CreateSchema;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
@@ -46,6 +48,7 @@ abstract class ModuleInstaller
         protected InstalledLocaleRepository $installedLocaleRepository,
         protected Importer $importer,
         protected TokenStorageInterface $tokenStorage,
+        protected EntityManagerInterface $entityManager,
         private MessageBusInterface $commandBus,
         private MessageBusInterface $eventBus,
     ) {
@@ -84,7 +87,7 @@ abstract class ModuleInstaller
         return array_merge($this->moduleDependencies, $this->getDefaultModuleDependencies());
     }
 
-    final public function createDatabasesForEntities(string ...$entityClasses): void
+    final public function createTableForEntities(string ...$entityClasses): void
     {
         $this->createSchema->forEntityClasses(...$entityClasses);
     }
@@ -244,5 +247,10 @@ abstract class ModuleInstaller
     public function dispatchEvent(object $event, array $stamps = []): Envelope
     {
         return $this->eventBus->dispatch($event, $stamps);
+    }
+
+    public function getRepository(string $entityFQCN): EntityRepository
+    {
+        return $this->entityManager->getRepository($entityFQCN);
     }
 }

@@ -29,7 +29,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @Gedmo\SoftDeleteable(timeAware=true)
  */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Table(name: 'users')]
+#[ORM\Table(name: 'backend__user')]
 #[UniqueEntity(fields: ['email'])]
 #[DataGrid('User')]
 #[DataGridActionColumn(
@@ -76,7 +76,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, UserGroup>|UserGroup[]
      */
     #[ORM\ManyToMany(targetEntity: UserGroup::class, inversedBy: 'users')]
-    #[ORM\JoinTable(name: 'users_have_user_groups')]
+    #[ORM\JoinTable(name: 'backend__user_has_user_group')]
     #[ORM\InverseJoinColumn( referencedColumnName: 'id')]
     private Collection $userGroups;
 

@@ -15,7 +15,7 @@ final class InternationalisationInstaller extends ModuleInstaller
 
     public function preInstall(): void
     {
-        $this->createDatabasesForEntities(Translation::class, InstalledLocale::class);
+        $this->createTableForEntities(Translation::class, InstalledLocale::class);
         $this->setInstalledLocales();
     }
 

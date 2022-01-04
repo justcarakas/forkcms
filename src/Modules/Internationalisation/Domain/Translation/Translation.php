@@ -10,7 +10,7 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use Symfony\Component\Translation\TranslatableMessage;
 
 #[ORM\Entity(repositoryClass: TranslationRepository::class)]
-#[ORM\Table(name: "translations")]
+#[ORM\Table(name: "internationalisation__translation")]
 class Translation
 {
     use Blameable;

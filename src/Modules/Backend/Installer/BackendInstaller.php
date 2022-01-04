@@ -27,7 +27,7 @@ final class BackendInstaller extends ModuleInstaller
 
     public function preInstall(): void
     {
-        $this->createDatabasesForEntities(
+        $this->createTableForEntities(
             User::class,
             UserGroup::class,
             NavigationItem::class,

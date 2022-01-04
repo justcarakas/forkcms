@@ -35,7 +35,7 @@ final class ForkConnection extends PDO
     /** @return ModuleName[] */
     public function getInstalledModules(): array
     {
-        $modulesQuery = $this->query('SELECT name from Modules');
+        $modulesQuery = $this->query('SELECT name from extensions__module');
         if (!$modulesQuery->execute()) {
             $modulesQuery->closeCursor();
             throw new RuntimeException('Cannot get installed modules from database');
@@ -55,7 +55,7 @@ final class ForkConnection extends PDO
     {
         $query = $this->query(
             'SELECT locale, isDefaultForWebsite
-                FROM locales
+                FROM internationalisation__installed_locale
                 WHERE isEnabledForWebsite = true OR isEnabledForUser = true'
         );
         $enabledLocales = $query->fetchAll(PDO::FETCH_KEY_PAIR);
@@ -69,7 +69,7 @@ final class ForkConnection extends PDO
     {
         $query = $this->query(
             'SELECT locale, isDefaultForWebsite
-                FROM locales
+                FROM internationalisation__installed_locale
                 WHERE isEnabledForWebsite = true'
         );
         $locales = $query->fetchAll(PDO::FETCH_KEY_PAIR);

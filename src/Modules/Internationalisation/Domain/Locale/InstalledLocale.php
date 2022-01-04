@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
 
 #[ORM\Entity(repositoryClass: InstalledLocaleRepository::class)]
-#[ORM\Table(name: "locales")]
+#[ORM\Table(name: "internationalisation__installed_locale")]
 #[ORM\Index(columns: ["isDefaultForWebsite"], name: "default_for_website")]
 #[ORM\Index(columns: ["isDefaultForUser"], name: "default_for_user")]
 class InstalledLocale
