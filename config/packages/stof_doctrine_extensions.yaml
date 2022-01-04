@@ -7,3 +7,6 @@ stof_doctrine_extensions:
       blameable: true
       sortable: true
       softdeleteable: true
+      sluggable: true
+      tree: true
+      translatable: true
