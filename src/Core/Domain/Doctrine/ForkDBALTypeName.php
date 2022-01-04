@@ -17,12 +17,9 @@ trait ForkDBALTypeName
                 $matches
             )
         ) {
-            return sprintf(
-                'modules__%s__%s__%s',
-                Container::underscore($matches[1]),
-                Container::underscore($matches[2]),
-                Container::underscore($matches[3])
-            );
+            $matches[0] = 'modules';
+
+            return implode('__', array_map([Container::class, 'underscore'], $matches));
         }
 
         $matches = [];
@@ -33,11 +30,9 @@ trait ForkDBALTypeName
                 $matches
             )
         ) {
-            return sprintf(
-                'core__%s__%s',
-                Container::underscore($matches[1]),
-                Container::underscore($matches[2])
-            );
+            $matches[0] = 'core';
+
+            return implode('__', array_map([Container::class, 'underscore'], $matches));
         }
 
         throw new InvalidArgumentException('Cauld not automatically determine the unique DBAL type name');
