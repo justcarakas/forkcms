@@ -72,6 +72,6 @@ final class Locale extends Enum implements Serializable, Stringable
 
     public static function default(): self
     {
-        return self::from(IntlLocale::getDefault());
+        return self::from(substr(IntlLocale::getDefault(), 0, 2));
     }
 }
