@@ -70,6 +70,15 @@ final class SettingsBag implements JsonSerializable
         throw new SettingNotFoundException($name, null, $alternatives);
     }
 
+    public function getOr(string $name, mixed $default = null)
+    {
+        try {
+            return $this->get($name);
+        } catch (SettingNotFoundException) {
+            return $default;
+        }
+    }
+
     public function set(string $name, mixed $value): void
     {
         if (!array_key_exists($name, $this->settings) || $this->settings[$name] !== $value) {
