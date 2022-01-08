@@ -12,7 +12,7 @@ trait ForkDBALTypeName
         $matches = [];
         if (
             preg_match(
-                '/^ForkCMS\\\Modules\\\([A-Z][\w]*)\\\Domain\\\(?:([A-Z][\w]*)\\\)+\\\([A-Z][\w]*)DBALType$/',
+                '/^ForkCMS\\\Modules\\\([A-Z][\w]*)\\\Domain\\\(?:([A-Z][\w]*)\\\)+([A-Z][\w]*)DBALType$/',
                 static::class,
                 $matches
             )
@@ -25,7 +25,7 @@ trait ForkDBALTypeName
         $matches = [];
         if (
             preg_match(
-                '/^ForkCMS\\\Core\\\Domain\\\(?:([A-Z][\w]*)\\\)+\\\([A-Z][\w]*)DBALType$/',
+                '/^ForkCMS\\\Core\\\Domain\\\(?:([A-Z][\w]*)\\\)+([A-Z][\w]*)DBALType$/',
                 static::class,
                 $matches
             )
