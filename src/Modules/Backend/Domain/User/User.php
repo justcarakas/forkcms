@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Doctrine\CollectionHelper;
+use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationResetPassword;
@@ -69,8 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $superAdmin;
 
-    #[ORM\Column(type: 'core__settings__settings_bag')]
-    private SettingsBag $settings;
+    use EntityWithSettingsTrait;
 
     /**
      * @var Collection<int, UserGroup>|UserGroup[]
@@ -248,11 +248,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function isSuperAdmin(): bool
     {
         return $this->superAdmin;
-    }
-
-    public function getSettings(): SettingsBag
-    {
-        return $this->settings;
     }
 
     /** @return Collection<int, UserGroup>|UserGroup[] */

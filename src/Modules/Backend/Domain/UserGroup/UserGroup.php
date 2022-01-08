@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Doctrine\CollectionHelper;
+use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\ModuleAjaxAction;
@@ -56,8 +57,7 @@ class UserGroup
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: "userGroups")]
     protected Collection $users;
 
-    #[ORM\Column(type: 'core__settings__settings_bag')]
-    private SettingsBag $settings;
+    use EntityWithSettingsTrait;
 
     /**
      * @var array<string, string>
@@ -133,11 +133,6 @@ class UserGroup
     public function getUsers(): Collection
     {
         return $this->users;
-    }
-
-    public function getSettings(): SettingsBag
-    {
-        return $this->settings;
     }
 
     /** @return string[] */

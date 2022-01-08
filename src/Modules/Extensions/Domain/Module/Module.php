@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
 use ForkCMS\Modules\Backend\Domain\User\UserRepository;
@@ -17,8 +18,7 @@ class Module
     #[ORM\Column(type: 'modules__extensions__module__module_name')]
     private ModuleName $name;
 
-    #[ORM\Column(type: 'core__settings__settings_bag')]
-    private SettingsBag $settings;
+    use EntityWithSettingsTrait;
 
     private function __construct(ModuleName $name)
     {
@@ -39,11 +39,6 @@ class Module
     public function getName(): ModuleName
     {
         return $this->name;
-    }
-
-    public function getSettings(): SettingsBag
-    {
-        return $this->settings;
     }
 
     public function __toString(): string

@@ -4,6 +4,7 @@ namespace ForkCMS\Core\Domain\Meta;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use JsonSerializable;
 
@@ -52,8 +53,7 @@ class Meta implements JsonSerializable
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private string|null $custom;
 
-    #[ORM\Column(type: 'core__settings__settings_bag')]
-    private SettingsBag $data;
+    use EntityWithSettingsTrait;
 
     #[ORM\Column(type: SEOFollowType::NAME, nullable: true)]
     private SEOFollow|null $seoFollow;
@@ -75,10 +75,10 @@ class Meta implements JsonSerializable
         string $custom = null,
         SEOFollow $seoFollow = null,
         SEOIndex $seoIndex = null,
-        SettingsBag $data = null,
+        SettingsBag $settings = null,
         int $id = null
     ) {
-        $this->data = $data ?? new SettingsBag();
+        $this->settings = $settings ?? new SettingsBag();
         $this->id = $id;
         $this->update(...func_get_args());
     }
@@ -97,7 +97,7 @@ class Meta implements JsonSerializable
         string $custom = null,
         SEOFollow $seoFollow = null,
         SEOIndex $seoIndex = null,
-        SettingsBag $data = null,
+        SettingsBag $settings = null,
     ): void {
         $this->keywords = $keywords;
         $this->keywordsOverwrite = $keywordsOverwrite;
@@ -112,7 +112,7 @@ class Meta implements JsonSerializable
         $this->seoIndex = $seoIndex;
         $this->canonicalUrl = $canonicalUrl;
         $this->canonicalUrlOverwrite = $canonicalUrlOverwrite;
-        $this->data = $data ?? $this->data;
+        $this->settings = $settings ?? $this->settings;
     }
 
     /**
@@ -203,11 +203,6 @@ class Meta implements JsonSerializable
         return $this->custom;
     }
 
-    public function getData(): SettingsBag
-    {
-        return $this->data;
-    }
-
     public function hasSEOIndex(): bool
     {
         return !$this->seoIndex->isNone();
@@ -246,7 +241,7 @@ class Meta implements JsonSerializable
             'descriptionOverwrite' => $this->isDescriptionOverwrite(),
             'title' => $this->getTitle(),
             'titleOverwrite' => $this->isTitleOverwrite(),
-            'data' => $this->getData(),
+            'settings' => $this->getSettings(),
             'url' => $this->getUrl(),
             'urlOverwrite' => $this->isUrlOverwrite(),
             'custom' => $this->getCustom(),
