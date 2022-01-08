@@ -1,10 +1,10 @@
 <?php
 
-namespace ForkCMS\Core\Domain\Meta;
+namespace ForkCMS\Modules\Frontend\Domain\Meta;
 
 use ForkCMS\Core\Backend\Helper\Model;
-use ForkCMS\Modules\Pages\Domain\Page\Page;
 use ForkCMS\Modules\Pages\Backend\Helper\Model as BackendPagesModel;
+use ForkCMS\Modules\Pages\Domain\Page\Page;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;

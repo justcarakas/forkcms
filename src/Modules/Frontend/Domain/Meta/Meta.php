@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Core\Domain\Meta;
+namespace ForkCMS\Modules\Frontend\Domain\Meta;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -8,10 +8,8 @@ use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use JsonSerializable;
 
-/** @TODO rename settingsbag to keyValueStore */
-
 #[ORM\Entity(repositoryClass: MetaRepository::class)]
-#[ORM\Table(name: 'core__meta')]
+#[ORM\Table(name: 'frontend__meta')]
 #[ORM\Index(columns: ['url'], name: 'idx_url')]
 class Meta implements JsonSerializable
 {
@@ -55,10 +53,10 @@ class Meta implements JsonSerializable
 
     use EntityWithSettingsTrait;
 
-    #[ORM\Column(type: SEOFollowType::NAME, nullable: true)]
+    #[ORM\Column(type: SEOFollowDBALType::NAME, nullable: true)]
     private SEOFollow|null $seoFollow;
 
-    #[ORM\Column(type: SEOIndexType::NAME, nullable: true)]
+    #[ORM\Column(type: SEOIndexDBALType::NAME, nullable: true)]
     private SEOIndex|null $seoIndex;
 
     public function __construct(

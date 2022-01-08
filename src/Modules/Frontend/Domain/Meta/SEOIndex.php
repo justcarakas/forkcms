@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Core\Domain\Meta;
+namespace ForkCMS\Modules\Frontend\Domain\Meta;
 
 use Spatie\Enum\Enum;
 use Stringable;

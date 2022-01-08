@@ -1,12 +1,13 @@
 <?php
 
-namespace ForkCMS\Core\Domain\Meta;
+namespace ForkCMS\Modules\Frontend\Domain\Meta;
 
-use ForkCMS\Core\Backend\Exception;
-use ForkCMS\Core\Common\Uri;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use ForkCMS\Core\Backend\Exception;
+use ForkCMS\Core\Common\Uri;
 use SpoonFilter;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Contracts\Service\ServiceProviderInterface;
 
 /**
@@ -17,7 +18,7 @@ use Symfony\Contracts\Service\ServiceProviderInterface;
  */
 class MetaRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry, private ServiceProviderInterface $serviceProvider)
+    public function __construct(ManagerRegistry $registry, private ContainerInterface $serviceProvider)
     {
         parent::__construct($registry, Meta::class);
     }

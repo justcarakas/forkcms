@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Core\Domain\Meta;
+namespace ForkCMS\Modules\Frontend\Domain\Meta;
 
 use ForkCMS\Core\Common\Form\SwitchType;
 use SpoonFilter;
@@ -105,15 +105,15 @@ class MetaType extends AbstractType
             'expanded' => true,
             'multiple' => false,
             'choices' => array_map(
-                function ($SEOIndex) {
-                    return SEOIndex::fromString($SEOIndex);
+                static function ($SEOIndex) {
+                    return SEOIndex::from($SEOIndex);
                 },
-                SEOIndex::POSSIBLE_VALUES
+                SEOIndex::toArray()
             ),
-            'choice_value' => function (SEOIndex $SEOIndex = null) {
+            'choice_value' => static function (SEOIndex $SEOIndex = null) {
                 return (string) $SEOIndex;
             },
-            'choice_label' => function ($SEOIndex) {
+            'choice_label' => static function ($SEOIndex) {
                 if ($SEOIndex->isNone()) {
                     return 'lbl.' . ucfirst($SEOIndex);
                 }
@@ -136,7 +136,7 @@ class MetaType extends AbstractType
                 function ($SEOFollow) {
                     return SEOFollow::fromString($SEOFollow);
                 },
-                SEOFollow::POSSIBLE_VALUES
+                SEOFollow::toArray()
             ),
             'choice_value' => function (SEOFollow $SEOFollow = null) {
                 return (string) $SEOFollow;
@@ -263,7 +263,7 @@ class MetaType extends AbstractType
                     $metaData['custom'] ?? null,
                     SEOFollow::fromString((string) $metaData['SEOFollow']),
                     SEOIndex::fromString((string) $metaData['SEOIndex']),
-                    [],
+                    null,
                     $metaId
                 );
             }
