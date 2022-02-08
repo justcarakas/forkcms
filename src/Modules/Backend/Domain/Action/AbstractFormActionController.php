@@ -7,6 +7,7 @@ use ForkCMS\Core\Domain\Form\DeleteType;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Core\Domain\Header\Header;
 use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -28,6 +30,7 @@ abstract class AbstractFormActionController extends AbstractActionController
         RouterInterface $router,
         protected FormFactoryInterface $formFactory,
         protected MessageBusInterface $commandBus,
+        protected EventDispatcher $eventDispatcher,
     ) {
         parent::__construct($dataGridFactory, $entityManager, $twig, $translator, $header, $router);
     }
@@ -46,7 +49,8 @@ abstract class AbstractFormActionController extends AbstractActionController
     /**
      * @param null|callable(FormInterface): Response|FormInterface|null $defaultCallback
      * @param null|callable(FormInterface): Response|FormInterface|null $validCallback
-     * @param null|callable(object): FlashMessage $flashMessageCallback
+     * @param null|callable(FormInterface): FlashMessage $flashMessageCallback
+     * @param null|callable(FormInterface): Event $eventCallback
      */
     protected function handleForm(
         Request $request,
@@ -55,9 +59,10 @@ abstract class AbstractFormActionController extends AbstractActionController
         FlashMessage $flashMessage = null,
         ?RedirectResponse $redirectResponse = null,
         array $formOptions = [],
-        callable $defaultCallback = null,
-        callable $validCallback = null,
-        callable $flashMessageCallback = null,
+        ?callable $defaultCallback = null,
+        ?callable $validCallback = null,
+        ?callable $flashMessageCallback = null,
+        ?callable $eventCallback = null,
     ): Response|FormInterface|null {
         $defaultCallback ??= function (FormInterface $form): ?FormInterface {
             $this->assign('backend_form', $form->createView());
@@ -78,7 +83,10 @@ abstract class AbstractFormActionController extends AbstractActionController
             if ($flashMessage instanceof FlashMessage) {
                 $this->header->addFlashMessage($flashMessage);
             } elseif (is_callable($flashMessageCallback)) {
-                $this->header->addFlashMessage($flashMessageCallback($form->getData()));
+                $this->header->addFlashMessage($flashMessageCallback($form));
+            }
+            if (is_callable($eventCallback)) {
+                $this->eventDispatcher->dispatch($eventCallback($form));
             }
 
             return $response;
