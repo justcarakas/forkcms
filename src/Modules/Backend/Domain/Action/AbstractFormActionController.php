@@ -7,7 +7,7 @@ use ForkCMS\Core\Domain\Form\DeleteType;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Core\Domain\Header\Header;
 use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -30,7 +30,7 @@ abstract class AbstractFormActionController extends AbstractActionController
         RouterInterface $router,
         protected FormFactoryInterface $formFactory,
         protected MessageBusInterface $commandBus,
-        protected EventDispatcher $eventDispatcher,
+        protected EventDispatcherInterface $eventDispatcher,
     ) {
         parent::__construct($dataGridFactory, $entityManager, $twig, $translator, $header, $router);
     }

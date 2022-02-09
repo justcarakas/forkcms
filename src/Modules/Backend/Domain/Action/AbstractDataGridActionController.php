@@ -6,7 +6,7 @@ abstract class AbstractDataGridActionController extends AbstractActionController
 {
     public function renderDataGrid(
         string $entityFullyQualifiedClassName,
-        callable $queryBuilderCallback,
+        ?callable $queryBuilderCallback = null,
     ): void {
         $this->assign(
             'backend_data_grid',
