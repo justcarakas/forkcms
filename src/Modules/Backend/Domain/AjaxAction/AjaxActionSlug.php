@@ -122,7 +122,7 @@ final class AjaxActionSlug implements Stringable
 
     public function getTranslationDomain(): TranslationDomain
     {
-        return new TranslationDomain(Application::backend(), $this->moduleName);
+        return new TranslationDomain(Application::BACKEND, $this->moduleName);
     }
 
     public function generateRoute(

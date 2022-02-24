@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use ForkCMS\Core\Domain\PDO\ForkConnection;
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
+use PDOException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class InstalledModules
@@ -31,7 +32,11 @@ final class InstalledModules
             return InstallerConfiguration::fromCache()->getModules() ?? [];
         }
 
-        return ForkConnection::get()->getInstalledModules();
+        try {
+            return ForkConnection::get()->getInstalledModules();
+        } catch (PDOException) {
+            return InstallerConfiguration::fromCache()->getModules() ?? [];
+        }
     }
 
     public static function setModulesToInstall(ModuleName ...$modulesToInstall): void

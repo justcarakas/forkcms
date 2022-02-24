@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
-final class Kernel extends BaseKernel
+class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
@@ -39,7 +39,7 @@ final class Kernel extends BaseKernel
         return $this->isInstalled || !str_ends_with($this->environment, 'install');
     }
 
-    protected function configureContainer(ContainerConfigurator $container): void
+    final protected function configureContainer(ContainerConfigurator $container): void
     {
         if ($this->isInstalled()) {
             $this->configureLiveContainer($container);
@@ -50,7 +50,7 @@ final class Kernel extends BaseKernel
         $this->configureInstallerContainer($container);
     }
 
-    protected function buildContainer(): ContainerBuilder
+    final protected function buildContainer(): ContainerBuilder
     {
         $container = parent::buildContainer();
 
@@ -61,7 +61,7 @@ final class Kernel extends BaseKernel
         return $container;
     }
 
-    protected function configureRoutes(RoutingConfigurator $routes): void
+    final protected function configureRoutes(RoutingConfigurator $routes): void
     {
         if ($this->isInstalled()) {
             $this->configureLiveRoutes($routes);
@@ -131,19 +131,17 @@ final class Kernel extends BaseKernel
         $routes->import(self::ROOT_DIR . 'config/{routes}/install/*.yaml');
     }
 
-    public function getContainerClass(): string
+    protected function getInstalledModules(ContainerBuilder $container): array
     {
-        return parent::getContainerClass();
+        return InstalledModules::fromContainer($container)();
     }
 
     private function registerModuleExtensions(ContainerBuilder $container): void
     {
         $filesystem = new Filesystem();
-        $installedModules = InstalledModules::fromContainer($container);
-
-        foreach ($installedModules() as $module) {
+        foreach ($this->getInstalledModules($container) as $module) {
             $finder = new Finder();
-            $moduleDirectory = $container->getParameter('kernel.project_dir') . '/src/Modules/' . $module;
+            $moduleDirectory = self::ROOT_DIR . '/src/Modules/' . $module;
 
             if (!$filesystem->exists($moduleDirectory)) {
                 continue;
@@ -204,5 +202,10 @@ final class Kernel extends BaseKernel
         $container->getCompilerPassConfig()->setMergePass(
             new MergeExtensionConfigurationPass(array_keys($container->getExtensions()))
         );
+    }
+
+    final public function getContainerClass(): string
+    {
+        return parent::getContainerClass();
     }
 }

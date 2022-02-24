@@ -3,62 +3,25 @@
 namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
 use Locale as IntlLocale;
-use Serializable;
-use Spatie\Enum\Enum;
-use Stringable;
 
-/**
- * @method static self en()
- * @method static self zh()
- * @method static self nl()
- * @method static self fr()
- * @method static self de()
- * @method static self el()
- * @method static self hu()
- * @method static self it()
- * @method static self lt()
- * @method static self ru()
- * @method static self es()
- * @method static self sv()
- * @method static self uk()
- * @method static self pl()
- * @method static self pt()
- * @method static self tr()
- */
-final class Locale extends Enum implements Serializable, Stringable
+enum Locale: string
 {
-    /** @return array<string, string> */
-    protected static function labels(): array
-    {
-        return [
-            'en' => 'English',
-            'zh' => 'Chinese',
-            'nl' => 'Dutch',
-            'fr' => 'French',
-            'de' => 'German',
-            'el' => 'Greek',
-            'hu' => 'Hungarian',
-            'it' => 'Italian',
-            'lt' => 'Lithuanian',
-            'ru' => 'Russian',
-            'es' => 'Spanish',
-            'sv' => 'Swedish',
-            'uk' => 'Ukrainian',
-            'pl' => 'Polish',
-            'pt' => 'Portuguese',
-            'tr' => 'Turkish',
-        ];
-    }
-
-    public function serialize(): string
-    {
-        return $this->value;
-    }
-
-    public function unserialize($data): void
-    {
-        $this->value = self::from($data)->value;
-    }
+    case English = 'en';
+    case Chinese = 'zh';
+    case Dutch = 'nl';
+    case French = 'fr';
+    case German = 'de';
+    case Greek = 'el';
+    case Hungarian = 'hu';
+    case Italian = 'it';
+    case Lithuanian = 'lt';
+    case Russian = 'ru';
+    case Spanish = 'es';
+    case Swedish = 'sv';
+    case Ukrainian = 'uk';
+    case Polish = 'pl';
+    case Portuguese = 'pt';
+    case Turkish = 'tr';
 
     public function asTranslatable(): string
     {
@@ -67,7 +30,7 @@ final class Locale extends Enum implements Serializable, Stringable
 
     public static function fallback(): self
     {
-        return self::en();
+        return self::English;
     }
 
     public static function default(): self

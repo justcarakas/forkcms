@@ -44,13 +44,13 @@ final class Importer
             $locale = $translation->getLocale()->value;
             if (
                 ($moduleName instanceof ModuleName && !array_key_exists($moduleName->getName(), $modules))
-                || ($specificLocale !== null && !$specificLocale->equals($translation->getLocale()))
+                || ($specificLocale !== null && $specificLocale !== $translation->getLocale())
                 || (
                     $locale !== $fallbackLocale
                     && (
                         !array_key_exists($locale, $locales)
-                        || ($application->equals(Application::frontend()) && !$locales[$locale]->isEnabledForWebsite())
-                        || ($application->equals(Application::backend()) && !$locales[$locale]->isEnabledForUser())
+                        || ($application === Application::FRONTEND && !$locales[$locale]->isEnabledForWebsite())
+                        || ($application === Application::BACKEND && !$locales[$locale]->isEnabledForUser())
                     )
                 )
             ) {

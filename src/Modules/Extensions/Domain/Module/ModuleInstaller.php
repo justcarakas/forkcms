@@ -15,6 +15,7 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupRepository;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use ForkCMS\Modules\Backend\Installer\BackendInstaller;
 use ForkCMS\Modules\Extensions\Installer\ExtensionsInstaller;
+use ForkCMS\Modules\Frontend\Installer\FrontendInstaller;
 use ForkCMS\Modules\Internationalisation\Domain\Importer\Importer;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
@@ -105,6 +106,12 @@ abstract class ModuleInstaller
             return $this->defaultModuleDependencies;
         }
         $this->defaultModuleDependencies[$backendInstaller->getName()] = $backendInstaller;
+
+        $frontendInstaller = FrontendInstaller::getModuleName();
+        if ($frontendInstaller === static::getModuleName()) {
+            return $this->defaultModuleDependencies;
+        }
+        $this->defaultModuleDependencies[$frontendInstaller->getName()] = $frontendInstaller;
 
         $internationalisationInstaller = InternationalisationInstaller::getModuleName();
         if ($internationalisationInstaller === static::getModuleName()) {

@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
-use TypeError;
+use ValueError;
 
 /** This class will make sure that the domain is set correctly */
 final class ForkTranslator extends Translator
@@ -54,7 +54,7 @@ final class ForkTranslator extends Translator
                     'backend',
                     'backend_login' => ActionSlug::fromRequest($mainRequest)->getTranslationDomain(),
                     'backend_ajax' => AjaxActionSlug::fromRequest($mainRequest)->getTranslationDomain(),
-                    default => new TranslationDomain(Application::frontend()),
+                    default => new TranslationDomain(Application::FRONTEND),
                 };
             }
         }
@@ -69,7 +69,7 @@ final class ForkTranslator extends Translator
 
         try {
             $fallbackDomain = TranslationDomain::fromDomain($domain)->getFallback();
-        } catch (TypeError | InvalidArgumentException | BadMethodCallException) {
+        } catch (ValueError | InvalidArgumentException | BadMethodCallException) {
             // Not a fork translation domain or no fallback available
             return $translated;
         }

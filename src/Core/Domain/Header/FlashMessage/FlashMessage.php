@@ -26,13 +26,13 @@ final class FlashMessage
     {
         return new self(
             TranslationKey::message($successMessage)->withParameters($parameters),
-            FlashMessageType::success()
+            FlashMessageType::SUCCESS
         );
     }
 
     public static function info(string $infoMessage, array $parameters = []): self
     {
-        return new self(TranslationKey::message($infoMessage)->withParameters($parameters), FlashMessageType::info());
+        return new self(TranslationKey::message($infoMessage)->withParameters($parameters), FlashMessageType::INFO);
     }
 
     /**
@@ -41,13 +41,13 @@ final class FlashMessage
     public static function warning(string $warningMessage, array $parameters = [], Type $translationType = null): self
     {
         return new self(
-            TranslationKey::forType($translationType ?? Type::error(), $warningMessage)->withParameters($parameters),
-            FlashMessageType::warning()
+            TranslationKey::forType($translationType ?? Type::err, $warningMessage)->withParameters($parameters),
+            FlashMessageType::WARNING
         );
     }
 
     public static function error(string $errorMessage, array $parameters = []): self
     {
-        return new self(TranslationKey::error($errorMessage)->withParameters($parameters), FlashMessageType::error());
+        return new self(TranslationKey::error($errorMessage)->withParameters($parameters), FlashMessageType::ERROR);
     }
 }

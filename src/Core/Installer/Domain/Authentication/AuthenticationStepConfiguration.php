@@ -100,7 +100,7 @@ final class AuthenticationStepConfiguration implements InstallerStepConfiguratio
 
     public static function getStep(): InstallerStep
     {
-        return InstallerStep::authentication();
+        return InstallerStep::authentication;
     }
 
     public function normalise(): void

@@ -2,17 +2,16 @@
 
 namespace ForkCMS\Core\Domain\Doctrine;
 
+use BackedEnum;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
-use InvalidArgumentException;
 use Stringable;
-use Symfony\Component\DependencyInjection\Container;
 
 abstract class ValueObjectDBALType extends StringType
 {
     use ForkDBALTypeName;
 
-    final public function convertToPHPValue($value, AbstractPlatform $platform): ?Stringable
+    final public function convertToPHPValue($value, AbstractPlatform $platform): null|Stringable|BackedEnum
     {
         if ($value === null) {
             return null;
@@ -30,10 +29,14 @@ abstract class ValueObjectDBALType extends StringType
         return $this->toString($value);
     }
 
-    abstract protected function fromString(string $value): Stringable;
+    abstract protected function fromString(string $value): null|Stringable|BackedEnum;
 
-    protected function toString(Stringable $value): string
+    protected function toString(Stringable|BackedEnum $value): string
     {
-        return (string) $value;
+        if ($value instanceof Stringable) {
+            return (string) $value;
+        }
+
+        return $value->value;
     }
 }

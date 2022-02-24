@@ -25,7 +25,7 @@ class Translation
     #[ORM\Embedded(class: TranslationKey::class)]
     private TranslationKey $key;
 
-    #[ORM\Column(type: 'modules__internationalisation__locale__locale')]
+    #[ORM\Column(type: Types::STRING, length: 5, enumType: Locale::class)]
     private Locale $locale;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -41,7 +41,7 @@ class Translation
         string $value,
         string $source = null,
     ) {
-        $this->id = md5(implode('$', [$domain, $locale, $key]));
+        $this->id = md5(implode('$', [$domain, $locale->value, $key]));
         $this->domain = $domain;
         $this->key = $key;
         $this->locale = $locale;

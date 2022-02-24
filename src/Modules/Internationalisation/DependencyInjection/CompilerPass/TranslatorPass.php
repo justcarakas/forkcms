@@ -74,12 +74,14 @@ final class TranslatorPass implements CompilerPassInterface
     private function getDatabaseLocales(ContainerBuilder $container): array
     {
         if (!$container->getParameter('fork.is_installed')) {
-            $locales[Locale::en()->value] = true;
-
-            return $locales;
+            return [Locale::English->name => true];
         }
 
-        return ForkConnection::get()->getEnabledLocales();
+        try {
+            return ForkConnection::get()->getEnabledLocales();
+        } catch (\PDOException $e) {
+            return [Locale::English->name => true];
+        }
     }
 
     public function getPriority(): int

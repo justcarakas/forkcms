@@ -15,7 +15,7 @@ class InstalledLocale
     use Blameable;
 
     #[ORM\Id]
-    #[ORM\Column(type: 'modules__internationalisation__locale__locale')]
+    #[ORM\Column(type: Types::STRING, length: 5, enumType: Locale::class)]
     private Locale $locale;
 
     #[ORM\Column(type: Types::BOOLEAN)]

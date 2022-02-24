@@ -12,7 +12,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[ORM\Embeddable]
 class TranslationKey implements TranslatableInterface
 {
-    #[ORM\Column(type: 'modules__internationalisation__translation__type')]
+    #[ORM\Column(type: Types::STRING, length: 10, enumType: Type::class)]
     private Type $type;
 
     #[ORM\Column(type:Types::STRING)]
@@ -34,22 +34,22 @@ class TranslationKey implements TranslatableInterface
 
     public static function label(string $name): self
     {
-        return new self(Type::label(), $name);
+        return new self(Type::lbl, $name);
     }
 
     public static function message(string $name): self
     {
-        return new self(Type::message(), $name);
+        return new self(Type::msg, $name);
     }
 
     public static function error(string $name): self
     {
-        return new self(Type::error(), $name);
+        return new self(Type::err, $name);
     }
 
     public static function slug(string $name): self
     {
-        return new self(Type::slug(), $name);
+        return new self(Type::slg, $name);
     }
 
     public function getType(): Type

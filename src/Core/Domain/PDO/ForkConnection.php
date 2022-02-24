@@ -4,6 +4,8 @@ namespace ForkCMS\Core\Domain\PDO;
 
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use PDO;
+use PDOException;
+use PDOStatement;
 use RuntimeException;
 
 /**
@@ -11,25 +13,28 @@ use RuntimeException;
  */
 final class ForkConnection extends PDO
 {
-    private static ?self $instance = null;
+    /** @var self[] */
+    private static array $instances = [];
 
-    public static function get(): self
+    public static function get(string $environment = 'prod'): self
     {
-        if (!self::$instance instanceof self) {
-            self::$instance = new self(
-                sprintf(
-                    '%1$s:host=%2$s;port=%3$s;dbname=%4$s',
-                    $_ENV['FORK_DATABASE_DRIVER'],
-                    $_ENV['FORK_DATABASE_HOST'],
-                    $_ENV['FORK_DATABASE_PORT'],
-                    $_ENV['FORK_DATABASE_NAME'],
-                ),
+        $dsn = sprintf(
+            '%1$s:host=%2$s;port=%3$s;dbname=%4$s',
+            $_ENV['FORK_DATABASE_DRIVER'],
+            $_ENV['FORK_DATABASE_HOST'],
+            $_ENV['FORK_DATABASE_PORT'],
+            $_ENV['FORK_DATABASE_NAME'],
+        );
+
+        if (!(self::$instances[$environment] ?? null) instanceof self) {
+            self::$instances[$environment] = new self(
+                $dsn,
                 $_ENV['FORK_DATABASE_USER'],
                 $_ENV['FORK_DATABASE_PASSWORD']
             );
         }
 
-        return self::$instance;
+        return self::$instances[$environment];
     }
 
     /** @return ModuleName[] */
@@ -86,5 +91,29 @@ final class ForkConnection extends PDO
         $query->closeCursor();
 
         return $tables;
+    }
+
+    public static function testConnection(
+        string $driver,
+        string $host,
+        int $port,
+        string $database,
+        string $user,
+        string $password
+    ): bool {
+        try {
+            $connection = new self(
+                sprintf('%1$s:host=%2$s;port=%3$d;dbname=%4$s', $driver, $host, $port, $database),
+                $user,
+                $password
+            );
+            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $tableName = 'test' . str_replace('.', '', microtime(true));
+            return $connection->query('DROP TABLE IF EXISTS ' . $tableName) instanceof PDOStatement
+                && $connection->query('CREATE TABLE ' . $tableName . ' (id int(11) NOT NULL)') instanceof PDOStatement
+                && $connection->query('DROP TABLE ' . $tableName) instanceof PDOStatement;
+        } catch (PDOException) {
+            return false;
+        }
     }
 }

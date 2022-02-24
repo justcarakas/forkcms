@@ -27,11 +27,11 @@ final class XmlImporter implements ImporterInterface
         $xmlData = $xmlDecoder->decode($translationFile->getContent(), 'xml');
 
         foreach ($xmlData as $application => $modules) {
-            $application = Application::from($application);
+            $application = Application::from(strtolower($application));
             if (array_key_exists('item', $modules)) {
                 yield from $this->makeTranslations(
                     $modules['item'],
-                    TranslationDomain::fromDomain($application),
+                    TranslationDomain::fromDomain($application->value),
                     $source
                 );
                 unset($modules['item']);

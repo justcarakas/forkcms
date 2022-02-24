@@ -2,10 +2,11 @@
 
 namespace ForkCMS\Core\Installer\Domain\Database;
 
+use Doctrine\DBAL\Connection;
+use ForkCMS\Core\Domain\PDO\ForkConnection;
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
-use SpoonDatabase;
 use Symfony\Component\Validator\Constraints as Assert;
 use Throwable;
 
@@ -86,35 +87,18 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
 
     public function canConnectToDatabase(): bool
     {
-        try {
-            $database = new SpoonDatabase(
-                'mysql',
-                $this->databaseHostname,
-                $this->databaseUsername,
-                $this->databasePassword,
-                $this->databaseName,
-                $this->databasePort
-            );
-
-            $tableName = 'test' . time();
-
-            // attempt to create table
-            $database->execute('DROP TABLE IF EXISTS ' . $tableName);
-            $database->execute(
-                'CREATE TABLE ' . $tableName . ' (id int(11) NOT NULL) ENGINE=MyISAM'
-            );
-
-            // drop table
-            $database->drop($tableName);
-        } catch (Throwable) {
-            return false;
-        }
-
-        return true;
+        return ForkConnection::testConnection(
+            'mysql',
+            $this->databaseHostname,
+            $this->databasePort,
+            $this->databaseName,
+            $this->databaseUsername,
+            $this->databasePassword
+        );
     }
 
     public static function getStep(): InstallerStep
     {
-        return InstallerStep::database();
+        return InstallerStep::database;
     }
 }

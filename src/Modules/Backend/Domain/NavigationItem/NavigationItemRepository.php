@@ -53,7 +53,7 @@ final class NavigationItemRepository extends ServiceEntityRepository
     ): ?NavigationItem {
         return $this->findOneBy(
             [
-                'label.type' => $label->getType(),
+                'label.type' => $label->getType()->value,
                 'label.name' => $label->getName(),
                 'slug' => $slug,
                 'parent' => $parent,

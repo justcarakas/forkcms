@@ -2,36 +2,14 @@
 
 namespace ForkCMS\Core\Installer\Domain\Installer;
 
-use Spatie\Enum\Enum;
-
-/**
- * @method static self requirements()
- * @method static self locales()
- * @method static self modules()
- * @method static self database()
- * @method static self authentication()
- * @method static self install()
- */
-final class InstallerStep extends Enum
+enum InstallerStep: int
 {
-    /** @return array<string, int> */
-    protected static function values(): array
-    {
-        return [
-            'requirements' => 1,
-            'locales' => 2,
-            'modules' => 3,
-            'database' => 4,
-            'authentication' => 5,
-            'install' => 6,
-        ];
-    }
-
-    /** @return array<string, int> */
-    protected static function labels(): array
-    {
-        return self::values();
-    }
+    case requirements = 1;
+    case locales = 2;
+    case modules = 3;
+    case database = 4;
+    case authentication = 5;
+    case install = 6;
 
     public function next(): self
     {
