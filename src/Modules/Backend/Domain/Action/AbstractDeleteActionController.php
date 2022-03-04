@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
-use ForkCMS\Core\Domain\Form\DeleteType;
+use ForkCMS\Core\Domain\Form\ActionType;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use RuntimeException;
 use Symfony\Component\Form\FormInterface;
@@ -14,10 +14,10 @@ abstract class AbstractDeleteActionController extends AbstractFormActionControll
     protected function handleDeleteForm(Request $request, string $deleteCommandFullyQualifiedClassName, ActionSlug $redirectActionSlug): RedirectResponse
     {
         $response = $this->handleForm(
-            request: $request,
-            formType: DeleteType::class,
+            request:      $request,
+            formType:     ActionType::class,
             flashMessage: FlashMessage::success('Deleted'),
-            formOptions: ['actionSlug' => self::getActionSlug()],
+            formOptions:  ['actionSlug' => self::getActionSlug()],
             defaultCallback: function () use ($redirectActionSlug): RedirectResponse {
                 $this->header->addFlashMessage(FlashMessage::error('NotFound'));
 

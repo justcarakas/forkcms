@@ -3,13 +3,16 @@
   <name>Fork</name>
   <version>1.0.0</version>
   <requirements>
-    <minimum_version>5.0.0</minimum_version>
+    <minimum_version>6.0.0</minimum_version>
+    <maximum_version>6.0.0</maximum_version>
   </requirements>
   <thumbnail>thumbnail.png</thumbnail>
   <description>
-    <![CDATA[Fork theme]]>
+    <![CDATA[Fork theme
+<b>Test multiline</b>
+]]>
   </description>
-  <metanavigation supported="false" />
+  <meta_navigation supported="false" />
   <templates>
     <template label="Home" path="Core/Layout/Templates/Home.html.twig" image="true">
       <positions>
