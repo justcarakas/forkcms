@@ -6,8 +6,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
 use ForkCMS\Core\Domain\Header\Header;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -26,6 +29,9 @@ abstract class AbstractActionController implements ActionControllerInterface
         protected TranslatorInterface $translator,
         protected Header $header,
         protected RouterInterface $router,
+        protected FormFactoryInterface $formFactory,
+        protected MessageBusInterface $commandBus,
+        protected EventDispatcherInterface $eventDispatcher,
     ) {
         $actionSlug = self::getActionSlug();
         $this->templatePath = sprintf(

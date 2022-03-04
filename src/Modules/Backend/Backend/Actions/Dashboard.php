@@ -9,7 +9,10 @@ use ForkCMS\Modules\Backend\Domain\Dashboard\Widget;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
 use Symfony\Component\DependencyInjection\ServiceLocator;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -24,10 +27,13 @@ final class Dashboard extends AbstractActionController
         TranslatorInterface $translator,
         Header $header,
         RouterInterface $router,
+        FormFactoryInterface $formFactory,
+        MessageBusInterface $commandBus,
+        EventDispatcherInterface $eventDispatcher,
         private ServiceLocator $backendDashboardWidgets,
         private AuthorizationCheckerInterface $authorizationChecker,
     ) {
-        parent::__construct($dataGridFactory, $entityManager, $twig, $translator, $header, $router);
+        parent::__construct(...func_get_args());
     }
 
     protected function execute(Request $request): void
