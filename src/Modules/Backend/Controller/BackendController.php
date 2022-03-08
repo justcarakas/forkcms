@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Backend\Controller;
 
+use ForkCMS\Modules\Backend\Backend\Actions\NotFound;
 use ForkCMS\Modules\Backend\Domain\Action\ActionControllerInterface;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\Navigation\Navigation;
@@ -11,6 +12,7 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Twig\Environment;
 
 final class BackendController
@@ -34,7 +36,11 @@ final class BackendController
 
         $this->configureTwigForAction($request, $actionSlug);
 
-        return $action($request);
+        try {
+            return $action($request);
+        } catch (NotFoundHttpException) {
+            return $this->actions->get(NotFound::class)($request);
+        }
     }
 
     private function configureTwigForAction(Request $request, ActionSlug $actionSlug): void
