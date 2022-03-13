@@ -28,15 +28,27 @@
 
   .content-block {
     &.content-block-p {
-      padding: 40px 0;
+      padding: 20px 0;
+
+      &:last-of-type {
+        padding: 40px 0;
+      }
     }
 
     &.content-block-pt {
-      padding: 40px 0 0;
+      padding: 20px 0 0;
+
+      &:last-of-type {
+        padding: 40px 0 0;
+      }
     }
 
     &.content-block-pb {
-      padding: 0 0 40px;
+      padding: 0 0 20px;
+
+      &:last-of-type {
+        padding: 0 0 40px;
+      }
     }
   }
 }
