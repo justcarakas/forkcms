@@ -1,4 +1,4 @@
-import { UrlUtil } from './UrlUtil'
+import { UrlUtil } from '../../Components/UrlUtil'
 
 export class Effects {
   constructor () {

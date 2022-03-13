@@ -17,7 +17,7 @@ webpack_encore:
   builds:
     backendConfig: '%kernel.project_dir%/public/build/backend'
     frontendConfig: '%kernel.project_dir%/public/build/frontend'
-    frontendThemeConfig: '%kernel.project_dir%/src/Frontend/Themes/%env(resolve:FORK_CMS_THEME)%/Core/build'
+    frontendThemeConfig: '%kernel.project_dir%/public/build/theme'
   # pass "frontend" as the 3rg arg to the Twig functions
   # {{ encore_entry_script_tags('entry1', null, 'frontend') }}
 

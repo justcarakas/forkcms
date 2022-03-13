@@ -2,8 +2,8 @@
 import 'bootstrap'
 
 // component imports
-import { Components } from '../../../../Core/Js/Components'
-import { Modules } from '../../../../Core/Js/Modules'
+import { Components } from '../../../../Core/assets/js/Frontend/Components'
+import { Modules } from '../../../../Core/assets/js/Frontend/Modules'
 
 export class Index {
   initFrontend () {

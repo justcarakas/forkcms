@@ -7,3 +7,6 @@ services:
     resource: '../Domain/*'
     exclude:
       - '../Domain/Module/InstalledModules'
+
+  ForkCMS\Modules\Extensions\Console\:
+    resource: '../Console/*'
