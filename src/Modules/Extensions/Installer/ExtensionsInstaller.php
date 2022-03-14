@@ -2,8 +2,25 @@
 
 namespace ForkCMS\Modules\Extensions\Installer;
 
+use ForkCMS\Modules\Extensions\Backend\Actions\ModuleDetail;
+use ForkCMS\Modules\Extensions\Backend\Actions\ModuleIndex;
+use ForkCMS\Modules\Extensions\Backend\Actions\ModuleInstall;
+use ForkCMS\Modules\Extensions\Backend\Actions\ThemeDelete;
+use ForkCMS\Modules\Extensions\Backend\Actions\ThemeDetail;
+use ForkCMS\Modules\Extensions\Backend\Actions\ThemeEdit;
+use ForkCMS\Modules\Extensions\Backend\Actions\ThemeIndex;
+use ForkCMS\Modules\Extensions\Backend\Actions\ThemeInstall;
+use ForkCMS\Modules\Extensions\Backend\Actions\ThemeTemplateAdd;
+use ForkCMS\Modules\Extensions\Backend\Actions\ThemeTemplateDelete;
+use ForkCMS\Modules\Extensions\Backend\Actions\ThemeTemplateEdit;
+use ForkCMS\Modules\Extensions\Backend\Actions\ThemeTemplateIndex;
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
+use ForkCMS\Modules\Extensions\Domain\Theme\Command\InstallTheme;
+use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
+use ForkCMS\Modules\Extensions\Domain\Theme\ThemeRepository;
+use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 
 final class ExtensionsInstaller extends ModuleInstaller
 {
@@ -13,11 +30,50 @@ final class ExtensionsInstaller extends ModuleInstaller
     {
         $this->createTableForEntities(
             Module::class,
+            Theme::class,
+            ThemeTemplate::class
         );
     }
 
     public function install(): void
     {
-        throw new \RuntimeException('Not implemented yet');
+        $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');
+
+        $this->getOrCreateBackendNavigationItem(
+            TranslationKey::label('Modules'),
+            ModuleIndex::getActionSlug(),
+            $this->getSettingsNavigationItem(),
+            [
+                ModuleDetail::getActionSlug(),
+                ModuleInstall::getActionSlug(),
+            ]
+        );
+        $themeSettings = $this->getOrCreateBackendNavigationItem(
+            TranslationKey::label('Themes'),
+            ThemeIndex::getActionSlug(),
+            $this->getSettingsNavigationItem(),
+        );
+        $this->getOrCreateBackendNavigationItem(
+            TranslationKey::label('ThemeSelection'),
+            ThemeIndex::getActionSlug(),
+            $themeSettings,
+            [
+                ThemeDetail::getActionSlug(),
+                ThemeInstall::getActionSlug(),
+            ]
+        );
+        $this->getOrCreateBackendNavigationItem(
+            TranslationKey::label('ThemeTemplates'),
+            ThemeTemplateIndex::getActionSlug(),
+            $themeSettings,
+            [
+                ThemeTemplateAdd::getActionSlug(),
+                ThemeTemplateEdit::getActionSlug(),
+                ThemeTemplateDelete::getActionSlug(),
+            ]
+        );
+        $this->dispatchCommand(
+            new InstallTheme($this->getRepository(Theme::class)->findInstallable()[$_ENV['FORK_INSTALLER_THEME']])
+        );
     }
 }

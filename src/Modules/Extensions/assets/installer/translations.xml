@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+  <Backend>
+    <item type="label" name="Themes">
+      <translation locale="nl"><![CDATA[thema's]]></translation>
+      <translation locale="en"><![CDATA[themes]]></translation>
+      <translation locale="hu"><![CDATA[témák]]></translation>
+      <translation locale="ru"><![CDATA[Оформление]]></translation>
+      <translation locale="it"><![CDATA[temi]]></translation>
+      <translation locale="zh"><![CDATA[主题]]></translation>
+      <translation locale="de"><![CDATA[Themes]]></translation>
+      <translation locale="fr"><![CDATA[thèmes]]></translation>
+      <translation locale="es"><![CDATA[temas]]></translation>
+      <translation locale="lt"><![CDATA[šablonai]]></translation>
+      <translation locale="uk"><![CDATA[Теми]]></translation>
+      <translation locale="sv"><![CDATA[teman]]></translation>
+      <translation locale="el"><![CDATA[θέματα]]></translation>
+      <translation locale="tr"><![CDATA[temalar]]></translation>
+      <translation locale="pl"><![CDATA[szablony]]></translation>
+      <translation locale="pt"><![CDATA[temas]]></translation>
+      <translation locale="pl"><![CDATA[motywy]]></translation>
+    </item>
+    <item type="label" name="Extensions">
+      <translation locale="nl"><![CDATA[extensions]]></translation>
+      <translation locale="en"><![CDATA[extensions]]></translation>
+      <translation locale="ru"><![CDATA[расширения]]></translation>
+      <translation locale="es"><![CDATA[extensiones]]></translation>
+      <translation locale="de"><![CDATA[Erweiterungen]]></translation>
+      <translation locale="lt"><![CDATA[plėtiniai]]></translation>
+      <translation locale="uk"><![CDATA[Розширення]]></translation>
+      <translation locale="hu"><![CDATA[kiegészítők]]></translation>
+      <translation locale="sv"><![CDATA[tillägg]]></translation>
+      <translation locale="el"><![CDATA[επεκτάσεις]]></translation>
+      <translation locale="zh"><![CDATA[扩展插件]]></translation>
+      <translation locale="pt"><![CDATA[extensões]]></translation>
+      <translation locale="pl"><![CDATA[rozszerzenia]]></translation>
+    </item>
+    <Extensions>
+      <item type="label" name="ThemeSelection">
+        <translation locale="nl"><![CDATA[thema-keuze]]></translation>
+        <translation locale="en"><![CDATA[theme selection]]></translation>
+        <translation locale="hu"><![CDATA[téma választó]]></translation>
+        <translation locale="it"><![CDATA[scelta tema]]></translation>
+        <translation locale="ru"><![CDATA[Выбор оформления]]></translation>
+        <translation locale="zh"><![CDATA[选择主题]]></translation>
+        <translation locale="de"><![CDATA[Theme-Auswahl]]></translation>
+        <translation locale="fr"><![CDATA[sélection de thème]]></translation>
+        <translation locale="es"><![CDATA[selección de tema]]></translation>
+        <translation locale="lt"><![CDATA[šablono pasirinkimas]]></translation>
+        <translation locale="uk"><![CDATA[Вибір оформлення]]></translation>
+        <translation locale="sv"><![CDATA[välj tema]]></translation>
+        <translation locale="el"><![CDATA[επιλογή θέματος]]></translation>
+        <translation locale="tr"><![CDATA[tema şeçimi]]></translation>
+        <translation locale="pl"><![CDATA[wybór szablonu]]></translation>
+        <translation locale="pt"><![CDATA[selecção de temas]]></translation>
+        <translation locale="pl"><![CDATA[wybór motywu]]></translation>
+      </item>
+      <item type="label" name="ThemeTemplates">
+        <translation locale="nl"><![CDATA[templates]]></translation>
+        <translation locale="en"><![CDATA[templates]]></translation>
+        <translation locale="hu"><![CDATA[sablonok]]></translation>
+        <translation locale="it"><![CDATA[template]]></translation>
+        <translation locale="ru"><![CDATA[Шаблоны]]></translation>
+        <translation locale="zh"><![CDATA[模板]]></translation>
+        <translation locale="de"><![CDATA[Templates]]></translation>
+        <translation locale="fr"><![CDATA[templates]]></translation>
+        <translation locale="es"><![CDATA[temas]]></translation>
+        <translation locale="lt"><![CDATA[šablonai]]></translation>
+        <translation locale="uk"><![CDATA[Шаблони]]></translation>
+        <translation locale="sv"><![CDATA[mallar]]></translation>
+        <translation locale="el"><![CDATA[πρότυπα]]></translation>
+        <translation locale="tr"><![CDATA[şablonlar]]></translation>
+        <translation locale="pt"><![CDATA[templates]]></translation>
+        <translation locale="pl"><![CDATA[szablony]]></translation>
+      </item>
+      <item type="label" name="Modules">
+        <translation locale="nl"><![CDATA[modules]]></translation>
+        <translation locale="en"><![CDATA[modules]]></translation>
+        <translation locale="hu"><![CDATA[modulok]]></translation>
+        <translation locale="it"><![CDATA[moduli]]></translation>
+        <translation locale="ru"><![CDATA[Модули]]></translation>
+        <translation locale="zh"><![CDATA[模块]]></translation>
+        <translation locale="de"><![CDATA[Module]]></translation>
+        <translation locale="fr"><![CDATA[modules]]></translation>
+        <translation locale="es"><![CDATA[módulos]]></translation>
+        <translation locale="lt"><![CDATA[moduliai]]></translation>
+        <translation locale="uk"><![CDATA[Модулі]]></translation>
+        <translation locale="sv"><![CDATA[moduler]]></translation>
+        <translation locale="el"><![CDATA[ενότητες]]></translation>
+        <translation locale="pt"><![CDATA[módulos]]></translation>
+        <translation locale="pl"><![CDATA[moduły]]></translation>
+      </item>
+      <item type="label" name="FindThemes">
+        <translation locale="nl"><![CDATA[vind thema's]]></translation>
+        <translation locale="en"><![CDATA[find themes]]></translation>
+        <translation locale="ru"><![CDATA[поиск тем оформления]]></translation>
+        <translation locale="es"><![CDATA[encontrar temas]]></translation>
+        <translation locale="de"><![CDATA[Themes finden]]></translation>
+        <translation locale="uk"><![CDATA[Знайти теми]]></translation>
+        <translation locale="hu"><![CDATA[sablonok keresése]]></translation>
+        <translation locale="sv"><![CDATA[hitta teman]]></translation>
+        <translation locale="lt"><![CDATA[ieškoti šablono]]></translation>
+        <translation locale="el"><![CDATA[Αναζήτηση θεμάτων]]></translation>
+        <translation locale="zh"><![CDATA[搜寻主题]]></translation>
+        <translation locale="pl"><![CDATA[znajdź motywy]]></translation>
+        <translation locale="pt"><![CDATA[pesquisar temas]]></translation>
+      </item>
+      <item type="label" name="Install">
+        <translation locale="nl"><![CDATA[installeer]]></translation>
+        <translation locale="en"><![CDATA[install]]></translation>
+        <translation locale="ru"><![CDATA[установить]]></translation>
+        <translation locale="es"><![CDATA[instalar]]></translation>
+        <translation locale="de"><![CDATA[installieren]]></translation>
+        <translation locale="uk"><![CDATA[Встановити]]></translation>
+        <translation locale="hu"><![CDATA[telepítés]]></translation>
+        <translation locale="sv"><![CDATA[installera]]></translation>
+        <translation locale="lt"><![CDATA[instaliuoti]]></translation>
+        <translation locale="el"><![CDATA[Εγκατάσταση]]></translation>
+        <translation locale="zh"><![CDATA[安装]]></translation>
+        <translation locale="pl"><![CDATA[zainstaluj]]></translation>
+        <translation locale="pt"><![CDATA[instalar]]></translation>
+      </item>
+      <item type="label" name="ThemeIndex">
+        <translation locale="nl"><![CDATA[thema's]]></translation>
+        <translation locale="en"><![CDATA[themes]]></translation>
+        <translation locale="hu"><![CDATA[témák]]></translation>
+        <translation locale="ru"><![CDATA[Оформление]]></translation>
+        <translation locale="it"><![CDATA[temi]]></translation>
+        <translation locale="zh"><![CDATA[主题]]></translation>
+        <translation locale="de"><![CDATA[Themes]]></translation>
+        <translation locale="fr"><![CDATA[thèmes]]></translation>
+        <translation locale="es"><![CDATA[temas]]></translation>
+        <translation locale="lt"><![CDATA[šablonai]]></translation>
+        <translation locale="uk"><![CDATA[Теми]]></translation>
+        <translation locale="sv"><![CDATA[teman]]></translation>
+        <translation locale="el"><![CDATA[θέματα]]></translation>
+        <translation locale="tr"><![CDATA[temalar]]></translation>
+        <translation locale="pl"><![CDATA[szablony]]></translation>
+        <translation locale="pt"><![CDATA[temas]]></translation>
+        <translation locale="pl"><![CDATA[motywy]]></translation>
+      </item>
+      <item type="label" name="ThemeDetail">
+        <translation locale="nl"><![CDATA[thema]]></translation>
+        <translation locale="en"><![CDATA[theme]]></translation>
+        <translation locale="ru"><![CDATA[тема]]></translation>
+        <translation locale="de"><![CDATA[Theme]]></translation>
+        <translation locale="es"><![CDATA[tema]]></translation>
+        <translation locale="uk"><![CDATA[Тема]]></translation>
+        <translation locale="hu"><![CDATA[sablon]]></translation>
+        <translation locale="sv"><![CDATA[teman]]></translation>
+        <translation locale="el"><![CDATA[Θέμα]]></translation>
+        <translation locale="zh"><![CDATA[主题]]></translation>
+        <translation locale="pl"><![CDATA[motyw]]></translation>
+        <translation locale="pt"><![CDATA[tema]]></translation>
+      </item>
+      <item type="label" name="InstallableThemes">
+        <translation locale="nl"><![CDATA[niet geïnstalleerde thema's']]></translation>
+        <translation locale="en"><![CDATA[not installed themes]]></translation>
+        <translation locale="ru"><![CDATA[Неустановленные темы оформления]]></translation>
+        <translation locale="es"><![CDATA[temas no instalados]]></translation>
+        <translation locale="de"><![CDATA[nicht installierte Themes]]></translation>
+        <translation locale="uk"><![CDATA[Немає встановлених тем]]></translation>
+        <translation locale="hu"><![CDATA[nincsen telepített sablonok]]></translation>
+        <translation locale="sv"><![CDATA[ej installerade teman]]></translation>
+        <translation locale="el"><![CDATA[Μη εγκατεστημένα θέματα]]></translation>
+        <translation locale="zh"><![CDATA[未安装主题]]></translation>
+        <translation locale="pl"><![CDATA[nie zainstalowane motywy]]></translation>
+        <translation locale="pt"><![CDATA[temas não instalados]]></translation>
+      </item>
+      <item type="message" name="ConfirmThemeInstall">
+        <translation locale="nl"><![CDATA[Ben je zeker dat je dit thema wil installeren?]]></translation>
+        <translation locale="en"><![CDATA[Are you sure you want to install this theme?]]></translation>
+        <translation locale="ru"><![CDATA[Вы действительно хотите установить эту тему?]]></translation>
+        <translation locale="es"><![CDATA[¿Estás seguro de instalar el tema "%1$s"?]]></translation>
+        <translation locale="de"><![CDATA[Möchtest du dieses Theme wirklich installieren?]]></translation>
+        <translation locale="hu"><![CDATA[Biztos telepíted a(z) "%1$s" sablont?]]></translation>
+        <translation locale="sv"><![CDATA[Är du säker du vill installera detta tema?]]></translation>
+        <translation locale="el"><![CDATA[Σίγουρα θέλετε να εγκαταστήσετε αυτό το θέμα;]]></translation>
+        <translation locale="zh"><![CDATA[你确定要安装这个主题？]]></translation>
+        <translation locale="pl"><![CDATA[Jesteś pewien że chcesz zainstalować motyw?]]></translation>
+        <translation locale="pt"><![CDATA[Tem a certeza que deseja instalar este tema?]]></translation>
+      </item>
+      <item type="error" name="InformationFileCouldNotBeLoaded">
+        <translation locale="nl"><![CDATA[Er is een info.xml bestand aanwezig maar we konden deze niet inladen. Controleer of deze een geldige XML syntax heeft.]]></translation>
+        <translation locale="en"><![CDATA[A info.xml file is present but it could not be loaded. Verify if the content is valid XML.]]></translation>
+        <translation locale="ru"><![CDATA[Файл info.xml присутствует, но не может быть загружен. Проверьте содержимое файла XML.]]></translation>
+        <translation locale="es"><![CDATA[Un archivo info.xml está presente pero no se ha podido cargar. Verifica si el contenido es XML válido.]]></translation>
+        <translation locale="de"><![CDATA[Eine info.xml Datei ist vorhanden, konnte aber nicht geladen werden. Überprüfe, dass es sich um eine gültige XML Datei handelt.]]></translation>
+        <translation locale="hu"><![CDATA[Az info.xml fájl létezik, de nem töltődött be. Ellenőrizd, hogy valid XML e a tartalom.]]></translation>
+        <translation locale="sv"><![CDATA[info.xml fil är finns men den kan inte laddas. Verifiera om innehållet är giltig XML.]]></translation>
+        <translation locale="zh"><![CDATA[info.xml文件已递交但它无法被加载。请确认它的内容是否是有效的XML。]]></translation>
+        <translation locale="el"><![CDATA[Βρέθηκε ένα αρχείο info.xml, αλλά δεν έγινε δυνατό να φορτωθεί. Επιβεβαιώστε οτι το περιεχόμενο είναι έγκυρο τύπου XML.]]></translation>
+        <translation locale="pl"><![CDATA[Dostępny jest plik info.xml, ale nie można go załadować. Sprawdź, czy ma poprawną składnię XML.]]></translation>
+        <translation locale="pt"><![CDATA[Foi encontrado um ficheiro info.xml, mas não foi possível carregá-lo. Verifique se o ficheiro contem XML válido.]]></translation>
+      </item>
+      <item type="error" name="InformationFileIsEmpty">
+        <translation locale="nl"><![CDATA[Er is een info.xml bestand aanwezig maar deze is leeg of deze bevat geen nuttige informatie.]]></translation>
+        <translation locale="en"><![CDATA[A info.xml file is present but its either empty or it does not contain valuable information.]]></translation>
+        <translation locale="ru"><![CDATA[Файл info.xml присутствует, но либо пустой, либо содержит неправильную информацию.]]></translation>
+        <translation locale="es"><![CDATA[Un archivo info.xml está presente pero esta vacio o bien no contiene información valiosa.]]></translation>
+        <translation locale="de"><![CDATA[Eine info.xml Datei ist vorhanden, ist aber entweder leer oder enthält keine brauchbaren Informationen.]]></translation>
+        <translation locale="hu"><![CDATA[Az info.xml létezik, de nem üres vagy nem tartalmaz értékes információt.]]></translation>
+        <translation locale="sv"><![CDATA[info.xml fil är men är antingen tom eller innehåller den inte värdefull information.]]></translation>
+        <translation locale="zh"><![CDATA[info.xml文件已递交但它有可能是空的或它不包含有价值的信息。]]></translation>
+        <translation locale="el"><![CDATA[Το αρχείο info.xmp υπάρχει, αλλά είτε είναι άδειο είτε δεν περιέχει χρήσιμες πληροφορίες.]]></translation>
+        <translation locale="pl"><![CDATA[Istnieje plik info.xml, ale jest pusty lub nie zawiera użytecznych informacji.]]></translation>
+        <translation locale="pt"><![CDATA[Foi encontrado um ficheiro info.xml mas este encontra-se vazio ou não contem informação útil.]]></translation>
+      </item>
+      <item type="error" name="InformationFileIsMissing">
+        <translation locale="nl"><![CDATA[Er is geen informatie beschikbaar.]]></translation>
+        <translation locale="en"><![CDATA[There is no information available.]]></translation>
+        <translation locale="ru"><![CDATA[Необходимая информация отсутствует.]]></translation>
+        <translation locale="es"><![CDATA[No hay información disponible.]]></translation>
+        <translation locale="de"><![CDATA[Es sind keine Informationen verfügbar.]]></translation>
+        <translation locale="hu"><![CDATA[Nincs elérhető információ.]]></translation>
+        <translation locale="sv"><![CDATA[Det finns ingen information tillgänglig.]]></translation>
+        <translation locale="el"><![CDATA[Δεν υπάρχουν διαθέσιμες πληροφορίες.]]></translation>
+        <translation locale="zh"><![CDATA[没有可用信息。]]></translation>
+        <translation locale="pl"><![CDATA[Brak dostepnej informacji.]]></translation>
+        <translation locale="pt"><![CDATA[Não existe informação disponível.]]></translation>
+      </item>
+      <item type="error" name="InformationVersionTooHigh">
+        <translation locale="nl"><![CDATA[De fork versie moet lager zijn dan %maximumVersion% maar je gebruikt versie %currentVersion%.]]></translation>
+        <translation locale="en"><![CDATA[The fork version needs to be below %maximumVersion% but you are running %currentVersion%.]]></translation>
+      </item>
+      <item type="error" name="InformationVersionTooLow">
+        <translation locale="nl"><![CDATA[De fork versie moet minstens %minimumVersion% zijn maar je gebruikt versie %currentVersion%.]]></translation>
+        <translation locale="en"><![CDATA[The fork version needs to be at least %minimumVersion% but you are running %currentVersion%.]]></translation>
+      </item>
+      <item type="message" name="InformationModuleIsNotInstalled">
+        <translation locale="nl"><![CDATA[Deze module is nog niet geïnstalleerd.]]></translation>
+        <translation locale="en"><![CDATA[This module is not yet installed.]]></translation>
+        <translation locale="ru"><![CDATA[Данный модуль еще не установлен.]]></translation>
+        <translation locale="es"><![CDATA[Este módulo no está instalado aun.]]></translation>
+        <translation locale="de"><![CDATA[Dieses Modul ist noch nicht installiert.]]></translation>
+        <translation locale="hu"><![CDATA[Ez a modul nem lett telepítve.]]></translation>
+        <translation locale="sv"><![CDATA[Denna modul är ännu inte installerad.]]></translation>
+        <translation locale="el"><![CDATA[Αυτή η ενότητα δεν έχει ακόμη εγκατασταθεί.]]></translation>
+        <translation locale="zh"><![CDATA[这个模块还没被安装。]]></translation>
+        <translation locale="pl"><![CDATA[Ten moduł nie jest jeszcze zainstalowany.]]></translation>
+        <translation locale="pt"><![CDATA[Este módulo ainda não se encontra instalado.]]></translation>
+      </item>
+      <item type="message" name="InformationThemeIsNotInstalled">
+        <translation locale="nl"><![CDATA[Dit thema is nog niet geïnstalleerd.]]></translation>
+        <translation locale="en"><![CDATA[This theme is not yet installed.]]></translation>
+        <translation locale="ru"><![CDATA[Данная тема оформления еще не установлена​​.]]></translation>
+        <translation locale="es"><![CDATA[Este tema no está instalado aun.]]></translation>
+        <translation locale="de"><![CDATA[Dieses Theme ist noch nicht installiert.]]></translation>
+        <translation locale="hu"><![CDATA[Ez a sablon nem lett telepítve.]]></translation>
+        <translation locale="sv"><![CDATA[Detta tema är ännu inte installerad.]]></translation>
+        <translation locale="el"><![CDATA[Αυτό το θέμα δεν έχει ακόμη εγκατασταθεί.]]></translation>
+        <translation locale="zh"><![CDATA[这个主题还未被安装]]></translation>
+        <translation locale="pl"><![CDATA[Ten motyw nie jest jeszcze zainstalowany.]]></translation>
+        <translation locale="pt"><![CDATA[Este tema ainda não se encontra instalado.]]></translation>
+      </item>
+      <item type="message" name="ThemeInstalled">
+        <translation locale="nl"><![CDATA[Het thema "%theme%" werd geïnstalleerd.]]></translation>
+        <translation locale="en"><![CDATA[The theme "%theme%" was installed.]]></translation>
+        <translation locale="ru"><![CDATA[Тема "%theme%" успешно установлена.]]></translation>
+        <translation locale="es"><![CDATA[El tema "%theme%" fue instalado.]]></translation>
+        <translation locale="de"><![CDATA[Das Theme "%theme%" wurde installiert.]]></translation>
+        <translation locale="hu"><![CDATA[A(z) "%theme%" sablon telepítve.]]></translation>
+        <translation locale="sv"><![CDATA[tema "%theme%" installerades.]]></translation>
+        <translation locale="el"><![CDATA[Το θέμα "%theme%" εγκαταστάθηκε.]]></translation>
+        <translation locale="zh"><![CDATA[主题“%theme%”已经被安装。]]></translation>
+        <translation locale="pl"><![CDATA[Motyw "%theme%" został zainstalowany.]]></translation>
+        <translation locale="pt"><![CDATA[O tema "%theme%" foi instalado com sucesso.]]></translation>
+      </item>
+    </Extensions>
+  </Backend>
+</translations>

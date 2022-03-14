@@ -56,7 +56,7 @@ abstract class AbstractFormActionController extends AbstractActionController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $response =  $validCallback($form);
+            $response = $validCallback($form);
             if ($flashMessage instanceof FlashMessage) {
                 $this->header->addFlashMessage($flashMessage);
             } elseif (is_callable($flashMessageCallback)) {

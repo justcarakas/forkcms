@@ -4,15 +4,15 @@
   <version>1.0.0</version>
   <requirements>
     <minimum_version>6.0.0</minimum_version>
-    <maximum_version>6.0.0</maximum_version>
+    <maximum_version>7.0.0</maximum_version>
   </requirements>
   <authors>
     <author>
-      <name>Jelmer Prins</name>
-      <url>https://pageon.be</url>
+      <name>Katrien Vanhaute</name>
+      <url>https://www.linkedin.com/in/katrienvh</url>
     </author>
     <author>
-      <name>Bob Prins</name>
+      <name>Jelmer Prins</name>
       <url>https://pageon.be</url>
     </author>
   </authors>
@@ -22,23 +22,15 @@
 <b>Test multiline</b>
 ]]>
   </description>
-  <meta_navigation supported="false" />
+  <meta_navigation supported="false"/>
   <templates>
-    <template label="Home" path="Core/Layout/Templates/Home.html.twig" image="true">
-      <positions>
-        <position name="top" />
-        <position name="main" />
-      </positions>
+    <template name="Default" path="Core/Layout/Templates/Default.html.twig" image="true">
       <format>
         [/,/,top],
         [main,main,main]
       </format>
     </template>
-    <template label="Default" path="Core/Layout/Templates/Default.html.twig" image="true">
-      <positions>
-        <position name="top" />
-        <position name="main" />
-      </positions>
+    <template name="Home" path="Core/Layout/Templates/Home.html.twig" image="true">
       <format>
         [/,/,top],
         [main,main,main]

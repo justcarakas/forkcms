@@ -1,0 +1,78 @@
+<?php
+
+namespace ForkCMS\Modules\Extensions\Domain\Theme;
+
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
+use Symfony\Component\Finder\Finder;
+
+/**
+ * @method Theme|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Theme|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Theme[] findAll()
+ * @method Theme[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+final class ThemeRepository extends ServiceEntityRepository
+{
+    public const THEMES_DIRECTORY = __DIR__ . '/../../../../Themes';
+
+    public function __construct(ManagerRegistry $managerRegistry)
+    {
+        parent::__construct($managerRegistry, Theme::class);
+    }
+
+    public function save(Theme $theme): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($theme);
+        $entityManager->flush();
+    }
+
+    public function remove(Theme $theme): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($theme);
+        $entityManager->flush();
+    }
+
+    /** @return InstallableTheme[] */
+    public function findInstallable(bool $includeInstalled = false): array
+    {
+        $configFiles = Finder::create()->in(self::THEMES_DIRECTORY)->depth(1)->files()->name('theme.xml');
+        $themes = [];
+        foreach ($configFiles as $configFile) {
+            $theme = InstallableTheme::fromXML($configFile->getRealPath());
+            $alreadyInstalled = $this->createQueryBuilder('t')
+                ->where('t.name = :name')
+                ->setParameter('name', $theme->name)
+                ->getQuery()
+                ->getOneOrNullResult();
+            if ($alreadyInstalled !== null) {
+                if (!$includeInstalled) {
+                    continue;
+                }
+                $theme->setTheme($alreadyInstalled);
+            } elseif (count($theme->getMessages()) === 0) {
+                $theme->addMessage(TranslationKey::message('InformationThemeIsNotInstalled'));
+            }
+
+            $themes[$theme->name] = $theme;
+        }
+
+        return $themes;
+    }
+
+    /** @return string[] */
+    public static function getThemePaths(): array
+    {
+        $finder = Finder::create()->in(self::THEMES_DIRECTORY)->depth(1)->files()->name('theme.xml');
+        $themes = [];
+        foreach ($finder as $configFile) {
+            $theme = InstallableTheme::fromXML($configFile->getRealPath());
+            $themes[$theme->name] = dirname($configFile->getRealPath());
+        }
+
+        return $themes;
+    }
+}

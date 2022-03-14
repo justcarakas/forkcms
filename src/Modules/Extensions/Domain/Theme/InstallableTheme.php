@@ -110,12 +110,9 @@ final class InstallableTheme extends ThemeDataTransferObject
         return $theme;
     }
 
-    public function withTheme(Theme $theme): self
+    public function setTheme(Theme $theme): void
     {
-        $newTheme = clone $this;
-        $newTheme->themeEntity = $theme;
-
-        return $newTheme;
+        $this->themeEntity = $theme;
     }
 
     public function addMessage(TranslationKey $message): void

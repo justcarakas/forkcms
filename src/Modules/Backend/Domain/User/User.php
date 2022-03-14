@@ -115,8 +115,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             CollectionHelper::updateCollection(
                 $userDataTransferObject->userGroups,
                 $user->userGroups,
-                fn (UserGroup $userGroup) => $user->addUserGroup($userGroup),
-                fn (UserGroup $userGroup) => $user->removeUserGroup($userGroup)
+                static fn (UserGroup $userGroup) => $user->addUserGroup($userGroup),
+                static fn (UserGroup $userGroup) => $user->removeUserGroup($userGroup)
             );
             $user->displayName = $userDataTransferObject->displayName;
             $user->settings = $userDataTransferObject->settings;

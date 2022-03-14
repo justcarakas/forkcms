@@ -43,6 +43,8 @@ final class ForkTranslator extends Translator
     /** @param array<string, mixed> $parameters */
     public function trans(?string $id, array $parameters = [], string $domain = null, string $locale = null): string
     {
+        dump($this->requestStack->getMainRequest()->get('_route')x);
+        die;
         if (!$this->requestStack instanceof RequestStack) {
             return $this->getTranslationAndStoreDomain($id, $parameters, $domain, $locale);
         }
@@ -51,7 +53,7 @@ final class ForkTranslator extends Translator
             $mainRequest = $this->requestStack->getMainRequest();
             if ($mainRequest instanceof Request) {
                 $this->defaultTranslationDomain = match ($mainRequest->get('_route')) {
-                    'backend',
+                    'backend_action',
                     'backend_login' => ActionSlug::fromRequest($mainRequest)->getTranslationDomain(),
                     'backend_ajax' => AjaxActionSlug::fromRequest($mainRequest)->getTranslationDomain(),
                     default => new TranslationDomain(Application::FRONTEND),

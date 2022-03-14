@@ -10,3 +10,7 @@ services:
 
   ForkCMS\Modules\Extensions\Console\:
     resource: '../Console/*'
+
+  ForkCMS\Modules\Extensions\Backend\Actions\:
+    resource: '../Backend/Actions/*'
+
