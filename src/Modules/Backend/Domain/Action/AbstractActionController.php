@@ -40,7 +40,21 @@ abstract class AbstractActionController implements ActionControllerInterface
             $actionSlug->getActionName()
         );
 
-        $this->pageTitle = $actionSlug->getModuleName()->asLabel()->trans($this->translator);
+        $this->pageTitle = $this->buildPageTitle();
+    }
+
+    private function buildPageTitle(?string $prepend = null): string {
+        $actionSlug = self::getActionSlug();
+        return implode(
+            ' - ',
+            array_filter(
+                [
+                    $prepend,
+                    $actionSlug->getActionName()->asLabel()->trans($this->translator),
+                    $actionSlug->getModuleName()->asLabel()->trans($this->translator),
+                ]
+            )
+        );
     }
 
     final protected function changeTemplatePath(string $templatePath): void
@@ -87,5 +101,6 @@ abstract class AbstractActionController implements ActionControllerInterface
     protected function setBreadcrumbDetail(string $breadcrumbDetail): void
     {
         $this->assign('breadcrumbDetail', $breadcrumbDetail);
+        $this->pageTitle = $this->buildPageTitle($breadcrumbDetail);
     }
 }
