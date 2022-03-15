@@ -1678,6 +1678,40 @@
       <translation locale="pl"><![CDATA[teraz edytujesz]]></translation>
       <translation locale="pt"><![CDATA[a editar]]></translation>
     </item>
+    <item type="label" name="SignOut">
+      <translation locale="nl"><![CDATA[afmelden]]></translation>
+      <translation locale="en"><![CDATA[sign out]]></translation>
+      <translation locale="hu"><![CDATA[kilépés]]></translation>
+      <translation locale="ru"><![CDATA[Выход]]></translation>
+      <translation locale="it"><![CDATA[disconnetti]]></translation>
+      <translation locale="zh"><![CDATA[登出]]></translation>
+      <translation locale="de"><![CDATA[abmelden]]></translation>
+      <translation locale="fr"><![CDATA[déconnexion]]></translation>
+      <translation locale="es"><![CDATA[salir]]></translation>
+      <translation locale="lt"><![CDATA[atsijungti]]></translation>
+      <translation locale="uk"><![CDATA[Вихід]]></translation>
+      <translation locale="sv"><![CDATA[logga ut]]></translation>
+      <translation locale="el"><![CDATA[αποσύνδεση]]></translation>
+      <translation locale="pt"><![CDATA[logout]]></translation>
+      <translation locale="pl"><![CDATA[wyloguj się]]></translation>
+    </item>
+    <item type="label" name="EditProfile">
+      <translation locale="nl"><![CDATA[bewerk profiel]]></translation>
+      <translation locale="en"><![CDATA[edit profile]]></translation>
+      <translation locale="hu"><![CDATA[profil szerkesztése]]></translation>
+      <translation locale="it"><![CDATA[modifica profilo]]></translation>
+      <translation locale="ru"><![CDATA[Редактировать профиль]]></translation>
+      <translation locale="zh"><![CDATA[编辑个人档案]]></translation>
+      <translation locale="de"><![CDATA[Profil bearbeiten]]></translation>
+      <translation locale="fr"><![CDATA[éditer le profil]]></translation>
+      <translation locale="es"><![CDATA[editar perfil]]></translation>
+      <translation locale="lt"><![CDATA[keisti profilį]]></translation>
+      <translation locale="uk"><![CDATA[Редагувати профіль]]></translation>
+      <translation locale="sv"><![CDATA[ändra profil]]></translation>
+      <translation locale="el"><![CDATA[μεταβολή προφίλ]]></translation>
+      <translation locale="pl"><![CDATA[edytuj profil]]></translation>
+      <translation locale="pt"><![CDATA[editar perfil]]></translation>
+    </item>
     <Backend>
       <item type="label" name="NumberOfUsers">
         <translation locale="nl"><![CDATA[aantal gebruikers]]></translation>

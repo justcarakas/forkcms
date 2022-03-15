@@ -2,9 +2,24 @@
 liip_imagine:
   # valid drivers options include "gd" or "gmagick" or "imagick"
   driver: "gd"
-
+  webp:
+    generate: true
   twig:
     mode: "lazy"
+  filter_sets:
+    backend_card_image:
+      filters:
+        # auto rotate the image using EXIF metadata and then strip the metadata (privacy)
+        auto_rotate: ~
+        strip: ~
+        scale: { dim: [ 800, 600 ] }
+    backend_avatar:
+      filters:
+        # auto rotate the image using EXIF metadata and then strip the metadata (privacy)
+        auto_rotate: ~
+        strip: ~
+        scale: { dim: [ 128, 128 ] }
+
 #  resolvers:
 #    default:
 #      web_path:
