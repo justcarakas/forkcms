@@ -43,7 +43,11 @@
       {% for column in dataGrid.columns %}
         <td>
           {% if column.route is null %}
-            {{ column.value(attribute(row, column.name)) }}
+            {%if column.isHtml %}
+              {{ column.value(attribute(row, column.name))|raw }}
+            {%else%}
+              {{ column.value(attribute(row, column.name)) }}
+            {%endif%}
           {% else %}
             <a href="{{ path(column.route, column.routeAttributes(row)) }}"{% if column.class %} class="{{ column.class }}"{% endif %}>{% if column.iconClass %}{{ macro.icon(column.iconClass) }} {% endif %}{{ column.label|trans|ucfirst }}</a>
           {% endif %}

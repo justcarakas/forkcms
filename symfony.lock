@@ -189,6 +189,12 @@
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
+    "league/uri": {
+        "version": "6.x-dev"
+    },
+    "league/uri-interfaces": {
+        "version": "2.x-dev"
+    },
     "liip/imagine-bundle": {
         "version": "2.7",
         "recipe": {
@@ -210,6 +216,9 @@
     },
     "markbaker/matrix": {
         "version": "3.0.0"
+    },
+    "masterminds/html5": {
+        "version": "2.7-dev"
     },
     "monolog/monolog": {
         "version": "2.3.5"
@@ -412,6 +421,9 @@
             "src/Controller/.gitignore",
             "src/Kernel.php"
         ]
+    },
+    "symfony/html-sanitizer": {
+        "version": "6.1.x-dev"
     },
     "symfony/http-client": {
         "version": "v6.0.3"
