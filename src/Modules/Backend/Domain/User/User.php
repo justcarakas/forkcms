@@ -34,7 +34,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'])]
 #[DataGrid('User')]
 #[DataGridActionColumn(
-    route: 'backend',
+    route: 'backend_action',
     routeAttributes: [
         'module' => 'backend',
         'action' => 'user_edit'

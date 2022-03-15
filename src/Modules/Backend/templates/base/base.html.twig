@@ -1,6 +1,6 @@
 {%- if backend_form is defined %}{% form_theme backend_form '@Backend/base/formTheme.html.twig' %}{% endif -%}
 <!DOCTYPE html>
-<html lang="{{ INTERFACE_LANGUAGE }}">
+<html lang="{{ app.user is not null ? app.user.setting('locale') : app.request.locale }}">
 
 {% include "@Backend/base/head.html.twig" %}
 {% import '@Backend/base/macros.html.twig' as macro %}
@@ -8,7 +8,6 @@
 <body id="{{ bodyID }}" class="{{ bodyClass }}">
 
 {% include "@Backend/base/header.html.twig" %}
-
 <div class="main-wrapper{% if hideActionbar is defined and hideActionbar %} main-wrapper-without-subnavigation{% endif %}">
   <div class="sidebar">
     {% include "@Backend/base/navigation.html.twig" %}

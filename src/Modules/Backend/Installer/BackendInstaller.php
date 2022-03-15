@@ -41,6 +41,7 @@ final class BackendInstaller extends ModuleInstaller
         $createUser->superAdmin = true;
         $createUser->accessToBackend = true;
         $createUser->userGroups->add($this->userGroupRepository->getAdminUserGroup());
+        $createUser->settings->set('locale', $installerConfiguration->getDefaultUserLocale()->value);
         $this->dispatchCommand($createUser);
 
         $user = $createUser->getEntity();

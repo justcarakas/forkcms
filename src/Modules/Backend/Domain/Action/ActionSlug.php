@@ -60,7 +60,7 @@ final class ActionSlug implements Stringable
 
     public static function fromRequest(Request $request): self
     {
-        if (!str_starts_with($request->attributes->get('_route'), 'backend')) {
+        if (!str_starts_with($request->attributes->get('_route'), 'backend_')) {
             throw new InvalidArgumentException('This is not a backend action request');
         }
 
@@ -135,7 +135,7 @@ final class ActionSlug implements Stringable
         if ($locale instanceof Locale) {
             $parameters['_locale'] = $locale->value;
         }
-        return $router->generate('backend', $parameters, $referenceType);
+        return $router->generate('backend_action', $parameters, $referenceType);
     }
 
     public function getActionNameSlug(): string

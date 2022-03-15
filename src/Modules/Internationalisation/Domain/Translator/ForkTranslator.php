@@ -6,12 +6,14 @@ use BadMethodCallException;
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\AjaxActionSlug;
+use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
 use ValueError;
 
@@ -35,7 +37,8 @@ final class ForkTranslator extends Translator
         array $loaderIds = [],
         array $options = [],
         array $enabledLocales = [],
-        private ?RequestStack $requestStack = null
+        private ?TokenStorageInterface $tokenStorage = null,
+        private ?RequestStack $requestStack = null,
     ) {
         parent::__construct($container, $formatter, $defaultLocale, $loaderIds, $options, $enabledLocales);
     }
@@ -43,8 +46,14 @@ final class ForkTranslator extends Translator
     /** @param array<string, mixed> $parameters */
     public function trans(?string $id, array $parameters = [], string $domain = null, string $locale = null): string
     {
-        dump($this->requestStack->getMainRequest()->get('_route')x);
-        die;
+        static $fallbackLocale = null;
+        if ($fallbackLocale === null) {
+            $user = $this->tokenStorage?->getToken()?->getUser();
+            $fallbackLocale = $user instanceof User
+                ?  $user->getSetting('locale', $this->getLocale()) : $this->getLocale();
+        }
+        $locale = $locale ?? $fallbackLocale;
+
         if (!$this->requestStack instanceof RequestStack) {
             return $this->getTranslationAndStoreDomain($id, $parameters, $domain, $locale);
         }

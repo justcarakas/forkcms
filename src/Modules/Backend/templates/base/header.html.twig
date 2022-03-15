@@ -10,9 +10,9 @@
     </div>
     <div class="site-text">
       <p class="site-title">{{ SITE_TITLE }}
-{#        <a class="site-url" data-url="{{ SITE_URL }}{{ prefixURL }}" href="{{ SITE_URL }}{{ prefixURL }}" target="_blank" rel="noopener noreferrer">{{ 'lbl.VisitWebsite'|trans|ucfirst }}</a>#}
+        <a class="site-url" data-url="{{ SITE_URL }}" href="{{ SITE_URL }}" target="_blank" rel="noopener noreferrer">{{ 'lbl.VisitWebsite'|trans|ucfirst }}</a>
       </p>
-{#      {% if SITE_MULTILANGUAGE %}#}
+      {% if SITE_MULTILINGUAL %}
 {#        <div class="nav navbar-nav navbar-languages">#}
 {#          {% if workingLanguages %}#}
 {#            <span class="working-language d-none d-sm-block me-sm-1">{{ 'msg.NowEditing'|trans|ucfirst }}</span>#}
@@ -23,13 +23,13 @@
 {#              </a>#}
 {#              <ul class="dropdown-menu" aria-labelledby="navbarLanguagesDropdown">#}
 {#                {% for workingLanguage in workingLanguages %}#}
-{#                  <a class="dropdown-item{% if workingLanguage.selected %} active{% endif %}" href="{{ geturl('',null,null,workingLanguage.abbr) }}">{{ ('lbl.'~workingLanguage.abbr|upper)|trans|ucfirst }}</a>#}
+{#                  <a class="dropdown-item{% if workingLanguage.selected %} active{% endif %}" href="{{ action_path(null, null, [], false, workingLanguage.abbr) }}">{{ ('lbl.'~workingLanguage.abbr|upper)|trans|ucfirst }}</a>#}
 {#                {% endfor %}#}
 {#              </ul>#}
 {#            </div>#}
 {#          {% endif %}#}
 {#        </div>#}
-{#      {% endif %}#}
+      {% endif %}
     </div>
   </div>
 

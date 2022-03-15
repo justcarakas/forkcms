@@ -1577,6 +1577,23 @@
       <translation locale="pt"><![CDATA[não]]></translation>
       <translation locale="pl"><![CDATA[Nie]]></translation>
     </item>
+    <item type="label" name="Export">
+      <translation locale="nl"><![CDATA[exporteer]]></translation>
+      <translation locale="en"><![CDATA[export]]></translation>
+      <translation locale="hu"><![CDATA[export]]></translation>
+      <translation locale="it"><![CDATA[esporta]]></translation>
+      <translation locale="ru"><![CDATA[Экспорт]]></translation>
+      <translation locale="zh"><![CDATA[导出]]></translation>
+      <translation locale="de"><![CDATA[exportieren]]></translation>
+      <translation locale="fr"><![CDATA[exporter]]></translation>
+      <translation locale="es"><![CDATA[exportar]]></translation>
+      <translation locale="lt"><![CDATA[eksportas]]></translation>
+      <translation locale="uk"><![CDATA[Експорт]]></translation>
+      <translation locale="sv"><![CDATA[exportera]]></translation>
+      <translation locale="el"><![CDATA[εξαγωγή]]></translation>
+      <translation locale="pl"><![CDATA[eksportuj]]></translation>
+      <translation locale="pt"><![CDATA[exportar]]></translation>
+    </item>
     <Backend>
       <item type="label" name="NumberOfUsers">
         <translation locale="nl"><![CDATA[aantal gebruikers]]></translation>

@@ -1,6 +1,6 @@
 {%- if backend_form is defined %}{% form_theme backend_form '@Backend/base/formTheme.html.twig' %}{% endif -%}
 <!DOCTYPE html>
-<html lang="{{ INTERFACE_LANGUAGE }}">
+<html lang="{{ app.user is not null ? app.user.setting('locale') : app.request.locale }}">
 {% include "@Backend/base/head.html.twig" %}
 <body {%- block bodyAttributes -%}{%- endblock -%}>
 {% block content %}

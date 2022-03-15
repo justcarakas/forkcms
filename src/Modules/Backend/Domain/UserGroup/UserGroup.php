@@ -26,7 +26,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[UniqueEntity(fields: ['name'])]
 #[DataGrid('UserGroup')]
 #[DataGridActionColumn(
-    route: 'backend',
+    route: 'backend_action',
     routeAttributes: [
         'module' => 'backend',
         'action' => 'user_group_edit'

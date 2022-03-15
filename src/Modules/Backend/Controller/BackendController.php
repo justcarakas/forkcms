@@ -46,8 +46,9 @@ final class BackendController
     private function configureTwigForAction(Request $request, ActionSlug $actionSlug): void
     {
         $this->navigation->parse($this->twig);
-        $this->twig->addGlobal('INTERFACE_LANGUAGE', $request->getLocale());
         $this->twig->addGlobal('SITE_TITLE', $_ENV['SITE_DEFAULT_TITLE']);
+        $this->twig->addGlobal('SITE_URL', $_ENV['SITE_PROTOCOL'] . '://' . $_ENV['SITE_DOMAIN']);
+        $this->twig->addGlobal('SITE_MULTILINGUAL', $_ENV['SITE_MULTILINGUAL'] === 'true');
         $this->twig->addGlobal('jsFiles', []);
         $this->twig->addGlobal('jsData', '<script>var jsData = ' . json_encode([]) . '</script>');
         $this->twig->addGlobal('bodyID', Container::underscore($actionSlug->getModuleName()));
