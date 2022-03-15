@@ -43,11 +43,16 @@
       {% for column in dataGrid.columns %}
         <td>
           {% if column.route is null %}
+            {% set columnValue = column.value(attribute(row, column.name)) %}
             {%if column.isHtml %}
-              {{ column.value(attribute(row, column.name))|raw }}
-            {%else%}
-              {{ column.value(attribute(row, column.name)) }}
-            {%endif%}
+              {{ columnValue|raw }}
+            {% elseif columnValue is same as true %}
+              <span class="text-success">{{ macro.infoTooltip('lbl.Yes'|trans|ucfirst, 'check') }}</span>
+            {% elseif columnValue is same as false %}
+              <span class="text-danger">{{ macro.infoTooltip('lbl.No'|trans|ucfirst, 'times') }}</span>
+            {% else%}
+              {{ columnValue }}
+            {% endif %}
           {% else %}
             <a href="{{ path(column.route, column.routeAttributes(row)) }}"{% if column.class %} class="{{ column.class }}"{% endif %}>{% if column.iconClass %}{{ macro.icon(column.iconClass) }} {% endif %}{{ column.label|trans|ucfirst }}</a>
           {% endif %}
