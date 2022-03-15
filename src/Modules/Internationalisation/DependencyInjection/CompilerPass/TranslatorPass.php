@@ -13,6 +13,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 final class TranslatorPass implements CompilerPassInterface
 {
@@ -23,6 +24,7 @@ final class TranslatorPass implements CompilerPassInterface
         $defaultLocale = array_search(true, $locales);
         $translator = $container->getDefinition('translator.default');
         $translator->setClass(ForkTranslator::class);
+        $translator->addArgument(new Reference(TokenStorageInterface::class));
         $translator->addArgument(new Reference(RequestStack::class));
         $container->prependExtensionConfig(
             'framework',
@@ -74,13 +76,13 @@ final class TranslatorPass implements CompilerPassInterface
     private function getDatabaseLocales(ContainerBuilder $container): array
     {
         if (!$container->getParameter('fork.is_installed')) {
-            return [Locale::English->name => true];
+            return [Locale::English->value => true];
         }
 
         try {
             return ForkConnection::get()->getEnabledLocales();
         } catch (\PDOException $e) {
-            return [Locale::English->name => true];
+            return [Locale::English->value => true];
         }
     }
 

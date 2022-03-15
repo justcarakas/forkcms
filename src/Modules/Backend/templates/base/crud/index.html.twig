@@ -5,7 +5,7 @@
   {% if is_allowed(crudActionName) %}
     <div class="btn-toolbar justify-content-end">
       <div class="btn-group" role="group">
-        {{ macro.buttonIcon(action_path(crudActionName), 'plus-square', 'lbl.Add'|trans|ucfirst) }}
+        {{ macro.buttonIcon(action_path(crudActionName), 'plus-square', 'lbl.Add'|trans|ucfirst, 'btn-success') }}
       </div>
     </div>
   {% endif %}

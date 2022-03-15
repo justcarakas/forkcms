@@ -1594,6 +1594,90 @@
       <translation locale="pl"><![CDATA[eksportuj]]></translation>
       <translation locale="pt"><![CDATA[exportar]]></translation>
     </item>
+    <item type="label" name="Active">
+      <translation locale="nl"><![CDATA[actief]]></translation>
+      <translation locale="en"><![CDATA[active]]></translation>
+      <translation locale="it"><![CDATA[attivo]]></translation>
+      <translation locale="ru"><![CDATA[Активный]]></translation>
+      <translation locale="zh"><![CDATA[活动]]></translation>
+      <translation locale="de"><![CDATA[aktiv]]></translation>
+      <translation locale="fr"><![CDATA[actif]]></translation>
+      <translation locale="hu"><![CDATA[aktív]]></translation>
+      <translation locale="es"><![CDATA[activo]]></translation>
+      <translation locale="uk"><![CDATA[Активний]]></translation>
+      <translation locale="lt"><![CDATA[aktyvus]]></translation>
+      <translation locale="el"><![CDATA[Ενεργή]]></translation>
+      <translation locale="pl"><![CDATA[Aktywny]]></translation>
+    </item>
+    <item type="label" name="Default">
+      <translation locale="nl"><![CDATA[standaard]]></translation>
+      <translation locale="en"><![CDATA[default]]></translation>
+      <translation locale="hu"><![CDATA[alap]]></translation>
+      <translation locale="it"><![CDATA[default]]></translation>
+      <translation locale="ru"><![CDATA[По умолчанию]]></translation>
+      <translation locale="zh"><![CDATA[默认]]></translation>
+      <translation locale="de"><![CDATA[Standard]]></translation>
+      <translation locale="fr"><![CDATA[défaut]]></translation>
+      <translation locale="es"><![CDATA[defecto]]></translation>
+      <translation locale="lt"><![CDATA[standartinis]]></translation>
+      <translation locale="uk"><![CDATA[За замовченням]]></translation>
+      <translation locale="sv"><![CDATA[standard]]></translation>
+      <translation locale="el"><![CDATA[εξορισμού]]></translation>
+      <translation locale="pl"><![CDATA[domyślne]]></translation>
+      <translation locale="pt"><![CDATA[por defeito]]></translation>
+    </item>
+    <item type="label" name="Dashboard">
+      <translation locale="nl"><![CDATA[dashboard]]></translation>
+      <translation locale="en"><![CDATA[dashboard]]></translation>
+      <translation locale="hu"><![CDATA[vezérlőpult]]></translation>
+      <translation locale="it"><![CDATA[dashboard]]></translation>
+      <translation locale="ru"><![CDATA[Панель управления]]></translation>
+      <translation locale="zh"><![CDATA[控制面板]]></translation>
+      <translation locale="de"><![CDATA[Dashboard]]></translation>
+      <translation locale="fr"><![CDATA[tableau de bord]]></translation>
+      <translation locale="es"><![CDATA[dashboard]]></translation>
+      <translation locale="lt"><![CDATA[valdymas]]></translation>
+      <translation locale="uk"><![CDATA[Панель Управління]]></translation>
+      <translation locale="sv"><![CDATA[instrumentpanel]]></translation>
+      <translation locale="el"><![CDATA[περιοχή διαχείρισης]]></translation>
+      <translation locale="tr"><![CDATA[gösterge paneli]]></translation>
+      <translation locale="pt"><![CDATA[dashboard]]></translation>
+      <translation locale="pl"><![CDATA[panel sterowania]]></translation>
+    </item>
+    <item type="label" name="VisitWebsite">
+      <translation locale="nl"><![CDATA[bezoek website]]></translation>
+      <translation locale="en"><![CDATA[visit website]]></translation>
+      <translation locale="hu"><![CDATA[oldal megtekintése]]></translation>
+      <translation locale="ru"><![CDATA[Посетить сайт]]></translation>
+      <translation locale="it"><![CDATA[visita sito web]]></translation>
+      <translation locale="zh"><![CDATA[访问网站]]></translation>
+      <translation locale="de"><![CDATA[Website besuchen]]></translation>
+      <translation locale="fr"><![CDATA[visiter le site]]></translation>
+      <translation locale="es"><![CDATA[visitar sitio web]]></translation>
+      <translation locale="lt"><![CDATA[aplankyti tinklapį]]></translation>
+      <translation locale="uk"><![CDATA[Відвідати сайт]]></translation>
+      <translation locale="sv"><![CDATA[visa hemsida]]></translation>
+      <translation locale="el"><![CDATA[επισκεφθήτε τον ιστοχώρο]]></translation>
+      <translation locale="pt"><![CDATA[visitar o website]]></translation>
+      <translation locale="pl"><![CDATA[odwiedź witrynę]]></translation>
+    </item>
+    <item type="label" name="NowEditing">
+      <translation locale="nl"><![CDATA[je bewerkt nu]]></translation>
+      <translation locale="en"><![CDATA[now editing]]></translation>
+      <translation locale="hu"><![CDATA[most szerkesztett]]></translation>
+      <translation locale="ru"><![CDATA[Редактируется]]></translation>
+      <translation locale="it"><![CDATA[modificando]]></translation>
+      <translation locale="zh"><![CDATA[正在编辑]]></translation>
+      <translation locale="de"><![CDATA[wird bearbeitet]]></translation>
+      <translation locale="fr"><![CDATA[édition]]></translation>
+      <translation locale="es"><![CDATA[editando ahora]]></translation>
+      <translation locale="lt"><![CDATA[Redaguojama]]></translation>
+      <translation locale="uk"><![CDATA[Редагується]]></translation>
+      <translation locale="sv"><![CDATA[nu redigeras]]></translation>
+      <translation locale="el"><![CDATA[μεταβολή σε εξέλιξη]]></translation>
+      <translation locale="pl"><![CDATA[teraz edytujesz]]></translation>
+      <translation locale="pt"><![CDATA[a editar]]></translation>
+    </item>
     <Backend>
       <item type="label" name="NumberOfUsers">
         <translation locale="nl"><![CDATA[aantal gebruikers]]></translation>

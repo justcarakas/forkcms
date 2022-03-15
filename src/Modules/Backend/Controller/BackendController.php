@@ -6,6 +6,7 @@ use ForkCMS\Modules\Backend\Backend\Actions\NotFound;
 use ForkCMS\Modules\Backend\Domain\Action\ActionControllerInterface;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\Navigation\Navigation;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use InvalidArgumentException;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\DependencyInjection\Container;
@@ -18,9 +19,10 @@ use Twig\Environment;
 final class BackendController
 {
     public function __construct(
-        private ServiceLocator $actions,
-        private Environment $twig,
-        private Navigation $navigation,
+        private readonly ServiceLocator $actions,
+        private readonly Environment $twig,
+        private readonly Navigation $navigation,
+        private readonly InstalledLocaleRepository $localeRepository,
     ) {
     }
 
@@ -28,13 +30,18 @@ final class BackendController
         Request $request,
         ActionSlug $actionSlug
     ): Response {
+        $locales = $this->localeRepository->findAllIndexed();
+        $this->configureTwigForAction($request, $actionSlug, $locales);
+
+        if (!$locales[$request->getLocale()]->isEnabledForWebsite()) {
+            return $this->actions->get(NotFound::class)($request);
+        }
+
         try {
             $action = $this->actions->get($actionSlug->getFQCN());
         } catch (NotFoundExceptionInterface) {
             throw new InvalidArgumentException(sprintf('The action class %s must be registered as a service and implement %s', $actionSlug->getFQCN(), ActionControllerInterface::class));
         }
-
-        $this->configureTwigForAction($request, $actionSlug);
 
         try {
             return $action($request);
@@ -43,7 +50,7 @@ final class BackendController
         }
     }
 
-    private function configureTwigForAction(Request $request, ActionSlug $actionSlug): void
+    private function configureTwigForAction(Request $request, ActionSlug $actionSlug, array $locales): void
     {
         $this->navigation->parse($this->twig);
         $this->twig->addGlobal('SITE_TITLE', $_ENV['SITE_DEFAULT_TITLE']);
@@ -54,5 +61,6 @@ final class BackendController
         $this->twig->addGlobal('bodyID', Container::underscore($actionSlug->getModuleName()));
         $this->twig->addGlobal('bodyClass', str_replace('/', '_', $actionSlug->getSlug()));
         $this->twig->addGlobal('page_title', $actionSlug->getActionName());
+        $this->twig->addGlobal('LOCALES', $locales);
     }
 }

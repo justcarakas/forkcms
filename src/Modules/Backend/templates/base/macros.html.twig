@@ -31,9 +31,9 @@
   <i class="{{ iconType }} fa-{{ icon }}"></i>
 {% endmacro %}
 
-{% macro infoTooltip(title) %}
+{% macro infoTooltip(title, icon = 'info-circle', iconType = 'fas') %}
   {% import _self as macro %}
-  <abbr tabindex="0" data-bs-toggle="tooltip" aria-label="{{ title }}" title="{{ title }}">{{ macro.icon('info-circle') }}</abbr>
+  <abbr tabindex="0" data-bs-toggle="tooltip" aria-label="{{ title }}" title="{{ title }}">{{ macro.icon(icon, iconType) }}</abbr>
 {% endmacro %}
 
 {% macro dataGrid(dataGrid, addItemLink, addItemText, noItemsText) %}
