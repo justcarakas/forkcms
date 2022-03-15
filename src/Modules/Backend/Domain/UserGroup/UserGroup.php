@@ -149,7 +149,7 @@ class UserGroup
 
     public static function dataGridEditLinkCallback(self $userGroup): array
     {
-        return ['id' => $userGroup->getId()];
+        return ['slug' => $userGroup->getId()];
     }
 
     public function addModule(ModuleName $moduleName): void

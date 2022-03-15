@@ -278,6 +278,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public static function dataGridEditLinkCallback(self $user): array
     {
-        return ['id' => $user->getId()];
+        return ['slug' => $user->getId()];
     }
 }
