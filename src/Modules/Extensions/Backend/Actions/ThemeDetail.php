@@ -16,8 +16,15 @@ final class ThemeDetail extends AbstractActionController
     {
         /** @var ThemeRepository $themeRepository */
         $themeRepository = $this->getRepository(Theme::class);
-        $theme = $themeRepository->findInstallable()[$request->attributes->get('slug')]
+        $name = $request->attributes->get('slug');
+        $theme = $themeRepository->find($name)
+            ?? $themeRepository->findInstallable()[$name]
             ?? InstallableTheme::fromMessage(TranslationKey::error('InformationFileIsMissing'));
+
+        if ($theme instanceof Theme) {
+            $theme = InstallableTheme::fromTheme($theme);
+        }
+
         $this->assign('theme', $theme);
         $this->assign(
             'themeInstallForm',

@@ -111,4 +111,14 @@ class Theme
     {
         return $this->defaultTemplate;
     }
+
+    public function activate(): void
+    {
+        $this->active = true;
+    }
+
+    public function deactivate(): void
+    {
+        $this->active = false;
+    }
 }

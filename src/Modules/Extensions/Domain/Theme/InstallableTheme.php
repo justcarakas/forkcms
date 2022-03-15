@@ -78,10 +78,10 @@ final class InstallableTheme extends ThemeDataTransferObject
             $theme->settings->set('maximumForkVersion', $maximumVersion);
         }
         $authors = [];
-        foreach ($themeConfig->authors as $authorConfig) {
+        foreach ($themeConfig->authors->author as $authorConfig) {
             $authors[] = [
-                'name' => $sanitiserNoHtml->sanitize($authorConfig->author->name),
-                'url' => $sanitiserNoHtml->sanitize($authorConfig->author->url),
+                'name' => $sanitiserNoHtml->sanitize($authorConfig->name),
+                'url' => $sanitiserNoHtml->sanitize($authorConfig->url),
             ];
         }
         if (count($authors) > 0) {
@@ -91,7 +91,7 @@ final class InstallableTheme extends ThemeDataTransferObject
         if ($theme->description === '') {
             $theme->description = null;
         }
-        $theme->active = true;
+        $theme->active = false;
         foreach ($themeConfig->templates[0] as $template) {
             $themeTemplate = InstallableThemeTemplate::fromXML($template);
             if ($themeTemplate !== null) {

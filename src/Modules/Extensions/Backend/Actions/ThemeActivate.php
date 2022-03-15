@@ -5,7 +5,7 @@ namespace ForkCMS\Modules\Extensions\Backend\Actions;
 use ForkCMS\Core\Domain\Form\ActionType;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
-use ForkCMS\Modules\Extensions\Domain\Theme\Command\InstallTheme;
+use ForkCMS\Modules\Extensions\Domain\Theme\Command\ActivateTheme;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
 use InvalidArgumentException;
 use Symfony\Component\Form\FormInterface;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class ThemeInstall extends AbstractFormActionController
+final class ThemeActivate extends AbstractFormActionController
 {
     protected function getFormResponse(Request $request): Response
     {
@@ -31,15 +31,15 @@ final class ThemeInstall extends AbstractFormActionController
             },
             validCallback: function (FormInterface $form): RedirectResponse {
                 $themeRepository = $this->getRepository(Theme::class);
-                $theme = $themeRepository->findInstallable()[$form->getData()['name']]
+                $theme = $themeRepository->find($form->getData()['name'])
                     ?? throw new InvalidArgumentException('Theme not found');
 
-                $this->commandBus->dispatch(new InstallTheme($theme));
+                $this->commandBus->dispatch(new ActivateTheme($theme));
 
                 return new RedirectResponse(ThemeIndex::getActionSlug()->generateRoute($this->router));
             },
             flashMessageCallback: function (FormInterface $form): FlashMessage {
-                return FlashMessage::success('ThemeInstalled', ['%theme%' => $form->getData()['name']]);
+                return FlashMessage::success('ThemeActivated', ['%theme%' => $form->getData()['name']]);
             }
         );
     }

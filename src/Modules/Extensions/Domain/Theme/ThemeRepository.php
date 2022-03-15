@@ -37,7 +37,7 @@ final class ThemeRepository extends ServiceEntityRepository
     }
 
     /** @return InstallableTheme[] */
-    public function findInstallable(bool $includeInstalled = false): array
+    public function findInstallable(): array
     {
         $configFiles = Finder::create()->in(self::THEMES_DIRECTORY)->depth(1)->files()->name('theme.xml');
         $themes = [];
@@ -49,13 +49,10 @@ final class ThemeRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getOneOrNullResult();
             if ($alreadyInstalled !== null) {
-                if (!$includeInstalled) {
-                    continue;
-                }
-                $theme->setTheme($alreadyInstalled);
-            } elseif (count($theme->getMessages()) === 0) {
-                $theme->addMessage(TranslationKey::message('InformationThemeIsNotInstalled'));
+                continue;
             }
+
+            $theme->addMessage(TranslationKey::message('InformationThemeIsNotInstalled'));
 
             $themes[$theme->name] = $theme;
         }
@@ -74,5 +71,12 @@ final class ThemeRepository extends ServiceEntityRepository
         }
 
         return $themes;
+    }
+
+    public function activateTheme(Theme $theme): void
+    {
+        $this->findOneBy(['active' => true])?->deactivate();
+        $theme->activate();
+        $this->getEntityManager()->flush();
     }
 }

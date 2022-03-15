@@ -266,6 +266,40 @@
         <translation locale="pl"><![CDATA[Motyw "%theme%" został zainstalowany.]]></translation>
         <translation locale="pt"><![CDATA[O tema "%theme%" foi instalado com sucesso.]]></translation>
       </item>
+      <item type="label" name="InstalledThemes">
+        <translation locale="nl"><![CDATA[geïnstalleerde thema's]]></translation>
+        <translation locale="en"><![CDATA[installed themes]]></translation>
+        <translation locale="ru"><![CDATA[установленные темы оформления]]></translation>
+        <translation locale="es"><![CDATA[temas instalados]]></translation>
+        <translation locale="de"><![CDATA[installierte Themes]]></translation>
+        <translation locale="uk"><![CDATA[Встановлені теми]]></translation>
+        <translation locale="hu"><![CDATA[telepített sablonok]]></translation>
+        <translation locale="sv"><![CDATA[installerade teman]]></translation>
+        <translation locale="el"><![CDATA[Εγκατεστημένα θέματα]]></translation>
+        <translation locale="zh"><![CDATA[已安装主题]]></translation>
+        <translation locale="pl"><![CDATA[zainstalowane motywy]]></translation>
+        <translation locale="pt"><![CDATA[temas instalados]]></translation>
+      </item>
+      <item type="label" name="SelectedTheme">
+        <translation locale="nl"><![CDATA[geselecteerd thema]]></translation>
+        <translation locale="en"><![CDATA[selected theme]]></translation>
+        <translation locale="pl"><![CDATA[wybierz motyw]]></translation>
+        <translation locale="pt"><![CDATA[tema seleccionado]]></translation>
+      </item>
+      <item type="label" name="UseThisTheme">
+        <translation locale="nl"><![CDATA[gebruik dit thema]]></translation>
+        <translation locale="en"><![CDATA[use this theme]]></translation>
+        <translation locale="pl"><![CDATA[użyj tego motywu]]></translation>
+        <translation locale="pt"><![CDATA[utilizar este tema]]></translation>
+      </item>
+      <item type="message" name="ConfirmThemeActivation">
+        <translation locale="nl"><![CDATA[Ben je zeker dat je dit thema wil gebruiken?]]></translation>
+        <translation locale="en"><![CDATA[Are you sure you want to use this theme?]]></translation>
+      </item>
+      <item type="message" name="ThemeActivated">
+        <translation locale="nl"><![CDATA[Je gebruikt nu het thema "%theme%".]]></translation>
+        <translation locale="en"><![CDATA[You are now using the theme "%theme%".]]></translation>
+      </item>
     </Extensions>
   </Backend>
 </translations>

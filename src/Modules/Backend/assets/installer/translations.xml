@@ -1527,6 +1527,56 @@
       <translation locale="pt"><![CDATA[autenticação]]></translation>
       <translation locale="pl"><![CDATA[autoryzacja]]></translation>
     </item>
+    <item type="label" name="Details">
+      <translation locale="nl"><![CDATA[details]]></translation>
+      <translation locale="en"><![CDATA[details]]></translation>
+      <translation locale="it"><![CDATA[dettagli]]></translation>
+      <translation locale="ru"><![CDATA[Детали]]></translation>
+      <translation locale="zh"><![CDATA[详情]]></translation>
+      <translation locale="de"><![CDATA[Details]]></translation>
+      <translation locale="fr"><![CDATA[détails]]></translation>
+      <translation locale="hu"><![CDATA[részletek]]></translation>
+      <translation locale="es"><![CDATA[detalles]]></translation>
+      <translation locale="lt"><![CDATA[detaliau]]></translation>
+      <translation locale="uk"><![CDATA[Деталі]]></translation>
+      <translation locale="sv"><![CDATA[detaljer]]></translation>
+      <translation locale="el"><![CDATA[λεπτομέρειες]]></translation>
+      <translation locale="pt"><![CDATA[detalhes]]></translation>
+      <translation locale="pl"><![CDATA[szczegóły]]></translation>
+    </item>
+    <item type="label" name="Yes">
+      <translation locale="nl"><![CDATA[ja]]></translation>
+      <translation locale="en"><![CDATA[yes]]></translation>
+      <translation locale="ru"><![CDATA[да]]></translation>
+      <translation locale="fr"><![CDATA[oui]]></translation>
+      <translation locale="es"><![CDATA[Sí]]></translation>
+      <translation locale="de"><![CDATA[ja]]></translation>
+      <translation locale="lt"><![CDATA[taip]]></translation>
+      <translation locale="uk"><![CDATA[Так]]></translation>
+      <translation locale="sv"><![CDATA[ja]]></translation>
+      <translation locale="hu"><![CDATA[igen]]></translation>
+      <translation locale="el"><![CDATA[ναί]]></translation>
+      <translation locale="zh"><![CDATA[是]]></translation>
+      <translation locale="tr"><![CDATA[Evet]]></translation>
+      <translation locale="pt"><![CDATA[sim]]></translation>
+      <translation locale="pl"><![CDATA[Tak]]></translation>
+    </item>
+    <item type="label" name="No">
+      <translation locale="nl"><![CDATA[nee]]></translation>
+      <translation locale="en"><![CDATA[no]]></translation>
+      <translation locale="ru"><![CDATA[нет]]></translation>
+      <translation locale="fr"><![CDATA[non]]></translation>
+      <translation locale="es"><![CDATA[No]]></translation>
+      <translation locale="de"><![CDATA[nein]]></translation>
+      <translation locale="lt"><![CDATA[ne]]></translation>
+      <translation locale="uk"><![CDATA[Ні]]></translation>
+      <translation locale="sv"><![CDATA[nej]]></translation>
+      <translation locale="hu"><![CDATA[no]]></translation>
+      <translation locale="el"><![CDATA[όχι]]></translation>
+      <translation locale="zh"><![CDATA[不]]></translation>
+      <translation locale="pt"><![CDATA[não]]></translation>
+      <translation locale="pl"><![CDATA[Nie]]></translation>
+    </item>
     <Backend>
       <item type="label" name="NumberOfUsers">
         <translation locale="nl"><![CDATA[aantal gebruikers]]></translation>
