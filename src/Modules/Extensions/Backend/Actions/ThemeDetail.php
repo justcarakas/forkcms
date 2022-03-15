@@ -17,7 +17,7 @@ final class ThemeDetail extends AbstractActionController
         /** @var ThemeRepository $themeRepository */
         $themeRepository = $this->getRepository(Theme::class);
         $name = $request->attributes->get('slug');
-        $theme = $themeRepository->find($name)
+        $theme = $this->getEntityFromRequest($request, Theme::class)
             ?? $themeRepository->findInstallable()[$name]
             ?? InstallableTheme::fromMessage(TranslationKey::error('InformationFileIsMissing'));
 
@@ -26,19 +26,21 @@ final class ThemeDetail extends AbstractActionController
         }
 
         $this->assign('theme', $theme);
-        $this->assign(
-            'themeInstallForm',
-            $this->formFactory->create(
-                ActionType::class,
-                [
-                    'name' => $theme->name,
-                ],
-                [
-                    'id_field_name' => 'name',
-                    'actionSlug' => ThemeInstall::getActionSlug()
-                ]
-            )->createView()
-        );
-        $this->setBreadcrumbDetail($theme->name);
+        if ($theme->name !== null) {
+            $this->assign(
+                'themeInstallForm',
+                $this->formFactory->create(
+                    ActionType::class,
+                    [
+                        'name' => $theme->name,
+                    ],
+                    [
+                        'id_field_name' => 'name',
+                        'actionSlug' => ThemeInstall::getActionSlug()
+                    ]
+                )->createView()
+            );
+            $this->setBreadcrumbDetail($theme->name);
+        }
     }
 }

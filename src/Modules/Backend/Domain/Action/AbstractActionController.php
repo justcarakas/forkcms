@@ -4,12 +4,14 @@ namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Exception\MissingIdentifierField;
 use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
 use ForkCMS\Core\Domain\Header\Header;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -93,9 +95,13 @@ abstract class AbstractActionController implements ActionControllerInterface
         return $this->entityManager->getRepository($entityFQCN);
     }
 
-    protected function getEntityFromRequest(Request $request, string $entityFQCN, string $key = 'slug'): object
+    protected function getEntityFromRequest(Request $request, string $entityFQCN, string $key = 'slug'): ?object
     {
-        return $this->getRepository($entityFQCN)->find($request->get($key) ?? $request->query->get($key));
+        try {
+            return $this->getRepository($entityFQCN)->find($request->get($key) ?? $request->query->get($key));
+        } catch (MissingIdentifierField) {
+            throw new NotFoundHttpException('identifier field not found');
+        }
     }
 
     protected function setBreadcrumbDetail(string $breadcrumbDetail): void

@@ -23,7 +23,7 @@
               <ul class="dropdown-menu" aria-labelledby="navbarLanguagesDropdown">
                 {% for workingLocale in LOCALES %}
                   {% if workingLocale.isEnabledForWebsite %}
-                    <a class="dropdown-item{% if workingLocale.locale.value == app.request.locale %} active{% endif %}" href="{{ action_path(null, null, [], false, workingLocale.locale.value) }}">{{ workingLocale.locale.asTranslatable|trans|ucfirst }}</a>
+                    <a class="dropdown-item{% if workingLocale.locale.value == app.request.locale %} active{% endif %}" href="{{ action_path(null, null, {slug:app.request.get('slug')}, false, workingLocale.locale.value) }}">{{ workingLocale.locale.asTranslatable|trans|ucfirst }}</a>
                   {% endif %}
                 {% endfor %}
               </ul>
