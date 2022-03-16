@@ -95,10 +95,16 @@ abstract class AbstractActionController implements ActionControllerInterface
         return $this->entityManager->getRepository($entityFQCN);
     }
 
-    protected function getEntityFromRequest(Request $request, string $entityFQCN, string $key = 'slug'): ?object
+    /**
+     * @template T
+     * @param class-string<T> $entityFQCN
+     * @return T
+     */
+    protected function getEntityFromRequest(Request $request, string $entityFQCN, string $key = 'slug'): object
     {
         try {
-            return $this->getRepository($entityFQCN)->find($request->get($key) ?? $request->query->get($key));
+            return $this->getRepository($entityFQCN)->find($request->get($key) ?? $request->query->get($key))
+                ?? throw new NotFoundHttpException('identifier field not found');
         } catch (MissingIdentifierField) {
             throw new NotFoundHttpException('identifier field not found');
         }

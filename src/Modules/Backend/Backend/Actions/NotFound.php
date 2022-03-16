@@ -15,6 +15,7 @@ final class NotFound extends AbstractActionController
     protected function execute(Request $request): void
     {
         $this->assign('message', TranslationKey::error('NotFound'));
+        $this->assign('page_title', 404);
     }
 
     public function getResponse(Request $request): Response

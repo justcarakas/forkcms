@@ -7,11 +7,28 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
+use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
+use Pageon\DoctrineDataGridBundle\Attribute\DataGrid;
+use Pageon\DoctrineDataGridBundle\Attribute\DataGridActionColumn;
+use Pageon\DoctrineDataGridBundle\Attribute\DataGridMethodColumn;
+use Pageon\DoctrineDataGridBundle\Attribute\DataGridPropertyColumn;
 
 #[ORM\Entity(repositoryClass: ThemeTemplateRepository::class)]
 #[ORM\Table(name: 'extensions__theme_template')]
+#[DataGrid('ThemeTemplate')]
+#[DataGridActionColumn(
+    route: 'backend_action',
+    routeAttributes: [
+        'module' => 'extensions',
+        'action' => 'theme_template_edit',
+    ],
+    routeAttributesCallback: [self::class, 'dataGridEditLinkCallback'],
+    label: 'lbl.Edit',
+    iconClass: 'edit',
+    requiredRole: ModuleAction::ROLE_PREFIX . 'EXTENSIONS__THEME_TEMPLATE_EDIT',
+)]
 class ThemeTemplate
 {
     #[ORM\Id]
@@ -20,6 +37,7 @@ class ThemeTemplate
     private int $id;
 
     #[ORM\Column(type: Types::STRING)]
+    #[DataGridPropertyColumn(label: 'lbl.Name')]
     private string $name;
 
     #[ORM\Column(type: Types::STRING)]
@@ -70,6 +88,7 @@ class ThemeTemplate
         return $this->path;
     }
 
+    #[DataGridMethodColumn(label: 'lbl.Active')]
     public function getActive(): bool
     {
         return $this->active;
@@ -80,8 +99,14 @@ class ThemeTemplate
         return $this->theme;
     }
 
+    #[DataGridMethodColumn(label: 'lbl.Default')]
     public function isDefault(): bool
     {
         return $this->defaultForTheme !== null;
+    }
+
+    public static function dataGridEditLinkCallback(self $themeTemplate): array
+    {
+        return ['slug' => $themeTemplate->getId()];
     }
 }
