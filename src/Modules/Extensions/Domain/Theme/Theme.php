@@ -102,6 +102,9 @@ class Theme
         return $this->active;
     }
 
+    /**
+     * @return Collection<ThemeTemplate>
+     */
     public function getTemplates(): Collection
     {
         return $this->templates;
