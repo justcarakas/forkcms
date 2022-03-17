@@ -1,4 +1,13 @@
 {% import '@Backend/base/macros.html.twig' as macro %}
+
+{% set dataGridEmptyAction = dataGridEmptyAction|default(null) %}
+{% set dataGridEmptyModule = dataGridEmptyModule|default(null) %}
+{% set dataGridEmptyParameters = dataGridEmptyParameters|default([]) %}
+{% set dataGridEmptyRelative = dataGridEmptyRelative|default(false) %}
+{% set dataGridEmptyLocale = dataGridEmptyLocale|default(null) %}
+{% set dataGridEmptyLabel = dataGridEmptyLabel|default('lbl.Add'|trans|ucfirst) %}
+
+{% if dataGrid.paginator is not empty %}
 <table class="table table-striped table-hover responsive nowrap">
   <thead>
   <tr>
@@ -60,10 +69,18 @@
       {% endfor %}
     </tr>
   {% endfor %}
-  {% if dataGrid.paginator is empty %}
-    <tr>
-      <td colspan="{{ dataGrid.columns|count }}">{{ (dataGrid.noResultsMessage == 'No results' ? 'lbl.NoResultsFound' : dataGrid.noResultsMessage)|trans|ucfirst }}</td>
-    </tr>
-  {% endif %}
   </tbody>
 </table>
+{% else %}
+  <div class="empty-state">
+    <img class="empty-state-illustration mb-4 vis" src="{{ asset('build/backend/images/empty-state.svg') }}" aria-hidden="true" alt="empty data grid icon">
+    <p class="text-black mb-2">
+      <strong> {{ (dataGrid.noResultsMessage == 'No results' ? 'lbl.NoResultsFound' : dataGrid.noResultsMessage)|trans|ucfirst }}</strong>
+    </p>
+    {% if dataGridEmptyAction is not null %}
+      <a class="empty-state-add" href="{{ action_url(dataGridEmptyAction, dataGridEmptyModule, dataGridEmptyParameters, dataGridEmptyRelative, dataGridEmptyLocale) }}">
+        {{  dataGridEmptyLabel }}
+      </a>
+    {% endif %}
+  </div>
+{% endif %}

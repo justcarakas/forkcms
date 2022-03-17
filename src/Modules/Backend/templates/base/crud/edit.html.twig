@@ -16,16 +16,16 @@
   <div class="btn-toolbar d-flex">
     <div class="btn-group" role="group">
       {% if crudDeleteAction is defined and is_allowed(crudDeleteAction, crudDeleteModule) %}
-        {{ macro.buttonIcon('', 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger', {"type":"button", "data-bs-toggle":"modal", "data-bs-target":"#confirmDelete"}) }}
+        {{ macro.buttonIcon('', deleteIcon|default('trash'), deleteLabel|default('lbl.Delete'|trans|ucfirst), deleteClass|default('btn-danger'), {"type":"button", "data-bs-toggle":"modal", "data-bs-target":"#confirmDelete"}) }}
       {% endif %}
       {% if crudIndexAction is defined and is_allowed(crudIndexAction, crudIndexModule) %}
         <div class="btn-group" role="group">
-          {{ macro.buttonIcon(action_path(crudIndexAction, crudIndexModule, crudIndexParameters, crudIndexRelative, crudIndexLocale), 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default') }}
+          {{ macro.buttonIcon(action_path(crudIndexAction, crudIndexModule, crudIndexParameters, crudIndexRelative, crudIndexLocale), crudIndexIcon|default('times'), crudIndexLabel|default('lbl.Cancel'|trans|ucfirst), crudIndexClass|default('btn-default')) }}
         </div>
       {% endif %}
     </div>
     <div class="btn-group ms-auto" role="group">
-      {{ macro.buttonIcon('', 'save', 'lbl.Save'|trans|ucfirst, 'btn-primary', {"type":"submit", "id":"editButton", "name":"edit"}) }}
+      {{ macro.buttonIcon('', submitIcon|default('save'), submitLabel|default('lbl.Save'|trans|ucfirst), submitClass|default('btn-primary')) }}
     </div>
   </div>
   {{ form_end(backend_form) }}
@@ -38,14 +38,14 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" id="confirmDeleteTitle">{{ 'lbl.Delete'|trans|ucfirst }}</h4>
+            <h4 class="modal-title" id="confirmDeleteTitle">{{ confirmDeleteTitle|default('lbl.Delete'|trans|ucfirst) }}</h4>
           </div>
           <div class="modal-body">
-            <p>{{ 'msg.ConfirmDelete'|trans|format(crudDeleteName|e)|raw }}</p>
+            <p>{{ confirmDeleteMessage|default('msg.ConfirmDelete'|trans|format(crudDeleteName|e)) }}</p>
           </div>
           <div class="modal-footer">
-            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', {"type":"button", "data-bs-dismiss":"modal"}) }}
-            {{ macro.buttonIcon('', 'trash', 'lbl.Delete'|trans|ucfirst, 'btn-danger', {"type":"submit"}) }}
+            {{ macro.buttonIcon('', confirmDeleteCancelIcon|default('times'), confirmDeleteCancelLabel|default('lbl.Cancel'|trans|ucfirst), confirmDeleteCancelClass|default('btn-default'), {"type":"button", "data-bs-dismiss":"modal"}) }}
+            {{ macro.buttonIcon('', confirmDeleteSubmitIcon|default('trash'), confirmDeleteSubmitLabel|default('lbl.Delete'|trans|ucfirst), confirmDeleteSubmitClass|default('btn-danger'), {"type":"submit"}) }}
           </div>
         </div>
       </div>

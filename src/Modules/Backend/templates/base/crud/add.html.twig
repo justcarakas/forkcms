@@ -15,7 +15,7 @@
       </div>
     {% endif %}
     <div class="btn-group ms-auto" role="group">
-      {{ macro.buttonIcon('', 'plus-square', 'lbl.Add'|trans|ucfirst, 'btn-primary', {"id":"addButton", "type":"submit", "name":"add"}) }}
+      {{ macro.buttonIcon('', submitIcon|default('plus-square'), submitLabel|default('lbl.Add'|trans|ucfirst), submitClass|default('btn-primary')) }}
     </div>
   </div>
   {{ form_end(backend_form) }}
