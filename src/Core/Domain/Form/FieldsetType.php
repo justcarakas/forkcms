@@ -19,7 +19,9 @@ final class FieldsetType extends AbstractType
             ->setDefaults(
                 [
                     'inherit_data' => true,
-                    'options' => [],
+                    'row_attr' => ['class' => 'card card-default'],
+                    'label_attr' => ['class' => 'card-header'],
+                    'attr' => ['class' => 'card-body'],
                     'fields' => static function (FormBuilderInterface $builder): void {},
                     'label' => false,
                 ]

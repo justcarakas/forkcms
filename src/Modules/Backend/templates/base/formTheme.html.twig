@@ -431,7 +431,7 @@
 {%- endblock %}
 
 {% block fieldset_row %}
-  <fieldset {{ block('widget_container_attributes') }}>
+  <fieldset {% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
     {{ form_label(form) }}
     {{ form_widget(form) }}
   </fieldset>
