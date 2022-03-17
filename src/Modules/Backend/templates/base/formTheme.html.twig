@@ -1,17 +1,5 @@
 {% extends 'bootstrap_5_layout.html.twig' %}
 
-{% block form_widget_simple -%}
-  {% if type is not defined or type != 'hidden' %}
-    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
-  {% endif %}
-  {%- if type is defined and (type == 'range' or type == 'color') %}
-    {# Attribute "required" is not supported #}
-    {%- set required = false -%}
-  {% endif %}
-  {{- parent() -}}
-  {{ block('help') }}
-{%- endblock form_widget_simple %}
-
 {%- block form_label -%}
   {% if 'checkbox' not in block_prefixes or widget_checkbox_label in ['label', 'both'] %}
     {% if label is not same as(false) %}
@@ -337,9 +325,20 @@
 {% endblock %}
 
 {% block form_row %}
-  <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
-    {{- form_label(form) -}}
-    {{- form_widget(form) -}}
+  {%- set widget_attr = {} -%}
+  {%- if help is not empty -%}
+    {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+  {%- endif -%}
+  {%- set row_class = row_class|default(row_attr.class|default('mb-3')|trim) -%}
+  <div {% with {attr: row_attr|merge({class: row_class})} %}{{ block('attributes') }}{% endwith %}>
+    {%- if 'form-floating' in row_class -%}
+      {{- form_widget(form, widget_attr) -}}
+      {{- form_label(form) -}}
+    {%- else -%}
+      {{- form_label(form) -}}
+      {{- form_widget(form, widget_attr) -}}
+    {%- endif -%}
+    {{- form_help(form) -}}
     {% if (not compound or force_error|default(false)) and not valid %}
       {{- form_errors(form) -}}
     {% endif %}
