@@ -45,7 +45,9 @@ abstract class ThemeDataTransferObject
         $this->active = $themeEntity->getActive();
         $this->templates = $themeEntity->getTemplates();
         $this->settings = $themeEntity->getSettings();
-        $this->defaultTemplate = $themeEntity->getDefaultTemplate();
+        if (!$themeEntity->getTemplates()->isEmpty()) {
+            $this->defaultTemplate = $themeEntity->getDefaultTemplate();
+        }
     }
 
     public function isNew(): bool
