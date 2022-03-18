@@ -16,9 +16,7 @@ export class Collection {
         CollectionSequence.initSequence()
       },
 
-      initSequence: function () {
-        const $sequenceInstances = $('[data-role=collection-sequence]')
-
+      initSequence: function ($sequenceInstances = $('[data-role=collection-sequence]')) {
         if ($sequenceInstances.length === 0) {
           return
         }
@@ -155,6 +153,7 @@ export class Collection {
       newLi.appendTo(list)
       CollectionSequence.saveNewSequence(newLi.closest(list))
       $this.trigger('collection-field-added', newLi)
+      CollectionSequence.initSequence(newLi.find('[data-role=collection-sequence]'))
     }
 
     CollectionRemove.prototype.removeField = function (e) {

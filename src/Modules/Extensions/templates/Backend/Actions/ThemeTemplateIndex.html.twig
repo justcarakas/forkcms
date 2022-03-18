@@ -1,6 +1,10 @@
 {% extends '@Backend/base/crud/index.html.twig' %}
 {% import '@Backend/base/macros.html.twig' as macro %}
 
+{% set dataGridEmptyAction = 'ThemeTemplateAdd' %}
+{% set dataGridEmptyParameters = {slug:selectedTheme.name} %}
+{% set dataGridEmptyLabel = 'lbl.ThemeTemplateAdd'|trans|ucfirst %}
+
 {% block actionbar %}
   <div class="btn-toolbar justify-content-end">
     <div class="btn-group" role="group">
@@ -8,7 +12,7 @@
         {{ macro.buttonIcon(action_url('ThemeTemplateExport', null, {slug:selectedTheme.name}), 'download', 'lbl.Export'|trans|ucfirst) }}
       {% endif %}
       {% if is_allowed('ThemeTemplateAdd') %}
-        {{ macro.buttonIcon(action_url('ThemeTemplateAdd', null, {slug:selectedTheme.name}), 'plus-square', 'lbl.Add'|trans|ucfirst, 'btn-success') }}
+        {{ macro.buttonIcon(action_url(dataGridEmptyAction, null, dataGridEmptyParameters), 'plus-square', dataGridEmptyLabel, 'btn-success') }}
       {% endif %}
     </div>
   </div>
