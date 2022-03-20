@@ -64,7 +64,7 @@ class TranslationKey implements TranslatableInterface
 
     public function __toString(): string
     {
-        return $this->type->value . '.' . $this->name;
+        return $this->type->name . '.' . $this->name;
     }
 
     public function trans(TranslatorInterface $translator, string $locale = null): string

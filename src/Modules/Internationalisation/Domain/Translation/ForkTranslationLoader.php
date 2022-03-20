@@ -22,8 +22,8 @@ final class ForkTranslationLoader implements LoaderInterface
             $translationDomain = TranslationDomain::fromDomain($domain);
             $translations = $this->translationRepository->findBy(
                 [
-                    'locale' => $forkLocale,
-                    'domain.application' => $translationDomain->getApplication(),
+                    'locale' => $forkLocale->value,
+                    'domain.application' => $translationDomain->getApplication()->value,
                     'domain.moduleName' => $translationDomain->getModuleName(),
                 ]
             );
