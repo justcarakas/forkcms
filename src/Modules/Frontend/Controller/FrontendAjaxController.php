@@ -1,6 +1,6 @@
 <?php
 
-namespace ForkCMS\Modules\Backend\Controller;
+namespace ForkCMS\Modules\Frontend\Controller;
 
 use ForkCMS\Modules\Backend\Domain\AjaxAction\AjaxActionControllerInterface;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\AjaxActionSlug;
@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class BackendAjaxController
+final class FrontendAjaxController
 {
     public function __construct(
         private ServiceLocator $ajaxActions,

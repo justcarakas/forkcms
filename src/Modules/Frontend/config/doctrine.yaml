@@ -1,0 +1,4 @@
+doctrine:
+  dbal:
+    types:
+      modules__frontend__block__block_name: ForkCMS\Modules\Frontend\Domain\Block\BlockNameDBALType

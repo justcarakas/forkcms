@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  ForkCMS\Modules\Frontend\Domain\:
+    resource: '../Domain/*'
+    exclude:
+      '../Domain/Meta/AddMetaSubscriber.php'
+
+  ForkCMS\Modules\Frontend\DependencyInjection\FrontendRouteLoader:
+    arguments:
+      - '@routing.loader.yml'

@@ -1,0 +1,6 @@
+frontend_ajax:
+  path: /_ajax/{_locale}/{module}/{action}
+  controller: ForkCMS\Modules\Frontend\Controller\FrontendAjaxController
+  defaults:
+    module: ~
+    action: ~
