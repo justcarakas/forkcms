@@ -21,7 +21,15 @@ final class InstallableThemeTemplate extends ThemeTemplateDataTransferObject
         $themeTemplate->active = true;
         $format = $sanitiser->sanitize(str_replace(' ', '', trim($template->format)));
         $themeTemplate->settings->set('format', $format);
-        $positions = array_unique(
+        $themeTemplate->settings->set('positions', array_values(self::getPositionsFromFormat($format)));
+
+        return $themeTemplate;
+    }
+
+    /** @string[] */
+    public static function getPositionsFromFormat(string $format): array
+    {
+        return array_unique(
             array_filter(
                 array_map(
                     static fn ($position): string => preg_replace('/[^a-zA-Z0-9]+/', '', $position),
@@ -30,9 +38,5 @@ final class InstallableThemeTemplate extends ThemeTemplateDataTransferObject
                 strlen(...)
             )
         );
-
-        $themeTemplate->settings->set('positions', array_values($positions));
-
-        return $themeTemplate;
     }
 }

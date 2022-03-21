@@ -1,8 +1,7 @@
 <?php
 
-namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
+namespace ForkCMS\Modules\Internationalisation\Domain\Translator;
 
-use ForkCMS\Modules\Internationalisation\Domain\Translator\ForkTranslator;
 use LogicException;
 use Symfony\Component\Translation\DataCollectorTranslator as SymfonyDataCollectorTranslator;
 use Symfony\Component\Translation\TranslatorBagInterface;

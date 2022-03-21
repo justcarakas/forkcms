@@ -46,6 +46,11 @@ final class ForkTranslator extends Translator
     /** @param array<string, mixed> $parameters */
     public function trans(?string $id, array $parameters = [], string $domain = null, string $locale = null): string
     {
+        $isValidator = $domain === 'validators';
+        if ($isValidator) {
+            $domain = null;
+        }
+
         static $fallbackLocale = null;
         if ($fallbackLocale === null) {
             $user = $this->tokenStorage?->getToken()?->getUser();
@@ -82,17 +87,31 @@ final class ForkTranslator extends Translator
             $fallbackDomain = TranslationDomain::fromDomain($domain)->getFallback();
         } catch (ValueError | InvalidArgumentException | BadMethodCallException) {
             // Not a fork translation domain or no fallback available
+            if ($isValidator) {
+                return $this->getTranslationAndStoreDomain($id, $parameters, 'validator', $locale);
+            }
+
             return $translated;
         }
 
         if ($fallbackDomain === null) {
+            if ($isValidator) {
+                return $this->getTranslationAndStoreDomain($id, $parameters, 'validator', $locale);
+            }
+
             return $translated;
         }
 
         $domain = $fallbackDomain->getDomain();
 
         // use the fallback of the application
-        return $this->getTranslationAndStoreDomain($id, $parameters, $domain, $locale, false);
+        $translated = $this->getTranslationAndStoreDomain($id, $parameters, $domain, $locale, false);
+
+        if ($translated !== $id || !$isValidator) {
+            return $translated;
+        }
+
+        return $this->getTranslationAndStoreDomain($id, $parameters, 'validator', $locale);
     }
 
     public function setDefaultTranslationDomain(TranslationDomain $defaultTranslationDomain): void
