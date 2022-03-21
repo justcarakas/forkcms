@@ -4,7 +4,9 @@ namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\Persistence\ObjectRepository;
 use ForkCMS\Core\Domain\Doctrine\CreateSchema;
+use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\ModuleAjaxAction;
@@ -15,6 +17,11 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupRepository;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use ForkCMS\Modules\Backend\Installer\BackendInstaller;
 use ForkCMS\Modules\Extensions\Installer\ExtensionsInstaller;
+use ForkCMS\Modules\Frontend\Domain\Action\ActionName;
+use ForkCMS\Modules\Frontend\Domain\Block\Block;
+use ForkCMS\Modules\Frontend\Domain\Block\BlockName;
+use ForkCMS\Modules\Frontend\Domain\Block\BlockRepository;
+use ForkCMS\Modules\Frontend\Domain\Widget\WidgetName;
 use ForkCMS\Modules\Frontend\Installer\FrontendInstaller;
 use ForkCMS\Modules\Internationalisation\Domain\Importer\Importer;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
@@ -22,6 +29,7 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller;
 use InvalidArgumentException;
+use SebastianBergmann\CodeCoverage\Report\Xml\Report;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\StampInterface;
@@ -63,7 +71,9 @@ abstract class ModuleInstaller
     /**
      * Use this method to perform the actions needed to install the module.
      */
-    abstract public function install(): void;
+    public function install(): void
+    {
+    }
 
     /**
      * Use this method to perform actions before the uninstalled module dependencies are installed.
@@ -88,7 +98,7 @@ abstract class ModuleInstaller
         return array_merge($this->moduleDependencies, $this->getDefaultModuleDependencies());
     }
 
-    final public function createTableForEntities(string ...$entityClasses): void
+    final protected function createTableForEntities(string ...$entityClasses): void
     {
         $this->createSchema->forEntityClasses(...$entityClasses);
     }
@@ -163,6 +173,29 @@ abstract class ModuleInstaller
         }
 
         return $navigationItem;
+    }
+
+    final protected function getOrCreateFrontendBlock(
+        BlockName $blockName,
+        ?TranslationKey $label = null,
+        SettingsBag $settings = new SettingsBag(),
+        bool $hidden = false,
+        ?int $position = null,
+        ModuleName $moduleName = null,
+    ): Block {
+        $moduleName = $moduleName ?? static::getModuleName();
+        /** @var BlockRepository $blockRepository */
+        $blockRepository = $this->getRepository(Block::class);
+        $block = $blockRepository->findUnique($moduleName, $blockName, $settings);
+
+        if ($block instanceof Block) {
+            return $block;
+        }
+
+        $block = new Block($moduleName, $blockName, $label, $settings, $hidden, $position);
+        $blockRepository->save($block);
+
+        return $block;
     }
 
     final protected function getModulesNavigationItem(): NavigationItem
@@ -245,18 +278,23 @@ abstract class ModuleInstaller
     }
 
     /** @param StampInterface[] $stamps */
-    public function dispatchCommand(object $command, array $stamps = []): Envelope
+    final protected function dispatchCommand(object $command, array $stamps = []): Envelope
     {
         return $this->commandBus->dispatch($command, $stamps);
     }
 
     /** @param StampInterface[] $stamps */
-    public function dispatchEvent(object $event, array $stamps = []): Envelope
+    final protected function dispatchEvent(object $event, array $stamps = []): Envelope
     {
         return $this->eventBus->dispatch($event, $stamps);
     }
 
-    public function getRepository(string $entityFQCN): EntityRepository
+    /**
+     * @template T
+     * @param class-string<T> $entityFQCN
+     * @return EntityRepository<T>
+     */
+    final protected function getRepository(string $entityFQCN): EntityRepository
     {
         return $this->entityManager->getRepository($entityFQCN);
     }

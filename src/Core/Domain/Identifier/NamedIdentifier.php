@@ -24,7 +24,7 @@ trait NamedIdentifier
         return $this->name;
     }
 
-    final public static function fromString(string $name): self
+    final public static function fromString(string $name): static
     {
         if (!array_key_exists($name, self::$nameInstances)) {
             self::$nameInstances[$name] = new self($name);

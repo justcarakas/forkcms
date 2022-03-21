@@ -108,4 +108,14 @@ final class SettingsBag implements JsonSerializable
     {
         return $this->hasChanges;
     }
+
+    public function asJsonString(): string
+    {
+        return json_encode($this, JSON_THROW_ON_ERROR);
+    }
+
+    public static function fromJsonString(string $value): self
+    {
+        return new SettingsBag(json_decode($value, true, 512, JSON_THROW_ON_ERROR));
+    }
 }

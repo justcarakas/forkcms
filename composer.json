@@ -67,7 +67,8 @@
         "stof/doctrine-extensions-bundle": "^1.7",
         "symfony/uid": "6.*",
         "composer/semver": "^3.2",
-        "symfony/html-sanitizer": "6.*"
+        "symfony/html-sanitizer": "6.*",
+        "scienta/doctrine-json-functions": "^5.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5",

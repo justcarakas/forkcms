@@ -30,7 +30,7 @@ final class SettingsBagDBALType extends JsonType
         }
 
         try {
-            return json_encode($value, JSON_THROW_ON_ERROR);
+            return $value->asJsonString();
         } catch (JsonException $e) {
             throw ConversionException::conversionFailedSerialization($value, 'json', $e->getMessage(), $e);
         }
@@ -47,7 +47,7 @@ final class SettingsBagDBALType extends JsonType
         }
 
         try {
-            return new SettingsBag(json_decode($value, true, 512, JSON_THROW_ON_ERROR));
+            return SettingsBag::fromJsonString($value);
         } catch (JsonException $e) {
             throw ConversionException::conversionFailed($value, $this->getName(), $e);
         }

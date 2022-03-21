@@ -2,10 +2,11 @@
 
 namespace ForkCMS\Modules\Frontend\Domain\Block;
 
-use Doctrine\ORM\NoResultException;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\EntityManagerInterface;
+use ForkCMS\Core\Domain\Settings\SettingsBag;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use Gedmo\Sortable\Entity\Repository\SortableRepository;
-use LogicException;
 
 /**
  * @method Block|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,23 +16,9 @@ use LogicException;
  */
 class BlockRepository extends SortableRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $manager = $registry->getManagerForClass(Block::class);
-
-        if ($manager === null) {
-            throw new LogicException(
-                sprintf(
-                    'Could not find the entity manager for class "%s". Check your Doctrine configuration to make sure it is configured to load this entity’s metadata.',
-                    Block::class
-                )
-            );
-        }
-
-        parent::__construct(
-            $manager,
-            $manager->getClassMetadata(Block::class)
-        );
+        parent::__construct($entityManager, $entityManager->getClassMetadata(Block::class));
     }
 
     public function save(Block $block): void
@@ -84,5 +71,35 @@ class BlockRepository extends SortableRepository
             )
             ->getQuery()
             ->getResult();
+    }
+
+    public function findUnique(
+        ModuleName $moduleName,
+        BlockName $blockName,
+        SettingsBag $settings = new SettingsBag()
+    ): ?Block {
+        $queryBuilder = $this->createQueryBuilder('b')
+            ->andWhere('b.module = :module')
+            ->setParameter('module', $moduleName->getName())
+            ->andWhere('b.blockName = :blockName')
+            ->setParameter('blockName', BlockNameDBALType::prefixedString($blockName))
+            ->andWhere('b.type = :type')
+            ->setParameter('type', $blockName->getType()->value)
+            ->andWhere('JSON_CONTAINS(b.settings, :settings) = 1')
+            ->setParameter('settings', $settings->asJsonString());
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
+
+    /** @return Block[] */
+    public function findAllWidgets(): array
+    {
+        return $this->findBy(['type' => Type::WIDGET->value, 'hidden' => false], ['type' => Criteria::ASC, 'position' => Criteria::ASC]);
+    }
+
+    /** @return Block[] */
+    public function findAllActions(): array
+    {
+        return $this->findBy(['type' => Type::ACTION->value, 'hidden' => false], ['type' => Criteria::ASC, 'position' => Criteria::ASC]);
     }
 }
