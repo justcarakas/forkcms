@@ -585,3 +585,17 @@
   </table>
 {% endblock %}
 
+{% block entity_row %}
+  {# fix for entity types in collections #}
+  {{ block('choice_row') }}
+{% endblock %}
+
+{% block entity_label %}
+  {# fix for entity types in collections #}
+  {{ block('choice_label') }}
+{% endblock %}
+
+{% block entity_widget %}
+  {# fix for entity types in collections #}
+  {{ block('choice_widget') }}
+{% endblock %}
