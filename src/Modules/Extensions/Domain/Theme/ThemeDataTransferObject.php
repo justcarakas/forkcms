@@ -16,8 +16,7 @@ abstract class ThemeDataTransferObject
     #[Assert\NotBlank(message: 'err.FieldIsRequired')]
     public ?string $description = null;
 
-    #[Assert\NotBlank(message: 'err.FieldIsRequired')]
-    public ?bool $active = null;
+    public bool $active = false;
 
     #[Assert\NotBlank(message: 'err.FieldIsRequired')]
     public ?Collection $templates = null;

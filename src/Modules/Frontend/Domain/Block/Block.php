@@ -121,18 +121,19 @@ class Block implements TranslatableInterface
 
     public function trans(TranslatorInterface $translator, string $locale = null): string
     {
+        $module = $this->module->asLabel()->trans($translator) . ': ';
         if (!$this->settings->has('extra_label')) {
-            return $this->label->trans($translator);
+            return $module . $this->label->trans($translator);
         }
 
         if ($this->settings->has('extra_label_parameters')) {
-            return vsprintf(
+            return $module . vsprintf(
                 $this->settings->get('extra_label'),
                 $this->settings->get('extra_label_parameters')
             );
         }
 
-        return $this->settings->get('extra_label');
+        return $module . $this->settings->get('extra_label');
     }
 
     public function getFQCN(): string

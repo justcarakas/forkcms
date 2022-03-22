@@ -25,18 +25,4 @@ final class InstallableThemeTemplate extends ThemeTemplateDataTransferObject
 
         return $themeTemplate;
     }
-
-    /** @string[] */
-    public static function getPositionsFromFormat(string $format): array
-    {
-        return array_unique(
-            array_filter(
-                array_map(
-                    static fn ($position): string => preg_replace('/[^a-zA-Z0-9]+/', '', $position),
-                    explode(',', $format)
-                ),
-                strlen(...)
-            )
-        );
-    }
 }

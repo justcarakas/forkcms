@@ -68,7 +68,7 @@
     {% if form.parent %}<small class="form-text text-muted">{% else %}<div class="alert alert-danger">{% endif %}
     <ul class="list-unstyled mb-0">
       {%- for error in errors -%}
-        <li {% if form.parent %}class="formError"{% endif %}>{{ macro.icon('exclamation-triangle') }} {{ error.message }}</li>
+        <li {% if form.parent %}class="invalid-feedback"{% endif %}>{{ macro.icon('exclamation-triangle') }} {{ error.message }}</li>
       {%- endfor -%}
     </ul>
     {% if form.parent %}</small>{% else %}</div>{% endif %}

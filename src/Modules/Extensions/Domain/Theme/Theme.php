@@ -124,4 +124,9 @@ class Theme
     {
         $this->active = false;
     }
+
+    public function getPath(): string
+    {
+        return realpath(__DIR__ . '/../../../../Themes/' . $this->name);
+    }
 }

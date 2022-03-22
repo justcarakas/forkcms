@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
   <Backend>
+    <item type="error" name="NotUnique">
+      <translation locale="nl"><![CDATA[Deze waarde wordt al gebruikt.]]></translation>
+      <translation locale="en"><![CDATA[This value is already used.]]></translation>
+      <translation locale="it"><![CDATA[Questo valore è già stato utilizzato.]]></translation>
+      <translation locale="ru"><![CDATA[Это значение уже используется.]]></translation>
+      <translation locale="de"><![CDATA[Dieser Wert wird bereits verwendet.]]></translation>
+      <translation locale="fr"><![CDATA[Cette valeur est déjà utilisée.]]></translation>
+      <translation locale="es"><![CDATA[Este valor ya se ha utilizado.]]></translation>
+      <translation locale="uk"><![CDATA[Це значення вже використовується.]]></translation>
+      <translation locale="el"><![CDATA[Αυτή η τιμή χρησιμοποιείται ήδη.]]></translation>
+      <translation locale="pl"><![CDATA[Ta wartość jest już wykorzystywana.]]></translation>
+      <translation locale="pt"><![CDATA[Este valor já está a ser usado.]]></translation>
+    </item>
     <item type="label" name="Backend">
       <translation locale="nl"><![CDATA[backend]]></translation>
       <translation locale="en"><![CDATA[backend]]></translation>
@@ -1388,6 +1401,23 @@
       <translation locale="pl"><![CDATA[opis]]></translation>
       <translation locale="pt"><![CDATA[descrição]]></translation>
     </item>
+    <item type="label" name="Filename">
+      <translation locale="nl"><![CDATA[bestandsnaam]]></translation>
+      <translation locale="en"><![CDATA[filename]]></translation>
+      <translation locale="hu"><![CDATA[fájl név]]></translation>
+      <translation locale="it"><![CDATA[nome file]]></translation>
+      <translation locale="ru"><![CDATA[Имя файла]]></translation>
+      <translation locale="zh"><![CDATA[文件名]]></translation>
+      <translation locale="de"><![CDATA[Dateiname]]></translation>
+      <translation locale="fr"><![CDATA[nom de fichier]]></translation>
+      <translation locale="es"><![CDATA[nombre de archivo]]></translation>
+      <translation locale="lt"><![CDATA[bylos pavadinimas]]></translation>
+      <translation locale="uk"><![CDATA[Ім'я файла]]></translation>
+      <translation locale="sv"><![CDATA[filnamn]]></translation>
+      <translation locale="el"><![CDATA[όνομα αρχείου]]></translation>
+      <translation locale="pl"><![CDATA[nazwa pliku]]></translation>
+      <translation locale="pt"><![CDATA[nome de ficheiro]]></translation>
+    </item>
     <item type="label" name="Users">
       <translation locale="nl"><![CDATA[gebruikers]]></translation>
       <translation locale="en"><![CDATA[users]]></translation>
@@ -1485,6 +1515,24 @@
     <item type="label" name="Filter">
       <translation locale="nl"><![CDATA[filter]]></translation>
       <translation locale="en"><![CDATA[filter]]></translation>
+    </item>
+    <item type="label" name="Status">
+      <translation locale="nl"><![CDATA[status]]></translation>
+      <translation locale="en"><![CDATA[status]]></translation>
+      <translation locale="hu"><![CDATA[státusz]]></translation>
+      <translation locale="ru"><![CDATA[Статус]]></translation>
+      <translation locale="it"><![CDATA[stato]]></translation>
+      <translation locale="zh"><![CDATA[状态]]></translation>
+      <translation locale="de"><![CDATA[Status]]></translation>
+      <translation locale="fr"><![CDATA[statut]]></translation>
+      <translation locale="es"><![CDATA[estado]]></translation>
+      <translation locale="lt"><![CDATA[būklė]]></translation>
+      <translation locale="uk"><![CDATA[Статус]]></translation>
+      <translation locale="sv"><![CDATA[status]]></translation>
+      <translation locale="el"><![CDATA[κατάσταση]]></translation>
+      <translation locale="tr"><![CDATA[durum]]></translation>
+      <translation locale="pl"><![CDATA[status]]></translation>
+      <translation locale="pt"><![CDATA[status]]></translation>
     </item>
     <item type="label" name="Save">
       <translation locale="nl"><![CDATA[opslaan]]></translation>

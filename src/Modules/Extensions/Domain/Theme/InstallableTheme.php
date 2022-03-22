@@ -42,9 +42,9 @@ final class InstallableTheme extends ThemeDataTransferObject
             );
         }
         $theme->name = $sanitiserNoHtml->sanitize($themeConfig->name);
-        if ($theme->name === '') {
-            $theme->name = basename(dirname($xmlFilePath)); // fallback to the directory name
-            $theme->addMessage(TranslationKey::error('InformationFileIsEmpty'));
+        $directoryName = basename(dirname($xmlFilePath));
+        if ($theme->name !== $directoryName) {
+            $theme->addMessage(TranslationKey::error('ThemeNameDoesntMatch'));
         }
         $thumbnail = realpath(
             dirname($xmlFilePath) . '/assets/public/' . $sanitiserNoHtml->sanitize($themeConfig->thumbnail)

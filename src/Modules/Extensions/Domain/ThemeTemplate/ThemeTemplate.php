@@ -109,4 +109,9 @@ class ThemeTemplate
     {
         return ['slug' => $themeTemplate->getId()];
     }
+
+    public function getFullPath(): string
+    {
+        return $this->theme->getPath() . '/templates/Core/' . $this->path;
+    }
 }

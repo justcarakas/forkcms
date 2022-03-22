@@ -9,6 +9,7 @@ use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
 use ForkCMS\Modules\Extensions\Domain\Theme\ThemeRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class ThemeDetail extends AbstractActionController
 {
@@ -17,9 +18,12 @@ final class ThemeDetail extends AbstractActionController
         /** @var ThemeRepository $themeRepository */
         $themeRepository = $this->getRepository(Theme::class);
         $name = $request->attributes->get('slug');
-        $theme = $this->getEntityFromRequest($request, Theme::class)
-            ?? $themeRepository->findInstallable()[$name]
-            ?? InstallableTheme::fromMessage(TranslationKey::error('InformationFileIsMissing'));
+        try {
+            $theme = $this->getEntityFromRequest($request, Theme::class);
+        } catch (NotFoundHttpException) {
+            $theme = $themeRepository->findInstallable()[$name]
+                ?? InstallableTheme::fromMessage(TranslationKey::error('InformationFileIsMissing'));
+        }
 
         if ($theme instanceof Theme) {
             $theme = InstallableTheme::fromTheme($theme);

@@ -3,6 +3,8 @@
 namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate;
 
 use Assert\Assertion;
+use Assert\AssertionFailedException;
+use ForkCMS\Core\Domain\Form\Validator\UniqueDataTransferObject;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
@@ -10,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContext;
 
 #[Assert\Callback(callback: 'validateThemeTemplate')]
+#[UniqueDataTransferObject(['entityClass' => ThemeTemplate::class, 'fields' => ['name', 'theme']])]
 abstract class ThemeTemplateDataTransferObject
 {
     #[Assert\NotBlank(message: 'err.FieldIsRequired')]
@@ -19,16 +22,13 @@ abstract class ThemeTemplateDataTransferObject
     public ?string $path = null;
 
     #[Assert\NotBlank(message: 'err.FieldIsRequired')]
-    public ?SettingsBag $settings = null;
+    public SettingsBag $settings;
 
-    #[Assert\NotBlank(message: 'err.FieldIsRequired')]
-    public ?bool $active = null;
+    public bool $active = true;
 
     public ?Theme $theme = null;
 
     public bool $default = false;
-
-    public ?string $layout = null;
 
     protected ?ThemeTemplate $themeTemplateEntity;
 
@@ -47,7 +47,27 @@ abstract class ThemeTemplateDataTransferObject
         $this->active = $themeTemplateEntity->getActive();
         $this->theme = $themeTemplateEntity->getTheme();
         $this->default = $themeTemplateEntity->isDefault();
-        $this->layout = $themeTemplateEntity->getSetting('layout');
+    }
+
+    #[Assert\Regex('/^\[(\/|[a-z0-9])+(,(\/|[a-z0-9]+))*\](,\r?\n?\[(\/|[a-z0-9])+(,(\/|[a-z0-9]+))*\])*$/i', 'err.InvalidTemplateSyntax')]
+    public function getLayout(): string
+    {
+        return $this->settings->getOr('layout', '');
+    }
+
+    public function setLayout(?string $layout): void
+    {
+        $this->settings->set('layout', $layout);
+    }
+
+    public function getPositions(): array
+    {
+        return $this->settings->getOr('positions', []);
+    }
+
+    public function setPositions(array $positions): void
+    {
+        $this->settings->set('positions', $positions);
     }
 
     public function isNew(): bool
@@ -55,9 +75,46 @@ abstract class ThemeTemplateDataTransferObject
         return $this->themeTemplateEntity === null;
     }
 
-    public function getEntity(): ThemeTemplate
+    public function getEntity(): ?ThemeTemplate
     {
         return $this->themeTemplateEntity;
+    }
+
+    public function validateThemeTemplate(ExecutionContext $context): void
+    {
+        if (!is_file($this->theme->getPath() . '/templates/Core/' . $this->path)) {
+            $context->buildViolation(TranslationKey::error('TemplateFileNotFound'))
+                ->atPath('path')
+                ->addViolation();
+        }
+
+        $layoutPositions = self::getPositionsFromFormat($this->settings->getOr('layout', ''));
+        $positionNames = array_column($this->settings->getOr('positions', []), 'name');
+        foreach (array_diff_assoc($positionNames, array_unique($positionNames)) as $index => $duplicatePosition) {
+            $context->buildViolation(TranslationKey::error('DuplicatePositionName'), ['%1$s' => $duplicatePosition])
+                ->atPath('positions')
+                ->atPath(sprintf('[%s]', $index))
+                ->atPath('[name]')
+                ->addViolation();
+        }
+        foreach ($positionNames as $index => $position) {
+            try {
+                Assertion::regex($position, '/^[a-z0-9]+$/i');
+            } catch (AssertionFailedException) {
+                $context->buildViolation(TranslationKey::error('NoAlphaNumPositionName'), ['%1$s' => $position])
+                    ->atPath('positions')
+                    ->atPath(sprintf('[%s]', $index))
+                    ->atPath('[name]')
+                    ->addViolation();
+            }
+            if (!in_array($position, $layoutPositions)) {
+                $context->buildViolation(TranslationKey::error('NonExistingPositionName'), ['%1$s' => $position])
+                    ->atPath('positions')
+                    ->atPath(sprintf('[%s]', $index))
+                    ->atPath('[name]')
+                    ->addViolation();
+            }
+        }
     }
 
     /** @return string[] */
