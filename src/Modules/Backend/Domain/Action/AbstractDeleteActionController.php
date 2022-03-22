@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractDeleteActionController extends AbstractFormActionController
 {
-    protected function handleDeleteForm(Request $request, string $deleteCommandFullyQualifiedClassName, ActionSlug $redirectActionSlug): RedirectResponse
+    protected function handleDeleteForm(Request $request, string $deleteCommandFullyQualifiedClassName, ActionSlug $redirectActionSlug, ?FlashMessage $flashMessage = null): RedirectResponse
     {
         $response = $this->handleForm(
             request:      $request,
             formType:     ActionType::class,
-            flashMessage: FlashMessage::success('Deleted'),
+            flashMessage: $flashMessage ?? FlashMessage::success('Deleted'),
             formOptions:  ['actionSlug' => self::getActionSlug()],
             defaultCallback: function () use ($redirectActionSlug): RedirectResponse {
                 $this->header->addFlashMessage(FlashMessage::error('NotFound'));
@@ -31,7 +31,7 @@ abstract class AbstractDeleteActionController extends AbstractFormActionControll
         );
 
         if ($response instanceof RedirectResponse) {
-           return $response;
+            return $response;
         }
 
         throw new RuntimeException('Invalid response');

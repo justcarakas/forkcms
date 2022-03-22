@@ -1,0 +1,50 @@
+<?php
+
+namespace ForkCMS\Modules\Extensions\Backend\Actions;
+
+use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
+use ForkCMS\Modules\Backend\Backend\Actions\UserGroupIndex;
+use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
+use ForkCMS\Modules\Backend\Domain\UserGroup\Command\ChangeUserGroup;
+use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\Command\ChangeThemeTemplate;
+use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
+use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplateType;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+final class ThemeTemplateEdit extends AbstractFormActionController
+{
+    protected function getFormResponse(Request $request): ?Response
+    {
+        $themeTemplate = $this->getEntityFromRequest($request, ThemeTemplate::class);
+        $this->assign('theme', $themeTemplate->getTheme());
+
+        $this->setBreadcrumbDetail(
+            sprintf(
+                '%1$s: %2$s',
+                $themeTemplate->getTheme()->getName(),
+                $themeTemplate->getName()
+            )
+        );
+
+        $this->addDeleteForm(['id' => $themeTemplate->getId()], ThemeTemplateDelete::getActionSlug());
+        $changeThemeTemplate = new ChangeThemeTemplate($themeTemplate);
+
+        return $this->handleForm(
+            request: $request,
+            formType: ThemeTemplateType::class,
+            formData: $changeThemeTemplate,
+            redirectResponse: new RedirectResponse(
+                 ThemeTemplateIndex::getActionSlug()->generateRoute(
+                     $this->router,
+                     ['slug' => $changeThemeTemplate->theme->getName()]
+                 )
+             ),
+            flashMessageCallback: static function (Form $form): FlashMessage {
+                return FlashMessage::success('EditedTemplate', ['%1$s' => $form->getData()->name]);
+            }
+        );
+    }
+}

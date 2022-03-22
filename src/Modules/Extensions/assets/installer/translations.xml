@@ -581,6 +581,36 @@
         <translation locale="pl"><![CDATA[Pozycja "%1$s" jest duplikatem.]]></translation>
         <translation locale="pt"><![CDATA[A posição "%1$s" encontra-se duplicada.]]></translation>
       </item>
+      <item type="message" name="DeletedTemplate">
+        <translation locale="nl"><![CDATA[De template "%1$s" werd verwijderd.]]></translation>
+        <translation locale="en"><![CDATA[The template "%1$s" was deleted.]]></translation>
+        <translation locale="it"><![CDATA[Il template "%1$s" è stato eliminato.]]></translation>
+        <translation locale="ru"><![CDATA[Шаблон "%1$s" удален.]]></translation>
+        <translation locale="zh"><![CDATA[模板“%1$s”已删除。]]></translation>
+        <translation locale="de"><![CDATA[Das Template "%1$s" wurde gelöscht.]]></translation>
+        <translation locale="fr"><![CDATA[Le template "%1$s" a été effacé.]]></translation>
+        <translation locale="hu"><![CDATA[A(z) "%1$s" sablon törölve.]]></translation>
+        <translation locale="es"><![CDATA[La plantilla "%1$s" fue eliminada.]]></translation>
+        <translation locale="sv"><![CDATA[mall "%1$s" är borttaget.]]></translation>
+        <translation locale="el"><![CDATA[Το πρότυπο "%1$s" διεγράφη.]]></translation>
+        <translation locale="pl"><![CDATA[Szablon "%1$s" został usunięty.]]></translation>
+        <translation locale="pt"><![CDATA[O template "%1$s" foi removido.]]></translation>
+      </item>
+      <item type="message" name="EditedTemplate">
+        <translation locale="nl"><![CDATA[De template "%1$s" werd opgeslagen.]]></translation>
+        <translation locale="en"><![CDATA[The template "%1$s" was saved.]]></translation>
+        <translation locale="it"><![CDATA[Il template "%1$s" è stato salvato.]]></translation>
+        <translation locale="ru"><![CDATA[Шаблон "%1$s" изменен.]]></translation>
+        <translation locale="zh"><![CDATA[模板“%1$s”已保存。]]></translation>
+        <translation locale="de"><![CDATA[Das Template "%1$s" wurde gespeichert.]]></translation>
+        <translation locale="fr"><![CDATA[Le template "%1$s" a été enregistré.]]></translation>
+        <translation locale="hu"><![CDATA[A(z) "%1$s" sablon elmentve.]]></translation>
+        <translation locale="es"><![CDATA[La plantilla "%1$s" fue guardada.]]></translation>
+        <translation locale="sv"><![CDATA[mall "%1$s" sparades.]]></translation>
+        <translation locale="el"><![CDATA[Το πρότυπο "%1$s" αποθηκεύτηκε.]]></translation>
+        <translation locale="pl"><![CDATA[Szablon "%1$s" został zapisany.]]></translation>
+        <translation locale="pt"><![CDATA[O template "%1$s" foi guardado.]]></translation>
+      </item>
     </Extensions>
   </Backend>
 </translations>

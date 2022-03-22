@@ -18,6 +18,8 @@ use Throwable;
 
 final class ActionSlug implements Stringable
 {
+    private array $defaultParameters = [];
+
     public function __construct(private ModuleName $moduleName, private ActionName $actionName)
     {
         Assertion::classExists($this->getFQCN(), 'Action class does not exist');
@@ -130,7 +132,7 @@ final class ActionSlug implements Stringable
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH,
         ?Locale $locale = null
     ): string {
-        $parameters = array_merge($parameters, $this->getRouteParameters());
+        $parameters = array_merge($this->defaultParameters, $parameters, $this->getRouteParameters());
 
         if ($locale instanceof Locale) {
             $parameters['_locale'] = $locale->value;
@@ -149,5 +151,13 @@ final class ActionSlug implements Stringable
             'action' => Container::underscore($this->actionName->getName()),
             'module' => Container::underscore($this->moduleName->getName()),
         ];
+    }
+
+    public function withDefaultParameters(array $defaultParameters): self
+    {
+        $new = clone $this;
+        $new->defaultParameters = $defaultParameters;
+
+        return $new;
     }
 }

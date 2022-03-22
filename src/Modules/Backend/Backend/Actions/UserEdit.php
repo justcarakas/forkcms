@@ -25,17 +25,13 @@ final class UserEdit extends AbstractFormActionController
         $this->setBreadcrumbDetail($user->getDisplayName());
 
         if ($this->getRepository(User::class)->count([]) > 1) {
-            $this->addDeleteForm(
-                ['id' => $user->getId()],
-                ActionSlug::fromFQCN(UserDelete::class)
-            );
+            $this->addDeleteForm(['id' => $user->getId()], UserDelete::getActionSlug());
         }
 
         return $this->handleForm(
             request: $request,
             formType: UserType::class,
             formData: new ChangeUser($user),
-            flashMessage: FlashMessage::success('Edited'),
             redirectResponse: new RedirectResponse(UserIndex::getActionSlug()->generateRoute($this->router)),
             flashMessageCallback: static function (ChangeUser $changedUser): FlashMessage {
                 return FlashMessage::success('Edited', ['entity' => $changedUser->name]);

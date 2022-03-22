@@ -27,16 +27,12 @@ final class UserGroupEdit extends AbstractFormActionController
 
         $this->setBreadcrumbDetail($userGroup->getName());
 
-        $this->addDeleteForm(
-            ['id' => $userGroup->getId()],
-            ActionSlug::fromFQCN(UserGroupDelete::class)
-        );
+        $this->addDeleteForm(['id' => $userGroup->getId()], UserGroupDelete::getActionSlug());
 
         return $this->handleForm(
             request: $request,
             formType: UserGroupType::class,
             formData: new ChangeUserGroup($userGroup),
-            flashMessage: FlashMessage::success('Edited'),
             redirectResponse: new RedirectResponse(UserGroupIndex::getActionSlug()->generateRoute($this->router)),
             flashMessageCallback: static function (ChangeUserGroup $changedUserGroup): FlashMessage {
                 return FlashMessage::success('Edited', ['entity' => $changedUserGroup->name]);

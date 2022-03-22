@@ -27,7 +27,6 @@ abstract class AbstractFormActionController extends AbstractActionController
      * @param null|callable(FormInterface): Response|FormInterface|null $defaultCallback
      * @param null|callable(FormInterface): Response|FormInterface|null $validCallback
      * @param null|callable(FormInterface): FlashMessage $flashMessageCallback
-     * @param null|callable(FormInterface): Event $eventCallback
      */
     protected function handleForm(
         Request $request,
@@ -39,7 +38,6 @@ abstract class AbstractFormActionController extends AbstractActionController
         ?callable $defaultCallback = null,
         ?callable $validCallback = null,
         ?callable $flashMessageCallback = null,
-        ?callable $eventCallback = null,
     ): Response|FormInterface|null {
         $defaultCallback ??= function (FormInterface $form): ?FormInterface {
             $this->assign('backend_form', $form->createView());
