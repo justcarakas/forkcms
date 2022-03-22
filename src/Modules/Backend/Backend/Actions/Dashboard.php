@@ -29,9 +29,8 @@ final class Dashboard extends AbstractActionController
         RouterInterface $router,
         FormFactoryInterface $formFactory,
         MessageBusInterface $commandBus,
-        EventDispatcherInterface $eventDispatcher,
-        private ServiceLocator $backendDashboardWidgets,
-        private AuthorizationCheckerInterface $authorizationChecker,
+        private readonly ServiceLocator $backendDashboardWidgets,
+        private readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {
         parent::__construct(...func_get_args());
     }

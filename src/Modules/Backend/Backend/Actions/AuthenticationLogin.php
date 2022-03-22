@@ -17,10 +17,10 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 final class AuthenticationLogin extends AbstractActionController
 {
     public function __construct(
-        private UserRepository $userRepository,
-        private NavigationItemRepository $navigationItemRepository,
-        protected RouterInterface $router,
-        private NotFound $notFoundAction,
+        private readonly UserRepository $userRepository,
+        private readonly NavigationItemRepository $navigationItemRepository,
+        protected readonly RouterInterface $router,
+        private readonly NotFound $notFoundAction,
     ) {
         //no need to call the parent since we don't use it
     }

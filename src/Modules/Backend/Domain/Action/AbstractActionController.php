@@ -25,15 +25,14 @@ abstract class AbstractActionController implements ActionControllerInterface
     private array $twigContext = [];
 
     public function __construct(
-        protected DataGridFactory $dataGridFactory,
-        protected EntityManagerInterface $entityManager,
-        protected Environment $twig,
-        protected TranslatorInterface $translator,
-        protected Header $header,
-        protected RouterInterface $router,
-        protected FormFactoryInterface $formFactory,
-        protected MessageBusInterface $commandBus,
-        protected EventDispatcherInterface $eventDispatcher,
+        protected readonly DataGridFactory $dataGridFactory,
+        protected readonly EntityManagerInterface $entityManager,
+        protected readonly Environment $twig,
+        protected readonly TranslatorInterface $translator,
+        protected readonly Header $header,
+        protected readonly RouterInterface $router,
+        protected readonly FormFactoryInterface $formFactory,
+        protected readonly MessageBusInterface $commandBus,
     ) {
         $actionSlug = self::getActionSlug();
         $this->templatePath = sprintf(

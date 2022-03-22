@@ -6,15 +6,19 @@ use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractDeleteActionController;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\Command\DeleteThemeTemplate;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
-use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class ThemeTemplateDelete extends AbstractDeleteActionController
 {
     public function getFormResponse(Request $request): Response
     {
         $themeTemplate = $this->getRepository(ThemeTemplate::class)->find($request->request->all('action')['id']);
+
+        if ($themeTemplate === null) {
+            throw new NotFoundHttpException('Theme template not found');
+        }
 
         return $this->handleDeleteForm(
             $request,

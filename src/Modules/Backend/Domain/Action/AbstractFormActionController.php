@@ -60,9 +60,6 @@ abstract class AbstractFormActionController extends AbstractActionController
             } elseif (is_callable($flashMessageCallback)) {
                 $this->header->addFlashMessage($flashMessageCallback($form));
             }
-            if (is_callable($eventCallback)) {
-                $this->eventDispatcher->dispatch($eventCallback($form));
-            }
 
             return $response;
         }
