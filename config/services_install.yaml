@@ -47,6 +47,9 @@ services:
     arguments:
       - !tagged_iterator { tag: 'forkcms.module.installer' }
 
+  ForkCMS\Modules\Frontend\Domain\Block\:
+    resource: '../src/Modules/Frontend/Domain/Block/*'
+
   ForkCMS\Modules\Backend\Domain\:
     resource: '../src/Modules/Backend/Domain/*'
     exclude:

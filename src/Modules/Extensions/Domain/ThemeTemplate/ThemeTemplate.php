@@ -69,6 +69,11 @@ class ThemeTemplate
         $entity->path = self::PATH_DIRECTORY . $dataTransferObject->path;
         $entity->settings = $dataTransferObject->settings;
         $entity->active = $dataTransferObject->active;
+        if ($dataTransferObject->default) {
+            $entity->theme->getDefaultTemplate()->defaultForTheme = null;
+            $entity->defaultForTheme = $entity->theme;
+            $entity->theme->changeDefaultTemplate($entity);
+        }
 
         return $entity;
     }
@@ -113,5 +118,10 @@ class ThemeTemplate
     public function getFullPath(): string
     {
         return $this->theme->getPath() . '/' . $this->path;
+    }
+
+    public function getPositions(): array
+    {
+        return $this->getSetting('positions', []);
     }
 }

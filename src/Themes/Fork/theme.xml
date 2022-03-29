@@ -24,17 +24,17 @@
   </description>
   <meta_navigation supported="false"/>
   <templates>
-    <template name="Default" path="Core/Layout/Templates/Default.html.twig" image="true">
-      <format>
+    <template name="Default" path="templates/Core/Default.html.twig" image="true" default="true">
+      <layout>
         [/,/,top],
         [main,main,main]
-      </format>
+      </layout>
     </template>
-    <template name="Home" path="Core/Layout/Templates/Home.html.twig" image="true">
-      <format>
+    <template name="Home" path="templates/Core/Home.html.twig" image="true">
+      <layout>
         [/,/,top],
         [main,main,main]
-      </format>
+      </layout>
     </template>
   </templates>
 </theme>

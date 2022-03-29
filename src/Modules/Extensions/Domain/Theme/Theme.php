@@ -129,4 +129,9 @@ class Theme
     {
         return realpath(__DIR__ . '/../../../../Themes/' . $this->name);
     }
+
+    public function changeDefaultTemplate(ThemeTemplate $themeTemplate): void
+    {
+        $this->defaultTemplate = $themeTemplate;
+    }
 }

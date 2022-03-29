@@ -85,15 +85,34 @@ final class ThemeTemplateType extends AbstractType
                         ]
                     );
                 },
-            ])
-            ->add('status', FieldsetType::class, [
+            ]);
+
+        if ($options['show_status']) {
+            $builder->add('status', FieldsetType::class, [
                 'label' => TranslationKey::label('Status'),
-                'fields' => static function (FormBuilderInterface $builder) {
+                'fields' => static function (FormBuilderInterface $builder) use ($options) {
+                    $activeOptions = [
+                        'required' => false,
+                        'label' => TranslationKey::label('Active')
+                    ];
+                    if (!$options['can_disable']) {
+                        $activeOptions['disabled'] = true;
+                    }
                     $builder
-                        ->add('active', CheckboxType::class, ['required' => false, 'label' => TranslationKey::label('Active')])
-                        ->add('default', CheckboxType::class, ['required' => false, 'label' => TranslationKey::label('Default')]);
+                        ->add(
+                            'active',
+                            CheckboxType::class,
+                            $activeOptions
+                        )
+                        ->add(
+                            'default',
+                            CheckboxType::class,
+                            ['required' => false, 'label' => TranslationKey::label('Default')]
+                        );
                 },
             ]);
+        }
+
         if ($options['show_overwrite']) {
             $builder->add('overwrite', FieldsetType::class, [
                 'label' => TranslationKey::label('Overwrite'),
@@ -117,5 +136,7 @@ final class ThemeTemplateType extends AbstractType
     {
         $resolver->setDefault('data_class', ThemeTemplateDataTransferObject::class);
         $resolver->setDefault('show_overwrite', false);
+        $resolver->setDefault('show_status', true);
+        $resolver->setDefault('can_disable', true);
     }
 }

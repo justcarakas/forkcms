@@ -611,6 +611,36 @@
         <translation locale="pl"><![CDATA[Szablon "%1$s" został zapisany.]]></translation>
         <translation locale="pt"><![CDATA[O template "%1$s" foi guardado.]]></translation>
       </item>
+      <item type="label" name="Overwrite">
+        <translation locale="nl"><![CDATA[overschrijf]]></translation>
+        <translation locale="en"><![CDATA[overwrite]]></translation>
+        <translation locale="it"><![CDATA[sovrascrivi]]></translation>
+        <translation locale="ru"><![CDATA[Перезаписать]]></translation>
+        <translation locale="zh"><![CDATA[重写]]></translation>
+        <translation locale="de"><![CDATA[überschreiben]]></translation>
+        <translation locale="fr"><![CDATA[écraser]]></translation>
+        <translation locale="hu"><![CDATA[felülír]]></translation>
+        <translation locale="es"><![CDATA[sobreescribir]]></translation>
+        <translation locale="uk"><![CDATA[Перезаписати]]></translation>
+        <translation locale="sv"><![CDATA[skriva över]]></translation>
+        <translation locale="el"><![CDATA[Επικάλυψη]]></translation>
+        <translation locale="pl"><![CDATA[nadpisz]]></translation>
+        <translation locale="pt"><![CDATA[substituir]]></translation>
+      </item>
+      <item type="message" name="HelpOverwrite">
+        <translation locale="nl"><![CDATA[<strong>Opgelet!</strong> Het aanvinken van deze checkbox zal tot gevolg hebben dat de inhoud van elke pagina wordt gereset naar de hierboven gekozen standaardwaarden!]]></translation>
+        <translation locale="en"><![CDATA[<strong>Attention!</strong> Checking this checkbox will cause the content of every page to be reset to the defaults chosen here-above.]]></translation>
+        <translation locale="it"><![CDATA[<strong>Attenzione!</strong> Selezionando questa checkbox il contenuto di ogni pagina verrà resettato ai valori di default scelti qui.]]></translation>
+        <translation locale="ru"><![CDATA[<strong>Осторожно!</strong> Все содержание может быть сброшено по-умолчанию.]]></translation>
+        <translation locale="zh"><![CDATA[<strong>注意！</strong> 选中这个复选框项目将会使每个页面重置回默认的勾选状态。]]></translation>
+        <translation locale="de"><![CDATA[<strong>Aufpassen!</strong> Das aktivieren dieser Checkbox führt dazu, dass die Inhalte aller Seiten auf die oberhalb gewählten Standardwerte zurückgesetzt werden.]]></translation>
+        <translation locale="fr"><![CDATA[<strong>Attention!</strong> Cocher cette case entrainera une réinitialisation du contenu de chaque page aux valeurs par défaut.]]></translation>
+        <translation locale="hu"><![CDATA[<strong>Figyelem!</strong> Ha bejelölöd ezt az opciót, akkor minden oldal tartalma visszaáll a fenti alapértelmezettre.]]></translation>
+        <translation locale="es"><![CDATA[<strong>¡Atención!</strong> Seleccionado esta casilla el contenido de la página sera reseteado al valor por defecto elegido aquí arriba.]]></translation>
+        <translation locale="sv"><![CDATA[<strong>Attention!</strong> Checking detta checkbox kommer att cause innehållet av every sida till be återställ till defaults chosen här-above.]]></translation>
+        <translation locale="pl"><![CDATA[<strong> Uwaga! </strong> Zaznaczenie tego pola wyboru spowoduje zresetowanie zawartości każdej strony do wartości domyślnych wybranych powyżej!]]></translation>
+        <translation locale="pt"><![CDATA[<strong>Atenção!</strong> Se seleccionar esta checkbox, o conteúdo de cada página será redefinido para os valores seleccionados acima!]]></translation>
+      </item>
     </Extensions>
   </Backend>
 </translations>

@@ -28,6 +28,9 @@ final class ThemeTemplateExport extends AbstractActionController
             $templateXml = $xml->createElement('template');
             $templateXml->setAttribute('name', $template->getName());
             $templateXml->setAttribute('path', $template->getPath());
+            if ($template->isDefault()) {
+                $templateXml->setAttribute('default', 'true');
+            }
             $templatesXml->appendChild($templateXml);
             $templateXml->appendChild(
                 $xml->createElement(

@@ -39,7 +39,7 @@
 {%- endblock -%}
 
 {%- block _theme_template_overwrite_row -%}
-{% if form.parent.children['overwrite'] is defined %}
+{% if form.parent.children['status'] is defined %}
   <div class="col-md-6">
     {{ form_row(form) }}
   </div>

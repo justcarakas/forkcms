@@ -92,10 +92,17 @@ final class InstallableTheme extends ThemeDataTransferObject
             $theme->description = null;
         }
         $theme->active = false;
+        $templates = ['default' => [], 'other' => []];
         foreach ($themeConfig->templates[0] as $template) {
             $themeTemplate = InstallableThemeTemplate::fromXML($template);
             if ($themeTemplate !== null) {
-                $theme->templates[$themeTemplate->name] = $themeTemplate;
+                $templates[$themeTemplate->isDefault ? 'default' : 'other'][$themeTemplate->name] = $themeTemplate;
+            }
+        }
+        // we need the default template to be first so it will become the default one
+        foreach ($templates as $templateList) {
+            foreach ($templateList as $template) {
+                $theme->templates[$template->name] = $template;
             }
         }
 

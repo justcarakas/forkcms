@@ -33,6 +33,10 @@ final class InstallThemeHandler implements CommandHandlerInterface
             }
             $template->setPositions(
                 array_map(function (array $position): array {
+                    if (!array_key_exists('blocks', $position)) {
+                        return $position;
+                    }
+
                     $blocks = [];
                     foreach ($position['blocks'] as $block) {
                         $blocks[] = $this->blockRepository->findUnique(

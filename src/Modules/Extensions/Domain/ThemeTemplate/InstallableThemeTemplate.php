@@ -10,6 +10,8 @@ use Symfony\Component\Serializer\Serializer;
 
 final class InstallableThemeTemplate extends ThemeTemplateDataTransferObject
 {
+    public readonly bool $isDefault;
+
     public static function fromXML(SimpleXMLElement|bool|null $template): ?self
     {
         if (!$template instanceof SimpleXMLElement) {
@@ -44,6 +46,7 @@ final class InstallableThemeTemplate extends ThemeTemplateDataTransferObject
             );
         }
         $themeTemplate->settings->set('positions', $positions);
+        $themeTemplate->isDefault = $template->attributes()?->default?->__toString() === 'true';
 
         return $themeTemplate;
     }
