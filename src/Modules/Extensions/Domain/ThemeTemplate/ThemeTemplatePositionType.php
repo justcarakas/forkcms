@@ -11,14 +11,17 @@ use ForkCMS\Modules\Frontend\Domain\Block\Type;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class ThemeTemplatePositionType extends AbstractType
 {
-    public function __construct(private readonly TranslatorInterface $translator)
-    {
+    public function __construct(
+        private readonly TranslatorInterface $translator,
+        private readonly BlockRepository $blockRepository
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -32,10 +35,9 @@ final class ThemeTemplatePositionType extends AbstractType
                 ]
             )
             ->add(
-                'block',
+                'blocks',
                 CollectionType::class,
                 [
-                    'mapped' => false,
                     'label' => TranslationKey::label('PositionBlock'),
                     'entry_type' => EntityType::class,
                     'entry_options' => [
@@ -58,6 +60,20 @@ final class ThemeTemplatePositionType extends AbstractType
                     'allow_delete' => true,
                     'allow_sequence' => true,
                 ]
+            )
+            ->get('blocks')->addModelTransformer(
+                new CallbackTransformer(
+                    function (?array $blocks): array {
+                        if ($blocks === null) {
+                            return [];
+                        }
+
+                        return array_map($this->blockRepository->find(...), $blocks);
+                    },
+                    static function (array $blocks = []) {
+                        return array_map(static fn (Block $block): int => $block->getId(), $blocks);
+                    }
+                )
             );
     }
 }

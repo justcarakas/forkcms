@@ -2,11 +2,9 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
-use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
@@ -31,6 +29,8 @@ use Pageon\DoctrineDataGridBundle\Attribute\DataGridPropertyColumn;
 )]
 class ThemeTemplate
 {
+    public const PATH_DIRECTORY = 'templates/Core/';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
@@ -46,7 +46,7 @@ class ThemeTemplate
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $active;
 
-    #[ORM\ManyToOne(targetEntity: Theme::class, inversedBy:"templates")]
+    #[ORM\ManyToOne(targetEntity: Theme::class, inversedBy: "templates")]
     #[ORM\JoinColumn(name: 'theme', referencedColumnName: 'name')]
     private Theme $theme;
 
@@ -64,9 +64,9 @@ class ThemeTemplate
 
     public static function fromDataTransferObject(ThemeTemplateDataTransferObject $dataTransferObject): self
     {
-        $entity = $dataTransferObject->isNew() ? new self($dataTransferObject->theme) : $dataTransferObject->getEntity();
+        $entity = $dataTransferObject->getEntity() ?? new self($dataTransferObject->theme);
         $entity->name = $dataTransferObject->name;
-        $entity->path = $dataTransferObject->path;
+        $entity->path = self::PATH_DIRECTORY . $dataTransferObject->path;
         $entity->settings = $dataTransferObject->settings;
         $entity->active = $dataTransferObject->active;
 
@@ -112,6 +112,6 @@ class ThemeTemplate
 
     public function getFullPath(): string
     {
-        return $this->theme->getPath() . '/templates/Core/' . $this->path;
+        return $this->theme->getPath() . '/' . $this->path;
     }
 }

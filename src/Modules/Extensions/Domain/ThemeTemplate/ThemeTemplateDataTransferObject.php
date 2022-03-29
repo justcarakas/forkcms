@@ -42,7 +42,7 @@ abstract class ThemeTemplateDataTransferObject
         }
 
         $this->name = $themeTemplateEntity->getName();
-        $this->path = $themeTemplateEntity->getPath();
+        $this->path = str_replace(ThemeTemplate::PATH_DIRECTORY, '', $themeTemplateEntity->getPath());
         $this->settings = $themeTemplateEntity->getSettings();
         $this->active = $themeTemplateEntity->getActive();
         $this->theme = $themeTemplateEntity->getTheme();
@@ -57,7 +57,7 @@ abstract class ThemeTemplateDataTransferObject
 
     public function setLayout(?string $layout): void
     {
-        $this->settings->set('layout', $layout);
+        $this->settings->set('layout', str_replace("\r", '', $layout));
     }
 
     public function getPositions(): array
