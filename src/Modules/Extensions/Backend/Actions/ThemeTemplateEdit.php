@@ -3,9 +3,7 @@
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
-use ForkCMS\Modules\Backend\Backend\Actions\UserGroupIndex;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
-use ForkCMS\Modules\Backend\Domain\UserGroup\Command\ChangeUserGroup;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\Command\ChangeThemeTemplate;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplateType;
@@ -29,7 +27,10 @@ final class ThemeTemplateEdit extends AbstractFormActionController
             )
         );
 
-        $this->addDeleteForm(['id' => $themeTemplate->getId()], ThemeTemplateDelete::getActionSlug());
+        if (!$themeTemplate->isDefault()) {
+            $this->addDeleteForm(['id' => $themeTemplate->getId()], ThemeTemplateDelete::getActionSlug());
+        }
+
         $changeThemeTemplate = new ChangeThemeTemplate($themeTemplate);
 
         return $this->handleForm(
