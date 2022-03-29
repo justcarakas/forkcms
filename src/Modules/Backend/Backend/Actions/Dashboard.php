@@ -9,12 +9,12 @@ use ForkCMS\Modules\Backend\Domain\Dashboard\Widget;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
 use Symfony\Component\DependencyInjection\ServiceLocator;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -29,6 +29,7 @@ final class Dashboard extends AbstractActionController
         RouterInterface $router,
         FormFactoryInterface $formFactory,
         MessageBusInterface $commandBus,
+        SerializerInterface $serializer,
         private readonly ServiceLocator $backendDashboardWidgets,
         private readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {

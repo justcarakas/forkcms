@@ -7,13 +7,13 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Exception\MissingIdentifierField;
 use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
 use ForkCMS\Core\Domain\Header\Header;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -33,6 +33,7 @@ abstract class AbstractActionController implements ActionControllerInterface
         protected readonly RouterInterface $router,
         protected readonly FormFactoryInterface $formFactory,
         protected readonly MessageBusInterface $commandBus,
+        protected readonly SerializerInterface $serializer,
     ) {
         $actionSlug = self::getActionSlug();
         $this->templatePath = sprintf(
