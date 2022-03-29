@@ -55,7 +55,7 @@
               <tr class="odd">
                 <td class="name">{{ themeTemplate.name }}</td>
                 <td class="path">{{ themeTemplate.path }}</td>
-                <td class="positions">{{ themeTemplate.settings.get('positions')|join(', ') }}</td>
+                <td class="positions">{{ themeTemplate.positions|column('name')|join(', ') }}</td>
               </tr>
             {% endfor %}
             </tbody>
