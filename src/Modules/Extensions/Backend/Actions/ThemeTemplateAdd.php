@@ -20,19 +20,19 @@ final class ThemeTemplateAdd extends AbstractFormActionController
 {
     protected function getFormResponse(Request $request): ?Response
     {
-        $theme = $this->getEntityFromRequest($request, Theme::class, 'id');
+        $theme = $this->getEntityFromRequest($request, Theme::class);
         $this->assign('theme', $theme);
 
         return $this->handleForm(
             request: $request,
             formType: ThemeTemplateType::class,
             formData: new CreateThemeTemplate($theme),
+            redirectResponse: new RedirectResponse(
+                ThemeTemplateIndex::getActionSlug()->generateRoute($this->router, ['slug' => $theme->getName()])
+            ),
             flashMessageCallback: static fn (Form $form) => FlashMessage::success(
                 'ThemeTemplateAdded',
                 ['%1$s' => $form->getData()->name]
-            ),
-            redirectResponse: new RedirectResponse(
-                ThemeTemplateIndex::getActionSlug()->generateRoute($this->router, ['slug' => $theme->getName()])
             ),
         );
     }

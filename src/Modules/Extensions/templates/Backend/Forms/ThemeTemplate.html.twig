@@ -26,3 +26,25 @@
     {{ form_row(form.name) }}
   </div>
 {%- endblock -%}
+
+{%- block _theme_template_status_row -%}
+{% if form.parent.children['overwrite'] is defined %}
+<div class="row">
+  <div class="col-md-6">
+    {{ form_row(form) }}
+  </div>
+{% else %}
+  {{ form_row(form) }}
+{% endif %}
+{%- endblock -%}
+
+{%- block _theme_template_overwrite_row -%}
+{% if form.parent.children['overwrite'] is defined %}
+  <div class="col-md-6">
+    {{ form_row(form) }}
+  </div>
+</div>
+  {% else %}
+  {{ form_row(form) }}
+{% endif %}
+{%- endblock -%}

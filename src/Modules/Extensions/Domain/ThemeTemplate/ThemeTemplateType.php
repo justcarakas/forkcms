@@ -94,10 +94,28 @@ final class ThemeTemplateType extends AbstractType
                         ->add('default', CheckboxType::class, ['required' => false, 'label' => TranslationKey::label('Default')]);
                 },
             ]);
+        if ($options['show_overwrite']) {
+            $builder->add('overwrite', FieldsetType::class, [
+                'label' => TranslationKey::label('Overwrite'),
+                'fields' => static function (FormBuilderInterface $builder) {
+                    $builder->add(
+                        'overwrite',
+                        CheckboxType::class,
+                        [
+                            'required' => false,
+                            'label' => TranslationKey::label('Overwrite'),
+                            'help' => (string) TranslationKey::message('HelpOverwrite'),
+                            'help_html' => true,
+                        ]
+                    );
+                },
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('data_class', ThemeTemplateDataTransferObject::class);
+        $resolver->setDefault('show_overwrite', false);
     }
 }

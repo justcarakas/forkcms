@@ -43,6 +43,7 @@ final class ThemeTemplateEdit extends AbstractFormActionController
                      ['slug' => $changeThemeTemplate->theme->getName()]
                  )
              ),
+            formOptions: ['show_overwrite' => true],
             flashMessageCallback: static function (Form $form): FlashMessage {
                 return FlashMessage::success('EditedTemplate', ['%1$s' => $form->getData()->name]);
             }

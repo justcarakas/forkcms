@@ -30,6 +30,8 @@ abstract class ThemeTemplateDataTransferObject
 
     public bool $default = false;
 
+    public bool $overwrite = false;
+
     protected ?ThemeTemplate $themeTemplateEntity;
 
     public function __construct(?ThemeTemplate $themeTemplateEntity = null)
@@ -107,7 +109,7 @@ abstract class ThemeTemplateDataTransferObject
                     ->atPath('[name]')
                     ->addViolation();
             }
-            if (!in_array($position, $layoutPositions)) {
+            if (!in_array($position, $layoutPositions, true)) {
                 $context->buildViolation(TranslationKey::error('NonExistingPositionName'), ['%1$s' => $position])
                     ->atPath('positions')
                     ->atPath(sprintf('[%s]', $index))
