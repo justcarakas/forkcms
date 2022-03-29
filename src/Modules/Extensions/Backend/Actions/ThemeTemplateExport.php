@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Extensions\Backend\Actions;
 use DOMDocument;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
+use ForkCMS\Modules\Frontend\Domain\Block\Block;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -22,14 +23,40 @@ final class ThemeTemplateExport extends AbstractActionController
         $xml->preserveWhiteSpace = false;
         $templatesXml = $xml->createElement('templates');
         $xml->appendChild($templatesXml);
+        $blockRepository = $this->getRepository(Block::class);
         foreach ($theme->getTemplates() as $template) {
             $templateXml = $xml->createElement('template');
             $templateXml->setAttribute('name', $template->getName());
             $templateXml->setAttribute('path', $template->getPath());
             $templatesXml->appendChild($templateXml);
             $templateXml->appendChild(
-                $xml->createElement('format', $template->getSetting('format'))
+                $xml->createElement(
+                    'layout',
+                    "\n      " . str_replace("\n", "\n      ", $template->getSetting('layout')) . "\n    "
+                )
             );
+            $positions = $template->getSetting('positions', []);
+            $positionsXml = $xml->createElement('positions');
+            $templateXml->appendChild($positionsXml);
+            foreach ($positions as $position) {
+                $positionXml = $xml->createElement('position');
+                $positionXml->setAttribute('name', $position['name']);
+                foreach ($position['blocks'] ?? [] as $blockId) {
+                    $block = $blockRepository->find($blockId);
+                    if ($block === null) {
+                        continue;
+                    }
+                    $blockDOMDocument = new DOMDocument('1.0', 'utf-8');
+                    $blockDOMDocument->loadXML($this->serializer->serialize($block->getSettings()->all(), 'xml', ['xml_root_node_name' => 'block']));
+                    $blockXml = $xml->importNode($blockDOMDocument->documentElement, true);
+                    $blockXml->setAttribute('module', $block->getModule()->getName());
+                    $blockXml->setAttribute('type', $block->getType()->value);
+                    $blockXml->setAttribute('name', $block->getBlockName()->getName());
+                    $blockXml->setAttribute('label', $block->getLabel()->getName());
+                    $positionXml->append($blockXml);
+                }
+                $positionsXml->appendChild($positionXml);
+            }
         }
 
         return new Response(
