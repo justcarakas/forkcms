@@ -116,7 +116,7 @@ SITE_MULTILINGUAL=%9$s',
 
                 return $moduleNameMap[$taggedModule->getValue()];
             },
-            $configuration['modules'],
+            $configuration['modules'] ?? [],
         );
         $configuration['locales'] = array_map(
             static fn (TaggedValue $taggedLocale) => Locale::from($taggedLocale->getValue()),
