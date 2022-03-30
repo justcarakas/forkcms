@@ -8,69 +8,7 @@
 {% set dataGridEmptyLabel = dataGridEmptyLabel|default('lbl.Add'|trans|ucfirst) %}
 
 {% if dataGrid.paginator is not empty %}
-<table class="table table-striped table-hover responsive nowrap">
-  <thead>
-  <tr>
-    {% set hasFilters = false %}
-    {% for column in dataGrid.columns %}
-      <th scope="col">
-        {% if column.route is null %}
-          {% if(column.sortable) %}
-            {{ knp_pagination_sortable(dataGrid.paginator, column.label|trans|ucfirst, column.fullName) }}
-          {% else %}
-            {{ column.label|trans|ucfirst }}
-          {% endif %}
-          {% if(column.filterable) %}
-            {% set hasFilters = true %}
-          {% endif %}
-        {% endif %}
-      </th>
-    {% endfor %}
-  </tr>
-  {% if(hasFilters) %}
-    <tr>
-      {% for column in dataGrid.columns %}
-        <th scope="col">
-          {% if(column.filterable) %}
-            {{ knp_pagination_filter(dataGrid.paginator, {(column.fullName): column.label}, {button: 'lbl.Filter'}) }}
-          {% endif %}
-        </th>
-      {% endfor %}
-    </tr>
-  {% endif %}
-  </thead>
-  <tfoot>
-  <tr>
-    <td colspan="{{ dataGrid.columns|count }}">
-      <div class="d-flex align-self-center justify-content-center">{{ knp_pagination_render(dataGrid.paginator) }}</div>
-    </td>
-  </tr>
-  </tfoot>
-  <tbody>
-  {% for row in dataGrid.paginator %}
-    <tr>
-      {% for column in dataGrid.columns %}
-        <td>
-          {% if column.route is null %}
-            {% set columnValue = column.value(attribute(row, column.name)) %}
-            {%if column.isHtml %}
-              {{ columnValue|raw }}
-            {% elseif columnValue is same as true %}
-              <span class="text-success">{{ macro.infoTooltip('lbl.Yes'|trans|ucfirst, 'check') }}</span>
-            {% elseif columnValue is same as false %}
-              <span class="text-danger">{{ macro.infoTooltip('lbl.No'|trans|ucfirst, 'times') }}</span>
-            {% else%}
-              {{ columnValue }}
-            {% endif %}
-          {% else %}
-            <a href="{{ path(column.route, column.routeAttributes(row)) }}"{% if column.class %} class="{{ column.class }}"{% endif %}>{% if column.iconClass %}{{ macro.icon(column.iconClass) }} {% endif %}{{ column.label|trans|ucfirst }}</a>
-          {% endif %}
-        </td>
-      {% endfor %}
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
+  {% include '@!PageonDoctrineDataGrid/dataGrid.html.twig'%}
 {% else %}
   <div class="empty-state">
     <img class="empty-state-illustration mb-4 vis" src="{{ asset('build/backend/images/empty-state.svg') }}" aria-hidden="true" alt="empty data grid icon">
