@@ -2,52 +2,39 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Theme;
 
-use Composer\Semver\Comparator;
+use ForkCMS\Modules\Extensions\Domain\InformationFile\Author;
+use ForkCMS\Modules\Extensions\Domain\InformationFile\Messages;
+use ForkCMS\Modules\Extensions\Domain\InformationFile\Requirements;
+use ForkCMS\Modules\Extensions\Domain\InformationFile\SafeHtml;
+use ForkCMS\Modules\Extensions\Domain\InformationFile\SafeString;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\InstallableThemeTemplate;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
-use ForkCMS\Modules\Internationalisation\Domain\Translation\Type;
-use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
-use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
 
 final class InstallableTheme extends ThemeDataTransferObject
 {
-    /** @var TranslationKey[] */
-    private array $messages = [];
+    private readonly Messages $messages;
 
     public static function fromTheme(Theme $theme): self
     {
-        return new self($theme);
+        $installableTheme = new self($theme);
+        $installableTheme->messages = new Messages();
+
+        return $installableTheme;
     }
 
     public static function fromXML(string $xmlFilePath): self
     {
-        $sanitiserSafeHtml = new HtmlSanitizer((new HtmlSanitizerConfig())->allowSafeElements());
-        $sanitiserNoHtml = new HtmlSanitizer((new HtmlSanitizerConfig()));
         $themeConfig = simplexml_load_string(file_get_contents($xmlFilePath), 'SimpleXMLElement', LIBXML_NOCDATA);
-        $minimumVersion = $sanitiserNoHtml->sanitize($themeConfig->requirements->minimum_version ?? '');
         $theme = new self();
-        if ($minimumVersion !== '' && Comparator::lessThan($_ENV['FORK_VERSION'], $minimumVersion)) {
-            $theme->addMessage(
-                TranslationKey::error('InformationVersionTooLow')->withParameters(
-                    ['%minimumVersion%' => $minimumVersion, '%currentVersion%' => $_ENV['FORK_VERSION']]
-                )
-            );
-        }
-        $maximumVersion = $sanitiserNoHtml->sanitize($themeConfig->requirements->maximum_version ?? '');
-        if ($maximumVersion !== '' && Comparator::greaterThanOrEqualTo($_ENV['FORK_VERSION'], $maximumVersion)) {
-            $theme->addMessage(
-                TranslationKey::error('InformationVersionTooHigh')->withParameters(
-                    ['%maximumVersion%' => $maximumVersion, '%currentVersion%' => $_ENV['FORK_VERSION']]
-                )
-            );
-        }
-        $theme->name = $sanitiserNoHtml->sanitize($themeConfig->name);
+        $theme->messages = new Messages();
+        $theme->settings->set('requirements', Requirements::fromXML($themeConfig->requirements, $theme->messages));
+        $theme->name = SafeString::fromXML($themeConfig->name)->string;
         $directoryName = basename(dirname($xmlFilePath));
         if ($theme->name !== $directoryName) {
             $theme->addMessage(TranslationKey::error('ThemeNameDoesntMatch'));
         }
         $thumbnail = realpath(
-            dirname($xmlFilePath) . '/assets/public/' . $sanitiserNoHtml->sanitize($themeConfig->thumbnail)
+            dirname($xmlFilePath) . '/assets/public/' . SafeString::fromXML($themeConfig->thumbnail)->string
         );
         if (
             !is_dir($thumbnail)
@@ -63,7 +50,7 @@ final class InstallableTheme extends ThemeDataTransferObject
                 )
             );
         }
-        $themeVersion = $sanitiserNoHtml->sanitize($themeConfig->version);
+        $themeVersion = SafeString::fromXML($themeConfig->version)->string;
         if ($themeVersion !== '') {
             $theme->settings->set('themeVersion', $themeVersion);
         }
@@ -71,26 +58,14 @@ final class InstallableTheme extends ThemeDataTransferObject
             'metaNavigation',
             ($themeConfig->meta_navigation->attributes()->enabled ?? 'false') === 'true'
         );
-        if ($minimumVersion !== '') {
-            $theme->settings->set('minimumForkVersion', $minimumVersion);
-        }
-        if ($maximumVersion !== '') {
-            $theme->settings->set('maximumForkVersion', $maximumVersion);
-        }
         $authors = [];
         foreach ($themeConfig->authors->author as $authorConfig) {
-            $authors[] = [
-                'name' => $sanitiserNoHtml->sanitize($authorConfig->name),
-                'url' => $sanitiserNoHtml->sanitize($authorConfig->url),
-            ];
+            $authors[] = Author::fromXML($authorConfig);
         }
         if (count($authors) > 0) {
             $theme->settings->set('authors', $authors);
         }
-        $theme->description = $sanitiserSafeHtml->sanitize(nl2br(trim($themeConfig->description)));
-        if ($theme->description === '') {
-            $theme->description = null;
-        }
+        $theme->description = SafeHtml::fromXML($themeConfig->description);
         $theme->active = false;
         $templates = ['default' => [], 'other' => []];
         foreach ($themeConfig->templates[0] as $template) {
@@ -124,22 +99,16 @@ final class InstallableTheme extends ThemeDataTransferObject
 
     public function addMessage(TranslationKey $message): void
     {
-        $this->messages[(string) $message->getName()] = $message;
+        $this->messages->addMessage($message);
     }
 
     public function getMessages(): array
     {
-        return $this->messages;
+        return $this->messages->getMessages();
     }
 
     public function isInstallable(): bool
     {
-        return $this->themeEntity === null
-            && count(
-                array_filter(
-                    $this->messages,
-                    static fn (TranslationKey $translationKey): bool => $translationKey->getType() === Type::err
-                )
-            ) === 0;
+        return $this->themeEntity === null && !$this->messages->hasErrors();
     }
 }
