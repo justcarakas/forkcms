@@ -18,7 +18,7 @@ final class Author implements JsonSerializable
 
         return new self(
             SafeString::fromXML($author->name),
-            Assertion::url($url) ? $url : null
+            Assertion::url($url->string) ? $url : null
         );
     }
 

@@ -4,7 +4,6 @@ namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\Persistence\ObjectRepository;
 use ForkCMS\Core\Domain\Doctrine\CreateSchema;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
@@ -17,11 +16,9 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupRepository;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use ForkCMS\Modules\Backend\Installer\BackendInstaller;
 use ForkCMS\Modules\Extensions\Installer\ExtensionsInstaller;
-use ForkCMS\Modules\Frontend\Domain\Action\ActionName;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockName;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockRepository;
-use ForkCMS\Modules\Frontend\Domain\Widget\WidgetName;
 use ForkCMS\Modules\Frontend\Installer\FrontendInstaller;
 use ForkCMS\Modules\Internationalisation\Domain\Importer\Importer;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
@@ -29,7 +26,6 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller;
 use InvalidArgumentException;
-use SebastianBergmann\CodeCoverage\Report\Xml\Report;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\StampInterface;
@@ -47,6 +43,8 @@ abstract class ModuleInstaller
 
     /** @var array<string,ModuleName> */
     private ?array $defaultModuleDependencies = null;
+
+    private ?ModuleInformation $moduleInformation = null;
 
     public function __construct(
         protected CreateSchema $createSchema,
@@ -297,5 +295,14 @@ abstract class ModuleInstaller
     final protected function getRepository(string $entityFQCN): EntityRepository
     {
         return $this->entityManager->getRepository($entityFQCN);
+    }
+
+    final public function getInformation(): ModuleInformation
+    {
+        if ($this->moduleInformation === null) {
+            $this->moduleInformation = ModuleInformation::fromModule(self::getModuleName());
+        }
+
+        return $this->moduleInformation;
     }
 }

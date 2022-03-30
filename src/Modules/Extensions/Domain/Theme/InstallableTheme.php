@@ -27,7 +27,7 @@ final class InstallableTheme extends ThemeDataTransferObject
         $themeConfig = simplexml_load_string(file_get_contents($xmlFilePath), 'SimpleXMLElement', LIBXML_NOCDATA);
         $theme = new self();
         $theme->messages = new Messages();
-        $theme->settings->set('requirements', Requirements::fromXML($themeConfig->requirements, $theme->messages));
+        Requirements::fromXML($themeConfig->requirements, $theme->messages);
         $theme->name = SafeString::fromXML($themeConfig->name)->string;
         $directoryName = basename(dirname($xmlFilePath));
         if ($theme->name !== $directoryName) {
