@@ -686,6 +686,65 @@
         <translation locale="pl"><![CDATA[Brak zainstalowanych modułów.]]></translation>
         <translation locale="pt"><![CDATA[Não há módulos instalados.]]></translation>
       </item>
+      <item type="message" name="ConfirmModuleInstall">
+        <translation locale="nl"><![CDATA[Ben je zeker dat je de module "%1$s" wil installeren?]]></translation>
+        <translation locale="en"><![CDATA[Are you sure you want to install the module "%1$s"?]]></translation>
+        <translation locale="ru"><![CDATA[Вы действительно хотите установить модуль "%1$s"?]]></translation>
+        <translation locale="es"><![CDATA[¿Estás seguro de instalar el módulo "%1$s"?]]></translation>
+        <translation locale="de"><![CDATA[Möchtest du das Modul "%1$s" wirklich installieren?]]></translation>
+        <translation locale="hu"><![CDATA[Biztos telepíted a(z) "%1$s" modult?]]></translation>
+        <translation locale="sv"><![CDATA[Är du säker du vill installera modulen "%1$s"?]]></translation>
+        <translation locale="el"><![CDATA[Σίγουρα θέλετε να εγκαταστήσετε την ενότητα "%1$s";]]></translation>
+        <translation locale="zh"><![CDATA[你确定要删除模块“%1$s”吗？]]></translation>
+        <translation locale="pl"><![CDATA[Jesteś pewien że chcesz zainstalować moduł "%1$s"?]]></translation>
+        <translation locale="pt"><![CDATA[Tem a certeza que deseja instalar o módulo "%1$s"?]]></translation>
+      </item>
+      <item type="label" name="FindModules">
+        <translation locale="nl"><![CDATA[vind modules]]></translation>
+        <translation locale="en"><![CDATA[find modules]]></translation>
+        <translation locale="ru"><![CDATA[поиск модулей]]></translation>
+        <translation locale="es"><![CDATA[encontrar módulos]]></translation>
+        <translation locale="de"><![CDATA[Module finden]]></translation>
+        <translation locale="uk"><![CDATA[Знайти модулі]]></translation>
+        <translation locale="hu"><![CDATA[modulok keresése]]></translation>
+        <translation locale="sv"><![CDATA[hitta moduler]]></translation>
+        <translation locale="lt"><![CDATA[ieškoti modulio]]></translation>
+        <translation locale="el"><![CDATA[Αναζήτηση ενοτήτων]]></translation>
+        <translation locale="zh"><![CDATA[搜寻模块]]></translation>
+        <translation locale="pl"><![CDATA[znajdź moduły]]></translation>
+        <translation locale="pt"><![CDATA[pesquisar módulos]]></translation>
+      </item>
+      <item type="label" name="Version">
+        <translation locale="nl"><![CDATA[versie]]></translation>
+        <translation locale="en"><![CDATA[version]]></translation>
+        <translation locale="ru"><![CDATA[версия]]></translation>
+        <translation locale="es"><![CDATA[versión]]></translation>
+        <translation locale="de"><![CDATA[Version]]></translation>
+        <translation locale="uk"><![CDATA[Версія]]></translation>
+        <translation locale="hu"><![CDATA[verzió]]></translation>
+        <translation locale="sv"><![CDATA[version]]></translation>
+        <translation locale="el"><![CDATA[Έκδοση]]></translation>
+        <translation locale="zh"><![CDATA[版本]]></translation>
+        <translation locale="pl"><![CDATA[wersja]]></translation>
+        <translation locale="pt"><![CDATA[versão]]></translation>
+      </item>
+      <item type="label" name="ModuleIndex">
+        <translation locale="nl"><![CDATA[modules]]></translation>
+        <translation locale="en"><![CDATA[modules]]></translation>
+        <translation locale="hu"><![CDATA[modulok]]></translation>
+        <translation locale="it"><![CDATA[moduli]]></translation>
+        <translation locale="ru"><![CDATA[Модули]]></translation>
+        <translation locale="zh"><![CDATA[模块]]></translation>
+        <translation locale="de"><![CDATA[Module]]></translation>
+        <translation locale="fr"><![CDATA[modules]]></translation>
+        <translation locale="es"><![CDATA[módulos]]></translation>
+        <translation locale="lt"><![CDATA[moduliai]]></translation>
+        <translation locale="uk"><![CDATA[Модулі]]></translation>
+        <translation locale="sv"><![CDATA[moduler]]></translation>
+        <translation locale="el"><![CDATA[ενότητες]]></translation>
+        <translation locale="pt"><![CDATA[módulos]]></translation>
+        <translation locale="pl"><![CDATA[moduły]]></translation>
+      </item>
     </Extensions>
   </Backend>
 </translations>
