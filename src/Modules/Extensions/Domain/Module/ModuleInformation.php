@@ -2,18 +2,42 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
+use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Extensions\Domain\InformationFile\Author;
 use ForkCMS\Modules\Extensions\Domain\InformationFile\Messages;
 use ForkCMS\Modules\Extensions\Domain\InformationFile\Requirements;
 use ForkCMS\Modules\Extensions\Domain\InformationFile\SafeHtml;
 use ForkCMS\Modules\Extensions\Domain\InformationFile\SafeString;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
+use Pageon\DoctrineDataGridBundle\Attribute\DataGrid;
+use Pageon\DoctrineDataGridBundle\Attribute\DataGridActionColumn;
+use Pageon\DoctrineDataGridBundle\Attribute\DataGridPropertyColumn;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+#[DataGrid('moduleInformation')]
+#[DataGridActionColumn(
+    route: 'backend_action',
+    routeAttributes: ['module' => 'extensions', 'action' => 'module_detail'],
+    routeAttributesCallback: [self::class, 'dataGridSlugCallback'],
+    label: 'lbl.Details',
+    class: 'btn btn-default btn-sm float-end',
+    iconClass: 'fa fa-eye',
+    requiredRole: ModuleAction::ROLE_PREFIX . 'EXTENSIONS__MODULE_DETAIL'
+)]
 final class ModuleInformation
 {
     private function __construct(
+        #[DataGridPropertyColumn(
+            label: 'lbl.Name',
+            route: 'backend_action',
+            routeAttributes: ['module' => 'extensions', 'action' => 'module_detail'],
+            routeAttributesCallback: [self::class, 'dataGridSlugCallback'],
+            routeRole: ModuleAction::ROLE_PREFIX . 'EXTENSIONS__MODULE_DETAIL'
+        )]
         public readonly ModuleName $name,
+        #[DataGridPropertyColumn(label: 'lbl.Version')]
         public readonly string $version,
+        #[DataGridPropertyColumn(label: 'lbl.Description', valueCallback: [self::class, 'truncateDescription'])]
         public readonly ?string $description,
         public readonly array $authors,
         public readonly array $events,
@@ -23,7 +47,13 @@ final class ModuleInformation
 
     public static function fromModule(ModuleName $moduleName): self
     {
-        $path = realpath(__DIR__ . '/../../../' . $moduleName . '/module.xml');
+        $moduleDirectory = __DIR__ . '/../../../' . $moduleName;
+
+        if (is_dir($moduleDirectory) === false) {
+            throw new NotFoundHttpException('The module directory does not exist');
+        }
+
+        $path = realpath($moduleDirectory . '/module.xml');
 
         if ($path === false) {
             return new self(
@@ -32,7 +62,7 @@ final class ModuleInformation
                 $moduleName . ' does not have a module.xml file with more information.',
                 [],
                 [],
-                []
+                new Messages(),
             );
         }
         return self::fromXML($path);
@@ -83,5 +113,25 @@ final class ModuleInformation
     public function isInstallable(): bool
     {
         return !$this->messages->hasErrors();
+    }
+
+    public static function truncateDescription(string $description): string
+    {
+        $description = strip_tags($description);
+        if (strlen($description) > 100) {
+            return substr($description, 0, 100) . '...';
+        }
+
+        return $description;
+    }
+
+    public static function dataGridSlugCallback(self $moduleInformation): array
+    {
+        return ['slug' => $moduleInformation->name->getName()];
+    }
+
+    public function getModuleName(): string
+    {
+        return $this->name->getName();
     }
 }

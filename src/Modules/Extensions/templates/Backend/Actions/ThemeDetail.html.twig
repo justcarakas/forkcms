@@ -39,23 +39,23 @@
           <table class="table table-striped">
             <thead>
             <tr>
-              <th class="name">
+              <th>
                 <span>{{ 'lbl.Name'|trans|ucfirst }}</span>
               </th>
-              <th class="path">
+              <th>
                 <span>{{ 'lbl.TemplatePath'|trans|ucfirst }}</span>
               </th>
-              <th class="positions">
+              <th>
                 <span>{{ 'lbl.Positions'|trans|ucfirst }}</span>
               </th>
             </tr>
             </thead>
             <tbody>
             {% for themeTemplate in theme.templates %}
-              <tr class="odd">
-                <td class="name">{{ themeTemplate.name }}</td>
-                <td class="path">{{ themeTemplate.path }}</td>
-                <td class="positions">{{ themeTemplate.positions|column('name')|join(', ') }}</td>
+              <tr class="{{ cycle(['odd', 'even'], loop.index0) }}">
+                <td>{{ themeTemplate.name }}</td>
+                <td>{{ themeTemplate.path }}</td>
+                <td>{{ themeTemplate.positions|column('name')|join(', ') }}</td>
               </tr>
             {% endfor %}
             </tbody>
@@ -132,9 +132,9 @@
             <p>{{ 'msg.ConfirmThemeInstall'|trans }}</p>
           </div>
           <div class="modal-footer">
-            {{ macro.buttonIcon('', 'times', 'lbl.Cancel'|trans|ucfirst, 'btn-default', { "data-bs-dismiss":"modal", "type":"button" }) }}
+            {{ macro.buttonIcon('', 'times', 'lbl.No'|trans|ucfirst, 'btn-default', { "data-bs-dismiss":"modal", "type":"button" }) }}
             {{ form_start(themeInstallForm) }}
-            {{ macro.buttonIcon(null, 'check', 'lbl.Install'|trans|ucfirst, 'btn-primary', { "type":"submit"}) }}
+            {{ macro.buttonIcon(null, 'check', 'lbl.Yes'|trans|ucfirst, 'btn-primary', { "type":"submit"}) }}
             {{ form_end(themeInstallForm) }}
           </div>
         </div>
