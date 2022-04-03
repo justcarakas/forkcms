@@ -3118,16 +3118,16 @@
         },
         {
             "name": "pageon/pageon-doctrine-data-grid-bundle",
-            "version": "0.1.13",
+            "version": "0.1.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pageon/PageonDoctrineDataGridBundle.git",
-                "reference": "0ea42e2e2bdd39246b3d03afbbe6fbca22ba7c26"
+                "reference": "b3c92ff057153e3dd9c6fdecedac54eb4ff0ae96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pageon/PageonDoctrineDataGridBundle/zipball/0ea42e2e2bdd39246b3d03afbbe6fbca22ba7c26",
-                "reference": "0ea42e2e2bdd39246b3d03afbbe6fbca22ba7c26",
+                "url": "https://api.github.com/repos/pageon/PageonDoctrineDataGridBundle/zipball/b3c92ff057153e3dd9c6fdecedac54eb4ff0ae96",
+                "reference": "b3c92ff057153e3dd9c6fdecedac54eb4ff0ae96",
                 "shasum": ""
             },
             "require": {
@@ -3156,9 +3156,9 @@
             "description": "A bundle that wraps around the knp paginator bundle and doctrine to generate a data grid from your entity",
             "support": {
                 "issues": "https://github.com/pageon/PageonDoctrineDataGridBundle/issues",
-                "source": "https://github.com/pageon/PageonDoctrineDataGridBundle/tree/0.1.13"
+                "source": "https://github.com/pageon/PageonDoctrineDataGridBundle/tree/0.1.16"
             },
-            "time": "2022-03-30T20:32:53+00:00"
+            "time": "2022-04-03T12:12:16+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
