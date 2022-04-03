@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -24,17 +25,29 @@ abstract class AbstractActionController implements ActionControllerInterface
     /** @var array<string, mixed> */
     private array $twigContext = [];
 
-    public function __construct(
-        protected readonly DataGridFactory $dataGridFactory,
-        protected readonly EntityManagerInterface $entityManager,
-        protected readonly Environment $twig,
-        protected readonly TranslatorInterface $translator,
-        protected readonly Header $header,
-        protected readonly RouterInterface $router,
-        protected readonly FormFactoryInterface $formFactory,
-        protected readonly MessageBusInterface $commandBus,
-        protected readonly SerializerInterface $serializer,
-    ) {
+    protected readonly DataGridFactory $dataGridFactory;
+    protected readonly EntityManagerInterface $entityManager;
+    protected readonly Environment $twig;
+    protected readonly TranslatorInterface $translator;
+    protected readonly Header $header;
+    protected readonly RouterInterface $router;
+    protected readonly FormFactoryInterface $formFactory;
+    protected readonly MessageBusInterface $commandBus;
+    protected readonly SerializerInterface $serializer;
+    protected readonly AuthorizationCheckerInterface $authorizationChecker;
+
+    public function __construct(ActionServices $services)
+    {
+        $this->dataGridFactory = $services->dataGridFactory;
+        $this->entityManager = $services->entityManager;
+        $this->twig = $services->twig;
+        $this->translator = $services->translator;
+        $this->header = $services->header;
+        $this->router = $services->router;
+        $this->formFactory = $services->formFactory;
+        $this->commandBus = $services->commandBus;
+        $this->serializer = $services->serializer;
+        $this->authorizationChecker = $services->authorizationChecker;
         $actionSlug = self::getActionSlug();
         $this->templatePath = sprintf(
             '@%s/Backend/Actions/%s.html.twig',
@@ -45,7 +58,8 @@ abstract class AbstractActionController implements ActionControllerInterface
         $this->pageTitle = $this->buildPageTitle();
     }
 
-    private function buildPageTitle(?string $prepend = null): string {
+    private function buildPageTitle(?string $prepend = null): string
+    {
         $actionSlug = self::getActionSlug();
         return implode(
             ' - ',
@@ -103,9 +117,11 @@ abstract class AbstractActionController implements ActionControllerInterface
     protected function getEntityFromRequest(Request $request, string $entityFQCN, string $key = 'slug'): object
     {
         try {
-            return $this->getRepository($entityFQCN)->find($request->get($key)
-                ?? $request->query->get($key)
-                ?? $request->request->get($key))
+            return $this->getRepository($entityFQCN)->find(
+                    $request->get($key)
+                    ?? $request->query->get($key)
+                    ?? $request->request->get($key)
+                )
                 ?? throw new NotFoundHttpException('identifier field not found');
         } catch (MissingIdentifierField) {
             throw new NotFoundHttpException('identifier field not found');
@@ -116,5 +132,10 @@ abstract class AbstractActionController implements ActionControllerInterface
     {
         $this->assign('breadcrumbDetail', $breadcrumbDetail);
         $this->pageTitle = $this->buildPageTitle($breadcrumbDetail);
+    }
+
+    protected function isAllowed(ActionSlug $actionSlug): bool
+    {
+        return $this->authorizationChecker->isGranted($actionSlug->asModuleAction()->asRole());
     }
 }

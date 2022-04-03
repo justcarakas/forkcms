@@ -2,41 +2,23 @@
 
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
-use Doctrine\ORM\EntityManagerInterface;
 use ForkCMS\Core\Domain\Form\ActionType;
-use ForkCMS\Core\Domain\Header\Header;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
+use ForkCMS\Modules\Backend\Domain\Action\ActionServices;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInformation;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleRepository;
 use Pageon\DoctrineDataGridBundle\Column\Column;
-use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Environment;
 
 final class ModuleIndex extends AbstractActionController
 {
     public function __construct(
-        DataGridFactory $dataGridFactory,
-        EntityManagerInterface $entityManager,
-        Environment $twig,
-        TranslatorInterface $translator,
-        Header $header,
-        RouterInterface $router,
-        FormFactoryInterface $formFactory,
-        MessageBusInterface $commandBus,
-        SerializerInterface $serializer,
+        ActionServices $actionServices,
         private readonly ModuleInstallerLocator $moduleInstallerLocator,
         private readonly ModuleRepository $moduleRepository,
-        private readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {
-        parent::__construct(...func_get_args());
+        parent::__construct($actionServices);
     }
 
     protected function execute(Request $request): void
@@ -56,7 +38,7 @@ final class ModuleIndex extends AbstractActionController
             'installedModules',
             $this->dataGridFactory->forArray(ModuleInformation::class, $installed)
         );
-        if ($this->authorizationChecker->isGranted(ModuleInstall::getActionSlug()->getModuleName()->asRole())) {
+        if ($this->isAllowed(ModuleInstall::getActionSlug())) {
             $this->assign(
                 'notInstalledModules',
                 $this->dataGridFactory->forArray(

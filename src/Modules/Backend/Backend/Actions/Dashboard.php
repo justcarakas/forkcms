@@ -2,38 +2,20 @@
 
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
-use Doctrine\ORM\EntityManagerInterface;
-use ForkCMS\Core\Domain\Header\Header;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
+use ForkCMS\Modules\Backend\Domain\Action\ActionServices;
 use ForkCMS\Modules\Backend\Domain\Dashboard\Widget;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
-use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
 use Symfony\Component\DependencyInjection\ServiceLocator;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Environment;
 
 final class Dashboard extends AbstractActionController
 {
     public function __construct(
-        DataGridFactory $dataGridFactory,
-        EntityManagerInterface $entityManager,
-        Environment $twig,
-        TranslatorInterface $translator,
-        Header $header,
-        RouterInterface $router,
-        FormFactoryInterface $formFactory,
-        MessageBusInterface $commandBus,
-        SerializerInterface $serializer,
+        ActionServices $actionServices,
         private readonly ServiceLocator $backendDashboardWidgets,
-        private readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {
-        parent::__construct(...func_get_args());
+        parent::__construct($actionServices);
     }
 
     protected function execute(Request $request): void
