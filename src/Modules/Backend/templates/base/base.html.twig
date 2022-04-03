@@ -57,6 +57,22 @@
     <div id="root-footer"></div>
   </div>
   {% include "@Backend/base/footer.html.twig" %}
+  <div class="modal fade" data-fork-role="confirmation" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="forkDefaultConfirmTitle">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="forkDefaultConfirmTitle">{{ 'lbl.Confirm'|trans|ucfirst }}</h4>
+        </div>
+        <div class="modal-body">
+          <p data-fork-role="confirmation-message"></p>
+        </div>
+        <div class="modal-footer">
+          {{ macro.buttonIcon('', 'times', 'lbl.No'|trans|ucfirst, 'btn-default', { 'data-bs-dismiss':'modal', 'type':'button' }) }}
+          {{ macro.buttonIcon('#', 'check', 'lbl.Yes'|trans|ucfirst, 'btn-primary', { 'data-fork-role': 'confirmation-submit'}) }}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>

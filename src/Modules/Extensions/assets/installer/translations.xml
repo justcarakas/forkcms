@@ -481,6 +481,10 @@
         <translation locale="pl"><![CDATA[Nazwa folderu motywu nie jest zgodna z nazwą motywu w pliku info.xml.]]></translation>
         <translation locale="pt"><![CDATA[O nome da directoria do tema não corresponde ao nome do tema no ficheiro info.xml.]]></translation>
       </item>
+      <item type="error" name="ModuleNameDoesntMatch">
+        <translation locale="nl"><![CDATA[De module mapnaam komt niet overeen met de modulenaam in info.xml.]]></translation>
+        <translation locale="en"><![CDATA[The module's folder name doesn't match the module name in info.xml.]]></translation>
+      </item>
       <item type="error" name="NoAlphaNumPositionName">
         <translation locale="nl"><![CDATA[De positienaam "%1$s" is niet alfanumeriek.]]></translation>
         <translation locale="en"><![CDATA[Position "%1$s" is not alphanumerical.]]></translation>
@@ -640,6 +644,47 @@
         <translation locale="sv"><![CDATA[<strong>Attention!</strong> Checking detta checkbox kommer att cause innehållet av every sida till be återställ till defaults chosen här-above.]]></translation>
         <translation locale="pl"><![CDATA[<strong> Uwaga! </strong> Zaznaczenie tego pola wyboru spowoduje zresetowanie zawartości każdej strony do wartości domyślnych wybranych powyżej!]]></translation>
         <translation locale="pt"><![CDATA[<strong>Atenção!</strong> Se seleccionar esta checkbox, o conteúdo de cada página será redefinido para os valores seleccionados acima!]]></translation>
+      </item>
+      <item type="label" name="InstallableModules">
+        <translation locale="nl"><![CDATA[niet geïnstalleerde modules]]></translation>
+        <translation locale="en"><![CDATA[not installed modules]]></translation>
+        <translation locale="ru"><![CDATA[Неустановленные модули]]></translation>
+        <translation locale="es"><![CDATA[módulos no instalados]]></translation>
+        <translation locale="de"><![CDATA[nicht installierte Module]]></translation>
+        <translation locale="uk"><![CDATA[Немає встановлених модулів]]></translation>
+        <translation locale="hu"><![CDATA[nincsen telepített modulok]]></translation>
+        <translation locale="sv"><![CDATA[ej installerade moduler]]></translation>
+        <translation locale="el"><![CDATA[Μη εγκατεστημένες ενότητες]]></translation>
+        <translation locale="zh"><![CDATA[未安装模块]]></translation>
+        <translation locale="pl"><![CDATA[nie zainstalowane moduły]]></translation>
+        <translation locale="pt"><![CDATA[módulos não instalados]]></translation>
+      </item>
+      <item type="label" name="InstalledModules">
+        <translation locale="nl"><![CDATA[geïnstalleerde modules]]></translation>
+        <translation locale="en"><![CDATA[installed modules]]></translation>
+        <translation locale="ru"><![CDATA[установленные модули]]></translation>
+        <translation locale="es"><![CDATA[módulos instalados]]></translation>
+        <translation locale="de"><![CDATA[installierte Module]]></translation>
+        <translation locale="uk"><![CDATA[Встановлені модулі]]></translation>
+        <translation locale="hu"><![CDATA[telepített modulok]]></translation>
+        <translation locale="sv"><![CDATA[installerade moduler]]></translation>
+        <translation locale="el"><![CDATA[Εγκατεστημένες ενότητες]]></translation>
+        <translation locale="zh"><![CDATA[已安装模块]]></translation>
+        <translation locale="pl"><![CDATA[zainstalowane moduły]]></translation>
+        <translation locale="pt"><![CDATA[módulos instalados]]></translation>
+      </item>
+      <item type="message" name="NoModulesInstalled">
+        <translation locale="nl"><![CDATA[Er zijn nog geen modules geïnstalleerd.]]></translation>
+        <translation locale="en"><![CDATA[No modules installed.]]></translation>
+        <translation locale="ru"><![CDATA[Нет установленных модулей.]]></translation>
+        <translation locale="de"><![CDATA[Es sind keine Module installiert.]]></translation>
+        <translation locale="es"><![CDATA[Ningún módulo está instalado.]]></translation>
+        <translation locale="hu"><![CDATA[Nincs modul telepítve.]]></translation>
+        <translation locale="sv"><![CDATA[Inga moduler installerad.]]></translation>
+        <translation locale="el"><![CDATA[Δεν υπάρχουν εγκατεστημένες ενότητες.]]></translation>
+        <translation locale="zh"><![CDATA[没有模块被安装。]]></translation>
+        <translation locale="pl"><![CDATA[Brak zainstalowanych modułów.]]></translation>
+        <translation locale="pt"><![CDATA[Não há módulos instalados.]]></translation>
       </item>
     </Extensions>
   </Backend>

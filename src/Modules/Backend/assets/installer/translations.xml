@@ -1760,6 +1760,15 @@
       <translation locale="pl"><![CDATA[edytuj profil]]></translation>
       <translation locale="pt"><![CDATA[editar perfil]]></translation>
     </item>
+    <item type="label" name="ConfirmTitle">
+      <translation locale="nl"><![CDATA[Ben je zeker?]]></translation>
+      <translation locale="en"><![CDATA[Are you sure?]]></translation>
+    </item>
+    <item type="message" name="ConfirmDefault">
+      <translation locale="nl"><![CDATA[Ben je zeker dat je deze actie wilt uitvoeren?]]></translation>
+      <translation locale="en"><![CDATA[Are you sure you want to perform this action?]]></translation>
+      <translation locale="pt"><![CDATA[Tem a certeza que pertende efectuar esta acção?]]></translation>
+    </item>
     <Backend>
       <item type="label" name="NumberOfUsers">
         <translation locale="nl"><![CDATA[aantal gebruikers]]></translation>

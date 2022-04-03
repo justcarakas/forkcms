@@ -129,7 +129,7 @@ export class Controls {
 
   // bind confirm message
   bindConfirm () {
-    $('.jsConfirmationTrigger').on('click', (e) => {
+    $('.js-fork-confirmation-trigger').on('click', (e) => {
       // prevent default
       e.preventDefault()
 
@@ -146,14 +146,14 @@ export class Controls {
 
       // the first is necessary to prevent multiple popups showing after a previous modal is dismissed without
       // refreshing the page
-      const exampleModal = document.querySelectorAll('.jsConfirmation')[0]
-      const confirmationModalHtml = exampleModal.cloneNode(true)
+      const baseModal = document.querySelector('[data-fork-role="confirmation"]')
+      const confirmationModalHtml = baseModal.cloneNode(true)
 
       // bind
       if (href !== '') {
         // set data
-        confirmationModalHtml.querySelectorAll('.jsConfirmationMessage')[0].innerHTML = message
-        confirmationModalHtml.querySelectorAll('.jsConfirmationSubmit')[0].setAttribute('href', href)
+        confirmationModalHtml.querySelector('[data-fork-role="confirmation-message"]').innerHTML = message
+        confirmationModalHtml.querySelector('[data-fork-role="confirmation-submit"]').setAttribute('href', href)
 
         // open modal
         const confirmationModal = new window.bootstrap.Modal(confirmationModalHtml)
