@@ -5,7 +5,9 @@ namespace ForkCMS\Core\Domain\Kernel;
 use ForkCMS\Core\DependencyInjection\CoreExtension;
 use ForkCMS\Core\Domain\PDO\ForkConnection;
 use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -133,7 +135,12 @@ class Kernel extends BaseKernel
 
     protected function getInstalledModules(ContainerBuilder $container): array
     {
-        return InstalledModules::fromContainer($container)();
+        $modules = InstalledModules::fromContainer($container)();
+        if ($this->isInstallingModule()) {
+            $modules[] = ModuleName::fromString($_POST['action']['id']);
+        }
+
+        return $modules;
     }
 
     private function registerModuleExtensions(ContainerBuilder $container): void
@@ -207,5 +214,21 @@ class Kernel extends BaseKernel
     final public function getContainerClass(): string
     {
         return parent::getContainerClass();
+    }
+
+    protected function initializeContainer(): void
+    {
+        $class = $this->getContainerClass();
+        $buildDir = $this->getBuildDir();
+        $cache = new ConfigCache($buildDir.'/'.$class.'.php', $this->debug);
+        if ($this->isInstallingModule() && $cache->isFresh()) {
+            unlink($cache->getPath());
+        }
+        parent::initializeContainer();
+    }
+
+    private function isInstallingModule(): bool
+    {
+        return str_ends_with($_SERVER['REQUEST_URI'], '/extensions/module_install');
     }
 }
