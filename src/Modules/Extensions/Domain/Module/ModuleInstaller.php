@@ -85,11 +85,6 @@ abstract class ModuleInstaller
         $this->moduleRepository->save(Module::fromModuleName(static::getModuleName()));
     }
 
-    final public function unregisterModule(): void
-    {
-        $this->moduleRepository->save(Module::fromModuleName(static::getModuleName()));
-    }
-
     final protected function addModuleDependency(ModuleName $moduleName): void
     {
         $this->moduleDependencies[$moduleName->getName()] = $moduleName;

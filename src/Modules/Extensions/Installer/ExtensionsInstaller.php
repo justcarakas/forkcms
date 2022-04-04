@@ -25,6 +25,7 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 final class ExtensionsInstaller extends ModuleInstaller
 {
     public const IS_REQUIRED = true;
+    public const IS_VISIBLE_IN_OVERVIEW = false;
 
     public function preInstall(): void
     {
