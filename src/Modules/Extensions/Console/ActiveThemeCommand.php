@@ -14,16 +14,16 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 final class ActiveThemeCommand extends Command
 {
-    public function __construct(private ?ThemeRepository $themeRepository = null)
+    public function __construct(private readonly ?ThemeRepository $themeRepository = null)
     {
         parent::__construct();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->write($this->themeRepository->findOneBy(['active' => true])?->getName()
-            ?? $this->themeRepository->findInstallable()[0]?->name
-            ?? 'Fork'
+        $output->write(
+            $this->themeRepository->findOneBy(['active' => true])
+                ?->getName() ?? $this->themeRepository->findInstallable()[0]?->name ?? 'Fork'
         );
 
         return self::SUCCESS;

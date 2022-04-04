@@ -38,11 +38,11 @@ final class ThemeTemplateEdit extends AbstractFormActionController
             formType: ThemeTemplateType::class,
             formData: $changeThemeTemplate,
             redirectResponse: new RedirectResponse(
-                 ThemeTemplateIndex::getActionSlug()->generateRoute(
-                     $this->router,
-                     ['slug' => $changeThemeTemplate->theme->getName()]
-                 )
-             ),
+                ThemeTemplateIndex::getActionSlug()->generateRoute(
+                    $this->router,
+                    ['slug' => $changeThemeTemplate->theme->getName()]
+                )
+            ),
             formOptions: ['show_overwrite' => true, 'show_status' => !$themeTemplate->isDefault()],
             flashMessageCallback: static function (Form $form): FlashMessage {
                 return FlashMessage::success('EditedTemplate', ['%1$s' => $form->getData()->name]);

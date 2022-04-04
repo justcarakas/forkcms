@@ -108,7 +108,8 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
          * which is the same as the entity being validated, the criteria is
          * unique.
          */
-        if (count($result) === 0
+        if (
+            count($result) === 0
             || (
                 count($result) === 1
                 && $value->getEntity() === ($result instanceof Iterator ? $result->current() : current($result))
@@ -181,8 +182,10 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
          */
         $repository = $om->getRepository($constraint->entityClass);
         $supportedClass = $repository->getClassName();
-        if ($dataTransferObject->getEntity() !== null
-            && !$dataTransferObject->getEntity() instanceof $supportedClass) {
+        if (
+            $dataTransferObject->getEntity() !== null
+            && !$dataTransferObject->getEntity() instanceof $supportedClass
+        ) {
             throw new ConstraintDefinitionException(
                 sprintf(
                     'The "%s" entity repository does not support the "%s" entity. The entity should be an instance of or extend "%s".',

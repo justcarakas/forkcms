@@ -20,7 +20,8 @@ final class TabType extends AbstractType
                 [
                     'inherit_data' => true,
                     'options' => [],
-                    'fields' => static function (FormBuilderInterface $builder): void {},
+                    'fields' => static function (FormBuilderInterface $builder): void {
+                    },
                     'label' => false,
                 ]
             )

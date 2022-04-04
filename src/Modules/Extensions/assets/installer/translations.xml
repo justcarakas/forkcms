@@ -35,6 +35,23 @@
       <translation locale="pt"><![CDATA[extensões]]></translation>
       <translation locale="pl"><![CDATA[rozszerzenia]]></translation>
     </item>
+    <item type="label" name="Modules">
+      <translation locale="nl"><![CDATA[modules]]></translation>
+      <translation locale="en"><![CDATA[modules]]></translation>
+      <translation locale="hu"><![CDATA[modulok]]></translation>
+      <translation locale="it"><![CDATA[moduli]]></translation>
+      <translation locale="ru"><![CDATA[Модули]]></translation>
+      <translation locale="zh"><![CDATA[模块]]></translation>
+      <translation locale="de"><![CDATA[Module]]></translation>
+      <translation locale="fr"><![CDATA[modules]]></translation>
+      <translation locale="es"><![CDATA[módulos]]></translation>
+      <translation locale="lt"><![CDATA[moduliai]]></translation>
+      <translation locale="uk"><![CDATA[Модулі]]></translation>
+      <translation locale="sv"><![CDATA[moduler]]></translation>
+      <translation locale="el"><![CDATA[ενότητες]]></translation>
+      <translation locale="pt"><![CDATA[módulos]]></translation>
+      <translation locale="pl"><![CDATA[moduły]]></translation>
+    </item>
     <Extensions>
       <item type="label" name="ThemeSelection">
         <translation locale="nl"><![CDATA[thema-keuze]]></translation>
@@ -72,23 +89,6 @@
         <translation locale="tr"><![CDATA[şablonlar]]></translation>
         <translation locale="pt"><![CDATA[templates]]></translation>
         <translation locale="pl"><![CDATA[szablony]]></translation>
-      </item>
-      <item type="label" name="Modules">
-        <translation locale="nl"><![CDATA[modules]]></translation>
-        <translation locale="en"><![CDATA[modules]]></translation>
-        <translation locale="hu"><![CDATA[modulok]]></translation>
-        <translation locale="it"><![CDATA[moduli]]></translation>
-        <translation locale="ru"><![CDATA[Модули]]></translation>
-        <translation locale="zh"><![CDATA[模块]]></translation>
-        <translation locale="de"><![CDATA[Module]]></translation>
-        <translation locale="fr"><![CDATA[modules]]></translation>
-        <translation locale="es"><![CDATA[módulos]]></translation>
-        <translation locale="lt"><![CDATA[moduliai]]></translation>
-        <translation locale="uk"><![CDATA[Модулі]]></translation>
-        <translation locale="sv"><![CDATA[moduler]]></translation>
-        <translation locale="el"><![CDATA[ενότητες]]></translation>
-        <translation locale="pt"><![CDATA[módulos]]></translation>
-        <translation locale="pl"><![CDATA[moduły]]></translation>
       </item>
       <item type="label" name="FindThemes">
         <translation locale="nl"><![CDATA[vind thema's]]></translation>

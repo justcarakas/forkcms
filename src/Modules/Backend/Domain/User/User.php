@@ -77,7 +77,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\ManyToMany(targetEntity: UserGroup::class, inversedBy: 'users')]
     #[ORM\JoinTable(name: 'backend__user_has_user_group')]
-    #[ORM\InverseJoinColumn( referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(referencedColumnName: 'id')]
     private Collection $userGroups;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
@@ -228,7 +228,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         if ($this->password !== '') {
-            $this->settings->set('last_password_change',time());
+            $this->settings->set('last_password_change', time());
         }
 
         $this->password = $passwordHasher->hashPassword($this, $this->plainTextPassword);

@@ -10,7 +10,7 @@ use Symfony\Component\Translation\MessageCatalogue;
 
 final class ForkTranslationLoader implements LoaderInterface
 {
-    public function __construct(private TranslationRepository $translationRepository)
+    public function __construct(private readonly TranslationRepository $translationRepository)
     {
     }
 
@@ -30,7 +30,7 @@ final class ForkTranslationLoader implements LoaderInterface
             foreach ($translations as $translation) {
                 $catalogue->set((string) $translation->getKey(), $translation->getValue(), $domain);
             }
-        } catch (TableNotFoundException|Error) {
+        } catch (TableNotFoundException | Error) {
         }
 
         return $catalogue;

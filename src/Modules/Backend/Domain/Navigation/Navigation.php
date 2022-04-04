@@ -10,9 +10,9 @@ use Twig\Environment;
 final class Navigation
 {
     public function __construct(
-        private AuthorizationCheckerInterface $authorizationChecker,
-        private NavigationCache $navigationCache,
-        private RequestStack $requestStack,
+        private readonly AuthorizationCheckerInterface $authorizationChecker,
+        private readonly NavigationCache $navigationCache,
+        private readonly RequestStack $requestStack,
     ) {
     }
 
@@ -36,7 +36,8 @@ final class Navigation
     private function getPermissionCheckerFunction(): callable
     {
         return function (array $navigationItem) {
-            if (!isset($navigationItem['children'])
+            if (
+                !isset($navigationItem['children'])
                 || !is_array($navigationItem['children'])
                 || empty($navigationItem['children'])
             ) {
@@ -62,14 +63,18 @@ final class Navigation
 
     private function getNavigationItemForCurrentlyAuthenticatedUser(array $navigationItem): array
     {
-        if (!isset($navigationItem['slug'], $navigationItem['label'])
+        if (
+            !isset($navigationItem['slug'], $navigationItem['label'])
             || !$navigationItem['slug'] instanceof ActionSlug
-            || empty($navigationItem['label'])) {
+            || empty($navigationItem['label'])
+        ) {
             return [];
         }
 
-        if ($this->authorizationChecker->isGranted($navigationItem['slug']->getModuleName()->asRole())
-            && $this->authorizationChecker->isGranted($navigationItem['slug']->asModuleAction()->asRole())) {
+        if (
+            $this->authorizationChecker->isGranted($navigationItem['slug']->getModuleName()->asRole())
+            && $this->authorizationChecker->isGranted($navigationItem['slug']->asModuleAction()->asRole())
+        ) {
             return $navigationItem;
         }
 
@@ -113,7 +118,8 @@ final class Navigation
      */
     private function navigationItemMatchesActiveUrl(array $navigationItem, string $activeUrl): bool
     {
-        if ($navigationItem['slug'] === $activeUrl
+        if (
+            $navigationItem['slug'] === $activeUrl
             || (isset($navigationItem['selected_for']) && in_array($activeUrl, $navigationItem['selected_for'], true))
         ) {
             return true;

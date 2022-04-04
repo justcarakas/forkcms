@@ -66,11 +66,11 @@
         "stof/doctrine-extensions-bundle": "^1.7",
         "symfony/uid": "6.*",
         "composer/semver": "^3.2",
-        "symfony/html-sanitizer": "6.*",
+        "symfony/html-sanitizer": "6.1.x-dev as 6.1.0",
         "scienta/doctrine-json-functions": "^5.0"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.5",
+        "squizlabs/php_codesniffer": "dev-master as 3.6.0",
         "symfony/phpunit-bridge": "^6.0",
         "phpstan/phpstan": "^1.0",
         "phpstan/phpstan-symfony": "^1.0",
@@ -94,7 +94,7 @@
     "scripts": {
         "test": "symfony php bin/simple-phpunit",
         "phpstan": "APP_DEBUG=1 symfony console cache:warm -q -edev && symfony php -d memory_limit=-1 bin/phpstan analyze src",
-        "phpcs": "symfony php -d memory_limit=-1 bin/phpcs --standard=PSR12 --extensions=php --warning-severity=9 --exclude=Generic.Files.LineLength --report=full --ignore=src/Core.deprecated,src/Modules.deprecated src",
+        "phpcs": "symfony php -d memory_limit=-1 bin/phpcs --standard=PSR12 --extensions=php --warning-severity=9 --exclude=Generic.Files.LineLength,PSR12.Traits.UseDeclaration --report=full --ignore=src/Core.deprecated,src/Modules.deprecated src",
         "fixphpcs": "symfony php bin/php-cs-fixer fix",
         "post-install-cmd": [],
         "post-update-cmd": [],
@@ -126,6 +126,5 @@
             "allow-contrib": true,
             "require": "6.*"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }

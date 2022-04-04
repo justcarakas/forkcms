@@ -12,8 +12,8 @@ final class NavigationCache
     private const CACHE_KEY = 'backend_navigation';
 
     public function __construct(
-        private CacheItemPoolInterface $cache,
-        private NavigationItemRepository $navigationItemRepository,
+        private readonly CacheItemPoolInterface $cache,
+        private readonly NavigationItemRepository $navigationItemRepository,
     ) {
     }
 
@@ -61,11 +61,10 @@ final class NavigationCache
             'selected_for' => array_filter(
                 $navigationItemEntity->getChildren()
                     ->filter(
-                        static fn (NavigationItem $navigationItem): bool => !$navigationItem->isVisibleInNavigationMenu(
-                            )
-                            && $navigationItem->getSlug() instanceof ActionSlug
+                        static fn (NavigationItem $item): bool => !$item->isVisibleInNavigationMenu()
+                            && $item->getSlug() instanceof ActionSlug
                     )
-                    ->map(static fn (NavigationItem $navigationItem): ?string => $navigationItem->getSlug())
+                    ->map(static fn (NavigationItem $item): ?string => $item->getSlug())
                     ->toArray()
             ),
             'children' => array_filter(

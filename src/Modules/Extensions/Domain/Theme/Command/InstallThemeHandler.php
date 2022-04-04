@@ -39,12 +39,13 @@ final class InstallThemeHandler implements CommandHandlerInterface
 
                     $blocks = [];
                     foreach ($position['blocks'] as $block) {
+                        $blockName = match (Type::from($block['@type'])) {
+                            Type::ACTION => ActionName::fromString($block['@name']),
+                            Type::WIDGET => WidgetName::fromString($block['@name']),
+                        };
                         $blocks[] = $this->blockRepository->findUnique(
                             ModuleName::fromString($block['@module']),
-                            match (Type::from($block['@type'])) {
-                                Type::ACTION => ActionName::fromString($block['@name']),
-                                Type::WIDGET => WidgetName::fromString($block['@name']),
-                            },
+                            $blockName,
                             new SettingsBag(
                                 array_filter(
                                     $block,

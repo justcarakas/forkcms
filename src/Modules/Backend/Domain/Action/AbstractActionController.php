@@ -117,7 +117,8 @@ abstract class AbstractActionController implements ActionControllerInterface
     protected function getEntityFromRequest(Request $request, string $entityFQCN, string $key = 'slug'): object
     {
         try {
-            return $this->getRepository($entityFQCN)->find(
+            return $this->getRepository($entityFQCN)
+                ->find(
                     $request->get($key)
                     ?? $request->query->get($key)
                     ?? $request->request->get($key)

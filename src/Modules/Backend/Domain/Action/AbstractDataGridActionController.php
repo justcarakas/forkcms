@@ -10,7 +10,7 @@ abstract class AbstractDataGridActionController extends AbstractActionController
     ): void {
         $this->assign(
             'backend_data_grid',
-            $this->dataGridFactory->forEntity($entityFullyQualifiedClassName, $queryBuilderCallback )
+            $this->dataGridFactory->forEntity($entityFullyQualifiedClassName, $queryBuilderCallback)
         );
     }
 }

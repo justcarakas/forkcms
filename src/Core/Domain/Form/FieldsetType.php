@@ -22,7 +22,8 @@ final class FieldsetType extends AbstractType
                     'row_attr' => ['class' => 'card card-default'],
                     'label_attr' => ['class' => 'card-header'],
                     'attr' => ['class' => 'card-body'],
-                    'fields' => static function (FormBuilderInterface $builder): void {},
+                    'fields' => static function (FormBuilderInterface $builder): void {
+                    },
                     'label' => false,
                 ]
             )

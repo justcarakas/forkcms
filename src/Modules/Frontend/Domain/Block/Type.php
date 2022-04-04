@@ -13,7 +13,7 @@ enum Type: string implements TranslatableInterface
 
     public function getDirectoryName(): string
     {
-        return match(true) {
+        return match (true) {
             $this === self::ACTION => 'Actions',
             $this === self::WIDGET => 'Widgets',
         };
@@ -21,7 +21,7 @@ enum Type: string implements TranslatableInterface
 
     public function trans(TranslatorInterface $translator, string $locale = null): string
     {
-        return (match(true) {
+        return (match (true) {
             $this === self::ACTION => TranslationKey::label('Action'),
             $this === self::WIDGET => TranslationKey::label('Widget'),
         })->trans($translator, $locale);

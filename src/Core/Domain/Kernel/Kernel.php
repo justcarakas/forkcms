@@ -220,7 +220,7 @@ class Kernel extends BaseKernel
     {
         $class = $this->getContainerClass();
         $buildDir = $this->getBuildDir();
-        $cache = new ConfigCache($buildDir.'/'.$class.'.php', $this->debug);
+        $cache = new ConfigCache($buildDir . '/' . $class . '.php', $this->debug);
         if ($this->isInstallingModule() && $cache->isFresh()) {
             unlink($cache->getPath());
         }

@@ -3,14 +3,20 @@
 namespace ForkCMS\Modules\Frontend\Domain\Meta;
 
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
+use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use ForkCMS\Modules\Frontend\Domain\Meta\Subject\MetaSubjectInterface;
+use ForkCMS\Modules\Frontend\Domain\Meta\Subject\MetaSubjectReference;
 use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: MetaRepository::class)]
 #[ORM\Table(name: 'frontend__meta')]
 #[ORM\Index(columns: ['url'], name: 'idx_url')]
+#[ORM\HasLifecycleCallbacks]
 class Meta implements JsonSerializable
 {
     #[ORM\Id]
@@ -58,6 +64,13 @@ class Meta implements JsonSerializable
 
     #[ORM\Column(type: SEOIndexDBALType::NAME, nullable: true)]
     private SEOIndex|null $seoIndex;
+
+    private MetaSubjectInterface $subject;
+
+    #[ORM\Embedded(class: MetaSubjectReference::class)]
+    private MetaSubjectInterface $subjectReference;
+
+    use Blameable;
 
     public function __construct(
         string $keywords,
@@ -136,7 +149,7 @@ class Meta implements JsonSerializable
             $metaData['custom'] ?? null,
             SEOFollow::fromString((string) $metaData['SEOFollow']),
             SEOIndex::fromString((string) $metaData['SEOIndex']),
-            [],
+            null,
             (int) $metaData['id']
         );
     }
@@ -246,5 +259,42 @@ class Meta implements JsonSerializable
             'seoFollow' => $this->getSEOFollow(),
             'seoIndex' => $this->getSEOIndex(),
         ];
+    }
+
+    public function setSubject(
+        MetaSubjectInterface $subject,
+        bool $overwriteSubject = false,
+        bool $overwriteReference = true
+    ): void {
+        if ($overwriteSubject || !isset($this->subject)) {
+            $this->subject = $subject;
+        }
+        if ($overwriteReference || !isset($this->subjectReference)) {
+            $this->subjectReference = MetaSubjectReference::fromMetaSubject($this->subject);
+        }
+    }
+
+    public function getSubject(): MetaSubjectInterface
+    {
+        return $this->subject;
+    }
+
+    #[ORM\PreFlush]
+    public function doctrinePreFlush(PreFlushEventArgs $args): void
+    {
+        $this->setSubject($this->subject); // make sure the reference is up to date
+    }
+
+    #[ORM\PostLoad]
+    public function doctrinePostLoad(LifecycleEventArgs $args): void
+    {
+        $this->setSubject(
+            $args->getEntityManager()->getPartialReference(
+                $this->subject->getClassName(),
+                $this->subject->getId()
+            ),
+            false,
+            false
+        );
     }
 }
