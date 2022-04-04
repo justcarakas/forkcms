@@ -29,10 +29,8 @@ import { BlockEditor } from './BlockEditor/BlockEditor'
 
 // modules imports
 // import { Blog } from '../../../../Modules/Blog/Backend/Js/Blog'
-// import { Extensions } from '../../../../Modules/Extensions/Backend/Js/Extensions'
 // import { Faq } from '../../../../Modules/Faq/Backend/Js/Faq'
 // import { Formbuilder } from '../../../../Modules/FormBuilder/Backend/Js/Formbuilder'
-// import { Groups } from '../../../../Modules/Groups/Backend/Js/Groups'
 // import { LocaleModule } from '../../../../Modules/Locale/Backend/Js/Locale'
 // import { Location } from '../../../../Modules/Location/Backend/Js/Location'
 // import { Mailmotor } from '../../../../Modules/Mailmotor/Backend/Js/Mailmotor'
@@ -43,7 +41,6 @@ import { BlockEditor } from './BlockEditor/BlockEditor'
 // import { Search } from '../../../../Modules/Search/Backend/Js/Search'
 // import { Settings } from '../../../../Modules/Settings/Backend/Js/Settings'
 // import { Tags } from '../../../../Modules/Tags/Backend/Js/Tags'
-// import { Users } from '../../../../Modules/Users/Backend/Js/Users'
 import { PasswordGenerator } from './Components/PasswordGenerator'
 import { PasswordStrenghtMeter } from './Components/PasswordStrenghtMeter'
 
@@ -73,10 +70,8 @@ export class Backend {
 
     // init modules
     // this.blog = new Blog()
-    // this.extensions = new Extensions()
     // this.faq = new Faq()
     // this.formbuilder = new Formbuilder()
-    // this.groups = new Groups()
     // this.localeModule = new LocaleModule()
     // this.location = new Location()
     // this.mailmotor = new Mailmotor()
@@ -87,7 +82,6 @@ export class Backend {
     // this.search = new Search()
     // this.settings = new Settings()
     // this.tags = new Tags()
-    // this.users = new Users()
 
     Backend.initPasswordGenerators()
     Backend.initPasswordStrenghtMeters()
