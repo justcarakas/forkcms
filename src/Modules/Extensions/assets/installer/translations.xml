@@ -745,6 +745,19 @@
         <translation locale="pt"><![CDATA[módulos]]></translation>
         <translation locale="pl"><![CDATA[moduły]]></translation>
       </item>
+      <item type="message" name="ModuleInstalled">
+        <translation locale="nl"><![CDATA[De module "%module%" werd geïnstalleerd.]]></translation>
+        <translation locale="en"><![CDATA[The module "%module%" was installed.]]></translation>
+        <translation locale="ru"><![CDATA[Модуль "%module%" успешно установлен.]]></translation>
+        <translation locale="es"><![CDATA[El módulo "%module%" fue instalado.]]></translation>
+        <translation locale="de"><![CDATA[Das Modul "%module%" wurde installiert.]]></translation>
+        <translation locale="hu"><![CDATA[A(z) "%module%" modul telepítve.]]></translation>
+        <translation locale="sv"><![CDATA[modul "%module%" installerades.]]></translation>
+        <translation locale="el"><![CDATA[Η ενότητα "%module%" εγκαταστάθηκε.]]></translation>
+        <translation locale="zh"><![CDATA[模块“%module%”已安装。]]></translation>
+        <translation locale="pl"><![CDATA[Moduł "%module%" został zainstalowany.]]></translation>
+        <translation locale="pt"><![CDATA[O módulo "%module%" foi instalado.]]></translation>
+      </item>
     </Extensions>
   </Backend>
 </translations>

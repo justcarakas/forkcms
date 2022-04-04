@@ -4,7 +4,7 @@ namespace ForkCMS\Core\Installer\Domain\Installer;
 
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
 use ForkCMS\Core\Installer\Domain\Configuration\ConfigurationParser;
-use ForkCMS\Modules\Extensions\Domain\Module\InstallModules;
+use ForkCMS\Modules\Extensions\Domain\Module\Command\InstallModules;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class InstallForkCMSHandler implements CommandHandlerInterface

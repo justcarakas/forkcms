@@ -19,11 +19,6 @@ final class InternationalisationInstaller extends ModuleInstaller
         $this->setInstalledLocales();
     }
 
-    public function install(): void
-    {
-        throw new \RuntimeException('Not implemented yet');
-    }
-
     private function setInstalledLocales(): void
     {
         $installerConfiguration = InstallerConfiguration::fromCache();

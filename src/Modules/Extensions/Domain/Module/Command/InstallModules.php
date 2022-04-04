@@ -1,6 +1,8 @@
 <?php
 
-namespace ForkCMS\Modules\Extensions\Domain\Module;
+namespace ForkCMS\Modules\Extensions\Domain\Module\Command;
+
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 
 final class InstallModules
 {

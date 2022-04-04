@@ -11,8 +11,11 @@ final class ModuleInstallerLocator
     private array $moduleInstallers;
 
     /** @param iterable|ModuleInstaller[] $moduleInstallers */
-    public function __construct(iterable $moduleInstallers, private bool $forkIsInstalled)
-    {
+    public function __construct(
+        iterable $moduleInstallers,
+        private readonly bool $forkIsInstalled,
+        private readonly ModuleRepository $moduleRepository
+    ) {
         $this->moduleInstallers = [];
         foreach ($moduleInstallers as $moduleInstaller) {
             $this->moduleInstallers[$moduleInstaller::getModuleName()->getName()] = $moduleInstaller;
@@ -22,7 +25,7 @@ final class ModuleInstallerLocator
     public function getModuleInstaller(ModuleName $moduleName): ModuleInstaller
     {
         return $this->moduleInstallers[$moduleName->getName()]
-               ?? throw new InvalidArgumentException('No installer was found for the module: ' . $moduleName);
+            ?? throw new InvalidArgumentException('No installer was found for the module: ' . $moduleName);
     }
 
     /** @return ModuleName[] */
@@ -45,16 +48,20 @@ final class ModuleInstallerLocator
     /** @return ModuleName[] */
     public function getModuleNamesForOverview(): array
     {
-        return $this->moduleInstallersToModuleNames(
-            array_filter(
-                $this->moduleInstallers,
-                static fn (ModuleInstaller $moduleInstaller) => $moduleInstaller::IS_VISIBLE_IN_OVERVIEW
-            )
+        return $this->moduleInstallersToModuleNames($this->getModuleInstallersForOverview());
+    }
+
+    /** @return ModuleInstaller[] */
+    public function getModuleInstallersForOverview(): array
+    {
+        return array_filter(
+            $this->moduleInstallers,
+            static fn (ModuleInstaller $moduleInstaller) => $moduleInstaller::IS_VISIBLE_IN_OVERVIEW
         );
     }
 
     /** @return array<string, ModuleInstaller> */
-    public function getSortedInstallersForModuleNames(ModuleName ...$moduleNames): array
+    public function getSortedUninstalledInstallersForModuleNames(ModuleName ...$moduleNames): array
     {
         $moduleInstallers = array_combine(
             array_map(static fn (ModuleName $moduleName): string => $moduleName->getName(), $moduleNames),
@@ -64,14 +71,22 @@ final class ModuleInstallerLocator
             )
         );
 
-        $sortedModuleInstallers = $this->getInstalledModules();
-        while (count($moduleInstallers) > 0) {
+        $requiredModules = [];
+        /** @var ModuleInstaller $moduleInstaller */
+        foreach ($moduleInstallers as $moduleInstaller) {
+            foreach ($moduleInstaller->getModuleDependencies() as $moduleDependency) {
+                $requiredModules[$moduleDependency->getName()] = $this->getModuleInstaller($moduleDependency);
+            }
+            $requiredModules[$moduleInstaller::getModuleName()->getName()] = $moduleInstaller;
+        }
+        $sortedModuleInstallers = [];
+        while (count($requiredModules) > 0) {
             $foundMatch = false;
-            foreach ($moduleInstallers as $name => $moduleInstaller) {
+            foreach ($requiredModules as $name => $moduleInstaller) {
                 if (count(array_diff_key($moduleInstaller->getModuleDependencies(), $sortedModuleInstallers)) === 0) {
                     $sortedModuleInstallers[$name] = $moduleInstaller;
                     $foundMatch = true;
-                    unset($moduleInstallers[$name]);
+                    unset($requiredModules[$name]);
                 }
             }
 
@@ -80,7 +95,7 @@ final class ModuleInstallerLocator
             }
         }
 
-        return $sortedModuleInstallers;
+        return array_diff_key($sortedModuleInstallers, $this->getInstalledModules());
     }
 
     /**
@@ -103,6 +118,9 @@ final class ModuleInstallerLocator
             return [];
         }
 
-        throw new RuntimeException('Not implemented yet');
+        return array_map(
+            fn (Module $module) => $this->getModuleInstaller($module->getName()),
+            $this->moduleRepository->findAllIndexed()
+        );
     }
 }
