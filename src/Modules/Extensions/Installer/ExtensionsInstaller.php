@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Extensions\Installer;
 use ForkCMS\Modules\Extensions\Backend\Actions\ModuleDetail;
 use ForkCMS\Modules\Extensions\Backend\Actions\ModuleIndex;
 use ForkCMS\Modules\Extensions\Backend\Actions\ModuleInstall;
+use ForkCMS\Modules\Extensions\Backend\Actions\ModuleUpload;
 use ForkCMS\Modules\Extensions\Backend\Actions\ThemeActivate;
 use ForkCMS\Modules\Extensions\Backend\Actions\ThemeDetail;
 use ForkCMS\Modules\Extensions\Backend\Actions\ThemeIndex;
@@ -14,6 +15,7 @@ use ForkCMS\Modules\Extensions\Backend\Actions\ThemeTemplateDelete;
 use ForkCMS\Modules\Extensions\Backend\Actions\ThemeTemplateEdit;
 use ForkCMS\Modules\Extensions\Backend\Actions\ThemeTemplateExport;
 use ForkCMS\Modules\Extensions\Backend\Actions\ThemeTemplateIndex;
+use ForkCMS\Modules\Extensions\Backend\Actions\ThemeUpload;
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
 use ForkCMS\Modules\Extensions\Domain\Theme\Command\ActivateTheme;
@@ -47,6 +49,7 @@ final class ExtensionsInstaller extends ModuleInstaller
             [
                 ModuleDetail::getActionSlug(),
                 ModuleInstall::getActionSlug(),
+                ModuleUpload::getActionSlug(),
             ]
         );
         $themeSettings = $this->getOrCreateBackendNavigationItem(
@@ -62,6 +65,7 @@ final class ExtensionsInstaller extends ModuleInstaller
                 ThemeDetail::getActionSlug(),
                 ThemeInstall::getActionSlug(),
                 ThemeActivate::getActionSlug(),
+                ThemeUpload::getActionSlug(),
             ]
         );
         $this->getOrCreateBackendNavigationItem(
