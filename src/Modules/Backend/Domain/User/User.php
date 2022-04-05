@@ -72,9 +72,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     use EntityWithSettingsTrait;
 
-    /**
-     * @var Collection<int, UserGroup>|UserGroup[]
-     */
+    /** @var Collection<int|string, UserGroup> */
     #[ORM\ManyToMany(targetEntity: UserGroup::class, inversedBy: 'users')]
     #[ORM\JoinTable(name: 'backend__user_has_user_group')]
     #[ORM\InverseJoinColumn(referencedColumnName: 'id')]
@@ -83,7 +81,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private DateTimeImmutable|null $deletedAt = null;
 
-    /** @param Collection<int, UserGroup>|UserGroup[] $userGroups */
+    /** @param Collection<int|string, UserGroup>|null $userGroups */
     public function __construct(
         string $email,
         private ?string $plainTextPassword,
@@ -111,12 +109,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $user->accessToBackend = $userDataTransferObject->accessToBackend;
             $user->superAdmin = $userDataTransferObject->superAdmin;
             $user->plainTextPassword = trim($userDataTransferObject->plainTextPassword);
-            $user->userGroups = $userDataTransferObject->userGroups;
             CollectionHelper::updateCollection(
                 $userDataTransferObject->userGroups,
                 $user->userGroups,
-                static fn (UserGroup $userGroup) => $user->addUserGroup($userGroup),
-                static fn (UserGroup $userGroup) => $user->removeUserGroup($userGroup)
+                static fn (UserGroup $userGroup): UserGroup => $user->addUserGroup($userGroup),
+                static fn (UserGroup $userGroup): UserGroup => $user->removeUserGroup($userGroup)
             );
             $user->displayName = $userDataTransferObject->displayName;
             $user->settings = $userDataTransferObject->settings;
@@ -169,9 +166,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
+    /** @see UserInterface */
     public function getRoles(): array
     {
         if (!$this->accessToBackend) {
@@ -193,9 +188,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique(array_merge($roles, ...$groupRoles));
     }
 
-    /**
-     * @see UserInterface
-     */
+    /** @see UserInterface */
     public function getPassword(): string
     {
         return $this->password;
@@ -213,9 +206,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return null; // we don't need a salt because we use a modern hashing algorithm
     }
 
-    /**
-     * @see UserInterface
-     */
+    /** @see UserInterface */
     public function eraseCredentials(): void
     {
         $this->plainTextPassword = null;
@@ -250,32 +241,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->superAdmin;
     }
 
-    /** @return Collection<int, UserGroup>|UserGroup[] */
+    /** @return Collection<int|string, UserGroup> */
     public function getUserGroups(): Collection
     {
         return $this->userGroups;
     }
 
-    public function addUserGroup(UserGroup $userGroup): void
-    {
-        if ($this->userGroups->contains($userGroup)) {
-            return;
-        }
-
-        $this->userGroups->add($userGroup);
-        $userGroup->addUser($this);
-    }
-
-    public function removeUserGroup(UserGroup $userGroup): void
+    public function addUserGroup(UserGroup $userGroup): UserGroup
     {
         if (!$this->userGroups->contains($userGroup)) {
-            return;
+            $this->userGroups->add($userGroup);
+            $userGroup->addUser($this);
         }
 
-        $this->userGroups->removeElement($userGroup);
-        $userGroup->removeUser($this);
+        return $userGroup;
     }
 
+    public function removeUserGroup(UserGroup $userGroup): UserGroup
+    {
+        if ($this->userGroups->contains($userGroup)) {
+            $this->userGroups->removeElement($userGroup);
+            $userGroup->removeUser($this);
+        }
+
+        return $userGroup;
+    }
+
+    /** @return array<string,int> */
     public static function dataGridEditLinkCallback(self $user): array
     {
         return ['slug' => $user->getId()];

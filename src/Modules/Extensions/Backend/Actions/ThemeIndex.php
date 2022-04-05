@@ -6,6 +6,7 @@ use ForkCMS\Core\Domain\Form\ActionType;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessageType;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
+use ForkCMS\Modules\Backend\Domain\Action\ActionServices;
 use ForkCMS\Modules\Extensions\Domain\Theme\Command\ActivateTheme;
 use ForkCMS\Modules\Extensions\Domain\Theme\InstallableTheme;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
@@ -15,10 +16,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class ThemeIndex extends AbstractActionController
 {
+    public function __construct(ActionServices $services, private readonly ThemeRepository $themeRepository)
+    {
+        parent::__construct($services);
+    }
+
     protected function execute(Request $request): void
     {
-        /** @var ThemeRepository $themeRepository */
-        $themeRepository = $this->getRepository(Theme::class);
         $this->assign(
             'installableThemes',
             array_map(
@@ -37,7 +41,7 @@ final class ThemeIndex extends AbstractActionController
                         'theme' => $theme,
                     ];
                 },
-                $themeRepository->findInstallable()
+                $this->themeRepository->findInstallable()
             )
         );
         $this->assign(
@@ -56,7 +60,7 @@ final class ThemeIndex extends AbstractActionController
                         'theme' => InstallableTheme::fromTheme($theme),
                     ];
                 },
-                $themeRepository->findAll()
+                $this->themeRepository->findAll()
             )
         );
     }

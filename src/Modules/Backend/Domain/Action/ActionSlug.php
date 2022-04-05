@@ -18,6 +18,7 @@ use Throwable;
 
 final class ActionSlug implements Stringable
 {
+    /** @var array<string, mixed> */
     private array $defaultParameters = [];
 
     public function __construct(private ModuleName $moduleName, private ActionName $actionName)
@@ -126,6 +127,7 @@ final class ActionSlug implements Stringable
         return new TranslationDomain(Application::BACKEND, $this->moduleName);
     }
 
+    /** @param array<string,mixed> $parameters */
     public function generateRoute(
         UrlGeneratorInterface $router,
         array $parameters = [],
@@ -145,6 +147,7 @@ final class ActionSlug implements Stringable
         return Container::underscore($this->actionName->getName());
     }
 
+    /** @return array<string,string> */
     public function getRouteParameters(): array
     {
         return [
@@ -153,6 +156,7 @@ final class ActionSlug implements Stringable
         ];
     }
 
+    /** @param array<string,mixed> $defaultParameters */
     public function withDefaultParameters(array $defaultParameters): self
     {
         $new = clone $this;

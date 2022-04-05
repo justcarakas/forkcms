@@ -16,7 +16,7 @@ final class DeleteThemeTemplateHandler implements CommandHandlerInterface
     ) {
     }
 
-    public function __invoke(DeleteThemeTemplate $deleteThemeTemplate)
+    public function __invoke(DeleteThemeTemplate $deleteThemeTemplate): void
     {
         $themeTemplate = $this->themeTemplateRepository->find($deleteThemeTemplate->id)
             ?? throw new InvalidArgumentException('Entity not found');

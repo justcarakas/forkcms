@@ -37,6 +37,7 @@ final class Requirements implements \JsonSerializable
         return new self($minimumVersion, $maximumVersion);
     }
 
+    /** @return array<string, string> */
     public function jsonSerialize(): array
     {
         return [

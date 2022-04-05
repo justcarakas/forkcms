@@ -5,7 +5,6 @@ namespace ForkCMS\Modules\Extensions\Backend\Actions;
 use Doctrine\ORM\QueryBuilder;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractDataGridActionController;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
-use ForkCMS\Modules\Extensions\Domain\Theme\ThemeRepository;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -27,13 +26,10 @@ final class ThemeTemplateIndex extends AbstractDataGridActionController
 
     private function getTheme(Request $request): Theme
     {
-        /** @var ThemeRepository $themeRepository */
-        $themeRepository = $this->getRepository(Theme::class);
-
         try {
             return $this->getEntityFromRequest($request, Theme::class);
         } catch (NotFoundHttpException) {
-            return $themeRepository->findOneBy(['active' => true]);
+            return $this->getRepository(Theme::class)->findOneBy(['active' => true]);
         }
     }
 }

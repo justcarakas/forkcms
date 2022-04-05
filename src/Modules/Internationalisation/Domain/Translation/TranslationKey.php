@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 use Assert\Assert;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -18,6 +19,7 @@ class TranslationKey implements TranslatableInterface
     #[ORM\Column(type:Types::STRING)]
     private string $name;
 
+    /** @var array<string, string|int|float|Stringable>  */
     private array $parameters = [];
 
     private function __construct(Type $type, string $name)
@@ -72,6 +74,7 @@ class TranslationKey implements TranslatableInterface
         return $translator->trans((string) $this, $this->parameters, null, $locale);
     }
 
+    /** @param array<string, string|int|float|Stringable> $parameters */
     public function withParameters(array $parameters): self
     {
         $translationKey = clone $this;

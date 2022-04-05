@@ -11,6 +11,7 @@ use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplateDataTransferObject;
+use RuntimeException;
 
 #[ORM\Entity(repositoryClass: ThemeRepository::class)]
 #[ORM\Table(name: 'extensions__theme')]
@@ -26,11 +27,12 @@ class Theme
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $active;
 
+    /** @var Collection<int|string,ThemeTemplate> */
     #[ORM\OneToMany(mappedBy: 'theme', targetEntity: ThemeTemplate::class, cascade: ['persist', 'remove'])]
     private Collection $templates;
 
     #[ORM\OneToOne(inversedBy: 'defaultForTheme', targetEntity: ThemeTemplate::class)]
-    private ThemeTemplate $defaultTemplate;
+    private ThemeTemplate|null $defaultTemplate;
 
     use EntityWithSettingsTrait;
 
@@ -47,6 +49,7 @@ class Theme
         $theme->name = $dataTransferObject->name;
         $theme->description = $dataTransferObject->description;
         $theme->active = $dataTransferObject->active;
+        /** @var Collection<int|string,ThemeTemplate|void> $templates */
         $templates = $dataTransferObject->templates->map(
             static function (ThemeTemplateDataTransferObject $template) use ($theme): ThemeTemplate {
                 $template->theme = $theme;
@@ -61,7 +64,7 @@ class Theme
 
         CollectionHelper::updateCollection(
             $templates,
-            $theme->templates,
+            $theme->templates, // @phpstan-ignore-line
             static function (ThemeTemplate $themeTemplate) use ($theme): void {
                 if ($theme->templates->contains($themeTemplate)) {
                     return;
@@ -82,11 +85,6 @@ class Theme
         return $theme;
     }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
     public function getName(): string
     {
         return $this->name;
@@ -103,7 +101,7 @@ class Theme
     }
 
     /**
-     * @return Collection<ThemeTemplate>
+     * @return Collection<int|string, ThemeTemplate>
      */
     public function getTemplates(): Collection
     {
@@ -112,7 +110,7 @@ class Theme
 
     public function getDefaultTemplate(): ThemeTemplate
     {
-        return $this->defaultTemplate;
+        return $this->defaultTemplate ?? throw new RuntimeException('No default template set');
     }
 
     public function activate(): void

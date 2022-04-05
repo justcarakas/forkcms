@@ -3,15 +3,11 @@
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
-use ForkCMS\Modules\Backend\Backend\Actions\UserIndex;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
-use ForkCMS\Modules\Backend\Domain\User\Command\CreateUser;
-use ForkCMS\Modules\Backend\Domain\User\UserType;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\Command\CreateThemeTemplate;
-use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplateDataTransferObject;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplateType;
-use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +26,7 @@ final class ThemeTemplateAdd extends AbstractFormActionController
             redirectResponse: new RedirectResponse(
                 ThemeTemplateIndex::getActionSlug()->generateRoute($this->router, ['slug' => $theme->getName()])
             ),
-            flashMessageCallback: static fn (Form $form) => FlashMessage::success(
+            flashMessageCallback: static fn (FormInterface $form) => FlashMessage::success(
                 'ThemeTemplateAdded',
                 ['%1$s' => $form->getData()->name]
             ),

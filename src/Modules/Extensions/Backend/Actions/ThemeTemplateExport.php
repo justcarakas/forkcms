@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use DOMDocument;
+use DOMElement;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
@@ -51,6 +52,7 @@ final class ThemeTemplateExport extends AbstractActionController
                     }
                     $blockDOMDocument = new DOMDocument('1.0', 'utf-8');
                     $blockDOMDocument->loadXML($this->serializer->serialize($block->getSettings()->all(), 'xml', ['xml_root_node_name' => 'block']));
+                    /** @var DOMElement $blockXml */
                     $blockXml = $xml->importNode($blockDOMDocument->documentElement, true);
                     $blockXml->setAttribute('module', $block->getModule()->getName());
                     $blockXml->setAttribute('type', $block->getType()->value);

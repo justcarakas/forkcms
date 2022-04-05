@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Extensions\Backend\Actions;
 use ForkCMS\Core\Domain\Form\ActionType;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
+use ForkCMS\Modules\Backend\Domain\Action\ActionServices;
 use ForkCMS\Modules\Extensions\Domain\Theme\Command\ActivateTheme;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
 use InvalidArgumentException;
@@ -30,8 +31,7 @@ final class ThemeActivate extends AbstractFormActionController
                 return new RedirectResponse(ThemeIndex::getActionSlug()->generateRoute($this->router));
             },
             validCallback: function (FormInterface $form): RedirectResponse {
-                $themeRepository = $this->getRepository(Theme::class);
-                $theme = $themeRepository->find($form->getData()['name'])
+                $theme = $this->getRepository(Theme::class)->find($form->getData()['name'])
                     ?? throw new InvalidArgumentException('Theme not found');
 
                 $this->commandBus->dispatch(new ActivateTheme($theme));

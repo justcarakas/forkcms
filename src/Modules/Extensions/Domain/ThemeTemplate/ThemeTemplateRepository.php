@@ -6,11 +6,12 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
-* @method ThemeTemplate|null find($id, $lockMode = null, $lockVersion = null)
-* @method ThemeTemplate|null findOneBy(array $criteria, array $orderBy = null)
-* @method ThemeTemplate[] findAll()
-* @method ThemeTemplate[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
-*/
+ * @method ThemeTemplate|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ThemeTemplate|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ThemeTemplate[] findAll()
+ * @method ThemeTemplate[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<ThemeTemplate>
+ */
 final class ThemeTemplateRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $managerRegistry)

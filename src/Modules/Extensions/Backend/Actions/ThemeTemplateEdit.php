@@ -7,7 +7,7 @@ use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\Command\ChangeThemeTemplate;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplateType;
-use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,7 +44,7 @@ final class ThemeTemplateEdit extends AbstractFormActionController
                 )
             ),
             formOptions: ['show_overwrite' => true, 'show_status' => !$themeTemplate->isDefault()],
-            flashMessageCallback: static function (Form $form): FlashMessage {
+            flashMessageCallback: static function (FormInterface $form): FlashMessage {
                 return FlashMessage::success('EditedTemplate', ['%1$s' => $form->getData()->name]);
             }
         );

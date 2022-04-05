@@ -29,7 +29,7 @@ final class SecurityExtension extends AbstractExtension
         ];
     }
 
-    public function isAllowedAction(string $actionName = null, string $moduleName = null): string
+    public function isAllowedAction(string $actionName = null, string $moduleName = null): bool
     {
         return $this->authorizationChecker->isGranted($this->getRole($moduleName, $actionName));
     }

@@ -6,6 +6,7 @@ use ForkCMS\Modules\Backend\Backend\Actions\NotFound;
 use ForkCMS\Modules\Backend\Domain\Action\ActionControllerInterface;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\Navigation\Navigation;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocale;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use InvalidArgumentException;
 use Psr\Container\NotFoundExceptionInterface;
@@ -50,6 +51,7 @@ final class BackendController
         }
     }
 
+    /** @param array<string, InstalledLocale> $locales */
     private function configureTwigForAction(Request $request, ActionSlug $actionSlug, array $locales): void
     {
         $this->navigation->parse($this->twig);

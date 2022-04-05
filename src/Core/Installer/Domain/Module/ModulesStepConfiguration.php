@@ -62,9 +62,9 @@ final class ModulesStepConfiguration implements InstallerStepConfiguration
     public function normalise(ModuleInstallerLocator $moduleInstallerLocator): void
     {
         $modules = array_merge($this->modules, array_values($moduleInstallerLocator->getRequiredModuleNames()));
-        if ($this->installExampleData) {
-            $modules[] = BlogInstaller::getModuleName();
-        }
+        //if ($this->installExampleData) {
+            //$modules[] = BlogInstaller::getModuleName(); @TODO reenable when adding blog
+        //}
 
         $this->modules = array_unique($modules);
     }

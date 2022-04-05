@@ -11,6 +11,7 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\Command\ChangeUserGroup;
 use ForkCMS\Modules\Backend\Domain\UserGroup\Command\CreateUserGroup;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,8 +35,8 @@ final class UserGroupEdit extends AbstractFormActionController
             formType: UserGroupType::class,
             formData: new ChangeUserGroup($userGroup),
             redirectResponse: new RedirectResponse(UserGroupIndex::getActionSlug()->generateRoute($this->router)),
-            flashMessageCallback: static function (ChangeUserGroup $changedUserGroup): FlashMessage {
-                return FlashMessage::success('Edited', ['entity' => $changedUserGroup->name]);
+            flashMessageCallback: static function (FormInterface $form): FlashMessage {
+                return FlashMessage::success('UserGroupEdited', ['%userGroup%' => $form->getData()->name]);
             }
         );
     }

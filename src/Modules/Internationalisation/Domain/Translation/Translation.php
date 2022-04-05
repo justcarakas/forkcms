@@ -2,7 +2,6 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
-use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
@@ -72,26 +71,6 @@ class Translation
     public function getValue(): string
     {
         return $this->value;
-    }
-
-    public function getCreatedOn(): DateTimeImmutable
-    {
-        return $this->createdOn;
-    }
-
-    public function getCreatedBy(): int
-    {
-        return $this->createdBy;
-    }
-
-    public function getEditedOn(): DateTimeImmutable
-    {
-        return $this->editedOn;
-    }
-
-    public function getEditedBy(): int
-    {
-        return $this->editedBy;
     }
 
     /** @param array<int, mixed> $parameters */

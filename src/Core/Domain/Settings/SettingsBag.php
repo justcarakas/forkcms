@@ -70,7 +70,7 @@ final class SettingsBag implements JsonSerializable
         throw new SettingNotFoundException($name, null, $alternatives);
     }
 
-    public function getOr(string $name, mixed $default = null)
+    public function getOr(string $name, mixed $default = null): mixed
     {
         try {
             return $this->get($name);
@@ -99,6 +99,7 @@ final class SettingsBag implements JsonSerializable
         unset($this->settings[$name]);
     }
 
+    /** @return mixed[] */
     public function jsonSerialize(): array
     {
         return $this->all();

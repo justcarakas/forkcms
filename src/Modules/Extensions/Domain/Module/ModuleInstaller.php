@@ -264,7 +264,7 @@ abstract class ModuleInstaller
     {
         $module = $this->moduleRepository->find($moduleName ?? self::getModuleName())
             ?? throw new InvalidArgumentException('Module not found');
-        $module?->getSettings()->set($key, $value);
+        $module->getSettings()->set($key, $value);
         $this->moduleRepository->save($module);
     }
 
@@ -288,7 +288,7 @@ abstract class ModuleInstaller
     }
 
     /**
-     * @template T
+     * @template T of object
      * @param class-string<T> $entityFQCN
      * @return EntityRepository<T>
      */

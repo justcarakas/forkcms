@@ -4,21 +4,19 @@ namespace ForkCMS\Modules\Frontend\Domain\Meta;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use ForkCMS\Core\Backend\Exception;
+use Exception;
 use ForkCMS\Core\Common\Uri;
-use SpoonFilter;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Contracts\Service\ServiceProviderInterface;
 
 /**
  * @method Meta|null find($id, $lockMode = null, $lockVersion = null)
  * @method Meta|null findOneBy(array $criteria, array $orderBy = null)
  * @method Meta[] findAll()
  * @method Meta[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<Meta>
  */
 class MetaRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry, private ContainerInterface $serviceProvider)
+    public function __construct(ManagerRegistry $registry)//, private ContainerInterface $serviceProvider) use interface for classes that implement this
     {
         parent::__construct($registry, Meta::class);
     }
@@ -29,7 +27,7 @@ class MetaRepository extends ServiceEntityRepository
      * @param string $url The base-url to start from.
      * @param string $class The Fully Qualified Class Name or service name
      * @param string $method The method that needs to be called
-     * @param array $parameters The parameters for the callback
+     * @param array<string, mixed> $parameters The parameters for the callback
      *
      * @throws Exception When the function does not exist
      *

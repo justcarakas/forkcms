@@ -12,6 +12,7 @@ use Symfony\Component\Finder\Finder;
  * @method Theme|null findOneBy(array $criteria, array $orderBy = null)
  * @method Theme[] findAll()
  * @method Theme[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<Theme>
  */
 final class ThemeRepository extends ServiceEntityRepository
 {

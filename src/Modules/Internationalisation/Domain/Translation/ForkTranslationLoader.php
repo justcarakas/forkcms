@@ -14,7 +14,7 @@ final class ForkTranslationLoader implements LoaderInterface
     {
     }
 
-    public function load($resource, string $locale, string $domain = 'messages'): MessageCatalogue
+    public function load(mixed $resource, string $locale, string $domain = 'messages'): MessageCatalogue
     {
         $forkLocale = Locale::from($locale);
         $catalogue = new MessageCatalogue($forkLocale->value);

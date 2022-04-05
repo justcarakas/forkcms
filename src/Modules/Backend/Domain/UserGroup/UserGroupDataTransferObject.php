@@ -4,17 +4,21 @@ namespace ForkCMS\Modules\Backend\Domain\UserGroup;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use ForkCMS\Core\Domain\Doctrine\CollectionHelper;
+use ForkCMS\Core\Domain\Form\Validator\UniqueDataTransferObject;
+use ForkCMS\Core\Domain\Form\Validator\UniqueDataTransferObjectInterface;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\ModuleAjaxAction;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 
-abstract class UserGroupDataTransferObject
+/** @implements UniqueDataTransferObjectInterface<UserGroup> */
+#[UniqueDataTransferObject(['entityClass' => UserGroup::class, 'fields' => ['name']])]
+abstract class UserGroupDataTransferObject implements UniqueDataTransferObjectInterface
 {
     public ?string $name;
 
-    /** @var ArrayCollection<int, User> */
+    /** @var ArrayCollection<int|string, User> */
     public ArrayCollection $users;
 
     public SettingsBag $settings;
@@ -48,7 +52,12 @@ abstract class UserGroupDataTransferObject
         );
     }
 
-    final public function getEntity(): ?UserGroup
+    final public function hasEntity(): bool
+    {
+        return $this->userGroupEntity !== null;
+    }
+
+    final public function getEntity(): UserGroup
     {
         return $this->userGroupEntity;
     }

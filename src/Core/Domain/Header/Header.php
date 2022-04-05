@@ -7,6 +7,7 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use LogicException;
 use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
 
@@ -56,8 +57,10 @@ final class Header
 
     public function addFlashMessage(FlashMessage $flashMessage): void
     {
+        /** @var Session $session */
+        $session = $this->requestStack->getSession();
         try {
-            $this->requestStack->getSession()->getFlashBag()->add(
+            $session->getFlashBag()->add(
                 $flashMessage->getType()->value,
                 $flashMessage->getMessage()
             );

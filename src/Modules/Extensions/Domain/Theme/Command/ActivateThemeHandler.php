@@ -15,7 +15,7 @@ final class ActivateThemeHandler implements CommandHandlerInterface
     ) {
     }
 
-    public function __invoke(ActivateTheme $activateTheme)
+    public function __invoke(ActivateTheme $activateTheme): void
     {
         $this->themeRepository->activateTheme($activateTheme->theme);
         $this->eventDispatcher->dispatch(new ThemeActivatedEvent($activateTheme->theme));

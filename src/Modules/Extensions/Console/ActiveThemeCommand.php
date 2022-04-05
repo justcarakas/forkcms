@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Extensions\Console;
 
+use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
 use ForkCMS\Modules\Extensions\Domain\Theme\ThemeRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -21,10 +22,9 @@ final class ActiveThemeCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->write(
-            $this->themeRepository->findOneBy(['active' => true])
-                ?->getName() ?? $this->themeRepository->findInstallable()[0]?->name ?? 'Fork'
-        );
+        /** @var Theme|null $theme */
+        $theme = $this->themeRepository->findOneBy(['active' => true]);
+        $output->write($theme?->getName() ?? $this->themeRepository->findInstallable()[0]->name);
 
         return self::SUCCESS;
     }

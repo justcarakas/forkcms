@@ -104,17 +104,22 @@ abstract class AbstractActionController implements ActionControllerInterface
         return new Response($this->twig->render($this->templatePath, $this->twigContext));
     }
 
+    /**
+     * @template T of object
+     * @param class-string<T> $entityFQCN
+     * @return EntityRepository<T>
+     */
     public function getRepository(string $entityFQCN): EntityRepository
     {
         return $this->entityManager->getRepository($entityFQCN);
     }
 
     /**
-     * @template T
+     * @template T of object
      * @param class-string<T> $entityFQCN
      * @return T
      */
-    protected function getEntityFromRequest(Request $request, string $entityFQCN, string $key = 'slug'): object
+    protected function getEntityFromRequest(Request $request, string $entityFQCN, string $key = 'slug'): mixed
     {
         try {
             return $this->getRepository($entityFQCN)

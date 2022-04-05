@@ -26,6 +26,7 @@ final class Navigation
         }
     }
 
+    /** @return array<int, array<string, mixed>> */
     private function getNavigationForAllowedModulesAndActions(): array
     {
         return $this->addActiveStateToNavigation(
@@ -61,6 +62,11 @@ final class Navigation
         };
     }
 
+    /**
+     * @param array<string, mixed> $navigationItem
+     *
+     * @return array<string, mixed>
+     */
     private function getNavigationItemForCurrentlyAuthenticatedUser(array $navigationItem): array
     {
         if (
@@ -81,6 +87,10 @@ final class Navigation
         return [];
     }
 
+    /**
+     * @param array<int, array<string, mixed>> $navigation
+     * @return  array<int, array<string, mixed>>
+     */
     private function addActiveStateToNavigation(array $navigation): array
     {
         $selectedKey = $this->getSelectedKey($navigation);
@@ -111,7 +121,7 @@ final class Navigation
     /**
      * Try to determine the selected state
      *
-     * @param array $navigationItem
+     * @param array<string,mixed> $navigationItem
      * @param string $activeUrl
      *
      * @return bool
@@ -141,7 +151,7 @@ final class Navigation
     /**
      * Get the selected key based on the current module/actions
      *
-     * @param array $navigation
+     * @param array<int, array<string, mixed>> $navigation
      *
      * @return int|null
      */

@@ -37,6 +37,7 @@ final class RoutingExtension extends AbstractExtension
         ];
     }
 
+    /** @param array<string,mixed> $parameters */
     public function getPath(
         string $actionName = null,
         string $moduleName = null,
@@ -52,6 +53,7 @@ final class RoutingExtension extends AbstractExtension
         );
     }
 
+    /** @param array<string,mixed> $parameters */
     public function getUrl(
         string $actionName = null,
         string $moduleName = null,

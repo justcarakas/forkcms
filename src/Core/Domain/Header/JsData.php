@@ -6,11 +6,12 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 
 final class JsData
 {
+    /** @param mixed[] $jsData */
     public function __construct(private array $jsData = [])
     {
     }
 
-    public function add(ModuleName $module, string $key, $value): void
+    public function add(ModuleName $module, string $key, mixed $value): void
     {
         $this->jsData[$module->getName()][$key] = $value;
     }

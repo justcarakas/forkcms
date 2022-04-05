@@ -22,6 +22,7 @@ final class Author implements JsonSerializable
         );
     }
 
+    /** @return array<string, string|null> */
     public function jsonSerialize(): array
     {
         return [

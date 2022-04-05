@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraint;
  * @Annotation
  * @Target({"CLASS", "ANNOTATION"})
  */
-#[Attribute(Attribute::TARGET_CLASS)]
+#[Attribute(Attribute::TARGET_CLASS|Attribute::IS_REPEATABLE)]
 final class UniqueDataTransferObject extends Constraint
 {
     public const NOT_UNIQUE_ERROR = '23bd9dbf-6b9b-41cd-a99e-4844bcf3077f';
@@ -21,12 +21,12 @@ final class UniqueDataTransferObject extends Constraint
 
     public string $service = UniqueDataTransferObjectValidator::class;
 
-    public EntityManagerInterface|null $em = null;
-
+    /** @var class-string|null  */
     public string|null $entityClass = null;
 
     public string $repositoryMethod = 'findBy';
 
+    /** @var string[]|string */
     public array|string $fields = [];
 
     public string|null $errorPath = null;

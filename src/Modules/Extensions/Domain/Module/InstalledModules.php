@@ -29,13 +29,13 @@ final class InstalledModules
                 return self::$modulesToInstall;
             }
 
-            return InstallerConfiguration::fromCache()->getModules() ?? [];
+            return InstallerConfiguration::fromCache()->getModules();
         }
 
         try {
             return ForkConnection::get()->getInstalledModules();
         } catch (PDOException) {
-            return InstallerConfiguration::fromCache()->getModules() ?? [];
+            return InstallerConfiguration::fromCache()->getModules();
         }
     }
 

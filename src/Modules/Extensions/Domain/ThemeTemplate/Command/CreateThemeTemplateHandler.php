@@ -16,7 +16,7 @@ final class CreateThemeTemplateHandler implements CommandHandlerInterface
     ) {
     }
 
-    public function __invoke(CreateThemeTemplate $createThemeTemplate)
+    public function __invoke(CreateThemeTemplate $createThemeTemplate): void
     {
         $themeTemplate = ThemeTemplate::fromDataTransferObject($createThemeTemplate);
         $this->themeTemplateRepository->save($themeTemplate);

@@ -51,17 +51,13 @@ class UserGroup
     #[DataGridPropertyColumn(sortable: true, filterable: true, label: 'lbl.Name')]
     private string $name;
 
-    /**
-     * @var Collection<int, User>|User[]
-     */
+    /** @var Collection<int|string, User> */
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: "userGroups")]
     protected Collection $users;
 
     use EntityWithSettingsTrait;
 
-    /**
-     * @var array<string, string>
-     */
+    /** @var array<string, string> */
     #[ORM\Column(type: Types::JSON)]
     private array $roles;
 
@@ -80,13 +76,13 @@ class UserGroup
 
     public static function fromDataTransferObject(UserGroupDataTransferObject $userDataTransferObject): self
     {
-        $userGroup = $userDataTransferObject->getEntity() ?? new self($userDataTransferObject->name);
+        $userGroup = $userDataTransferObject->hasEntity() ? $userDataTransferObject->getEntity() : new self($userDataTransferObject->name);
         $userGroup->name = $userDataTransferObject->name;
         CollectionHelper::updateCollection(
             $userDataTransferObject->users,
             $userGroup->users,
-            fn (User $user) => $userGroup->addUser($user),
-            fn (User $user) => $userGroup->removeUser($user)
+            static fn (User $user): User => $userGroup->addUser($user),
+            static fn (User $user): User => $userGroup->removeUser($user)
         );
 
         $userGroup->settings = $userDataTransferObject->settings;
@@ -109,27 +105,27 @@ class UserGroup
         return $this->name;
     }
 
-    public function addUser(User $user): void
-    {
-        if ($this->users->contains($user)) {
-            return;
-        }
-
-        $this->users->add($user);
-        $user->addUserGroup($this);
-    }
-
-    public function removeUser(User $user): void
+    public function addUser(User $user): User
     {
         if (!$this->users->contains($user)) {
-            return;
+            $this->users->add($user);
+            $user->addUserGroup($this);
         }
 
-        $this->users->removeElement($user);
-        $user->removeUserGroup($this);
+        return $user;
     }
 
-    /** @return Collection<int, User>|User[] */
+    public function removeUser(User $user): User
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            $user->removeUserGroup($this);
+        }
+
+        return $user;
+    }
+
+    /** @return Collection<int|string, User> */
     public function getUsers(): Collection
     {
         return $this->users;
@@ -147,6 +143,7 @@ class UserGroup
         return $this->users->count();
     }
 
+    /** @return array<string, int> */
     public static function dataGridEditLinkCallback(self $userGroup): array
     {
         return ['slug' => $userGroup->getId()];

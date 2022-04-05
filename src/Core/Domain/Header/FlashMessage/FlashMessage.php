@@ -4,6 +4,7 @@ namespace ForkCMS\Core\Domain\Header\FlashMessage;
 
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Type;
+use Stringable;
 use Symfony\Contracts\Translation\TranslatableInterface;
 
 final class FlashMessage
@@ -22,6 +23,7 @@ final class FlashMessage
         return $this->type;
     }
 
+    /** @param array<string, string|int|float|Stringable> $parameters */
     public static function success(string $successMessage, array $parameters = []): self
     {
         return new self(
@@ -30,6 +32,7 @@ final class FlashMessage
         );
     }
 
+    /** @param array<string, string|int|float|Stringable> $parameters */
     public static function info(string $infoMessage, array $parameters = []): self
     {
         return new self(TranslationKey::message($infoMessage)->withParameters($parameters), FlashMessageType::INFO);
@@ -37,6 +40,7 @@ final class FlashMessage
 
     /**
      * @param Type|null $translationType defaults to error
+     * @param array<string, string|int|float|Stringable> $parameters
      */
     public static function warning(string $warningMessage, array $parameters = [], Type $translationType = null): self
     {
@@ -46,6 +50,7 @@ final class FlashMessage
         );
     }
 
+    /** @param array<string, string|int|float|Stringable> $parameters */
     public static function error(string $errorMessage, array $parameters = []): self
     {
         return new self(TranslationKey::error($errorMessage)->withParameters($parameters), FlashMessageType::ERROR);

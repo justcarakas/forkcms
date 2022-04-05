@@ -7,12 +7,15 @@ use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationResetPassword;
 use ForkCMS\Modules\Backend\Backend\Actions\NotFound as ActionNotFound;
 use ForkCMS\Modules\Backend\Backend\Ajax\NotFound as AjaxNotFound;
+use ForkCMS\Modules\Backend\Domain\Action\ActionControllerInterface;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
+use ForkCMS\Modules\Backend\Domain\AjaxAction\AjaxActionControllerInterface;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\ModuleAjaxAction;
 use ForkCMS\Modules\Backend\Domain\User\UserDataGridChoiceType;
 use ForkCMS\Modules\Backend\Domain\UserGroup\Permission\Permission;
 use ForkCMS\Modules\Backend\Domain\UserGroup\Permission\PermissionType;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
+use ForkCMS\Modules\Backend\Domain\Widget\WidgetControllerInterface;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Form\AbstractType;
@@ -22,6 +25,11 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 final class UserGroupType extends AbstractType
 {
+    /**
+     * @param ServiceLocator $backendActions
+     * @param ServiceLocator $backendAjaxActions
+     * @param ServiceLocator $backendDashboardWidgets
+     */
     public function __construct(
         private ServiceLocator $backendActions,
         private ServiceLocator $backendAjaxActions,
@@ -128,6 +136,7 @@ final class UserGroupType extends AbstractType
         );
     }
 
+    /** @return array<string, Permission> */
     private function getAvailableActions(): array
     {
         $actions = array_map(
@@ -159,6 +168,7 @@ final class UserGroupType extends AbstractType
         return $actions;
     }
 
+    /** @return array<string, Permission> */
     private function getAvailableWidgets(): array
     {
         return array_map(
@@ -181,6 +191,7 @@ final class UserGroupType extends AbstractType
         );
     }
 
+    /** @return array<string, Permission> */
     private function getAvailableAjaxActions(): array
     {
         $ajaxActions = array_map(

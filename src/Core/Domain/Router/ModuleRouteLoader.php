@@ -17,7 +17,7 @@ final class ModuleRouteLoader implements LoaderInterface
     {
     }
 
-    public function load($resource, string $type = null): RouteCollection
+    public function load(mixed $resource, string $type = null): RouteCollection
     {
         if ($this->isLoaded === true) {
             throw new RuntimeException('Do not add the ' . static::class . ' loader twice');
@@ -33,7 +33,7 @@ final class ModuleRouteLoader implements LoaderInterface
         return $routes;
     }
 
-    public function supports($resource, string $type = null): bool
+    public function supports(mixed $resource, string $type = null): bool
     {
         return $type === 'fork';
     }

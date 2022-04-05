@@ -14,6 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Builds the form to select modules to install.
+ * @implements DataTransformerInterface<ModulesStepConfiguration,ModulesStepConfiguration>
  */
 class ModulesType extends AbstractType implements DataTransformerInterface
 {

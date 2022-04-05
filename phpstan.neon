@@ -11,13 +11,21 @@ parameters:
   scanFiles:
   bootstrapFiles:
     - src/bootstrap.php
-  excludes_analyse:
-    - src/Core.deprecated
-    - src/Core/Tests
-    - src/Modules.deprecated
-    - src/Modules/Tests
+  excludePaths:
+    - src/Core/tests/*
+    - src/Themes/*
+    - src/Maker/*
+    - src/Modules/*/tests/*
+    #@TODO remove these later
+    - src/Modules/Frontend/*
+    - src/Core.deprecated/*
+    - src/Modules.deprecated/*
   earlyTerminatingMethodCalls:
   symfony:
     container_xml_path: var/cache/dev/ForkCMS_Core_Domain_Kernel_KernelDevDebugContainer.xml
   doctrine:
-    objectManagerLoader: src/Core/Tests/object-manager.php
+    objectManagerLoader: src/Core/tests/ObjectManager.php
+  parallel:
+    jobSize: 20
+    maximumNumberOfProcesses: 32
+    minimumNumberOfJobsPerProcess: 2

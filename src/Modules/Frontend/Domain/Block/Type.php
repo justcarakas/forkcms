@@ -13,17 +13,17 @@ enum Type: string implements TranslatableInterface
 
     public function getDirectoryName(): string
     {
-        return match (true) {
-            $this === self::ACTION => 'Actions',
-            $this === self::WIDGET => 'Widgets',
+        return match ($this) {
+            self::ACTION => 'Actions',
+            self::WIDGET => 'Widgets',
         };
     }
 
     public function trans(TranslatorInterface $translator, string $locale = null): string
     {
-        return (match (true) {
-            $this === self::ACTION => TranslationKey::label('Action'),
-            $this === self::WIDGET => TranslationKey::label('Widget'),
+        return (match ($this) {
+            self::ACTION => TranslationKey::label('Action'),
+            self::WIDGET => TranslationKey::label('Widget'),
         })->trans($translator, $locale);
     }
 }

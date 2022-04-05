@@ -24,9 +24,10 @@ abstract class AbstractFormActionController extends AbstractActionController
     abstract protected function getFormResponse(Request $request): ?Response;
 
     /**
-     * @param null|callable(FormInterface): Response|FormInterface|null $defaultCallback
-     * @param null|callable(FormInterface): Response|FormInterface|null $validCallback
-     * @param null|callable(FormInterface): FlashMessage $flashMessageCallback
+     * @param array<string, mixed> $formOptions
+     * @param null|callable(FormInterface):Response|callable(FormInterface):FormInterface|callable(FormInterface):null $defaultCallback
+     * @param null|callable(FormInterface):Response|callable(FormInterface):FormInterface|callable(FormInterface):null $validCallback
+     * @param null|callable(FormInterface):FlashMessage $flashMessageCallback
      */
     protected function handleForm(
         Request $request,
@@ -67,6 +68,10 @@ abstract class AbstractFormActionController extends AbstractActionController
         return $defaultCallback($form);
     }
 
+    /**
+     * @param array<string, mixed> $data
+     * @param array<string, mixed> $options
+     */
     protected function addDeleteForm(
         array $data,
         ActionSlug $deleteActionSlug,

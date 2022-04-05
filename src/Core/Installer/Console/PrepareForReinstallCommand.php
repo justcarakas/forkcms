@@ -20,7 +20,6 @@ class PrepareForReinstallCommand extends Command
 
     public function __construct(
         private string $rootDir,
-        private string $cacheDir,
         private bool $forkIsInstalled,
     ) {
         parent::__construct('forkcms:installer:prepare-for-reinstall');
@@ -47,6 +46,7 @@ class PrepareForReinstallCommand extends Command
 
         $returnCode = $this->clearDatabase($io);
         $this->removeConfiguration($io);
+        $this->clearCache($io);
         $io->success('Ready for reinstall.');
 
         return $returnCode;
@@ -81,5 +81,16 @@ class PrepareForReinstallCommand extends Command
             unlink($fullPath);
             $io->success('Removed configuration file');
         }
+    }
+
+    private function clearCache(SymfonyStyle $io): void
+    {
+        $command = $this->getApplication()?->find('cache:clear');
+        $command->run(
+            new ArrayInput([]),
+            new BufferedOutput(),
+        );
+
+        $io->success('Ready for reinstall.');
     }
 }

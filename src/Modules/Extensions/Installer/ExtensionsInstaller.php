@@ -21,6 +21,7 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
 use ForkCMS\Modules\Extensions\Domain\Theme\Command\ActivateTheme;
 use ForkCMS\Modules\Extensions\Domain\Theme\Command\InstallTheme;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
+use ForkCMS\Modules\Extensions\Domain\Theme\ThemeRepository;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 
@@ -79,7 +80,9 @@ final class ExtensionsInstaller extends ModuleInstaller
                 ThemeTemplateExport::getActionSlug(),
             ]
         );
-        $installTheme = new InstallTheme($this->getRepository(Theme::class)->findInstallable()[$_ENV['FORK_INSTALLER_THEME']]);
+        /** @var ThemeRepository $themeRepository */
+        $themeRepository = $this->getRepository(Theme::class);
+        $installTheme = new InstallTheme($themeRepository->findInstallable()[$_ENV['FORK_INSTALLER_THEME']]);
         $this->dispatchCommand($installTheme);
         $this->dispatchCommand(new ActivateTheme($installTheme->theme->getEntity()));
     }

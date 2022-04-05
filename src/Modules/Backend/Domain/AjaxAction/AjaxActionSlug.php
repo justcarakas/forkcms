@@ -125,6 +125,7 @@ final class AjaxActionSlug implements Stringable
         return new TranslationDomain(Application::BACKEND, $this->moduleName);
     }
 
+    /** @param array<string, mixed> $parameters */
     public function generateRoute(
         UrlGeneratorInterface $router,
         array $parameters = [],

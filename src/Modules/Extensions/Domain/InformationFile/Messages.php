@@ -7,6 +7,7 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\Type;
 
 final class Messages
 {
+    /** @param TranslationKey[] $messages */
     public function __construct(private array $messages = [])
     {
     }

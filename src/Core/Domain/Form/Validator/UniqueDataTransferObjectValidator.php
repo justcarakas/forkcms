@@ -3,7 +3,8 @@
 namespace ForkCMS\Core\Domain\Form\Validator;
 
 use DateTimeInterface;
-use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Persistence\ObjectRepository;
@@ -30,11 +31,12 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed $value
+     * @template T of UniqueDataTransferObjectInterface
+     * @param T|null $value
      * @throws UnexpectedTypeException
      * @throws ConstraintDefinitionException
      */
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof UniqueDataTransferObject) {
             throw new UnexpectedTypeException($constraint, UniqueDataTransferObject::class);
@@ -52,8 +54,15 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
         if ($value === null) {
             return;
         }
+        $entityClass = $constraint->entityClass;
+        if ($entityClass === null) {
+            if (!$value->hasEntity()) {
+                throw new ConstraintDefinitionException('No entityClass or entity was specified.');
+            }
+            $entityClass = get_class($value->getEntity());
+        }
         $om = $this->getObjectManager($value, $constraint);
-        $class = $om->getClassMetadata($constraint->entityClass ?? get_class($value->getEntity()));
+        $class = $om->getClassMetadata($entityClass);
         $criteria = [];
         $hasNullValue = false;
         foreach ($fields as $fieldName) {
@@ -112,6 +121,7 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
             count($result) === 0
             || (
                 count($result) === 1
+                && $value->hasEntity()
                 && $value->getEntity() === ($result instanceof Iterator ? $result->current() : current($result))
             )
         ) {
@@ -128,7 +138,7 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
             ->addViolation();
     }
 
-    private function formatWithIdentifiers(ObjectManager $em, ClassMetadata $class, $value): string
+    private function formatWithIdentifiers(ObjectManager $em, ClassMetadata $class, mixed $value): string
     {
         if (!is_object($value) || $value instanceof DateTimeInterface) {
             return $this->formatValue($value, self::PRETTY_DATE);
@@ -153,7 +163,11 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
         return sprintf('object("%s") identified by (%s)', $idClass, implode(', ', $identifiers));
     }
 
-    private function getIdentifiers(ObjectManager $om, ClassMetadata $class, $value, string $idClass): array
+    /**
+     * @param class-string $idClass
+     * @return mixed[]
+     */
+    private function getIdentifiers(ObjectManager $om, ClassMetadata $class, mixed $value, string $idClass): array
     {
         if ($class->getName() === $idClass) {
             return $class->getIdentifierValues($value);
@@ -167,9 +181,15 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
         return [];
     }
 
+    /**
+     * @template T of object
+     * @param UniqueDataTransferObjectInterface<T> $dataTransferObject
+     * @param ClassMetadata<T> $class
+     * @return EntityRepository<T>
+     */
     private function getRepository(
-        $dataTransferObject,
-        Constraint $constraint,
+        UniqueDataTransferObjectInterface $dataTransferObject,
+        UniqueDataTransferObject $constraint,
         ObjectManager $om,
         ClassMetadata $class
     ): ObjectRepository {
@@ -183,7 +203,7 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
         $repository = $om->getRepository($constraint->entityClass);
         $supportedClass = $repository->getClassName();
         if (
-            $dataTransferObject->getEntity() !== null
+            $dataTransferObject->hasEntity()
             && !$dataTransferObject->getEntity() instanceof $supportedClass
         ) {
             throw new ConstraintDefinitionException(
@@ -196,22 +216,18 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
             );
         }
 
+        // @phpstan-ignore-next-line
         return $repository;
     }
 
-    private function getObjectManager($dataTransferObject, Constraint $constraint): ObjectManager
-    {
-        if ($constraint->em) {
-            $om = $this->registry->getManager($constraint->em);
-            if (!$om) {
-                throw new ConstraintDefinitionException(
-                    sprintf('Object manager "%s" does not exist.', $constraint->em)
-                );
-            }
-
-            return $om;
-        }
-
+    /**
+     * @template T of UniqueDataTransferObjectInterface
+     * @param T $dataTransferObject
+     */
+    private function getObjectManager(
+        UniqueDataTransferObjectInterface $dataTransferObject,
+        UniqueDataTransferObject $constraint
+    ): ObjectManager {
         $om = $this->registry->getManagerForClass(
             $constraint->entityClass ?? get_class($dataTransferObject->getEntity())
         );

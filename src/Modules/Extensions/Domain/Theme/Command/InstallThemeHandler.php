@@ -25,7 +25,7 @@ final class InstallThemeHandler implements CommandHandlerInterface
     ) {
     }
 
-    public function __invoke(InstallTheme $installTheme)
+    public function __invoke(InstallTheme $installTheme): void
     {
         foreach ($installTheme->theme->templates as $template) {
             if (!$template instanceof InstallableThemeTemplate) {

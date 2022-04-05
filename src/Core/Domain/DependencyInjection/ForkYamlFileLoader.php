@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 final class ForkYamlFileLoader extends YamlFileLoader
 {
     /** @return array<string,mixed> */
-    protected function loadFile($file): array
+    protected function loadFile(string $file): array
     {
         $config = array_merge_recursive(
             (array) parent::loadFile(__DIR__ . '/../../../../config/fork_services_defaults.yaml'),

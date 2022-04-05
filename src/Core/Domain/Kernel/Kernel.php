@@ -133,6 +133,7 @@ class Kernel extends BaseKernel
         $routes->import(self::ROOT_DIR . 'config/{routes}/install/*.yaml');
     }
 
+    /** @return ModuleName[] */
     protected function getInstalledModules(ContainerBuilder $container): array
     {
         $modules = InstalledModules::fromContainer($container)();

@@ -14,19 +14,22 @@ final class InstallableTheme extends ThemeDataTransferObject
 {
     private readonly Messages $messages;
 
+    protected function __construct(?Theme $themeEntity = null)
+    {
+        parent::__construct($themeEntity);
+
+        $this->messages = new Messages();
+    }
+
     public static function fromTheme(Theme $theme): self
     {
-        $installableTheme = new self($theme);
-        $installableTheme->messages = new Messages();
-
-        return $installableTheme;
+        return new self($theme);
     }
 
     public static function fromXML(string $xmlFilePath): self
     {
         $themeConfig = simplexml_load_string(file_get_contents($xmlFilePath), 'SimpleXMLElement', LIBXML_NOCDATA);
         $theme = new self();
-        $theme->messages = new Messages();
         Requirements::fromXML($themeConfig->requirements, $theme->messages);
         $theme->name = SafeString::fromXML($themeConfig->name)->string;
         $directoryName = basename(dirname($xmlFilePath));
@@ -56,7 +59,7 @@ final class InstallableTheme extends ThemeDataTransferObject
         }
         $theme->settings->set(
             'metaNavigation',
-            ($themeConfig->meta_navigation->attributes()->enabled ?? 'false') === 'true'
+            ((string) $themeConfig->meta_navigation->attributes()->enabled) === 'true'
         );
         $authors = [];
         foreach ($themeConfig->authors->author as $authorConfig) {
@@ -102,6 +105,7 @@ final class InstallableTheme extends ThemeDataTransferObject
         $this->messages->addMessage($message);
     }
 
+    /** @return array<string, TranslationKey> */
     public function getMessages(): array
     {
         return $this->messages->getMessages();

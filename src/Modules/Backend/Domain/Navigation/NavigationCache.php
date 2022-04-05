@@ -17,6 +17,7 @@ final class NavigationCache
     ) {
     }
 
+    /** @return array<int, array<string, mixed>> */
     public function get(bool $invalidateCache = false): array
     {
         $cachedNavigation = $this->cache->getItem(self::CACHE_KEY);
@@ -31,6 +32,7 @@ final class NavigationCache
         return $navigation;
     }
 
+    /** @return array<int, array<string, mixed>> */
     private function buildNavigationTree(?int $parentId = null): array
     {
         $navigationItems = $this->navigationItemRepository->findChildrenForParentId($parentId);
@@ -49,6 +51,7 @@ final class NavigationCache
         );
     }
 
+    /** @return array<string, mixed>|null */
     private function buildNavigationItem(NavigationItem $navigationItemEntity): ?array
     {
         if (!$navigationItemEntity->isVisibleInNavigationMenu()) {
@@ -64,7 +67,7 @@ final class NavigationCache
                         static fn (NavigationItem $item): bool => !$item->isVisibleInNavigationMenu()
                             && $item->getSlug() instanceof ActionSlug
                     )
-                    ->map(static fn (NavigationItem $item): ?string => $item->getSlug())
+                    ->map(static fn (NavigationItem $item): ?string => $item->getSlug()?->getSlug())
                     ->toArray()
             ),
             'children' => array_filter(

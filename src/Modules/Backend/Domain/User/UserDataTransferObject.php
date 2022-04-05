@@ -4,11 +4,16 @@ namespace ForkCMS\Modules\Backend\Domain\User;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use ForkCMS\Core\Domain\Doctrine\CollectionHelper;
+use ForkCMS\Core\Domain\Form\Validator\UniqueDataTransferObject;
+use ForkCMS\Core\Domain\Form\Validator\UniqueDataTransferObjectInterface;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use Symfony\Component\Validator\Constraints as Assert;
 
-abstract class UserDataTransferObject
+/** @implements UniqueDataTransferObjectInterface<User> */
+#[UniqueDataTransferObject(['entityClass' => User::class, 'fields' => ['email']])]
+#[UniqueDataTransferObject(['entityClass' => User::class, 'fields' => ['displayName']])]
+abstract class UserDataTransferObject implements UniqueDataTransferObjectInterface
 {
     /**
      * @Assert\Email(message="err.EmailIsInvalid")
@@ -35,7 +40,7 @@ abstract class UserDataTransferObject
 
     protected ?User $userEntity;
 
-    /** @var ArrayCollection<int, UserGroup> */
+    /** @var ArrayCollection<int|string,UserGroup> */
     public ArrayCollection $userGroups;
 
     public SettingsBag $settings;

@@ -47,7 +47,7 @@ class ThemeTemplate
     private bool $active;
 
     #[ORM\ManyToOne(targetEntity: Theme::class, inversedBy: "templates")]
-    #[ORM\JoinColumn(name: 'theme', referencedColumnName: 'name')]
+    #[ORM\JoinColumn(name: 'theme', referencedColumnName: 'name', nullable: false)]
     private Theme $theme;
 
     use EntityWithSettingsTrait;
@@ -110,6 +110,7 @@ class ThemeTemplate
         return $this->defaultForTheme !== null;
     }
 
+    /** @return array<string, int> */
     public static function dataGridEditLinkCallback(self $themeTemplate): array
     {
         return ['slug' => $themeTemplate->getId()];
@@ -120,6 +121,7 @@ class ThemeTemplate
         return $this->theme->getPath() . '/' . $this->path;
     }
 
+    /** @return array<int, array<string, string|array<int, int>>> */
     public function getPositions(): array
     {
         return $this->getSetting('positions', []);

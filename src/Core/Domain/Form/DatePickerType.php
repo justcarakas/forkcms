@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DatePickerType extends DateType
 {
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         // Set all the fixed attributes required to make Flatpickr work
         $view->vars['attr']['data-role'] = 'fork-datepicker';

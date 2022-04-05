@@ -16,7 +16,7 @@ final class ChangeThemeTemplateHandler implements CommandHandlerInterface
     ) {
     }
 
-    public function __invoke(ChangeThemeTemplate $changeThemeTemplate)
+    public function __invoke(ChangeThemeTemplate $changeThemeTemplate): void
     {
         $themeTemplate = ThemeTemplate::fromDataTransferObject($changeThemeTemplate);
         $this->themeTemplateRepository->save($themeTemplate);

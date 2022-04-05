@@ -13,7 +13,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: [8.0, 8.1]
+                php: [8.1]
                 testsuite: ["functional", "unit", "installer"]
         name: PHPUnit - ${{ matrix.testsuite }} (PHP ${{ matrix.php }})
         services:
@@ -36,7 +36,7 @@ jobs:
                   key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
 
             - name: Setup PHP with coverage
-              if: ${{ matrix.php == '8.0' }}
+              if: ${{ matrix.php == '8.1' }}
               uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php }}
@@ -44,7 +44,7 @@ jobs:
                   coverage: PCOV
 
             - name: Setup PHP without coverage
-              if: ${{ matrix.php != '8.0' }}
+              if: ${{ matrix.php != '8.1' }}
               uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php }}
@@ -69,11 +69,11 @@ jobs:
             - run: webpack
 
             - name: Execute tests with coverage
-              if: ${{ matrix.php == '8.0' }}
+              if: ${{ matrix.php == '8.1' }}
               run: bin/simple-phpunit --testsuite=${{ matrix.testsuite}} --coverage-clover=${{ matrix.testsuite}}.clover
 
             - name: Execute tests without coverage
-              if: ${{ matrix.php != '8.0' }}
+              if: ${{ matrix.php != '8.1' }}
               run: bin/simple-phpunit --testsuite=${{ matrix.testsuite}}
 
             - name: Display error logs on failure
@@ -87,7 +87,7 @@ jobs:
 
             - name: Upload Coverage report
               uses: codecov/codecov-action@v1
-              if: ${{ matrix.php == '8.0' }}
+              if: ${{ matrix.php == '8.1' }}
               with:
                 file: ${{ matrix.testsuite}}.clover
                 flags: ${{ matrix.testsuite}}
@@ -111,7 +111,7 @@ jobs:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.0
+                  php-version: 8.1
                   extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, bcmath, intl, gd, exif, iconv, imagick
                   coverage: none
 
@@ -143,7 +143,7 @@ jobs:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.0
+                  php-version: 8.1
                   extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, bcmath, intl, gd, exif, iconv, imagick
                   coverage: none
 
@@ -182,7 +182,7 @@ jobs:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.0
+                  php-version: 8.1
                   extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, bcmath, intl, gd, exif, iconv, imagick
                   coverage: none
 

@@ -57,7 +57,9 @@ final class UserType extends AbstractType
                                     'label_attr' => ['class' => 'checkbox-switch'],
                                 ]
                             );
-                        if ($this->tokenStorage->getToken()?->getUser()?->isSuperAdmin() ?? false) {
+                        /** @var User|null $user */
+                        $user = $this->tokenStorage->getToken()?->getUser();
+                        if ($user?->isSuperAdmin() ?? false) {
                             $builder->add(
                                 'superAdmin',
                                 CheckboxType::class,

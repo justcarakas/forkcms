@@ -7,6 +7,7 @@ use RuntimeException;
 
 final class SettingsListener
 {
+    /** @var array<string,mixed> */
     private static array $cache = [];
 
     public function preFlush(PreFlushEventArgs $event): void
@@ -32,9 +33,10 @@ final class SettingsListener
 
             foreach (self::$cache[$className] as $settingsBagFieldName) {
                 foreach ($entities as $entity) {
+                    /** @phpstan-ignore-next-line */
                     $property = $metaData->getReflectionProperty($settingsBagFieldName)
                         ?? throw new RuntimeException('Property not found');
-                    /** @var SettingsBag $settingsBag */
+                    /** @var SettingsBag|null $settings */
                     $settings = $property->getValue($entity);
                     if ($settings === null) {
                         $property->setValue($entity, new SettingsBag());

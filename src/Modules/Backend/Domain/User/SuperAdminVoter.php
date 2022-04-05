@@ -7,14 +7,14 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 final class SuperAdminVoter extends Voter
 {
-    protected function supports(string $attribute, $subject): bool
+    protected function supports(string $attribute, mixed $subject): bool
     {
         return str_starts_with($attribute, 'ROLE_MODULE_WIDGET__')
                || str_starts_with($attribute, 'ROLE_MODULE_ACTION__')
                || str_starts_with($attribute, 'ROLE_MODULE__');
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
         if (!$user instanceof User) {

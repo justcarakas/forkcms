@@ -62,11 +62,13 @@ abstract class ThemeTemplateDataTransferObject
         $this->settings->set('layout', str_replace("\r", '', $layout));
     }
 
+    /** @return array<int, array<string, string|array<int, int>>> */
     public function getPositions(): array
     {
         return $this->settings->getOr('positions', []);
     }
 
+    /** @param array<int, array<string, string|array<int, int>>> $positions */
     public function setPositions(array $positions): void
     {
         $this->settings->set('positions', $positions);

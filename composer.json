@@ -93,7 +93,7 @@
     },
     "scripts": {
         "test": "symfony php bin/simple-phpunit",
-        "phpstan": "APP_DEBUG=1 symfony console cache:warm -q -edev && symfony php -d memory_limit=-1 bin/phpstan analyze src",
+        "phpstan": "APP_DEBUG=1 symfony console cache:warm -q -edev && symfony php -d memory_limit=-1 bin/phpstan -vvv analyze src -c phpstan.neon",
         "phpcs": "symfony php -d memory_limit=-1 bin/phpcs --standard=PSR12 --extensions=php --warning-severity=9 --exclude=Generic.Files.LineLength,PSR12.Traits.UseDeclaration --report=full --ignore=src/Core.deprecated,src/Modules.deprecated src",
         "fixphpcs": "symfony php bin/php-cs-fixer fix",
         "post-install-cmd": [],

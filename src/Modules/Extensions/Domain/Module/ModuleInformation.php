@@ -39,7 +39,9 @@ final class ModuleInformation
         public readonly string $version,
         #[DataGridPropertyColumn(label: 'lbl.Description', valueCallback: [self::class, 'truncateDescription'])]
         public readonly ?string $description,
+        /** @var Author[] $authors */
         public readonly array $authors,
+        /** @var array<int, array<string, string>> $events */
         public readonly array $events,
         public readonly Messages $messages,
     ) {
@@ -125,6 +127,7 @@ final class ModuleInformation
         return $description;
     }
 
+    /** @return array<string, string> */
     public static function dataGridSlugCallback(self $moduleInformation): array
     {
         return ['slug' => $moduleInformation->name->getName()];

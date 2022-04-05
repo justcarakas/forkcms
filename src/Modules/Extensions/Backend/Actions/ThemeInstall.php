@@ -5,8 +5,10 @@ namespace ForkCMS\Modules\Extensions\Backend\Actions;
 use ForkCMS\Core\Domain\Form\ActionType;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
+use ForkCMS\Modules\Backend\Domain\Action\ActionServices;
 use ForkCMS\Modules\Extensions\Domain\Theme\Command\InstallTheme;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
+use ForkCMS\Modules\Extensions\Domain\Theme\ThemeRepository;
 use InvalidArgumentException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -15,6 +17,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ThemeInstall extends AbstractFormActionController
 {
+    public function __construct(ActionServices $services, private readonly ThemeRepository $themeRepository)
+    {
+        parent::__construct($services);
+    }
+
     protected function getFormResponse(Request $request): Response
     {
         return $this->handleForm(
@@ -30,8 +37,7 @@ final class ThemeInstall extends AbstractFormActionController
                 return new RedirectResponse(ThemeIndex::getActionSlug()->generateRoute($this->router));
             },
             validCallback: function (FormInterface $form): RedirectResponse {
-                $themeRepository = $this->getRepository(Theme::class);
-                $theme = $themeRepository->findInstallable()[$form->getData()['name']]
+                $theme = $this->themeRepository->findInstallable()[$form->getData()['name']]
                     ?? throw new InvalidArgumentException('Theme not found');
 
                 $this->commandBus->dispatch(new InstallTheme($theme));
