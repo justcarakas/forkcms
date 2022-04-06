@@ -13,6 +13,7 @@ class LocaleType extends AbstractType
         $resolver->setDefaults(
             [
                 'class' => Locale::class,
+                'label' => 'lbl.Locale',
             ]
         );
     }

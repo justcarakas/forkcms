@@ -19,6 +19,11 @@ final class InternationalisationInstaller extends ModuleInstaller
         $this->setInstalledLocales();
     }
 
+    public function install(): void
+    {
+        $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');
+    }
+
     private function setInstalledLocales(): void
     {
         $installerConfiguration = InstallerConfiguration::fromCache();

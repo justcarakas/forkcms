@@ -71,3 +71,5 @@ services:
   ForkCMS\Modules\Internationalisation\Domain\Importer\Importer:
     arguments:
       - !tagged_locator { tag: 'forkcms.translation.importer', default_index_method: 'forExtension' }
+
+  ForkCMS\Modules\Backend\Domain\Authentication\BackendAuthenticator:

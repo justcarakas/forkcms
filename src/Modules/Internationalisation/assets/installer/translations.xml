@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+  <Backend>
+    <item type="label" name="Locale">
+      <translation locale="nl"><![CDATA[locale]]></translation>
+      <translation locale="en"><![CDATA[locale]]></translation>
+      <translation locale="hu"><![CDATA[nyelv]]></translation>
+      <translation locale="it"><![CDATA[locale]]></translation>
+      <translation locale="ru"><![CDATA[Язык]]></translation>
+      <translation locale="zh"><![CDATA[放置]]></translation>
+      <translation locale="fr"><![CDATA[langue]]></translation>
+      <translation locale="de"><![CDATA[Locale]]></translation>
+      <translation locale="es"><![CDATA[local]]></translation>
+      <translation locale="lt"><![CDATA[Kalba]]></translation>
+      <translation locale="uk"><![CDATA[Мова]]></translation>
+      <translation locale="sv"><![CDATA[språk]]></translation>
+      <translation locale="el"><![CDATA[τοπικές ρυθμίσεις]]></translation>
+      <translation locale="pt"><![CDATA[locale]]></translation>
+      <translation locale="pl"><![CDATA[język]]></translation>
+    </item>
+  </Backend>
+</translations>
