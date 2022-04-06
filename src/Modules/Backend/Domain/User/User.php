@@ -272,4 +272,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return ['slug' => $user->getId()];
     }
+
+    public function registerAuthenticationFailure(): void
+    {
+        $this->settings->set('last_authentication_failure', time());
+    }
+
+    public function registerAuthenticationSuccess(): void
+    {
+        $this->settings->set('last_authentication_success', time());
+    }
 }

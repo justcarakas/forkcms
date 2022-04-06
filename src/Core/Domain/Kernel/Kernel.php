@@ -230,6 +230,6 @@ class Kernel extends BaseKernel
 
     private function isInstallingModule(): bool
     {
-        return str_ends_with($_SERVER['REQUEST_URI'] ?? null, '/extensions/module_install');
+        return str_ends_with($_SERVER['REQUEST_URI'] ?? '', '/extensions/module_install');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Core\Installer\Console;
 
+use PDOException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -86,11 +87,14 @@ class PrepareForReinstallCommand extends Command
     private function clearCache(SymfonyStyle $io): void
     {
         $command = $this->getApplication()?->find('cache:clear');
-        $command->run(
-            new ArrayInput([]),
-            new BufferedOutput(),
-        );
+        try {
+            $command->run(
+                new ArrayInput([]),
+                new BufferedOutput(),
+            );
+        } catch (PDOException) {
+        }
 
-        $io->success('Ready for reinstall.');
+        $io->success('Cleared cache');
     }
 }

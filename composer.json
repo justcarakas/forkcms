@@ -67,7 +67,8 @@
         "symfony/uid": "6.*",
         "composer/semver": "^3.2",
         "symfony/html-sanitizer": "6.1.x-dev as 6.1.0",
-        "scienta/doctrine-json-functions": "^5.0"
+        "scienta/doctrine-json-functions": "^5.0",
+        "twig/intl-extra": "^3.3"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "dev-master as 3.6.0",

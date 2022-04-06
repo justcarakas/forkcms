@@ -2025,6 +2025,39 @@
         <translation locale="pl"><![CDATA[zmiany dla "%userGroup%" zostały zapisane.]]></translation>
         <translation locale="pt"><![CDATA[As alterações feitas a "%userGroup%" foram guardadas.]]></translation>
       </item>
+      <item type="label" name="LastFailedLoginAttempt">
+        <translation locale="nl"><![CDATA[laatste mislukte aanmelding]]></translation>
+        <translation locale="en"><![CDATA[last failed login attempt]]></translation>
+        <translation locale="ru"><![CDATA[Последняя неудачная авторизация]]></translation>
+        <translation locale="el"><![CDATA[τελευταία ανεπιτυχής απόπειρα σύνδεσης]]></translation>
+        <translation locale="hu"><![CDATA[utolsó sikertelen bejelentkezési kísérlet]]></translation>
+        <translation locale="zh"><![CDATA[上一次登录尝试失败]]></translation>
+        <translation locale="de"><![CDATA[letzter fehlgeschlagener Login-Versuch]]></translation>
+        <translation locale="pt"><![CDATA[última tentativa de login falhada]]></translation>
+        <translation locale="pl"><![CDATA[ostatne nieudane logowanie]]></translation>
+      </item>
+      <item type="label" name="LastLogin">
+        <translation locale="nl"><![CDATA[laatste aanmelding]]></translation>
+        <translation locale="en"><![CDATA[last login]]></translation>
+        <translation locale="ru"><![CDATA[Последняя авторизация]]></translation>
+        <translation locale="el"><![CDATA[τελευταία σύνδεση]]></translation>
+        <translation locale="hu"><![CDATA[utolsó belépés]]></translation>
+        <translation locale="zh"><![CDATA[上一次登录]]></translation>
+        <translation locale="de"><![CDATA[letzter Login]]></translation>
+        <translation locale="pt"><![CDATA[último login]]></translation>
+        <translation locale="pl"><![CDATA[ostatnie logowanie]]></translation>
+      </item>
+      <item type="label" name="LastPasswordChange">
+        <translation locale="nl"><![CDATA[laatste aanpassing wachtwoord]]></translation>
+        <translation locale="en"><![CDATA[last password change]]></translation>
+        <translation locale="ru"><![CDATA[Последняя смена пароля]]></translation>
+        <translation locale="el"><![CDATA[τελευταία αλλαγή κωδικού]]></translation>
+        <translation locale="hu"><![CDATA[utolsó jelszó változtatás]]></translation>
+        <translation locale="zh"><![CDATA[上一次更改密码]]></translation>
+        <translation locale="de"><![CDATA[letzte Passwortänderung]]></translation>
+        <translation locale="pt"><![CDATA[última alteração de senha]]></translation>
+        <translation locale="pl"><![CDATA[ostatnia zmiana hasła]]></translation>
+      </item>
     </Backend>
   </Backend>
 </translations>

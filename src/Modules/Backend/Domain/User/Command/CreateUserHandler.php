@@ -10,8 +10,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 final class CreateUserHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private UserRepository $userRepository,
-        private UserPasswordHasherInterface $passwordHasher
+        private readonly UserRepository $userRepository,
+        private readonly UserPasswordHasherInterface $passwordHasher
     ) {
     }
 

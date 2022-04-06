@@ -5,8 +5,10 @@
   <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
     {% for widget in widgets %}
       <div class="col">
-        <div class="card">
-          <h4 class="card-header">{{ widget.moduleLabel|trans|ucfirst }}: {{ widget.widgetLabel|trans|ucfirst }}</h4>
+        <div class="card card-primary">
+          <div class="card-heading">
+            <h4 class="card-title">{{ widget.moduleLabel|trans|ucfirst }}: {{ widget.widgetLabel|trans|ucfirst }}</h4>
+          </div>
           <div class="card-body">
             {{ widget.content|raw }}
           </div>

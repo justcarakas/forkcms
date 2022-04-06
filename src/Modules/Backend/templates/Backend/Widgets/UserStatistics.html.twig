@@ -1,0 +1,16 @@
+<dl>
+  <dt>{{ 'lbl.LastLogin'|trans|ucfirst }}</dt>
+  <dd>{{ app.user.setting('last_authentication_success')|format_datetime }}</dd>
+  {% if app.user.settings.has('last_authentication_failure') %}
+    <dt>{{ 'lbl.LastFailedLoginAttempt'|trans|ucfirst }}</dt>
+    <dd>{{ app.user.setting('last_authentication_failure')|format_datetime }}</dd>
+  {% endif %}
+  <dt>{{ 'lbl.LastPasswordChange'|trans|ucfirst }}</dt>
+  <dd>
+    {% if app.user.settings.has('last_password_change') %}
+      {{ app.user.setting('last_password_change')|format_datetime }}
+    {% else %}
+      {{ 'lbl.Never'|trans|ucfirst }}
+    {% endif %}
+  </dd>
+</dl>

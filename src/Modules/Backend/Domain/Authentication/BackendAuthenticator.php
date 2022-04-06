@@ -22,11 +22,8 @@ class BackendAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'backend_login';
 
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function authenticate(Request $request): Passport
