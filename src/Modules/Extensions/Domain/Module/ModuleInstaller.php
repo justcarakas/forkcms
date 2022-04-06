@@ -38,27 +38,40 @@ abstract class ModuleInstaller
     /** If the module should show up on a list of installed or installable modules */
     public const IS_VISIBLE_IN_OVERVIEW = true;
 
+    protected readonly CreateSchema $createSchema;
+    protected readonly ModuleRepository $moduleRepository;
+    protected readonly NavigationItemRepository $navigationRepository;
+    protected readonly UserGroupRepository $userGroupRepository;
+    protected readonly TranslationRepository $translationRepository;
+    protected readonly InstalledLocaleRepository $installedLocaleRepository;
+    protected readonly Importer $importer;
+    protected readonly TokenStorageInterface $tokenStorage;
+    protected readonly EntityManagerInterface $entityManager;
+    private readonly MessageBusInterface $commandBus;
+    private readonly MessageBusInterface $eventBus;
+
+    private ?ModuleInformation $moduleInformation = null;
+
     /** @var array<string,ModuleName> */
     private array $moduleDependencies = [];
 
     /** @var array<string,ModuleName> */
     private ?array $defaultModuleDependencies = null;
 
-    private ?ModuleInformation $moduleInformation = null;
-
     public function __construct(
-        protected CreateSchema $createSchema,
-        protected ModuleRepository $moduleRepository,
-        protected NavigationItemRepository $navigationRepository,
-        protected UserGroupRepository $userGroupRepository,
-        protected TranslationRepository $translationRepository,
-        protected InstalledLocaleRepository $installedLocaleRepository,
-        protected Importer $importer,
-        protected TokenStorageInterface $tokenStorage,
-        protected EntityManagerInterface $entityManager,
-        private MessageBusInterface $commandBus,
-        private MessageBusInterface $eventBus,
+        ModuleInstallerServices $moduleInstallerServices,
     ) {
+        $this->createSchema = $moduleInstallerServices->createSchema;
+        $this->moduleRepository = $moduleInstallerServices->moduleRepository;
+        $this->navigationRepository = $moduleInstallerServices->navigationRepository;
+        $this->userGroupRepository = $moduleInstallerServices->userGroupRepository;
+        $this->translationRepository = $moduleInstallerServices->translationRepository;
+        $this->installedLocaleRepository = $moduleInstallerServices->installedLocaleRepository;
+        $this->importer = $moduleInstallerServices->importer;
+        $this->tokenStorage = $moduleInstallerServices->tokenStorage;
+        $this->entityManager = $moduleInstallerServices->entityManager;
+        $this->commandBus = $moduleInstallerServices->commandBus;
+        $this->eventBus = $moduleInstallerServices->eventBus;
     }
 
     final public static function getModuleName(): ModuleName

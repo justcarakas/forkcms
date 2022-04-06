@@ -40,7 +40,7 @@
             <thead>
             <tr>
               <th>
-                <span>{{ 'lbl.Class'|trans|ucfirst }}</span>
+                <span>{{ 'lbl.Name'|trans|ucfirst }}</span>
               </th>
               <th>
                 <span>{{ 'lbl.Description'|trans|ucfirst }}</span>
@@ -50,7 +50,7 @@
             <tbody>
             {% for event in module.events %}
               <tr class="{{ cycle(['odd', 'even'], loop.index0) }}">
-                <td>{{ event.class }}</td>
+                <td>{{ event.class|abbr_class }}</td>
                 <td>{{ event.description|raw }}</td>
               </tr>
             {% endfor %}
