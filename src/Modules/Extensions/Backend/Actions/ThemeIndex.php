@@ -3,19 +3,15 @@
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use ForkCMS\Core\Domain\Form\ActionType;
-use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
-use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessageType;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
 use ForkCMS\Modules\Backend\Domain\Action\ActionServices;
-use ForkCMS\Modules\Extensions\Domain\Theme\Command\ActivateTheme;
 use ForkCMS\Modules\Extensions\Domain\Theme\InstallableTheme;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
 use ForkCMS\Modules\Extensions\Domain\Theme\ThemeRepository;
-use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Overview of the available themes
+ * Overview of the available themes.
  */
 final class ThemeIndex extends AbstractActionController
 {
@@ -38,7 +34,7 @@ final class ThemeIndex extends AbstractActionController
                             ],
                             [
                                 'id_field_name' => 'name',
-                                'actionSlug' => ThemeInstall::getActionSlug()
+                                'actionSlug' => ThemeInstall::getActionSlug(),
                             ]
                         )->createView(),
                         'theme' => $theme,
@@ -57,7 +53,7 @@ final class ThemeIndex extends AbstractActionController
                             $theme,
                             [
                                 'id_field_name' => 'name',
-                                'actionSlug' => ThemeActivate::getActionSlug()
+                                'actionSlug' => ThemeActivate::getActionSlug(),
                             ]
                         )->createView(),
                         'theme' => InstallableTheme::fromTheme($theme),

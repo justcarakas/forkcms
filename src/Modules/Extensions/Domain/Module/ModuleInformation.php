@@ -67,6 +67,7 @@ final class ModuleInformation
                 new Messages(),
             );
         }
+
         return self::fromXML($path);
     }
 

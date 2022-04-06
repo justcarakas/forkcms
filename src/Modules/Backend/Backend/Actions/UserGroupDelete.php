@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Delete user groups from the backend
+ * Delete user groups from the backend.
  */
 final class UserGroupDelete extends AbstractDeleteActionController
 {

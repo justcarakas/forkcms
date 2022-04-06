@@ -9,7 +9,7 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- *Overview of the available groups in the backend
+ *Overview of the available groups in the backend.
  */
 final class UserGroupIndex extends AbstractDataGridActionController
 {

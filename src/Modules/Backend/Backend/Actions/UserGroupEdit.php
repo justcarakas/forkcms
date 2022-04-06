@@ -2,13 +2,9 @@
 
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
-use ForkCMS\Core\Backend\Domain\Form\DeleteType;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
-use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
-use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\UserGroup\Command\ChangeUserGroup;
-use ForkCMS\Modules\Backend\Domain\UserGroup\Command\CreateUserGroup;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupType;
 use Symfony\Component\Form\FormInterface;
@@ -17,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Edit backend user groups
+ * Edit backend user groups.
  */
 final class UserGroupEdit extends AbstractFormActionController
 {

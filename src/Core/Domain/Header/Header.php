@@ -13,7 +13,7 @@ use Twig\Environment;
 
 /**
  * This class will be used to alter the head-part of the HTML-document that will be created by he Backend
- * Therefore it will handle meta-stuff (title, including JS, including CSS, ...)
+ * Therefore it will handle meta-stuff (title, including JS, including CSS, ...).
  */
 final class Header
 {
@@ -65,11 +65,7 @@ final class Header
                 $flashMessage->getMessage()
             );
         } catch (SessionNotFoundException $e) {
-            throw new LogicException(
-                'You cannot use the addFlash method if sessions are disabled. Enable them in "config/packages/framework.yaml".',
-                0,
-                $e
-            );
+            throw new LogicException('You cannot use the addFlash method if sessions are disabled. Enable them in "config/packages/framework.yaml".', 0, $e);
         }
     }
 }

@@ -9,7 +9,7 @@ use function strlen;
 
 final class SettingsBag implements JsonSerializable
 {
-    /** @var array<string, mixed>  */
+    /** @var array<string, mixed> */
     private array $settings = [];
 
     private bool $hasChanges = false;

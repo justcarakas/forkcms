@@ -12,7 +12,7 @@ use Pageon\DoctrineDataGridBundle\Column\Column;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Overview of installed and installable modules
+ * Overview of installed and installable modules.
  */
 final class ModuleIndex extends AbstractActionController
 {

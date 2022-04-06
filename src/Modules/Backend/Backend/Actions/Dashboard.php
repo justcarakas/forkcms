@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * A dashboad displaying widgets of the installed modules
+ * A dashboad displaying widgets of the installed modules.
  */
 final class Dashboard extends AbstractActionController
 {

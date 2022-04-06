@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * This class will handle the backend ajax 404 page
+ * This class will handle the backend ajax 404 page.
  */
 final class NotFound extends AbstractAjaxActionController
 {

@@ -2,13 +2,11 @@
 
 namespace ForkCMS\Core\Installer\Domain\Database;
 
-use Doctrine\DBAL\Connection;
 use ForkCMS\Core\Domain\PDO\ForkConnection;
 use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStep;
 use ForkCMS\Core\Installer\Domain\Installer\InstallerStepConfiguration;
 use Symfony\Component\Validator\Constraints as Assert;
-use Throwable;
 
 final class DatabaseStepConfiguration implements InstallerStepConfiguration
 {

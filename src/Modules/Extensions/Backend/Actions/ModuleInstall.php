@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Install a module
+ * Install a module.
  */
 final class ModuleInstall extends AbstractFormActionController
 {

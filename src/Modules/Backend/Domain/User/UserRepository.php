@@ -59,6 +59,7 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
         $entityManager->remove($user);
         $entityManager->flush();
     }
+
     public function getAuthenticatedUser(): User
     {
         $user = $this->security->getUser();

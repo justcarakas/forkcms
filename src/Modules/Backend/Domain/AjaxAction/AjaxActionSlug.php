@@ -60,7 +60,6 @@ final class AjaxActionSlug implements Stringable
 
     public static function fromRequest(Request $request): self
     {
-
         if ($request->attributes->get('_route') !== 'backend_ajax') {
             throw new InvalidArgumentException('This is not a backend ajax action request');
         }

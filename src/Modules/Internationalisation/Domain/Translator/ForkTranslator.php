@@ -55,7 +55,7 @@ final class ForkTranslator extends Translator
         if ($fallbackLocale === null) {
             $user = $this->tokenStorage?->getToken()?->getUser();
             $fallbackLocale = $user instanceof User
-                ?  $user->getSetting('locale', $this->getLocale()) : $this->getLocale();
+                ? $user->getSetting('locale', $this->getLocale()) : $this->getLocale();
         }
         $locale = $locale ?? $fallbackLocale;
 

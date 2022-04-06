@@ -38,8 +38,7 @@ final class Navigation
     {
         return function (array $navigationItem) {
             if (
-                !isset($navigationItem['children'])
-                || !is_array($navigationItem['children'])
+                !is_array($navigationItem['children'])
                 || empty($navigationItem['children'])
             ) {
                 return $this->getNavigationItemForCurrentlyAuthenticatedUser($navigationItem);
@@ -89,7 +88,8 @@ final class Navigation
 
     /**
      * @param array<int, array<string, mixed>> $navigation
-     * @return  array<int, array<string, mixed>>
+     *
+     * @return array<int, array<string, mixed>>
      */
     private function addActiveStateToNavigation(array $navigation): array
     {
@@ -119,12 +119,9 @@ final class Navigation
     }
 
     /**
-     * Try to determine the selected state
+     * Try to determine the selected state.
      *
      * @param array<string,mixed> $navigationItem
-     * @param string $activeUrl
-     *
-     * @return bool
      */
     private function navigationItemMatchesActiveUrl(array $navigationItem, string $activeUrl): bool
     {
@@ -149,11 +146,9 @@ final class Navigation
     }
 
     /**
-     * Get the selected key based on the current module/actions
+     * Get the selected key based on the current module/actions.
      *
      * @param array<int, array<string, mixed>> $navigation
-     *
-     * @return int|null
      */
     private function getSelectedKey(array $navigation): ?int
     {

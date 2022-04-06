@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Delete users from the backend
+ * Delete users from the backend.
  */
 final class UserDelete extends AbstractDeleteActionController
 {

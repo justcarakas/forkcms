@@ -289,7 +289,9 @@ abstract class ModuleInstaller
 
     /**
      * @template T of object
+     *
      * @param class-string<T> $entityFQCN
+     *
      * @return EntityRepository<T>
      */
     final protected function getRepository(string $entityFQCN): EntityRepository

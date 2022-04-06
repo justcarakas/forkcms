@@ -29,7 +29,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     route: 'backend_action',
     routeAttributes: [
         'module' => 'backend',
-        'action' => 'user_group_edit'
+        'action' => 'user_group_edit',
     ],
     routeAttributesCallback: [self::class, 'dataGridEditLinkCallback'],
     label: 'lbl.Edit',
@@ -39,6 +39,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class UserGroup
 {
     use Blameable;
+
+    use EntityWithSettingsTrait;
 
     public const ADMIN_GROUP_ID = 1;
 
@@ -52,10 +54,8 @@ class UserGroup
     private string $name;
 
     /** @var Collection<int|string, User> */
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: "userGroups")]
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'userGroups')]
     protected Collection $users;
-
-    use EntityWithSettingsTrait;
 
     /** @var array<string, string> */
     #[ORM\Column(type: Types::JSON)]

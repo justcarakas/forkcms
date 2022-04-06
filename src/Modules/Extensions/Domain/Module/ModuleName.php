@@ -9,9 +9,9 @@ use Symfony\Component\DependencyInjection\Container;
 
 final class ModuleName implements Stringable
 {
-    public const ROLE_PREFIX = 'ROLE_MODULE__';
-
     use NamedIdentifier;
+
+    public const ROLE_PREFIX = 'ROLE_MODULE__';
 
     public static function fromFQCN(string $fullyQualifiedClassName): self
     {

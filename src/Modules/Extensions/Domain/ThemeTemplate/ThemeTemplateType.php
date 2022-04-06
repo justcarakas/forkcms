@@ -93,7 +93,7 @@ final class ThemeTemplateType extends AbstractType
                 'fields' => static function (FormBuilderInterface $builder) use ($options) {
                     $activeOptions = [
                         'required' => false,
-                        'label' => TranslationKey::label('Active')
+                        'label' => TranslationKey::label('Active'),
                     ];
                     if (!$options['can_disable']) {
                         $activeOptions['disabled'] = true;

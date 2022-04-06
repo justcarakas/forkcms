@@ -17,6 +17,10 @@ use RuntimeException;
 #[ORM\Table(name: 'extensions__theme')]
 class Theme
 {
+    use EntityWithSettingsTrait;
+
+    use Blameable;
+
     #[ORM\Id]
     #[ORM\Column(type: Types::STRING)]
     private string $name;
@@ -33,10 +37,6 @@ class Theme
 
     #[ORM\OneToOne(inversedBy: 'defaultForTheme', targetEntity: ThemeTemplate::class)]
     private ThemeTemplate|null $defaultTemplate;
-
-    use EntityWithSettingsTrait;
-
-    use Blameable;
 
     private function __construct()
     {

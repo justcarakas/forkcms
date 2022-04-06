@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Edit a theme template positions and default blocks
+ * Edit a theme template positions and default blocks.
  */
 final class ThemeTemplateEdit extends AbstractFormActionController
 {

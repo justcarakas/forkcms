@@ -4,16 +4,16 @@ namespace ForkCMS\Core\Domain\Form\Validator;
 
 use DateTimeInterface;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Persistence\ObjectRepository;
 use Iterator;
 use IteratorAggregate;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 use function count;
 use function get_class;
@@ -32,7 +32,9 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
 
     /**
      * @template T of UniqueDataTransferObjectInterface
+     *
      * @param T|null $value
+     *
      * @throws UnexpectedTypeException
      * @throws ConstraintDefinitionException
      */
@@ -67,12 +69,7 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
         $hasNullValue = false;
         foreach ($fields as $fieldName) {
             if (!$class->hasField($fieldName) && !$class->hasAssociation($fieldName)) {
-                throw new ConstraintDefinitionException(
-                    sprintf(
-                        'The field "%s" is not mapped by Doctrine, so it cannot be validated for uniqueness.',
-                        $fieldName
-                    )
-                );
+                throw new ConstraintDefinitionException(sprintf('The field "%s" is not mapped by Doctrine, so it cannot be validated for uniqueness.', $fieldName));
             }
             $fieldValue = $value->$fieldName;
             if ($fieldValue === null) {
@@ -165,7 +162,8 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
 
     /**
      * @param class-string $idClass
-     * @return mixed[]
+     *
+     * @return array<string,mixed>
      */
     private function getIdentifiers(ObjectManager $om, ClassMetadata $class, mixed $value, string $idClass): array
     {
@@ -183,8 +181,10 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
 
     /**
      * @template T of object
+     *
      * @param UniqueDataTransferObjectInterface<T> $dataTransferObject
      * @param ClassMetadata<T> $class
+     *
      * @return EntityRepository<T>
      */
     private function getRepository(
@@ -206,14 +206,7 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
             $dataTransferObject->hasEntity()
             && !$dataTransferObject->getEntity() instanceof $supportedClass
         ) {
-            throw new ConstraintDefinitionException(
-                sprintf(
-                    'The "%s" entity repository does not support the "%s" entity. The entity should be an instance of or extend "%s".',
-                    $constraint->entityClass,
-                    $class->getName(),
-                    $supportedClass
-                )
-            );
+            throw new ConstraintDefinitionException(sprintf('The "%s" entity repository does not support the "%s" entity. The entity should be an instance of or extend "%s".', $constraint->entityClass, $class->getName(), $supportedClass));
         }
 
         // @phpstan-ignore-next-line
@@ -222,6 +215,7 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
 
     /**
      * @template T of UniqueDataTransferObjectInterface
+     *
      * @param T $dataTransferObject
      */
     private function getObjectManager(

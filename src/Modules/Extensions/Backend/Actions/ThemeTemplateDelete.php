@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Delete a theme template
+ * Delete a theme template.
  */
 final class ThemeTemplateDelete extends AbstractDeleteActionController
 {

@@ -139,6 +139,7 @@ final class ActionSlug implements Stringable
         if ($locale instanceof Locale) {
             $parameters['_locale'] = $locale->value;
         }
+
         return $router->generate('backend_action', $parameters, $referenceType);
     }
 

@@ -10,7 +10,6 @@ enum InstallerStep: int
     case database = 4;
     case authentication = 5;
     case install = 6;
-
     public function next(): self
     {
         return self::from($this->value + 1);

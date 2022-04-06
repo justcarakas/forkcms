@@ -6,7 +6,7 @@ use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Upload a module, still needs to be implemented
+ * Upload a module, still needs to be implemented.
  */
 final class ModuleUpload extends AbstractActionController
 {

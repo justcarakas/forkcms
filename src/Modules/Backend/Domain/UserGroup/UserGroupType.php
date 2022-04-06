@@ -7,15 +7,12 @@ use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationResetPassword;
 use ForkCMS\Modules\Backend\Backend\Actions\NotFound as ActionNotFound;
 use ForkCMS\Modules\Backend\Backend\Ajax\NotFound as AjaxNotFound;
-use ForkCMS\Modules\Backend\Domain\Action\ActionControllerInterface;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
-use ForkCMS\Modules\Backend\Domain\AjaxAction\AjaxActionControllerInterface;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\ModuleAjaxAction;
 use ForkCMS\Modules\Backend\Domain\User\UserDataGridChoiceType;
 use ForkCMS\Modules\Backend\Domain\UserGroup\Permission\Permission;
 use ForkCMS\Modules\Backend\Domain\UserGroup\Permission\PermissionType;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
-use ForkCMS\Modules\Backend\Domain\Widget\WidgetControllerInterface;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Form\AbstractType;
@@ -71,7 +68,7 @@ final class UserGroupType extends AbstractType
                             }
 
                             return $permissions;
-                        }
+                        },
                     ]
                 );
             };
@@ -91,7 +88,7 @@ final class UserGroupType extends AbstractType
                             }
 
                             return $permissions;
-                        }
+                        },
                     ]
                 );
             };
@@ -112,7 +109,7 @@ final class UserGroupType extends AbstractType
                             }
 
                             return $permissions;
-                        }
+                        },
                     ]
                 );
             };
@@ -157,7 +154,6 @@ final class UserGroupType extends AbstractType
                 )
             )
         );
-
 
         unset(
             $actions[AuthenticationLogin::class],

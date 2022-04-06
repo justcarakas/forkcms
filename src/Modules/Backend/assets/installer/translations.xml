@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
   <Backend>
+    <item type="label" name="MoveUpOnePosition">
+      <translation locale="nl"><![CDATA[verplaats één positie omhoog]]></translation>
+      <translation locale="en"><![CDATA[move up one position]]></translation>
+      <translation locale="pt"><![CDATA[mover uma posição para cima]]></translation>
+      <translation locale="pl"><![CDATA[przesuń jedną pozycję w górę]]></translation>
+    </item>
+    <item type="label" name="MoveDownOnePosition">
+      <translation locale="nl"><![CDATA[verplaats één positie omlaag]]></translation>
+      <translation locale="pt"><![CDATA[mover uma posição para baixo]]></translation>
+      <translation locale="en"><![CDATA[move down one position]]></translation>
+      <translation locale="pl"><![CDATA[przesuń jedną pozycję w dół]]></translation>
+    </item>
     <item type="error" name="NotUnique">
       <translation locale="nl"><![CDATA[Deze waarde wordt al gebruikt.]]></translation>
       <translation locale="en"><![CDATA[This value is already used.]]></translation>

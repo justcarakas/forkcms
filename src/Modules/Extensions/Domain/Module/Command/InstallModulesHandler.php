@@ -6,7 +6,6 @@ use ForkCMS\Core\Domain\Kernel\Command\ClearContainerCache;
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Throwable;
 
 final class InstallModulesHandler implements CommandHandlerInterface
 {

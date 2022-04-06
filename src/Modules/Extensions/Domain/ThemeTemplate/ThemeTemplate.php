@@ -29,6 +29,10 @@ use Pageon\DoctrineDataGridBundle\Attribute\DataGridPropertyColumn;
 )]
 class ThemeTemplate
 {
+    use EntityWithSettingsTrait;
+
+    use Blameable;
+
     public const PATH_DIRECTORY = 'templates/Core/';
 
     #[ORM\Id]
@@ -46,13 +50,9 @@ class ThemeTemplate
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $active;
 
-    #[ORM\ManyToOne(targetEntity: Theme::class, inversedBy: "templates")]
+    #[ORM\ManyToOne(targetEntity: Theme::class, inversedBy: 'templates')]
     #[ORM\JoinColumn(name: 'theme', referencedColumnName: 'name', nullable: false)]
     private Theme $theme;
-
-    use EntityWithSettingsTrait;
-
-    use Blameable;
 
     #[ORM\OneToOne(mappedBy: 'defaultTemplate', targetEntity: Theme::class)]
     private ?Theme $defaultForTheme = null;

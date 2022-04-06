@@ -12,7 +12,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * A placeholder for the route used by symfony to log a backend user in
+ * A placeholder for the route used by symfony to log a backend user in.
  */
 final class AuthenticationLogin extends AbstractActionController
 {
@@ -22,7 +22,7 @@ final class AuthenticationLogin extends AbstractActionController
         protected readonly RouterInterface $router,
         private readonly NotFound $notFoundAction,
     ) {
-        //no need to call the parent since we don't use it
+        // no need to call the parent since we don't use it
     }
 
     public function __invoke(Request $request): Response

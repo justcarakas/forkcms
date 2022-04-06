@@ -19,6 +19,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[ORM\Table(name: 'frontend__block')]
 class Block implements TranslatableInterface
 {
+    use EntityWithSettingsTrait;
+
+    use Blameable;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
@@ -42,14 +46,11 @@ class Block implements TranslatableInterface
 
     #[ORM\Column(type: Types::INTEGER)]
     #[Gedmo\SortablePosition]
-    private ?int $position = null;
+    /** @phpstan-ignore-next-line */
+    private ?int $position;
 
     #[ORM\Column(type: Types::STRING, length: 5, nullable: true, enumType: Locale::class)]
     private ?Locale $locale = null;
-
-    use EntityWithSettingsTrait;
-
-    use Blameable;
 
     public function __construct(
         ModuleName $moduleName,

@@ -85,7 +85,7 @@ final class UserType extends AbstractType
                             'settings',
                             FormType::class,
                             [
-                                'label' => false
+                                'label' => false,
                             ]
                         )->get('settings');
                         $settings->addModelTransformer(

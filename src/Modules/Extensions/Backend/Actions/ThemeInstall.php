@@ -7,7 +7,6 @@ use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
 use ForkCMS\Modules\Backend\Domain\Action\ActionServices;
 use ForkCMS\Modules\Extensions\Domain\Theme\Command\InstallTheme;
-use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
 use ForkCMS\Modules\Extensions\Domain\Theme\ThemeRepository;
 use InvalidArgumentException;
 use Symfony\Component\Form\FormInterface;
@@ -16,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Install a theme
+ * Install a theme.
  */
 final class ThemeInstall extends AbstractFormActionController
 {

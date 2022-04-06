@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Add a new theme template
+ * Add a new theme template.
  */
 final class ThemeTemplateAdd extends AbstractFormActionController
 {

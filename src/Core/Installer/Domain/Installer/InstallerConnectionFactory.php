@@ -12,11 +12,6 @@ use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 
 final class InstallerConnectionFactory extends ConnectionFactory
 {
-    public function __construct(array $typesConfig)
-    {
-        parent::__construct($typesConfig);
-    }
-
     /**
      * @param array<string, mixed> $params
      * @param array<string, string> $mappingTypes
@@ -39,7 +34,7 @@ final class InstallerConnectionFactory extends ConnectionFactory
             $params['user'] = $installationData->getDatabaseUsername();
             $params['password'] = $installationData->getDatabasePassword();
 
-            //continue with regular connection creation using new params
+            // continue with regular connection creation using new params
             return parent::createConnection($params, $config, $eventManager, $mappingTypes);
         } catch (Exception) {
             return $this->getInstallerConnection($params, $config, $eventManager);

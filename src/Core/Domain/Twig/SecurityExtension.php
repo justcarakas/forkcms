@@ -6,9 +6,9 @@ use ForkCMS\Modules\Backend\Domain\Action\ActionName;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Twig\Extension\AbstractExtension;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\TwigFunction;
 
 final class SecurityExtension extends AbstractExtension

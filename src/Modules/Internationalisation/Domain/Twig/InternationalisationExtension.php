@@ -22,7 +22,7 @@ final class InternationalisationExtension extends AbstractExtension
                 fn (string $string): string => TranslationKey::label(Container::camelize($string))->trans(
                     $this->translator
                 )
-            )
+            ),
         ];
     }
 }

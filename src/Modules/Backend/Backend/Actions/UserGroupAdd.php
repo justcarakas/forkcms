@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Add new user groups to the backend
+ * Add new user groups to the backend.
  */
 final class UserGroupAdd extends AbstractFormActionController
 {

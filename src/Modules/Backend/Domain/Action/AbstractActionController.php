@@ -5,8 +5,8 @@ namespace ForkCMS\Modules\Backend\Domain\Action;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Exception\MissingIdentifierField;
-use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
 use ForkCMS\Core\Domain\Header\Header;
+use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,6 +61,7 @@ abstract class AbstractActionController implements ActionControllerInterface
     private function buildPageTitle(?string $prepend = null): string
     {
         $actionSlug = self::getActionSlug();
+
         return implode(
             ' - ',
             array_filter(
@@ -106,7 +107,9 @@ abstract class AbstractActionController implements ActionControllerInterface
 
     /**
      * @template T of object
+     *
      * @param class-string<T> $entityFQCN
+     *
      * @return EntityRepository<T>
      */
     public function getRepository(string $entityFQCN): EntityRepository
@@ -116,7 +119,9 @@ abstract class AbstractActionController implements ActionControllerInterface
 
     /**
      * @template T of object
+     *
      * @param class-string<T> $entityFQCN
+     *
      * @return T
      */
     protected function getEntityFromRequest(Request $request, string $entityFQCN, string $key = 'slug'): mixed

@@ -37,7 +37,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
     route: 'backend_action',
     routeAttributes: [
         'module' => 'backend',
-        'action' => 'user_edit'
+        'action' => 'user_edit',
     ],
     routeAttributesCallback: [self::class, 'dataGridEditLinkCallback'],
     label: 'lbl.Edit',
@@ -47,6 +47,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use Blameable;
+
+    use EntityWithSettingsTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -69,8 +71,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $superAdmin;
-
-    use EntityWithSettingsTrait;
 
     /** @var Collection<int|string, UserGroup> */
     #[ORM\ManyToMany(targetEntity: UserGroup::class, inversedBy: 'users')]

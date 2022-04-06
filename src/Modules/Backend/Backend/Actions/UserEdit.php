@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Edit backend users
+ * Edit backend users.
  */
 final class UserEdit extends AbstractFormActionController
 {

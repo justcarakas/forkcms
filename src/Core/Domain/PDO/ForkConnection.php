@@ -109,6 +109,7 @@ final class ForkConnection extends PDO
             );
             $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $tableName = 'test' . str_replace('.', '', (string) microtime(true));
+
             return $connection->query('DROP TABLE IF EXISTS ' . $tableName) instanceof PDOStatement
                 && $connection->query('CREATE TABLE ' . $tableName . ' (id int(11) NOT NULL)') instanceof PDOStatement
                 && $connection->query('DROP TABLE ' . $tableName) instanceof PDOStatement;

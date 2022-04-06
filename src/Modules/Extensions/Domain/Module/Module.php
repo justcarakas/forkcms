@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
-use ForkCMS\Modules\Backend\Domain\User\UserRepository;
 
 #[ORM\Entity(repositoryClass: ModuleRepository::class)]
 #[ORM\Table(name: 'extensions__module')]
@@ -14,11 +13,11 @@ class Module
 {
     use Blameable;
 
+    use EntityWithSettingsTrait;
+
     #[ORM\Id]
     #[ORM\Column(type: 'modules__extensions__module__module_name')]
     private ModuleName $name;
-
-    use EntityWithSettingsTrait;
 
     private function __construct(ModuleName $name)
     {

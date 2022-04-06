@@ -9,11 +9,7 @@ use ForkCMS\Core\Domain\Doctrine\ForkDBALTypeName;
 use JsonException;
 
 use function is_resource;
-use function json_decode;
-use function json_encode;
 use function stream_get_contents;
-
-use const JSON_THROW_ON_ERROR;
 
 final class SettingsBagDBALType extends JsonType
 {

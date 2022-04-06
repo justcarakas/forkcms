@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Export the template of a theme with their positions and the default blocks
+ * Export the template of a theme with their positions and the default blocks.
  */
 final class ThemeTemplateExport extends AbstractActionController
 {

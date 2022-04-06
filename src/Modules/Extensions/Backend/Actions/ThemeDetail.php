@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Shows the details of a theme
+ * Shows the details of a theme.
  */
 final class ThemeDetail extends AbstractActionController
 {
@@ -47,7 +47,7 @@ final class ThemeDetail extends AbstractActionController
                     ],
                     [
                         'id_field_name' => 'name',
-                        'actionSlug' => ThemeInstall::getActionSlug()
+                        'actionSlug' => ThemeInstall::getActionSlug(),
                     ]
                 )->createView()
             );

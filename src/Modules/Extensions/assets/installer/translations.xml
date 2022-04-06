@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
   <Backend>
+    <item type="label" name="Widget">
+      <translation locale="nl"><![CDATA[widget]]></translation>
+      <translation locale="en"><![CDATA[widget]]></translation>
+      <translation locale="hu"><![CDATA[widget]]></translation>
+      <translation locale="ru"><![CDATA[Виджет]]></translation>
+      <translation locale="it"><![CDATA[widget]]></translation>
+      <translation locale="zh"><![CDATA[小工具]]></translation>
+      <translation locale="de"><![CDATA[Widget]]></translation>
+      <translation locale="fr"><![CDATA[widget]]></translation>
+      <translation locale="es"><![CDATA[widget]]></translation>
+      <translation locale="lt"><![CDATA[plėtinys]]></translation>
+      <translation locale="uk"><![CDATA[Віджет]]></translation>
+      <translation locale="sv"><![CDATA[manick]]></translation>
+      <translation locale="el"><![CDATA[μικροεφαρμογή]]></translation>
+      <translation locale="tr"><![CDATA[widget]]></translation>
+      <translation locale="pt"><![CDATA[widget]]></translation>
+      <translation locale="pl"><![CDATA[widget]]></translation>
+    </item>
     <item type="label" name="Themes">
       <translation locale="nl"><![CDATA[thema's]]></translation>
       <translation locale="en"><![CDATA[themes]]></translation>
@@ -779,6 +797,73 @@
         <translation locale="zh"><![CDATA[模块“%module%”已安装。]]></translation>
         <translation locale="pl"><![CDATA[Moduł "%module%" został zainstalowany.]]></translation>
         <translation locale="pt"><![CDATA[O módulo "%module%" foi instalado.]]></translation>
+      </item>
+      <item type="label" name="Templates">
+        <translation locale="nl"><![CDATA[templates]]></translation>
+        <translation locale="en"><![CDATA[templates]]></translation>
+        <translation locale="hu"><![CDATA[sablonok]]></translation>
+        <translation locale="it"><![CDATA[template]]></translation>
+        <translation locale="ru"><![CDATA[Шаблоны]]></translation>
+        <translation locale="zh"><![CDATA[模板]]></translation>
+        <translation locale="de"><![CDATA[Templates]]></translation>
+        <translation locale="fr"><![CDATA[templates]]></translation>
+        <translation locale="es"><![CDATA[temas]]></translation>
+        <translation locale="lt"><![CDATA[šablonai]]></translation>
+        <translation locale="uk"><![CDATA[Шаблони]]></translation>
+        <translation locale="sv"><![CDATA[mallar]]></translation>
+        <translation locale="el"><![CDATA[πρότυπα]]></translation>
+        <translation locale="tr"><![CDATA[şablonlar]]></translation>
+        <translation locale="pt"><![CDATA[templates]]></translation>
+        <translation locale="pl"><![CDATA[szablony]]></translation>
+      </item>
+      <item type="label" name="Authors">
+        <translation locale="nl"><![CDATA[auteurs]]></translation>
+        <translation locale="en"><![CDATA[authors]]></translation>
+        <translation locale="ru"><![CDATA[авторы]]></translation>
+        <translation locale="es"><![CDATA[autores]]></translation>
+        <translation locale="de"><![CDATA[Autoren]]></translation>
+        <translation locale="uk"><![CDATA[Автори]]></translation>
+        <translation locale="hu"><![CDATA[szerzők]]></translation>
+        <translation locale="lt"><![CDATA[autoriai]]></translation>
+        <translation locale="sv"><![CDATA[författare]]></translation>
+        <translation locale="el"><![CDATA[Συγγραφείς]]></translation>
+        <translation locale="zh"><![CDATA[作者]]></translation>
+        <translation locale="pl"><![CDATA[autorzy]]></translation>
+        <translation locale="pt"><![CDATA[autores]]></translation>
+      </item>
+      <item type="label" name="Preview">
+        <translation locale="nl"><![CDATA[preview]]></translation>
+        <translation locale="en"><![CDATA[preview]]></translation>
+        <translation locale="hu"><![CDATA[előnézet]]></translation>
+        <translation locale="ru"><![CDATA[Предпросмотр]]></translation>
+        <translation locale="it"><![CDATA[anteprima]]></translation>
+        <translation locale="zh"><![CDATA[预览]]></translation>
+        <translation locale="de"><![CDATA[Vorschau]]></translation>
+        <translation locale="fr"><![CDATA[aperçu]]></translation>
+        <translation locale="es"><![CDATA[vista previa]]></translation>
+        <translation locale="lt"><![CDATA[peržiūra]]></translation>
+        <translation locale="uk"><![CDATA[Предперегляд]]></translation>
+        <translation locale="sv"><![CDATA[förhandsvisa]]></translation>
+        <translation locale="el"><![CDATA[προεπισκόπιση]]></translation>
+        <translation locale="tr"><![CDATA[önizleme]]></translation>
+        <translation locale="pl"><![CDATA[podgląd]]></translation>
+        <translation locale="pt"><![CDATA[vista prévia]]></translation>
+        <translation locale="pl"><![CDATA[podgląd]]></translation>
+      </item>
+      <item type="label" name="TemplatePath">
+        <translation locale="nl"><![CDATA[Pad naar de template]]></translation>
+        <translation locale="en"><![CDATA[Path to template]]></translation>
+        <translation locale="it"><![CDATA[Path del template]]></translation>
+        <translation locale="ru"><![CDATA[Путь к шаблону]]></translation>
+        <translation locale="zh"><![CDATA[模板路径]]></translation>
+        <translation locale="de"><![CDATA[Pfad zum Template]]></translation>
+        <translation locale="fr"><![CDATA[Chemin vers le template]]></translation>
+        <translation locale="hu"><![CDATA[A sablon útvonala]]></translation>
+        <translation locale="es"><![CDATA[Ruta de la plantilla]]></translation>
+        <translation locale="sv"><![CDATA[Sökväg till mall]]></translation>
+        <translation locale="el"><![CDATA[Διαδρομή προς το πρότυπο.]]></translation>
+        <translation locale="pl"><![CDATA[Ścieżka do szablonu.]]></translation>
+        <translation locale="pt"><![CDATA[Caminho para o template]]></translation>
       </item>
     </Extensions>
   </Backend>

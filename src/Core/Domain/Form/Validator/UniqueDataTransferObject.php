@@ -3,7 +3,6 @@
 namespace ForkCMS\Core\Domain\Form\Validator;
 
 use Attribute;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 
 /**
@@ -12,7 +11,7 @@ use Symfony\Component\Validator\Constraint;
  * @Annotation
  * @Target({"CLASS", "ANNOTATION"})
  */
-#[Attribute(Attribute::TARGET_CLASS|Attribute::IS_REPEATABLE)]
+#[Attribute(Attribute::TARGET_CLASS | Attribute::IS_REPEATABLE)]
 final class UniqueDataTransferObject extends Constraint
 {
     public const NOT_UNIQUE_ERROR = '23bd9dbf-6b9b-41cd-a99e-4844bcf3077f';
@@ -21,7 +20,7 @@ final class UniqueDataTransferObject extends Constraint
 
     public string $service = UniqueDataTransferObjectValidator::class;
 
-    /** @var class-string|null  */
+    /** @var class-string|null */
     public string|null $entityClass = null;
 
     public string $repositoryMethod = 'findBy';

@@ -2,8 +2,8 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate\Event;
 
-use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\Command\CreateThemeTemplate;
+use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
 use Symfony\Contracts\EventDispatcher\Event;
 
 final class ThemeTemplateCreatedEvent extends Event

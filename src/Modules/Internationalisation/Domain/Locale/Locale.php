@@ -22,7 +22,6 @@ enum Locale: string
     case Polish = 'pl';
     case Portuguese = 'pt';
     case Turkish = 'tr';
-
     public function asTranslatable(): string
     {
         return 'lbl.' . mb_strtoupper($this->value);

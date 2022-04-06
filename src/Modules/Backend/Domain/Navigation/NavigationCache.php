@@ -33,9 +33,9 @@ final class NavigationCache
     }
 
     /** @return array<int, array<string, mixed>> */
-    private function buildNavigationTree(?int $parentId = null): array
+    private function buildNavigationTree(): array
     {
-        $navigationItems = $this->navigationItemRepository->findChildrenForParentId($parentId);
+        $navigationItems = $this->navigationItemRepository->findChildrenForParentId(null);
 
         if (count($navigationItems) === 0) {
             return [];
@@ -76,7 +76,7 @@ final class NavigationCache
                         return $this->buildNavigationItem($navigationItem);
                     }
                 )->toArray()
-            )
+            ),
         ];
         $slug = $navigationItemEntity->getSlug();
         if ($slug instanceof ActionSlug) {

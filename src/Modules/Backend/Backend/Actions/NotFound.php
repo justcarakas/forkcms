@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * This class will handle the backend 404 page
+ * This class will handle the backend 404 page.
  */
 final class NotFound extends AbstractActionController
 {

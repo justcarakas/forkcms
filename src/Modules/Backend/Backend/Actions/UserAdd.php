@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Add new users to the backend
+ * Add new users to the backend.
  */
 final class UserAdd extends AbstractFormActionController
 {

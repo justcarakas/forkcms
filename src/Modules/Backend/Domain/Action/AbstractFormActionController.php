@@ -8,7 +8,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Contracts\EventDispatcher\Event;
 
 abstract class AbstractFormActionController extends AbstractActionController
 {
@@ -25,9 +24,9 @@ abstract class AbstractFormActionController extends AbstractActionController
 
     /**
      * @param array<string, mixed> $formOptions
-     * @param null|callable(FormInterface):Response|callable(FormInterface):FormInterface|callable(FormInterface):null $defaultCallback
-     * @param null|callable(FormInterface):Response|callable(FormInterface):FormInterface|callable(FormInterface):null $validCallback
-     * @param null|callable(FormInterface):FlashMessage $flashMessageCallback
+     * @param callable(FormInterface):Response|callable(FormInterface):FormInterface|callable(FormInterface):null|null $defaultCallback
+     * @param callable(FormInterface):Response|callable(FormInterface):FormInterface|callable(FormInterface):null|null $validCallback
+     * @param callable(FormInterface):FlashMessage|null $flashMessageCallback
      */
     protected function handleForm(
         Request $request,

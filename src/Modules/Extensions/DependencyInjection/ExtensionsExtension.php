@@ -38,7 +38,7 @@ class ExtensionsExtension extends ForkModuleExtension
                         'data_root' => ['%kernel.project_dir%/public'] + array_filter($dataRoots, 'is_dir'),
                     ],
                 ],
-            ]
+            ],
         ]);
     }
 }

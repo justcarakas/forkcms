@@ -5,7 +5,6 @@ namespace ForkCMS\Modules\Extensions\Backend\Actions;
 use ForkCMS\Core\Domain\Form\ActionType;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
-use ForkCMS\Modules\Backend\Domain\Action\ActionServices;
 use ForkCMS\Modules\Extensions\Domain\Theme\Command\ActivateTheme;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
 use InvalidArgumentException;
@@ -15,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Activates a theme and deactivates the current active theme
+ * Activates a theme and deactivates the current active theme.
  */
 final class ThemeActivate extends AbstractFormActionController
 {

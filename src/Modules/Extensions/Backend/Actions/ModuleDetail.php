@@ -12,7 +12,7 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Shows the details of a module
+ * Shows the details of a module.
  */
 final class ModuleDetail extends AbstractActionController
 {
