@@ -10,6 +10,9 @@ use ForkCMS\Modules\Frontend\Domain\Block\Block;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Export the template of a theme with their positions and the default blocks
+ */
 final class ThemeTemplateExport extends AbstractActionController
 {
     protected function execute(Request $request): void

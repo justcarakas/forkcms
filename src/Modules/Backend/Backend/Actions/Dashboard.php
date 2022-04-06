@@ -9,6 +9,9 @@ use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * A dashboad displaying widgets of the installed modules
+ */
 final class Dashboard extends AbstractActionController
 {
     public function __construct(

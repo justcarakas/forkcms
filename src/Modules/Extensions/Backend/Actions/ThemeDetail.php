@@ -12,6 +12,9 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * Shows the details of a theme
+ */
 final class ThemeDetail extends AbstractActionController
 {
     public function __construct(ActionServices $services, private readonly ThemeRepository $themeRepository)

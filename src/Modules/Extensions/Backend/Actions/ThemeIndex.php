@@ -14,6 +14,9 @@ use ForkCMS\Modules\Extensions\Domain\Theme\ThemeRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Overview of the available themes
+ */
 final class ThemeIndex extends AbstractActionController
 {
     public function __construct(ActionServices $services, private readonly ThemeRepository $themeRepository)

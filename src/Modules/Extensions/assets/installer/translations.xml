@@ -120,6 +120,64 @@
         <translation locale="pl"><![CDATA[zainstaluj]]></translation>
         <translation locale="pt"><![CDATA[instalar]]></translation>
       </item>
+      <item type="label" name="ThemeTemplateIndex">
+        <translation locale="nl"><![CDATA[thema templates]]></translation>
+        <translation locale="en"><![CDATA[theme templates]]></translation>
+        <translation locale="pl"><![CDATA[szablony motywów]]></translation>
+        <translation locale="pt"><![CDATA[templates do tema]]></translation>
+      </item>
+      <item type="label" name="ThemeTemplateAdd">
+        <translation locale="nl"><![CDATA[template toevoegen]]></translation>
+        <translation locale="en"><![CDATA[add template]]></translation>
+        <translation locale="hu"><![CDATA[sablon hozzáadása]]></translation>
+        <translation locale="it"><![CDATA[aggiungi template]]></translation>
+        <translation locale="ru"><![CDATA[Добавить шаблон]]></translation>
+        <translation locale="zh"><![CDATA[添加模版]]></translation>
+        <translation locale="de"><![CDATA[Template hinzufügen]]></translation>
+        <translation locale="fr"><![CDATA[ajouter un template]]></translation>
+        <translation locale="es"><![CDATA[agregar tema]]></translation>
+        <translation locale="lt"><![CDATA[naujas šablonas]]></translation>
+        <translation locale="uk"><![CDATA[Додати шаблон]]></translation>
+        <translation locale="sv"><![CDATA[lägg till mall]]></translation>
+        <translation locale="el"><![CDATA[προσθήκη προτύπου]]></translation>
+        <translation locale="pl"><![CDATA[dodaj szablon]]></translation>
+        <translation locale="tr"><![CDATA[şablon ekle]]></translation>
+        <translation locale="pt"><![CDATA[adicionar template]]></translation>
+      </item>
+      <item type="label" name="ThemeTemplateEdit">
+        <translation locale="nl"><![CDATA[template wijzigen]]></translation>
+        <translation locale="en"><![CDATA[edit template]]></translation>
+        <translation locale="hu"><![CDATA[sablon szerkesztése]]></translation>
+        <translation locale="it"><![CDATA[modifica template]]></translation>
+        <translation locale="ru"><![CDATA[Редактировать шаблон]]></translation>
+        <translation locale="zh"><![CDATA[编辑模板]]></translation>
+        <translation locale="de"><![CDATA[Template bearbeiten]]></translation>
+        <translation locale="fr"><![CDATA[éditer le template]]></translation>
+        <translation locale="es"><![CDATA[editar tema]]></translation>
+        <translation locale="lt"><![CDATA[keisti šabloną]]></translation>
+        <translation locale="uk"><![CDATA[Редагувати шаблон]]></translation>
+        <translation locale="sv"><![CDATA[ändra mall]]></translation>
+        <translation locale="el"><![CDATA[μεταβολή προτύπου]]></translation>
+        <translation locale="pl"><![CDATA[edytuj szablon]]></translation>
+        <translation locale="pt"><![CDATA[editar template]]></translation>
+      </item>
+      <item type="label" name="ModuleIndex">
+        <translation locale="nl"><![CDATA[modules]]></translation>
+        <translation locale="en"><![CDATA[modules]]></translation>
+        <translation locale="hu"><![CDATA[modulok]]></translation>
+        <translation locale="it"><![CDATA[moduli]]></translation>
+        <translation locale="ru"><![CDATA[Модули]]></translation>
+        <translation locale="zh"><![CDATA[模块]]></translation>
+        <translation locale="de"><![CDATA[Module]]></translation>
+        <translation locale="fr"><![CDATA[modules]]></translation>
+        <translation locale="es"><![CDATA[módulos]]></translation>
+        <translation locale="lt"><![CDATA[moduliai]]></translation>
+        <translation locale="uk"><![CDATA[Модулі]]></translation>
+        <translation locale="sv"><![CDATA[moduler]]></translation>
+        <translation locale="el"><![CDATA[ενότητες]]></translation>
+        <translation locale="pt"><![CDATA[módulos]]></translation>
+        <translation locale="pl"><![CDATA[moduły]]></translation>
+      </item>
       <item type="label" name="ThemeIndex">
         <translation locale="nl"><![CDATA[thema's]]></translation>
         <translation locale="en"><![CDATA[themes]]></translation>
@@ -152,6 +210,11 @@
         <translation locale="zh"><![CDATA[主题]]></translation>
         <translation locale="pl"><![CDATA[motyw]]></translation>
         <translation locale="pt"><![CDATA[tema]]></translation>
+      </item>
+      <item type="label" name="ModuleDetail">
+        <translation locale="nl"><![CDATA[Module]]></translation>
+        <translation locale="en"><![CDATA[Module]]></translation>
+        <translation locale="fr"><![CDATA[Module]]></translation>
       </item>
       <item type="label" name="InstallableThemes">
         <translation locale="nl"><![CDATA[niet geïnstalleerde thema's']]></translation>
@@ -300,12 +363,6 @@
         <translation locale="nl"><![CDATA[Je gebruikt nu het thema "%theme%".]]></translation>
         <translation locale="en"><![CDATA[You are now using the theme "%theme%".]]></translation>
       </item>
-      <item type="label" name="ThemeTemplateIndex">
-        <translation locale="nl"><![CDATA[thema templates]]></translation>
-        <translation locale="en"><![CDATA[theme templates]]></translation>
-        <translation locale="pl"><![CDATA[szablony motywów]]></translation>
-        <translation locale="pt"><![CDATA[templates do tema]]></translation>
-      </item>
       <item type="message" name="ThemeTemplateAdded">
         <translation locale="nl"><![CDATA[De template "%1$s" werd toegevoegd.]]></translation>
         <translation locale="en"><![CDATA[The template "%1$s" was added.]]></translation>
@@ -321,24 +378,6 @@
         <translation locale="el"><![CDATA[Το πρότυπο "%1$s" προστέθηκε.]]></translation>
         <translation locale="pl"><![CDATA[Szablon "%1$s" został dodany.]]></translation>
         <translation locale="pt"><![CDATA[O template "%1$s" foi adicionado.]]></translation>
-      </item>
-      <item type="label" name="ThemeTemplateAdd">
-        <translation locale="nl"><![CDATA[template toevoegen]]></translation>
-        <translation locale="en"><![CDATA[add template]]></translation>
-        <translation locale="hu"><![CDATA[sablon hozzáadása]]></translation>
-        <translation locale="it"><![CDATA[aggiungi template]]></translation>
-        <translation locale="ru"><![CDATA[Добавить шаблон]]></translation>
-        <translation locale="zh"><![CDATA[添加模版]]></translation>
-        <translation locale="de"><![CDATA[Template hinzufügen]]></translation>
-        <translation locale="fr"><![CDATA[ajouter un template]]></translation>
-        <translation locale="es"><![CDATA[agregar tema]]></translation>
-        <translation locale="lt"><![CDATA[naujas šablonas]]></translation>
-        <translation locale="uk"><![CDATA[Додати шаблон]]></translation>
-        <translation locale="sv"><![CDATA[lägg till mall]]></translation>
-        <translation locale="el"><![CDATA[προσθήκη προτύπου]]></translation>
-        <translation locale="pl"><![CDATA[dodaj szablon]]></translation>
-        <translation locale="tr"><![CDATA[şablon ekle]]></translation>
-        <translation locale="pt"><![CDATA[adicionar template]]></translation>
       </item>
       <item type="message" name="HelpPositionsLayoutText">
         <translation locale="nl"><![CDATA[<strong>Aan visuele representatie voor de pagina's-module.</strong><ul><li>Rij toevoegen: gebruik <strong>[]</strong></li><li>Positie weergeven: gebruik <strong>positienaam</strong></li><li>Niet-aanpasbaar gebied: gebruik <strong>/</strong></li></ul><p>Als je een positie breder of hoger wenst weer te geven in de grafische voorstelling, herhaal de positie meermaals (zowel horizontaal als vertikaal, maar de vorm moet rechthoekig blijven)</p>]]></translation>
@@ -727,23 +766,6 @@
         <translation locale="zh"><![CDATA[版本]]></translation>
         <translation locale="pl"><![CDATA[wersja]]></translation>
         <translation locale="pt"><![CDATA[versão]]></translation>
-      </item>
-      <item type="label" name="ModuleIndex">
-        <translation locale="nl"><![CDATA[modules]]></translation>
-        <translation locale="en"><![CDATA[modules]]></translation>
-        <translation locale="hu"><![CDATA[modulok]]></translation>
-        <translation locale="it"><![CDATA[moduli]]></translation>
-        <translation locale="ru"><![CDATA[Модули]]></translation>
-        <translation locale="zh"><![CDATA[模块]]></translation>
-        <translation locale="de"><![CDATA[Module]]></translation>
-        <translation locale="fr"><![CDATA[modules]]></translation>
-        <translation locale="es"><![CDATA[módulos]]></translation>
-        <translation locale="lt"><![CDATA[moduliai]]></translation>
-        <translation locale="uk"><![CDATA[Модулі]]></translation>
-        <translation locale="sv"><![CDATA[moduler]]></translation>
-        <translation locale="el"><![CDATA[ενότητες]]></translation>
-        <translation locale="pt"><![CDATA[módulos]]></translation>
-        <translation locale="pl"><![CDATA[moduły]]></translation>
       </item>
       <item type="message" name="ModuleInstalled">
         <translation locale="nl"><![CDATA[De module "%module%" werd geïnstalleerd.]]></translation>

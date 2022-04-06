@@ -146,7 +146,7 @@ final class UserGroupType extends AbstractType
                 return new Permission(
                     $fullyQualifiedClassName,
                     $moduleAction->getModule()->getName(),
-                    $moduleAction->getAction()->asLabel(),
+                    $moduleAction->getAction()->getName(),
                     self::getClassDescription($fullyQualifiedClassName),
                 );
             },
@@ -178,7 +178,7 @@ final class UserGroupType extends AbstractType
                 return new Permission(
                     $fullyQualifiedClassName,
                     $moduleAction->getModule()->getName(),
-                    $moduleAction->getWidget()->asLabel(),
+                    $moduleAction->getWidget()->getName(),
                     self::getClassDescription($fullyQualifiedClassName),
                 );
             },
@@ -201,7 +201,7 @@ final class UserGroupType extends AbstractType
                 return new Permission(
                     $fullyQualifiedClassName,
                     $moduleAjaxAction->getModule()->getName(),
-                    $moduleAjaxAction->getAction()->asLabel(),
+                    $moduleAjaxAction->getAction()->getName(),
                     self::getClassDescription($fullyQualifiedClassName),
                 );
             },

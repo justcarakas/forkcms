@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Edit a theme template positions and default blocks
+ */
 final class ThemeTemplateEdit extends AbstractFormActionController
 {
     protected function getFormResponse(Request $request): ?Response

@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Activates a theme and deactivates the current active theme
+ */
 final class ThemeActivate extends AbstractFormActionController
 {
     protected function getFormResponse(Request $request): Response

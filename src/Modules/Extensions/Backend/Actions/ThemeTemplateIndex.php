@@ -9,6 +9,9 @@ use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * Overview of the available templates for the selected theme
+ */
 final class ThemeTemplateIndex extends AbstractDataGridActionController
 {
     protected function execute(Request $request): void

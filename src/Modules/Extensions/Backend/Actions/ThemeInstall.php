@@ -15,6 +15,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Install a theme
+ */
 final class ThemeInstall extends AbstractFormActionController
 {
     public function __construct(ActionServices $services, private readonly ThemeRepository $themeRepository)

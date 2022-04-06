@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Install a module
+ */
 final class ModuleInstall extends AbstractFormActionController
 {
     protected function getFormResponse(Request $request): Response
