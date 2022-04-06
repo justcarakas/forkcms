@@ -48,7 +48,8 @@ FORK_DATABASE_PASSWORD=%5$s
 FORK_DEBUG_EMAIL=%6$s
 SITE_PROTOCOL=%7$s
 SITE_DOMAIN=%8$s
-SITE_MULTILINGUAL=%9$s',
+SITE_MULTILINGUAL=%9$s
+APP_SECRET=%10$s',
             $installerConfiguration->getDatabaseHostname(),
             $installerConfiguration->getDatabasePort(),
             $installerConfiguration->getDatabaseName(),
@@ -58,6 +59,7 @@ SITE_MULTILINGUAL=%9$s',
             $isOnHttps ? 'https' : 'http',
             $_SERVER['SERVER_NAME'] ?? $_SERVER['HTTP_HOST'] ?? '127.0.0.1',
             $installerConfiguration->isMultilingual() ? 'true' : 'false',
+            bin2hex(random_bytes(10))
         );
     }
 

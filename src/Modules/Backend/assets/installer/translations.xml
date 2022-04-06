@@ -2058,6 +2058,17 @@
         <translation locale="pt"><![CDATA[última alteração de senha]]></translation>
         <translation locale="pl"><![CDATA[ostatnia zmiana hasła]]></translation>
       </item>
+      <item type="label" name="Never">
+        <translation locale="nl"><![CDATA[nooit]]></translation>
+        <translation locale="en"><![CDATA[never]]></translation>
+        <translation locale="ru"><![CDATA[никогда]]></translation>
+        <translation locale="el"><![CDATA[ποτέ]]></translation>
+        <translation locale="hu"><![CDATA[soha]]></translation>
+        <translation locale="zh"><![CDATA[永不]]></translation>
+        <translation locale="de"><![CDATA[nie]]></translation>
+        <translation locale="pt"><![CDATA[nunca]]></translation>
+        <translation locale="pl"><![CDATA[nigdy]]></translation>
+      </item>
     </Backend>
   </Backend>
 </translations>

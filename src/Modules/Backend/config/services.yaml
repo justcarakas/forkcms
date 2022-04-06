@@ -19,8 +19,6 @@ services:
   ForkCMS\Modules\Backend\Backend\Widgets\:
     resource: '../Backend/Widgets/*'
 
-  Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider: ~
-
   ForkCMS\Modules\Backend\Backend\Actions\NotFound:
     public: true
 
