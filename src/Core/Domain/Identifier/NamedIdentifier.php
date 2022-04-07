@@ -42,4 +42,9 @@ trait NamedIdentifier
     {
         return TranslationKey::label($this->getName());
     }
+
+    final public function jsonSerialize(): string
+    {
+        return $this->name;
+    }
 }

@@ -4,10 +4,11 @@ namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use ForkCMS\Core\Domain\Identifier\NamedIdentifier;
 use InvalidArgumentException;
+use JsonSerializable;
 use Stringable;
 use Symfony\Component\DependencyInjection\Container;
 
-final class ModuleName implements Stringable
+final class ModuleName implements Stringable, JsonSerializable
 {
     use NamedIdentifier;
 

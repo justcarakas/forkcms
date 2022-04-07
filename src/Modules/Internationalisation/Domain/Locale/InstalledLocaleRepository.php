@@ -40,11 +40,18 @@ final class InstalledLocaleRepository extends ServiceEntityRepository
         $entityManager->flush();
     }
 
-    /**
-     * @return array<string, InstalledLocale>
-     */
+    /** @return array<string, InstalledLocale> */
     public function findAllIndexed(): array
     {
         return $this->createQueryBuilder('l', 'l.locale')->getQuery()->getResult();
+    }
+
+    /** @return array<string, Locale> */
+    public function findInstalledLocales(): array
+    {
+        return array_map(
+            static fn (InstalledLocale $installedLocale): Locale => $installedLocale->getLocale(),
+            $this->findAllIndexed()
+        );
     }
 }

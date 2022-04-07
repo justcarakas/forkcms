@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
-use ForkCMS\Modules\Internationalisation\Domain\Locale\LocaleType;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,7 +15,7 @@ final class TranslationType extends AbstractType
         $builder
             ->add('domain', TranslationDomainType::class)
             ->add('key', TranslationKeyType::class)
-            ->add('locale', LocaleType::class)
+            ->add('locale', InstalledLocaleType::class)
             ->add('value', TextareaType::class, ['label' => 'lbl.Translation']);
     }
 
