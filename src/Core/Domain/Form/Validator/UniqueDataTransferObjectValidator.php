@@ -4,6 +4,7 @@ namespace ForkCMS\Core\Domain\Form\Validator;
 
 use DateTimeInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping\Embeddable;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\ObjectManager;
@@ -172,7 +173,10 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
         }
         // non unique value might be a composite PK that consists of other entity objects
         if ($om->getMetadataFactory()->hasMetadataFor($idClass)) {
-            return $om->getClassMetadata($idClass)->getIdentifierValues($value);
+            $metaData = $om->getClassMetadata($idClass);
+            if (!empty($metaData->getIdentifierFieldNames())) {
+                return $metaData->getIdentifierValues($value);
+            }
         }
         // this case might happen if the non unique column has a custom doctrine type and its value is an object
         // in which case we cannot get any identifiers for it
