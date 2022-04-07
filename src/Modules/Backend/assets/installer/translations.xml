@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
   <Backend>
+    <item type="error" name="AlphaNumericCharactersOnly">
+      <translation locale="nl"><![CDATA[Enkel alfanumerieke karakters zijn toegestaan.]]></translation>
+      <translation locale="en"><![CDATA[Only alphanumeric characters are allowed.]]></translation>
+      <translation locale="hu"><![CDATA[Csak alfanumerikus karakterek megengedettek.]]></translation>
+      <translation locale="it"><![CDATA[Sono consentiti solo caratteri alfanumerici.]]></translation>
+      <translation locale="ru"><![CDATA[Только буквы.]]></translation>
+      <translation locale="zh"><![CDATA[只允许字母和数字。]]></translation>
+      <translation locale="fr"><![CDATA[Seuls les caractères alpha-numériques sont autorisés.]]></translation>
+      <translation locale="de"><![CDATA[Nur alphanumerische Zeichen sind erlaubt.]]></translation>
+      <translation locale="es"><![CDATA[Solo carácteres alfanumericos son aceptados.]]></translation>
+      <translation locale="lt"><![CDATA[Tik raidės>]]></translation>
+      <translation locale="sv"><![CDATA[Endast alfanumeriska tecken är tillåtna.]]></translation>
+      <translation locale="el"><![CDATA[Επιτρέπονται μόνον αλφαριθμητικοί χαρακτήρες.]]></translation>
+      <translation locale="pt"><![CDATA[Apenas caractéres alfanuméricos são permitidos.]]></translation>
+      <translation locale="pl"><![CDATA[Dozwolone są tylko znaki alfanumeryczne.]]></translation>
+    </item>
+    <item type="error" name="FirstLetterMustBeACapitalLetter">
+      <translation locale="nl"><![CDATA[De eerste letter moet een hoofdletter zijn.]]></translation>
+      <translation locale="en"><![CDATA[The first letter must be a capital letter.]]></translation>
+      <translation locale="de"><![CDATA[Der erste Buchstabe muss ein Großbuchstabe sein.]]></translation>
+      <translation locale="fr"><![CDATA[La première lettre doit être une majuscule.]]></translation>
+    </item>
     <item type="label" name="MoveUpOnePosition">
       <translation locale="nl"><![CDATA[verplaats één positie omhoog]]></translation>
       <translation locale="en"><![CDATA[move up one position]]></translation>
@@ -403,6 +425,42 @@
       <translation locale="tr"><![CDATA[Flemenkçe]]></translation>
       <translation locale="pt"><![CDATA[Neerlandês]]></translation>
     </item>
+    <item type="label" name="TR">
+      <translation locale="hu"><![CDATA[török]]></translation>
+      <translation locale="ru"><![CDATA[Турецкий]]></translation>
+      <translation locale="it"><![CDATA[Turco]]></translation>
+      <translation locale="zh"><![CDATA[土耳其语]]></translation>
+      <translation locale="de"><![CDATA[türkisch]]></translation>
+      <translation locale="fr"><![CDATA[Turque]]></translation>
+      <translation locale="nl"><![CDATA[Turks]]></translation>
+      <translation locale="en"><![CDATA[Turkish]]></translation>
+      <translation locale="es"><![CDATA[Turco]]></translation>
+      <translation locale="lt"><![CDATA[Turkiškai]]></translation>
+      <translation locale="uk"><![CDATA[турецька]]></translation>
+      <translation locale="sv"><![CDATA[Turkiska]]></translation>
+      <translation locale="el"><![CDATA[Τούρκικα]]></translation>
+      <translation locale="tr"><![CDATA[Türkçe]]></translation>
+      <translation locale="pl"><![CDATA[Turecki]]></translation>
+      <translation locale="pt"><![CDATA[turco]]></translation>
+    </item>
+    <item type="label" name="PL">
+      <translation locale="hu"><![CDATA[lengyel]]></translation>
+      <translation locale="ru"><![CDATA[Польский]]></translation>
+      <translation locale="it"><![CDATA[Polacco]]></translation>
+      <translation locale="zh"><![CDATA[波兰语]]></translation>
+      <translation locale="de"><![CDATA[polnisch]]></translation>
+      <translation locale="fr"><![CDATA[Polonais]]></translation>
+      <translation locale="nl"><![CDATA[Pools]]></translation>
+      <translation locale="en"><![CDATA[Polish]]></translation>
+      <translation locale="es"><![CDATA[Polaco]]></translation>
+      <translation locale="lt"><![CDATA[Lenkiškai]]></translation>
+      <translation locale="uk"><![CDATA[польська]]></translation>
+      <translation locale="sv"><![CDATA[Polska]]></translation>
+      <translation locale="el"><![CDATA[Πολωνικά]]></translation>
+      <translation locale="pl"><![CDATA[Polski]]></translation>
+      <translation locale="tr"><![CDATA[Lehçe]]></translation>
+      <translation locale="pt"><![CDATA[polaco]]></translation>
+    </item>
     <item type="label" name="PT">
       <translation locale="nl"><![CDATA[Portugees]]></translation>
       <translation locale="en"><![CDATA[Portuguese]]></translation>
@@ -670,6 +728,42 @@
       <translation locale="pl"><![CDATA[Niemiecki]]></translation>
       <translation locale="tr"><![CDATA[Flemenkçe]]></translation>
       <translation locale="pt"><![CDATA[Neerlandês]]></translation>
+    </item>
+    <item type="message" name="TR">
+      <translation locale="hu"><![CDATA[török]]></translation>
+      <translation locale="ru"><![CDATA[Турецкий]]></translation>
+      <translation locale="it"><![CDATA[Turco]]></translation>
+      <translation locale="zh"><![CDATA[土耳其语]]></translation>
+      <translation locale="de"><![CDATA[türkisch]]></translation>
+      <translation locale="fr"><![CDATA[Turque]]></translation>
+      <translation locale="nl"><![CDATA[Turks]]></translation>
+      <translation locale="en"><![CDATA[Turkish]]></translation>
+      <translation locale="es"><![CDATA[Turco]]></translation>
+      <translation locale="lt"><![CDATA[Turkiškai]]></translation>
+      <translation locale="uk"><![CDATA[турецька]]></translation>
+      <translation locale="sv"><![CDATA[Turkiska]]></translation>
+      <translation locale="el"><![CDATA[Τούρκικα]]></translation>
+      <translation locale="tr"><![CDATA[Türkçe]]></translation>
+      <translation locale="pl"><![CDATA[Turecki]]></translation>
+      <translation locale="pt"><![CDATA[turco]]></translation>
+    </item>
+    <item type="message" name="PL">
+      <translation locale="hu"><![CDATA[lengyel]]></translation>
+      <translation locale="ru"><![CDATA[Польский]]></translation>
+      <translation locale="it"><![CDATA[Polacco]]></translation>
+      <translation locale="zh"><![CDATA[波兰语]]></translation>
+      <translation locale="de"><![CDATA[polnisch]]></translation>
+      <translation locale="fr"><![CDATA[Polonais]]></translation>
+      <translation locale="nl"><![CDATA[Pools]]></translation>
+      <translation locale="en"><![CDATA[Polish]]></translation>
+      <translation locale="es"><![CDATA[Polaco]]></translation>
+      <translation locale="lt"><![CDATA[Lenkiškai]]></translation>
+      <translation locale="uk"><![CDATA[польська]]></translation>
+      <translation locale="sv"><![CDATA[Polska]]></translation>
+      <translation locale="el"><![CDATA[Πολωνικά]]></translation>
+      <translation locale="pl"><![CDATA[Polski]]></translation>
+      <translation locale="tr"><![CDATA[Lehçe]]></translation>
+      <translation locale="pt"><![CDATA[polaco]]></translation>
     </item>
     <item type="message" name="PT">
       <translation locale="nl"><![CDATA[Portugees]]></translation>

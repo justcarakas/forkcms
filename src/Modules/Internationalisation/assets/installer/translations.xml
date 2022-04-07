@@ -18,5 +18,253 @@
       <translation locale="pt"><![CDATA[locale]]></translation>
       <translation locale="pl"><![CDATA[język]]></translation>
     </item>
+    <item type="label" name="Internationalisation">
+      <translation locale="nl"><![CDATA[vertalingen]]></translation>
+      <translation locale="en"><![CDATA[internationalisation]]></translation>
+    </item>
+    <item type="label" name="Translations">
+      <translation locale="nl"><![CDATA[vertalingen]]></translation>
+      <translation locale="en"><![CDATA[translations]]></translation>
+      <translation locale="hu"><![CDATA[fordítások]]></translation>
+      <translation locale="ru"><![CDATA[Языки]]></translation>
+      <translation locale="it"><![CDATA[traduzioni]]></translation>
+      <translation locale="zh"><![CDATA[翻译]]></translation>
+      <translation locale="de"><![CDATA[Übersetzungen]]></translation>
+      <translation locale="fr"><![CDATA[traductions]]></translation>
+      <translation locale="es"><![CDATA[traducciones]]></translation>
+      <translation locale="lt"><![CDATA[vertimai]]></translation>
+      <translation locale="uk"><![CDATA[Мова]]></translation>
+      <translation locale="sv"><![CDATA[översättningar]]></translation>
+      <translation locale="el"><![CDATA[μεταφράσεις]]></translation>
+      <translation locale="tr"><![CDATA[Çeviriler]]></translation>
+      <translation locale="pt"><![CDATA[traduções]]></translation>
+      <translation locale="pl"><![CDATA[tłumaczenia]]></translation>
+    </item>
+    <Internationalisation>
+      <item type="label" name="ReferenceCode">
+        <translation locale="nl"><![CDATA[referentiecode]]></translation>
+        <translation locale="en"><![CDATA[reference code]]></translation>
+        <translation locale="hu"><![CDATA[referencia kód]]></translation>
+        <translation locale="ru"><![CDATA[Реферальный код]]></translation>
+        <translation locale="it"><![CDATA[codice di riferimento]]></translation>
+        <translation locale="zh"><![CDATA[参考代码]]></translation>
+        <translation locale="fr"><![CDATA[code de référence]]></translation>
+        <translation locale="de"><![CDATA[Referenz-Code]]></translation>
+        <translation locale="es"><![CDATA[código de referencia]]></translation>
+        <translation locale="lt"><![CDATA[persiuntimo kodas]]></translation>
+        <translation locale="uk"><![CDATA[Референс код]]></translation>
+        <translation locale="sv"><![CDATA[referenskod]]></translation>
+        <translation locale="el"><![CDATA[κωδικός αναφοράς]]></translation>
+        <translation locale="pt"><![CDATA[código de referência]]></translation>
+        <translation locale="pl"><![CDATA[kod referencyjny]]></translation>
+      </item>
+      <item type="message" name="HelpReferenceCode">
+        <translation locale="nl"><![CDATA[De Engelstalige referentie naar de vertaling]]></translation>
+        <translation locale="en"><![CDATA[The English reference for the translation]]></translation>
+        <translation locale="it"><![CDATA[Il riferimento Inglese per la traduzione]]></translation>
+        <translation locale="ru"><![CDATA[Англ.]]></translation>
+        <translation locale="zh"><![CDATA[翻译的英语参考版本]]></translation>
+        <translation locale="de"><![CDATA[Die englische Referenz für diese Übersetzung]]></translation>
+        <translation locale="hu"><![CDATA[Az angol fordítás a referencia.]]></translation>
+        <translation locale="fr"><![CDATA[La référence anglaise pour la traduction.]]></translation>
+        <translation locale="es"><![CDATA[La referencia inglesa para la traducción]]></translation>
+        <translation locale="uk"><![CDATA[Англ.]]></translation>
+        <translation locale="el"><![CDATA[Τα Αγγλικά ως αναφορά γιά τη μετάφραση]]></translation>
+        <translation locale="pl"><![CDATA[Angielski odnośnik dla tłumaczenia]]></translation>
+        <translation locale="pt"><![CDATA[A referência inglesa para a tradução]]></translation>
+      </item>
+      <item type="error" name="TranslationAlreadyExists">
+        <translation locale="nl"><![CDATA[Deze vertaling bestaat reeds.]]></translation>
+        <translation locale="en"><![CDATA[This translation already exists.]]></translation>
+        <translation locale="it"><![CDATA[Questa traduzione è già presente.]]></translation>
+        <translation locale="ru"><![CDATA[Перевод уже существует.]]></translation>
+        <translation locale="zh"><![CDATA[这个翻译已存在。]]></translation>
+        <translation locale="de"><![CDATA[Diese Übersetzung gibt es bereits.]]></translation>
+        <translation locale="hu"><![CDATA[Ez a fordítás létezik.]]></translation>
+        <translation locale="fr"><![CDATA[Cette traduction existe déjà.]]></translation>
+        <translation locale="es"><![CDATA[Esta traducción ya existe.]]></translation>
+        <translation locale="uk"><![CDATA[Переклад вже існує]]></translation>
+        <translation locale="el"><![CDATA[Αυτή η μετάφραση υπάρχει ήδη.]]></translation>
+        <translation locale="pl"><![CDATA[Te tłumaczenie już istnieje.]]></translation>
+        <translation locale="pt"><![CDATA[Esta tradução já existe.]]></translation>
+      </item>
+      <item type="label" name="Translation">
+        <translation locale="nl"><![CDATA[vertaling]]></translation>
+        <translation locale="en"><![CDATA[translation]]></translation>
+        <translation locale="hu"><![CDATA[fordítás]]></translation>
+        <translation locale="ru"><![CDATA[Язык]]></translation>
+        <translation locale="it"><![CDATA[traduzione]]></translation>
+        <translation locale="zh"><![CDATA[翻译]]></translation>
+        <translation locale="de"><![CDATA[Übersetzung]]></translation>
+        <translation locale="fr"><![CDATA[traduction]]></translation>
+        <translation locale="es"><![CDATA[traducción]]></translation>
+        <translation locale="lt"><![CDATA[vertimas]]></translation>
+        <translation locale="uk"><![CDATA[Мова]]></translation>
+        <translation locale="sv"><![CDATA[översättning]]></translation>
+        <translation locale="el"><![CDATA[μετάφραση]]></translation>
+        <translation locale="tr"><![CDATA[çeviri]]></translation>
+        <translation locale="pt"><![CDATA[tradução]]></translation>
+        <translation locale="pl"><![CDATA[tłumaczenie]]></translation>
+      </item>
+      <item type="label" name="Type">
+        <translation locale="nl"><![CDATA[type]]></translation>
+        <translation locale="en"><![CDATA[type]]></translation>
+        <translation locale="hu"><![CDATA[típus]]></translation>
+        <translation locale="ru"><![CDATA[Тип]]></translation>
+        <translation locale="it"><![CDATA[tipo]]></translation>
+        <translation locale="zh"><![CDATA[类型]]></translation>
+        <translation locale="fr"><![CDATA[type]]></translation>
+        <translation locale="de"><![CDATA[Typ]]></translation>
+        <translation locale="es"><![CDATA[tipo]]></translation>
+        <translation locale="lt"><![CDATA[tipas]]></translation>
+        <translation locale="uk"><![CDATA[Тип]]></translation>
+        <translation locale="sv"><![CDATA[typ]]></translation>
+        <translation locale="el"><![CDATA[τύπος]]></translation>
+        <translation locale="pt"><![CDATA[tipo]]></translation>
+        <translation locale="pl"><![CDATA[rodzaj]]></translation>
+      </item>
+      <item type="label" name="Application">
+        <translation locale="nl"><![CDATA[applicatie]]></translation>
+        <translation locale="en"><![CDATA[application]]></translation>
+        <translation locale="hu"><![CDATA[program]]></translation>
+        <translation locale="it"><![CDATA[applicazione]]></translation>
+        <translation locale="ru"><![CDATA[Приложение]]></translation>
+        <translation locale="zh"><![CDATA[应用程序]]></translation>
+        <translation locale="fr"><![CDATA[application]]></translation>
+        <translation locale="de"><![CDATA[Anwendung]]></translation>
+        <translation locale="es"><![CDATA[aplicación]]></translation>
+        <translation locale="lt"><![CDATA[aplikacija]]></translation>
+        <translation locale="uk"><![CDATA[Додаток]]></translation>
+        <translation locale="sv"><![CDATA[läge]]></translation>
+        <translation locale="el"><![CDATA[εφαρμογή]]></translation>
+        <translation locale="tr"><![CDATA[uygulama]]></translation>
+        <translation locale="pl"><![CDATA[aplikacja]]></translation>
+        <translation locale="pt"><![CDATA[aplicação]]></translation>
+      </item>
+      <item type="label" name="Module">
+        <translation locale="nl"><![CDATA[module]]></translation>
+        <translation locale="en"><![CDATA[module]]></translation>
+        <translation locale="fr"><![CDATA[module]]></translation>
+        <translation locale="de"><![CDATA[Modul]]></translation>
+        <translation locale="zh"><![CDATA[模块]]></translation>
+        <translation locale="hu"><![CDATA[modul]]></translation>
+        <translation locale="it"><![CDATA[modulo]]></translation>
+        <translation locale="ru"><![CDATA[Модуль]]></translation>
+        <translation locale="es"><![CDATA[módulo]]></translation>
+        <translation locale="lt"><![CDATA[modulis]]></translation>
+        <translation locale="uk"><![CDATA[Модуль]]></translation>
+        <translation locale="sv"><![CDATA[modul]]></translation>
+        <translation locale="el"><![CDATA[ενότητα]]></translation>
+        <translation locale="pt"><![CDATA[módulo]]></translation>
+        <translation locale="pl"><![CDATA[moduł]]></translation>
+      </item>
+      <item type="label" name="TranslationTypeMessage">
+        <translation locale="nl"><![CDATA[bericht]]></translation>
+        <translation locale="en"><![CDATA[message]]></translation>
+        <translation locale="hu"><![CDATA[üzenet]]></translation>
+        <translation locale="it"><![CDATA[messaggio]]></translation>
+        <translation locale="fr"><![CDATA[message]]></translation>
+        <translation locale="ru"><![CDATA[Сообщение]]></translation>
+        <translation locale="zh"><![CDATA[消息]]></translation>
+        <translation locale="de"><![CDATA[Nachricht]]></translation>
+        <translation locale="es"><![CDATA[Mensaje]]></translation>
+        <translation locale="lt"><![CDATA[žinutė]]></translation>
+        <translation locale="uk"><![CDATA[Повідомлення]]></translation>
+        <translation locale="sv"><![CDATA[meddelande]]></translation>
+        <translation locale="el"><![CDATA[μήνυμα]]></translation>
+        <translation locale="pl"><![CDATA[wiadomość]]></translation>
+        <translation locale="tr"><![CDATA[mesaj]]></translation>
+        <translation locale="pt"><![CDATA[mensagem]]></translation>
+      </item>
+      <item type="label" name="TranslationTypeLabel">
+        <translation locale="nl"><![CDATA[label]]></translation>
+        <translation locale="en"><![CDATA[label]]></translation>
+        <translation locale="hu"><![CDATA[felirat]]></translation>
+        <translation locale="it"><![CDATA[etichetta]]></translation>
+        <translation locale="ru"><![CDATA[Метка]]></translation>
+        <translation locale="zh"><![CDATA[标签]]></translation>
+        <translation locale="de"><![CDATA[Label]]></translation>
+        <translation locale="fr"><![CDATA[label]]></translation>
+        <translation locale="es"><![CDATA[label]]></translation>
+        <translation locale="lt"><![CDATA[žymeklis]]></translation>
+        <translation locale="uk"><![CDATA[Мітка]]></translation>
+        <translation locale="sv"><![CDATA[etikett]]></translation>
+        <translation locale="el"><![CDATA[ετικέτα]]></translation>
+        <translation locale="pt"><![CDATA[etiqueta]]></translation>
+        <translation locale="pl"><![CDATA[etykieta]]></translation>
+      </item>
+      <item type="label" name="TranslationTypeError">
+        <translation locale="nl"><![CDATA[error]]></translation>
+        <translation locale="en"><![CDATA[error]]></translation>
+        <translation locale="hu"><![CDATA[hiba]]></translation>
+        <translation locale="it"><![CDATA[errore]]></translation>
+        <translation locale="ru"><![CDATA[Ошибки]]></translation>
+        <translation locale="zh"><![CDATA[错误]]></translation>
+        <translation locale="de"><![CDATA[Fehler]]></translation>
+        <translation locale="fr"><![CDATA[erreur]]></translation>
+        <translation locale="es"><![CDATA[error]]></translation>
+        <translation locale="lt"><![CDATA[klaida]]></translation>
+        <translation locale="uk"><![CDATA[Помилки]]></translation>
+        <translation locale="sv"><![CDATA[fel]]></translation>
+        <translation locale="el"><![CDATA[σφάλμα]]></translation>
+        <translation locale="pl"><![CDATA[błąd]]></translation>
+        <translation locale="pt"><![CDATA[erro]]></translation>
+      </item>
+      <item type="label" name="TranslationTypeSlug">
+        <translation locale="nl"><![CDATA[url slug]]></translation>
+        <translation locale="en"><![CDATA[url slug]]></translation>
+      </item>
+      <item type="label" name="ApplicationBackend">
+        <translation locale="nl"><![CDATA[backend]]></translation>
+        <translation locale="en"><![CDATA[backend]]></translation>
+        <translation locale="hu"><![CDATA[backend]]></translation>
+        <translation locale="it"><![CDATA[backend]]></translation>
+        <translation locale="ru"><![CDATA[ПУ]]></translation>
+        <translation locale="zh"><![CDATA[后台]]></translation>
+        <translation locale="de"><![CDATA[Backend]]></translation>
+        <translation locale="fr"><![CDATA[backend]]></translation>
+        <translation locale="es"><![CDATA[backend]]></translation>
+        <translation locale="lt"><![CDATA[Administravimas]]></translation>
+        <translation locale="uk"><![CDATA[Панель управління]]></translation>
+        <translation locale="sv"><![CDATA[bakände]]></translation>
+        <translation locale="el"><![CDATA[πίσω όψη]]></translation>
+        <translation locale="tr"><![CDATA[Yönetim paneli]]></translation>
+        <translation locale="pt"><![CDATA[Backend]]></translation>
+        <translation locale="pl"><![CDATA[backend]]></translation>
+      </item>
+      <item type="label" name="ApplicationFrontend">
+        <translation locale="nl"><![CDATA[frontend]]></translation>
+        <translation locale="en"><![CDATA[frontend]]></translation>
+        <translation locale="hu"><![CDATA[frontend]]></translation>
+        <translation locale="it"><![CDATA[frontend]]></translation>
+        <translation locale="ru"><![CDATA[Сайт]]></translation>
+        <translation locale="zh"><![CDATA[前端]]></translation>
+        <translation locale="fr"><![CDATA[frontend]]></translation>
+        <translation locale="de"><![CDATA[Frontend]]></translation>
+        <translation locale="es"><![CDATA[frontend]]></translation>
+        <translation locale="lt"><![CDATA[išorė]]></translation>
+        <translation locale="uk"><![CDATA[Сайт]]></translation>
+        <translation locale="sv"><![CDATA[framsida]]></translation>
+        <translation locale="el"><![CDATA[εμπρός όψη]]></translation>
+        <translation locale="pt"><![CDATA[frontend]]></translation>
+        <translation locale="pl"><![CDATA[frontend]]></translation>
+      </item>
+      <item type="label" name="TranslationAdd">
+        <translation locale="nl"><![CDATA[vertaling toevoegen]]></translation>
+        <translation locale="en"><![CDATA[add translation]]></translation>
+        <translation locale="hu"><![CDATA[új fordítás]]></translation>
+        <translation locale="it"><![CDATA[aggiungi traduzione]]></translation>
+        <translation locale="ru"><![CDATA[Добавить перевод]]></translation>
+        <translation locale="zh"><![CDATA[添加翻译语言]]></translation>
+        <translation locale="de"><![CDATA[Übersetzung hinzufügen]]></translation>
+        <translation locale="fr"><![CDATA[ajouter une traduction]]></translation>
+        <translation locale="es"><![CDATA[agregar traducción]]></translation>
+        <translation locale="uk"><![CDATA[Додати переклад]]></translation>
+        <translation locale="lt"><![CDATA[naujas vertimas]]></translation>
+        <translation locale="el"><![CDATA[Προσθήκη μετάφρασης]]></translation>
+        <translation locale="pl"><![CDATA[Dodaj tłumaczenie]]></translation>
+        <translation locale="pt"><![CDATA[adicionar tradução]]></translation>
+      </item>
+    </Internationalisation>
   </Backend>
 </translations>

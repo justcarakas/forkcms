@@ -46,4 +46,17 @@ final class TranslationRepository extends ServiceEntityRepository
             throw $uniqueConstraintViolationException;
         }
     }
+
+    public function uniqueDataTransferObjectMethod(array $fields): array
+    {
+        return $this->findBy(
+            [
+                'domain.application' => $fields['domain']->getApplication()->value,
+                'domain.moduleName' => $fields['domain']->getModuleName(),
+                'key.name' => $fields['key']->getName(),
+                'key.type' => $fields['key']->getType()->value,
+                'locale' => $fields['locale']->value
+            ]
+        );
+    }
 }

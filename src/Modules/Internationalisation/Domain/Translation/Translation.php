@@ -79,7 +79,7 @@ class Translation
         return new TranslatableMessage($this->key->__toString(), $parameters, $this->domain->__toString());
     }
 
-    public function getSource(): string
+    public function getSource(): ?string
     {
         return $this->source;
     }

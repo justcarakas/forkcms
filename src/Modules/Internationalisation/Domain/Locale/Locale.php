@@ -3,8 +3,10 @@
 namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
 use Locale as IntlLocale;
+use Symfony\Contracts\Translation\TranslatableInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-enum Locale: string
+enum Locale: string implements TranslatableInterface
 {
     case English = 'en';
     case Chinese = 'zh';
@@ -35,5 +37,10 @@ enum Locale: string
     public static function default(): self
     {
         return self::from(substr(IntlLocale::getDefault(), 0, 2));
+    }
+
+    public function trans(TranslatorInterface $translator, string $locale = null): string
+    {
+        return $translator->trans($this->asTranslatable(), [], null, $locale);
     }
 }
