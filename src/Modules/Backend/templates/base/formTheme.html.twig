@@ -6,7 +6,7 @@
     {% if label is not same as(false) %}
       {% if label is empty %}
         {% set label = id|trans({}, translation_domain)|ucfirst %}
-      {% else %}
+      {% elseif translation_domain != false or translation_domain is null %}
         {% set label = label|trans({}, translation_domain)|ucfirst %}
       {% endif %}
       {% if not compound %}

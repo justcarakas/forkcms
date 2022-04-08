@@ -6,10 +6,16 @@
 {% set dataGridEmptyRelative = dataGridEmptyRelative|default(false) %}
 {% set dataGridEmptyLocale = dataGridEmptyLocale|default(null) %}
 {% set dataGridEmptyLabel = dataGridEmptyLabel|default('lbl.Add'|trans|ucfirst) %}
+{% set dataGridWrapperClass = dataGridWrapperClass|default('table-responsive') %}
 
-{% if dataGrid.paginator is not empty %}
-  {% include '@!PageonDoctrineDataGrid/dataGrid.html.twig'%}
-{% else %}
+{% if dataGrid.paginator is not empty or dataGrid.paginator.params.filterValue is defined %}
+  <div class="{{ dataGridWrapperClass }}">
+    {% embed '@!PageonDoctrineDataGrid/dataGrid.html.twig'%}
+      {% block noResults %}{% endblock %}
+    {% endembed %}
+  </div>
+{% endif %}
+{% if dataGrid.paginator is empty %}
   <div class="empty-state">
     <img class="empty-state-illustration mb-4 vis" src="{{ asset('build/backend/images/empty-state.svg') }}" aria-hidden="true" alt="empty data grid icon">
     <p class="text-black mb-2">
