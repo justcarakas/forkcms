@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
   <Backend>
+    <item type="label" name="UpdateFilter">
+      <translation locale="nl"><![CDATA[filter updaten]]></translation>
+      <translation locale="en"><![CDATA[update filter]]></translation>
+      <translation locale="hu"><![CDATA[filter frissítés]]></translation>
+      <translation locale="ru"><![CDATA[Обновить фильтр]]></translation>
+      <translation locale="it"><![CDATA[aggiorna filtro]]></translation>
+      <translation locale="zh"><![CDATA[更新滤镜]]></translation>
+      <translation locale="fr"><![CDATA[mettre à jour]]></translation>
+      <translation locale="de"><![CDATA[Filter updaten]]></translation>
+      <translation locale="es"><![CDATA[actualizar filtro]]></translation>
+      <translation locale="lt"><![CDATA[atnaujinti filtrą]]></translation>
+      <translation locale="uk"><![CDATA[Оновити фільтр]]></translation>
+      <translation locale="sv"><![CDATA[uppdatera filter]]></translation>
+      <translation locale="el"><![CDATA[αναβάθμιση φίλτρου]]></translation>
+      <translation locale="pt"><![CDATA[actualizar filtro]]></translation>
+      <translation locale="pl"><![CDATA[aktualizuj filtr]]></translation>
+    </item>
     <item type="error" name="AlphaNumericCharactersOnly">
       <translation locale="nl"><![CDATA[Enkel alfanumerieke karakters zijn toegestaan.]]></translation>
       <translation locale="en"><![CDATA[Only alphanumeric characters are allowed.]]></translation>

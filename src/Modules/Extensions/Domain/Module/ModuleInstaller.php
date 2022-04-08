@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use ForkCMS\Core\Domain\Doctrine\CreateSchema;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
+use ForkCMS\Core\Installer\CoreInstaller;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\ModuleAjaxAction;
@@ -122,29 +123,35 @@ abstract class ModuleInstaller
         }
         $this->defaultModuleDependencies = [];
 
-        $backendInstaller = BackendInstaller::getModuleName();
-        if ($backendInstaller === static::getModuleName()) {
+        $coreModule = CoreInstaller::getModuleName();
+        if ($coreModule === static::getModuleName()) {
             return $this->defaultModuleDependencies;
         }
-        $this->defaultModuleDependencies[$backendInstaller->getName()] = $backendInstaller;
+        $this->defaultModuleDependencies[$coreModule->getName()] = $coreModule;
 
-        $frontendInstaller = FrontendInstaller::getModuleName();
-        if ($frontendInstaller === static::getModuleName()) {
+        $backendModule = BackendInstaller::getModuleName();
+        if ($backendModule === static::getModuleName()) {
             return $this->defaultModuleDependencies;
         }
-        $this->defaultModuleDependencies[$frontendInstaller->getName()] = $frontendInstaller;
+        $this->defaultModuleDependencies[$backendModule->getName()] = $backendModule;
 
-        $internationalisationInstaller = InternationalisationInstaller::getModuleName();
-        if ($internationalisationInstaller === static::getModuleName()) {
+        $frontendModule = FrontendInstaller::getModuleName();
+        if ($frontendModule === static::getModuleName()) {
             return $this->defaultModuleDependencies;
         }
-        $this->defaultModuleDependencies[$internationalisationInstaller->getName()] = $internationalisationInstaller;
+        $this->defaultModuleDependencies[$frontendModule->getName()] = $frontendModule;
 
-        $extensionInstaller = ExtensionsInstaller::getModuleName();
-        if ($extensionInstaller === static::getModuleName()) {
+        $internationalisationModule = InternationalisationInstaller::getModuleName();
+        if ($internationalisationModule === static::getModuleName()) {
             return $this->defaultModuleDependencies;
         }
-        $this->defaultModuleDependencies[$extensionInstaller->getName()] = $extensionInstaller;
+        $this->defaultModuleDependencies[$internationalisationModule->getName()] = $internationalisationModule;
+
+        $extensionModule = ExtensionsInstaller::getModuleName();
+        if ($extensionModule === static::getModuleName()) {
+            return $this->defaultModuleDependencies;
+        }
+        $this->defaultModuleDependencies[$extensionModule->getName()] = $extensionModule;
 
         return $this->defaultModuleDependencies;
     }

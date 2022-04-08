@@ -7,7 +7,7 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupRepository;
 
 final class DeleteUserGroupHandler implements CommandHandlerInterface
 {
-    public function __construct(private UserGroupRepository $userGroupRepository)
+    public function __construct(private readonly UserGroupRepository $userGroupRepository)
     {
     }
 

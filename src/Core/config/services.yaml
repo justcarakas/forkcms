@@ -24,6 +24,10 @@ services:
     arguments:
       $rootDir: '%kernel.project_dir%'
 
+  ForkCMS\Core\Installer\CoreInstaller:
+    tags:
+      - { name: forkcms.module.installer }
+
   module_installers:
     namespace: ForkCMS\Modules\
     resource: '../../Modules/*/Installer'

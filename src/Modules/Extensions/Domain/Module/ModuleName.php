@@ -24,6 +24,10 @@ final class ModuleName implements Stringable, JsonSerializable
                 $matches
             )
         ) {
+            if (preg_match('/^ForkCMS\\\Core\\\([A-Z]\w*)/', $fullyQualifiedClassName)) {
+                return self::core();
+            }
+
             throw new InvalidArgumentException('Can ony be created from a module classes');
         }
 
@@ -48,5 +52,10 @@ final class ModuleName implements Stringable, JsonSerializable
     public function asRole(): string
     {
         return self::ROLE_PREFIX . strtoupper(Container::underscore($this->getName()));
+    }
+
+    public static function core(): self
+    {
+        return self::fromString('Core');
     }
 }
