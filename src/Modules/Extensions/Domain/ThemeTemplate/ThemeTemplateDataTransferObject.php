@@ -5,15 +5,17 @@ namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use ForkCMS\Core\Domain\Form\Validator\UniqueDataTransferObject;
+use ForkCMS\Core\Domain\Form\Validator\UniqueDataTransferObjectInterface;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContext;
 
+/** @implements UniqueDataTransferObjectInterface<ThemeTemplate> */
 #[Assert\Callback(callback: 'validateThemeTemplate')]
 #[UniqueDataTransferObject(['entityClass' => ThemeTemplate::class, 'fields' => ['name', 'theme']])]
-abstract class ThemeTemplateDataTransferObject
+abstract class ThemeTemplateDataTransferObject implements UniqueDataTransferObjectInterface
 {
     #[Assert\NotBlank(message: 'err.FieldIsRequired')]
     public ?string $name = null;
@@ -32,11 +34,8 @@ abstract class ThemeTemplateDataTransferObject
 
     public bool $overwrite = false;
 
-    protected ?ThemeTemplate $themeTemplateEntity;
-
-    public function __construct(?ThemeTemplate $themeTemplateEntity = null)
+    public function __construct(protected ?ThemeTemplate $themeTemplateEntity = null)
     {
-        $this->themeTemplateEntity = $themeTemplateEntity;
         if (!$themeTemplateEntity instanceof ThemeTemplate) {
             $this->settings = new SettingsBag();
 
@@ -74,9 +73,9 @@ abstract class ThemeTemplateDataTransferObject
         $this->settings->set('positions', $positions);
     }
 
-    public function isNew(): bool
+    public function hasEntity(): bool
     {
-        return $this->themeTemplateEntity === null;
+        return $this->themeTemplateEntity !== null;
     }
 
     public function getEntity(): ?ThemeTemplate

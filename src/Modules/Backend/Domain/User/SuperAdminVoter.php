@@ -11,6 +11,7 @@ final class SuperAdminVoter extends Voter
     {
         return str_starts_with($attribute, 'ROLE_MODULE_WIDGET__')
                || str_starts_with($attribute, 'ROLE_MODULE_ACTION__')
+               || str_starts_with($attribute, 'ROLE_MODULE_AJAX_ACTION__')
                || str_starts_with($attribute, 'ROLE_MODULE__');
     }
 
