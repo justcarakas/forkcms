@@ -5,7 +5,9 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
+use InvalidArgumentException;
 use Symfony\Component\Translation\TranslatableMessage;
 
 #[ORM\Entity(repositoryClass: TranslationRepository::class)]
@@ -17,6 +19,9 @@ class Translation
     #[ORM\Id]
     #[ORM\Column(type: Types::STRING, length: 32, unique: true)]
     private string $id;
+
+    #[ORM\Column(type: Types::STRING, length: 32, options: ['comment' => 'Translation id across locale'])]
+    private string $groupId;
 
     #[ORM\Embedded(class: TranslationDomain::class)]
     private TranslationDomain $domain;
@@ -40,7 +45,12 @@ class Translation
         string $value,
         string $source = null,
     ) {
+        if ($domain->getModuleName() === ModuleName::core()) {
+            throw new InvalidArgumentException('Cannot create a translation for the core module');
+        }
+
         $this->id = md5(implode('$', [$domain, $locale->value, $key]));
+        $this->groupId = md5(implode('$', [$domain, $key]));
         $this->domain = $domain;
         $this->key = $key;
         $this->locale = $locale;

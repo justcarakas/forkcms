@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -39,6 +40,7 @@ final class TranslationDomainType extends AbstractType implements DataTransforme
                 'class' => Module::class,
                 'choice_value' => 'name',
                 'choice_label' => fn (Module $module): string => ucfirst($this->translator->trans($module->getName()->asLabel())),
+                'choice_filter' => static fn (Module $module): bool => $module->getName() === ModuleName::core(),
                 'label' => 'lbl.Module',
                 'required' => false,
                 'choice_translation_domain' => false,
