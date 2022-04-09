@@ -20,7 +20,6 @@ export class Messages {
         icon = 'far fa-times-circle'
         role = 'alert'
         live = 'assertive'
-        dismissableClass = ''
         break
       case 'warning':
         icon = 'fas fa-exclamation-circle'
