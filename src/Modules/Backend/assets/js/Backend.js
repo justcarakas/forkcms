@@ -8,21 +8,22 @@ import 'select2/dist/js/select2.full'
 import 'flatpickr'
 
 // component imports
-import { Ajax } from './Components/Ajax'
+import { Ajax } from '../../../../Core/assets/js/Components/Ajax'
 import { Controls } from './Components/Controls'
 import { Effects } from './Components/Effects'
-import { Locale } from './Components/Locale'
+import { Locale } from '../../../../Core/assets/js/Components/Locale'
 import { Modal } from './Components/Modal'
-import { Tabs } from './Components/Tabs'
+import { Tabs } from '../../../../Core/assets/js/Components/Tabs'
 import { Resize } from './Components/Resize'
 import { Navigation } from './Components/Navigation'
-import { Collection } from './Components/Collection'
+import { Collection } from '../../../../Core/assets/js/Components/Collection'
 import { Forms } from './Components/Forms'
 import { Layout } from './Components/Layout'
-import { Tooltip } from './Components/Tooltip'
+import { Tooltip } from '../../../../Core/assets/js/Components/Tooltip'
 import { TableSequenceDragAndDrop } from './Components/TableSequenceDragAndDrop'
 import { Session } from './Components/Session'
 import { Config } from './Components/Config'
+import { AjaxContentEditable } from '../../../../Core/assets/js/Components/AjaxContentEditable'
 
 // block editor imports
 import { BlockEditor } from './BlockEditor/BlockEditor'
@@ -64,6 +65,7 @@ export class Backend {
     this.tooltip = new Tooltip()
     this.tableSequenceDragAndDrop = new TableSequenceDragAndDrop()
     this.session = new Session()
+    this.ajaxContentEditable = new AjaxContentEditable()
 
     // init block editor
     this.blockEditor = new BlockEditor()

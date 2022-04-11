@@ -1,7 +1,7 @@
 /**
  * Navigation controls
  */
-import { Cookies } from './Cookies'
+import { Cookies } from '../../../../../Core/assets/js/Components/Cookies'
 
 export class Navigation {
   constructor () {

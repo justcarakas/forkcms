@@ -1,4 +1,4 @@
-import { Cookies } from './Cookies'
+import { Cookies } from '../../Components/Cookies'
 
 export class Cookiebar {
   constructor () {

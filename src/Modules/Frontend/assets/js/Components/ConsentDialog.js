@@ -2,7 +2,7 @@
  * Handles the privacy consent dialog
  */
 
-import { Cookies } from './Cookies'
+import { Cookies } from '../../Components/Cookies'
 
 export class ConsentDialog {
   constructor () {

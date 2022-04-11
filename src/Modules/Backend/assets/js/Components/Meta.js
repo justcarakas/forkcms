@@ -1,5 +1,5 @@
-import { EventUtil } from './EventUtil'
-import { StringUtil } from './StringUtil'
+import { EventUtil } from '../../../../../Core/assets/js/Components/EventUtil'
+import { StringUtil } from '../../../../../Core/assets/js/Components/StringUtil'
 
 export class Meta {
   static doMeta (options, element) {

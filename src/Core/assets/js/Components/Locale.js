@@ -1,24 +1,27 @@
-import {Config} from './Config'
 import Translator from 'bazinga-translator'
 
 export class Locale {
-  constructor() {
+  constructor(locale, defaultTranslationDomain, defaultFallbackDomain) {
+    this.locale = locale
+    this.defaultTranslationDomain = defaultTranslationDomain
+    this.defaultFallbackDomain = defaultFallbackDomain
+
     this.init()
   }
 
   init() {
-    if (Locale.translationsLoaded) {
+    if (Locale.loadedLocale === this.locale) {
       return
     }
 
     $.ajax({
-      url: '/_translations/' + Config.getCurrentLanguage() + '.json',
+      url: '/_translations/' + this.locale + '.json',
       type: 'GET',
       dataType: 'json',
       async: false,
       success: (translations) => {
         Translator.fromJSON(translations)
-        Locale.translationsLoaded = true
+        Locale.loadedLocale = this.locale
       },
       error: (jqXHR, textStatus, errorThrown) => {
         throw new Error('Regenerate your locale-files.')
@@ -32,13 +35,13 @@ export class Locale {
   }
 
   trans(id, parameters, domain, locale) {
-    let translation = Translator.trans(id, parameters, domain || Config.getDefaultTranslationDomain(), locale)
+    let translation = Translator.trans(id, parameters, domain || this.defaultTranslationDomain, locale)
 
     if (translation !== id) {
       return translation
     }
 
-    translation = Translator.trans(id, parameters, Config.getFallbackTranslationDomain(), locale)
+    translation = Translator.trans(id, parameters, this.defaultFallbackDomain, locale)
 
     if (translation !== id) {
       return translation
@@ -50,13 +53,13 @@ export class Locale {
   }
 
   transChoice(id, number, parameters, domain, locale) {
-    let translation = Translator.transChoice(id, number, parameters, domain || Config.getDefaultTranslationDomain(), locale)
+    let translation = Translator.transChoice(id, number, parameters, domain || this.defaultTranslationDomain, locale)
 
     if (translation !== id) {
       return translation
     }
 
-    translation = Translator.transChoice(id, number, parameters, Config.getFallbackTranslationDomain(), locale)
+    translation = Translator.transChoice(id, number, parameters, this.defaultFallbackDomain, locale)
 
     if (translation !== id) {
       return translation
@@ -69,12 +72,12 @@ export class Locale {
 
   // get an error
   err(key, module, parameters) {
-    return this.get('err', key, module || Config.getDefaultTranslationDomain(), parameters)
+    return this.get('err', key, module || this.defaultTranslationDomain, parameters)
   }
 
   // get a label
   lbl(key, module, parameters) {
-    return this.get('lbl', key, module || Config.getDefaultTranslationDomain(), parameters)
+    return this.get('lbl', key, module || this.defaultTranslationDomain, parameters)
   }
 
   // get localization
@@ -84,13 +87,13 @@ export class Locale {
 
   // get a message
   msg(key, module, parameters) {
-    return this.get('msg', key, module || Config.getDefaultTranslationDomain(), parameters)
+    return this.get('msg', key, module || this.defaultTranslationDomain, parameters)
   }
 
   // get a slug
   slg(key, module, parameters) {
-    return this.get('slg', key, module || Config.getDefaultTranslationDomain(), parameters)
+    return this.get('slg', key, module || this.defaultTranslationDomain, parameters)
   }
 }
 
-Locale.translationsLoaded = false
+Locale.loadedLocale = false

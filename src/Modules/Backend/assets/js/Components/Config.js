@@ -1,5 +1,5 @@
-import { Data } from './Data'
-import { StringUtil } from './StringUtil'
+import { Data } from '../../../../../Core/assets/js/Components/Data'
+import { StringUtil } from '../../../../../Core/assets/js/Components/StringUtil'
 
 export class Config {
   static isDebug () {

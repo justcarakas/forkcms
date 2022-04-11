@@ -1,16 +1,14 @@
-import { Config } from './Config'
 import { Data } from './Data'
 import { Messages } from './Messages'
 
 export class Ajax {
   constructor () {
     // variables
-    const $ajaxSpinner = $('#ajaxSpinner')
+    const $ajaxSpinner = $('[data-role="fork-ajax-spinner"]')
 
     // set defaults for AJAX
     $.ajaxSetup(
       {
-        url: '/backend/ajax',
         cache: false,
         type: 'POST',
         dataType: 'json',
@@ -18,13 +16,7 @@ export class Ajax {
         beforeSend: (jqXHR) => {
           jqXHR.setRequestHeader('X-CSRF-Token', Data.get('csrf-token'))
         },
-        data: {
-          fork: {
-            module: Config.getCurrentModule(),
-            action: Config.getCurrentAction(),
-            language: Config.getCurrentLanguage()
-          }
-        }
+        data: {}
       }
     )
 

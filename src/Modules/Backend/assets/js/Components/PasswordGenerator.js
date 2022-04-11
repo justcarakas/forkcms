@@ -1,4 +1,4 @@
-import { StringUtil } from './StringUtil'
+import { StringUtil } from '../../../../../Core/assets/js/Components/StringUtil'
 
 const passWordgenerator = require('generate-password')
 
