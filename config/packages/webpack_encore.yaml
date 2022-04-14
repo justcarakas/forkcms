@@ -15,13 +15,11 @@ webpack_encore:
 
   # if you have multiple builds:
   builds:
-    backendConfig: '%kernel.project_dir%/public/build/backend'
-    frontendConfig: '%kernel.project_dir%/public/build/frontend'
-    frontendThemeConfig: '%kernel.project_dir%/public/build/theme'
-  # pass "frontend" as the 3rg arg to the Twig functions
-  # {{ encore_entry_script_tags('entry1', null, 'frontend') }}
-
-  # frontend: '%kernel.project_dir%/public/frontend/build'
+    backendConfig: '%kernel.project_dir%/public/assets/modules/Backend'
+    frontendConfig: '%kernel.project_dir%/public/assets/modules/Frontend'
+    ThemeConfig: '%kernel.project_dir%/public/assets/themes'
+  # pass "frontendConfig" as the 3rg arg to the Twig functions
+  # {{ encore_entry_script_tags('entry1', null, 'frontendConfig') }}
 
   # Cache the entrypoints.json (rebuild Symfony's cache when entrypoints.json changes)
   # Put in config/packages/prod/webpack_encore.yaml

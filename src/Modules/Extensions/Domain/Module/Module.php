@@ -44,4 +44,14 @@ class Module
     {
         return $this->name->getName();
     }
+
+    public function getPath(): string
+    {
+        return realpath(__DIR__ . '/../../../../Modules/' . $this->name);
+    }
+
+    public function getAssetsPath(): string
+    {
+        return $this->getPath() . '/assets';
+    }
 }

@@ -2,7 +2,7 @@ import { Data } from './Data'
 import { Messages } from './Messages'
 
 export class Ajax {
-  constructor () {
+  constructor (locale) {
     // variables
     const $ajaxSpinner = $('[data-role="fork-ajax-spinner"]')
 
@@ -28,7 +28,7 @@ export class Ajax {
       // check if a custom errorhandler is used
       if (typeof ajaxOptions.error === 'undefined') {
         // init var
-        let textStatus = window.backend.locale.err('SomethingWentWrong')
+        let textStatus = locale.err('SomethingWentWrong')
 
         // get real message
         if (typeof XMLHttpRequest.responseText !== 'undefined') textStatus = $.parseJSON(XMLHttpRequest.responseText).message

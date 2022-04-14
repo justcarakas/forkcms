@@ -1,11 +1,11 @@
 import {Messages} from "./Messages";
 
 export class AjaxContentEditable {
-  constructor () {
+  constructor (locale) {
     $('[data-role=ajax-content-editable]').each((index, element) => {
       const $element = $(element)
       const url = $element.data('ajaxEditableUrl')
-      const label = $element.data('ajaxEditableLabel') || window.backend.locale.msg('ClickToEdit')
+      const label = $element.data('ajaxEditableLabel') || locale.msg('ClickToEdit')
 
       $element.html('<span data-role="ajax-content-editable-content">' + $element.html() + '</span>' +
         '<button class="btn btn-primary btn-sm float-end pe-0 invisible"  data-role="ajax-content-editable-tooltip">' +
@@ -46,7 +46,7 @@ export class AjaxContentEditable {
                 content: $content.text()
               },
               success: function (XMLHttpRequest) {
-                Messages.add('success', XMLHttpRequest.message || window.backend.locale.msg('Edited'))
+                Messages.add('success', XMLHttpRequest.message || locale.msg('Edited'))
               },
               error: function (XMLHttpRequest) {
                 Messages.add('danger', $.parseJSON(XMLHttpRequest.responseText).message)

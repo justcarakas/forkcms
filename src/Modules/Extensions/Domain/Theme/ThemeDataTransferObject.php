@@ -43,7 +43,7 @@ abstract class ThemeDataTransferObject
 
         $this->name = $themeEntity->getName();
         $this->description = $themeEntity->getDescription();
-        $this->active = $themeEntity->getActive();
+        $this->active = $themeEntity->isActive();
         $this->templates = $themeEntity->getTemplates();
         $this->settings = $themeEntity->getSettings();
         if (!$themeEntity->getTemplates()->isEmpty()) {

@@ -95,7 +95,7 @@ class Theme
         return $this->description;
     }
 
-    public function getActive(): bool
+    public function isActive(): bool
     {
         return $this->active;
     }
@@ -126,6 +126,11 @@ class Theme
     public function getPath(): string
     {
         return realpath(__DIR__ . '/../../../../Themes/' . $this->name);
+    }
+
+    public function getAssetsPath(): string
+    {
+        return $this->getPath() . '/assets';
     }
 
     public function changeDefaultTemplate(ThemeTemplate $themeTemplate): void

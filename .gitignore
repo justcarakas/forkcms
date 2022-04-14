@@ -45,7 +45,9 @@ docker-compose.override.yml
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
-/public/build/
+/public/assets/installer
+/public/assets/modules
+/public/assets/themes
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
