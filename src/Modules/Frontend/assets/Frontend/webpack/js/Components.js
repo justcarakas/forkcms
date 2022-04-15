@@ -14,7 +14,7 @@ import VShareButtons from './Vue-components/VShareButtons'
 
 export class Components {
   initComponents () {
-    this.locale = new Locale()
+    this.locale = new Locale('frontend')
     this.ajax = new Ajax(this.locale)
     this.modal = new Modal()
     this.cookiebar = new Cookiebar()

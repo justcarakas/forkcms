@@ -41,32 +41,15 @@ services:
     exclude:
       - '../src/Modules/Extensions/Domain/Module/ModuleInstallerLocator.php'
 
+  ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator:
+    arguments:
+      - !tagged_iterator { tag: 'forkcms.module.installer' }
+
   ForkCMS\Modules\Internationalisation\Domain\:
     resource: '../src/Modules/Internationalisation/Domain/*'
     exclude:
       - '../src/Modules/Internationalisation/Domain/Translator/ForkTranslator.php'
       - '../src/Modules/Internationalisation/Domain/Importer/Importer.php'
-
-  ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator:
-    arguments:
-      - !tagged_iterator { tag: 'forkcms.module.installer' }
-
-  ForkCMS\Modules\Frontend\Domain\Block\:
-    resource: '../src/Modules/Frontend/Domain/Block/*'
-
-  ForkCMS\Modules\Backend\Domain\:
-    resource: '../src/Modules/Backend/Domain/*'
-    exclude:
-      - '../src/Modules/Backend/Domain/UserGroup/UserGroupType.php'
-
-  ForkCMS\Modules\Extensions\Domain\Module\InstalledModules:
-
-  ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository:
-
-  doctrine.dbal.connection_factory:
-    class: ForkCMS\Core\Installer\Domain\Installer\InstallerConnectionFactory
-    arguments:
-      - "%doctrine.dbal.connection_factory.types%"
 
   ForkCMS\Modules\Internationalisation\Domain\Translation\ForkTranslationLoader:
     tags:
@@ -76,4 +59,17 @@ services:
     arguments:
       - !tagged_locator { tag: 'forkcms.translation.importer', default_index_method: 'forExtension' }
 
-  ForkCMS\Modules\Backend\Domain\Authentication\BackendAuthenticator:
+  ForkCMS\Modules\Frontend\Domain\Block\:
+    resource: '../src/Modules/Frontend/Domain/Block/*'
+
+  ForkCMS\Modules\Backend\Domain\:
+    resource: '../src/Modules/Backend/Domain/*'
+    exclude:
+      - '../src/Modules/Backend/Domain/UserGroup/UserGroupType.php'
+
+  doctrine.dbal.connection_factory:
+    class: ForkCMS\Core\Installer\Domain\Installer\InstallerConnectionFactory
+    arguments:
+      - "%doctrine.dbal.connection_factory.types%"
+
+  ForkCMS\Modules\Extensions\Console\WebpackConfigCommand:

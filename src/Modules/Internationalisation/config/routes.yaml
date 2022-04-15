@@ -1,4 +1,6 @@
 internationalisation_js_translations:
-  path: /_translations/{_locale}.json
+  path: /_translations/{_locale_application}{_locale}.json
   methods: [ GET ]
   controller: ForkCMS\Modules\Internationalisation\Controller\JsTranslationsController
+  requirements:
+    application: 'frontend|backend'

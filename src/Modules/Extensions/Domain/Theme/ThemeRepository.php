@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Symfony\Component\Finder\Finder;
+use Throwable;
 
 /**
  * @method Theme|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,9 +19,15 @@ final class ThemeRepository extends ServiceEntityRepository
 {
     public const THEMES_DIRECTORY = __DIR__ . '/../../../../Themes';
 
-    public function __construct(ManagerRegistry $managerRegistry)
+    public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($managerRegistry, Theme::class);
+        try {
+            parent::__construct($registry, Theme::class);
+        } catch (Throwable $throwable) {
+            if (!empty($_ENV['FORK_DATABASE_HOST']) && $_ENV['APP_ENV'] !== 'test') {
+                throw $throwable;
+            }
+        }
     }
 
     public function save(Theme $theme): void
@@ -38,22 +45,23 @@ final class ThemeRepository extends ServiceEntityRepository
     }
 
     /** @return InstallableTheme[] */
-    public function findInstallable(): array
+    public function findInstallable(bool $excludeAlreadyInstalled = true): array
     {
         $configFiles = Finder::create()->in(self::THEMES_DIRECTORY)->depth(1)->files()->name('theme.xml');
         $themes = [];
         foreach ($configFiles as $configFile) {
             $theme = InstallableTheme::fromXML($configFile->getRealPath());
-            $alreadyInstalled = $this->createQueryBuilder('t')
-                ->where('t.name = :name')
-                ->setParameter('name', $theme->name)
-                ->getQuery()
-                ->getOneOrNullResult();
-            if ($alreadyInstalled !== null) {
-                continue;
+            if ($excludeAlreadyInstalled) {
+                $alreadyInstalled = $this->createQueryBuilder('t')
+                    ->where('t.name = :name')
+                    ->setParameter('name', $theme->name)
+                    ->getQuery()
+                    ->getOneOrNullResult();
+                if ($alreadyInstalled !== null) {
+                    continue;
+                }
+                $theme->addMessage(TranslationKey::message('InformationThemeIsNotInstalled'));
             }
-
-            $theme->addMessage(TranslationKey::message('InformationThemeIsNotInstalled'));
 
             $themes[$theme->name] = $theme;
         }

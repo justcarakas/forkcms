@@ -128,12 +128,12 @@
   height: 16px;
   border: none !important;
   margin: 0 !important;
-  background-image: url('../../../public/image/jstree/arrow-right.svg');
+  background-image: url('../../../public/images/jstree/arrow-right.svg');
   background-position: center center;
   background-size: 16px;
 
   &.i {
-    background-image: url('../../../public/image/jstree/plus-square.svg');
+    background-image: url('../../../public/images/jstree/plus-square.svg');
   }
 }
 
@@ -146,10 +146,10 @@
   }
 
   .jstree-er {
-    background-image: url('../../../public/image/jstree/times.svg');
+    background-image: url('../../../public/images/jstree/times.svg');
   }
 
   .jstree-ok {
-    background-image: url('../../../public/image/jstree/check.svg');
+    background-image: url('../../../public/images/jstree/check.svg');
   }
 }

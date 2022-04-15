@@ -37,7 +37,7 @@ export class Backend {
     if (!navigator.cookieEnabled) $('#noCookies').addClass('active').css('display', 'block')
 
     // init components
-    this.locale = new Locale()
+    this.locale = new Locale('backend')
     this.ajax = new Ajax(this.locale)
     this.controls = new Controls(this.locale)
     this.modal = new Modal()
