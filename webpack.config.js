@@ -18,76 +18,6 @@ const THEME_PATH = {'output':'public/assets/themes', 'public':'/assets/themes'}
 const MODULE_PATH = {'output':'public/assets/modules', 'public':'/assets/modules'}
 const EXPORTS = []
 
-// START INSTALLER SETUP
-//
-
-// Manually configure the runtime environment if not already configured yet by the "encore" command.
-// It's useful when you use tools that rely on webpack.config.js file.
-if (!Encore.isRuntimeEnvironmentConfigured()) {
-  // Set the runtime environment
-  Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev')
-}
-
-Encore
-  .setOutputPath('public/assets/installer')
-  .setPublicPath('/assets/installer')
-
-  .addEntry('installer', './src/Core/assets/Installer/webpack/js/Installer.js')
-  .addStyleEntry('screen', './src/Core/assets/Installer/webpack/scss/screen.scss')
-
-  .copyFiles({
-    from: './src/Core/assets/Installer/public',
-    to: './[path][name].[ext]'
-  })
-
-  .cleanupOutputBeforeBuild()
-
-  .enableSassLoader((options) => {}, {
-    resolveUrlLoader: true
-  })
-  .enablePostCssLoader()
-  // enables @babel/preset-env polyfills
-  .enableSourceMaps(!Encore.isProduction())
-  // enables hashed filenames (e.g. app.abc123.css)
-  .enableVersioning(Encore.isProduction())
-
-  .autoProvidejQuery()
-  .autoProvideVariables({
-    moment: 'moment'
-  })
-
-  // enables @babel/preset-env polyfills
-  .configureBabel(() => {}, {
-    useBuiltIns: 'usage',
-    corejs: 3
-  })
-
-  .configureWatchOptions((watchOptions) => {
-    watchOptions.poll = 250
-  })
-
-  .enableBuildNotifications(true, (options) => {
-    options.alwaysNotify = true
-  })
-
-  .addPlugin(new LiveReloadPlugin())
-  .enableSingleRuntimeChunk()
-
-// build the first configuration
-const installerConfig = Encore.getWebpackConfig()
-
-// Set a unique name for the config (needed later!)
-installerConfig.name = 'installerConfig'
-
-EXPORTS.push(installerConfig)
-
-// reset Encore to build the next config
-Encore.reset()
-
-//
-// END INSTALLER SETUP
-//
-// ===========================
 //
 // THEMES SETUP
 //
@@ -174,7 +104,7 @@ for (const THEME_CONFIG of extensionConfig.themes) {
 //
 // START MODULES SETUP
 //
-for (const APPLICATION of ['Frontend', 'Backend']) {
+for (const APPLICATION of ['Installer', 'Frontend', 'Backend']) {
   // Manually configure the runtime environment if not already configured yet by the "encore" command.
   // It's useful when you use tools that rely on webpack.config.js file.
   if (!Encore.isRuntimeEnvironmentConfigured()) {

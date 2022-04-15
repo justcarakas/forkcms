@@ -4,5 +4,3 @@ twig:
   strict_variables: "%kernel.debug%"
   form_themes:
     - '%fork.form.theme%'
-  paths:
-    '%kernel.project_dir%/src/Core/templates/Installer': ForkCMSInstaller

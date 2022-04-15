@@ -2,7 +2,6 @@
 
 namespace ForkCMS\Core\Domain\Application;
 
-use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -10,6 +9,7 @@ enum Application: string implements TranslatableInterface
 {
     case BACKEND = 'backend';
     case FRONTEND = 'frontend';
+    case INSTALLER = 'installer';
     case CONSOLE = 'console';
     case API = 'api';
 

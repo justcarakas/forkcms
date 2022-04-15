@@ -5,7 +5,9 @@ namespace ForkCMS\Core\Domain\Kernel;
 use ForkCMS\Core\DependencyInjection\CoreExtension;
 use ForkCMS\Core\Domain\PDO\ForkConnection;
 use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Installer\DependencyInjection\InstallerExtension;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
@@ -57,6 +59,7 @@ class Kernel extends BaseKernel
         $container = parent::buildContainer();
 
         $container->registerExtension(new CoreExtension());
+        $container->registerExtension(new InstallerExtension());
 
         $this->registerModuleExtensions($container);
 
@@ -136,6 +139,10 @@ class Kernel extends BaseKernel
     /** @return ModuleName[] */
     protected function getInstalledModules(ContainerBuilder $container): array
     {
+        if ($container->getParameter('fork.is_installed') === false) {
+            return ModuleInstallerLocator::moduleNamesFromFileSystem();
+        }
+
         $modules = InstalledModules::fromContainer($container)();
         if ($this->isInstallingModule()) {
             $modules[] = ModuleName::fromString($_POST['action']['id']);

@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Extensions\Console;
 
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleRepository;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
 use ForkCMS\Modules\Extensions\Domain\Theme\ThemeRepository;
@@ -45,10 +46,13 @@ final class WebpackConfigCommand extends Command
         }
         foreach ($this->getModules() as $module) {
             $assetsPath = $module->getAssetsPath();
-            if (!is_dir($assetsPath . '/Backend/public')
+            if (
+                !is_dir($assetsPath . '/Backend/public')
                 && !is_dir($assetsPath . '/Backend/webpack')
                 && !is_dir($assetsPath . '/Frontend/public')
                 && !is_dir($assetsPath . '/Frontend/webpack')
+                && !is_dir($assetsPath . '/Installer/public')
+                && !is_dir($assetsPath . '/Installer/webpack')
             ) {
                 continue;
             }
@@ -78,9 +82,13 @@ final class WebpackConfigCommand extends Command
     private function getModules(): array
     {
         if ($this->forkIsInstalled) {
-            return $this->moduleRepository->findAll();
+            $modules = $this->moduleRepository->findAll();
+        } else {
+            $modules = array_map(Module::fromModuleName(...), $this->moduleInstallerLocator->getAllModuleNames());
         }
 
-        return array_map(Module::fromModuleName(...), $this->moduleInstallerLocator->getAllModuleNames());
+        $modules[] = Module::fromModuleName(ModuleName::installer());
+
+        return $modules;
     }
 }

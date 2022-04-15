@@ -211,8 +211,8 @@
         <translation locale="pt"><![CDATA[erro]]></translation>
       </item>
       <item type="label" name="TranslationTypeSlug">
-        <translation locale="nl"><![CDATA[url slug]]></translation>
-        <translation locale="en"><![CDATA[url slug]]></translation>
+        <translation locale="nl"><![CDATA[slug]]></translation>
+        <translation locale="en"><![CDATA[slug]]></translation>
       </item>
       <item type="label" name="ApplicationBackend">
         <translation locale="nl"><![CDATA[backend]]></translation>
@@ -249,6 +249,10 @@
         <translation locale="pt"><![CDATA[frontend]]></translation>
         <translation locale="pl"><![CDATA[frontend]]></translation>
       </item>
+      <item type="label" name="ApplicationConsole">
+        <translation locale="nl"><![CDATA[console]]></translation>
+        <translation locale="en"><![CDATA[console]]></translation>
+      </item>
       <item type="label" name="TranslationAdd">
         <translation locale="nl"><![CDATA[vertaling toevoegen]]></translation>
         <translation locale="en"><![CDATA[add translation]]></translation>
@@ -264,6 +268,63 @@
         <translation locale="el"><![CDATA[Προσθήκη μετάφρασης]]></translation>
         <translation locale="pl"><![CDATA[Dodaj tłumaczenie]]></translation>
         <translation locale="pt"><![CDATA[adicionar tradução]]></translation>
+      </item>
+      <item type="message" name="NoItemsFilter">
+        <translation locale="nl"><![CDATA[Er zijn geen vertalingen voor deze filter.]]></translation>
+        <translation locale="en"><![CDATA[There are no translations yet for this filter.]]></translation>
+        <translation locale="it"><![CDATA[Non ci sono ancora traduzioni per questo filtro.]]></translation>
+        <translation locale="ru"><![CDATA[Нет значений для этого фильтра.]]></translation>
+        <translation locale="zh"><![CDATA[这个滤镜结果下还没有翻译。There are no translations yet.]]></translation>
+        <translation locale="hu"><![CDATA[Még nincsenek fordítások ebben a szűrőben.]]></translation>
+        <translation locale="fr"><![CDATA[Il n'y a pas encore de traduction pour ce filtre]]></translation>
+        <translation locale="de"><![CDATA[Mit diesem Filter konnten keine Übersetzungen gefunden werden.]]></translation>
+        <translation locale="es"><![CDATA[No hay traducción apra este filtro aun.]]></translation>
+        <translation locale="uk"><![CDATA[Немає значень для цього фільтра.]]></translation>
+        <translation locale="el"><![CDATA[Δεν υπάρχουν ακόμη μεταφράσεις γιά αυτό το φίλτρο.]]></translation>
+        <translation locale="pl"><![CDATA[Nie ma jeszcze tłumaczenia dla tego filtra.]]></translation>
+        <translation locale="pt"><![CDATA[Não foram encontradas traduções para este filtro.]]></translation>
+      </item>
+      <item type="message" name="FilterToSeeTheMatchingTranslations">
+        <translation locale="nl"><![CDATA[Filter ergens op om de bijpassende vertalingen te zien.]]></translation>
+        <translation locale="en"><![CDATA[Filter on something to see the matching translations.]]></translation>
+      </item>
+      <item type="label" name="Types">
+        <translation locale="nl"><![CDATA[types]]></translation>
+        <translation locale="en"><![CDATA[types]]></translation>
+        <translation locale="hu"><![CDATA[típus]]></translation>
+        <translation locale="it"><![CDATA[tipologie]]></translation>
+        <translation locale="ru"><![CDATA[Типы]]></translation>
+        <translation locale="zh"><![CDATA[类型]]></translation>
+        <translation locale="de"><![CDATA[Typen]]></translation>
+        <translation locale="fr"><![CDATA[types]]></translation>
+        <translation locale="es"><![CDATA[tipos]]></translation>
+        <translation locale="uk"><![CDATA[Типи]]></translation>
+        <translation locale="lt"><![CDATA[Tipai]]></translation>
+        <translation locale="el"><![CDATA[Τύποι]]></translation>
+        <translation locale="pl"><![CDATA[typy]]></translation>
+        <translation locale="pt"><![CDATA[tipos]]></translation>
+      </item>
+      <item type="label" name="TranslationIndex">
+        <translation locale="nl"><![CDATA[overzicht]]></translation>
+        <translation locale="en"><![CDATA[overview]]></translation>
+        <translation locale="hu"><![CDATA[áttekintés]]></translation>
+        <translation locale="ru"><![CDATA[Обзор]]></translation>
+        <translation locale="it"><![CDATA[panoramica]]></translation>
+        <translation locale="zh"><![CDATA[概览]]></translation>
+        <translation locale="de"><![CDATA[Übersicht]]></translation>
+        <translation locale="fr"><![CDATA[vue d'ensemble]]></translation>
+        <translation locale="es"><![CDATA[resumen]]></translation>
+        <translation locale="lt"><![CDATA[apžvalga]]></translation>
+        <translation locale="uk"><![CDATA[Перегляд]]></translation>
+        <translation locale="sv"><![CDATA[översikt]]></translation>
+        <translation locale="el"><![CDATA[επισκόπιση]]></translation>
+        <translation locale="tr"><![CDATA[Genel]]></translation>
+        <translation locale="pt"><![CDATA[resumo]]></translation>
+        <translation locale="pl"><![CDATA[podgląd]]></translation>
+      </item>
+      <item type="message" name="NotFiltered">
+        <translation locale="nl"><![CDATA[Niet gefilterd]]></translation>
+        <translation locale="en"><![CDATA[Not filtered]]></translation>
       </item>
     </Internationalisation>
   </Backend>

@@ -25,12 +25,12 @@ import { Forms } from './Components/Forms'
 import { TableSequenceDragAndDrop } from './Components/TableSequenceDragAndDrop'
 import { Session } from './Components/Session'
 import { Config } from './Components/Config'
+import { PasswordGenerator } from './Components/PasswordGenerator'
+import { PasswordStrenghtMeter } from '../../../../../../Core/assets/js/Components/PasswordStrenghtMeter'
 
 // block editor imports
 import { BlockEditor } from './BlockEditor/BlockEditor'
 
-import { PasswordGenerator } from './Components/PasswordGenerator'
-import { PasswordStrenghtMeter } from './Components/PasswordStrenghtMeter'
 
 export class Backend {
   initBackend () {

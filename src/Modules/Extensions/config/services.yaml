@@ -2,11 +2,17 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
+    bind:
+      bool $forkIsInstalled: '%fork.is_installed%'
 
   ForkCMS\Modules\Extensions\Domain\:
     resource: '../Domain/*'
     exclude:
       - '../Domain/Module/InstalledModules'
+
+  ForkCMS\Modules\Extensions\Domain\Module\InstalledModules:
+    arguments:
+      - '%fork.is_installed%'
 
   ForkCMS\Modules\Extensions\Console\:
     resource: '../Console/*'
@@ -14,3 +20,6 @@ services:
   ForkCMS\Modules\Extensions\Backend\Actions\:
     resource: '../Backend/Actions/*'
 
+  ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator:
+    arguments:
+      - !tagged_iterator { tag: 'forkcms.module.installer' }

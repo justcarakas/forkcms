@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use ForkCMS\Core\Domain\PDO\ForkConnection;
-use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
+use ForkCMS\Modules\Installer\Domain\Configuration\InstallerConfiguration;
 use PDOException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

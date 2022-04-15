@@ -123,4 +123,13 @@ final class ModuleInstallerLocator
             $this->moduleRepository->findAllIndexed()
         );
     }
+
+    /** @return ModuleName[] */
+    public static function moduleNamesFromFileSystem(): array
+    {
+        return array_map(
+            static fn (string $moduleName): ModuleName => ModuleName::fromString(basename($moduleName)),
+            glob(__DIR__ . '/../../../*', GLOB_ONLYDIR)
+        );
+    }
 }

@@ -58,4 +58,9 @@ final class ModuleName implements Stringable, JsonSerializable
     {
         return self::fromString('Core');
     }
+
+    public static function installer(): self
+    {
+        return self::fromString('Installer');
+    }
 }

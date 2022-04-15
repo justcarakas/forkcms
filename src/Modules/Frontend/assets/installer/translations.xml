@@ -1,3 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
+  <Backend>
+    <item type="label" name="Frontend">
+      <translation locale="nl"><![CDATA[frontend]]></translation>
+      <translation locale="en"><![CDATA[frontend]]></translation>
+      <translation locale="hu"><![CDATA[frontend]]></translation>
+      <translation locale="it"><![CDATA[frontend]]></translation>
+      <translation locale="ru"><![CDATA[Сайт]]></translation>
+      <translation locale="zh"><![CDATA[前端]]></translation>
+      <translation locale="fr"><![CDATA[frontend]]></translation>
+      <translation locale="de"><![CDATA[Frontend]]></translation>
+      <translation locale="es"><![CDATA[frontend]]></translation>
+      <translation locale="lt"><![CDATA[išorė]]></translation>
+      <translation locale="uk"><![CDATA[Сайт]]></translation>
+      <translation locale="sv"><![CDATA[framsida]]></translation>
+      <translation locale="el"><![CDATA[εμπρός όψη]]></translation>
+      <translation locale="pt"><![CDATA[frontend]]></translation>
+      <translation locale="pl"><![CDATA[frontend]]></translation>
+    </item>
+  </Backend>
+  <Frontend>
+    <item type="label" name="Close">
+      <translation locale="nl"><![CDATA[sluiten]]></translation>
+      <translation locale="en"><![CDATA[close]]></translation>
+      <translation locale="hu"><![CDATA[bezár]]></translation>
+      <translation locale="it"><![CDATA[chiudi]]></translation>
+      <translation locale="fr"><![CDATA[fermer]]></translation>
+      <translation locale="ru"><![CDATA[Закрыть]]></translation>
+      <translation locale="zh"><![CDATA[关闭]]></translation>
+      <translation locale="de"><![CDATA[schließen]]></translation>
+      <translation locale="es"><![CDATA[Cerrar]]></translation>
+      <translation locale="uk"><![CDATA[Закрити]]></translation>
+      <translation locale="lt"><![CDATA[uždaryti]]></translation>
+      <translation locale="sv"><![CDATA[stäng]]></translation>
+      <translation locale="el"><![CDATA[κλείσιμο]]></translation>
+      <translation locale="pl"><![CDATA[zakmnij]]></translation>
+      <translation locale="tr"><![CDATA[kapat]]></translation>
+      <translation locale="pt"><![CDATA[fechar]]></translation>
+    </item>
+  </Frontend>
 </translations>

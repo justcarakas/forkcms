@@ -13,24 +13,8 @@ services:
   ForkCMS\Core\:
     resource: '../*'
     exclude:
-      - '../Installer'
       - '../tests'
       - '../Domain/Meta'
-
-  ForkCMS\Core\Installer\Console\:
-    resource: '../Installer/Console/*'
-
-  ForkCMS\Core\Installer\Domain\Configuration\ConfigurationParser:
-    arguments:
-      $rootDir: '%kernel.project_dir%'
-
-  ForkCMS\Core\Installer\CoreInstaller:
-    tags:
-      - { name: forkcms.module.installer }
-
-  module_installers:
-    namespace: ForkCMS\Modules\
-    resource: '../../Modules/*/Installer'
 
   ForkCMS\Core\Domain\Router\ModuleRouteLoader:
     arguments:

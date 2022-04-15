@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Extensions\DependencyInjection\CompilerPass;
 
 use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -20,6 +21,16 @@ final class TwigExtensionPass implements CompilerPassInterface
         }
 
         $modulesDirectory = $container->getParameter('kernel.project_dir') . '/src/Modules/';
+
+        if (!$container->getParameter('fork.is_installed')) {
+            $twigLoaderDefinition->addMethodCall(
+                'addPath',
+                [
+                    $modulesDirectory . 'Installer/templates',
+                ]
+            );
+        }
+
         foreach (InstalledModules::fromContainer($container)() as $moduleName) {
             $moduleTemplates = $modulesDirectory . $moduleName . '/templates';
             if ($filesystem->exists($moduleTemplates)) {

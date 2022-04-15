@@ -2,8 +2,6 @@
 
 namespace ForkCMS\Modules\Backend\Installer;
 
-use Doctrine\DBAL\Schema\Schema;
-use ForkCMS\Core\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Modules\Backend\Backend\Actions\Dashboard;
 use ForkCMS\Modules\Backend\Backend\Actions\UserAdd;
 use ForkCMS\Modules\Backend\Backend\Actions\UserDelete;
@@ -18,9 +16,8 @@ use ForkCMS\Modules\Backend\Domain\User\Command\CreateUser;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
-use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerServices;
+use ForkCMS\Modules\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
-use Symfony\Bridge\Doctrine\SchemaListener\RememberMeTokenProviderDoctrineSchemaSubscriber;
 use Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider;
 use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
 
@@ -72,8 +69,8 @@ final class BackendInstaller extends ModuleInstaller
         $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');
 
         $this->getOrCreateBackendNavigationItem(
-                      TranslationKey::label('Dashboard'),
-                      Dashboard::getActionSlug(),
+            label: TranslationKey::label('Dashboard'),
+            slug: Dashboard::getActionSlug(),
             sequence: 0,
         );
 

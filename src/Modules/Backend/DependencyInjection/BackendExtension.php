@@ -13,6 +13,9 @@ class BackendExtension extends ForkModuleExtension
         if ($container->getParameter('fork.is_installed')) {
             $this->getLoader($container)->load('controllers.yaml');
         }
+        if (!$container->getParameter('fork.is_installed')) {
+            $this->getLoader($container)->load('services_install.yaml');
+        }
     }
 
     public function prepend(ContainerBuilder $container): void
