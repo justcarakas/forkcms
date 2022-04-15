@@ -1,7 +1,7 @@
 import Translator from 'bazinga-translator'
 
 export class Locale {
-  constructor(application, locale, defaultTranslationDomain, defaultFallbackDomain) {
+  constructor(locale, defaultTranslationDomain, defaultFallbackDomain) {
     this.locale = locale
     this.defaultTranslationDomain = defaultTranslationDomain
     this.defaultFallbackDomain = defaultFallbackDomain
@@ -15,7 +15,7 @@ export class Locale {
     }
 
     $.ajax({
-      url: '/_translations/' + this.application + '/' + this.locale + '.json',
+      url: '/_translations/' + this.locale + '.json',
       type: 'GET',
       dataType: 'json',
       async: false,

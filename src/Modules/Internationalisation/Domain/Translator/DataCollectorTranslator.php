@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Translator;
 
+use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
 use LogicException;
 use Symfony\Component\Translation\DataCollectorTranslator as SymfonyDataCollectorTranslator;
 use Symfony\Component\Translation\TranslatorBagInterface;
@@ -15,6 +16,14 @@ final class DataCollectorTranslator extends SymfonyDataCollectorTranslator
     public function __construct(private TranslatorInterface $translator)
     {
         parent::__construct($this->translator);
+    }
+
+    public function getDefaultTranslationDomain(): TranslationDomain
+    {
+        if (!$this->translator instanceof ForkTranslator) {
+            throw new LogicException('Only works with the ForkTranslator.');
+        }
+        return $this->translator->getDefaultTranslationDomain();
     }
 
     /** @param array<string, mixed> $parameters */

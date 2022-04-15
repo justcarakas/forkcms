@@ -3,12 +3,17 @@
 namespace ForkCMS\Core\Domain\Header;
 
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
+use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Internationalisation\Domain\Translator\DataCollectorTranslator;
+use ForkCMS\Modules\Internationalisation\Domain\Translator\ForkTranslator;
 use LogicException;
 use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 /**
@@ -22,15 +27,26 @@ final class Header
     public function __construct(
         private RequestStack $requestStack,
         KernelInterface $kernel,
+        Security $security,
+        TranslatorInterface $translator,
     ) {
-        $this->jsData = new JsData(
-            [
-                'locale' => $requestStack->getMainRequest()?->getLocale(),
-                'default_locale' => $requestStack->getMainRequest()?->getLocale(),
-                'debug' => $kernel->isDebug(),
-                'session_timeout' => $this->getFirstPossibleSessionTimeout(),
-            ]
-        );
+        $defaults = [
+            'default_locale' => $kernel->getContainer()->getParameter('kernel.default_locale'),
+            'debug' => $kernel->isDebug(),
+            'session_timeout' => $this->getFirstPossibleSessionTimeout(),
+        ];
+        $defaults['locale'] = $translator->getLocale();
+        $user = $security->getUser();
+        if ($user instanceof User) {
+            $defaults['locale'] = $user->getSetting('locale', $defaults['locale']);
+        }
+        if ($translator instanceof ForkTranslator || $translator instanceof DataCollectorTranslator) {
+            $translationDomain = $translator->getDefaultTranslationDomain();
+            $defaults['default_translation_domain'] = $translationDomain->getDomain();
+            $defaults['default_translation_domain_fallback'] = $translationDomain->getFallback()?->getDomain() ?? $defaults['default_translation_domain'];
+        }
+
+        $this->jsData = new JsData($defaults);
     }
 
     public function addJsData(ModuleName $module, string $key, mixed $value): void

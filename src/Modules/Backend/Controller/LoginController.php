@@ -2,9 +2,12 @@
 
 namespace ForkCMS\Modules\Backend\Controller;
 
+use ForkCMS\Core\Domain\Header\Header;
+use ForkCMS\Core\Domain\Header\JsData;
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItemRepository;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
+use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +26,7 @@ class LoginController
         private Security $security,
         private UrlGeneratorInterface $urlGenerator,
         private NavigationItemRepository $navigationItemRepository,
+        private Header $header
     ) {
     }
 
@@ -39,6 +43,7 @@ class LoginController
         $error = $this->authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $this->authenticationUtils->getLastUsername();
+        $this->header->parse($this->twig);
 
         return new Response(
             $this->twig->render(
@@ -50,7 +55,6 @@ class LoginController
                     'SITE_TITLE' => $_ENV['SITE_DEFAULT_TITLE'],
                     'SITE_URL' => $_ENV['SITE_PROTOCOL'] . '://' . $_ENV['SITE_DOMAIN'],
                     'jsFiles' => [],
-                    'jsData' => null,
                 ]
             )
         );

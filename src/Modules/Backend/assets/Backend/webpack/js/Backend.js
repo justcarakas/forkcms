@@ -8,6 +8,7 @@ import 'select2/dist/js/select2.full'
 import 'flatpickr'
 
 // component imports
+import { Data } from '../../../../../../Core/assets/js/Components/Data'
 import { Ajax } from '../../../../../../Core/assets/js/Components/Ajax'
 import { Controls } from '../../../../../../Core/assets/js/Components/Controls'
 import { Effects } from '../../../../../../Core/assets/js/Components/Effects'
@@ -37,7 +38,8 @@ export class Backend {
     if (!navigator.cookieEnabled) $('#noCookies').addClass('active').css('display', 'block')
 
     // init components
-    this.locale = new Locale('backend')
+    this.data = Data
+    this.locale = new Locale(Data.get('locale'), Data.get('default_translation_domain'), Data.get('default_translation_domain_fallback'))
     this.ajax = new Ajax(this.locale)
     this.controls = new Controls(this.locale)
     this.modal = new Modal()

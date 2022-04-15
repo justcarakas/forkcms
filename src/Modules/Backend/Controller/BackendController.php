@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Backend\Controller;
 
+use ForkCMS\Core\Domain\Header\Header;
 use ForkCMS\Modules\Backend\Backend\Actions\NotFound;
 use ForkCMS\Modules\Backend\Domain\Action\ActionControllerInterface;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
@@ -23,6 +24,7 @@ final class BackendController
         private readonly ServiceLocator $actions,
         private readonly Environment $twig,
         private readonly Navigation $navigation,
+        private readonly Header $header,
         private readonly InstalledLocaleRepository $localeRepository,
     ) {
     }
@@ -55,11 +57,11 @@ final class BackendController
     private function configureTwigForAction(Request $request, ActionSlug $actionSlug, array $locales): void
     {
         $this->navigation->parse($this->twig);
+        $this->header->parse($this->twig);
         $this->twig->addGlobal('SITE_TITLE', $_ENV['SITE_DEFAULT_TITLE']);
         $this->twig->addGlobal('SITE_URL', $_ENV['SITE_PROTOCOL'] . '://' . $_ENV['SITE_DOMAIN']);
         $this->twig->addGlobal('SITE_MULTILINGUAL', $_ENV['SITE_MULTILINGUAL'] === 'true');
         $this->twig->addGlobal('jsFiles', []);
-        $this->twig->addGlobal('jsData', '<script>var jsData = ' . json_encode([]) . '</script>');
         $this->twig->addGlobal('bodyID', Container::underscore($actionSlug->getModuleName()));
         $this->twig->addGlobal('bodyClass', str_replace('/', '_', $actionSlug->getSlug()));
         $this->twig->addGlobal('page_title', $actionSlug->getActionName());

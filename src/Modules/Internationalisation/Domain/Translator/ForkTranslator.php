@@ -63,16 +63,8 @@ final class ForkTranslator extends Translator
             return $this->getTranslationAndStoreDomain($id, $parameters, $domain, $locale);
         }
 
-        if ($domain === null && $this->defaultTranslationDomain === null) {
-            $mainRequest = $this->requestStack->getMainRequest();
-            if ($mainRequest instanceof Request) {
-                $this->defaultTranslationDomain = match ($mainRequest->get('_route')) {
-                    'backend_action',
-                    'backend_login' => ActionSlug::fromRequest($mainRequest)->getTranslationDomain(),
-                    'backend_ajax' => AjaxActionSlug::fromRequest($mainRequest)->getTranslationDomain(),
-                    default => new TranslationDomain(Application::FRONTEND),
-                };
-            }
+        if ($this->defaultTranslationDomain === null) {
+            $this->defaultTranslationDomain = $this->determineDefaultTranslationDomain();
         }
 
         $domain ??= $this->defaultTranslationDomain->getDomain();
@@ -119,6 +111,15 @@ final class ForkTranslator extends Translator
         $this->defaultTranslationDomain = $defaultTranslationDomain;
     }
 
+    public function getDefaultTranslationDomain(): TranslationDomain
+    {
+        if ($this->defaultTranslationDomain === null) {
+            $this->defaultTranslationDomain = $this->determineDefaultTranslationDomain();
+        }
+
+        return $this->defaultTranslationDomain;
+    }
+
     public function getLastUsedDomain(): ?string
     {
         return $this->lastUsedDomain;
@@ -139,5 +140,26 @@ final class ForkTranslator extends Translator
         }
 
         return $translated;
+    }
+
+    private function determineDefaultTranslationDomain(): TranslationDomain
+    {
+        $mainRequest = $this->requestStack->getMainRequest();
+        if ($mainRequest instanceof Request) {
+            if ($mainRequest->attributes->has('_locale_application')) {
+                $application = Application::tryFrom($mainRequest->attributes->get('_locale_application'));
+                if ($application instanceof Application) {
+                    return new TranslationDomain($application);
+                }
+            }
+            return match ($mainRequest->get('_route')) {
+                'backend_action',
+                'backend_login' => ActionSlug::fromRequest($mainRequest)->getTranslationDomain(),
+                'backend_ajax' => AjaxActionSlug::fromRequest($mainRequest)->getTranslationDomain(),
+                default => new TranslationDomain(Application::FRONTEND),
+            };
+        }
+
+        return new TranslationDomain(Application::CONSOLE);
     }
 }
