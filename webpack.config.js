@@ -225,7 +225,7 @@ for (const APPLICATION of ['Frontend', 'Backend']) {
     if (fs.existsSync(MODULE_PUBLIC_DIR)) {
       COPY_FILES_CONFIGS.push({
         from: MODULE_PUBLIC_DIR,
-        to: `./${APPLICATION}/${MODULE_CONFIG.name}/[path][name].[ext]`
+        to: `./${MODULE_CONFIG.name}/[path][name].[ext]`
       })
     }
     if (fs.existsSync(MODULE_APPLICATION_JS_PATH)) {

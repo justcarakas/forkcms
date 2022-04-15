@@ -17,7 +17,7 @@
 {% endif %}
 {% if dataGrid.paginator is empty %}
   <div class="empty-state">
-    <img class="empty-state-illustration mb-4 vis" src="{{ asset('assets/modules/Backend/em/backend/images/empty-state.svg') }}" aria-hidden="true" alt="empty data grid icon">
+    <img class="empty-state-illustration mb-4 vis" src="{{ asset('assets/modules/Backend/Backend/images/empty-state.svg') }}" aria-hidden="true" alt="empty data grid icon">
     <p class="text-black mb-2">
       <strong> {{ (dataGrid.noResultsMessage == 'No results' ? 'lbl.NoResultsFound' : dataGrid.noResultsMessage)|trans|ucfirst }}</strong>
     </p>
