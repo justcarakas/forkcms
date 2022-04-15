@@ -21,7 +21,7 @@ enum Application: string implements TranslatableInterface
     public function canHaveTranslations(): bool
     {
         return match ($this) {
-            self::BACKEND, self::FRONTEND => true,
+            self::BACKEND, self::FRONTEND, self::CONSOLE => true,
             default => false,
         };
     }
