@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Exception\MissingIdentifierField;
 use ForkCMS\Core\Domain\Header\Header;
+use ForkCMS\Modules\Backend\Domain\AjaxAction\AjaxActionSlug;
 use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -145,7 +146,7 @@ abstract class AbstractActionController implements ActionControllerInterface
         $this->pageTitle = $this->buildPageTitle($breadcrumbDetail);
     }
 
-    protected function isAllowed(ActionSlug $actionSlug): bool
+    protected function isAllowed(ActionSlug|AjaxActionSlug $actionSlug): bool
     {
         return $this->authorizationChecker->isGranted($actionSlug->asModuleAction()->asRole());
     }

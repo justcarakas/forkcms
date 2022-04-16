@@ -59,7 +59,7 @@ final class TranslationDomainType extends AbstractType implements DataTransforme
         if ($value instanceof TranslationDomain) {
             return [
                 'application' => $value->getApplication(),
-                'module' => Module::fromModuleName($value->getModuleName()),
+                'module' => Module::fromModuleName($value->getModuleName() ?? ModuleName::core()),
             ];
         }
 

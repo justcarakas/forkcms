@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
   <Backend>
+    <item type="label" name="Copy">
+      <translation locale="nl"><![CDATA[kopieer]]></translation>
+      <translation locale="en"><![CDATA[copy]]></translation>
+      <translation locale="hu"><![CDATA[másol]]></translation>
+      <translation locale="it"><![CDATA[copia]]></translation>
+      <translation locale="ru"><![CDATA[Копировать]]></translation>
+      <translation locale="zh"><![CDATA[复制]]></translation>
+      <translation locale="de"><![CDATA[kopieren]]></translation>
+      <translation locale="fr"><![CDATA[copier]]></translation>
+      <translation locale="es"><![CDATA[copiar]]></translation>
+      <translation locale="uk"><![CDATA[Копіювати]]></translation>
+      <translation locale="lt"><![CDATA[kopijuoti]]></translation>
+      <translation locale="el"><![CDATA[Αντιγραφή]]></translation>
+      <translation locale="pl"><![CDATA[kopiuj]]></translation>
+      <translation locale="pt"><![CDATA[copiar]]></translation>
+    </item>
     <item type="message" name="ClickToEdit">
       <translation locale="nl"><![CDATA[Klik om te wijzigen.]]></translation>
       <translation locale="en"><![CDATA[Click to edit]]></translation>

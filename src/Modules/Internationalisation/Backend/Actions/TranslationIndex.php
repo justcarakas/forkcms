@@ -15,6 +15,8 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepositor
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Type;
 use Pageon\DoctrineDataGridBundle\Column\Column;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -134,24 +136,27 @@ final class TranslationIndex extends AbstractFormActionController
             );
         }
 
-        // @TODO add permission checks
         if (count($this->filter->locale) === 1) {
-            $columns[] = Column::createActionColumn(
-                label: 'lbl.Copy',
-                route: 'backend_action',
-                routeAttributes: TranslationAdd::getActionSlug()->getRouteParameters() + $this->filter->toArray(),
-                routeAttributesCallback: [$this, 'addTranslationSlug'],
-                class: 'btn btn-default btn-sm float-end',
-                iconClass: 'fa fa-copy',
-            );
-            $columns[] = Column::createActionColumn(
-                label: 'lbl.Edit',
-                route: 'backend_action',
-                routeAttributes: TranslationEdit::getActionSlug()->getRouteParameters() + $this->filter->toArray(),
-                routeAttributesCallback: [$this, 'addTranslationSlug'],
-                class: 'btn btn-primary btn-sm float-end',
-                iconClass: 'fa fa-edit',
-            );
+            if ($this->isAllowed(TranslationAdd::getActionSlug())) {
+                $columns[] = Column::createActionColumn(
+                    label: 'lbl.Copy',
+                    route: 'backend_action',
+                    routeAttributes: TranslationAdd::getActionSlug()->getRouteParameters() + $this->filter->toArray(),
+                    routeAttributesCallback: [$this, 'addTranslationSlug'],
+                    class: 'btn btn-default btn-sm float-end',
+                    iconClass: 'fa fa-copy',
+                );
+            }
+            if ($this->isAllowed(TranslationEdit::getActionSlug())) {
+                $columns[] = Column::createActionColumn(
+                    label: 'lbl.Edit',
+                    route: 'backend_action',
+                    routeAttributes: TranslationEdit::getActionSlug()->getRouteParameters() + $this->filter->toArray(),
+                    routeAttributesCallback: [$this, 'addTranslationSlug'],
+                    class: 'btn btn-primary btn-sm float-end',
+                    iconClass: 'fa fa-edit',
+                );
+            }
         }
 
         return $columns;
@@ -173,6 +178,8 @@ final class TranslationIndex extends AbstractFormActionController
 
     public function markNameFilter(string $name): string
     {
+        $name = $this->sanitiseHTML($name);
+
         if ($this->filter->name === null) {
             return $name;
         }
@@ -185,6 +192,7 @@ final class TranslationIndex extends AbstractFormActionController
         FilteredTranslation $filteredTranslation,
         string $locale
     ): string {
+        $translation = $this->sanitiseHTML($translation);
         if ($this->filter->value !== null) {
             $translation = preg_replace(
                 '/(.*?)(' . $this->filter->value . ')(.*?)/is',
@@ -193,18 +201,32 @@ final class TranslationIndex extends AbstractFormActionController
             );
         }
 
-        return sprintf(
-            '<span data-role="ajax-content-editable" data-ajax-editable-url="%1$s">%2$s</span>',
-            AjaxTranslationEdit::getAjaxActionSlug()->generateRoute(
-                $this->router,
-                ['id' => $filteredTranslation->getId(Locale::from($locale))]
-            ),
-            $translation
-        );
+        if ($this->isAllowed(AjaxTranslationEdit::getAjaxActionSlug())) {
+            return sprintf(
+                '<span data-role="ajax-content-editable" data-ajax-editable-url="%1$s">%2$s</span>',
+                AjaxTranslationEdit::getAjaxActionSlug()->generateRoute(
+                    $this->router,
+                    ['id' => $filteredTranslation->getId(Locale::from($locale))]
+                ),
+                $translation
+            );
+        }
+
+        return $translation;
     }
 
     public function addTranslationSlug(FilteredTranslation $filteredTranslation): array
     {
         return ['slug' => $filteredTranslation->getId(reset($this->filter->locale))];
+    }
+
+    public function sanitiseHTML(string $html): string
+    {
+        static $sanitizer;
+        if ($sanitizer === null) {
+            $sanitizer = new HtmlSanitizer(new HtmlSanitizerConfig());
+        }
+
+        return $sanitizer->sanitizeFor('title', $html);
     }
 }
