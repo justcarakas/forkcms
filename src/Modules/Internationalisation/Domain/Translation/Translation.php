@@ -63,6 +63,11 @@ class Translation
         return $this->id;
     }
 
+    public function getGroupId(): string
+    {
+        return $this->groupId;
+    }
+
     public function getDomain(): TranslationDomain
     {
         return $this->domain;
@@ -97,5 +102,27 @@ class Translation
     public function change(string $value): void
     {
         $this->value = $value;
+    }
+
+    public static function fromDataTransferObject(TranslationDataTransferObject $dataTransferObject): self
+    {
+        if ($dataTransferObject->hasEntity()) {
+            $translation = $dataTransferObject->getEntity();
+            $translation->domain = $dataTransferObject->domain;
+            $translation->key = $dataTransferObject->key;
+            $translation->locale = $dataTransferObject->locale;
+            $translation->value = $dataTransferObject->value;
+            $translation->source = $dataTransferObject->source;
+
+            return $translation;
+        }
+
+        return new self(
+            $dataTransferObject->domain,
+            $dataTransferObject->key,
+            $dataTransferObject->locale,
+            $dataTransferObject->value,
+            $dataTransferObject->source,
+        );
     }
 }

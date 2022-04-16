@@ -19,6 +19,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Filterable overview of translations
+ */
 final class TranslationIndex extends AbstractFormActionController
 {
     private TranslationFilter $filter;
@@ -112,43 +115,42 @@ final class TranslationIndex extends AbstractFormActionController
         }
 
         $columns[] = Column::createPropertyColumn(
-                           'name',
-                           'lbl.ReferenceCode',
-                           null,
-                           false,
-                           false,
-            order:         0,
+            'name',
+            'lbl.ReferenceCode',
+            null,
+            false,
+            false,
+            order: 0,
             valueCallback: [$this, 'markNameFilter'],
-            html:          true
+            html: true
         );
 
         foreach ($this->filter->locale as $locale) {
             $columns[] = new Column(
-                               $locale->value,
-                               $locale->asTranslatable(),
+                $locale->value,
+                $locale->asTranslatable(),
                 valueCallback: [$this, 'translationValue'],
-                html:          true
+                html: true
             );
         }
 
+        // @TODO add permission checks
         if (count($this->filter->locale) === 1) {
             $columns[] = Column::createActionColumn(
-                label:                   'lbl.Copy',
-                route:                   'backend_action',
-                routeAttributes:         TranslationAdd::getActionSlug()->getRouteParameters() + $this->filter->toArray(
-                                         ),
+                label: 'lbl.Copy',
+                route: 'backend_action',
+                routeAttributes: TranslationAdd::getActionSlug()->getRouteParameters() + $this->filter->toArray(),
                 routeAttributesCallback: [$this, 'addTranslationSlug'],
-                class:                   'btn btn-default btn-sm float-end',
-                iconClass:               'fa fa-copy',
+                class: 'btn btn-default btn-sm float-end',
+                iconClass: 'fa fa-copy',
             );
             $columns[] = Column::createActionColumn(
-                label:                   'lbl.Edit',
-                route:                   'backend_action',
-                routeAttributes:         TranslationEdit::getActionSlug()->getRouteParameters(
-                                         ) + $this->filter->toArray(),
+                label: 'lbl.Edit',
+                route: 'backend_action',
+                routeAttributes: TranslationEdit::getActionSlug()->getRouteParameters() + $this->filter->toArray(),
                 routeAttributesCallback: [$this, 'addTranslationSlug'],
-                class:                   'btn btn-primary btn-sm float-end',
-                iconClass:               'fa fa-edit',
+                class: 'btn btn-primary btn-sm float-end',
+                iconClass: 'fa fa-edit',
             );
         }
 

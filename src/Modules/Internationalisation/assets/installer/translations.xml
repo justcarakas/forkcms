@@ -326,6 +326,23 @@
         <translation locale="nl"><![CDATA[Niet gefilterd]]></translation>
         <translation locale="en"><![CDATA[Not filtered]]></translation>
       </item>
+      <item type="label" name="TranslationEdit">
+        <translation locale="nl"><![CDATA[wijzigen]]></translation>
+        <translation locale="en"><![CDATA[edit]]></translation>
+        <translation locale="hu"><![CDATA[szerkeszt]]></translation>
+        <translation locale="it"><![CDATA[modifica]]></translation>
+        <translation locale="ru"><![CDATA[Редактировать]]></translation>
+        <translation locale="zh"><![CDATA[编辑]]></translation>
+        <translation locale="de"><![CDATA[bearbeiten]]></translation>
+        <translation locale="fr"><![CDATA[éditer]]></translation>
+        <translation locale="es"><![CDATA[editar]]></translation>
+        <translation locale="lt"><![CDATA[keisti]]></translation>
+        <translation locale="uk"><![CDATA[Редагувати]]></translation>
+        <translation locale="sv"><![CDATA[ändra]]></translation>
+        <translation locale="el"><![CDATA[μεταβολή]]></translation>
+        <translation locale="pl"><![CDATA[edytuj]]></translation>
+        <translation locale="pt"><![CDATA[editar]]></translation>
+      </item>
     </Internationalisation>
   </Backend>
 </translations>
