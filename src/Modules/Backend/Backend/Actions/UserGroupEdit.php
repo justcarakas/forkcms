@@ -19,7 +19,6 @@ final class UserGroupEdit extends AbstractFormActionController
 {
     protected function getFormResponse(Request $request): ?Response
     {
-        /** @var UserGroup $userGroup */
         $userGroup = $this->getEntityFromRequest($request, UserGroup::class);
 
         $this->setBreadcrumbDetail($userGroup->getName());

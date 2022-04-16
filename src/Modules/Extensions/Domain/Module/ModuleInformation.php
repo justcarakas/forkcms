@@ -93,13 +93,15 @@ final class ModuleInformation
         }
 
         $events = [];
-        foreach ($moduleConfig->events->event as $eventConfig) {
-            $class = SafeString::fromXML($eventConfig->attributes()->class);
-            if (class_exists($class)) {
-                $events[] = [
-                    'class' => SafeString::fromXML($eventConfig->attributes()->class)->string,
-                    'description' => SafeHtml::fromXML($eventConfig)->html,
-                ];
+        if ($moduleConfig->events->event !== null) {
+            foreach ($moduleConfig->events->event as $eventConfig) {
+                $class = SafeString::fromXML($eventConfig->attributes()->class);
+                if (class_exists($class)) {
+                    $events[] = [
+                        'class' => SafeString::fromXML($eventConfig->attributes()->class)->string,
+                        'description' => SafeHtml::fromXML($eventConfig)->html,
+                    ];
+                }
             }
         }
 

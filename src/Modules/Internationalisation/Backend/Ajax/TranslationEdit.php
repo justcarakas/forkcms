@@ -3,17 +3,21 @@
 namespace ForkCMS\Modules\Internationalisation\Backend\Ajax;
 
 use ForkCMS\Modules\Backend\Domain\AjaxAction\AbstractAjaxActionController;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\Command\ChangeTranslation;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * Edit a translation over ajax
  */
 final class TranslationEdit extends AbstractAjaxActionController
 {
-    public function __construct(private readonly TranslationRepository $translationRepository)
-    {
+    public function __construct(
+        private readonly TranslationRepository $translationRepository,
+        private readonly MessageBusInterface $commandBus,
+    ) {
     }
 
     protected function execute(Request $request): void
@@ -23,7 +27,8 @@ final class TranslationEdit extends AbstractAjaxActionController
             throw new NotFoundHttpException('No translation found with id ' . $request->query->get('id'));
         }
 
-        $translation->change($request->request->get('content'));
-        $this->translationRepository->save($translation);
+        $editTranslation = new ChangeTranslation($translation);
+        $editTranslation->value = $request->request->get('content');
+        $this->commandBus->dispatch($editTranslation);
     }
 }

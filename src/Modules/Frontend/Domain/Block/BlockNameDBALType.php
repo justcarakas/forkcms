@@ -39,7 +39,6 @@ class BlockNameDBALType extends ValueObjectDBALType
         return match ($blockName->getType()) {
             Type::ACTION => self::ACTION_PREFIX,
             Type::WIDGET => self::WIDGET_PREFIX,
-        }
-        . $blockName->getName();
+        } . $blockName->getName();
     }
 }

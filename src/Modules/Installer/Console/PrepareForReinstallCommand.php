@@ -89,7 +89,7 @@ class PrepareForReinstallCommand extends Command
         $command = $this->getApplication()?->find('cache:clear');
         try {
             $command->run(
-                new ArrayInput([]),
+                new ArrayInput(['--no-warmup' => true]),
                 new BufferedOutput(),
             );
         } catch (PDOException) {

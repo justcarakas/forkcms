@@ -9,19 +9,23 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\Event\TranslationChangedEvent;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\Event\TranslationCreatedEvent;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use Symfony\Component\DependencyInjection\ServiceLocator;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
 
 final class Importer
 {
     public function __construct(
-        private ServiceLocator $importers,
-        private string $cacheDir,
-        private TranslationRepository $translationRepository,
-        private InstalledLocaleRepository $installedLocaleRepository,
-        private ModuleRepository $moduleRepository,
+        private readonly ServiceLocator $importers,
+        private readonly string $cacheDir,
+        private readonly TranslationRepository $translationRepository,
+        private readonly InstalledLocaleRepository $installedLocaleRepository,
+        private readonly ModuleRepository $moduleRepository,
+        private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
@@ -61,12 +65,14 @@ final class Importer
             try {
                 $this->translationRepository->save($translation);
                 $importResult->addImported($translation);
+                $this->eventDispatcher->dispatch(new TranslationCreatedEvent($translation));
             } catch (UniqueConstraintViolationException) {
                 $existingTranslation = $this->translationRepository->find($translation->getId());
                 if ($overwriteConflicts && $existingTranslation !== null) {
                     $existingTranslation->change($translation->getValue());
                     $this->translationRepository->save($existingTranslation);
                     $importResult->addUpdated($existingTranslation);
+                    $this->eventDispatcher->dispatch(new TranslationChangedEvent($translation));
                     continue;
                 }
                 $importResult->addFailed($translation);

@@ -865,6 +865,19 @@
         <translation locale="pl"><![CDATA[Ścieżka do szablonu.]]></translation>
         <translation locale="pt"><![CDATA[Caminho para o template]]></translation>
       </item>
+      <item type="label" name="Events">
+        <translation locale="nl"><![CDATA[evenementen (hooks)]]></translation>
+        <translation locale="en"><![CDATA[events (hooks)]]></translation>
+        <translation locale="ru"><![CDATA[события (hooks)]]></translation>
+        <translation locale="es"><![CDATA[eventos (hooks)]]></translation>
+        <translation locale="de"><![CDATA[Events (hooks)]]></translation>
+        <translation locale="hu"><![CDATA[események (horog)]]></translation>
+        <translation locale="sv"><![CDATA[händelse (hookar)]]></translation>
+        <translation locale="el"><![CDATA[Συμβάντα (hooks)]]></translation>
+        <translation locale="zh"><![CDATA[事件（hooks）]]></translation>
+        <translation locale="pl"><![CDATA[wydarzenia (haki)]]></translation>
+        <translation locale="pt"><![CDATA[eventos (hooks)]]></translation>
+      </item>
     </Extensions>
   </Backend>
 </translations>

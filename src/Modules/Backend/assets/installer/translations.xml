@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
   <Backend>
+    <item type="message" name="ClickToEdit">
+      <translation locale="nl"><![CDATA[Klik om te wijzigen.]]></translation>
+      <translation locale="en"><![CDATA[Click to edit]]></translation>
+      <translation locale="hu"><![CDATA[Klikk a szerkesztéshez]]></translation>
+      <translation locale="ru"><![CDATA[Нажмите для изменения]]></translation>
+      <translation locale="it"><![CDATA[Clicca per modificare]]></translation>
+      <translation locale="zh"><![CDATA[点击编辑]]></translation>
+      <translation locale="fr"><![CDATA[Cliquer pour éditer]]></translation>
+      <translation locale="de"><![CDATA[zum Editieren klicken]]></translation>
+      <translation locale="es"><![CDATA[Click para editar]]></translation>
+      <translation locale="lt"><![CDATA[Redagavimui paspauskite]]></translation>
+      <translation locale="uk"><![CDATA[Натисніть для редагування.]]></translation>
+      <translation locale="sv"><![CDATA[Klicka för att ändra]]></translation>
+      <translation locale="el"><![CDATA[Κάντε κλικ γιά διορθώσεις]]></translation>
+      <translation locale="tr"><![CDATA[Düzenlemek için tıklayın]]></translation>
+      <translation locale="pt"><![CDATA[Clique para editar]]></translation>
+      <translation locale="pl"><![CDATA[Kliknij aby edytować]]></translation>
+    </item>
     <item type="label" name="UpdateFilter">
       <translation locale="nl"><![CDATA[filter updaten]]></translation>
       <translation locale="en"><![CDATA[update filter]]></translation>

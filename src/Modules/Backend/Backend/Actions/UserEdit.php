@@ -19,7 +19,6 @@ final class UserEdit extends AbstractFormActionController
 {
     protected function getFormResponse(Request $request): ?Response
     {
-        /** @var User $user */
         $user = $this->getEntityFromRequest($request, User::class);
 
         $this->setBreadcrumbDetail($user->getDisplayName());
