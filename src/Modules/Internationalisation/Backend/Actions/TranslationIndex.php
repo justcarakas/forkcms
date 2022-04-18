@@ -7,7 +7,6 @@ use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
 use ForkCMS\Modules\Backend\Domain\Action\ActionServices;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Backend\Ajax\TranslationEdit as AjaxTranslationEdit;
-use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Filter\FilteredTranslation;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Filter\TranslationFilter;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Filter\TranslationFilterType;
@@ -38,11 +37,23 @@ final class TranslationIndex extends AbstractFormActionController
     protected function getFormResponse(Request $request): ?Response
     {
         $this->filter = TranslationFilter::fromRequest($request);
+
+        if ($this->filter->shouldFilter() && $this->isAllowed(TranslationExport::getActionSlug())){
+            $this->assign(
+                'exportUrl',
+                TranslationExport::getActionSlug()
+                    ->withDefaultParameters($this->filter->toArray())
+                    ->generateRoute($this->router)
+            );
+        }
+
         $redirectResponse = $this->handleForm(
             $request,
             TranslationFilterType::class,
             $this->filter,
-            validCallback: function (FormInterface $form): RedirectResponse {
+            validCallback: function (FormInterface $form) use ($request): RedirectResponse {
+                $request->getSession()->remove(TranslationFilter::class);
+
                 return new RedirectResponse(
                     self::getActionSlug()->generateRoute($this->router, $form->getData()->toArray())
                 );
@@ -206,7 +217,13 @@ final class TranslationIndex extends AbstractFormActionController
                 '<span data-role="ajax-content-editable" data-ajax-editable-url="%1$s">%2$s</span>',
                 AjaxTranslationEdit::getAjaxActionSlug()->generateRoute(
                     $this->router,
-                    ['id' => $filteredTranslation->getId(Locale::from($locale))]
+                    [
+                        'application' => $filteredTranslation->application->value,
+                        'moduleName' => $filteredTranslation->moduleName,
+                        'type' => $filteredTranslation->type->value,
+                        'name' => $filteredTranslation->name,
+                        'locale' => $locale,
+                    ]
                 ),
                 $translation
             );
@@ -215,6 +232,7 @@ final class TranslationIndex extends AbstractFormActionController
         return $translation;
     }
 
+    /** @return array<string, string> */
     public function addTranslationSlug(FilteredTranslation $filteredTranslation): array
     {
         return ['slug' => $filteredTranslation->getId(reset($this->filter->locale))];

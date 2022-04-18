@@ -6,6 +6,7 @@ use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Translation;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\Type;
 use Pageon\DoctrineDataGridBundle\Attribute\DataGrid;
 
 #[DataGrid('translation', noResultsMessage: 'msg.NoItemsFilter')]
@@ -16,10 +17,11 @@ final class FilteredTranslation
     /** @var array<string, string> */
     private array $ids;
 
-    public function __construct(
+    private function __construct(
         public readonly Application $application,
         public readonly ModuleName $moduleName,
-        public readonly string $name
+        public readonly string $name,
+        public readonly Type $type
     ) {
     }
 
@@ -28,7 +30,8 @@ final class FilteredTranslation
         return new self(
             $translation->getDomain()->getApplication(),
             $translation->getDomain()->getModuleName() ?? ModuleName::core(),
-            $translation->getKey()->getName()
+            $translation->getKey()->getName(),
+            $translation->getKey()->getType(),
         );
     }
 
@@ -48,7 +51,8 @@ final class FilteredTranslation
         return $this->ids[$locale->value] ?? null;
     }
 
-    public function __call(string $locale, array $arguments)
+    /** @param null[] $arguments */
+    public function __call(string $locale, array $arguments): string
     {
         return $this->getValue(Locale::from($locale));
     }

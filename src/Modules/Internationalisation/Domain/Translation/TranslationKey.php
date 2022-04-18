@@ -82,4 +82,13 @@ class TranslationKey implements TranslatableInterface
 
         return $translationKey;
     }
+
+    public function equals(?self $other): bool
+    {
+        if ($other === null) {
+            return false;
+        }
+
+        return $this->type === $other->type && $this->name === $other->name;
+    }
 }

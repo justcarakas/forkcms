@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
@@ -51,6 +52,11 @@ final class TranslationRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @param array{domain:TranslationDomain, key:TranslationKey, locale:Locale} $fields
+     *
+     * @return Translation[]
+     */
     public function uniqueDataTransferObjectMethod(array $fields): array
     {
         return $this->findBy(
@@ -64,14 +70,13 @@ final class TranslationRepository extends ServiceEntityRepository
         );
     }
 
-    /** @return array<string, FilteredTranslation[]> */
-    public function getFilteredTranslations(TranslationFilter $filter): array
+    public function getTranslationsQueryBuilderForFilter(TranslationFilter $filter): QueryBuilder
     {
-        if (!$filter->shouldFilter()) {
-            return [];
-        }
-
         $queryBuilder = $this->createQueryBuilder('t');
+
+        if (!$filter->shouldFilter()) {
+            return $queryBuilder;
+        }
 
         if ($filter->application !== null) {
             $queryBuilder
@@ -119,10 +124,19 @@ final class TranslationRepository extends ServiceEntityRepository
             $queryBuilder->andWhere('t.groupId IN (:groupIds)')->setParameter('groupIds', $matchingGroupIds);
         }
 
+        return $queryBuilder;
+    }
+
+    /** @return array<string, FilteredTranslation[]> */
+    public function getFilteredTranslations(TranslationFilter $filter): array
+    {
+        if (!$filter->shouldFilter()) {
+            return [];
+        }
+
         /** @var array<string, FilteredTranslation[]> $filteredTranslations */
         $filteredTranslations = [];
-        /** @var Translation $translation */
-        foreach ($queryBuilder->getQuery()->getResult() as $translation) {
+        foreach ($this->getTranslationsQueryBuilderForFilter($filter)->getQuery()->toIterable() as $translation) {
             $key = $translation->getDomain() . '.' . $translation->getKey()->getName();
             $type = $translation->getKey()->getType()->value;
 
