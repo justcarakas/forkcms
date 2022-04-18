@@ -48,6 +48,8 @@ final class ModuleIndex extends AbstractActionController
                     ModuleInformation::class,
                     $notInstalled,
                     null,
+                    [],
+                    null,
                     new Column(
                         name: 'moduleName',
                         label: 'lbl.Install',

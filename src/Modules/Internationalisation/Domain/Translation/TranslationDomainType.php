@@ -15,6 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
 
+/** @implements DataTransformerInterface<TranslationDomain,array> */
 final class TranslationDomainType extends AbstractType implements DataTransformerInterface
 {
     public function __construct(private readonly TranslatorInterface $translator)
@@ -54,6 +55,10 @@ final class TranslationDomainType extends AbstractType implements DataTransforme
         $resolver->setDefault('label', false);
     }
 
+    /**
+     * @param TranslationDomain|null $value
+     * @return array{application?:Application, module?:Module}
+     */
     public function transform(mixed $value): array
     {
         if ($value instanceof TranslationDomain) {
@@ -66,6 +71,7 @@ final class TranslationDomainType extends AbstractType implements DataTransforme
         return [];
     }
 
+    /** @param array{application?:Application, module?:Module|null} $value */
     public function reverseTransform(mixed $value): TranslationDomain
     {
         try {

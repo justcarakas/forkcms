@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
 
+/** @implements DataTransformerInterface<TranslationKey,array> */
 final class TranslationKeyType extends AbstractType implements DataTransformerInterface
 {
     public function __construct(private readonly TranslatorInterface $translator)
@@ -52,6 +53,11 @@ final class TranslationKeyType extends AbstractType implements DataTransformerIn
         $resolver->setDefault('error_bubbling', false);
     }
 
+    /**
+     * @param TranslationKey|null $value
+     *
+     * @return array{type?:Type, name?:string}
+     */
     public function transform(mixed $value): array
     {
         if ($value instanceof TranslationKey) {
@@ -64,6 +70,7 @@ final class TranslationKeyType extends AbstractType implements DataTransformerIn
         return [];
     }
 
+    /** @param array{type:Type, name:string} $value */
     public function reverseTransform(mixed $value): ?TranslationKey
     {
         try {

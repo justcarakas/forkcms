@@ -38,7 +38,7 @@ final class TranslationIndex extends AbstractFormActionController
     {
         $this->filter = TranslationFilter::fromRequest($request);
 
-        if ($this->filter->shouldFilter() && $this->isAllowed(TranslationExport::getActionSlug())){
+        if ($this->filter->shouldFilter() && $this->isAllowed(TranslationExport::getActionSlug())) {
             $this->assign(
                 'exportUrl',
                 TranslationExport::getActionSlug()
@@ -91,6 +91,8 @@ final class TranslationIndex extends AbstractFormActionController
                     FilteredTranslation::class,
                     $translations,
                     PHP_INT_MAX,
+                    [],
+                    null,
                     ...$this->getExtraColumns()
                 ),
             ];
@@ -112,7 +114,7 @@ final class TranslationIndex extends AbstractFormActionController
                 false,
                 false,
                 order: 0,
-                valueCallback: [$this, 'translateApplication']
+                valueCallback: $this->translateApplication(...)
             );
         }
         if ($this->filter->moduleName === null) {
@@ -123,7 +125,7 @@ final class TranslationIndex extends AbstractFormActionController
                 false,
                 false,
                 order: 0,
-                valueCallback: [$this, 'translateModuleName']
+                valueCallback: $this->translateModuleName(...)
             );
         }
 
@@ -134,7 +136,7 @@ final class TranslationIndex extends AbstractFormActionController
             false,
             false,
             order: 0,
-            valueCallback: [$this, 'markNameFilter'],
+            valueCallback: $this->markNameFilter(...),
             html: true
         );
 
@@ -142,8 +144,15 @@ final class TranslationIndex extends AbstractFormActionController
             $columns[] = new Column(
                 $locale->value,
                 $locale->asTranslatable(),
-                valueCallback: [$this, 'translationValue'],
-                html: true
+                valueCallback: $this->translationValue(...),
+                html: true,
+                columnAttributesCallback: static function (FilteredTranslation $translation, array $attributes) use ($locale) {
+                    if ($translation->getValue($locale) === '') {
+                        $attributes['class'] = 'highlighted';
+                    }
+
+                    return $attributes;
+                }
             );
         }
 
@@ -153,7 +162,7 @@ final class TranslationIndex extends AbstractFormActionController
                     label: 'lbl.Copy',
                     route: 'backend_action',
                     routeAttributes: TranslationAdd::getActionSlug()->getRouteParameters() + $this->filter->toArray(),
-                    routeAttributesCallback: [$this, 'addTranslationSlug'],
+                    routeAttributesCallback: $this->addTranslationSlug(...),
                     class: 'btn btn-default btn-sm float-end',
                     iconClass: 'fa fa-copy',
                 );
@@ -163,7 +172,7 @@ final class TranslationIndex extends AbstractFormActionController
                     label: 'lbl.Edit',
                     route: 'backend_action',
                     routeAttributes: TranslationEdit::getActionSlug()->getRouteParameters() + $this->filter->toArray(),
-                    routeAttributesCallback: [$this, 'addTranslationSlug'],
+                    routeAttributesCallback: $this->addTranslationSlug(...),
                     class: 'btn btn-primary btn-sm float-end',
                     iconClass: 'fa fa-edit',
                 );
@@ -232,10 +241,16 @@ final class TranslationIndex extends AbstractFormActionController
         return $translation;
     }
 
-    /** @return array<string, string> */
-    public function addTranslationSlug(FilteredTranslation $filteredTranslation): array
+    /**
+     * @param array{string?: string} $attributes
+     *
+     * @return array{string?: string}
+     */
+    public function addTranslationSlug(FilteredTranslation $filteredTranslation, array $attributes): array
     {
-        return ['slug' => $filteredTranslation->getId(reset($this->filter->locale))];
+        $attributes['slug'] = $filteredTranslation->getId(reset($this->filter->locale));
+
+        return $attributes;
     }
 
     public function sanitiseHTML(string $html): string

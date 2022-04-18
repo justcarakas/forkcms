@@ -110,10 +110,16 @@ class ThemeTemplate
         return $this->defaultForTheme !== null;
     }
 
-    /** @return array<string, int> */
-    public static function dataGridEditLinkCallback(self $themeTemplate): array
+    /**
+     * @param array{string?: string} $attributes
+     *
+     * @return array{string?: int|string}
+     */
+    public static function dataGridEditLinkCallback(self $themeTemplate, array $attributes): array
     {
-        return ['slug' => $themeTemplate->getId()];
+        $attributes['slug'] = $themeTemplate->getId();
+
+        return $attributes;
     }
 
     public function getFullPath(): string

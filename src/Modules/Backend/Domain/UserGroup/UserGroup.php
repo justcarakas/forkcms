@@ -144,10 +144,16 @@ class UserGroup
         return $this->users->count();
     }
 
-    /** @return array<string, int> */
-    public static function dataGridEditLinkCallback(self $userGroup): array
+    /**
+     * @param array{string?: string} $attributes
+     *
+     * @return array{string?: int|string}
+     */
+    public static function dataGridEditLinkCallback(self $userGroup, array $attributes): array
     {
-        return ['slug' => $userGroup->getId()];
+        $attributes['slug'] = $userGroup->getId();
+
+        return $attributes;
     }
 
     public function addModule(ModuleName $moduleName): void

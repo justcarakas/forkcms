@@ -7,11 +7,8 @@ use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleType;
-use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Type;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -40,7 +37,7 @@ final class TranslationFilterType extends AbstractType
             EnumType::class,
             [
                 'class' => Application::class,
-                'label' => ucfirst($this->translator->trans(TranslationKey::label('Application'))),
+                'label' => 'lbl.Application',
                 'choice_label' => fn (Application $application): string => ucfirst(
                     $application->trans($this->translator)
                 ),

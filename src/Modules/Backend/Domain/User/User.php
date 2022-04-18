@@ -268,10 +268,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $userGroup;
     }
 
-    /** @return array<string,int> */
-    public static function dataGridEditLinkCallback(self $user): array
+    /**
+     * @param array{string?: string} $attributes
+     *
+     * @return array{string?: int|string}
+     */
+    public static function dataGridEditLinkCallback(self $user, array $attributes): array
     {
-        return ['slug' => $user->getId()];
+        $attributes['slug'] = $user->getId();
+
+        return $attributes;
     }
 
     public function registerAuthenticationFailure(): void

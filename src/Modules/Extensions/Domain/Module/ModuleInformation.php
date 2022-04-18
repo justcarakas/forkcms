@@ -130,10 +130,16 @@ final class ModuleInformation
         return $description;
     }
 
-    /** @return array<string, string> */
-    public static function dataGridSlugCallback(self $moduleInformation): array
+    /**
+     * @param array{string?: string} $attributes
+     *
+     * @return array{string?: string}
+     */
+    public static function dataGridSlugCallback(self $moduleInformation, array $attributes): array
     {
-        return ['slug' => $moduleInformation->name->getName()];
+        $attributes['slug'] = $moduleInformation->name->getName();
+
+        return $attributes;
     }
 
     public function getModuleName(): string
