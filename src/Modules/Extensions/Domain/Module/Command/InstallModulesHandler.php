@@ -2,18 +2,15 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Module\Command;
 
-use ForkCMS\Core\Domain\Kernel\Command\ClearContainerCache;
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
 use ForkCMS\Modules\Extensions\Domain\Module\Event\ModuleInstalledEvent;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 final class InstallModulesHandler implements CommandHandlerInterface
 {
     public function __construct(
         private readonly ModuleInstallerLocator $moduleInstallerLocator,
-        private readonly MessageBusInterface $commandBus,
         private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }

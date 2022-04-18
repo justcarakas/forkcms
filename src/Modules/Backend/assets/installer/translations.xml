@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
   <Backend>
+    <item type="label" name="Import">
+      <translation locale="nl"><![CDATA[importeer]]></translation>
+      <translation locale="en"><![CDATA[import]]></translation>
+      <translation locale="hu"><![CDATA[import]]></translation>
+      <translation locale="it"><![CDATA[importa]]></translation>
+      <translation locale="ru"><![CDATA[Импорт]]></translation>
+      <translation locale="zh"><![CDATA[导入]]></translation>
+      <translation locale="de"><![CDATA[importieren]]></translation>
+      <translation locale="fr"><![CDATA[importer]]></translation>
+      <translation locale="es"><![CDATA[importar]]></translation>
+      <translation locale="lt"><![CDATA[importas]]></translation>
+      <translation locale="uk"><![CDATA[Імпорт]]></translation>
+      <translation locale="sv"><![CDATA[importera]]></translation>
+      <translation locale="el"><![CDATA[εισαγωγή]]></translation>
+      <translation locale="pt"><![CDATA[importar]]></translation>
+      <translation locale="pl"><![CDATA[importuj]]></translation>
+    </item>
     <item type="label" name="Copy">
       <translation locale="nl"><![CDATA[kopieer]]></translation>
       <translation locale="en"><![CDATA[copy]]></translation>
