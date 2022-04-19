@@ -2023,6 +2023,17 @@
         <translation locale="pl"><![CDATA[Działania]]></translation>
         <translation locale="pt"><![CDATA[acções]]></translation>
       </item>
+      <item type="label" name="AjaxActions">
+        <translation locale="nl"><![CDATA[ajax acties]]></translation>
+        <translation locale="en"><![CDATA[ajax actions]]></translation>
+        <translation locale="it"><![CDATA[ajax azioni]]></translation>
+        <translation locale="de"><![CDATA[ajax Aktionen]]></translation>
+        <translation locale="hu"><![CDATA[ajax használ]]></translation>
+        <translation locale="fr"><![CDATA[ajax actions]]></translation>
+        <translation locale="es"><![CDATA[ajax acciones]]></translation>
+        <translation locale="lt"><![CDATA[ajax veiksmai]]></translation>
+        <translation locale="pt"><![CDATA[ajax acções]]></translation>
+      </item>
       <item type="label" name="Widget">
         <translation locale="nl"><![CDATA[widget]]></translation>
         <translation locale="en"><![CDATA[widget]]></translation>

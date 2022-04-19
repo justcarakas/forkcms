@@ -100,7 +100,7 @@ final class UserGroupType extends AbstractType
                     PermissionType::class,
                     [
                         'choices' => $ajaxActions,
-                        'name_label' => 'lbl.AjaxActions',
+                        'name_label' => 'lbl.Action',
                         'transform_callback' => static function (array $ajaxActionFQCNs) use ($ajaxActions
                         ): array {
                             $permissions = [];
