@@ -45,13 +45,14 @@ final class ExtensionsInstaller extends ModuleInstaller
         $this->getOrCreateBackendNavigationItem(
             TranslationKey::label('Modules'),
             ModuleIndex::getActionSlug(),
-            $this->getSettingsNavigationItem(),
+            $this->getModulesSettingsNavigationItem(),
             [
                 ModuleDetail::getActionSlug(),
                 ModuleInstall::getActionSlug(),
                 ModuleUpload::getActionSlug(),
             ]
         );
+
         $themeSettings = $this->getOrCreateBackendNavigationItem(
             TranslationKey::label('Themes'),
             ThemeIndex::getActionSlug(),

@@ -16,6 +16,7 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupRepository;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use ForkCMS\Modules\Backend\Installer\BackendInstaller;
+use ForkCMS\Modules\Extensions\Backend\Actions\ModuleIndex;
 use ForkCMS\Modules\Extensions\Installer\ExtensionsInstaller;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockName;
@@ -235,6 +236,17 @@ abstract class ModuleInstaller
             null,
             [],
             999,
+        );
+    }
+
+    final protected function getModulesSettingsNavigationItem(): NavigationItem
+    {
+        return $this->getOrCreateBackendNavigationItem(
+            TranslationKey::label('Modules'),
+            ModuleIndex::getActionSlug(),
+            $this->getSettingsNavigationItem(),
+            [],
+            0,
         );
     }
 
