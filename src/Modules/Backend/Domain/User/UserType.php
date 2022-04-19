@@ -35,16 +35,36 @@ final class UserType extends AbstractType
                 'tabs' => [
                     'lbl.Authentication' => function (FormBuilderInterface $builder) use ($options): void {
                         $builder
-                            ->add('displayName', TextType::class, ['label' => 'lbl.DisplayName'])
-                            ->add('email', EmailType::class, ['label' => 'lbl.Email'])
+                            ->add(
+                                'displayName',
+                                TextType::class,
+                                [
+                                    'label' => 'lbl.DisplayName',
+                                    'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
+                                ]
+                            )
+                            ->add(
+                                'email',
+                                EmailType::class,
+                                [
+                                    'label' => 'lbl.Email',
+                                    'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
+                                ]
+                            )
                             ->add(
                                 'plainTextPassword',
                                 RepeatedType::class,
                                 [
                                     'type' => PasswordType::class,
                                     'invalid_message' => 'err.PasswordDoesNotMatch',
-                                    'first_options' => ['label' => 'lbl.Password'],
-                                    'second_options' => ['label' => 'lbl.ConfirmPassword'],
+                                    'first_options' => [
+                                        'label' => 'lbl.Password',
+                                        'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
+                                    ],
+                                    'second_options' => [
+                                        'label' => 'lbl.ConfirmPassword',
+                                        'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
+                                    ],
                                     'required' => in_array('create', $options['validation_groups'] ?? [], true),
                                 ]
                             )
