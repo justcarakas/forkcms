@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class Importer
 {
@@ -29,9 +30,11 @@ final class Importer
     ) {
     }
 
-    public function import(string $path, bool $overwriteConflicts = false, ?Locale $specificLocale = null): ImportResult
+    public function import(string|UploadedFile|File $translationFile, bool $overwriteConflicts = false, ?Locale $specificLocale = null): ImportResult
     {
-        $translationFile = new File($path);
+        if (is_string($translationFile)) {
+            $translationFile = new File($translationFile);
+        }
         $importResult = new ImportResult();
 
         /** @var ImporterInterface $importer */
@@ -62,21 +65,23 @@ final class Importer
                 continue;
             }
 
-            try {
-                $this->translationRepository->save($translation);
-                $importResult->addImported($translation);
-                $this->eventDispatcher->dispatch(new TranslationCreatedEvent($translation));
-            } catch (UniqueConstraintViolationException) {
-                $existingTranslation = $this->translationRepository->find($translation->getId());
-                if ($overwriteConflicts && $existingTranslation !== null) {
+            $existingTranslation = $this->translationRepository->find($translation->getId());
+            if ($existingTranslation !== null) {
+                if ($overwriteConflicts) {
                     $existingTranslation->change($translation->getValue());
                     $this->translationRepository->save($existingTranslation);
                     $importResult->addUpdated($existingTranslation);
                     $this->eventDispatcher->dispatch(new TranslationChangedEvent($translation));
                     continue;
                 }
+
                 $importResult->addFailed($translation);
+                continue;
             }
+
+            $this->translationRepository->save($translation);
+            $importResult->addImported($translation);
+            $this->eventDispatcher->dispatch(new TranslationCreatedEvent($translation));
         }
 
         $filesystem = new Filesystem();
@@ -86,5 +91,11 @@ final class Importer
         }
 
         return $importResult;
+    }
+
+    /** @return string[] */
+    public function getAvailableExtensions(): array
+    {
+        return array_keys($this->importers->getProvidedServices());
     }
 }

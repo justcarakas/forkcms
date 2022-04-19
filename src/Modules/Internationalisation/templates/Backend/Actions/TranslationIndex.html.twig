@@ -1,6 +1,23 @@
-{% extends '@Backend/base/crud/index.html.twig' %}
+{% extends '@Backend/base/base.html.twig' %}
 {% import '@Backend/base/macros.html.twig' as macro %}
-{% set crudActionName = 'TranslationAdd' %}
+
+{% block actionbar %}
+  {% if is_allowed('TranslationAdd') or exportUrl is defined or is_allowed('TranslationImport') %}
+    <div class="btn-toolbar justify-content-end">
+      <div class="btn-group" role="group">
+        {% if exportUrl is defined %}
+          {{ macro.buttonIcon(exportUrl, 'download', 'lbl.Export'|trans|ucfirst, 'btn-default') }}
+        {% endif %}
+        {% if is_allowed('TranslationImport') %}
+          {{ macro.buttonIcon(action_path('TranslationImport'), 'upload', 'lbl.Import'|trans|ucfirst, 'btn-default') }}
+        {% endif %}
+        {% if is_allowed('TranslationAdd') %}
+          {{ macro.buttonIcon(action_path('TranslationAdd'), 'plus-square', 'lbl.Add'|trans|ucfirst, 'btn-success') }}
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
 
 {% block content %}
   {{ form_start(backend_form) }}
@@ -31,7 +48,7 @@
           </div>
         </div>
       </div>
-      <div class="d-flex justify-content-end">
+      <div class="btn-toolbar justify-content-end">
         {{ macro.buttonIcon(null, 'sync', 'lbl.UpdateFilter'|trans|ucfirst, 'btn-primary') }}
       </div>
     </div>

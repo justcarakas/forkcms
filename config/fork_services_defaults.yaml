@@ -40,3 +40,7 @@ services:
     ForkCMS\Modules\Internationalisation\Domain\Importer\ImporterInterface:
       tags:
         - { name: forkcms.translation.importer }
+
+    ForkCMS\Modules\Internationalisation\Domain\Exporter\ExporterInterface:
+      tags:
+        - { name: forkcms.translation.exporter }

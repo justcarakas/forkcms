@@ -11,6 +11,7 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Type;
 use Generator;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
 final class XmlImporter implements ImporterInterface
@@ -31,7 +32,7 @@ final class XmlImporter implements ImporterInterface
                 yield from $this->makeTranslations(
                     $modules['item'],
                     TranslationDomain::fromDomain($application->value),
-                    $source
+                    $translationFile instanceof UploadedFile ? null : $source
                 );
                 unset($modules['item']);
             }
@@ -42,7 +43,11 @@ final class XmlImporter implements ImporterInterface
                 }
 
                 $domain = new TranslationDomain($application, ModuleName::fromString($module));
-                yield from $this->makeTranslations($translationItems['item'], $domain, $source);
+                yield from $this->makeTranslations(
+                    $translationItems['item'],
+                    $domain,
+                    $translationFile instanceof UploadedFile ? null : $source
+                );
             }
         }
     }
@@ -57,7 +62,7 @@ final class XmlImporter implements ImporterInterface
      *
      * @return Generator<Translation>
      */
-    public function makeTranslations(array $translationItems, TranslationDomain $domain, string $source): Generator
+    public function makeTranslations(array $translationItems, TranslationDomain $domain, ?string $source): Generator
     {
         if (array_key_exists('@type', $translationItems)) {
             $translationItems = [$translationItems];

@@ -18,6 +18,23 @@
       <translation locale="pt"><![CDATA[importar]]></translation>
       <translation locale="pl"><![CDATA[importuj]]></translation>
     </item>
+    <item type="label" name="File">
+      <translation locale="nl"><![CDATA[bestand]]></translation>
+      <translation locale="en"><![CDATA[file]]></translation>
+      <translation locale="hu"><![CDATA[fájl]]></translation>
+      <translation locale="it"><![CDATA[file]]></translation>
+      <translation locale="ru"><![CDATA[Файл]]></translation>
+      <translation locale="zh"><![CDATA[文件]]></translation>
+      <translation locale="de"><![CDATA[Datei]]></translation>
+      <translation locale="fr"><![CDATA[fichier]]></translation>
+      <translation locale="es"><![CDATA[fichero]]></translation>
+      <translation locale="lt"><![CDATA[byla]]></translation>
+      <translation locale="uk"><![CDATA[Файл]]></translation>
+      <translation locale="sv"><![CDATA[fil]]></translation>
+      <translation locale="el"><![CDATA[αρχείο]]></translation>
+      <translation locale="pl"><![CDATA[plik]]></translation>
+      <translation locale="pt"><![CDATA[ficheiro]]></translation>
+    </item>
     <item type="label" name="Copy">
       <translation locale="nl"><![CDATA[kopieer]]></translation>
       <translation locale="en"><![CDATA[copy]]></translation>

@@ -343,6 +343,55 @@
         <translation locale="pl"><![CDATA[edytuj]]></translation>
         <translation locale="pt"><![CDATA[editar]]></translation>
       </item>
+      <item type="label" name="TranslationImport">
+        <translation locale="nl"><![CDATA[importeer]]></translation>
+        <translation locale="en"><![CDATA[import]]></translation>
+        <translation locale="hu"><![CDATA[import]]></translation>
+        <translation locale="it"><![CDATA[importa]]></translation>
+        <translation locale="ru"><![CDATA[Импорт]]></translation>
+        <translation locale="zh"><![CDATA[导入]]></translation>
+        <translation locale="de"><![CDATA[importieren]]></translation>
+        <translation locale="fr"><![CDATA[importer]]></translation>
+        <translation locale="es"><![CDATA[importar]]></translation>
+        <translation locale="lt"><![CDATA[importas]]></translation>
+        <translation locale="uk"><![CDATA[Імпорт]]></translation>
+        <translation locale="sv"><![CDATA[importera]]></translation>
+        <translation locale="el"><![CDATA[εισαγωγή]]></translation>
+        <translation locale="pt"><![CDATA[importar]]></translation>
+        <translation locale="pl"><![CDATA[importuj]]></translation>
+      </item>
+      <item type="label" name="Imported">
+        <translation locale="nl"><![CDATA[geïmporteerd]]></translation>
+        <translation locale="en"><![CDATA[imported]]></translation>
+      </item>
+      <item type="label" name="Updated">
+        <translation locale="nl"><![CDATA[geüpdate]]></translation>
+        <translation locale="en"><![CDATA[updated]]></translation>
+      </item>
+      <item type="label" name="Skipped">
+        <translation locale="nl"><![CDATA[overgeslagen]]></translation>
+        <translation locale="en"><![CDATA[skipped]]></translation>
+      </item>
+      <item type="label" name="Failed">
+        <translation locale="nl"><![CDATA[mislukt]]></translation>
+        <translation locale="en"><![CDATA[failed]]></translation>
+      </item>
+      <item type="label" name="Overwrite">
+        <translation locale="nl"><![CDATA[overschrijf]]></translation>
+        <translation locale="en"><![CDATA[overwrite]]></translation>
+        <translation locale="it"><![CDATA[sovrascrivi]]></translation>
+        <translation locale="ru"><![CDATA[Перезаписать]]></translation>
+        <translation locale="zh"><![CDATA[重写]]></translation>
+        <translation locale="de"><![CDATA[überschreiben]]></translation>
+        <translation locale="fr"><![CDATA[écraser]]></translation>
+        <translation locale="hu"><![CDATA[felülír]]></translation>
+        <translation locale="es"><![CDATA[sobreescribir]]></translation>
+        <translation locale="uk"><![CDATA[Перезаписати]]></translation>
+        <translation locale="sv"><![CDATA[skriva över]]></translation>
+        <translation locale="el"><![CDATA[Επικάλυψη]]></translation>
+        <translation locale="pl"><![CDATA[nadpisz]]></translation>
+        <translation locale="pt"><![CDATA[substituir]]></translation>
+      </item>
     </Internationalisation>
   </Backend>
 </translations>
