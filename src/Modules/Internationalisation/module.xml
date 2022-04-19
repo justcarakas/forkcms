@@ -33,4 +33,9 @@
       Translate all module-generated tidbits of content with this translation module, either through the "point and click" translations overview or via XML export/import.
     ]]>
   </description>
+  <events>
+    <event class="ForkCMS\Modules\Internationalisation\Domain\Translation\Event\TranslationCreatedEvent"><![CDATA[Thrown when a translation is created.]]></event>
+    <event class="ForkCMS\Modules\Internationalisation\Domain\Translation\Event\TranslationChangedEvent"><![CDATA[Thrown when a translation is changed.]]></event>
+    <event class="ForkCMS\Modules\Internationalisation\Domain\Translation\Event\TranslationDeletedEvent"><![CDATA[Thrown when a translation is deleted.]]></event>
+  </events>
 </module>
