@@ -79,6 +79,10 @@ div.active.tab-pane:focus {
       float: none;
     }
   }
+
+  form .tab-content > .active {
+    display: flex;
+  }
 }
 
 .fork-dashboard-column .nav-tabs .nav-item {
