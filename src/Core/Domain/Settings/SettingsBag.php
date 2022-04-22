@@ -99,7 +99,7 @@ final class SettingsBag implements JsonSerializable
         unset($this->settings[$name]);
     }
 
-    /** @return mixed[] */
+    /** @return array<string, mixed> */
     public function jsonSerialize(): array
     {
         return $this->all();

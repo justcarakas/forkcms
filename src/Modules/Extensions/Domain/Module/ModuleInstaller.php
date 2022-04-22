@@ -27,7 +27,7 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller;
-use InvalidArgumentException;
+use RuntimeException;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\StampInterface;
@@ -60,6 +60,9 @@ abstract class ModuleInstaller
     /** @var array<string,ModuleName> */
     private ?array $defaultModuleDependencies = null;
 
+    private readonly ModulesSettings $modulesSettings;
+    private bool $moduleSettingsUnlocked = false;
+
     public function __construct(
         ModuleInstallerServices $moduleInstallerServices,
     ) {
@@ -74,6 +77,7 @@ abstract class ModuleInstaller
         $this->entityManager = $moduleInstallerServices->entityManager;
         $this->commandBus = $moduleInstallerServices->commandBus;
         $this->eventBus = $moduleInstallerServices->eventBus;
+        $this->modulesSettings = $moduleInstallerServices->modulesSettings;
     }
 
     final public static function getModuleName(): ModuleName
@@ -98,6 +102,7 @@ abstract class ModuleInstaller
     final public function registerModule(): void
     {
         $this->moduleRepository->save(Module::fromModuleName(static::getModuleName()));
+        $this->moduleSettingsUnlocked = true;
     }
 
     final protected function addModuleDependency(ModuleName $moduleName): void
@@ -294,10 +299,11 @@ abstract class ModuleInstaller
 
     final protected function setSetting(string $key, mixed $value, ModuleName $moduleName = null): void
     {
-        $module = $this->moduleRepository->find($moduleName ?? self::getModuleName())
-            ?? throw new InvalidArgumentException('Module not found');
-        $module->getSettings()->set($key, $value);
-        $this->moduleRepository->save($module);
+        if (!$this->moduleSettingsUnlocked) {
+            throw new RuntimeException('You cannot set module settings during the pre install phase');
+        }
+
+        $this->modulesSettings->set($moduleName ?? static::getModuleName(), $key, $value);
     }
 
     final protected function importTranslations(
