@@ -74,12 +74,19 @@ final class CoreInstaller extends ModuleInstaller
         $this->setSetting(
             'number_formats',
             [
-                'comma_nothing' => '10000,25',
-                'dot_nothing' => '10000.25',
-                'dot_comma' => '10,000.25',
-                'comma_dot' => '10.000,25',
-                'dot_space' => '10000.25',
-                'comma_space' => '10 000,25',
+                '10000.25' => 'dot_nothing',
+                '10000,25' => 'comma_nothing',
+                '10,000.25' => 'dot_comma',
+                '10.000,25' => 'comma_dot',
+                '10 000.25' => 'dot_space',
+                '10 000,25' => 'comma_space',
+            ]
+        );
+        $this->setSetting(
+            'date_time_orders',
+            [
+                '14/12/2020 13:40' => '%1$s %2$s',
+                '13:40 14/12/2020' => '%2$s %1$s',
             ]
         );
     }

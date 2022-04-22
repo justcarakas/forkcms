@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Security;
 
 final class TranslatorPass implements CompilerPassInterface
 {
@@ -24,7 +24,7 @@ final class TranslatorPass implements CompilerPassInterface
         $defaultLocale = array_search(true, $locales);
         $translator = $container->getDefinition('translator.default');
         $translator->setClass(ForkTranslator::class);
-        $translator->addArgument(new Reference(TokenStorageInterface::class));
+        $translator->addArgument(new Reference(Security::class));
         $translator->addArgument(new Reference(RequestStack::class));
         $container->prependExtensionConfig(
             'framework',

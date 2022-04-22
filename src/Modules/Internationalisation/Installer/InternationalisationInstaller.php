@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Internationalisation\Installer;
 
+use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
 use ForkCMS\Modules\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Modules\Internationalisation\Backend\Actions\TranslationAdd;
@@ -76,7 +77,16 @@ final class InternationalisationInstaller extends ModuleInstaller
                     $config['isDefaultForWebsite'],
                     $config['isEnabledForWebsite'],
                     $config['isEnabledForUser'],
-                    $config['isDefaultForUser']
+                    $config['isDefaultForUser'],
+                    new SettingsBag(
+                        [
+                            'date_format_short' => $_ENV['FORK_DEFAULT_DATE_FORMAT_SHORT'],
+                            'date_format_long' => $_ENV['FORK_DEFAULT_DATE_FORMAT_LONG'],
+                            'time_format' => $_ENV['FORK_DEFAULT_TIME_FORMAT'],
+                            'number_format' => $_ENV['FORK_DEFAULT_NUMBER_FORMAT'],
+                            'date_time_order' => $_ENV['FORK_DEFAULT_DATE_TIME_ORDER'],
+                        ]
+                    )
                 )
             );
         }

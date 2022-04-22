@@ -4,6 +4,8 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
+use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
 
 #[ORM\Entity(repositoryClass: InstalledLocaleRepository::class)]
@@ -12,6 +14,7 @@ use ForkCMS\Modules\Backend\Domain\User\Blameable;
 #[ORM\Index(columns: ['isDefaultForUser'], name: 'default_for_user')]
 class InstalledLocale
 {
+    use EntityWithSettingsTrait;
     use Blameable;
 
     #[ORM\Id]
@@ -40,6 +43,7 @@ class InstalledLocale
         bool $isEnabledForBrowserLocaleRedirect = true,
         bool $isEnabledForUser = true,
         bool $isDefaultForUser = false,
+        SettingsBag $settings = new SettingsBag(),
     ) {
         $this->locale = $locale;
         $this->isEnabledForWebsite = $isEnabledForWebsite;
@@ -47,6 +51,7 @@ class InstalledLocale
         $this->isEnabledForBrowserLocaleRedirect = $isEnabledForBrowserLocaleRedirect;
         $this->isEnabledForUser = $isEnabledForUser;
         $this->isDefaultForUser = $isDefaultForUser;
+        $this->settings = $settings;
     }
 
     public function getLocale(): Locale

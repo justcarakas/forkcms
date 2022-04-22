@@ -13,7 +13,7 @@ use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
 use ValueError;
 
@@ -37,8 +37,8 @@ final class ForkTranslator extends Translator
         array $loaderIds = [],
         array $options = [],
         array $enabledLocales = [],
-        private ?TokenStorageInterface $tokenStorage = null,
-        private ?RequestStack $requestStack = null,
+        private readonly ?Security $security = null,
+        private readonly ?RequestStack $requestStack = null,
     ) {
         parent::__construct($container, $formatter, $defaultLocale, $loaderIds, $options, $enabledLocales);
     }
@@ -53,9 +53,8 @@ final class ForkTranslator extends Translator
 
         static $fallbackLocale = null;
         if ($fallbackLocale === null) {
-            $user = $this->tokenStorage?->getToken()?->getUser();
-            $fallbackLocale = $user instanceof User
-                ? $user->getSetting('locale', $this->getLocale()) : $this->getLocale();
+            $user = $this->security?->getUser();
+            $fallbackLocale = ($user instanceof User ? $user->getSetting('locale') : null) ?? $this->getLocale();
         }
         $locale = $locale ?? $fallbackLocale;
 

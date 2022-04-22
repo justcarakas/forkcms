@@ -53,6 +53,7 @@ final class BackendInstaller extends ModuleInstaller
         $createUser->settings->set('date_format_long', $_ENV['FORK_DEFAULT_DATE_FORMAT_LONG']);
         $createUser->settings->set('time_format', $_ENV['FORK_DEFAULT_TIME_FORMAT']);
         $createUser->settings->set('number_format', $_ENV['FORK_DEFAULT_NUMBER_FORMAT']);
+        $createUser->settings->set('date_time_order', $_ENV['FORK_DEFAULT_DATE_TIME_ORDER']);
         $this->dispatchCommand($createUser);
 
         $user = $createUser->getEntity();

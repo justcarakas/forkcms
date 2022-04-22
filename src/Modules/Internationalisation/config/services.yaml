@@ -40,3 +40,6 @@ services:
   ForkCMS\Modules\Internationalisation\DependencyInjection\InternationalisationRouteLoader:
     arguments:
       - '@routing.loader.yml'
+
+  twig.extension.intl:
+    alias: ForkCMS\Modules\Internationalisation\Domain\Twig\ForkIntlExtension
