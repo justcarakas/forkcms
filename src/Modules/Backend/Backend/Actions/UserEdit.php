@@ -21,6 +21,7 @@ final class UserEdit extends AbstractFormActionController
     {
         $user = $this->getEntityFromRequest($request, User::class);
 
+        $this->assign('user', $user);
         $this->setBreadcrumbDetail($user->getDisplayName());
 
         if ($this->getRepository(User::class)->count([]) > 1) {

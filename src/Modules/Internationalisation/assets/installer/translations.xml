@@ -40,6 +40,105 @@
       <translation locale="pt"><![CDATA[traduções]]></translation>
       <translation locale="pl"><![CDATA[tłumaczenia]]></translation>
     </item>
+    <item type="message" name="HelpDateFormatLong">
+      <translation locale="nl"><![CDATA[Formaat dat bij de overzichtspagina's en detailweergaves wordt gebruikt.]]></translation>
+      <translation locale="en"><![CDATA[Format that's used on overview and detail pages.]]></translation>
+      <translation locale="it"><![CDATA[Formato usato sulla panoramica e sui dettagli delle pagine.]]></translation>
+      <translation locale="ru"><![CDATA[Формат для страниц с полной статьей.]]></translation>
+      <translation locale="zh"><![CDATA[用于概览和详细页面的格式。]]></translation>
+      <translation locale="hu"><![CDATA[Használt formátumok áttekintése és részletes oldala.]]></translation>
+      <translation locale="fr"><![CDATA[Format utilisé pour les vues d'ensemble et les pages de détail.]]></translation>
+      <translation locale="de"><![CDATA[Format welches für Übersichts- und Detail-Seiten verwendet wird.]]></translation>
+      <translation locale="es"><![CDATA[Formato que se utiliza en las páginas de resumen y detalle.]]></translation>
+      <translation locale="el"><![CDATA[Η μορφή που χρησιμοποιείται στις συνοπτικές και αναλυτικές σελίδες.]]></translation>
+      <translation locale="pl"><![CDATA[Format wykorzystywany na stronach podglądowych i szczegółowych.]]></translation>
+    </item>
+    <item type="message" name="HelpDateFormatShort">
+      <translation locale="nl"><![CDATA[Dit formaat wordt voornamelijk gebruikt bij tabelweergaves.]]></translation>
+      <translation locale="en"><![CDATA[This format is mostly used in table overviews.]]></translation>
+      <translation locale="it"><![CDATA[Questo formato è principalmente usato nelle panoramiche tabulari.]]></translation>
+      <translation locale="ru"><![CDATA[Формат, который используется для кратких и подробных страниц.]]></translation>
+      <translation locale="zh"><![CDATA[这种格式通常用于表格概览。]]></translation>
+      <translation locale="hu"><![CDATA[Ez a formátum többnyire táblázat áttekintésére.]]></translation>
+      <translation locale="fr"><![CDATA[Format utilisé dans les tables de vue d'ensemble.]]></translation>
+      <translation locale="de"><![CDATA[Dieses Format wird meist in tabellarischen Übersichten verwendet.]]></translation>
+      <translation locale="es"><![CDATA[Este formato se utiliza principalmente en resúmenes.]]></translation>
+      <translation locale="el"><![CDATA[Αυτή η μορφή χρησιμοποιείται κυρίως στην επισκόπηση πινάκων.]]></translation>
+      <translation locale="pl"><![CDATA[Format wykorzystywany głównie w podglądach tabeli.]]></translation>
+    </item>
+    <item type="label" name="DateFormatShort">
+      <translation locale="nl"><![CDATA[kort datumformaat]]></translation>
+      <translation locale="en"><![CDATA[short date format]]></translation>
+      <translation locale="hu"><![CDATA[rövid dátumformátum]]></translation>
+      <translation locale="ru"><![CDATA[Короткий формат]]></translation>
+      <translation locale="it"><![CDATA[formato corto delle date]]></translation>
+      <translation locale="zh"><![CDATA[短日期格式]]></translation>
+      <translation locale="de"><![CDATA[kurzes Datumsformat]]></translation>
+      <translation locale="fr"><![CDATA[format de date court]]></translation>
+      <translation locale="es"><![CDATA[formato corto de fecha]]></translation>
+      <translation locale="lt"><![CDATA[sutrumpintas datos formatas]]></translation>
+      <translation locale="uk"><![CDATA[Короткий формат]]></translation>
+      <translation locale="sv"><![CDATA[kort datumformat]]></translation>
+      <translation locale="el"><![CDATA[σύντομη μορφή ημερομηνίας]]></translation>
+      <translation locale="pt"><![CDATA[formato de data curto]]></translation>
+      <translation locale="pl"><![CDATA[krótki format daty]]></translation>
+    </item>
+    <item type="label" name="DateFormatLong">
+      <translation locale="nl"><![CDATA[lang datumformaat]]></translation>
+      <translation locale="en"><![CDATA[long date format]]></translation>
+      <translation locale="hu"><![CDATA[hosszú dátumformátum]]></translation>
+      <translation locale="it"><![CDATA[formato esteso data]]></translation>
+      <translation locale="ru"><![CDATA[Длинный формат]]></translation>
+      <translation locale="zh"><![CDATA[日期格式]]></translation>
+      <translation locale="de"><![CDATA[langes Datumsformat]]></translation>
+      <translation locale="fr"><![CDATA[format de date long]]></translation>
+      <translation locale="es"><![CDATA[formato largo de fecha]]></translation>
+      <translation locale="lt"><![CDATA[išplėstas formatas]]></translation>
+      <translation locale="uk"><![CDATA[Довгий формат дати]]></translation>
+      <translation locale="sv"><![CDATA[långa datumformat]]></translation>
+      <translation locale="el"><![CDATA[μακροσκελής μορφή ημερομηνίας]]></translation>
+      <translation locale="pt"><![CDATA[formato de data longo]]></translation>
+      <translation locale="pl"><![CDATA[długi format daty]]></translation>
+    </item>
+    <item type="label" name="TimeFormat">
+      <translation locale="nl"><![CDATA[formaat tijd]]></translation>
+      <translation locale="en"><![CDATA[time format]]></translation>
+      <translation locale="hu"><![CDATA[idő formátum]]></translation>
+      <translation locale="ru"><![CDATA[Формат времени]]></translation>
+      <translation locale="it"><![CDATA[formato date]]></translation>
+      <translation locale="zh"><![CDATA[时间格式]]></translation>
+      <translation locale="de"><![CDATA[Zeitformat]]></translation>
+      <translation locale="fr"><![CDATA[format de temps]]></translation>
+      <translation locale="es"><![CDATA[formato de hora]]></translation>
+      <translation locale="lt"><![CDATA[datos formatas]]></translation>
+      <translation locale="uk"><![CDATA[Формат Часу]]></translation>
+      <translation locale="sv"><![CDATA[tidsformat]]></translation>
+      <translation locale="el"><![CDATA[μορφή ώρας]]></translation>
+      <translation locale="tr"><![CDATA[saat biçimi]]></translation>
+      <translation locale="pt"><![CDATA[formato de hora]]></translation>
+      <translation locale="pl"><![CDATA[format czasu]]></translation>
+    </item>
+    <item type="label" name="NumberFormat">
+      <translation locale="nl"><![CDATA[formaat getallen]]></translation>
+      <translation locale="en"><![CDATA[number format]]></translation>
+      <translation locale="hu"><![CDATA[szám formátum]]></translation>
+      <translation locale="ru"><![CDATA[Числовой формат]]></translation>
+      <translation locale="it"><![CDATA[formato numero]]></translation>
+      <translation locale="zh"><![CDATA[数字格式]]></translation>
+      <translation locale="de"><![CDATA[Nummernformat]]></translation>
+      <translation locale="fr"><![CDATA[format de nombre]]></translation>
+      <translation locale="es"><![CDATA[formato de número]]></translation>
+      <translation locale="lt"><![CDATA[skaičiaus formatas]]></translation>
+      <translation locale="uk"><![CDATA[Числовий формат]]></translation>
+      <translation locale="sv"><![CDATA[nummerformat]]></translation>
+      <translation locale="el"><![CDATA[μορφή αριθμού]]></translation>
+      <translation locale="pt"><![CDATA[formato de número]]></translation>
+      <translation locale="pl"><![CDATA[format liczb]]></translation>
+    </item>
+    <item type="label" name="DateTimeOrder">
+      <translation locale="nl"><![CDATA[datum en tijd volgorde]]></translation>
+      <translation locale="en"><![CDATA[date time order]]></translation>
+    </item>
     <Internationalisation>
       <item type="label" name="ReferenceCode">
         <translation locale="nl"><![CDATA[referentiecode]]></translation>

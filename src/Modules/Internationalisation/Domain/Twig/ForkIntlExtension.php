@@ -2,7 +2,6 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Twig;
 
-use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use ForkCMS\Modules\Backend\Domain\User\Event\BuildUserSettingsFormEvent;
@@ -17,7 +16,6 @@ use IntlDateFormatter;
 use Locale as IntlLocale;
 use NumberFormatter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -55,7 +53,6 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
         private readonly InstalledLocaleRepository $installedLocaleRepository,
         private readonly ModulesSettings $modulesSettings,
         private readonly Security $security,
-        private readonly Environment $twig,
         private readonly RequestStack $requestStack,
     ) {
     }
@@ -374,12 +371,12 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
 
     public static function getSubscribedEvents(): array
     {
-       return [
-           BuildUserSettingsFormEvent::class => 'onBuildUserSettingsForm',
-           KernelEvents::REQUEST => [['userLocale', 100]],
-           KernelEvents::REQUEST => [['userLocale', 16]], // it gets reset, we need do it again
-           UserChangedEvent::class => 'onUserChanged',
-       ];
+        return [
+            BuildUserSettingsFormEvent::class => 'onBuildUserSettingsForm',
+            KernelEvents::REQUEST => [['userLocale', 100]],
+            KernelEvents::REQUEST => [['userLocale', 16]], // it gets reset, we need do it again
+            UserChangedEvent::class => 'onUserChanged',
+        ];
     }
 
     public function userLocale(RequestEvent $event): void
@@ -404,63 +401,12 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
 
     public function onBuildUserSettingsForm(BuildUserSettingsFormEvent $formEvent): void
     {
-        $yesterday = DateTimeImmutable::createFromFormat('Y/m/d H:i:s', '1991/03/24 02:50:01');
-        $yesterday->setTime(22, 40, 58);
-        $coreModule = ModuleName::core();
-
         $formEvent->formBuilder->add(
-            'date_format_short',
-            ChoiceType::class,
+            'formatSettings',
+            FormatSettingsType::class,
             [
-                'label' => 'lbl.DateFormatShort',
-                'choices' => array_flip($this->modulesSettings->get($coreModule, 'date_formats_short')),
-                'choice_label' => function ($value, $key) use ($yesterday): string {
-                    return $this->formatDate($this->twig, $yesterday, null, $key);
-                },
-                'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
-                'choice_translation_domain' => false,
-            ]
-        )->add(
-            'date_format_long',
-            ChoiceType::class,
-            [
-                'label' => 'lbl.DateFormatLong',
-                'choices' => array_flip($this->modulesSettings->get($coreModule, 'date_formats_long')),
-                'choice_label' => function ($value, $key) use ($yesterday): string {
-                    return $this->formatDate($this->twig, $yesterday, null, $key);
-                },
-                'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
-                'choice_translation_domain' => false,
-            ]
-        )->add(
-            'time_format',
-            ChoiceType::class,
-            [
-                'label' => 'lbl.TimeFormat',
-                'choices' => array_flip($this->modulesSettings->get($coreModule, 'time_formats')),
-                'choice_label' => function ($value, $key) use ($yesterday): string {
-                    return $this->formatDate($this->twig, $yesterday, null, $key);
-                },
-                'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
-                'choice_translation_domain' => false,
-            ]
-        )->add(
-            'date_time_order',
-            ChoiceType::class,
-            [
-                'label' => 'lbl.DateTimeOrder',
-                'choices' => $this->modulesSettings->get($coreModule, 'date_time_orders'),
-                'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
-                'choice_translation_domain' => false,
-            ]
-        )->add(
-            'number_format',
-            ChoiceType::class,
-            [
-                'label' => 'lbl.NumberFormat',
-                'choices' => $this->modulesSettings->get($coreModule, 'number_formats'),
-                'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
-                'choice_translation_domain' => false,
+                'label' => false,
+                'compound' => true,
             ]
         );
     }
