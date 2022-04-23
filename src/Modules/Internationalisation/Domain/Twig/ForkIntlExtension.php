@@ -2,8 +2,11 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Twig;
 
+use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
+use ForkCMS\Modules\Backend\Domain\User\Event\BuildUserSettingsFormEvent;
+use ForkCMS\Modules\Backend\Domain\User\Event\UserChangedEvent;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModulesSettings;
@@ -11,7 +14,13 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocale;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use IntlDateFormatter;
+use Locale as IntlLocale;
 use NumberFormatter;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -19,12 +28,35 @@ use Twig\Extra\Intl\IntlExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
-final class ForkIntlExtension extends AbstractExtension
+/**
+ * @method string getCountryName(?string $country, string $locale = null)
+ * @method string getCurrencyName(?string $currency, string $locale = null)
+ * @method string getCurrencySymbol(?string $currency, string $locale = null)
+ * @method string getLanguageName(?string $language, string $locale = null)
+ * @method string getLocaleName(?string $data, string $locale = null)
+ * @method string getTimezoneName(?string $timezone, string $locale = null)
+ * @method array getCountryTimezones(string $country)
+ * @method string formatCurrency($amount, string $currency, array $attrs = [], string $locale = null)
+ * @method string formatNumber($number, array $attrs = [], string $style = 'decimal', string $type = 'default', string $locale = null)
+ * @method string formatNumberStyle(string $style, $number, array $attrs = [], string $type = 'default', string $locale = null)
+ * @method string formatDateTime(Environment $env, mixed $date, ?string $dateFormat = 'medium', ?string $timeFormat = 'medium', string $pattern = '', mixed $timezone = null, string $calendar = 'gregorian', string $locale = null)
+ * @method string formatDate(Environment $env, mixed $date, ?string $dateFormat = 'medium', string $pattern = '', mixed $timezone = null, string $calendar = 'gregorian', string $locale = null)
+ * @method string formatTime(Environment $env, ?string $timeFormat = 'medium', string $pattern = '', $timezone = null, string $calendar = 'gregorian', string $locale = null)
+ * @method string formatUserCurrency($amount, string $currency, array $attrs = [], string $locale = null)
+ * @method string formatUserNumber($number, array $attrs = [], string $style = 'decimal', string $type = 'default', string $locale = null)
+ * @method string formatUserNumberStyle(string $style, $number, array $attrs = [], string $type = 'default', string $locale = null)
+ * @method string formatUserDateTime(Environment $env, mixed $date, ?string $dateFormat = 'medium', ?string $timeFormat = 'medium', string $pattern = '', mixed $timezone = null, string $calendar = 'gregorian', string $locale = null)
+ * @method string formatUserDate(Environment $env, mixed $date, ?string $dateFormat = 'medium', string $pattern = '', mixed $timezone = null, string $calendar = 'gregorian', string $locale = null)
+ * @method string formatUserTime(Environment $env, ?string $timeFormat = 'medium', string $pattern = '', $timezone = null, string $calendar = 'gregorian', string $locale = null)
+ */
+final class ForkIntlExtension extends AbstractExtension implements EventSubscriberInterface
 {
     public function __construct(
         private readonly InstalledLocaleRepository $installedLocaleRepository,
         private readonly ModulesSettings $modulesSettings,
         private readonly Security $security,
+        private readonly Environment $twig,
+        private readonly RequestStack $requestStack,
     ) {
     }
 
@@ -338,5 +370,98 @@ final class ForkIntlExtension extends AbstractExtension
         $cache[$locale->value] = $this->installedLocaleRepository->find($locale->value);
 
         return $cache[$locale->value];
+    }
+
+    public static function getSubscribedEvents(): array
+    {
+       return [
+           BuildUserSettingsFormEvent::class => 'onBuildUserSettingsForm',
+           KernelEvents::REQUEST => [['userLocale', 100]],
+           KernelEvents::REQUEST => [['userLocale', 16]], // it gets reset, we need do it again
+           UserChangedEvent::class => 'onUserChanged',
+       ];
+    }
+
+    public function userLocale(RequestEvent $event): void
+    {
+        $request = $event->getRequest();
+        if ($request->hasPreviousSession()) {
+            $session = $request->getSession();
+
+            if ($session->has('user_locale')) {
+                IntlLocale::setDefault($session->get('user_locale'));
+            }
+        }
+    }
+
+    public function onUserChanged(UserChangedEvent $event): void
+    {
+        if ($event->user === $this->security->getUser()) {
+            $session = $this->requestStack->getSession();
+            $session->set('user_locale', $event->user->getSetting('locale'));
+        }
+    }
+
+    public function onBuildUserSettingsForm(BuildUserSettingsFormEvent $formEvent): void
+    {
+        $yesterday = DateTimeImmutable::createFromFormat('Y/m/d H:i:s', '1991/03/24 02:50:01');
+        $yesterday->setTime(22, 40, 58);
+        $coreModule = ModuleName::core();
+
+        $formEvent->formBuilder->add(
+            'date_format_short',
+            ChoiceType::class,
+            [
+                'label' => 'lbl.DateFormatShort',
+                'choices' => array_flip($this->modulesSettings->get($coreModule, 'date_formats_short')),
+                'choice_label' => function ($value, $key) use ($yesterday): string {
+                    return $this->formatDate($this->twig, $yesterday, null, $key);
+                },
+                'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
+                'choice_translation_domain' => false,
+            ]
+        )->add(
+            'date_format_long',
+            ChoiceType::class,
+            [
+                'label' => 'lbl.DateFormatLong',
+                'choices' => array_flip($this->modulesSettings->get($coreModule, 'date_formats_long')),
+                'choice_label' => function ($value, $key) use ($yesterday): string {
+                    return $this->formatDate($this->twig, $yesterday, null, $key);
+                },
+                'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
+                'choice_translation_domain' => false,
+            ]
+        )->add(
+            'time_format',
+            ChoiceType::class,
+            [
+                'label' => 'lbl.TimeFormat',
+                'choices' => array_flip($this->modulesSettings->get($coreModule, 'time_formats')),
+                'choice_label' => function ($value, $key) use ($yesterday): string {
+                    return $this->formatDate($this->twig, $yesterday, null, $key);
+                },
+                'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
+                'choice_translation_domain' => false,
+            ]
+        )->add(
+            'date_time_order',
+            ChoiceType::class,
+            [
+                'label' => 'lbl.DateTimeOrder',
+                'choices' => $this->modulesSettings->get($coreModule, 'date_time_orders'),
+                'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
+                'choice_translation_domain' => false,
+            ]
+        )->add(
+            'number_format',
+            ChoiceType::class,
+            [
+                'label' => 'lbl.NumberFormat',
+                'choices' => $this->modulesSettings->get($coreModule, 'number_formats'),
+                'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
+                'choice_translation_domain' => false,
+            ]
+        );
     }
 }

@@ -60,10 +60,12 @@ final class UserType extends AbstractType
                                     'first_options' => [
                                         'label' => 'lbl.Password',
                                         'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
+                                        'attr' => ['autocomplete' => 'new-password'],
                                     ],
                                     'second_options' => [
                                         'label' => 'lbl.ConfirmPassword',
                                         'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
+                                        'attr' => ['autocomplete' => 'new-password'],
                                     ],
                                     'required' => in_array('create', $options['validation_groups'] ?? [], true),
                                 ]
@@ -106,6 +108,7 @@ final class UserType extends AbstractType
                             FormType::class,
                             [
                                 'label' => false,
+                                'attr' => ['class' => 'row'],
                             ]
                         )->get('settings');
                         $settings->addModelTransformer(

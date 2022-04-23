@@ -7,12 +7,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 final class BuildUserSettingsFormEvent extends Event
 {
-    public function __construct(private FormBuilderInterface $formBuilder)
+    public function __construct(public readonly FormBuilderInterface $formBuilder)
     {
-    }
-
-    public function getFormBuilder(): FormBuilderInterface
-    {
-        return $this->formBuilder;
     }
 }

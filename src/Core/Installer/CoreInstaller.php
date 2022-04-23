@@ -85,8 +85,8 @@ final class CoreInstaller extends ModuleInstaller
         $this->setSetting(
             'date_time_orders',
             [
-                '14/12/2020 13:40' => '%1$s %2$s',
-                '13:40 14/12/2020' => '%2$s %1$s',
+                '1991/03/24 02:40' => '%1$s %2$s',
+                '02:40 1991/03/24' => '%2$s %1$s',
             ]
         );
     }
