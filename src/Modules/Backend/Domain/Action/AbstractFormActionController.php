@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Backend\Domain\Action;
 use ForkCMS\Core\Domain\Form\ActionType;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,12 +24,13 @@ abstract class AbstractFormActionController extends AbstractActionController
     abstract protected function getFormResponse(Request $request): ?Response;
 
     /**
+     * @param class-string<FormTypeInterface> $formType
      * @param array<string, mixed> $formOptions
      * @param callable(FormInterface):Response|callable(FormInterface):FormInterface|callable(FormInterface):null|null $defaultCallback
      * @param callable(FormInterface):Response|callable(FormInterface):FormInterface|callable(FormInterface):null|null $validCallback
      * @param callable(FormInterface):FlashMessage|null $flashMessageCallback
      */
-    protected function handleForm(
+    final protected function handleForm(
         Request $request,
         string $formType,
         object $formData = null,
@@ -71,7 +73,7 @@ abstract class AbstractFormActionController extends AbstractActionController
      * @param array<string, mixed> $data
      * @param array<string, mixed> $options
      */
-    protected function addDeleteForm(
+    final protected function addDeleteForm(
         array $data,
         ActionSlug $deleteActionSlug,
         string $formType = ActionType::class,
@@ -85,6 +87,24 @@ abstract class AbstractFormActionController extends AbstractActionController
                 $data,
                 array_merge(['actionSlug' => $deleteActionSlug], $options)
             )->createView()
+        );
+    }
+
+    /**
+     * @param class-string<FormTypeInterface> $formType
+     * @param array<string, mixed> $formOptions
+     */
+    final protected function handleSettingsForm(
+        Request $request,
+        string $formType,
+        object $formData
+    ): Response|FormInterface|null {
+        return $this->handleForm(
+            $request,
+            $formType,
+            $formData,
+            FlashMessage::success('SettingsSaved'),
+            new RedirectResponse(self::getActionSlug()->generateRoute($this->router))
         );
     }
 }

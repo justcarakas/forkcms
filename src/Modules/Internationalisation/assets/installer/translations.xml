@@ -22,6 +22,23 @@
       <translation locale="nl"><![CDATA[vertalingen]]></translation>
       <translation locale="en"><![CDATA[internationalisation]]></translation>
     </item>
+    <item type="label" name="Languages">
+      <translation locale="nl"><![CDATA[talen]]></translation>
+      <translation locale="en"><![CDATA[languages]]></translation>
+      <translation locale="hu"><![CDATA[nyelvek]]></translation>
+      <translation locale="it"><![CDATA[lingue]]></translation>
+      <translation locale="ru"><![CDATA[Языки]]></translation>
+      <translation locale="zh"><![CDATA[语言]]></translation>
+      <translation locale="de"><![CDATA[Sprachen]]></translation>
+      <translation locale="fr"><![CDATA[languages]]></translation>
+      <translation locale="es"><![CDATA[idiomas]]></translation>
+      <translation locale="lt"><![CDATA[kalbos]]></translation>
+      <translation locale="uk"><![CDATA[Мови]]></translation>
+      <translation locale="sv"><![CDATA[språk]]></translation>
+      <translation locale="el"><![CDATA[γλώσσες]]></translation>
+      <translation locale="pt"><![CDATA[idiomas]]></translation>
+      <translation locale="pl"><![CDATA[języki]]></translation>
+    </item>
     <item type="label" name="Translations">
       <translation locale="nl"><![CDATA[vertalingen]]></translation>
       <translation locale="en"><![CDATA[translations]]></translation>
@@ -490,6 +507,26 @@
         <translation locale="el"><![CDATA[Επικάλυψη]]></translation>
         <translation locale="pl"><![CDATA[nadpisz]]></translation>
         <translation locale="pt"><![CDATA[substituir]]></translation>
+      </item>
+      <item type="label" name="EnabledForWebsite">
+        <translation locale="nl"><![CDATA[toegankelijk zijn voor bezoekers]]></translation>
+        <translation locale="en"><![CDATA[accessible for visitors]]></translation>
+      </item>
+      <item type="label" name="EnabledForUser">
+        <translation locale="nl"><![CDATA[toegankelijk zijn voor gebruikers]]></translation>
+        <translation locale="en"><![CDATA[accessible for users]]></translation>
+      </item>
+      <item type="label" name="DefaultForWebsite">
+        <translation locale="nl"><![CDATA[standaard zijn voor bezoekers]]></translation>
+        <translation locale="en"><![CDATA[default for visitors]]></translation>
+      </item>
+      <item type="label" name="DefaultForUser">
+        <translation locale="nl"><![CDATA[standaard zijn voor gebruikers]]></translation>
+        <translation locale="en"><![CDATA[default for users]]></translation>
+      </item>
+      <item type="label" name="EnabledForBrowserLocaleRedirect">
+        <translation locale="nl"><![CDATA[Automatische redirect op basis van browsertaal]]></translation>
+        <translation locale="en"><![CDATA[Automatic redirect based upon their browser language.]]></translation>
       </item>
     </Internationalisation>
   </Backend>

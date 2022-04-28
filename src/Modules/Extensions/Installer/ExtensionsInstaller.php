@@ -50,7 +50,8 @@ final class ExtensionsInstaller extends ModuleInstaller
                 ModuleDetail::getActionSlug(),
                 ModuleInstall::getActionSlug(),
                 ModuleUpload::getActionSlug(),
-            ]
+            ],
+            0
         );
 
         $themeSettings = $this->getOrCreateBackendNavigationItem(

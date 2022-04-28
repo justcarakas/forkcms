@@ -33,6 +33,8 @@ final class TranslatorPass implements CompilerPassInterface
                 'enabled_locales' => array_keys($locales),
             ]
         );
+        $container->setParameter('kernel.default_locale', $defaultLocale);
+        $container->setParameter('kernel.enabled_locales', array_keys($locales));
 
         foreach ($domains as $domain) {
             foreach ($locales as $locale => $isDefault) {

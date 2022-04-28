@@ -5,6 +5,8 @@ namespace ForkCMS\Modules\Internationalisation\Installer;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
 use ForkCMS\Modules\Installer\Domain\Configuration\InstallerConfiguration;
+use ForkCMS\Modules\Internationalisation\Backend\Actions\InstalledLocaleSettings;
+use ForkCMS\Modules\Internationalisation\Backend\Actions\ModuleSettings;
 use ForkCMS\Modules\Internationalisation\Backend\Actions\TranslationAdd;
 use ForkCMS\Modules\Internationalisation\Backend\Actions\TranslationDelete;
 use ForkCMS\Modules\Internationalisation\Backend\Actions\TranslationEdit;
@@ -12,6 +14,7 @@ use ForkCMS\Modules\Internationalisation\Backend\Actions\TranslationExport;
 use ForkCMS\Modules\Internationalisation\Backend\Actions\TranslationImport;
 use ForkCMS\Modules\Internationalisation\Backend\Actions\TranslationIndex;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocale;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleDataTransferObject;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Translation;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
@@ -40,6 +43,11 @@ final class InternationalisationInstaller extends ModuleInstaller
                 TranslationImport::getActionSlug(),
                 TranslationExport::getActionSlug(),
             ],
+        );
+        $this->getOrCreateBackendNavigationItem(
+            TranslationKey::label('Languages'),
+            ModuleSettings::getActionSlug(),
+            $this->getModulesSettingsNavigationItem()
         );
     }
 
@@ -70,25 +78,15 @@ final class InternationalisationInstaller extends ModuleInstaller
         $localeConfig[$installerConfiguration->getDefaultUserLocale()->value]['isDefaultForUser'] = true;
 
         foreach ($localeConfig as $locale => $config) {
-            $this->installedLocaleRepository->save(
-                new InstalledLocale(
-                    Locale::from($locale),
-                    $config['isEnabledForWebsite'],
-                    $config['isDefaultForWebsite'],
-                    $config['isEnabledForWebsite'],
-                    $config['isEnabledForUser'],
-                    $config['isDefaultForUser'],
-                    new SettingsBag(
-                        [
-                            'date_format_short' => $_ENV['FORK_DEFAULT_DATE_FORMAT_SHORT'],
-                            'date_format_long' => $_ENV['FORK_DEFAULT_DATE_FORMAT_LONG'],
-                            'time_format' => $_ENV['FORK_DEFAULT_TIME_FORMAT'],
-                            'number_format' => $_ENV['FORK_DEFAULT_NUMBER_FORMAT'],
-                            'date_time_order' => $_ENV['FORK_DEFAULT_DATE_TIME_ORDER'],
-                        ]
-                    )
-                )
-            );
+            $installedLocale = new InstalledLocaleDataTransferObject();
+            $installedLocale->locale = Locale::from($locale);
+            $installedLocale->isDefaultForWebsite = $config['isDefaultForWebsite'];
+            $installedLocale->isEnabledForWebsite = $config['isEnabledForWebsite'];
+            $installedLocale->isEnabledForBrowserLocaleRedirect = $config['isEnabledForWebsite'];
+            $installedLocale->isEnabledForUser = $config['isEnabledForUser'];
+            $installedLocale->isDefaultForUser = $config['isDefaultForUser'];
+
+            $this->installedLocaleRepository->save(InstalledLocale::fromDataTransferObject($installedLocale));
         }
     }
 }

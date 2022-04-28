@@ -255,15 +255,6 @@ abstract class ModuleInstaller
         );
     }
 
-    final protected function getModuleSettingsNavigationItem(): NavigationItem
-    {
-        return $this->getOrCreateBackendNavigationItem(
-            TranslationKey::label('Modules'),
-            null,
-            $this->getSettingsNavigationItem(),
-        );
-    }
-
     /**
      * @param UserGroup|null $userGroup Defaults to the admin user group
      */

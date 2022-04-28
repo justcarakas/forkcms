@@ -39,6 +39,9 @@ final class CoreInstaller extends ModuleInstaller
                 'm/d/y' => 'MM/dd/yy',
                 'm-d-y' => 'MM-dd-yy',
                 'm.d.y' => 'MM.dd.yy',
+                'Y/m/d' => 'yyyy/MM/dd',
+                'Y-m-d' => 'yyyy-MM-dd',
+                'Y.m.d' => 'yyyy.MM.dd',
             ]
         );
         $this->setSetting(

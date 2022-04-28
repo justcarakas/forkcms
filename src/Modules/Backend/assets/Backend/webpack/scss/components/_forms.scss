@@ -161,6 +161,25 @@ fieldset {
   }
 }
 
+.fieldset-tab-pane {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-top: -16px;
+
+  fieldset {
+    border-bottom-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    padding: 0;
+    margin-bottom: 0;
+  }
+
+  @include media-breakpoint-up(lg) {
+    margin-left: -25px;
+    margin-right: -25px;
+    margin-top: -31px;
+  }
+}
 .select2-container--bootstrap {
   .select2-results__options--nested {
     margin: 0 1rem;

@@ -17,6 +17,8 @@ final class TabsType extends AbstractType
                 [
                     'fields' => $fields,
                     'label' => $label,
+                    'inherit_data' => $options['tab_inherit_data'],
+                    'attr' => $options['tab_attr'],
                 ]
             );
         }
@@ -28,9 +30,11 @@ final class TabsType extends AbstractType
             ->setDefaults(
                 [
                     'inherit_data' => true,
+                    'tab_inherit_data' => true,
                     'options' => [],
                     'tabs' => [],
                     'label' => false,
+                    'tab_attr' => [],
                 ]
             )
             ->addAllowedTypes('tabs', 'array');

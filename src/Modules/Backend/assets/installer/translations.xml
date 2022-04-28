@@ -18,6 +18,40 @@
       <translation locale="pt"><![CDATA[importar]]></translation>
       <translation locale="pl"><![CDATA[importuj]]></translation>
     </item>
+    <item type="message" name="SettingsSaved">
+      <translation locale="nl"><![CDATA[De instellingen werden gewijzigd.]]></translation>
+      <translation locale="en"><![CDATA[The settings were saved.]]></translation>
+      <translation locale="fr"><![CDATA[Vos modifications ont été enregistrées.]]></translation>
+      <translation locale="hu"><![CDATA[A beállítások elmentve.]]></translation>
+      <translation locale="it"><![CDATA[Le impostazioni sono state salvate.]]></translation>
+      <translation locale="ru"><![CDATA[Изменения сохранены.]]></translation>
+      <translation locale="zh"><![CDATA[设置已保存。]]></translation>
+      <translation locale="de"><![CDATA[Die Einstellungen wurden gespeichert.]]></translation>
+      <translation locale="es"><![CDATA[Tu configuración ha sido guardada.]]></translation>
+      <translation locale="lt"><![CDATA[Nustatymai išsaugoti.]]></translation>
+      <translation locale="uk"><![CDATA[Налаштування збережені]]></translation>
+      <translation locale="sv"><![CDATA[Dina inställningar har sparats.]]></translation>
+      <translation locale="el"><![CDATA[Οι ρυθμίσεις σας αποθηκεύτηκαν.]]></translation>
+      <translation locale="pl"><![CDATA[Ustawienia zostały zapisane]]></translation>
+      <translation locale="pt"><![CDATA[As suas preferências foram guardadas com sucesso.]]></translation>
+    </item>
+    <item type="label" name="ModuleSettings">
+      <translation locale="nl"><![CDATA[module-instellingen]]></translation>
+      <translation locale="en"><![CDATA[module settings]]></translation>
+      <translation locale="hu"><![CDATA[modul beállítások]]></translation>
+      <translation locale="it"><![CDATA[impostazioni modulo]]></translation>
+      <translation locale="ru"><![CDATA[Настройки модуля]]></translation>
+      <translation locale="zh"><![CDATA[模块设置]]></translation>
+      <translation locale="de"><![CDATA[Modul-Einstellungen]]></translation>
+      <translation locale="fr"><![CDATA[réglages module]]></translation>
+      <translation locale="es"><![CDATA[configuración del módulo]]></translation>
+      <translation locale="lt"><![CDATA[cmodulio nustatymai]]></translation>
+      <translation locale="uk"><![CDATA[Налаштування модуля]]></translation>
+      <translation locale="sv"><![CDATA[modulinställningar]]></translation>
+      <translation locale="el"><![CDATA[ρυθμίσεις ενότητας]]></translation>
+      <translation locale="pt"><![CDATA[configuração do módulo]]></translation>
+      <translation locale="pl"><![CDATA[ustawienia modułu]]></translation>
+    </item>
     <item type="label" name="File">
       <translation locale="nl"><![CDATA[bestand]]></translation>
       <translation locale="en"><![CDATA[file]]></translation>

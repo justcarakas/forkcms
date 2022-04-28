@@ -36,22 +36,23 @@ class InstalledLocale
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isDefaultForUser;
 
-    public function __construct(
-        Locale $locale,
-        bool $isEnabledForWebsite = true,
-        bool $isDefaultForWebsite = false,
-        bool $isEnabledForBrowserLocaleRedirect = true,
-        bool $isEnabledForUser = true,
-        bool $isDefaultForUser = false,
-        SettingsBag $settings = new SettingsBag(),
-    ) {
+    private function __construct(Locale $locale)
+    {
         $this->locale = $locale;
-        $this->isEnabledForWebsite = $isEnabledForWebsite;
-        $this->isDefaultForWebsite = $isDefaultForWebsite;
-        $this->isEnabledForBrowserLocaleRedirect = $isEnabledForBrowserLocaleRedirect;
-        $this->isEnabledForUser = $isEnabledForUser;
-        $this->isDefaultForUser = $isDefaultForUser;
-        $this->settings = $settings;
+    }
+
+    public static function fromDataTransferObject(InstalledLocaleDataTransferObject $locale): self
+    {
+        $installedLocale = $locale->hasEntity() ? $locale->getEntity() : new self($locale->locale);
+
+        $installedLocale->isEnabledForWebsite = $locale->isEnabledForWebsite;
+        $installedLocale->isDefaultForWebsite = $locale->isDefaultForWebsite;
+        $installedLocale->isEnabledForBrowserLocaleRedirect = $locale->isEnabledForBrowserLocaleRedirect;
+        $installedLocale->isEnabledForUser = $locale->isEnabledForUser;
+        $installedLocale->isDefaultForUser = $locale->isDefaultForUser;
+        $installedLocale->settings = new SettingsBag($locale->settings);
+
+        return $installedLocale;
     }
 
     public function getLocale(): Locale
