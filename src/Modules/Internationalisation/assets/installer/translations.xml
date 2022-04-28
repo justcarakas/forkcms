@@ -513,16 +513,16 @@
         <translation locale="en"><![CDATA[accessible for visitors]]></translation>
       </item>
       <item type="label" name="EnabledForUser">
-        <translation locale="nl"><![CDATA[toegankelijk zijn voor gebruikers]]></translation>
-        <translation locale="en"><![CDATA[accessible for users]]></translation>
+        <translation locale="nl"><![CDATA[beschikbaar als interface taal]]></translation>
+        <translation locale="en"><![CDATA[available as interface locale]]></translation>
       </item>
       <item type="label" name="DefaultForWebsite">
         <translation locale="nl"><![CDATA[standaard zijn voor bezoekers]]></translation>
         <translation locale="en"><![CDATA[default for visitors]]></translation>
       </item>
       <item type="label" name="DefaultForUser">
-        <translation locale="nl"><![CDATA[standaard zijn voor gebruikers]]></translation>
-        <translation locale="en"><![CDATA[default for users]]></translation>
+        <translation locale="nl"><![CDATA[standaard interface taal]]></translation>
+        <translation locale="en"><![CDATA[default interface locale]]></translation>
       </item>
       <item type="label" name="EnabledForBrowserLocaleRedirect">
         <translation locale="nl"><![CDATA[Automatische redirect op basis van browsertaal]]></translation>

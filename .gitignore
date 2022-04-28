@@ -18,7 +18,7 @@ fork-cms-installation-configuration.yaml
 .DS_Store
 /var/cache/*
 /var/log/*
-/app/sessions/*
+/var/sessions/*
 /bin/*
 !bin/console
 /bundles/*

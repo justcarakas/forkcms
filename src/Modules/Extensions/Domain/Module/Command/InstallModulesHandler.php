@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Module\Command;
 
+use ForkCMS\Core\Domain\Kernel\Event\ClearCacheEvent;
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
 use ForkCMS\Modules\Extensions\Domain\Module\Event\ModuleInstalledEvent;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
@@ -31,5 +32,6 @@ final class InstallModulesHandler implements CommandHandlerInterface
         }
 
         $this->eventDispatcher->dispatch(new ModuleInstalledEvent(...$installModules->getModuleNames()));
+        $this->eventDispatcher->dispatch(new ClearCacheEvent());
     }
 }
