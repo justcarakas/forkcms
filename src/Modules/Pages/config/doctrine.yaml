@@ -1,7 +1,3 @@
 doctrine:
-    dbal:
-        types:
-            modules__pages__module_extra__module_extra_type: ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraTypeDBALType
-            modules__pages__page_block__type: ForkCMS\Modules\Pages\Domain\PageBlock\TypeDBALType
-            modules__pages__page__status: ForkCMS\Modules\Pages\Domain\Page\StatusDBALType
-            modules__pages__page__type: ForkCMS\Modules\Pages\Domain\Page\TypeDBALType
+  dbal:
+    types:

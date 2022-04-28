@@ -54,4 +54,16 @@ final class InstalledLocaleRepository extends ServiceEntityRepository
             $this->findAllIndexed()
         );
     }
+
+    /** @return string[] */
+    public function findRedirectLocales(): array
+    {
+        return $this->createQueryBuilder('l', 'l.locale')
+            ->select('l.locale')
+            ->andWhere('l.isEnabledForBrowserLocaleRedirect = :isEnabledForBrowserLocaleRedirect')
+            ->setParameter('isEnabledForBrowserLocaleRedirect', true)
+            ->orderBy('l.isDefaultForWebsite', 'DESC')
+            ->getQuery()
+            ->getSingleColumnResult();
+    }
 }

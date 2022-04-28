@@ -1,24 +1,13 @@
-imports:
-  - { resource: commands.yaml }
-
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: true
-#        bind:
-#            $siteIsMultiLingual: '%site.multilanguage%'
-#
-#    ForkCMS\Modules\Pages\Api\:
-#        resource: '../Api/*'
-#    ForkCMS\Modules\Pages\Domain\ModuleExtra\ModuleExtraRepository: ~
-#    ForkCMS\Modules\Pages\Domain\PageBlock\PageBlockRepository: ~
-#    ForkCMS\Modules\Pages\Domain\PageBlock\PageBlockType:
-#    ForkCMS\Modules\Pages\Domain\Page\Form\:
-#        resource: '../Domain/Page/Form/*'
-#    ForkCMS\Modules\Pages\Domain\Page\PageRepository: ~
-#    ForkCMS\Modules\Pages\Backend\Helper\CacheBuilder: ~
-#
-#    ForkCMS\Modules\Pages\Domain\Page\Command\CopyPagesToOtherLocale:
-#        tags:
-#            - { name: fork.copy_module_to_other_locale }
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  ForkCMS\Modules\Pages\Domain\:
+    resource: '../Domain/*'
+
+  ForkCMS\Modules\Pages\Controller\:
+    resource: '../Controller/*'
+    public: true
+
+  ForkCMS\Modules\Pages\DependencyInjection\PagesRouteLoader:

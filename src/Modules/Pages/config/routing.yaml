@@ -1,4 +1,0 @@
-pages_api:
-    type:     annotation
-    prefix:   /api
-    resource: ForkCMS\Modules\Pages\Api\PageController

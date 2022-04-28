@@ -10,6 +10,5 @@ final class PagesInstaller extends ModuleInstaller
 
     public function install(): void
     {
-        throw new \RuntimeException('Not implemented yet');
     }
 }
