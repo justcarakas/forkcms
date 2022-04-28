@@ -2,10 +2,8 @@
 
 namespace ForkCMS\Modules\Backend\Domain\User;
 
-use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use LogicException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 
@@ -13,8 +11,6 @@ final class UserEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private readonly UserRepository $userRepository,
-        private readonly Security $security,
-        private readonly InstalledLocaleRepository $installedLocaleRepository,
     ) {
     }
 

@@ -12,7 +12,7 @@ final class ChangeModuleSettingsHandler implements CommandHandlerInterface
     {
     }
 
-    public function __invoke(ChangeModuleSettings $changeSettings)
+    public function __invoke(ChangeModuleSettings $changeSettings): void
     {
         foreach ($changeSettings->installedLocales as $locale) {
             $locale->isDefaultForUser = $locale->locale === $changeSettings->defaultForUser;

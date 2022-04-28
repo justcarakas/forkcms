@@ -63,7 +63,7 @@ final class ModulesSettings implements EventSubscriberInterface
     /**
      * Get all module settings for a module
      *
-     * @param ModuleName $module The module wherefore a setting has to be retrieved.
+     * @param ModuleName $moduleName The module wherefore a setting has to be retrieved.
      *
      * @return array<string, mixed>
      */

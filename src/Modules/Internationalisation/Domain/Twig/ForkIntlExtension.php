@@ -72,7 +72,6 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
                     ['needs_environment' => $filter->needsEnvironment()]
                 );
             },
-
             $this->getIntlExtension('formatDateTime', Locale::default())->getFilters()
         );
 
@@ -155,6 +154,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
             return $extensions[$cacheKey];
         }
 
+        /** @var User|null $user */
         $user = str_contains($function, 'User') ? $this->security->getUser() : null;
         $dateFormatType = str_contains($function, 'LongDate') ? 'long' : 'short';
         $installedLocale = $this->getInstalledLocale($locale);
@@ -193,7 +193,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
             $numberFormat = $user->getSetting('number_format', $numberFormat);
         }
 
-        $numberFormatter = new NumberFormatter(null, NumberFormatter::DECIMAL, '#,##0.####################');
+        $numberFormatter = new NumberFormatter($locale->getLocale()->value, NumberFormatter::DECIMAL, '#,##0.####################');
         $separatorSymbols = array_map(
             static fn (string $separator): string => str_replace(
                 ['comma', 'dot', 'space', 'nothing'],
@@ -235,8 +235,8 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
 
         $dateFormatter[$cacheKey] = new IntlDateFormatter(
             null,
-            null,
-            null,
+            IntlDateFormatter::SHORT,
+            IntlDateFormatter::SHORT,
             null,
             null,
             sprintf($order, $dateFormat, $timeFormat)
@@ -373,8 +373,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
     {
         return [
             BuildUserSettingsFormEvent::class => 'onBuildUserSettingsForm',
-            KernelEvents::REQUEST => [['userLocale', 100]],
-            KernelEvents::REQUEST => [['userLocale', 16]], // it gets reset, we need do it again
+            KernelEvents::REQUEST => [['userLocale', 100], ['userLocale', 16]], // it gets reset, we need do it again
             UserChangedEvent::class => 'onUserChanged',
         ];
     }

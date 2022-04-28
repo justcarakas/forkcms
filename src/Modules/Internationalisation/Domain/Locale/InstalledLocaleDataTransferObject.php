@@ -4,6 +4,9 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
 use ArrayAccess;
 
+/**
+ * @implements ArrayAccess<string, null|Locale|bool|array<string,mixed>>
+ */
 final class InstalledLocaleDataTransferObject implements ArrayAccess
 {
     public ?Locale $locale = null;
@@ -12,6 +15,7 @@ final class InstalledLocaleDataTransferObject implements ArrayAccess
     public bool $isEnabledForBrowserLocaleRedirect = true;
     public bool $isEnabledForUser = true;
     public bool $isDefaultForUser = false;
+    /** @var array<string,mixed> */
     public array $settings;
 
     public function __construct(protected ?InstalledLocale $installedLocale = null)
