@@ -16,7 +16,7 @@ use ForkCMS\Core\Common\Uri;
  */
 class MetaRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)//, private ContainerInterface $serviceProvider) use interface for classes that implement this
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Meta::class);
     }
@@ -24,14 +24,13 @@ class MetaRepository extends ServiceEntityRepository
     /**
      * Generate an url, using the predefined callback.
      *
-     * @param string $url The base-url to start from.
+     * @param string $url the base-url to start from
      * @param string $class The Fully Qualified Class Name or service name
      * @param string $method The method that needs to be called
      * @param array<string, mixed> $parameters The parameters for the callback
      *
      * @throws Exception When the function does not exist
      *
-     * @return string
      * @TODO refactor
      */
     public function generateUrl(string $url, string $class, string $method, array $parameters = []): string

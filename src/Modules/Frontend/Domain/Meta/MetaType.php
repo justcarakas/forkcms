@@ -162,9 +162,7 @@ class MetaType extends AbstractType
             $metaData = $event->getData();
             $parentForm = $metaForm->getParent();
             if ($parentForm === null) {
-                throw new LogicException(
-                    'The MetaType is not a stand alone type, it needs to be used in a parent form'
-                );
+                throw new LogicException('The MetaType is not a stand alone type, it needs to be used in a parent form');
             }
 
             if (!$parentForm->has($baseFieldName)) {
@@ -319,9 +317,7 @@ class MetaType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         if ($view->parent === null) {
-            throw new LogicException(
-                'The MetaType is not a stand alone type, it needs to be used in a parent form'
-            );
+            throw new LogicException('The MetaType is not a stand alone type, it needs to be used in a parent form');
         }
 
         if (!isset($view->parent->children[$options['base_field_name']])) {
