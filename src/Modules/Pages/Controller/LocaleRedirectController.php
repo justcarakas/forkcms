@@ -22,21 +22,20 @@ final class LocaleRedirectController
 
     public function __invoke(Request $request): Response
     {
-        if (
-            $request->attributes->get('_route') === self::ROUTE_MONOLINGUAL
-            || $request->getPathInfo() === '/'
-        ) {
-            return new RedirectResponse(
-                $this->router->generate(
-                    self::ROUTE_MULTILINGUAL,
-                    [
-                        '_locale' => $request->getPreferredLanguage(
-                            $this->installedLocaleRepository->findRedirectLocales()
-                        ),
-                        'path' => $request->attributes->get('path'),
-                    ]
-                )
+        if ($request->attributes->get('_route') === self::ROUTE_MONOLINGUAL || $request->getPathInfo() === '/') {
+            $locale = $request->getPreferredLanguage($this->installedLocaleRepository->findRedirectLocales());
+            $path = $this->router->generate(
+                self::ROUTE_MULTILINGUAL,
+                [
+                    '_locale' => $locale,
+                    'path' => $request->attributes->get('path'),
+                ]
             );
+            if ($path === '/') {
+                $path = '/' . $locale;
+            }
+
+            return new RedirectResponse($path, Response::HTTP_TEMPORARY_REDIRECT);
         }
 
         throw new NotFoundHttpException('Page not found');

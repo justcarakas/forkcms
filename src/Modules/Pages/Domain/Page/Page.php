@@ -87,7 +87,7 @@ class Page
         $locale ??= Locale::default();
 
         return $this->revisions->filter(
-            static fn (Revision $revision) => $revision->getLocale()->equals($locale) && !$revision->isDraft()
+            static fn (Revision $revision) => $revision->getLocale() === $locale && !$revision->isDraft()
         )->first() ?? throw new NotFoundHttpException('Revision not found');
     }
 }

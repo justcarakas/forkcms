@@ -57,5 +57,13 @@ final class RevisionRepository extends ServiceEntityRepository
                 ->andWhere($entityAlias . '.page != :page')
                 ->setParameter('page', $subject->getPage());
         }
+        if ($subject->getParentPage() === null) {
+            $queryBuilder
+                ->andWhere($entityAlias . '.parentPage IS NULL');
+        } else {
+            $queryBuilder
+                ->andWhere($entityAlias . '.parentPage = :parentPage')
+                ->setParameter('parentPage', $subject->getParentPage());
+        }
     }
 }

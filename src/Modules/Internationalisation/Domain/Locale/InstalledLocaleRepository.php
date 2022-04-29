@@ -76,4 +76,15 @@ final class InstalledLocaleRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    /** @return string[] */
+    public function findForWebsite(): array
+    {
+        return $this->createQueryBuilder('l', 'l.locale')
+            ->andWhere('l.isEnabledForWebsite = :isEnabledForWebsite')
+            ->setParameter('isEnabledForWebsite', true)
+            ->select('l.locale')
+            ->getQuery()
+            ->getSingleColumnResult();
+    }
 }

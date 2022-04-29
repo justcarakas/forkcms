@@ -109,6 +109,16 @@ class Revision
         }
     }
 
+    public function getParentPage(): ?Page
+    {
+        return $this->parentPage;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     #[ORM\PrePersist]
     public function cleanupOldRevisions(LifecycleEventArgs $args):void
     {
@@ -141,5 +151,10 @@ class Revision
     public function __toString()
     {
         return $this->title;
+    }
+
+    public function getRouteName(): string
+    {
+        return 'pages__revision__' . $this->page->getId() . '.' . $this->locale->value;
     }
 }
