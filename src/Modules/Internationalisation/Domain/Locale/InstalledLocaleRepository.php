@@ -66,4 +66,14 @@ final class InstalledLocaleRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleColumnResult();
     }
+
+    public function findDefaultWebsiteLocale(): string
+    {
+        return $this->createQueryBuilder('l', 'l.locale')
+            ->select('l.locale')
+            ->andWhere('l.isDefaultForWebsite = :isDefaultForWebsite')
+            ->setParameter('isDefaultForWebsite', true)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

@@ -7,11 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use Gedmo\Sluggable\Util\Urlizer;
 use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: MetaRepository::class)]
 #[ORM\Table(name: 'frontend__meta')]
-#[ORM\Index(columns: ['url'], name: 'idx_url')]
+#[ORM\Index(columns: ['slug'], name: 'idx_slug')]
 #[ORM\HasLifecycleCallbacks]
 class Meta implements JsonSerializable
 {
@@ -43,10 +44,10 @@ class Meta implements JsonSerializable
     private bool $titleOverwrite;
 
     #[ORM\Column(type: Types::STRING)]
-    private string $url;
+    private string $slug;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
-    private bool $urlOverwrite;
+    private bool $slugOverwrite;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
     private string|null $canonicalUrl;
@@ -70,18 +71,16 @@ class Meta implements JsonSerializable
         bool $descriptionOverwrite,
         string $title,
         bool $titleOverwrite,
-        string $url,
-        bool $urlOverwrite,
+        string $slug,
+        bool $slugOverwrite,
         ?string $canonicalUrl = null,
         bool $canonicalUrlOverwrite = false,
         string $custom = null,
         SEOFollow $seoFollow = null,
         SEOIndex $seoIndex = null,
         SettingsBag $settings = null,
-        int $id = null
     ) {
         $this->settings = $settings ?? new SettingsBag();
-        $this->id = $id;
         $this->update(...func_get_args());
     }
 
@@ -92,8 +91,8 @@ class Meta implements JsonSerializable
         bool $descriptionOverwrite,
         string $title,
         bool $titleOverwrite,
-        string $url,
-        bool $urlOverwrite,
+        string $slug,
+        bool $slugOverwrite,
         ?string $canonicalUrl = null,
         bool $canonicalUrlOverwrite = false,
         string $custom = null,
@@ -107,14 +106,34 @@ class Meta implements JsonSerializable
         $this->descriptionOverwrite = $descriptionOverwrite;
         $this->title = $title;
         $this->titleOverwrite = $titleOverwrite;
-        $this->url = $url;
-        $this->urlOverwrite = $urlOverwrite;
+        $this->slug = $slug;
+        $this->slugOverwrite = $slugOverwrite;
         $this->custom = $custom;
         $this->seoFollow = $seoFollow;
         $this->seoIndex = $seoIndex;
         $this->canonicalUrl = $canonicalUrl;
         $this->canonicalUrlOverwrite = $canonicalUrlOverwrite;
         $this->settings = $settings ?? $this->settings;
+    }
+
+    public static function forName(string $title): self
+    {
+        return new self(
+            $title,
+            false,
+            $title,
+            false,
+            $title,
+            false,
+            Urlizer::urlize($title),
+            false,
+            null,
+            false,
+            null,
+            null,
+            null,
+            null
+        );
     }
 
     public function getId(): int
@@ -152,14 +171,14 @@ class Meta implements JsonSerializable
         return $this->titleOverwrite;
     }
 
-    public function getUrl(): string
+    public function getSlug(): string
     {
-        return $this->url;
+        return $this->slug;
     }
 
-    public function isUrlOverwrite(): bool
+    public function isSlugOverwrite(): bool
     {
-        return $this->urlOverwrite;
+        return $this->slugOverwrite;
     }
 
     public function getCanonicalUrl(): ?string
@@ -222,5 +241,10 @@ class Meta implements JsonSerializable
             'seoFollow' => $this->getSEOFollow(),
             'seoIndex' => $this->getSEOIndex(),
         ];
+    }
+
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
     }
 }
