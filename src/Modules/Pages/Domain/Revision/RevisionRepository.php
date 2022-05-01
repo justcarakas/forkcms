@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use ForkCMS\Modules\Frontend\Domain\Meta\RepositoryWithMetaTrait;
+use ForkCMS\Modules\Pages\Domain\Page\Page;
 
 /**
  * @method Revision|null find($id, $lockMode = null, $lockVersion = null)
@@ -31,7 +32,7 @@ final class RevisionRepository extends ServiceEntityRepository
         $revision->getMeta()->setSlug($this->slugify($revision->getTitle(), $revision, $revision->getLocale()));
         $entityManager->persist($revision);
         $entityManager->flush();
-        if ($revision->getPage()->getId() === 1) {
+        if ($revision->getPage()->getId() === Page::PAGE_ID_HOME) {
             $revision->getMeta()->setSlug('');
             $entityManager->flush();
         }

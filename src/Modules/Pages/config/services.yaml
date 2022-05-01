@@ -6,6 +6,9 @@ services:
   ForkCMS\Modules\Pages\Domain\:
     resource: '../Domain/*'
 
+  ForkCMS\Modules\Pages\Backend\:
+    resource: '../Backend/*'
+
   ForkCMS\Modules\Pages\Controller\:
     resource: '../Controller/*'
     public: true

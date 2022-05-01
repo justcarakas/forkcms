@@ -22,7 +22,7 @@ final class LocaleRedirectController
 
     public function __invoke(Request $request): Response
     {
-        if ($request->attributes->get('_route') === self::ROUTE_MONOLINGUAL || $request->getPathInfo() === '/') {
+        if ($request->attributes->get('_route') === self::ROUTE_MONOLINGUAL) {
             $locale = $request->getPreferredLanguage($this->installedLocaleRepository->findRedirectLocales());
             $path = $this->router->generate(
                 self::ROUTE_MULTILINGUAL,

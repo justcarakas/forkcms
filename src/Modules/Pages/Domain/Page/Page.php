@@ -16,6 +16,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 #[ORM\Table(name: 'pages__page')]
 class Page
 {
+    public const PAGE_ID_HOME = 1;
+    public const PAGE_ID_404 = 404;
+    public const PAGE_ID_START = 1000;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
@@ -89,5 +93,20 @@ class Page
         return $this->revisions->filter(
             static fn (Revision $revision) => $revision->getLocale() === $locale && !$revision->isDraft()
         )->first() ?? throw new NotFoundHttpException('Revision not found');
+    }
+
+    public function isHome(): bool
+    {
+        return $this->hasId() && $this->id === self::PAGE_ID_HOME;
+    }
+
+    public function is404(): bool
+    {
+        return $this->hasId() && $this->id === self::PAGE_ID_404;
+    }
+
+    public function canBeRemoved(): bool
+    {
+        return $this->hasId() && $this->id >= self::PAGE_ID_START;
     }
 }

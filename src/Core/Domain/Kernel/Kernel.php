@@ -102,26 +102,13 @@ class Kernel extends BaseKernel
 
     private function configureLiveRoutes(RoutingConfigurator $routes): void
     {
-        $websiteLocales = ForkConnection::get()->getWebsiteLocales();
-        $defaults = [
-            '_locale' => array_search(true, $websiteLocales),
-        ];
-        $requirements = [
-            '_locale' => implode('|', array_keys($websiteLocales)),
-        ];
         $importWithDefaultsAndRequirements = static function (
             $resource,
             string $type = null,
             bool $ignoreErrors = false,
             $exclude = null,
-        ) use (
-            $routes,
-            $defaults,
-            $requirements,
-        ): void {
-            $routes->import($resource, $type, $ignoreErrors, $exclude)
-                ->requirements($requirements)
-                ->defaults($defaults);
+        ) use ($routes): void {
+            $routes->import($resource, $type, $ignoreErrors, $exclude);
         };
         $importWithDefaultsAndRequirements(self::ROOT_DIR . 'config/{routes}/' . $this->environment . '/*.yaml');
         $importWithDefaultsAndRequirements(self::ROOT_DIR . 'config/{routes}/*.yaml');

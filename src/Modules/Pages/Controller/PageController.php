@@ -18,8 +18,13 @@ final class PageController
 
     public function __invoke(Request $request, Revision $revision): Response
     {
+        $content = '<html><head><title>' . $revision->getTitle() . '</title></head><body>';
+        $content .= '<ul>';
+
+        $content .= '</ul>';
+        $content .= '</body></html>';
         return new Response(
-            '<html><head><title>' . $revision->getTitle() . '</title></head><body>' . $revision->getContent() . '</body></html>',
+            $content,
             Response::HTTP_OK,
             ['Content-Type' => 'text/html']
         );

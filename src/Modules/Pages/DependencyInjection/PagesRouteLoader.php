@@ -15,7 +15,7 @@ final class PagesRouteLoader implements ModuleRouteProviderInterface
 {
     public function __construct(
         private readonly RevisionRepository $revisionRepository,
-        private readonly InstalledLocaleRepository $installedLocaleRepository
+        private readonly InstalledLocaleRepository $installedLocaleRepository,
     ) {
     }
 
@@ -39,9 +39,9 @@ final class PagesRouteLoader implements ModuleRouteProviderInterface
             ->leftJoin('ppr.meta', 'pprm')
             ->addSelect('pprm')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
 
+        $paths = [];
         foreach ($revisions as $revision) {
             $locale = $revision->getLocale();
             $path = $revision->getMeta()->getSlug();
@@ -51,24 +51,33 @@ final class PagesRouteLoader implements ModuleRouteProviderInterface
                 $path = $parentRevision->getMeta()->getSlug() . '/' . $path;
                 $parentPage = $parentRevision->getParentPage();
             }
-            $pagesRoutes->add(
-                $revision->getRouteName(),
-                new Route(
-                     $path,
-                    [
-                        '_controller' => PageController::class,
-                        '_locale' => $locale->value,
-                        'revision' => $revision->getId(),
-                    ],
-                    [
-                         '_locale' => $locale->value,
-                    ]
-                )
-            );
+
+            if ($_ENV['SITE_MULTILINGUAL'] === 'true') {
+                $path = $locale->value . '/' . $path;
+            }
+
+            $paths[$path] = [
+                'path' => $path,
+                'name' => $revision->getRouteName(),
+                'defaults' => [
+                    '_controller' => PageController::class,
+                    '_locale' => $locale->value,
+                    'revision' => $revision->getId(),
+                ],
+                'requirements' => [
+                    '_locale' => $locale->value,
+                ],
+            ];
+        }
+
+        // Make sure we'll add the longest path first to prevent conflicts
+        $keys = array_map(strlen(...), array_keys($paths));
+        array_multisort($keys, SORT_DESC, $paths);
+        foreach ($paths as $data) {
+            $pagesRoutes->add($data['name'], new Route($data['path'], $data['defaults'], $data['requirements']));
         }
 
         if ($_ENV['SITE_MULTILINGUAL'] === 'true') {
-            $pagesRoutes->addPrefix('{_locale}/');
             $pagesRoutes->add(
                 LocaleRedirectController::ROUTE_MULTILINGUAL,
                 new Route(
