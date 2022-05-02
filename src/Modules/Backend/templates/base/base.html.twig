@@ -12,13 +12,15 @@
   <div class="sidebar">
     {% include "@Backend/base/navigation.html.twig" %}
 
-    {% if hideActionbar is not defined or not hideActionbar %}
-      <div class="sub-navigation">
-        <nav id="content-subnavigation" class="fork-nav-sidebar" {% if activeParent is defined and activeParent %}aria-label="{{ activeParent }}{% endif %}">
-          {% include "@Backend/base/subnavigation.html.twig" with { 'navigation': navigation } %}
-        </nav>
-      </div>
-    {% endif %}
+    {% block sidebarSubNavigation %}
+      {% if hideActionbar is not defined or not hideActionbar %}
+        <div class="sub-navigation">
+          <nav id="content-subnavigation" class="fork-nav-sidebar" {% if activeParent is defined and activeParent %}aria-label="{{ activeParent }}{% endif %}">
+            {% include "@Backend/base/subnavigation.html.twig" with { 'navigation': navigation } %}
+          </nav>
+        </div>
+      {% endif %}
+    {% endblock %}
   </div>
   {% include "@Backend/base/messaging.html.twig" %}
   <div id="root">
