@@ -44,6 +44,9 @@ for (const THEME_CONFIG of extensionConfig.themes) {
     })
     .enableBuildNotifications(true, (options) => {
       options.alwaysNotify = true
+      options.title = 'Theme: ' + THEME_CONFIG.name
+      options.emoji = true
+      options.contentImage = 'public/apple-touch-icon.png'
     })
     .addPlugin(new LiveReloadPlugin())
     .disableSingleRuntimeChunk() // we will never load more than one team
@@ -132,6 +135,9 @@ for (const APPLICATION of ['Installer', 'Frontend', 'Backend']) {
     })
     .enableBuildNotifications(true, (options) => {
       options.alwaysNotify = true
+      options.title = 'Application: ' + APPLICATION
+      options.emoji = true
+      options.contentImage = 'public/apple-touch-icon.png'
     })
     .addPlugin(new LiveReloadPlugin())
     .enableSingleRuntimeChunk()
