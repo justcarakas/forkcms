@@ -63,4 +63,9 @@ final class ModuleName implements Stringable, JsonSerializable
     {
         return self::fromString('Installer');
     }
+
+    public function getJsPath(): string
+    {
+        return 'assets/modules/Backend/' . $this . '/' . $this . '.js';
+    }
 }

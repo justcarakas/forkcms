@@ -1,12 +1,12 @@
 <?php
 
-namespace ForkCMS\Modules\Backend\DependencyInjection;
+namespace ForkCMS\Core\DependencyInjection;
 
 use ForkCMS\Core\Domain\Router\ModuleRouteProviderInterface;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Routing\RouteCollection;
 
-final class BackendRouteLoader implements ModuleRouteProviderInterface
+final class CoreRouteLoader implements ModuleRouteProviderInterface
 {
     public function __construct(private readonly YamlFileLoader $yamlFileLoader)
     {
