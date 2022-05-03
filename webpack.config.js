@@ -67,7 +67,7 @@ for (const THEME_CONFIG of extensionConfig.themes) {
   const COPY_FILES_CONFIGS = []
   for (const THEME_CONFIG of extensionConfig.themes) {
     const THEME_PUBLIC_DIR = `${THEME_CONFIG.path}/public`
-    const THEME_JS_PATH = `${THEME_CONFIG.path}/webpack/js/${THEME_CONFIG.name}.js`
+    const THEME_JS_DIR = `${THEME_CONFIG.path}/webpack/js`
     const THEME_SCSS_DIR = `${THEME_CONFIG.path}/webpack/scss`
     if (fs.existsSync(THEME_PUBLIC_DIR)) {
       COPY_FILES_CONFIGS.push({
@@ -75,14 +75,19 @@ for (const THEME_CONFIG of extensionConfig.themes) {
         to: `./${THEME_CONFIG.name}/[path][name].[ext]`
       })
     }
-    if (fs.existsSync(THEME_JS_PATH)) {
-      Encore.addEntry(`${THEME_CONFIG.name}/${THEME_CONFIG.name}`, THEME_JS_PATH)
+    if (fs.existsSync(THEME_JS_DIR)) {
+      fs.readdirSync(THEME_JS_DIR).forEach((file) => {
+        if (file.endsWith('.js') && !file.startsWith('_')) {
+          Encore.addEntry(`${THEME_CONFIG.name}/js/` + file.slice(0, -3), `${THEME_JS_DIR}/${file}`)
+        }
+      })
     }
-    if (fs.existsSync(`${THEME_SCSS_DIR}/screen.scss`)) {
-      Encore.addStyleEntry('screen', `${THEME_SCSS_DIR}/screen.scss`)
-    }
-    if (fs.existsSync(`${THEME_SCSS_DIR}/print.scss`)) {
-      Encore.addStyleEntry('print', `${THEME_SCSS_DIR}/print.scss`)
+    if (fs.existsSync(THEME_SCSS_DIR)) {
+      fs.readdirSync(THEME_SCSS_DIR).forEach((file) => {
+        if (file.endsWith('.scss') && !file.startsWith('_')) {
+          Encore.addStyleEntry(`${THEME_CONFIG.name}/css/` + file.slice(0, -5), `${THEME_SCSS_DIR}/${file}`)
+        }
+      })
     }
   }
   Encore.copyFiles(COPY_FILES_CONFIGS)
@@ -150,7 +155,7 @@ for (const APPLICATION of ['Installer', 'Frontend', 'Backend']) {
   const COPY_FILES_CONFIGS = []
   for (const MODULE_CONFIG of extensionConfig.modules) {
     const MODULE_PUBLIC_DIR = `${MODULE_CONFIG.path}/${APPLICATION}/public`
-    const MODULE_APPLICATION_JS_PATH = `${MODULE_CONFIG.path}/${APPLICATION}/webpack/js/${MODULE_CONFIG.name}.js`
+    const MODULE_APPLICATION_JS_DIR = `${MODULE_CONFIG.path}/${APPLICATION}/webpack/js`
     const MODULE_APPLICATION_SCSS_DIR = `${MODULE_CONFIG.path}/${APPLICATION}/webpack/scss`
     if (fs.existsSync(MODULE_PUBLIC_DIR)) {
       COPY_FILES_CONFIGS.push({
@@ -158,14 +163,19 @@ for (const APPLICATION of ['Installer', 'Frontend', 'Backend']) {
         to: `./${MODULE_CONFIG.name}/[path][name].[ext]`
       })
     }
-    if (fs.existsSync(MODULE_APPLICATION_JS_PATH)) {
-      Encore.addEntry(`${MODULE_CONFIG.name}/${MODULE_CONFIG.name}`, MODULE_APPLICATION_JS_PATH)
+    if (fs.existsSync(MODULE_APPLICATION_JS_DIR)) {
+      fs.readdirSync(MODULE_APPLICATION_JS_DIR).forEach((file) => {
+        if (file.endsWith('.js') && !file.startsWith('_')) {
+          Encore.addEntry(`${MODULE_CONFIG.name}/js/` + file.slice(0, -3), `${MODULE_APPLICATION_JS_DIR}/${file}`)
+        }
+      })
     }
-    if (fs.existsSync(`${MODULE_APPLICATION_SCSS_DIR}/screen.scss`)) {
-      Encore.addStyleEntry('screen', `${MODULE_APPLICATION_SCSS_DIR}/screen.scss`)
-    }
-    if (fs.existsSync(`${MODULE_APPLICATION_SCSS_DIR}/print.scss`)) {
-      Encore.addStyleEntry('print', `${MODULE_APPLICATION_SCSS_DIR}/print.scss`)
+    if (fs.existsSync(MODULE_APPLICATION_SCSS_DIR)) {
+      fs.readdirSync(MODULE_APPLICATION_SCSS_DIR).forEach((file) => {
+        if (file.endsWith('.scss') && !file.startsWith('_')) {
+          Encore.addStyleEntry(`${MODULE_CONFIG.name}/css/` + file.slice(0, -5), `${MODULE_APPLICATION_SCSS_DIR}/${file}`)
+        }
+      })
     }
   }
   Encore.copyFiles(COPY_FILES_CONFIGS)

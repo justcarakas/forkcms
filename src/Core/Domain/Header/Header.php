@@ -121,7 +121,7 @@ final class Header
                 Asset::forModule(
                     Application::BACKEND,
                     $module,
-                    $module . '.js',
+                    'js/' . $module . '.js',
                     priority: Priority::forModuleName($module)
                 )
             );
@@ -131,7 +131,27 @@ final class Header
                 Asset::forModule(
                     Application::BACKEND,
                     $module,
-                    $module . '.js',
+                    'js/' . $moduleAction->getAction()->getName() . '.js',
+                    priority: Priority::forModuleName($module)
+                )
+            );
+        } catch (InvalidArgumentException) {}
+        try {
+            $this->addCss(
+                Asset::forModule(
+                    Application::BACKEND,
+                    $module,
+                    'css/' . $module . '.css',
+                    priority: Priority::forModuleName($module)
+                )
+            );
+        } catch (InvalidArgumentException) {}
+        try {
+            $this->addCss(
+                Asset::forModule(
+                    Application::BACKEND,
+                    $module,
+                    'css/' . $moduleAction->getAction()->getName() . '.css',
                     priority: Priority::forModuleName($module)
                 )
             );
