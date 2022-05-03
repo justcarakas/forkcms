@@ -57,14 +57,17 @@ final class BackendController
     private function configureTwigForAction(Request $request, ActionSlug $actionSlug, array $locales): void
     {
         $this->navigation->parse($this->twig);
+        $this->header->addAssetsForAction($actionSlug->asModuleAction());
         $this->header->parse($this->twig);
         $this->twig->addGlobal('SITE_TITLE', $_ENV['SITE_DEFAULT_TITLE']);
         $this->twig->addGlobal('SITE_URL', $_ENV['SITE_PROTOCOL'] . '://' . $_ENV['SITE_DOMAIN']);
         $this->twig->addGlobal('SITE_MULTILINGUAL', $_ENV['SITE_MULTILINGUAL'] === 'true');
-        $this->twig->addGlobal('jsFiles', []);
         $this->twig->addGlobal('bodyID', Container::underscore($actionSlug->getModuleName()));
         $this->twig->addGlobal('bodyClass', str_replace('/', '_', $actionSlug->getSlug()));
         $this->twig->addGlobal('page_title', $actionSlug->getActionName());
         $this->twig->addGlobal('LOCALES', $locales);
+        $this->twig->addGlobal('MODULE_ACTION', $actionSlug->asModuleAction());
+        $this->twig->addGlobal('CRLF', "\n");
+        $this->twig->addGlobal('TAB', "\t");
     }
 }

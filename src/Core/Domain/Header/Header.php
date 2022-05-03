@@ -2,11 +2,17 @@
 
 namespace ForkCMS\Core\Domain\Header;
 
+use ForkCMS\Core\Domain\Application\Application;
+use ForkCMS\Core\Domain\Header\Asset\Asset;
+use ForkCMS\Core\Domain\Header\Asset\AssetCollection;
+use ForkCMS\Core\Domain\Header\Asset\Priority;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
+use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Translator\DataCollectorTranslator;
 use ForkCMS\Modules\Internationalisation\Domain\Translator\ForkTranslator;
+use InvalidArgumentException;
 use LogicException;
 use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -23,6 +29,9 @@ use Twig\Environment;
 final class Header
 {
     private JsData $jsData;
+
+    private readonly AssetCollection $cssAssets;
+    private readonly AssetCollection $jsAssets;
 
     public function __construct(
         private RequestStack $requestStack,
@@ -43,10 +52,13 @@ final class Header
         if ($translator instanceof ForkTranslator || $translator instanceof DataCollectorTranslator) {
             $translationDomain = $translator->getDefaultTranslationDomain();
             $defaults['default_translation_domain'] = $translationDomain->getDomain();
-            $defaults['default_translation_domain_fallback'] = $translationDomain->getFallback()?->getDomain() ?? $defaults['default_translation_domain'];
+            $defaults['default_translation_domain_fallback'] = $translationDomain->getFallback()?->getDomain(
+                ) ?? $defaults['default_translation_domain'];
         }
 
         $this->jsData = new JsData($defaults);
+        $this->jsAssets = new AssetCollection();
+        $this->cssAssets = new AssetCollection();
     }
 
     public function addJsData(ModuleName $module, string $key, mixed $value): void
@@ -57,6 +69,8 @@ final class Header
     public function parse(Environment $twig): void
     {
         $twig->addGlobal('jsData', $this->jsData);
+        $twig->addGlobal('jsFiles', $this->jsAssets);
+        $twig->addGlobal('cssFiles', $this->cssAssets);
     }
 
     private function getFirstPossibleSessionTimeout(): int
@@ -81,7 +95,46 @@ final class Header
                 $flashMessage->getMessage()
             );
         } catch (SessionNotFoundException $e) {
-            throw new LogicException('You cannot use the addFlash method if sessions are disabled. Enable them in "config/packages/framework.yaml".', 0, $e);
+            throw new LogicException(
+                'You cannot use the addFlash method if sessions are disabled. Enable them in "config/packages/framework.yaml".',
+                0,
+                $e
+            );
         }
+    }
+
+    public function addJs(Asset $assets): void
+    {
+        $this->jsAssets->add($assets);
+    }
+
+    public function addCss(Asset $assets): void
+    {
+        $this->cssAssets->add($assets);
+    }
+
+    public function addAssetsForAction(ModuleAction $moduleAction): void
+    {
+        $module = $moduleAction->getModule();
+        try {
+            $this->addJs(
+                Asset::forModule(
+                    Application::BACKEND,
+                    $module,
+                    $module . '.js',
+                    priority: Priority::forModuleName($module)
+                )
+            );
+        } catch (InvalidArgumentException) {}
+        try {
+            $this->addJs(
+                Asset::forModule(
+                    Application::BACKEND,
+                    $module,
+                    $module . '.js',
+                    priority: Priority::forModuleName($module)
+                )
+            );
+        } catch (InvalidArgumentException) {}
     }
 }

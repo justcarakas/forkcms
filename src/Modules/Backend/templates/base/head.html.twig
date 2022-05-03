@@ -11,13 +11,14 @@
 
   <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro%7COpen+Sans:400,600' rel='stylesheet' type='text/css'>
 
-  {% for jsFile in jsFiles %}
-    <script src="{{ jsFile }}"></script>{{ CRLF }}{{ TAB }}
-  {% endfor %}
-
-
   {{ encore_entry_script_tags('Backend/Backend', null, 'backendConfig') }}
   {{ encore_entry_link_tags('screen', null, 'backendConfig') }}
+  {% for jsFile in jsFiles %}
+    <script src="/{{ jsFile }}"></script>
+  {% endfor %}
+  {% for cssFile in cssFiles %}
+    <link href="/{{ cssFile }}" rel="stylesheet">
+  {% endfor %}
 
   {% if app.debug %}
     <script src="http://localhost:35729/livereload.js"></script>
