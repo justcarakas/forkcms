@@ -1,5 +1,0 @@
-internationalisation_js_translations:
-  path: /_translations/{_locale}.json
-  methods: [ GET ]
-  controller: ForkCMS\Modules\Internationalisation\Controller\JsTranslationsController
-  condition: "request.isXmlHttpRequest()"

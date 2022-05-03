@@ -42,8 +42,12 @@ final class PagesRouteLoader implements ModuleRouteProviderInterface
             ->getResult();
 
         $paths = [];
+        $websiteLocales = array_flip($this->installedLocaleRepository->findForWebsite());
         foreach ($revisions as $revision) {
             $locale = $revision->getLocale();
+            if (!array_key_exists($locale->value, $websiteLocales)) {
+                continue;
+            }
             $path = $revision->getMeta()->getSlug();
             $parentPage = $revision->getParentPage();
             while ($parentPage !== null) {
@@ -56,10 +60,12 @@ final class PagesRouteLoader implements ModuleRouteProviderInterface
                 $path = $locale->value . '/' . $path;
             }
 
+            $routeName = $revision->getRouteName();
             $paths[$path] = [
                 'path' => $path,
-                'name' => $revision->getRouteName(),
+                'name' => $routeName,
                 'defaults' => [
+                    '_canonical_route' => $routeName,
                     '_controller' => PageController::class,
                     '_locale' => $locale->value,
                     'revision' => $revision->getId(),
@@ -78,35 +84,44 @@ final class PagesRouteLoader implements ModuleRouteProviderInterface
         }
 
         if ($_ENV['SITE_MULTILINGUAL'] === 'true') {
-            $pagesRoutes->add(
-                LocaleRedirectController::ROUTE_MULTILINGUAL,
-                new Route(
-                    '/{_locale}/{path}',
-                    [
-                        '_controller' => LocaleRedirectController::class,
-                        'path' => '~',
-                    ],
-                    [
-                        'path' => '.+',
-                        'locale' => implode('|', $this->installedLocaleRepository->findForWebsite()),
-                    ],
-                ),
-                -1
-            );
-            $pagesRoutes->add(
-                LocaleRedirectController::ROUTE_MONOLINGUAL,
-                new Route(
-                    '/{path}',
-                    [
-                        '_controller' => LocaleRedirectController::class,
-                        'path' => '',
-                    ],
-                    [
-                        'path' => '.+',
-                    ],
-                ),
-                -1
-            );
+            foreach ($websiteLocales as $websiteLocale => $isDefault) {
+                $redirectName = LocaleRedirectController::ROUTE_LOCALE_REDIRECT . '.' . $websiteLocale;
+                $pagesRoutes->add(
+                    $redirectName,
+                    new Route(
+                        '/{_locale}/{path}',
+                        [
+                            '_controller' => LocaleRedirectController::class,
+                            '_locale' => $websiteLocale,
+                            '_canonical_route' => $redirectName,
+                            'path' => '~',
+                        ],
+                        [
+                            '_locale' => $websiteLocale,
+                            'path' => '.+',
+                        ],
+                    ),
+                    -1
+                );
+
+                if ($isDefault) {
+                    $pagesRoutes->add(
+                        LocaleRedirectController::ROUTE_LOCALE_REDIRECT,
+                        new Route(
+                            '/{path}',
+                            [
+                                '_controller' => LocaleRedirectController::class,
+                                'path' => '',
+                                'default_locale' => $websiteLocale,
+                            ],
+                            [
+                                'path' => '.+',
+                            ],
+                        ),
+                        -1
+                    );
+                }
+            }
         }
 
         return $pagesRoutes;

@@ -8,6 +8,7 @@ use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Installer\DependencyInjection\InstallerExtension;
+use ForkCMS\Modules\Pages\Controller\LocaleRedirectController;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
@@ -18,6 +19,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+use Symfony\Component\Routing\Route;
 
 class Kernel extends BaseKernel
 {
@@ -102,13 +104,21 @@ class Kernel extends BaseKernel
 
     private function configureLiveRoutes(RoutingConfigurator $routes): void
     {
-        $importWithDefaultsAndRequirements = static function (
-            $resource,
-            string $type = null,
-            bool $ignoreErrors = false,
-            $exclude = null,
-        ) use ($routes): void {
-            $routes->import($resource, $type, $ignoreErrors, $exclude);
+        $websiteLocales = ForkConnection::get()->getWebsiteLocales();
+        $defaults = [
+            '_locale' => array_search(true, $websiteLocales),
+        ];
+        $requirements = [
+            '_locale' => implode('|', array_keys($websiteLocales)),
+        ];
+        $importWithDefaultsAndRequirements = static function ($resource) use (
+            $routes,
+            $defaults,
+            $requirements,
+        ): void {
+            $routes->import($resource)
+                ->requirements($requirements)
+                ->defaults($defaults);
         };
         $importWithDefaultsAndRequirements(self::ROOT_DIR . 'config/{routes}/' . $this->environment . '/*.yaml');
         $importWithDefaultsAndRequirements(self::ROOT_DIR . 'config/{routes}/*.yaml');

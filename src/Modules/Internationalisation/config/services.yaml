@@ -38,8 +38,6 @@ services:
       - !tagged_locator { tag: 'forkcms.translation.exporter', default_index_method: 'forExtension' }
 
   ForkCMS\Modules\Internationalisation\DependencyInjection\InternationalisationRouteLoader:
-    arguments:
-      - '@routing.loader.yml'
 
   twig.extension.intl:
     alias: ForkCMS\Modules\Internationalisation\Domain\Twig\ForkIntlExtension
