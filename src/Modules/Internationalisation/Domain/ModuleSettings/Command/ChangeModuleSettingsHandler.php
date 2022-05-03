@@ -20,9 +20,13 @@ final class ChangeModuleSettingsHandler implements CommandHandlerInterface
 
     public function __invoke(ChangeModuleSettings $changeSettings): void
     {
+        $changeSettings->validateDefaults();
+
         foreach ($changeSettings->installedLocales as $locale) {
             $locale->isDefaultForUser = $locale->locale === $changeSettings->defaultForUser;
             $locale->isDefaultForWebsite = $locale->locale === $changeSettings->defaultForWebsite;
+            $locale->isEnabledForBrowserLocaleRedirect = $locale->isEnabledForBrowserLocaleRedirect
+                && $locale->isEnabledForWebsite;
 
             $installedLocale = InstalledLocale::fromDataTransferObject($locale);
             $this->installedLocaleRepository->save($installedLocale);
