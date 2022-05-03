@@ -109,4 +109,61 @@ class Page
     {
         return $this->hasId() && $this->id >= self::PAGE_ID_START;
     }
+
+    public function getPageTreeType(): string
+    {
+        // calculate tree-type
+        $treeType = 'page';
+        if ($this->getSetting('hidden', false)) {
+            $treeType = 'hidden';
+        }
+
+        // homepage should have a special icon
+        if ($this->getId() === self::PAGE_ID_HOME) {
+            $treeType = 'home';
+        } elseif ($this->getId() === self::PAGE_ID_404) {
+            $treeType = 'error';
+        }// elseif ($this->getId() < self::PAGE_ID_404 && mb_substr_count($page['extra_ids'], $this->getSitemapId()) > 0) {
+//            $extraIDs = explode(',', $page['extra_ids']);
+//
+//            // loop extras
+//            foreach ($extraIDs as $id) {
+//                // check if this is the sitemap id
+//                if ($id == $this->getSitemapId()) {
+//                    // set type
+//                    $treeType = 'sitemap';
+//
+//                    // break it
+//                    break;
+//                }
+//            }
+//        }
+//
+//        // any data?
+//        if (isset($page['data'])) {
+//            // get data
+//            $data = unserialize($page['data'], ['allowed_classes' => false]);
+//
+//            // internal alias?
+//            if (isset($data['internal_redirect']['page_id']) && $data['internal_redirect']['page_id'] != '') {
+//                $pageData['redirect_page_id'] = $data['internal_redirect']['page_id'];
+//                $pageData['redirect_code'] = $data['internal_redirect']['code'];
+//                $treeType = 'redirect';
+//            }
+//
+//            // external alias?
+//            if (isset($data['external_redirect']['url']) && $data['external_redirect']['url'] != '') {
+//                $pageData['redirect_url'] = $data['external_redirect']['url'];
+//                $pageData['redirect_code'] = $data['external_redirect']['code'];
+//                $treeType = 'redirect';
+//            }
+//
+//            // direct action?
+//            if (isset($data['is_action']) && $data['is_action']) {
+//                $treeType = 'direct_action';
+//            }
+//        }
+
+        return $treeType;
+    }
 }

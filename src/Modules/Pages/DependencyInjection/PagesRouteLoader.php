@@ -6,6 +6,7 @@ use ForkCMS\Core\Domain\Router\ModuleRouteProviderInterface;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Pages\Controller\PageController;
 use ForkCMS\Modules\Pages\Controller\LocaleRedirectController;
+use ForkCMS\Modules\Pages\Domain\Page\Page;
 use ForkCMS\Modules\Pages\Domain\Revision\Revision;
 use ForkCMS\Modules\Pages\Domain\Revision\RevisionRepository;
 use Symfony\Component\Routing\Route;
@@ -52,7 +53,9 @@ final class PagesRouteLoader implements ModuleRouteProviderInterface
             $parentPage = $revision->getParentPage();
             while ($parentPage !== null) {
                 $parentRevision = $parentPage->getActiveRevision($locale);
-                $path = $parentRevision->getMeta()->getSlug() . '/' . $path;
+                if ($parentRevision->getPage()->getId() !== Page::PAGE_ID_HOME) {
+                    $path = $parentRevision->getMeta()->getSlug() . '/' . $path;
+                }
                 $parentPage = $parentRevision->getParentPage();
             }
 
