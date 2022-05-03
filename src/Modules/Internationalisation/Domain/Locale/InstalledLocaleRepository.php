@@ -80,11 +80,16 @@ final class InstalledLocaleRepository extends ServiceEntityRepository
     /** @return string[] */
     public function findForWebsite(): array
     {
-        return $this->createQueryBuilder('l', 'l.locale')
-            ->andWhere('l.isEnabledForWebsite = :isEnabledForWebsite')
-            ->setParameter('isEnabledForWebsite', true)
-            ->select('l.locale')
-            ->getQuery()
-            ->getSingleColumnResult();
+        return array_column(
+            $this->createQueryBuilder('l', 'l.locale')
+                ->andWhere('l.isEnabledForWebsite = :isEnabledForWebsite')
+                ->setParameter('isEnabledForWebsite', true)
+                ->select('l.locale, l.isDefaultForWebsite')
+                ->getQuery()
+                ->getArrayResult()
+            ,
+            'isDefaultForWebsite',
+            'locale'
+        );
     }
 }

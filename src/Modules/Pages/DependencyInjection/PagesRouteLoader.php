@@ -42,7 +42,7 @@ final class PagesRouteLoader implements ModuleRouteProviderInterface
             ->getResult();
 
         $paths = [];
-        $websiteLocales = array_flip($this->installedLocaleRepository->findForWebsite());
+        $websiteLocales = $this->installedLocaleRepository->findForWebsite();
         foreach ($revisions as $revision) {
             $locale = $revision->getLocale();
             if (!array_key_exists($locale->value, $websiteLocales)) {
