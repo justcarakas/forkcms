@@ -35,13 +35,13 @@ class ModuleSettingsType extends AbstractType
         );
         $tabs = [];
         foreach ($localeChoices as $locale) {
-            $tabs[$locale->asTranslatable()] = static function (FormBuilderInterface $builder): void {
+            $tabs[$locale->asTranslatable()] = static function (FormBuilderInterface $builder) use ($locale): void {
                 $builder->add(
                     'backend',
                     FieldsetType::class,
                     [
                         'label' => Application::BACKEND,
-                        'fields' => static function (FormBuilderInterface $builder): void {
+                        'fields' => static function (FormBuilderInterface $builder) use ($locale): void {
                             $builder->add(
                                 'isEnabledForUser',
                                 CheckboxType::class,
@@ -49,6 +49,10 @@ class ModuleSettingsType extends AbstractType
                                     'label' => 'lbl.EnabledForUser',
                                     'required' => false,
                                     'label_attr' => ['class' => 'checkbox-switch'],
+                                    'attr' => [
+                                        'data-role' => 'locale-enabled-for-user',
+                                        'data-locale' => $locale->value,
+                                    ],
                                 ]
                             );
                         }
@@ -58,7 +62,7 @@ class ModuleSettingsType extends AbstractType
                     FieldsetType::class,
                     [
                         'label' => Application::FRONTEND,
-                        'fields' => static function (FormBuilderInterface $builder): void {
+                        'fields' => static function (FormBuilderInterface $builder) use ($locale): void {
                             $builder->add(
                                 'isEnabledForWebsite',
                                 CheckboxType::class,
@@ -66,6 +70,10 @@ class ModuleSettingsType extends AbstractType
                                     'label' => 'lbl.EnabledForWebsite',
                                     'required' => false,
                                     'label_attr' => ['class' => 'checkbox-switch'],
+                                    'attr' => [
+                                        'data-role' => 'locale-enabled-for-website',
+                                        'data-locale' => $locale->value,
+                                    ],
                                 ]
                             )->add(
                                 'isEnabledForBrowserLocaleRedirect',
@@ -74,6 +82,10 @@ class ModuleSettingsType extends AbstractType
                                     'label' => 'lbl.EnabledForBrowserLocaleRedirect',
                                     'required' => false,
                                     'label_attr' => ['class' => 'checkbox-switch'],
+                                    'attr' => [
+                                        'data-role' => 'locale-redirect-enabled-for-website',
+                                        'data-locale' => $locale->value,
+                                    ],
                                 ]
                             )->add('settings', FormatSettingsType::class, ['label' => false]);
                         }
@@ -89,6 +101,7 @@ class ModuleSettingsType extends AbstractType
                 'label' => 'lbl.DefaultForUser',
                 'required' => true,
                 'choices' => $localeChoices,
+                'attr' => ['data-role' => 'locale-default-for-user'],
             ]
         )->add(
             'defaultForWebsite',
@@ -97,6 +110,7 @@ class ModuleSettingsType extends AbstractType
                 'label' => 'lbl.DefaultForWebsite',
                 'required' => true,
                 'choices' => $localeChoices,
+                'attr' => ['data-role' => 'locale-default-for-website'],
             ]
         )->add(
             'installedLocales',
