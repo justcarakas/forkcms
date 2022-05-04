@@ -142,7 +142,7 @@ class Page
             return 'error';
         }
         if (
-            $revision->getBlocks()->filter(
+            !$revision->getBlocks()->filter(
                 static fn (RevisionBlock $block) => $block->getBlock() instanceof Sitemap
             )->isEmpty()
         ) {

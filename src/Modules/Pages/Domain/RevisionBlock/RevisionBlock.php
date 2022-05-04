@@ -6,12 +6,11 @@ use Doctrine\DBAL\Types\Types;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
-use ForkCMS\Modules\Pages\Domain\Page\PageRepository;
 use ForkCMS\Modules\Pages\Domain\Revision\Revision;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-#[ORM\Entity(repositoryClass: PageRepository::class)]
+#[ORM\Entity]
 #[ORM\Table(name: 'pages__revision_block')]
 class RevisionBlock
 {

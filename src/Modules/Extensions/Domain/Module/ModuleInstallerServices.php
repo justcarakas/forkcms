@@ -25,7 +25,6 @@ final class ModuleInstallerServices
         public readonly TokenStorageInterface $tokenStorage,
         public readonly EntityManagerInterface $entityManager,
         public readonly MessageBusInterface $commandBus,
-        public readonly MessageBusInterface $eventBus,
         public readonly ModuleSettings $moduleSettings,
     ) {
     }

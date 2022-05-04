@@ -49,8 +49,7 @@ abstract class ModuleInstaller
     protected readonly Importer $importer;
     protected readonly TokenStorageInterface $tokenStorage;
     protected readonly EntityManagerInterface $entityManager;
-    private readonly MessageBusInterface $commandBus;
-    private readonly MessageBusInterface $eventBus;
+    protected readonly MessageBusInterface $commandBus;
 
     private ?ModuleInformation $moduleInformation = null;
 
@@ -61,7 +60,7 @@ abstract class ModuleInstaller
     private ?array $defaultModuleDependencies = null;
 
     private readonly ModuleSettings $moduleSettings;
-    private bool $moduleSettingsUnlocked = false;
+    private bool $moduleRegistered = false;
 
     public function __construct(
         ModuleInstallerServices $moduleInstallerServices,
@@ -76,7 +75,6 @@ abstract class ModuleInstaller
         $this->tokenStorage = $moduleInstallerServices->tokenStorage;
         $this->entityManager = $moduleInstallerServices->entityManager;
         $this->commandBus = $moduleInstallerServices->commandBus;
-        $this->eventBus = $moduleInstallerServices->eventBus;
         $this->moduleSettings = $moduleInstallerServices->moduleSettings;
     }
 
@@ -102,7 +100,7 @@ abstract class ModuleInstaller
     final public function registerModule(): void
     {
         $this->moduleRepository->save(Module::fromModuleName(static::getModuleName()));
-        $this->moduleSettingsUnlocked = true;
+        $this->moduleRegistered = true;
     }
 
     final protected function addModuleDependency(ModuleName $moduleName): void
@@ -290,7 +288,7 @@ abstract class ModuleInstaller
 
     final protected function setSetting(string $key, mixed $value, ModuleName $moduleName = null): void
     {
-        if (!$this->moduleSettingsUnlocked) {
+        if (!$this->moduleRegistered) {
             throw new RuntimeException('You cannot set module settings during the pre install phase');
         }
 
@@ -308,12 +306,6 @@ abstract class ModuleInstaller
     final protected function dispatchCommand(object $command, array $stamps = []): Envelope
     {
         return $this->commandBus->dispatch($command, $stamps);
-    }
-
-    /** @param StampInterface[] $stamps */
-    final protected function dispatchEvent(object $event, array $stamps = []): Envelope
-    {
-        return $this->eventBus->dispatch($event, $stamps);
     }
 
     /**
@@ -335,5 +327,10 @@ abstract class ModuleInstaller
         }
 
         return $this->moduleInformation;
+    }
+
+    public function isModuleRegistered(): bool
+    {
+        return $this->moduleRegistered;
     }
 }

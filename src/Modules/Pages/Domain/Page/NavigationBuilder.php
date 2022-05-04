@@ -95,6 +95,8 @@ final class NavigationBuilder
                 'pr.locale = :locale AND pr.isArchived IS NULL'
             )
             ->addSelect('pr')
+            ->leftJoin('pr.blocks', 'prb')
+            ->addSelect('prb')
             ->leftJoin('pr.meta', 'prm')
             ->addSelect('prm')
             ->leftJoin(

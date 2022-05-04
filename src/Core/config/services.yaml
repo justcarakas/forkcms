@@ -15,6 +15,7 @@ services:
     exclude:
       - '../tests'
       - '../Domain/Meta'
+      - '../Domain/PDO'
 
   ForkCMS\Core\Domain\Router\ModuleRouteLoader:
     arguments:
