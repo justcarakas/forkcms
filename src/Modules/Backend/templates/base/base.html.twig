@@ -8,7 +8,7 @@
 <body id="{{ bodyID }}" class="{{ bodyClass }}">
 
 {% include "@Backend/base/header.html.twig" %}
-<div class="main-wrapper{% if hideActionbar is defined and hideActionbar %} main-wrapper-without-subnavigation{% endif %}">
+<div class="main-wrapper{% if hideActionbar is defined and hideActionbar %} main-wrapper-without-subnavigation{% endif %}{% if sidebarTree is defined %} main-wrapper-tree{% endif%}">
   <div class="sidebar">
     {% include "@Backend/base/navigation.html.twig" %}
 
@@ -58,7 +58,9 @@
     </main>
     <div id="root-footer"></div>
   </div>
+  {% if sidebarTree is defined %}<div class="footer-pages">{% endif%}
   {% include "@Backend/base/footer.html.twig" %}
+  {% if sidebarTree is defined %}</div>{% endif%}
   <div class="modal fade" data-fork-role="confirmation" role="dialog" tabindex="-1" aria-hidden="true" aria-labelledby="forkDefaultConfirmTitle">
     <div class="modal-dialog">
       <div class="modal-content">
