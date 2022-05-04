@@ -7,7 +7,7 @@ use InvalidArgumentException;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class ModulesSettings implements EventSubscriberInterface
+final class ModuleSettings implements EventSubscriberInterface
 {
     public function __construct(
         private readonly ModuleRepository $moduleRepository,

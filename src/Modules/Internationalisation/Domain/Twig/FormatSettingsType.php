@@ -4,7 +4,7 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Twig;
 
 use DateTimeImmutable;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
-use ForkCMS\Modules\Extensions\Domain\Module\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,7 +14,7 @@ use Twig\Environment;
 final class FormatSettingsType extends AbstractType
 {
     public function __construct(
-        private readonly ModulesSettings $modulesSettings,
+        private readonly ModuleSettings $moduleSettings,
         private readonly ForkIntlExtension $intlExtension,
         private readonly Environment $twig,
     ) {
@@ -32,7 +32,7 @@ final class FormatSettingsType extends AbstractType
             [
                 'label' => 'lbl.DateFormatShort',
                 'help' => 'msg.HelpDateFormatShort',
-                'choices' => array_flip($this->modulesSettings->get($coreModule, 'date_formats_short')),
+                'choices' => array_flip($this->moduleSettings->get($coreModule, 'date_formats_short')),
                 'choice_label' => function ($value, $key) use ($previewDate): string {
                     return $this->intlExtension->formatDate($this->twig, $previewDate, null, $key);
                 },
@@ -45,7 +45,7 @@ final class FormatSettingsType extends AbstractType
             [
                 'label' => 'lbl.DateFormatLong',
                 'help' => 'msg.HelpDateFormatLong',
-                'choices' => array_flip($this->modulesSettings->get($coreModule, 'date_formats_long')),
+                'choices' => array_flip($this->moduleSettings->get($coreModule, 'date_formats_long')),
                 'choice_label' => function ($value, $key) use ($previewLongDate): string {
                     return $this->intlExtension->formatDate($this->twig, $previewLongDate, null, $key);
                 },
@@ -57,7 +57,7 @@ final class FormatSettingsType extends AbstractType
             ChoiceType::class,
             [
                 'label' => 'lbl.TimeFormat',
-                'choices' => array_flip($this->modulesSettings->get($coreModule, 'time_formats')),
+                'choices' => array_flip($this->moduleSettings->get($coreModule, 'time_formats')),
                 'choice_label' => function ($value, $key) use ($previewDate): string {
                     return $this->intlExtension->formatDate($this->twig, $previewDate, null, $key);
                 },
@@ -69,7 +69,7 @@ final class FormatSettingsType extends AbstractType
             ChoiceType::class,
             [
                 'label' => 'lbl.DateTimeOrder',
-                'choices' => $this->modulesSettings->get($coreModule, 'date_time_orders'),
+                'choices' => $this->moduleSettings->get($coreModule, 'date_time_orders'),
                 'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
                 'choice_translation_domain' => false,
             ]
@@ -78,7 +78,7 @@ final class FormatSettingsType extends AbstractType
             ChoiceType::class,
             [
                 'label' => 'lbl.NumberFormat',
-                'choices' => $this->modulesSettings->get($coreModule, 'number_formats'),
+                'choices' => $this->moduleSettings->get($coreModule, 'number_formats'),
                 'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
                 'choice_translation_domain' => false,
             ]

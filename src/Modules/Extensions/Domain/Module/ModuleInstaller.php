@@ -60,7 +60,7 @@ abstract class ModuleInstaller
     /** @var array<string,ModuleName> */
     private ?array $defaultModuleDependencies = null;
 
-    private readonly ModulesSettings $modulesSettings;
+    private readonly ModuleSettings $moduleSettings;
     private bool $moduleSettingsUnlocked = false;
 
     public function __construct(
@@ -77,7 +77,7 @@ abstract class ModuleInstaller
         $this->entityManager = $moduleInstallerServices->entityManager;
         $this->commandBus = $moduleInstallerServices->commandBus;
         $this->eventBus = $moduleInstallerServices->eventBus;
-        $this->modulesSettings = $moduleInstallerServices->modulesSettings;
+        $this->moduleSettings = $moduleInstallerServices->moduleSettings;
     }
 
     final public static function getModuleName(): ModuleName
@@ -244,7 +244,7 @@ abstract class ModuleInstaller
         );
     }
 
-    final protected function getModulesSettingsNavigationItem(): NavigationItem
+    final protected function getModuleSettingsNavigationItem(): NavigationItem
     {
         return $this->getOrCreateBackendNavigationItem(
             TranslationKey::label('Modules'),
@@ -294,7 +294,7 @@ abstract class ModuleInstaller
             throw new RuntimeException('You cannot set module settings during the pre install phase');
         }
 
-        $this->modulesSettings->set($moduleName ?? static::getModuleName(), $key, $value);
+        $this->moduleSettings->set($moduleName ?? static::getModuleName(), $key, $value);
     }
 
     final protected function importTranslations(

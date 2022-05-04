@@ -26,7 +26,7 @@ final class ModuleInstallerServices
         public readonly EntityManagerInterface $entityManager,
         public readonly MessageBusInterface $commandBus,
         public readonly MessageBusInterface $eventBus,
-        public readonly ModulesSettings $modulesSettings,
+        public readonly ModuleSettings $moduleSettings,
     ) {
     }
 }

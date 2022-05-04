@@ -8,7 +8,7 @@ use ForkCMS\Modules\Backend\Domain\User\Event\BuildUserSettingsFormEvent;
 use ForkCMS\Modules\Backend\Domain\User\Event\UserChangedEvent;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
-use ForkCMS\Modules\Extensions\Domain\Module\ModulesSettings;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocale;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
@@ -51,7 +51,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
 {
     public function __construct(
         private readonly InstalledLocaleRepository $installedLocaleRepository,
-        private readonly ModulesSettings $modulesSettings,
+        private readonly ModuleSettings $moduleSettings,
         private readonly Security $security,
         private readonly RequestStack $requestStack,
     ) {
@@ -230,8 +230,8 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
         }
 
         $coreModule = ModuleName::core();
-        $dateFormat = $this->modulesSettings->get($coreModule, 'date_formats_' . $dateFormatType)[$dateFormatKey];
-        $timeFormat = $this->modulesSettings->get($coreModule, 'time_formats')[$timeFormatKey];
+        $dateFormat = $this->moduleSettings->get($coreModule, 'date_formats_' . $dateFormatType)[$dateFormatKey];
+        $timeFormat = $this->moduleSettings->get($coreModule, 'time_formats')[$timeFormatKey];
 
         $dateFormatter[$cacheKey] = new IntlDateFormatter(
             null,
