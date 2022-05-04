@@ -21,7 +21,7 @@ final class NavigationBuilder
     ) {
     }
 
-    private static function getSubTree(MenuType $type, array $groupedPages, int $parentId = 0): ?array
+    private static function getSubTree(MenuType $type, array $groupedPages, Locale $locale, int $parentId = 0): ?array
     {
         /** @var Page[] $subPages */
         $subPages = $groupedPages[$type->value][$parentId] ?? null;
@@ -32,7 +32,7 @@ final class NavigationBuilder
 
         $subTree = [];
         foreach ($subPages as $page) {
-            $pageTreeType = $page->getPageTreeType();
+            $pageTreeType = $page->getPageTreeType($locale);
             $pageId = $page->getId();
             $subTree[$pageId] = [
                 'attr' => [
@@ -40,7 +40,7 @@ final class NavigationBuilder
                     'data-jstree' => '{"type":"' . $pageTreeType . '"}',
                 ],
                 'page' => $page,
-                'children' => self::getSubtree($type, $groupedPages, $pageId),
+                'children' => self::getSubtree($type, $groupedPages, $locale, $pageId),
             ];
         }
 
@@ -69,7 +69,7 @@ final class NavigationBuilder
             $tree[$type->value] = [
                 'name' => 'main',
                 'label' => $type,
-                'pages' => self::getSubTree($type, $groupedPages),
+                'pages' => self::getSubTree($type, $groupedPages, $locale),
             ];
         }
 

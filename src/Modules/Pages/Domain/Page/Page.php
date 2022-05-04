@@ -10,6 +10,8 @@ use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Pages\Domain\Revision\Revision;
+use ForkCMS\Modules\Pages\Domain\RevisionBlock\RevisionBlock;
+use ForkCMS\Modules\Pages\Frontend\Widgets\Sitemap;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 #[ORM\Entity(repositoryClass: PageRepository::class)]
@@ -59,11 +61,6 @@ class Page
         return $this->originalLocale;
     }
 
-    public function getRevisions(): Collection
-    {
-        return $this->revisions;
-    }
-
     public function addRevision(Revision $newRevision): void
     {
         $this->revisions->add($newRevision);
@@ -105,8 +102,62 @@ class Page
         return $this->hasId() && $this->id === self::PAGE_ID_404;
     }
 
-    public function canBeRemoved(): bool
+    public function isForbiddenToDelete(): bool
     {
-        return $this->hasId() && $this->id >= self::PAGE_ID_START;
+        if ($this->getSetting('isForbiddenToDelete', false)) {
+            return true;
+        }
+
+        return $this->hasId() && ($this->id === self::PAGE_ID_HOME || $this->id === self::PAGE_ID_404);
+    }
+
+    public function isForbiddenToMove(): bool
+    {
+        if ($this->getSetting('isForbiddenToMove', false)) {
+            return true;
+        }
+
+        return $this->hasId() && ($this->id === self::PAGE_ID_HOME || $this->id === self::PAGE_ID_404);
+    }
+
+    public function isForbiddenToHaveChildren(): bool
+    {
+        if ($this->getSetting('isForbiddenToHaveChildren', false)) {
+            return true;
+        }
+
+        return $this->hasId() && $this->id === self::PAGE_ID_404;
+    }
+
+    public function getPageTreeType(Locale $locale): string
+    {
+        $revision = $this->getActiveRevision($locale);
+        if ($revision->getSetting('hidden', false)) {
+            return 'hidden';
+        }
+        if ($this->getId() === self::PAGE_ID_HOME) {
+            return 'home';
+        }
+        if ($this->getId() === self::PAGE_ID_404) {
+            return 'error';
+        }
+        if (
+            $revision->getBlocks()->filter(
+                static fn (RevisionBlock $block) => $block->getBlock() instanceof Sitemap
+            )->isEmpty()
+        ) {
+            return 'sitemap';
+        }
+        if (
+            $revision->getSetting('internal_redirect', false)
+            || $revision->getSetting('external_redirect', false)
+        ) {
+            return 'redirect';
+        }
+        if ($revision->getSetting('is_direct_action', false)) {
+            return 'direct_action';
+        }
+
+        return 'page';
     }
 }
