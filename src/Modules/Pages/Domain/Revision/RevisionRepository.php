@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use ForkCMS\Modules\Frontend\Domain\Meta\RepositoryWithMetaTrait;
+use ForkCMS\Modules\Pages\Domain\Page\NavigationBuilder;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
 
 /**
@@ -20,8 +21,10 @@ final class RevisionRepository extends ServiceEntityRepository
 {
     use RepositoryWithMetaTrait;
 
-    public function __construct(ManagerRegistry $managerRegistry)
-    {
+    public function __construct(
+        ManagerRegistry $managerRegistry,
+        private readonly NavigationBuilder $navigationBuilder,
+    ) {
         parent::__construct($managerRegistry, Revision::class);
     }
 
@@ -36,6 +39,7 @@ final class RevisionRepository extends ServiceEntityRepository
             $revision->getMeta()->setSlug('');
             $entityManager->flush();
         }
+        $this->navigationBuilder->clearNavigationCache();
     }
 
     public function remove(Revision $revision): void
@@ -43,6 +47,7 @@ final class RevisionRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
         $entityManager->remove($revision);
         $entityManager->flush();
+        $this->navigationBuilder->clearNavigationCache();
     }
 
     protected function slugifyIdQueryBuilder(

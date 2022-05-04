@@ -2,10 +2,18 @@
 
 namespace ForkCMS\Modules\Pages\Domain\Revision;
 
-enum MenuType: string
+use Symfony\Contracts\Translation\TranslatableInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
+enum MenuType: string implements TranslatableInterface
 {
-    case ROOT = 'root';
-    case PAGE = 'page';
-    case FOOTER = 'footer';
+    case MAIN = 'main';
     case META = 'meta';
+    case FOOTER = 'footer';
+    case ROOT = 'root';
+
+    public function trans(TranslatorInterface $translator, string $locale = null): string
+    {
+        return $translator->trans('lbl.' . ucfirst($this->value), locale: $locale);
+    }
 }

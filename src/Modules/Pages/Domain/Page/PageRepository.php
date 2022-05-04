@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 final class PageRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $managerRegistry)
+    public function __construct(ManagerRegistry $managerRegistry, private readonly NavigationBuilder $navigationBuilder)
     {
         parent::__construct($managerRegistry, Page::class);
     }
@@ -24,6 +24,7 @@ final class PageRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
         $entityManager->persist($page);
         $entityManager->flush();
+        $this->navigationBuilder->clearNavigationCache();
     }
 
     public function remove(Page $page): void
@@ -31,5 +32,6 @@ final class PageRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
         $entityManager->remove($page);
         $entityManager->flush();
+        $this->navigationBuilder->clearNavigationCache();
     }
 }
