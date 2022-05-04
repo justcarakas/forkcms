@@ -47,7 +47,7 @@ final class InternationalisationInstaller extends ModuleInstaller
         $this->getOrCreateBackendNavigationItem(
             TranslationKey::label('Languages'),
             ModuleSettings::getActionSlug(),
-            $this->getModulesSettingsNavigationItem()
+            $this->getModuleSettingsNavigationItem()
         );
     }
 
