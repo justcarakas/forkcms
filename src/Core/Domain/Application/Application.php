@@ -18,7 +18,7 @@ enum Application: string implements TranslatableInterface
         return $translator->trans('lbl.Application' . ucfirst($this->value), locale: $locale);
     }
 
-    public function canHaveTranslations(): bool
+    public function hasEditableTranslations(): bool
     {
         return match ($this) {
             self::BACKEND, self::FRONTEND, self::CONSOLE => true,

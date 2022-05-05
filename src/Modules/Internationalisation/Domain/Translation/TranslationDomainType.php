@@ -31,7 +31,7 @@ final class TranslationDomainType extends AbstractType implements DataTransforme
                 'class' => Application::class,
                 'label' => 'lbl.Application',
                 'choice_label' => fn (Application $application): string => ucfirst($application->trans($this->translator)),
-                'choice_filter' => static fn (?Application $application): bool => $application?->canHaveTranslations() ?? false,
+                'choice_filter' => static fn (?Application $application): bool => $application?->hasEditableTranslations() ?? false,
                 'choice_translation_domain' => false,
             ]
         )->add(

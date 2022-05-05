@@ -17,6 +17,8 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Translation\Translator;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class Importer
 {
@@ -27,6 +29,7 @@ final class Importer
         private readonly InstalledLocaleRepository $installedLocaleRepository,
         private readonly ModuleRepository $moduleRepository,
         private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly TranslatorInterface $translator
     ) {
     }
 
@@ -88,6 +91,11 @@ final class Importer
         $translationsDirectory = $this->cacheDir . '/translations';
         if ($filesystem->exists($translationsDirectory)) {
             $filesystem->remove($translationsDirectory);
+        }
+
+        if ($this->translator instanceof Translator) {
+            // resets the translator cache
+            $this->translator->setFallbackLocales($this->translator->getFallbackLocales());
         }
 
         return $importResult;

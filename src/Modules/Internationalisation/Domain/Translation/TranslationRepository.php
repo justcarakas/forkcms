@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Filter\FilteredTranslation;
@@ -82,6 +83,16 @@ final class TranslationRepository extends ServiceEntityRepository
             $queryBuilder
                 ->andWhere('t.domain.application = :application')
                 ->setParameter('application', $filter->application->value);
+        } else {
+            $queryBuilder
+                ->andWhere('t.domain.application in (:applications)')
+                ->setParameter(
+                    'applications',
+                    array_filter(
+                        Application::cases(),
+                        static fn (Application $application): bool => $application->hasEditableTranslations()
+                    )
+                );
         }
         if ($filter->moduleName !== null) {
             if ($filter->moduleName === ModuleName::core()) {
