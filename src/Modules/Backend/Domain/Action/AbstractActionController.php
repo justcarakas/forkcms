@@ -15,7 +15,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -34,7 +33,6 @@ abstract class AbstractActionController implements ActionControllerInterface
     protected readonly RouterInterface $router;
     protected readonly FormFactoryInterface $formFactory;
     protected readonly MessageBusInterface $commandBus;
-    protected readonly SerializerInterface $serializer;
     protected readonly AuthorizationCheckerInterface $authorizationChecker;
 
     public function __construct(ActionServices $services)
@@ -47,7 +45,6 @@ abstract class AbstractActionController implements ActionControllerInterface
         $this->router = $services->router;
         $this->formFactory = $services->formFactory;
         $this->commandBus = $services->commandBus;
-        $this->serializer = $services->serializer;
         $this->authorizationChecker = $services->authorizationChecker;
         $actionSlug = self::getActionSlug();
         $this->templatePath = sprintf(

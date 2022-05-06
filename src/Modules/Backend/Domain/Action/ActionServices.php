@@ -9,7 +9,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -24,7 +23,6 @@ final class ActionServices
         public readonly RouterInterface $router,
         public readonly FormFactoryInterface $formFactory,
         public readonly MessageBusInterface $commandBus,
-        public readonly SerializerInterface $serializer,
         public readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {
     }

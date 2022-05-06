@@ -5,16 +5,25 @@ namespace ForkCMS\Modules\Extensions\Backend\Actions;
 use DOMDocument;
 use DOMElement;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
+use ForkCMS\Modules\Backend\Domain\Action\ActionServices;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Export the template of a theme with their positions and the default blocks.
  */
 final class ThemeTemplateExport extends AbstractActionController
 {
+    public function __construct(
+        ActionServices $services,
+        private readonly SerializerInterface $serializer,
+    ) {
+        parent::__construct($services);
+    }
+
     protected function execute(Request $request): void
     {
     }
