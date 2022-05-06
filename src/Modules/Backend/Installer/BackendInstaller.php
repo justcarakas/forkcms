@@ -32,13 +32,47 @@ final class BackendInstaller extends ModuleInstaller
             UserGroup::class,
             NavigationItem::class,
         );
+        $this->createRememberMeTable();
+        $this->createAdminUser();
+    }
 
-        $connection = $this->entityManager->getConnection();
-        $doctrineTokenProvider = new DoctrineTokenProvider($connection);
-        $schema = $connection->createSchemaManager()->createSchema();
-        $doctrineTokenProvider->configureSchema($schema, $connection);
-        $connection->createSchemaManager()->migrateSchema($schema);
+    public function install(): void
+    {
+        $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');
+        $this->createBackendPages();
+    }
 
+    private function createBackendPages(): void
+    {
+        $this->getOrCreateBackendNavigationItem(
+            label: TranslationKey::label('Dashboard'),
+            slug: Dashboard::getActionSlug(),
+            sequence: 0,
+        );
+        $this->getOrCreateBackendNavigationItem(
+            TranslationKey::label('Users'),
+            UserIndex::getActionSlug(),
+            $this->getSettingsNavigationItem(),
+            [
+                UserAdd::getActionSlug(),
+                UserEdit::getActionSlug(),
+                UserDelete::getActionSlug(),
+            ],
+        );
+        $this->getOrCreateBackendNavigationItem(
+            TranslationKey::label('Groups'),
+            UserGroupIndex::getActionSlug(),
+            $this->getSettingsNavigationItem(),
+            [
+                UserGroupAdd::getActionSlug(),
+                UserGroupEdit::getActionSlug(),
+                UserGroupDelete::getActionSlug(),
+            ],
+        );
+    }
+
+    private function createAdminUser(): void
+    {
         $installerConfiguration = InstallerConfiguration::fromCache();
 
         $createUser = new CreateUser();
@@ -68,36 +102,12 @@ final class BackendInstaller extends ModuleInstaller
         );
     }
 
-    public function install(): void
+    private function createRememberMeTable(): void
     {
-        $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');
-
-        $this->getOrCreateBackendNavigationItem(
-            label: TranslationKey::label('Dashboard'),
-            slug: Dashboard::getActionSlug(),
-            sequence: 0,
-        );
-
-        $this->getOrCreateBackendNavigationItem(
-            TranslationKey::label('Users'),
-            UserIndex::getActionSlug(),
-            $this->getSettingsNavigationItem(),
-            [
-                UserAdd::getActionSlug(),
-                UserEdit::getActionSlug(),
-                UserDelete::getActionSlug(),
-            ],
-        );
-
-        $this->getOrCreateBackendNavigationItem(
-            TranslationKey::label('Groups'),
-            UserGroupIndex::getActionSlug(),
-            $this->getSettingsNavigationItem(),
-            [
-                UserGroupAdd::getActionSlug(),
-                UserGroupEdit::getActionSlug(),
-                UserGroupDelete::getActionSlug(),
-            ],
-        );
+        $connection = $this->entityManager->getConnection();
+        $doctrineTokenProvider = new DoctrineTokenProvider($connection);
+        $schema = $connection->createSchemaManager()->createSchema();
+        $doctrineTokenProvider->configureSchema($schema, $connection);
+        $connection->createSchemaManager()->migrateSchema($schema);
     }
 }

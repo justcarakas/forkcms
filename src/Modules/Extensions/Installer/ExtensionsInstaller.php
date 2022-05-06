@@ -41,7 +41,12 @@ final class ExtensionsInstaller extends ModuleInstaller
     public function install(): void
     {
         $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');
+        $this->createBackendPages();
+        $this->installDefaultTheme();
+    }
 
+    private function createBackendPages(): void
+    {
         $this->getOrCreateBackendNavigationItem(
             TranslationKey::label('Modules'),
             ModuleIndex::getActionSlug(),
@@ -53,7 +58,6 @@ final class ExtensionsInstaller extends ModuleInstaller
             ],
             0
         );
-
         $themeSettings = $this->getOrCreateBackendNavigationItem(
             TranslationKey::label('Themes'),
             ThemeIndex::getActionSlug(),
@@ -81,6 +85,10 @@ final class ExtensionsInstaller extends ModuleInstaller
                 ThemeTemplateExport::getActionSlug(),
             ]
         );
+    }
+
+    private function installDefaultTheme(): void
+    {
         /** @var ThemeRepository $themeRepository */
         $themeRepository = $this->getRepository(Theme::class);
         $installTheme = new InstallTheme($themeRepository->findInstallable()[$_ENV['FORK_INSTALLER_THEME']]);

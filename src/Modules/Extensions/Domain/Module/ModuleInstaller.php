@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Core\Domain\Doctrine\CreateSchema;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Core\Installer\CoreInstaller;
@@ -21,9 +22,12 @@ use ForkCMS\Modules\Extensions\Installer\ExtensionsInstaller;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockName;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockRepository;
+use ForkCMS\Modules\Frontend\Domain\Block\ModuleBlock;
 use ForkCMS\Modules\Frontend\Installer\FrontendInstaller;
 use ForkCMS\Modules\Internationalisation\Domain\Importer\Importer;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller;
@@ -32,6 +36,7 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\StampInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 abstract class ModuleInstaller
 {
@@ -62,6 +67,8 @@ abstract class ModuleInstaller
     private readonly ModuleSettings $moduleSettings;
     private bool $moduleRegistered = false;
 
+    private TranslatorInterface $translator;
+
     public function __construct(
         ModuleInstallerServices $moduleInstallerServices,
     ) {
@@ -76,6 +83,7 @@ abstract class ModuleInstaller
         $this->entityManager = $moduleInstallerServices->entityManager;
         $this->commandBus = $moduleInstallerServices->commandBus;
         $this->moduleSettings = $moduleInstallerServices->moduleSettings;
+        $this->translator = $moduleInstallerServices->translator;
     }
 
     final public static function getModuleName(): ModuleName
@@ -198,23 +206,24 @@ abstract class ModuleInstaller
     }
 
     final protected function getOrCreateFrontendBlock(
-        BlockName $blockName,
+        BlockName $name,
         ?TranslationKey $label = null,
         SettingsBag $settings = new SettingsBag(),
         bool $hidden = false,
         ?int $position = null,
-        ModuleName $moduleName = null,
+        ModuleName $module = null,
     ): Block {
-        $moduleName = $moduleName ?? static::getModuleName();
+        $module = $module ?? static::getModuleName();
+        $moduleBlock = new ModuleBlock($module, $name);
         /** @var BlockRepository $blockRepository */
         $blockRepository = $this->getRepository(Block::class);
-        $block = $blockRepository->findUnique($moduleName, $blockName, $settings);
+        $block = $blockRepository->findUnique($moduleBlock, $settings);
 
         if ($block instanceof Block) {
             return $block;
         }
 
-        $block = new Block($moduleName, $blockName, $label, $settings, $hidden, $position);
+        $block = new Block($moduleBlock, $label, $settings, $hidden, $position);
         $blockRepository->save($block);
 
         return $block;
@@ -332,5 +341,13 @@ abstract class ModuleInstaller
     public function isModuleRegistered(): bool
     {
         return $this->moduleRegistered;
+    }
+
+    public function trans(Locale $locale, string $id, array $parameters = [], ?ModuleName $module = null): string
+    {
+        $module = $module ?? self::getModuleName();
+        $domain = new TranslationDomain(Application::INSTALLER, $module);
+
+        return $this->translator->trans($id, $parameters, $domain->getDomain(), $locale->value);
     }
 }

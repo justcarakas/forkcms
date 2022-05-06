@@ -88,9 +88,12 @@ final class TranslationRepository extends ServiceEntityRepository
                 ->andWhere('t.domain.application in (:applications)')
                 ->setParameter(
                     'applications',
-                    array_filter(
-                        Application::cases(),
-                        static fn (Application $application): bool => $application->hasEditableTranslations()
+                    array_map(
+                        static fn (Application $application): string => $application->value,
+                        array_filter(
+                            Application::cases(),
+                            static fn (Application $application): bool => $application->hasEditableTranslations()
+                        )
                     )
                 );
         }

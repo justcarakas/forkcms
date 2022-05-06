@@ -12,6 +12,7 @@ use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\Event\ThemeTemplateCreatedEv
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\InstallableThemeTemplate;
 use ForkCMS\Modules\Frontend\Domain\Action\ActionName;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockRepository;
+use ForkCMS\Modules\Frontend\Domain\Block\ModuleBlock;
 use ForkCMS\Modules\Frontend\Domain\Block\Type;
 use ForkCMS\Modules\Frontend\Domain\Widget\WidgetName;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -44,8 +45,7 @@ final class InstallThemeHandler implements CommandHandlerInterface
                             Type::WIDGET => WidgetName::fromString($block['@name']),
                         };
                         $blocks[] = $this->blockRepository->findUnique(
-                            ModuleName::fromString($block['@module']),
-                            $blockName,
+                            new ModuleBlock(ModuleName::fromString($block['@module']), $blockName),
                             new SettingsBag(
                                 array_filter(
                                     $block,
