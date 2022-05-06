@@ -14,6 +14,10 @@ use Symfony\Component\Routing\RouteCollection;
 
 final class PagesRouteLoader implements ModuleRouteProviderInterface
 {
+    private const FORMAT_WILDCARD_REGEX = '[^\.]+';
+    private const FORMAT_REQUIREMENT = 'json|html';
+    public const FORMAT_DEFAULT = 'html';
+
     public function __construct(
         private readonly RevisionRepository $revisionRepository,
         private readonly InstalledLocaleRepository $installedLocaleRepository,
@@ -65,16 +69,19 @@ final class PagesRouteLoader implements ModuleRouteProviderInterface
 
             $routeName = $revision->getRouteName();
             $paths[$path] = [
-                'path' => $path,
+                'path' => $path . '.{_format}',
                 'name' => $routeName,
                 'defaults' => [
                     '_canonical_route' => $routeName,
                     '_controller' => PageController::class,
                     '_locale' => $locale->value,
                     'revision' => $revision->getId(),
+                    'navigation_title' => $revision->getNavigationTitle(),
+                    '_format' => self::FORMAT_DEFAULT,
                 ],
                 'requirements' => [
                     '_locale' => $locale->value,
+                    '_format' => self::FORMAT_REQUIREMENT,
                 ],
             ];
         }
@@ -92,16 +99,18 @@ final class PagesRouteLoader implements ModuleRouteProviderInterface
                 $pagesRoutes->add(
                     $redirectName,
                     new Route(
-                        '/{_locale}/{path}',
+                        '/{_locale}/{path}.{_format}',
                         [
                             '_controller' => LocaleRedirectController::class,
                             '_locale' => $websiteLocale,
                             '_canonical_route' => $redirectName,
                             'path' => '~',
+                            '_format' => self::FORMAT_DEFAULT,
                         ],
                         [
                             '_locale' => $websiteLocale,
-                            'path' => '.+',
+                            '_format' => self::FORMAT_REQUIREMENT,
+                            'path' => self::FORMAT_WILDCARD_REGEX,
                         ],
                     ),
                     -1
@@ -111,14 +120,16 @@ final class PagesRouteLoader implements ModuleRouteProviderInterface
                     $pagesRoutes->add(
                         LocaleRedirectController::ROUTE_LOCALE_REDIRECT,
                         new Route(
-                            '/{path}',
+                            '/{path}.{_format}',
                             [
                                 '_controller' => LocaleRedirectController::class,
                                 'path' => '',
                                 'default_locale' => $websiteLocale,
+                                '_format' => self::FORMAT_DEFAULT,
                             ],
                             [
-                                'path' => '.+',
+                                'path' => self::FORMAT_WILDCARD_REGEX,
+                                '_format' => self::FORMAT_REQUIREMENT,
                             ],
                         ),
                         -1

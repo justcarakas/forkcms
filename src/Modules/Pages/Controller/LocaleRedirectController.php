@@ -3,7 +3,7 @@
 namespace ForkCMS\Modules\Pages\Controller;
 
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
-use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
+use ForkCMS\Modules\Pages\DependencyInjection\PagesRouteLoader;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,19 +25,18 @@ final class LocaleRedirectController
     {
         if ($request->attributes->get('_route') === self::ROUTE_LOCALE_REDIRECT) {
             $locale = $request->getPreferredLanguage($this->installedLocaleRepository->findRedirectLocales());
+            $routeParameters = [
+                'path' => $request->attributes->get('path'),
+            ];
+            if ($request->getPreferredFormat() !== PagesRouteLoader::FORMAT_DEFAULT) {
+                $routeParameters['_format'] = $request->getPreferredFormat();
+            }
             try {
-                $path = $this->router->generate(
-                    self::ROUTE_LOCALE_REDIRECT . '.' . $locale,
-                    [
-                        'path' => $request->attributes->get('path'),
-                    ]
-                );
+                $path = $this->router->generate(self::ROUTE_LOCALE_REDIRECT . '.' . $locale, $routeParameters);
             } catch (RouteNotFoundException) {
                 $path = $this->router->generate(
                     self::ROUTE_LOCALE_REDIRECT . '.' . $request->attributes->get('default_locale'),
-                    [
-                        'path' => $request->attributes->get('path'),
-                    ]
+                    $routeParameters
                 );
             }
 
