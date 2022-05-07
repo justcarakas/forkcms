@@ -64,7 +64,11 @@ final class PagesRouteLoader implements ModuleRouteProviderInterface
             }
 
             if ($_ENV['SITE_MULTILINGUAL'] === 'true') {
-                $path = $locale->value . '/' . $path;
+                if ($revision->getPage()->getId() !== Page::PAGE_ID_HOME) {
+                    $path = $locale->value . '/' . $path;
+                } else {
+                    $path = $locale->value;
+                }
             }
 
             $routeName = $revision->getRouteName();

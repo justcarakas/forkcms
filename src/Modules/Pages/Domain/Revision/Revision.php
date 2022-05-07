@@ -61,7 +61,8 @@ class Revision
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private DateTimeImmutable|null $isArchived = null;
 
-    #[ORM\OneToMany(mappedBy: 'revision', targetEntity: RevisionBlock::class)]
+    #[ORM\OneToMany(mappedBy: 'revision', targetEntity: RevisionBlock::class, cascade: ['persist', 'remove'])]
+    #[ORM\OrderBy(['position' => 'ASC'])]
     private Collection $blocks;
 
     /** @param Collection<RevisionBlockDataTransferObject> $blocks  */
@@ -190,6 +191,7 @@ class Revision
         return $this->isArchived;
     }
 
+    /** @return Collection<RevisionBlock> */
     public function getBlocks(): Collection
     {
         return $this->blocks;
@@ -232,5 +234,11 @@ class Revision
     public function getRouteName(): string
     {
         return 'pages__page__' . $this->page->getId() . '.' . $this->locale->value;
+    }
+
+    public function getNavigationTitle(): string
+    {
+        // @TODO add overwrite for navigation title
+        return $this->title;
     }
 }

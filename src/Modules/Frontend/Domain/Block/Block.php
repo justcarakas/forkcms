@@ -2,13 +2,11 @@
 
 namespace ForkCMS\Modules\Frontend\Domain\Block;
 
-use Assert\Assert;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
-use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -20,7 +18,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class Block implements TranslatableInterface
 {
     use EntityWithSettingsTrait;
-
     use Blameable;
 
     #[ORM\Id]
@@ -28,11 +25,8 @@ class Block implements TranslatableInterface
     #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    #[ORM\Column(type: 'modules__extensions__module__module_name')]
-    private ModuleName $module;
-
-    #[ORM\Column(type: 'modules__frontend__block__block_name')]
-    private BlockName $blockName;
+    #[ORM\Embedded]
+    private ModuleBlock $block;
 
     #[ORM\Column(type: Types::STRING, enumType: Type::class)]
     #[Gedmo\SortableGroup]
@@ -53,21 +47,18 @@ class Block implements TranslatableInterface
     private ?Locale $locale = null;
 
     public function __construct(
-        ModuleName $moduleName,
-        BlockName $blockName,
+        ModuleBlock $block,
         ?TranslationKey $label = null,
         ?SettingsBag $settings = null,
         bool $hidden = false,
         ?int $position = null
     ) {
-        $this->module = $moduleName;
-        $this->blockName = $blockName;
-        $this->type = $blockName->getType();
+        $this->block = $block;
+        $this->type = $block->getName()->getType();
         $this->settings = $settings ?? new SettingsBag();
-        $this->label = $label ?? TranslationKey::label($blockName->getName());
+        $this->label = $label ?? TranslationKey::label($block->getName()->getName());
         $this->hidden = $hidden;
         $this->position = $position;
-        Assert::that($this->getFQCN())->classExists('Block class not found');
     }
 
     public function getId(): int
@@ -75,19 +66,19 @@ class Block implements TranslatableInterface
         return $this->id;
     }
 
-    public function getModule(): ModuleName
+    public function getSettings(): SettingsBag
     {
-        return $this->module;
+        return $this->settings;
     }
 
-    public function getBlockName(): BlockName
+    public function getBlock(): ModuleBlock
     {
-        return $this->blockName;
+        return $this->block;
     }
 
-    public function getType(): Type
+    public function getLocale(): ?Locale
     {
-        return $this->type;
+        return $this->locale;
     }
 
     public function getLabel(): TranslationKey
@@ -122,7 +113,7 @@ class Block implements TranslatableInterface
 
     public function trans(TranslatorInterface $translator, string $locale = null): string
     {
-        $module = $this->module->asLabel()->trans($translator) . ': ';
+        $module = $this->block->getModule()->asLabel()->trans($translator) . ': ';
         if (!$this->settings->has('extra_label')) {
             return $module . $this->label->trans($translator);
         }
@@ -137,13 +128,8 @@ class Block implements TranslatableInterface
         return $module . $this->settings->get('extra_label');
     }
 
-    public function getFQCN(): string
-    {
-        return 'ForkCMS\\Modules\\' . $this->module . '\\Frontend\\' . $this->type->getDirectoryName() . '\\' . $this->blockName;
-    }
-
     public function __toString(): string
     {
-        return $this->getFQCN();
+        return $this->getBlock()->getFQCN();
     }
 }

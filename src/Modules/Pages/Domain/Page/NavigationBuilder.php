@@ -67,7 +67,6 @@ final class NavigationBuilder
             }
 
             $tree[$type->value] = [
-                'name' => 'main',
                 'label' => $type,
                 'pages' => self::getSubTree($type, $groupedPages, $locale),
             ];

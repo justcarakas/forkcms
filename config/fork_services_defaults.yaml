@@ -44,3 +44,7 @@ services:
     ForkCMS\Modules\Internationalisation\Domain\Exporter\ExporterInterface:
       tags:
         - { name: forkcms.translation.exporter }
+
+    ForkCMS\Modules\Frontend\Domain\Block\BlockControllerInterface:
+      tags:
+        - { name: forkcms.frontend.block }

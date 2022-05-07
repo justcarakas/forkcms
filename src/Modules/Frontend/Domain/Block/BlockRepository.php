@@ -5,7 +5,6 @@ namespace ForkCMS\Modules\Frontend\Domain\Block;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
-use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use Gedmo\Sortable\Entity\Repository\SortableRepository;
 
 /**
@@ -74,17 +73,16 @@ class BlockRepository extends SortableRepository
     }
 
     public function findUnique(
-        ModuleName $moduleName,
-        BlockName $blockName,
+        ModuleBlock $moduleBlock,
         SettingsBag $settings = new SettingsBag()
     ): ?Block {
         $queryBuilder = $this->createQueryBuilder('b')
-            ->andWhere('b.module = :module')
-            ->setParameter('module', $moduleName->getName())
-            ->andWhere('b.blockName = :blockName')
-            ->setParameter('blockName', BlockNameDBALType::prefixedString($blockName))
+            ->andWhere('b.block.module = :module')
+            ->setParameter('module', $moduleBlock->getModule()->getName())
+            ->andWhere('b.block.name = :name')
+            ->setParameter('name', BlockNameDBALType::prefixedString($moduleBlock->getName()))
             ->andWhere('b.type = :type')
-            ->setParameter('type', $blockName->getType()->value)
+            ->setParameter('type', $moduleBlock->getName()->getType()->value)
             ->andWhere('JSON_CONTAINS(b.settings, :settings) = 1')
             ->setParameter('settings', $settings->asJsonString());
 
@@ -94,12 +92,14 @@ class BlockRepository extends SortableRepository
     /** @return Block[] */
     public function findAllWidgets(): array
     {
+        /* @TODO add check for widgets that have been added but aren't in the database yet */
         return $this->findBy(['type' => Type::WIDGET->value, 'hidden' => false], ['type' => Criteria::ASC, 'position' => Criteria::ASC]);
     }
 
     /** @return Block[] */
     public function findAllActions(): array
     {
+        /* @TODO add check for actions that have been added but aren't in the database yet */
         return $this->findBy(['type' => Type::ACTION->value, 'hidden' => false], ['type' => Criteria::ASC, 'position' => Criteria::ASC]);
     }
 }

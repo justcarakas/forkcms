@@ -6,14 +6,22 @@ use Doctrine\ORM\Query\ResultSetMapping;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
 use ForkCMS\Modules\Frontend\Domain\Meta\Meta;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocale;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
+use ForkCMS\Modules\Pages\Backend\Actions\ModuleSettings;
+use ForkCMS\Modules\Pages\Backend\Actions\PageAdd;
+use ForkCMS\Modules\Pages\Backend\Actions\PageCopyToOtherLocale;
+use ForkCMS\Modules\Pages\Backend\Actions\PageDelete;
+use ForkCMS\Modules\Pages\Backend\Actions\PageEdit;
 use ForkCMS\Modules\Pages\Backend\Actions\PageIndex;
+use ForkCMS\Modules\Pages\Backend\Ajax\PageMove;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
 use ForkCMS\Modules\Pages\Domain\Revision\Command\CreateRevision;
 use ForkCMS\Modules\Pages\Domain\Revision\MenuType;
 use ForkCMS\Modules\Pages\Domain\Revision\Revision;
 use ForkCMS\Modules\Pages\Domain\RevisionBlock\RevisionBlock;
+use ForkCMS\Modules\Pages\Frontend\Widgets\Sitemap;
 
 final class PagesInstaller extends ModuleInstaller
 {
@@ -26,11 +34,49 @@ final class PagesInstaller extends ModuleInstaller
 
     public function install(): void
     {
+        $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');
+        $this->createBackendPages();
+        $this->configureBackendAjaxActions();
+        $this->createFrontendPages();
+    }
+
+    private function createBackendPages(): void
+    {
         $this->getOrCreateBackendNavigationItem(
             label: TranslationKey::label('Pages'),
             slug: PageIndex::getActionSlug(),
+            selectedFor: [
+                PageAdd::getActionSlug(),
+                PageEdit::getActionSlug(),
+                PageDelete::getActionSlug(),
+                PageCopyToOtherLocale::getActionSlug(),
+            ],
             sequence: 1,
         );
+        $this->getOrCreateBackendNavigationItem(
+            TranslationKey::label('Pages'),
+            ModuleSettings::getActionSlug(),
+            $this->getModuleSettingsNavigationItem()
+        );
+    }
+
+    private function createFrontendPages(): void
+    {
+        /** @var Locale[] $locales */
+        $locales = $this->getRepository(InstalledLocale::class)->findInstalledLocales();
+        $this->createPage($locales, 'lbl.Home', MenuType::MAIN);
+        $this->createPage($locales, 'lbl.Disclaimer', MenuType::FOOTER);
+        $this->createPage(
+            $locales,
+            'lbl.Sitemap',
+            MenuType::FOOTER,
+            callback: function (Locale $locale, CreateRevision $revision): void {
+                $revision->addBlock('main', $this->getOrCreateFrontendBlock(Sitemap::getModuleBlock()->getName()));
+            }
+        );
+        $this->setPagesAutoIncrement(Page::PAGE_ID_404);
+        $this->createPage($locales, '404', MenuType::ROOT);
+        $this->setPagesAutoIncrement(Page::PAGE_ID_START);
     }
 
     /**
@@ -43,14 +89,14 @@ final class PagesInstaller extends ModuleInstaller
         MenuType $type,
         ?Page $parentPage = null,
         ?Page $page = null,
-        ?callable $callback = null
+        ?callable $callback = null,
     ): Page {
         foreach ($locales as $locale) {
             if ($page === null) {
                 $page = new Page($locale);
             }
             $revision = new CreateRevision($page, $locale, false);
-            $revision->title = $title;
+            $revision->title = $this->trans($locale, $title);
             $revision->parentPage = $parentPage;
             $revision->meta = Meta::forName($title);
             $revision->themeTemplate = $this->entityManager->getReference(ThemeTemplate::class, 1);
@@ -69,6 +115,14 @@ final class PagesInstaller extends ModuleInstaller
 
     private function setPagesAutoIncrement(int $startValue): void
     {
-        $this->entityManager->createNativeQuery('ALTER TABLE pages__page AUTO_INCREMENT=' . $startValue, new ResultSetMapping())->execute();
+        $this->entityManager->createNativeQuery(
+            'ALTER TABLE pages__page AUTO_INCREMENT=' . $startValue,
+            new ResultSetMapping()
+        )->execute();
+    }
+
+    private function configureBackendAjaxActions(): void
+    {
+        $this->allowGroupToAccessModuleAjaxAction(PageMove::getAjaxActionSlug()->asModuleAction());
     }
 }

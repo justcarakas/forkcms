@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Pages\Domain\RevisionBlock;
 
+use ForkCMS\Modules\Frontend\Domain\Block\Block;
 use ForkCMS\Modules\Pages\Domain\Revision\Revision;
 
 final class RevisionBlockDataTransferObject
@@ -13,18 +14,20 @@ final class RevisionBlockDataTransferObject
     public ?int $sequence = null;
     /** @var array<string, mixed>  */
     public array $settings = [];
+    public ?Block $block = null;
 
-    public function __construct(?RevisionBlock $block)
+    public function __construct(?RevisionBlock $revisionBlock = null)
     {
-        if ($block === null) {
+        if ($revisionBlock === null) {
             return;
         }
 
         // dont map the revision since changes should result in a new revision
-        $this->position = $block->getPosition();
-        $this->editorContent = $block->getEditorContent();
-        $this->isVisible = $block->isVisible();
-        $this->sequence = $block->getSequence();
-        $this->settings = $block->getSettings()->all();
+        $this->position = $revisionBlock->getPosition();
+        $this->editorContent = $revisionBlock->getEditorContent();
+        $this->isVisible = $revisionBlock->isVisible();
+        $this->sequence = $revisionBlock->getSequence();
+        $this->settings = $revisionBlock->getSettings()->all();
+        $this->block = $revisionBlock->getBlock();
     }
 }

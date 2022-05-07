@@ -40,7 +40,7 @@ class RevisionBlock
 
     #[Gedmo\SortablePosition]
     #[ORM\Column(type: Types::INTEGER)]
-    private int $sequence;
+    private ?int $sequence;
 
     public function __construct(
         Revision $revision,

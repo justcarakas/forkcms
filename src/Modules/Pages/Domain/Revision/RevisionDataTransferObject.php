@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Pages\Domain\Revision;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
+use ForkCMS\Modules\Frontend\Domain\Block\Block;
 use ForkCMS\Modules\Frontend\Domain\Meta\Meta;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
@@ -56,5 +57,13 @@ abstract class RevisionDataTransferObject
     public function getEntity(): Revision
     {
         return $this->revisionEntity;
+    }
+
+    public function addBlock(string $position, Block $block)
+    {
+        $revisionBlock = new RevisionBlockDataTransferObject();
+        $revisionBlock->block = $block;
+        $revisionBlock->position = $position;
+        $this->blocks->add($revisionBlock);
     }
 }

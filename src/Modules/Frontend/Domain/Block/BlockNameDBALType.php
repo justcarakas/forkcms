@@ -12,7 +12,7 @@ use Stringable;
 class BlockNameDBALType extends ValueObjectDBALType
 {
     public const ACTION_PREFIX = 'action__';
-    public const WIDGET_PREFIX = 'action__';
+    public const WIDGET_PREFIX = 'widget__';
 
     protected function fromString(string $value): Stringable
     {
