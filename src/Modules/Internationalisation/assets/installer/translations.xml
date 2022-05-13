@@ -517,8 +517,8 @@
         <translation locale="en"><![CDATA[available as interface locale]]></translation>
       </item>
       <item type="label" name="DefaultForWebsite">
-        <translation locale="nl"><![CDATA[standaard zijn voor bezoekers]]></translation>
-        <translation locale="en"><![CDATA[default for visitors]]></translation>
+        <translation locale="nl"><![CDATA[standaard taal voor bezoekers]]></translation>
+        <translation locale="en"><![CDATA[default locale for visitors]]></translation>
       </item>
       <item type="label" name="DefaultForUser">
         <translation locale="nl"><![CDATA[standaard interface taal]]></translation>

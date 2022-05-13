@@ -95,22 +95,31 @@ class ModuleSettingsType extends AbstractType
         }
 
         $builder->add(
-            'defaultForUser',
-            LocaleType::class,
+            'languages',
+            FieldsetType::class,
             [
-                'label' => 'lbl.DefaultForUser',
-                'required' => true,
-                'choices' => $localeChoices,
-                'attr' => ['data-role' => 'locale-default-for-user'],
-            ]
-        )->add(
-            'defaultForWebsite',
-            LocaleType::class,
-            [
-                'label' => 'lbl.DefaultForWebsite',
-                'required' => true,
-                'choices' => $localeChoices,
-                'attr' => ['data-role' => 'locale-default-for-website'],
+                'label' => 'lbl.Languages',
+                'fields' => static function (FormBuilderInterface $builder) use ($localeChoices): void {
+                    $builder->add(
+                        'defaultForUser',
+                        LocaleType::class,
+                        [
+                            'label' => 'lbl.DefaultForUser',
+                            'required' => true,
+                            'choices' => $localeChoices,
+                            'attr' => ['data-role' => 'locale-default-for-user'],
+                        ]
+                    )->add(
+                        'defaultForWebsite',
+                        LocaleType::class,
+                        [
+                            'label' => 'lbl.DefaultForWebsite',
+                            'required' => true,
+                            'choices' => $localeChoices,
+                            'attr' => ['data-role' => 'locale-default-for-website'],
+                        ]
+                    );
+                },
             ]
         )->add(
             'installedLocales',
