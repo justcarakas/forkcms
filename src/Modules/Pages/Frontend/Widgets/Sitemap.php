@@ -2,16 +2,53 @@
 
 namespace ForkCMS\Modules\Pages\Frontend\Widgets;
 
-use ForkCMS\Core\Frontend\Helper\Base\Widget as FrontendBaseWidget;
+use ForkCMS\Modules\Frontend\Domain\Block\BlockServices;
+use ForkCMS\Modules\Frontend\Domain\Widget\AbstractWidgetController;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
+use ForkCMS\Modules\Pages\Domain\Page\NavigationBuilder;
+use ForkCMS\Modules\Pages\Domain\Revision\Revision;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * This is a widget wherein the sitemap lives
  */
-class Sitemap extends FrontendBaseWidget
+class Sitemap extends AbstractWidgetController
 {
-    public function execute(): void
+    public function __construct(
+        BlockServices $blockServices,
+        private readonly NavigationBuilder $navigationBuilder,
+    ) {
+        parent::__construct($blockServices);
+    }
+
+    public function execute(Request $request, Response $response): void
     {
-        parent::execute();
-        $this->loadTemplate();
+        $navigationTree = $this->navigationBuilder->getTree(Locale::from($request->getLocale()));
+        $sitemap = [];
+        $currentLocale = Locale::from($request->getLocale());
+        foreach ($navigationTree as $navigationCategory) {
+            $categoryKey = $navigationCategory['label']->trans($this->translator, $currentLocale->value);
+            $sitemap[$categoryKey] = $this->getPageData((array) $navigationCategory['pages'], $currentLocale);
+        }
+
+        $this->assign('sitemap', $sitemap);
+    }
+
+    private function getPageData(array $pages, Locale $locale): array
+    {
+        $pageData = [];
+        foreach ($pages as $page) {
+            /** @var Revision $revision */
+            $revision = $page['page']->getActiveRevision($locale);
+            $pageData[] = [
+                'title' => $revision->getNavigationTitle(),
+                'url' => $this->router->generate($revision->getRouteName(), referenceType: RouterInterface::ABSOLUTE_URL),
+                'children' => $this->getPageData((array) $page['children'], $locale),
+            ];
+        }
+
+        return $pageData;
     }
 }

@@ -1,10 +1,18 @@
-<nav class="module-pages widget-pages-sitemap">
-  {% block widget_heading %}{% endblock %}
+<h2>{{ 'lbl.Sitemap'|trans|ucfirst }}</h2>
+{% for category, pages in sitemap %}
+  <h3>{{ category }}</h3>
+  {{ _self.pages(pages) }}
+{% endfor %}
 
-  {% block widget_body %}
-    {{ getnavigation('page', 0, null, null, 'Modules/Pages/Layout/Templates/Sitemap.html.twig') }}
-    {{ getnavigation('meta', 0, null, null, 'Modules/Pages/Layout/Templates/Sitemap.html.twig') }}
-  {% endblock %}
-
-  {% block widget_footer %}{% endblock %}
-</nav>
+{% macro pages (pages) %}
+  {% if pages|count > 0 %}
+    <ul>
+      {% for page in pages %}
+        <li>
+          <a href="{{ page.url }}">{{ page.title }}</a>
+          {{ _self.pages(page.children) }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
