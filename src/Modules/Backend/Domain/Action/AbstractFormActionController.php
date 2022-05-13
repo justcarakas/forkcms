@@ -4,6 +4,9 @@ namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use ForkCMS\Core\Domain\Form\ActionType;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
+use ForkCMS\Modules\Extensions\Domain\Module\Command\ChangeModuleSettings;
+use ForkCMS\Modules\Extensions\Domain\Module\Module;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -104,6 +107,22 @@ abstract class AbstractFormActionController extends AbstractActionController
             $formData,
             FlashMessage::success('SettingsSaved'),
             new RedirectResponse(self::getActionSlug()->generateRoute($this->router))
+        );
+    }
+
+    /**
+     * @param class-string<FormTypeInterface> $formType
+     */
+    final protected function handleModuleSettingsForm(
+        Request $request,
+        string $formType,
+        ModuleName $moduleName,
+        array $defaults = []
+    ): Response|FormInterface|null {
+        return $this->handleSettingsForm(
+            $request,
+            $formType,
+            new ChangeModuleSettings($this->getRepository(Module::class)->find($moduleName), $defaults),
         );
     }
 }

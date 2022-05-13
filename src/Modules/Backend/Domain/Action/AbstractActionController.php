@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Exception\MissingIdentifierField;
 use ForkCMS\Core\Domain\Header\Header;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\AjaxActionSlug;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -110,7 +111,7 @@ abstract class AbstractActionController implements ActionControllerInterface
      *
      * @return EntityRepository<T>
      */
-    public function getRepository(string $entityFQCN): EntityRepository
+    final public function getRepository(string $entityFQCN): EntityRepository
     {
         return $this->entityManager->getRepository($entityFQCN);
     }
@@ -122,7 +123,7 @@ abstract class AbstractActionController implements ActionControllerInterface
      *
      * @return T
      */
-    protected function getEntityFromRequest(Request $request, string $entityFQCN, string $key = 'slug'): mixed
+    final protected function getEntityFromRequest(Request $request, string $entityFQCN, string $key = 'slug'): mixed
     {
         try {
             return $this->getRepository($entityFQCN)
@@ -137,14 +138,19 @@ abstract class AbstractActionController implements ActionControllerInterface
         }
     }
 
-    protected function setBreadcrumbDetail(string $breadcrumbDetail): void
+    final protected function setBreadcrumbDetail(string $breadcrumbDetail): void
     {
         $this->assign('breadcrumbDetail', $breadcrumbDetail);
         $this->pageTitle = $this->buildPageTitle($breadcrumbDetail);
     }
 
-    protected function isAllowed(ActionSlug|AjaxActionSlug $actionSlug): bool
+    final protected function isAllowed(ActionSlug|AjaxActionSlug $actionSlug): bool
     {
         return $this->authorizationChecker->isGranted($actionSlug->asModuleAction()->asRole());
+    }
+
+    final protected function getModuleName(): ModuleName
+    {
+        return ModuleName::fromFQCN(static::class);
     }
 }
