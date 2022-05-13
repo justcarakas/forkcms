@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE }}">
+{#<html lang="{{ LANGUAGE }}">#}
+<html>
 <head>
   {# Meta #}
   <meta charset="utf-8" />
   <meta name="generator" content="Fork CMS" />
-  {{ meta|raw }}
-  {{ metaCustom|raw }}
+{#  {{ meta|raw }}#}
+{#  {{ metaCustom|raw }}#}
 
-  <title>{{ pageTitle }}</title>
+{#  <title>{{ pageTitle }}</title>#}
 
   {# Favicon and Apple touch icon #}
   <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
   {# Windows 8 tile #}
-  <meta name="application-name" content="{{ siteTitle }}" />
+{#  <meta name="application-name" content="{{ siteTitle }}" />#}
   <meta name="msapplication-TileColor" content="#3380aa" />
   <meta name="msapplication-TileImage" content="/tile.png" />
 
@@ -23,9 +24,9 @@
   {{ encore_entry_link_tags('screen', null, 'frontendConfig') }}
 
   {# Site wide HTML in the head tag #}
-  {{ siteHTMLHead|raw }}
+{#  {{ siteHTMLHead|raw }}#}
 
-  {% if debug %}
+  {% if app.debug %}
     <script src="http://localhost:35729/livereload.js?snipver=1"></script>
   {% endif %}
 </head>

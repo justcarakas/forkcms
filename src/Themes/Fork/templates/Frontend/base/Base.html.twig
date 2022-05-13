@@ -1,22 +1,22 @@
-{% include "Core/Layout/Templates/Head.html.twig" %}
+{% include "@Frontend/base/Head.html.twig" %}
 
-<body class="{{ LANGUAGE }}" itemscope itemtype="http://schema.org/WebPage">
+<body class="{{ app.request.locale }}" itemscope itemtype="http://schema.org/WebPage">
 {# Site wide HTML just after body tag #}
-{{ siteHTMLStartOfBody|raw }}
+{#{{ siteHTMLStartOfBody|raw }}#}
 
 <div id="root">
   {# @deprecated remove this in Fork 6, the privacy consent dialog should be used#}
   {% block cookies %}
-    {% include "Core/Layout/Templates/Cookies.html.twig" %}
+{#    {% include "@Frontend/base/Cookies.html.twig" %}#}
   {% endblock %}
   {% block privacyConsentDialog %}
-    {% include "Core/Layout/Templates/PrivacyConsentDialog.html.twig" %}
+{#    {% include "@Frontend/base/PrivacyConsentDialog.html.twig" %}#}
   {% endblock %}
 
   {% block navigation %}
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container">
-        <a class="navbar-brand" href="/{% if SITE_MULTILANGUAGE %}{{ LANGUAGE }}{% endif %}">{{ siteTitle }}</a>
+{#        <a class="navbar-brand" href="/{% if SITE_MULTILANGUAGE %}{{ LANGUAGE }}{% endif %}">{{ siteTitle }}</a>#}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="visually-hidden" data-role="label">{{ 'lbl.OpenNavigation'|trans }}</span>
           <span class="navbar-toggler-icon"></span>
@@ -24,18 +24,13 @@
 
 
         <div id="navbar-main" class="collapse navbar-collapse">
-          {{ getnavigation('page', 0, 1) }}
+{#          {{ getnavigation('page', 0, 1) }}#}
 
           {# Top positions #}
-          {% if positions.top %}
-            {% for content in positions.top %}
-              {% if content.html %}
-                {{ content.html|raw }}
-              {% endif %}
-            {% endfor %}
-          {% endif %}
+          {% block top %}
+          {% endblock %}
 
-          {% include "Core/Layout/Templates/Languages.html.twig" %}
+{#          {% include "@Frontend/base/Languages.html.twig" %}#}
         </div>
       </div>
     </nav>
@@ -45,11 +40,11 @@
     <div class="container">
       {% block pageTitle %}
         {# Page title #}
-        {% if not hideContentTitle %}
-          <header class="page-header">
-            <h1>{{ contentTitle }}</h1>
-          </header>
-        {% endif %}
+{#        {% if not hideContentTitle %}#}
+{#          <header class="page-header">#}
+{#            <h1>{{ contentTitle }}</h1>#}
+{#          </header>#}
+{#        {% endif %}#}
       {% endblock %}
     </div>
   </div>
@@ -58,26 +53,25 @@
 
     {% block breadcrumb %}
       {# Breadcrumb #}
-      {% include "Core/Layout/Templates/Breadcrumb.html.twig" %}
+{#      {% include "@Frontend/base/Breadcrumb.html.twig" %}#}
     {% endblock %}
 
     {# Main content #}
-    {% block main %}
-
+    {% block mainContent %}
     {% endblock %}
   </div>
   <div id="root-footer"></div>
 </div>
 {% block footer %}
-  {% include "Core/Layout/Templates/Footer.html.twig" %}
+  {% include "@Frontend/base/Footer.html.twig" %}
 {% endblock %}
 
 {# General Javascript #}
-{% for js in jsFiles %}
-  <script src="{{ js }}"></script>
-{% endfor %}
+{#{% for js in jsFiles %}#}
+{#  <script src="{{ js }}"></script>#}
+{#{% endfor %}#}
 
 {# Site wide HTML just before closing body tag #}
-{{ siteHTMLEndOfBody|raw }}
+{#{{ siteHTMLEndOfBody|raw }}#}
 </body>
 </html>
