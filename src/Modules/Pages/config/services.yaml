@@ -2,12 +2,17 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
+    bind:
+      $frontendBlocks: !tagged_locator { tag: forkcms.frontend.block }
 
   ForkCMS\Modules\Pages\Domain\:
     resource: '../Domain/*'
 
   ForkCMS\Modules\Pages\Backend\:
     resource: '../Backend/*'
+
+  ForkCMS\Modules\Pages\Frontend\:
+    resource: '../Frontend/*'
 
   ForkCMS\Modules\Pages\Controller\:
     resource: '../Controller/*'

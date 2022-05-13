@@ -11,12 +11,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
+use Twig\Environment;
 
 final class PageController
 {
     public function __construct(
         private readonly ServiceLocator $frontendBlocks,
         private readonly SerializerInterface $serializer,
+        private readonly Environment $twig,
     ) {
     }
 
@@ -25,9 +27,11 @@ final class PageController
         $revisionContext = [
             'title' => $revision->getTitle(),
             'positions' => [],
+            'template' => $revision->getThemeTemplate()->getTemplatePath(),
         ];
 
-        $response = $request->getPreferredFormat() === 'json' ? new JsonResponse() : new Response();
+        $hasJsonResponse = $request->getPreferredFormat() === 'json';
+        $response = $hasJsonResponse ? new JsonResponse() : new Response();
 
         /** @var array<string, array<int,RevisionBlock>> $positions */
         $positions = [];
@@ -42,10 +46,14 @@ final class PageController
                     if ($this->frontendBlocks->has($blockName)) {
                         /** @var BlockControllerInterface $blockController */
                         $blockController = $this->frontendBlocks->get($blockName);
-                        $revisionContext['positions'][$position][] = [
-                            'block' => $blockName,
-                            'content' => $blockController($request, $response),
-                        ];
+                        if ($hasJsonResponse) {
+                            $revisionContext['positions'][$position][] = [
+                                'block' => $blockName,
+                                'content' => $blockController($request, $response),
+                            ];
+                        } else {
+                            $revisionContext['positions'][$position][] = $blockController($request, $response);
+                        }
                         $responseOverride = $blockController->getResponseOverride();
                         if ($responseOverride !== null) {
                             return $responseOverride;
@@ -55,22 +63,18 @@ final class PageController
             }
         }
 
-        if ($response instanceof JsonResponse) {
+        if ($hasJsonResponse) {
             $response->setJson($this->serializer->serialize($revisionContext, 'json'));
 
             return $response;
         }
 
-        $content = '<html><head><title>' . $revisionContext['title'] . '</title></head><body>';
-        $content .= '<h1>' . $revisionContext['title'] . '</h1>';
-        foreach ($revisionContext['positions'] as $position => $blocks) {
-            $content .= '<h2>' . $position . '</h2>';
-            foreach ($blocks as $block) {
-                $content .= '<div class="block">' . $block['content'] . '</div>';
-            }
-        }
-        $content .= '</body></html>';
-        $response->setContent($content);
+        $response->setContent(
+            $this->twig->render(
+                $this->twig->createTemplate($this->twig->render('@Pages/_page_blocks.html.twig', $revisionContext)),
+                $revisionContext
+            )
+        );
 
         return $response;
     }
