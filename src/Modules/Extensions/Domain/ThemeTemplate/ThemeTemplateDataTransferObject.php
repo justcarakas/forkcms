@@ -17,6 +17,8 @@ use Symfony\Component\Validator\Context\ExecutionContext;
 #[UniqueDataTransferObject(['entityClass' => ThemeTemplate::class, 'fields' => ['name', 'theme']])]
 abstract class ThemeTemplateDataTransferObject implements UniqueDataTransferObjectInterface
 {
+    private const BASE_PATH = 'src/Modules/Extensions/Domain/ThemeTemplate/';
+
     #[Assert\NotBlank(message: 'err.FieldIsRequired')]
     public ?string $name = null;
 
@@ -85,7 +87,9 @@ abstract class ThemeTemplateDataTransferObject implements UniqueDataTransferObje
 
     public function validateThemeTemplate(ExecutionContext $context): void
     {
-        if (!is_file($this->theme->getPath() . '/templates/Core/' . $this->path)) {
+        $themePath = $this->theme->getPath() . '/' . ThemeTemplate::PATH_DIRECTORY . $this->path;
+        $modulePath = __DIR__ . '/../../../Frontend/templates/base/' . $this->path;
+        if (!is_file($themePath) && !is_file($modulePath)) {
             $context->buildViolation(TranslationKey::error('TemplateFileNotFound'))
                 ->atPath('path')
                 ->addViolation();

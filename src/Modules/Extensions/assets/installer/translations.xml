@@ -490,19 +490,19 @@
         <translation locale="pt"><![CDATA[tema]]></translation>
       </item>
       <item type="message" name="HelpTemplateLocation">
-        <translation locale="nl"><![CDATA[Plaats de templates in de map <code>templates/Core</code> van je thema.]]></translation>
-        <translation locale="en"><![CDATA[Put your templates in the <code>templates/Core</code> folder of your theme.]]></translation>
-        <translation locale="it"><![CDATA[Metti i tuoi template nella cartella <code>templates/Core</code> del tuo tema.]]></translation>
-        <translation locale="ru"><![CDATA[Путь для шаблонов <code>templates/Core</code>.]]></translation>
-        <translation locale="zh"><![CDATA[将你的模板放置在你的主题文件夹<code>templates/Core</code> 中。]]></translation>
-        <translation locale="de"><![CDATA[Leg deine Templates im Ordner <code>templates/Core</code> deines Themes ab.]]></translation>
-        <translation locale="fr"><![CDATA[Placez les templates dans le répertoire <code>templates/Core</code> de votre thème.]]></translation>
-        <translation locale="hu"><![CDATA[Tedd a sablonodad a témád <code>templates/Core</code> mappájába.]]></translation>
-        <translation locale="es"><![CDATA[Pon tus plantillas en la carpeta <code>templates/Core</code> de tu tema.]]></translation>
+        <translation locale="nl"><![CDATA[Plaats de templates in de map <code>Frontend/base</code> van je thema.]]></translation>
+        <translation locale="en"><![CDATA[Put your templates in the <code>Frontend/base</code> folder of your theme.]]></translation>
+        <translation locale="it"><![CDATA[Metti i tuoi template nella cartella <code>Frontend/base</code> del tuo tema.]]></translation>
+        <translation locale="ru"><![CDATA[Путь для шаблонов <code>Frontend/base</code>.]]></translation>
+        <translation locale="zh"><![CDATA[将你的模板放置在你的主题文件夹<code>Frontend/base</code> 中。]]></translation>
+        <translation locale="de"><![CDATA[Leg deine Templates im Ordner <code>Frontend/base</code> deines Themes ab.]]></translation>
+        <translation locale="fr"><![CDATA[Placez les templates dans le répertoire <code>Frontend/base</code> de votre thème.]]></translation>
+        <translation locale="hu"><![CDATA[Tedd a sablonodad a témád <code>Frontend/base</code> mappájába.]]></translation>
+        <translation locale="es"><![CDATA[Pon tus plantillas en la carpeta <code>Frontend/base</code> de tu tema.]]></translation>
         <translation locale="sv"><![CDATA[Lägg dina mallar i <code>core/layout/mallar</code> mapp av ditt tema.]]></translation>
-        <translation locale="el"><![CDATA[Τοποθετήσατε τα πρότυπά σας στο φάκελο <code>templates/Core</code> του θέματός σας.]]></translation>
-        <translation locale="pl"><![CDATA[Umieść szablony w katalogu <code>templates/Core</ code> swojego motywu.]]></translation>
-        <translation locale="pt"><![CDATA[Coloque o template na directoria <code>templates/Core</code> do seu tema.]]></translation>
+        <translation locale="el"><![CDATA[Τοποθετήσατε τα πρότυπά σας στο φάκελο <code>Frontend/base</code> του θέματός σας.]]></translation>
+        <translation locale="pl"><![CDATA[Umieść szablony w katalogu <code>Frontend/base</ code> swojego motywu.]]></translation>
+        <translation locale="pt"><![CDATA[Coloque o template na directoria <code>Frontend/base</code> do seu tema.]]></translation>
       </item>
       <item type="error" name="TemplateFileNotFound">
         <translation locale="nl"><![CDATA[Het template bestand bestaat niet.]]></translation>

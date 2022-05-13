@@ -117,4 +117,22 @@ final class ForkConnection extends PDO
             return false;
         }
     }
+
+    public function getActiveTheme(): string
+    {
+        $themeQuery = $this->query('SELECT name FROM extensions__theme WHERE active = 1');
+        if (!$themeQuery->execute()) {
+            $themeQuery->closeCursor();
+            if (str_contains($_ENV['FORK_INSTALLER_THEME'], '/')) {
+                throw new RuntimeException('Theme name should not contain a slash');
+            }
+
+            return $_ENV['FORK_INSTALLER_THEME'];
+        }
+
+        $theme = $themeQuery->fetch(PDO::FETCH_COLUMN, 0);
+        $themeQuery->closeCursor();
+
+        return $theme;
+    }
 }

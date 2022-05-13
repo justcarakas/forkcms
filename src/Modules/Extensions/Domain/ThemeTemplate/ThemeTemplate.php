@@ -33,7 +33,7 @@ class ThemeTemplate
 
     use Blameable;
 
-    public const PATH_DIRECTORY = 'templates/Core/';
+    public const PATH_DIRECTORY = 'Frontend/base/';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -131,5 +131,10 @@ class ThemeTemplate
     public function getPositions(): array
     {
         return $this->getSetting('positions', []);
+    }
+
+    public function getTemplatePath(): string
+    {
+        return '@Frontend/base/' . str_replace(self::PATH_DIRECTORY, '', $this->path);
     }
 }

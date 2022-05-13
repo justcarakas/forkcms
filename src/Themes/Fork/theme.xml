@@ -24,13 +24,13 @@
   </description>
   <meta_navigation supported="false"/>
   <templates>
-    <template name="Default" path="templates/Core/Default.html.twig" image="true" default="true">
+    <template name="Default" path="Default.html.twig" image="true" default="true">
       <layout>
         [/,/,top],
         [main,main,main]
       </layout>
     </template>
-    <template name="Home" path="templates/Core/Home.html.twig" image="true">
+    <template name="Home" path="Home.html.twig" image="true">
       <layout>
         [/,/,top],
         [main,main,main]
