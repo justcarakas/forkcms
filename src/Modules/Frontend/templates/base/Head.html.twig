@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-{#<html lang="{{ LANGUAGE }}">#}
-<html>
+<html lang="{{ app.request.locale }}">
 <head>
-  {# Meta #}
   <meta charset="utf-8" />
   <meta name="generator" content="Fork CMS" />
 {#  {{ meta|raw }}#}
@@ -15,16 +13,16 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
   {# Windows 8 tile #}
-{#  <meta name="application-name" content="{{ siteTitle }}" />#}
+  <meta name="application-name" content="{{ siteTitle }}" />
   <meta name="msapplication-TileColor" content="#3380aa" />
   <meta name="msapplication-TileImage" content="/tile.png" />
 
   {# Stylesheets #}
-  {{ encore_entry_script_tags('frontend', null, 'frontendConfig') }}
-  {{ encore_entry_link_tags('screen', null, 'frontendConfig') }}
+  {{ encore_entry_script_tags('Frontend/js/Frontend', null, 'FrontendConfig') }}
+  {{ encore_entry_link_tags('Frontend/css/screen', null, 'FrontendConfig') }}
 
   {# Site wide HTML in the head tag #}
-{#  {{ siteHTMLHead|raw }}#}
+  {{ get_module_setting('Pages', 'site_html_head', '')|raw }}
 
   {% if app.debug %}
     <script src="http://localhost:35729/livereload.js?snipver=1"></script>

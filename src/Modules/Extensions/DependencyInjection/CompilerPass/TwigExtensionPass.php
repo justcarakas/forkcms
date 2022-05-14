@@ -4,15 +4,10 @@ namespace ForkCMS\Modules\Extensions\DependencyInjection\CompilerPass;
 
 use ForkCMS\Core\Domain\PDO\ForkConnection;
 use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
-use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
-use ForkCMS\Modules\Installer\Domain\Configuration\InstallerConfiguration;
-use PDOException;
-use RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
 
 final class TwigExtensionPass implements CompilerPassInterface
 {
@@ -38,11 +33,10 @@ final class TwigExtensionPass implements CompilerPassInterface
         }
 
         $theme = ForkConnection::get()->getActiveTheme();
-        $themePath = realpath(__DIR__ . '/../../../../Themes/' . $theme . '/');
+        $themePath = realpath(__DIR__ . '/../../../../Themes/' . $theme);
 
         foreach (InstalledModules::fromContainer($container)() as $moduleName) {
-            $themeTemplates = $themePath . $moduleName;
-            $moduleTemplates = $modulesDirectory . $moduleName . '/templates';
+            $themeTemplates = $themePath . '/templates/' . $moduleName;
             if ($themePath !== false && $filesystem->exists($themeTemplates)) {
                 $twigLoaderDefinition->addMethodCall(
                     'addPath',
@@ -52,6 +46,7 @@ final class TwigExtensionPass implements CompilerPassInterface
                     ]
                 );
             }
+            $moduleTemplates = $modulesDirectory . $moduleName . '/templates';
             if ($filesystem->exists($moduleTemplates)) {
                 $twigLoaderDefinition->addMethodCall(
                     'addPath',
