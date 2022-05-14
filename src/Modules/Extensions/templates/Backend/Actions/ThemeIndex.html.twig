@@ -28,7 +28,7 @@
                 <div class="card-heading border-bottom-0">
                   <h3 class="card-title">{{ installableTheme.name }}</h3>
                 </div>
-                <img src="{{ installableTheme.settings.get('thumbnail')|imagine_filter('backend_card_image') }}" class="card-img-bottom" alt="{{ installableTheme.name|ucfirst }}" />
+                <img src="{{ installableTheme.settings.has('thumbnail') ? installableTheme.settings.get('thumbnail')|imagine_filter('backend_card_image') : installableTheme.fallbackThumbnail }}" class="card-img-bottom" alt="{{ installableTheme.name|ucfirst }}" />
                 <div class="card-footer">
                   {% if is_allowed('ThemeDetail') or (is_allowed('ThemeActivate') and not installableTheme.active) %}
                     <div class="btn-toolbar justify-content-center">
@@ -90,7 +90,7 @@
                 <div class="card-heading border-bottom-0">
                   <h3 class="card-title">{{ installableTheme.name }}</h3>
                 </div>
-                <img src="{{ installableTheme.settings.get('thumbnail')|imagine_filter('backend_card_image') }}" class="card-img-bottom" alt="{{ installableTheme.name|ucfirst }}" />
+                <img src="{{ installableTheme.settings.has('thumbnail') ? installableTheme.settings.get('thumbnail')|imagine_filter('backend_card_image') : installableTheme.fallbackThumbnail }}" class="card-img-bottom" alt="{{ installableTheme.name|ucfirst }}" />
                 <div class="card-footer">
                   {% if is_allowed('ThemeDetail') or is_allowed('ThemeInstall') %}
                     <div class="btn-toolbar justify-content-center">

@@ -11,8 +11,8 @@ webpack_encore:
   strict_mode: false
 
   builds:
-    backendConfig: '%kernel.project_dir%/public/assets/modules/Backend'
-    frontendConfig: '%kernel.project_dir%/public/assets/modules/Frontend'
+    BackendConfig: '%kernel.project_dir%/public/assets/modules/Backend'
+    FrontendConfig: '%kernel.project_dir%/public/assets/modules/Frontend'
     ThemeConfig: '%kernel.project_dir%/public/assets/themes'
 
   # Cache the entrypoints.json (rebuild Symfony's cache when entrypoints.json changes)
