@@ -2,7 +2,7 @@
 import 'bootstrap'
 
 // component imports
-import { Components } from '../../../../../Modules/Frontend/assets/Frontend/webpack/js/Components'
+import { Components } from '../../../../../Modules/Frontend/assets/Frontend/webpack/js/_Components'
 
 export class Fork {
   initFrontend () {
