@@ -2,6 +2,8 @@
 
 namespace ForkCMS\Modules\Pages\Controller;
 
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockControllerInterface;
 use ForkCMS\Modules\Pages\Domain\Revision\Revision;
@@ -19,13 +21,15 @@ final class PageController
         private readonly ServiceLocator $frontendBlocks,
         private readonly SerializerInterface $serializer,
         private readonly Environment $twig,
+        private readonly ModuleSettings $moduleSettings
     ) {
     }
 
     public function __invoke(Request $request, Revision $revision): Response
     {
+        $frontendModuleName = ModuleName::fromString('Frontend');
         $revisionContext = [
-            'title' => $revision->getTitle(),
+            'siteTitle' => $this->moduleSettings->get($frontendModuleName, 'site_title_' . $request->getLocale()),
             'positions' => [],
             'template' => $revision->getThemeTemplate()->getTemplatePath(),
         ];

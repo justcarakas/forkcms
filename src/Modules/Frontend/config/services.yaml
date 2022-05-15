@@ -11,3 +11,6 @@ services:
   ForkCMS\Modules\Frontend\DependencyInjection\FrontendRouteLoader:
     arguments:
       - '@routing.loader.yml'
+
+  ForkCMS\Modules\Frontend\Backend\:
+    resource: '../Backend/*'

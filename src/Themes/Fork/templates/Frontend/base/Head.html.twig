@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}">
 <head>
-  {# Meta #}
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="Fork CMS" />
@@ -14,8 +13,8 @@
   <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-  {# Windows 8 tile #}
-{#  <meta name="application-name" content="{{ siteTitle }}" />#}
+  {# Windows tile #}
+  <meta name="application-name" content="{{ siteTitle }}" />
   <meta name="msapplication-TileColor" content="#3380aa" />
   <meta name="msapplication-TileImage" content="/tile.png" />
 
@@ -23,16 +22,16 @@
   <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
 
   {# Stylesheets #}
-{#  {{ encore_entry_script_tags('frontend', null, 'frontendThemeConfig') }}#}
-{#  {{ encore_entry_link_tags('screen', null, 'frontendThemeConfig') }}#}
+  {{ encore_entry_script_tags('Fork/js/Fork', null, 'ThemeConfig') }}
+  {{ encore_entry_link_tags('Fork/css/screen', null, 'ThemeConfig') }}
 
   {# Site wide HTML in the head tag #}
-{#  {{ siteHTMLHead|raw }}#}
+  {{ get_module_setting('Frontend', 'site_html_head', '')|raw }}
 
   {# Google Fonts #}
   <link href="https://fonts.googleapis.com/css?family=Courgette|Roboto:300,400,500,700,900" rel="stylesheet">
 
-{#  {% if debug %}#}
-{#    <script src="http://localhost:35729/livereload.js"></script>#}
-{#  {% endif %}#}
+  {% if app.debug %}
+    <script src="http://localhost:35729/livereload.js"></script>
+  {% endif %}
 </head>

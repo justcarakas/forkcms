@@ -4,7 +4,7 @@ import 'bootstrap-tagsinput/examples/lib/typeahead.js/dist/typeahead.bundle'
 import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.min'
 
 // component imports
-import { Components } from './Components'
+import { Components } from './_Components'
 
 export class Frontend {
   initFrontend () {

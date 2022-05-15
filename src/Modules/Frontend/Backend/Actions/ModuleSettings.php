@@ -1,9 +1,9 @@
 <?php
 
-namespace ForkCMS\Modules\Pages\Backend\Actions;
+namespace ForkCMS\Modules\Frontend\Backend\Actions;
 
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
-use ForkCMS\Modules\Pages\Domain\ModuleSettings\ModuleSettingsType;
+use ForkCMS\Modules\Frontend\Domain\ModuleSettings\ModuleSettingsType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,6 +14,7 @@ final class ModuleSettings extends AbstractFormActionController
         return $this->handleModuleSettingsForm(
             $request,
             ModuleSettingsType::class,
+            ['site_title' => $_ENV['SITE_DEFAULT_TITLE']],
         );
     }
 }

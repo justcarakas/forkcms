@@ -116,13 +116,12 @@ abstract class AbstractFormActionController extends AbstractActionController
     final protected function handleModuleSettingsForm(
         Request $request,
         string $formType,
-        ModuleName $moduleName,
         array $defaults = []
     ): Response|FormInterface|null {
         return $this->handleSettingsForm(
             $request,
             $formType,
-            new ChangeModuleSettings($this->getRepository(Module::class)->find($moduleName), $defaults),
+            new ChangeModuleSettings($this->getRepository(Module::class)->find($this->getModuleName()), $defaults),
         );
     }
 }

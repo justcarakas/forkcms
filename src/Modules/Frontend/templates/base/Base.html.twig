@@ -1,12 +1,10 @@
 {% include "@Frontend/base/Head.html.twig" %}
 
-{#<body class="{{ LANGUAGE }}" itemscope itemtype="http://schema.org/WebPage">#}
-<body itemscope itemtype="http://schema.org/WebPage">
+<body class="{{ app.request.locale }}" itemscope itemtype="http://schema.org/WebPage">
 {# Site wide HTML just after body tag #}
-{#{{ siteHTMLStartOfBody|raw }}#}
-
+{{ get_module_setting('Frontend', 'site_html_start_of_body', '')|raw }}
 {% block navigation %}
-  <nav class="navbar navbar-inverse navbar-static-top">
+  <nav class="navbar navbar-dark bg-black navbar-static-top">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -15,7 +13,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-{#        <a class="navbar-brand" href="/{% if SITE_MULTILANGUAGE %}{{ LANGUAGE }}{% endif %}">{{ siteTitle }}</a>#}
+        <a class="navbar-brand" href="{{ url('pages__page__1.' ~ app.request.locale) }}">{{ siteTitle }}</a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
 {#        {{ getnavigation('page', 0, 1) }}#}
@@ -66,6 +64,6 @@
 {#{% endfor %}#}
 
 {# Site wide HTML just before closing body tag #}
-{#{{ siteHTMLEndOfBody|raw }}#}
+{{ get_module_setting('Frontend', 'site_html_end_of_body', '')|raw }}
 </body>
 </html>
