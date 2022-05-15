@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Environment;
 
@@ -21,20 +22,26 @@ final class PageController
         private readonly ServiceLocator $frontendBlocks,
         private readonly SerializerInterface $serializer,
         private readonly Environment $twig,
-        private readonly ModuleSettings $moduleSettings
+        private readonly ModuleSettings $moduleSettings,
     ) {
     }
 
     public function __invoke(Request $request, Revision $revision): Response
     {
-        $frontendModuleName = ModuleName::fromString('Frontend');
+        $pagesModuleName = ModuleName::fromString('Pages');
+        $allowedFormats = $this->moduleSettings->get($pagesModuleName, 'enabled_extensions');
+        $format = $request->getPreferredFormat();
+        $hasJsonResponse = $request->getPreferredFormat() === 'json';
+        if (!in_array($format, $allowedFormats, true)) {
+            throw new NotFoundHttpException('Page not found');
+        }
+        $this->assignGlobals($request, $revision);
+
         $revisionContext = [
-            'siteTitle' => $this->moduleSettings->get($frontendModuleName, 'site_title_' . $request->getLocale()),
             'positions' => [],
             'template' => $revision->getThemeTemplate()->getTemplatePath(),
         ];
 
-        $hasJsonResponse = $request->getPreferredFormat() === 'json';
         $response = $hasJsonResponse ? new JsonResponse() : new Response();
 
         /** @var array<string, array<int,RevisionBlock>> $positions */
@@ -68,7 +75,9 @@ final class PageController
         }
 
         if ($hasJsonResponse) {
-            $response->setJson($this->serializer->serialize($revisionContext, 'json'));
+            $twigGlobals = $this->twig->getGlobals();
+            unset($twigGlobals['app']);
+            $response->setJson($this->serializer->serialize($revisionContext + $twigGlobals, 'json'));
 
             return $response;
         }
@@ -81,5 +90,20 @@ final class PageController
         );
 
         return $response;
+    }
+
+    private function assignGlobals(Request $request, Revision $revision): void
+    {
+        $frontendModuleName = ModuleName::fromString('Frontend');
+        $this->twig->addGlobal(
+            'siteTitle',
+            $this->moduleSettings->get(
+                $frontendModuleName,
+                'site_title_' . $request->getLocale(),
+                $_ENV['SITE_DEFAULT_TITLE']
+            )
+        );
+        $this->twig->addGlobal('contentTitle', $revision->getTitle()); // @todo make it overwritable
+        $this->twig->addGlobal('hideContentTitle', false);
     }
 }

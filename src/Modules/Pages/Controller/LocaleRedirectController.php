@@ -4,10 +4,12 @@ namespace ForkCMS\Modules\Pages\Controller;
 
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Pages\DependencyInjection\PagesRouteLoader;
+use ForkCMS\Modules\Pages\Domain\Page\Page;
+use ForkCMS\Modules\Pages\Domain\Revision\Revision;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -17,7 +19,8 @@ final class LocaleRedirectController
 
     public function __construct(
         private readonly InstalledLocaleRepository $installedLocaleRepository,
-        private readonly RouterInterface $router
+        private readonly RouterInterface $router,
+        private readonly HttpKernelInterface $httpKernel,
     ) {
     }
 
@@ -43,6 +46,22 @@ final class LocaleRedirectController
             return new RedirectResponse($path, Response::HTTP_TEMPORARY_REDIRECT);
         }
 
-        throw new NotFoundHttpException('Page not found');
+        return $this->forwardTo404($request);
+    }
+
+    private function forwardTo404(Request $request): Response
+    {
+        $context = $this->router->match(
+            $this->router->generate(Revision::getRouteNameForPageIdAndLocale(Page::PAGE_ID_404, $request->getLocale()))
+        );
+
+        $request404 = $request->duplicate();
+        $request404->attributes->set('_controller', $context['_controller']);
+        $request404->attributes->set('_route', $context['_route']);
+        $request404->attributes->set('navigation_title', $context['navigation_title']);
+        $request404->attributes->set('revision', $context['revision']);
+
+
+        return $this->httpKernel->handle($request404, HttpKernelInterface::SUB_REQUEST);
     }
 }

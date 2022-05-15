@@ -15,7 +15,7 @@ use Symfony\Component\Routing\RouteCollection;
 final class PagesRouteLoader implements ModuleRouteProviderInterface
 {
     private const FORMAT_WILDCARD_REGEX = '[^\.]+';
-    private const FORMAT_REQUIREMENT = 'json|html';
+    public const FORMAT_REQUIREMENT = 'html|json';
     public const FORMAT_DEFAULT = 'html';
 
     public function __construct(
@@ -136,7 +136,7 @@ final class PagesRouteLoader implements ModuleRouteProviderInterface
                                 '_format' => self::FORMAT_REQUIREMENT,
                             ],
                         ),
-                        -1
+                        -2
                     );
                 }
             }

@@ -16,6 +16,7 @@ use ForkCMS\Modules\Pages\Backend\Actions\PageDelete;
 use ForkCMS\Modules\Pages\Backend\Actions\PageEdit;
 use ForkCMS\Modules\Pages\Backend\Actions\PageIndex;
 use ForkCMS\Modules\Pages\Backend\Ajax\PageMove;
+use ForkCMS\Modules\Pages\DependencyInjection\PagesRouteLoader;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
 use ForkCMS\Modules\Pages\Domain\Revision\Command\CreateRevision;
 use ForkCMS\Modules\Pages\Domain\Revision\MenuType;
@@ -38,6 +39,7 @@ final class PagesInstaller extends ModuleInstaller
         $this->createBackendPages();
         $this->configureBackendAjaxActions();
         $this->createFrontendPages();
+        $this->defaultModuleSettings();
     }
 
     private function createBackendPages(): void
@@ -124,5 +126,10 @@ final class PagesInstaller extends ModuleInstaller
     private function configureBackendAjaxActions(): void
     {
         $this->allowGroupToAccessModuleAjaxAction(PageMove::getAjaxActionSlug()->asModuleAction());
+    }
+
+    private function defaultModuleSettings(): void
+    {
+        $this->setSetting('enabled_extensions', [PagesRouteLoader::FORMAT_DEFAULT]);
     }
 }

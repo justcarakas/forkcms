@@ -233,12 +233,17 @@ class Revision
 
     public function getRouteName(): string
     {
-        return 'pages__page__' . $this->page->getId() . '.' . $this->locale->value;
+        return self::getRouteNameForPageIdAndLocale($this->page->getId(), $this->locale);
     }
 
     public function getNavigationTitle(): string
     {
         // @TODO add overwrite for navigation title
         return $this->title;
+    }
+
+    public static function getRouteNameForPageIdAndLocale(int $pageId, Locale|string $locale): string
+    {
+        return 'pages__page__' . $pageId . '.' . ($locale instanceof Locale ? $locale->value : $locale);
     }
 }

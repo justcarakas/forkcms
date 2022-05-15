@@ -61,6 +61,21 @@
         <translation locale="el"><![CDATA[Επιπλέον άνω πλοήγηση (πάνω ή κάτω από το μενού), σε κάθε σελίδα.]]></translation>
         <translation locale="pl"><![CDATA[Dodatkowa nawigacja górna (ponad/pod menu) na każdej stronie.]]></translation>
       </item>
+      <item type="label" name="Extensions">
+        <translation locale="nl"><![CDATA[extensions]]></translation>
+        <translation locale="en"><![CDATA[extensions]]></translation>
+        <translation locale="ru"><![CDATA[расширения]]></translation>
+        <translation locale="es"><![CDATA[extensiones]]></translation>
+        <translation locale="de"><![CDATA[Erweiterungen]]></translation>
+        <translation locale="lt"><![CDATA[plėtiniai]]></translation>
+        <translation locale="uk"><![CDATA[Розширення]]></translation>
+        <translation locale="hu"><![CDATA[kiegészítők]]></translation>
+        <translation locale="sv"><![CDATA[tillägg]]></translation>
+        <translation locale="el"><![CDATA[επεκτάσεις]]></translation>
+        <translation locale="zh"><![CDATA[扩展插件]]></translation>
+        <translation locale="pt"><![CDATA[extensões]]></translation>
+        <translation locale="pl"><![CDATA[rozszerzenia]]></translation>
+      </item>
     </Pages>
   </Backend>
   <Installer>
