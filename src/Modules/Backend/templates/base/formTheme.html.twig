@@ -329,6 +329,7 @@
             </div>
           {% endif %}
           {{ form_errors(form) }}
+          {{- form_help(form) -}}
         </div>
       </div>
     </div>
@@ -337,6 +338,7 @@
 
 {% block media_group_row %}
   {{ form_widget(form) }}
+  {{- form_help(form) -}}
 {% endblock %}
 
 {% block form_row %}

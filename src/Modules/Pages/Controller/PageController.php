@@ -6,6 +6,7 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockControllerInterface;
+use ForkCMS\Modules\Frontend\Domain\Privacy\ConsentDialog;
 use ForkCMS\Modules\Pages\Domain\Revision\Revision;
 use ForkCMS\Modules\Pages\Domain\RevisionBlock\RevisionBlock;
 use Symfony\Component\DependencyInjection\ServiceLocator;
@@ -23,6 +24,7 @@ final class PageController
         private readonly SerializerInterface $serializer,
         private readonly Environment $twig,
         private readonly ModuleSettings $moduleSettings,
+        private readonly ConsentDialog $consentDialog,
     ) {
     }
 
@@ -35,7 +37,8 @@ final class PageController
         if (!in_array($format, $allowedFormats, true)) {
             throw new NotFoundHttpException('Page not found');
         }
-        $this->assignGlobals($request, $revision);
+        $this->parseRevision($request, $revision);
+        $this->parsePrivacyConsents();
 
         $revisionContext = [
             'positions' => [],
@@ -92,7 +95,7 @@ final class PageController
         return $response;
     }
 
-    private function assignGlobals(Request $request, Revision $revision): void
+    private function parseRevision(Request $request, Revision $revision): void
     {
         $frontendModuleName = ModuleName::fromString('Frontend');
         $this->twig->addGlobal(
@@ -105,5 +108,12 @@ final class PageController
         );
         $this->twig->addGlobal('contentTitle', $revision->getTitle()); // @todo make it overwritable
         $this->twig->addGlobal('hideContentTitle', false);
+    }
+
+    protected function parsePrivacyConsents(): void
+    {
+        $this->twig->addGlobal('privacyConsentEnabled', $this->consentDialog->isDialogEnabled());
+        $this->twig->addGlobal('privacyConsentDialogHide', !$this->consentDialog->shouldDialogBeShown());
+        $this->twig->addGlobal('privacyConsentDialogLevels', $this->consentDialog->getLevels());
     }
 }

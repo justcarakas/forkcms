@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Frontend\Domain\ModuleSettings;
 
+use ForkCMS\Core\Domain\Form\CollectionType;
 use ForkCMS\Core\Domain\Form\FieldsetType;
 use ForkCMS\Core\Domain\Form\TabsType;
 use ForkCMS\Modules\Extensions\Domain\Module\Command\ChangeModuleSettings;
@@ -9,6 +10,7 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocale;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -80,6 +82,34 @@ final class ModuleSettingsType extends AbstractType
                             'label' => 'lbl.SiteHtmlEndOfBody',
                             'label_html' => true,
                             'help' => 'msg.HelpSiteHtmlEndOfBody',
+                            'required' => false,
+                        ]
+                    );
+                }
+            ]
+        )->add(
+            'privacy_policy',
+            FieldsetType::class,
+            [
+                'label' => 'lbl.PrivacyPolicy',
+                'fields' => static function (FormBuilderInterface $builder): void {
+                    $builder->add(
+                        'show_consent_dialog',
+                        CheckboxType::class,
+                        [
+                            'label' => 'lbl.ShowConsentDialog',
+                            'required' => false,
+                            'label_attr' => ['class' => 'checkbox-switch'],
+                        ]
+                    )->add('privacy_consent_levels',
+                        CollectionType::class,
+                        [
+                            'entry_type' => TextType::class,
+                            'allow_add' => true,
+                            'allow_delete' => true,
+                            'allow_sequence' => true,
+                            'by_reference' => false,
+                            'label' => false,
                             'required' => false,
                         ]
                     );

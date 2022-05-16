@@ -106,6 +106,11 @@ class Block implements TranslatableInterface
         $this->hidden = false;
     }
 
+    public function getType(): Type
+    {
+        return $this->type;
+    }
+
     public function changePosition(int $position): void
     {
         $this->position = $position;
