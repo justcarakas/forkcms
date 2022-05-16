@@ -73,7 +73,7 @@
   {% import '@Backend/base/macros.html.twig' as macro %}
   <ul class="list-unstyled">
     {%- for error in errors -%}
-      <li {% if form.parent %}class="invalid-feedback"{% endif %}>{{ macro.icon('exclamation-triangle') }} {{ error.message }}</li>
+      <li {% if form.parent %}class="invalid-feedback"{% endif %}>{{ macro.icon('exclamation-triangle') }} {{ help_html is same as(false) ? error.message : error.message|raw }}</li>
     {%- endfor -%}
   </ul>
 {% endblock %}

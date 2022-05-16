@@ -6,6 +6,8 @@ use ForkCMS\Core\Domain\Form\CollectionType;
 use ForkCMS\Core\Domain\Form\FieldsetType;
 use ForkCMS\Core\Domain\Form\TabsType;
 use ForkCMS\Modules\Extensions\Domain\Module\Command\ChangeModuleSettings;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocale;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
@@ -15,11 +17,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Regex;
 
 final class ModuleSettingsType extends AbstractType
 {
-    public function __construct(private readonly InstalledLocaleRepository $installedLocaleRepository)
-    {
+    public function __construct(
+        private readonly InstalledLocaleRepository $installedLocaleRepository,
+        private readonly ModuleSettings $moduleSettings,
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -88,29 +93,52 @@ final class ModuleSettingsType extends AbstractType
                 }
             ]
         )->add(
-            'privacy_policy',
+            'privacy_consents',
             FieldsetType::class,
             [
-                'label' => 'lbl.PrivacyPolicy',
-                'fields' => static function (FormBuilderInterface $builder): void {
+                'label' => 'lbl.PrivacyConsents',
+                'fields' => function (FormBuilderInterface $builder): void {
+                    $submittedShow = $_POST['module_settings']['privacy_consents']['show_consent_dialog'] ?? null;
+                    $showConsentDialog = $this->moduleSettings->get(
+                        ModuleName::fromString('Frontend'),
+                        'show_consent_dialog'
+                    );
+                    $showConsentDialog = (bool) ($submittedShow ?? $showConsentDialog);
+
                     $builder->add(
                         'show_consent_dialog',
                         CheckboxType::class,
                         [
                             'label' => 'lbl.ShowConsentDialog',
+                            'help' => 'msg.HelpShowConsentDialog',
                             'required' => false,
                             'label_attr' => ['class' => 'checkbox-switch'],
+                            'attr' => [
+                                'data-bs-toggle' => 'collapse',
+                                'data-bs-target' => '#module_settings_privacy_consents_privacy_consent_levels'
+                            ],
                         ]
-                    )->add('privacy_consent_levels',
+                    )->add(
+                        'privacy_consent_levels',
                         CollectionType::class,
                         [
                             'entry_type' => TextType::class,
+                            'entry_options' => [
+                                'constraints' => [
+                                    new Regex(pattern: '/^[a-z_\x7f-\xff][a-z0-9_\x7f-\xff]*$/i', message: 'err.InvalidVariableName', )
+                                ],
+                                'help_html' => true,
+                            ],
                             'allow_add' => true,
                             'allow_delete' => true,
                             'allow_sequence' => true,
                             'by_reference' => false,
-                            'label' => false,
+                            'label' => 'lbl.TechnicalName',
+                            'help' => 'msg.HelpPrivacyConsentLevels',
                             'required' => false,
+                            'attr' => [
+                                'class' => 'collapse' . ($showConsentDialog ? ' show' : '')
+                            ],
                         ]
                     );
                 }

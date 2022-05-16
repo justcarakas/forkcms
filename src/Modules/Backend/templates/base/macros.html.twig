@@ -83,9 +83,7 @@
   <div{% for attrname, attrvalue in extraAttributes %} {{ attrname }}="{{ attrvalue }}"{% endfor %} role="{{ role }}" aria-live="{{ live }}" aria-atomic="true"{% if id %} id="{{ id }}"{% endif %} data-autohide="{{ autohide }}" data-delay="5000">
     <div class="toast-body">
       {% if dismissable == true %}
-        <button type="button" class="close{{ dismissableClass }}" data-dismiss="toast" aria-label="Close">
-          <i class="fas fa-times"></i>
-        </button>
+        <button type="button" class="btn-close{{ dismissableClass }}" data-dismiss="toast" aria-label="{{ 'lbl.Close'|trans }}"></button>
       {% endif %}
       {% if message %}
         {% if showIcon == true and type == 'danger' %}

@@ -10,6 +10,7 @@ use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Frontend\Domain\Privacy\ConsentDialog;
 use ForkCMS\Modules\Internationalisation\Domain\Translator\DataCollectorTranslator;
 use ForkCMS\Modules\Internationalisation\Domain\Translator\ForkTranslator;
 use InvalidArgumentException;
@@ -38,11 +39,13 @@ final class Header
         KernelInterface $kernel,
         Security $security,
         TranslatorInterface $translator,
+        ConsentDialog $consentDialog,
     ) {
         $defaults = [
             'default_locale' => $kernel->getContainer()->getParameter('kernel.default_locale'),
             'debug' => $kernel->isDebug(),
             'session_timeout' => $this->getFirstPossibleSessionTimeout(),
+            'privacyConsent' => $consentDialog,
         ];
         $defaults['locale'] = $translator->getLocale();
         $user = $security->getUser();

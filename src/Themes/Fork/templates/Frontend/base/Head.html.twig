@@ -31,7 +31,13 @@
   {# Google Fonts #}
   <link href="https://fonts.googleapis.com/css?family=Courgette|Roboto:300,400,500,700,900" rel="stylesheet">
 
+  {% for cssFile in cssFiles %}
+    <link href="/{{ cssFile }}" rel="stylesheet">
+  {% endfor %}
+
   {% if app.debug %}
     <script src="http://localhost:35729/livereload.js"></script>
   {% endif %}
+
+  {{ jsData|raw }}
 </head>

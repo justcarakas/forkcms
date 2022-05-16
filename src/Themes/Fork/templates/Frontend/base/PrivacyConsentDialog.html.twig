@@ -14,10 +14,8 @@
       <div class="modal-content">
         <form data-role="privacy_consent_dialog_form">
           <div class="modal-header">
-            <h5 id="privacyConsentDialogTitle">{{ 'msg.PrivacyConsentDialogTitle'|trans|raw }}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'lbl.Close'|trans }}">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <h5 id="privacyConsentDialogTitle">{{ 'lbl.PrivacyConsentDialogTitle'|trans|raw }}</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="{{ 'lbl.Close'|trans }}"></button>
           </div>
           <div class="modal-body">
             <p>
@@ -33,11 +31,11 @@
                   class="custom-control-input"
                 >
                 <label id="privacyConsentLevelFunctionalCheckbox" class="custom-control-label">
-                  {{ 'msg.PrivacyConsentLevelFunctionalTitle'|trans|raw }}
+                  {{ 'lbl.PrivacyConsentLevelFunctional'|trans|raw }}
                 </label>
               </div>
               <small id="privacyConsentLevelFunctionalHelpBlock" class="text-muted form-text">
-                {{ 'msg.PrivacyConsentLevelFunctionalText'|trans|raw }}
+                {{ 'msg.PrivacyConsentLevelFunctional'|trans|raw }}
               </small>
             </div>
 
@@ -52,11 +50,11 @@
                     class="custom-control-input"
                   >
                   <label for="privacyConsentLevel{{ level|ucfirst }}Checkbox" id="privacyConsentLevel{{ level|ucfirst }}Checkbox" class="custom-control-label">
-                    {{ ('msg.PrivacyConsentLevel' ~ level|ucfirst ~ 'Title')|trans|raw }}
+                    {{ ('lbl.PrivacyConsentLevel' ~ level|ucfirst)|trans|raw }}
                   </label>
                 </div>
                 <small id="privacyConsentLevel{{ level|ucfirst }}HelpBlock" class="text-muted form-text">
-                  {{ ('msg.PrivacyConsentLevel' ~ level|ucfirst ~ 'Text')|trans|raw }}
+                  {{ ('msg.PrivacyConsentLevel' ~ level|ucfirst)|trans|raw }}
                 </small>
               </div>
             {% endfor %}
@@ -66,7 +64,7 @@
           </div>
           <div class="modal-footer">
             <button type="submit" data-role="privacy_consent_dialog_save_button" class="btn btn-sm btn-primary">
-              {{ 'msg.PrivacyConsentDialogSave'|trans }}
+              {{ 'lbl.PrivacyConsentDialogSave'|trans }}
             </button>
           </div>
         </form>

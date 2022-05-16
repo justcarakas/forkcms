@@ -385,7 +385,7 @@ export class Controls {
   }
 
   toggleCollapse () {
-    const $navToggle = $('.navbar-toggle')
+    const $navToggle = $('.navbar-toggle,.navbar-toggler')
 
     if ($navToggle.length === 0) {
       return

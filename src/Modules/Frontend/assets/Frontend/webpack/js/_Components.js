@@ -11,10 +11,11 @@ import { ConsentDialog } from './Components/ConsentDialog'
 import Vue from 'vue/'
 import VEmbed from './Vue-components/VEmbed'
 import VShareButtons from './Vue-components/VShareButtons'
+import {Data} from "../../../../../../Core/assets/js/Components/Data";
 
 export class Components {
   initComponents () {
-    this.locale = new Locale('frontend')
+    this.locale = new Locale(Data.get('locale'), Data.get('default_translation_domain'), Data.get('default_translation_domain_fallback'))
     this.ajax = new Ajax(this.locale)
     this.modal = new Modal()
     this.cookiebar = new Cookiebar()

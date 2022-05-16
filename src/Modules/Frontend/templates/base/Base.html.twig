@@ -7,12 +7,11 @@
   <nav class="navbar navbar-dark bg-black navbar-static-top">
     <div class="container">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false">
+          <span class="navbar-toggler-icon"></span>
           <span class="visually-hidden" data-role="label">{{ 'lbl.OpenNavigation'|trans }}</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
         </button>
+
         <a class="navbar-brand" href="{{ url('pages__page__1.' ~ app.request.locale) }}">{{ siteTitle }}</a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
@@ -26,31 +25,24 @@
 {% endblock %}
 
 <div class="content container">
-  {# @deprecated remove this in Fork 6, the privacy consent dialog should be used#}
-  {% block cookies %}
-    {% include "@Frontend/base/Cookies.html.twig" %}
-  {% endblock %}
-
-  {% block privacyConsentDialog %}
-    {% include "@Frontend/base/PrivacyConsentDialog.html.twig" %}
-  {% endblock %}
-
   {% block breadcrumb %}
-    {# Breadcrumb #}
     {% include "@Frontend/base/Breadcrumb.html.twig" %}
   {% endblock %}
 
   {% block pageTitle %}
-    {# Page title #}
-{#    {% if not hideContentTitle %}#}
-{#      <header class="page-header">#}
-{#        <h1>{{ page.title }}</h1>#}
-{#      </header>#}
-{#    {% endif %}#}
+    {% if not hideContentTitle %}
+      <header class="page-header">
+        <h1>{{ contentTitle }}</h1>
+      </header>
+    {% endif %}
   {% endblock %}
 
   {# Main content #}
   {% block main %}
+  {% endblock %}
+
+  {% block privacyConsentDialog %}
+    {% include "@Frontend/base/PrivacyConsentDialog.html.twig" %}
   {% endblock %}
 
   {% block footer %}
@@ -59,9 +51,9 @@
 </div>
 
 {# General Javascript #}
-{#{% for js in jsFiles %}#}
-{#  <script src="{{ js }}"></script>#}
-{#{% endfor %}#}
+{% for js in jsFiles %}
+  <script src="{{ js }}"></script>
+{% endfor %}
 
 {# Site wide HTML just before closing body tag #}
 {{ get_module_setting('Frontend', 'site_html_end_of_body', '')|raw }}

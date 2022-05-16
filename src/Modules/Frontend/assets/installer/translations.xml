@@ -117,6 +117,30 @@
         <translation locale="pt"><![CDATA[título do website]]></translation>
         <translation locale="pl"><![CDATA[tytuł witryny]]></translation>
       </item>
+      <item type="label" name="PrivacyConsents">
+        <translation locale="nl"><![CDATA[Privacy toestemmingen]]></translation>
+        <translation locale="en"><![CDATA[Privacy consents]]></translation>
+      </item>
+      <item type="label" name="ShowConsentDialog">
+        <translation locale="nl"><![CDATA[Toon het privacy voorkeuren scherm]]></translation>
+        <translation locale="en"><![CDATA[Show the privacy preferences dialog]]></translation>
+      </item>
+      <item type="label" name="TechnicalName">
+        <translation locale="nl"><![CDATA[Technische naam]]></translation>
+        <translation locale="en"><![CDATA[Technical name]]></translation>
+      </item>
+      <item type="message" name="HelpShowConsentDialog">
+        <translation locale="nl"><![CDATA[De GDPR regelt hoe je als website eigenaar moet omgaan met cookies. Hieronder kan je verschillende niveaus instellen, waarmee je de bezoeker verschillende opties kan bieden.]]></translation>
+        <translation locale="en"><![CDATA[GDPR defines how you as a website owner may use cookies. Below you are able to define several levels, so the user can choose from them.]]></translation>
+      </item>
+      <item type="message" name="HelpPrivacyConsentLevels">
+        <translation locale="nl"><![CDATA[Dit zijn de namen van de variabelen die beschikbaar zullen zijn in JavaScript en Google Data Layer. Je kan dus geen spaties gebruiken.]]></translation>
+        <translation locale="en"><![CDATA[These are the names of the variable that will be available in JavaScript and Google Data Layer. You can't use spaces or other illegal characters.]]></translation>
+      </item>
+      <item type="error" name="InvalidVariableName">
+        <translation locale="nl"><![CDATA[<code>{{ value }}</code> is een ongeldige variabele naam.]]></translation>
+        <translation locale="en"><![CDATA[<code>{{ value }}</code> is an invalid variable name.]]></translation>
+      </item>
     </Frontend>
   </Backend>
   <Frontend>
@@ -137,6 +161,30 @@
       <translation locale="pl"><![CDATA[zakmnij]]></translation>
       <translation locale="tr"><![CDATA[kapat]]></translation>
       <translation locale="pt"><![CDATA[fechar]]></translation>
+    </item>
+    <item type="label" name="PrivacyConsentDialogTitle">
+      <translation locale="nl"><![CDATA[Jouw privacy voorkeuren]]></translation>
+      <translation locale="en"><![CDATA[Your privacy]]></translation>
+    </item>
+    <item type="message" name="PrivacyConsentDialogBefore">
+      <translation locale="nl"><![CDATA[Deze website maakt gebruik van cookies. Je kan hieronder jouw voorkeuren instellen.]]></translation>
+      <translation locale="en"><![CDATA[This website uses cookies. You can set your personal preferences below.]]></translation>
+    </item>
+    <item type="message" name="PrivacyConsentDialogAfter">
+      <translation locale="nl"><![CDATA[Wil je meer weten? Dan kan je ons <a href="/disclaimer">privacy-beleid</a> nalezen.]]></translation>
+      <translation locale="en"><![CDATA[If you need more information you find it in our <a href="/disclaimer">disclaimer</a>.]]></translation>
+    </item>
+    <item type="label" name="PrivacyConsentLevelFunctional">
+      <translation locale="nl"><![CDATA[Functionele cookies]]></translation>
+      <translation locale="en"><![CDATA[Functional cookies]]></translation>
+    </item>
+    <item type="message" name="PrivacyConsentLevelFunctional">
+      <translation locale="nl"><![CDATA[Deze cookies zijn nodig om de website correct te laten werken. Dit is bijvoorbeeld je taalvoorkeur, &hellip;]]></translation>
+      <translation locale="en"><![CDATA[These cookies are needed to let the website function correctly. For instance we store your language preference, &hellip;]]></translation>
+    </item>
+    <item type="label" name="PrivacyConsentDialogSave">
+      <translation locale="nl"><![CDATA[Bewaar mijn voorkeuren]]></translation>
+      <translation locale="en"><![CDATA[Save my preferences]]></translation>
     </item>
   </Frontend>
 </translations>

@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Pages\Controller;
 
+use ForkCMS\Core\Domain\Header\Header;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
@@ -25,6 +26,7 @@ final class PageController
         private readonly Environment $twig,
         private readonly ModuleSettings $moduleSettings,
         private readonly ConsentDialog $consentDialog,
+        private readonly Header $header,
     ) {
     }
 
@@ -37,6 +39,7 @@ final class PageController
         if (!in_array($format, $allowedFormats, true)) {
             throw new NotFoundHttpException('Page not found');
         }
+        $this->header->parse($this->twig);
         $this->parseRevision($request, $revision);
         $this->parsePrivacyConsents();
 
