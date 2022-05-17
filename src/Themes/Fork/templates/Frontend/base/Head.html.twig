@@ -26,7 +26,7 @@
   {{ encore_entry_link_tags('Fork/css/screen', null, 'ThemeConfig') }}
 
   {# Site wide HTML in the head tag #}
-  {{ get_module_setting('Frontend', 'site_html_head', '')|raw }}
+  {{ site_html_head|raw }}
 
   {# Google Fonts #}
   <link href="https://fonts.googleapis.com/css?family=Courgette|Roboto:300,400,500,700,900" rel="stylesheet">

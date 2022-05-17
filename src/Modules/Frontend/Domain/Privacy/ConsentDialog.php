@@ -4,35 +4,39 @@ namespace ForkCMS\Modules\Frontend\Domain\Privacy;
 
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
+use ForkCMS\Modules\Frontend\Domain\Google\TagManager\TagManager;
 use JsonSerializable;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class ConsentDialog implements JsonSerializable
 {
+    public const CONSENT_DIALOG_ANALYTICS_TECHNICAL_NAME = 'analytics';
+
     public function __construct(private readonly ModuleSettings $settings, private readonly RequestStack $requestStack)
     {
     }
 
     public function isDialogEnabled(): bool
     {
-        return $this->settings->get(ModuleName::fromString('Frontend'), 'show_consent_dialog', false);
+        return $this->settings->get(ModuleName::fromString('Frontend'), 'consent_dialog_enabled', false);
     }
 
     public function shouldDialogBeShown(): bool
     {
         // the cookiebar is hidden within the settings, so don't show it
-        if (!$this->settings->get(ModuleName::fromString('Frontend'), 'show_consent_dialog', false)) {
+        if (!$this->settings->get(ModuleName::fromString('Frontend'), 'consent_dialog_enabled', false)) {
             return false;
         }
 
         // no levels mean there should not be any consent
-        if (empty($this->getLevels())) {
+        if (count($this->getLevels()) === 0) {
             return false;
         }
 
         // if the hash in the cookie is the same as the current has it means the user
         // has already stored their preferences
-        if ($this->requestStack->getCurrentRequest()->cookies->get('privacy_consent_hash', '') === $this->getLevelsHash()) {
+        if ($this->requestStack->getCurrentRequest()->cookies->get('privacy_consent_hash', '') === $this->getLevelsHash(
+            )) {
             return false;
         }
 
@@ -43,10 +47,20 @@ class ConsentDialog implements JsonSerializable
     {
         $levels = [];
         if ($includeFunctional) {
-            $levels = ['functional'];
+            $levels[] = 'functional';
         }
 
-        $customLevels = $this->settings->get(ModuleName::fromString('Frontend'), 'privacy_consent_levels', []);
+        $frontendModuleName = ModuleName::fromString('Frontend');
+        $customLevels = $this->settings->get($frontendModuleName, 'consent_dialog_levels', []);
+        if (
+            $this->settings->get($frontendModuleName, 'google_analytics_enabled', false)
+            || $this->settings->get($frontendModuleName, 'google_tag_manager_enabled', false)
+        ) {
+            if (!in_array(self::CONSENT_DIALOG_ANALYTICS_TECHNICAL_NAME, $customLevels, true)) {
+                $levels[] = self::CONSENT_DIALOG_ANALYTICS_TECHNICAL_NAME;
+            }
+        }
+        $customLevels = $this->settings->get($frontendModuleName, 'consent_dialog_levels', []);
 
         return array_filter(array_merge($levels, $customLevels));
     }

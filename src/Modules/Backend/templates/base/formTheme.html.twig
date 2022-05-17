@@ -73,7 +73,8 @@
   {% import '@Backend/base/macros.html.twig' as macro %}
   <ul class="list-unstyled">
     {%- for error in errors -%}
-      <li {% if form.parent %}class="invalid-feedback"{% endif %}>{{ macro.icon('exclamation-triangle') }} {{ help_html is same as(false) ? error.message : error.message|raw }}</li>
+      <li
+        {% if form.parent %}class="invalid-feedback"{% endif %}>{{ macro.icon('exclamation-triangle') }} {{ help_html is same as(false) ? error.message : error.message|raw }}</li>
     {%- endfor -%}
   </ul>
 {% endblock %}
@@ -225,7 +226,8 @@
       {% if show_preview or show_remove_image %}
         <div class="form-group{% if show_preview and preview_url %} col-lg-3{% endif %}">
           {% if show_preview and preview_url %}
-            <img class="{% if preview_class is defined and preview_class is not empty %}{{ preview_class }}{% endif %}" src="{{ preview_url }}">
+            <img class="{% if preview_class is defined and preview_class is not empty %}{{ preview_class }}{% endif %}"
+                 src="{{ preview_url }}">
           {% endif %}
         </div>
       {% endif %}
@@ -298,23 +300,27 @@
         <div class="card-heading">
           {{ form_label(form) }}
         </div>
-        <ul class="list-group js-collection"{% if form.vars.allow_sequence %} data-role="collection-sequence"{% if form.vars.sequence_group %} data-sequence-group="{{ form.vars.sequence_group }}"{% endif %}{% endif %}>
+        <ul
+          class="list-group js-collection"{% if form.vars.allow_sequence %} data-role="collection-sequence"{% if form.vars.sequence_group %} data-sequence-group="{{ form.vars.sequence_group }}"{% endif %}{% endif %}>
           {% for field in form %}
             <li class="list-group-item">
               {{ form_widget(field) }}
               {{ form_errors(field) }}
               {% if form.vars.allow_delete or form.vars.allow_sequence %}
-                <div class="btn-toolbar {{ form.vars.allow_delete and not form.vars.allow_sequence ? 'justify-content-end' : 'justify-content-between'}}">
+                <div
+                  class="btn-toolbar {{ form.vars.allow_delete and not form.vars.allow_sequence ? 'justify-content-end' : 'justify-content-between' }}">
                   {% if form.vars.allow_sequence %}
                     <div class="btn-group">
-                      <span class="btn btn-default btn-icon-only btn-sm fork-data-grid-sortable" data-role="sequence-handle" aria-hidden="true">{{ macro.icon('grip-vertical') }}</span>
+                      <span class="btn btn-default btn-icon-only btn-sm fork-data-grid-sortable"
+                            data-role="sequence-handle" aria-hidden="true">{{ macro.icon('grip-vertical') }}</span>
                       {{ macro.buttonIcon('', 'arrow-up', '', 'btn-default btn-sm', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'up', 'aria-label': 'lbl.MoveUpOnePosition'|trans|ucfirst}, false, true) }}
                       {{ macro.buttonIcon('', 'arrow-down', '', 'btn-default btn-sm', {'type': 'button', 'data-role': 'order-move', 'data-direction': 'down', 'aria-label': 'lbl.MoveDownOnePosition'|trans|ucfirst}, false, true) }}
                     </div>
                   {% endif %}
                   {% if form.vars.allow_delete %}
                     <div class="btn-group">
-                      <button class="btn btn-sm btn-danger" data-removefield="collection" data-field="{{ field.vars.id }}">{{ form.vars.delete_button_text|trans({}, translation_domain)|ucfirst|raw }}</button>
+                      <button class="btn btn-sm btn-danger" data-removefield="collection"
+                              data-field="{{ field.vars.id }}">{{ form.vars.delete_button_text|trans({}, translation_domain)|ucfirst|raw }}</button>
                     </div>
                   {% endif %}
                 </div>
@@ -325,7 +331,8 @@
         <div class="card-footer clearfix">
           {% if form.vars.allow_add %}
             <div class="btn-group pull-right">
-              <button class="btn btn-success btn-sm" data-addfield="collection" data-collection="{{ form.vars.id }}" data-prototype-name="{{ prototype_name }}">{{ form.vars.add_button_text|trans({}, translation_domain)|ucfirst|raw }}</button>
+              <button class="btn btn-success btn-sm" data-addfield="collection" data-collection="{{ form.vars.id }}"
+                      data-prototype-name="{{ prototype_name }}">{{ form.vars.add_button_text|trans({}, translation_domain)|ucfirst|raw }}</button>
             </div>
           {% endif %}
           {{ form_errors(form) }}
@@ -335,11 +342,6 @@
     </div>
   {% endapply %}
 {% endblock bootstrap_collection_row %}
-
-{% block media_group_row %}
-  {{ form_widget(form) }}
-  {{- form_help(form) -}}
-{% endblock %}
 
 {% block form_row %}
   {%- set widget_attr = {} -%}
@@ -363,7 +365,8 @@
 {% endblock %}
 
 {% block editor_row %}
-  <div class="card form-group card-default card-editor{% if (not compound or force_error|default(false)) and not valid %} card-danger{% endif %}">
+  <div
+    class="card form-group card-default card-editor{% if (not compound or force_error|default(false)) and not valid %} card-danger{% endif %}">
     <div class="card-heading">
       {{- form_label(form) -}}
     </div>
@@ -415,7 +418,8 @@
 {% block checkbox_switch_widget -%}
   {%- set attr = attr|merge({class: (attr.class|default('') ~ ' custom-control-input')|trim}) -%}
   <div class="custom-control custom-switch">
-    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <input
+      type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
 
     {{- form_label(form, null, { widget: checkbox.content }) -}}
   </div>
@@ -427,7 +431,8 @@
   {%- endif -%}
   <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %} class="form-select">
     {%- if placeholder is not none -%}
-      <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
+      <option
+        value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
     {%- endif -%}
     {%- if preferred_choices|length > 0 -%}
       {% set options = preferred_choices %}
@@ -449,6 +454,11 @@
 {% block fieldset_row %}
   <fieldset {% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
     {{ form_label(form) }}
+    {% if form.vars.help is not empty %}
+    <div class="card-body">
+      {{ form_help(form) }}
+    </div>
+    {% endif %}
     {{ form_widget(form) }}
   </fieldset>
 {% endblock %}
@@ -477,7 +487,9 @@
   <ul class="nav nav-tabs" role="tablist">
     {% for tab in form.children %}
       <li class="nav-item" role="presentation">
-        <button class="nav-link{% if loop.first%} active{% endif %}" id="{{ tab.vars.id }}-tab" data-bs-toggle="tab" data-bs-target="#{{ tab.vars.id }}" type="button" role="tab" aria-controls="{{ tab.vars.id }}" aria-selected="{{ loop.first ? 'true' : 'false' }}">{{ tab.vars.label|trans|ucfirst }}</button>
+        <button class="nav-link{% if loop.first %} active{% endif %}" id="{{ tab.vars.id }}-tab" data-bs-toggle="tab"
+                data-bs-target="#{{ tab.vars.id }}" type="button" role="tab" aria-controls="{{ tab.vars.id }}"
+                aria-selected="{{ loop.first ? 'true' : 'false' }}">{{ tab.vars.label|trans|ucfirst }}</button>
       </li>
     {% endfor %}
   </ul>
@@ -497,30 +509,35 @@
   <div class="card-group card-group-column" role="tablist" aria-multiselectable="true">
     {% for module, permissions in permissionsByModule %}
       <div class="card card-default card-collapse jsGroupsPermissionsModule">
-        <div class="card-heading d-flex align-items-center" role="tab" id="permission-heading-{{ form.vars.id }}-{{ module }}">
-          <input type="checkbox" data-role="select-all" data-target="{{ form.vars.id }}-{{ module }}" class="dontCheckBeforeUnload">
+        <div class="card-heading d-flex align-items-center" role="tab"
+             id="permission-heading-{{ form.vars.id }}-{{ module }}">
+          <input type="checkbox" data-role="select-all" data-target="{{ form.vars.id }}-{{ module }}"
+                 class="dontCheckBeforeUnload">
           <h4 class="card-title mb-0">
-            <a class="collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#permission-list-{{ form.vars.id }}-{{ module }}" aria-expanded="false">
+            <a class="collapsed" href="#" data-bs-toggle="collapse"
+               data-bs-target="#permission-list-{{ form.vars.id }}-{{ module }}" aria-expanded="false">
               {{ macro.icon('caret-down fa-fw') }} {{ module }}
             </a>
           </h4>
         </div>
-        <div id="permission-list-{{ form.vars.id }}-{{ module }}" class="card-collapse collapse" role="tabpanel" aria-labelledby="permission-heading-{{ form.vars.id }}-{{ module }}">
+        <div id="permission-list-{{ form.vars.id }}-{{ module }}" class="card-collapse collapse" role="tabpanel"
+             aria-labelledby="permission-heading-{{ form.vars.id }}-{{ module }}">
           <table class="table table-hover table-striped fork-data-grid jsDataGrid">
             <thead>
-              <tr>
-                <th class="check">&nbsp;</th>
-                <th class="name">{{ nameLabel|trans|ucfirst }}</th>
-                <th class="description">{{ descriptionLabel|trans|ucfirst }}</th>
-              </tr>
+            <tr>
+              <th class="check">&nbsp;</th>
+              <th class="name">{{ nameLabel|trans|ucfirst }}</th>
+              <th class="description">{{ descriptionLabel|trans|ucfirst }}</th>
+            </tr>
             </thead>
             <tbody>
             {% for index, permission in permissions %}
-              <tr class="{{ cycle(['odd', 'even'], loop.index0)}}">
+              <tr class="{{ cycle(['odd', 'even'], loop.index0) }}">
                 {% set checkboxLabel = form.children[index].vars.label %}
                 {% set checkboxLabelAttr = form.children[index].vars.label_attr|merge({'for': form.children[index].vars.id}) %}
                 {% set checkboxLabelAttr = checkboxLabelAttr|merge({'class': form.children[index].vars.label_attr.class|default('') ~ (form.children[index].vars.required ? ' required' : ' optional') }) %}
-                <td class="check">{{ form_widget(form.children[index], {'label':false, 'attr': {'data-select-all-target': form.vars.id ~ '-' ~ module}}) }}</td>
+                <td
+                  class="check">{{ form_widget(form.children[index], {'label':false, 'attr': {'data-select-all-target': form.vars.id ~ '-' ~ module}}) }}</td>
                 <td class="name">
                   <label{% for attrname,attrvalue in checkboxLabelAttr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
                   {{ checkboxLabel }}{% if form.children[index].vars.required %}{{- block('label_asterisk') -}}{% endif %}
@@ -542,7 +559,8 @@
   <table class="table table-hover table-striped fork-data-grid">
     <thead>
     <tr>
-      <th class="check"><input type="checkbox" data-role="select-all" data-target="{{ form.vars.id }}-users" class="dontCheckBeforeUnload"></th>
+      <th class="check"><input type="checkbox" data-role="select-all" data-target="{{ form.vars.id }}-users"
+                               class="dontCheckBeforeUnload"></th>
       <th class="name">{{ 'lbl.Email'|trans|ucfirst }}</th>
       <th class="name">{{ 'lbl.DisplayName'|trans|ucfirst }}</th>
     </tr>
@@ -550,20 +568,21 @@
     <tbody>
     {% for userCheckbox in form.children %}
       {% set user = possibleUsers[userCheckbox.vars.value] %}
-      <tr class="{{ cycle(['odd', 'even'], loop.index0)}}">
-        <td class="check">{{ form_widget(userCheckbox, {label:false, 'attr': {'data-select-all-target': form.vars.id ~ '-users'}}) }}</td>
+      <tr class="{{ cycle(['odd', 'even'], loop.index0) }}">
+        <td
+          class="check">{{ form_widget(userCheckbox, {label:false, 'attr': {'data-select-all-target': form.vars.id ~ '-users'}}) }}</td>
         <td>
           {% set checkboxLabelAttr = userCheckbox.vars.label_attr|merge({'for': userCheckbox.vars.id}) %}
           {% set checkboxLabelAttr = checkboxLabelAttr|merge({'class': userCheckbox.vars.label_attr.class|default('') ~ (userCheckbox.vars.required ? ' required' : ' optional') }) %}
           <label{% for attrname,attrvalue in checkboxLabelAttr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
-            {{ user.email }}
+          {{ user.email }}
           </label>
         </td>
         <td>
           {% set checkboxLabelAttr = userCheckbox.vars.label_attr|merge({'for': userCheckbox.vars.id}) %}
           {% set checkboxLabelAttr = checkboxLabelAttr|merge({'class': userCheckbox.vars.label_attr.class|default('') ~ (userCheckbox.vars.required ? ' required' : ' optional') }) %}
           <label{% for attrname,attrvalue in checkboxLabelAttr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
-            {{ user.displayName }}
+          {{ user.displayName }}
           </label>
         </td>
       </tr>
@@ -577,20 +596,22 @@
   <table class="table table-hover table-striped fork-data-grid">
     <thead>
     <tr>
-      <th class="check"><input type="checkbox" data-role="select-all" data-target="{{ form.vars.id }}-users" class="dontCheckBeforeUnload"></th>
+      <th class="check"><input type="checkbox" data-role="select-all" data-target="{{ form.vars.id }}-users"
+                               class="dontCheckBeforeUnload"></th>
       <th class="name">{{ 'lbl.Name'|trans|ucfirst }}</th>
     </tr>
     </thead>
     <tbody>
     {% for userGroupCheckbox in form.children %}
       {% set userGroup = possibleGroups[userGroupCheckbox.vars.value] %}
-      <tr class="{{ cycle(['odd', 'even'], loop.index0)}}">
-        <td class="check">{{ form_widget(userGroupCheckbox, {label:false, 'attr': {'data-select-all-target': form.vars.id ~ '-userGroups'}}) }}</td>
+      <tr class="{{ cycle(['odd', 'even'], loop.index0) }}">
+        <td
+          class="check">{{ form_widget(userGroupCheckbox, {label:false, 'attr': {'data-select-all-target': form.vars.id ~ '-userGroups'}}) }}</td>
         <td>
           {% set checkboxLabelAttr = userGroupCheckbox.vars.label_attr|merge({'for': userGroupCheckbox.vars.id}) %}
           {% set checkboxLabelAttr = checkboxLabelAttr|merge({'class': userGroupCheckbox.vars.label_attr.class|default('') ~ (userGroupCheckbox.vars.required ? ' required' : ' optional') }) %}
           <label{% for attrname,attrvalue in checkboxLabelAttr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
-            {{ userGroup.name }}
+          {{ userGroup.name }}
           </label>
         </td>
       </tr>
@@ -612,4 +633,13 @@
 {% block entity_widget %}
   {# fix for entity types in collections #}
   {{ block('choice_widget') }}
+{% endblock %}
+
+{% block checkbox_text_widget %}
+  <div class="input-group">
+    <div class="input-group-text">
+      {{ form_widget(form.children|first) }}
+    </div>
+    {{ form_widget(form.children|last) }}
+  </div>
 {% endblock %}

@@ -35,7 +35,7 @@ final class Header
     private readonly AssetCollection $jsAssets;
 
     public function __construct(
-        private RequestStack $requestStack,
+        private readonly RequestStack $requestStack,
         KernelInterface $kernel,
         Security $security,
         TranslatorInterface $translator,

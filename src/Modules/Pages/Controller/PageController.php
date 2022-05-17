@@ -2,12 +2,11 @@
 
 namespace ForkCMS\Modules\Pages\Controller;
 
-use ForkCMS\Core\Domain\Header\Header;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockControllerInterface;
-use ForkCMS\Modules\Frontend\Domain\Privacy\ConsentDialog;
+use ForkCMS\Modules\Frontend\Domain\Twig\FrontendGlobals;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Pages\Domain\Page\NavigationBuilder;
@@ -20,6 +19,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Environment;
@@ -31,11 +31,10 @@ final class PageController
         private readonly SerializerInterface $serializer,
         private readonly Environment $twig,
         private readonly ModuleSettings $moduleSettings,
-        private readonly ConsentDialog $consentDialog,
-        private readonly Header $header,
         private readonly NavigationBuilder $navigationBuilder,
         private readonly RouterInterface $router,
         private readonly InstalledLocaleRepository $installedLocaleRepository,
+        private readonly FrontendGlobals $frontendGlobals
     ) {
     }
 
@@ -48,11 +47,10 @@ final class PageController
         if (!in_array($format, $allowedFormats, true)) {
             throw new NotFoundHttpException('Page not found');
         }
-        $this->header->parse($this->twig);
         $this->parseRevision($request, $revision);
-        $this->parsePrivacyConsents();
         $this->parseFooterLinks();
         $this->parseLocales($request);
+        $this->frontendGlobals->addGlobals();
 
         $revisionContext = [
             'positions' => [],
@@ -124,13 +122,6 @@ final class PageController
         $this->twig->addGlobal('hideContentTitle', false);
     }
 
-    protected function parsePrivacyConsents(): void
-    {
-        $this->twig->addGlobal('privacyConsentEnabled', $this->consentDialog->isDialogEnabled());
-        $this->twig->addGlobal('privacyConsentDialogHide', !$this->consentDialog->shouldDialogBeShown());
-        $this->twig->addGlobal('privacyConsentDialogLevels', $this->consentDialog->getLevels());
-    }
-
     protected function parseFooterLinks(): void
     {
         $tree = $this->navigationBuilder->getTree(Locale::current());
@@ -161,7 +152,7 @@ final class PageController
                         $request->attributes->get('_route')
                     )
                 );
-            } catch (RouteNotFoundException $e) {
+            } catch (RouteNotFoundException) {
                 $url = $this->router->generate(Revision::getRouteNameForPageIdAndLocale(Page::PAGE_ID_HOME, $locale));
             }
             $locales[] = [

@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Frontend\Domain\ModuleSettings;
 
+use ForkCMS\Core\Domain\Form\CheckboxTextType;
 use ForkCMS\Core\Domain\Form\CollectionType;
 use ForkCMS\Core\Domain\Form\FieldsetType;
 use ForkCMS\Core\Domain\Form\TabsType;
@@ -98,15 +99,15 @@ final class ModuleSettingsType extends AbstractType
             [
                 'label' => 'lbl.PrivacyConsents',
                 'fields' => function (FormBuilderInterface $builder): void {
-                    $submittedShow = $_POST['module_settings']['privacy_consents']['show_consent_dialog'] ?? null;
+                    $submittedShow = $_POST['module_settings']['privacy_consents']['consent_dialog_enabled'] ?? null;
                     $showConsentDialog = $this->moduleSettings->get(
                         ModuleName::fromString('Frontend'),
-                        'show_consent_dialog'
+                        'consent_dialog_enabled'
                     );
                     $showConsentDialog = (bool) ($submittedShow ?? $showConsentDialog);
 
                     $builder->add(
-                        'show_consent_dialog',
+                        'consent_dialog_enabled',
                         CheckboxType::class,
                         [
                             'label' => 'lbl.ShowConsentDialog',
@@ -115,17 +116,20 @@ final class ModuleSettingsType extends AbstractType
                             'label_attr' => ['class' => 'checkbox-switch'],
                             'attr' => [
                                 'data-bs-toggle' => 'collapse',
-                                'data-bs-target' => '#module_settings_privacy_consents_privacy_consent_levels'
+                                'data-bs-target' => '#module_settings_privacy_consents_consent_dialog_levels'
                             ],
                         ]
                     )->add(
-                        'privacy_consent_levels',
+                        'consent_dialog_levels',
                         CollectionType::class,
                         [
                             'entry_type' => TextType::class,
                             'entry_options' => [
                                 'constraints' => [
-                                    new Regex(pattern: '/^[a-z_\x7f-\xff][a-z0-9_\x7f-\xff]*$/i', message: 'err.InvalidVariableName', )
+                                    new Regex(
+                                        pattern: '/^[a-z_\x7f-\xff][a-z0-9_\x7f-\xff]*$/i',
+                                        message: 'err.InvalidVariableName',
+                                    )
                                 ],
                                 'help_html' => true,
                             ],
@@ -142,6 +146,33 @@ final class ModuleSettingsType extends AbstractType
                         ]
                     );
                 }
+            ]
+        )->add(
+            'google_tracking_options',
+            FieldsetType::class,
+            [
+                'label' => 'lbl.GoogleTrackingOptions',
+                'fields' => function (FormBuilderInterface $builder): void {
+                    $builder->add(
+                        'google_analytics',
+                        CheckboxTextType::class,
+                        [
+                            'label' => 'lbl.GoogleAnalyticsTrackingId',
+                            'help' => 'msg.HelpGoogleTrackingGoogleAnalyticsTrackingId',
+                            'help_html' => true,
+                        ]
+                    );
+                    $builder->add(
+                        'google_tag_manager',
+                        CheckboxTextType::class,
+                        [
+                            'label' => 'lbl.GoogleTagManagerContainerId',
+                            'help' => 'msg.HelpGoogleTrackingGoogleTagManagerContainerId',
+                            'help_html' => true,
+                        ]
+                    );
+                },
+                'help' => 'msg.HelpGoogleTrackingOptions',
             ]
         );
     }

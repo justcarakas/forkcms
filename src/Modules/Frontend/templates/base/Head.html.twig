@@ -22,7 +22,7 @@
   {{ encore_entry_link_tags('Frontend/css/screen', null, 'FrontendConfig') }}
 
   {# Site wide HTML in the head tag #}
-  {{ get_module_setting('Frontend', 'site_html_head', '')|raw }}
+  {{ site_html_head|raw }}
 
   {% for cssFile in cssFiles %}
     <link href="/{{ cssFile }}" rel="stylesheet">

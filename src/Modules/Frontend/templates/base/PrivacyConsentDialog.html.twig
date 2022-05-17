@@ -14,7 +14,7 @@
       <div class="modal-content">
         <form data-role="privacy_consent_dialog_form">
           <div class="modal-header">
-            <h5 id="privacyConsentDialogTitle">{{ 'lbl.PrivacyConsentDialogTitle'|trans|raw }}</h5>
+            <h5 id="privacyConsentDialogTitle">{{ 'lbl.PrivacyConsentDialogTitle'|trans|ucfirst }}</h5>
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="{{ 'lbl.Close'|trans }}"></button>
           </div>
           <div class="modal-body">
@@ -29,7 +29,7 @@
                        data-role="privacy-level"
                        data-value="functional"
                 >
-                {{ 'lbl.PrivacyConsentLevelFunctional'|trans|raw }}
+                {{ 'lbl.PrivacyConsentLevelFunctional'|trans|ucfirst }}
               </label>
               <small id="privacyConsentLevelFunctionalHelpBlock" class="help-block">
                 {{ 'msg.PrivacyConsentLevelFunctional'|trans|raw }}
@@ -46,7 +46,7 @@
                          class="custom-control-input"
                   >
                   <label for="privacyConsentLevel{{ level|ucfirst }}Checkbox" id="privacyConsentLevel{{ level|ucfirst }}Checkbox" class="custom-control-label">
-                    {{ ('lbl.PrivacyConsentLevel' ~ level|ucfirst)|trans|raw }}
+                    {{ ('lbl.PrivacyConsentLevel' ~ level|ucfirst)|trans|ucfirst }}
                   </label>
                 </div>
                 <small id="privacyConsentLevel{{ level|ucfirst }}HelpBlock" class="text-muted form-text">

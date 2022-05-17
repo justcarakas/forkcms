@@ -19,7 +19,6 @@
       <translation locale="pl"><![CDATA[frontend]]></translation>
     </item>
     <Frontend>
-
       <item type="message" name="HelpSiteHtmlEndOfBody">
         <translation locale="nl"><![CDATA[Plaats hier code die onderaan elke pagina geladen moet worden.]]></translation>
         <translation locale="en"><![CDATA[Paste code that needs to be loaded at the end of the <code><body></code> tag here.]]></translation>
@@ -141,6 +140,30 @@
         <translation locale="nl"><![CDATA[<code>{{ value }}</code> is een ongeldige variabele naam.]]></translation>
         <translation locale="en"><![CDATA[<code>{{ value }}</code> is an invalid variable name.]]></translation>
       </item>
+      <item type="label" name="GoogleTrackingOptions">
+        <translation locale="nl"><![CDATA[Google tracking options]]></translation>
+        <translation locale="en"><![CDATA[Google tracking options]]></translation>
+      </item>
+      <item type="message" name="HelpGoogleTrackingOptions">
+        <translation locale="nl"><![CDATA[Je hoeft maar één van onderstaande opties te kiezen.]]></translation>
+        <translation locale="en"><![CDATA[You should only enable one option.]]></translation>
+      </item>
+      <item type="label" name="GoogleAnalyticsTrackingId">
+        <translation locale="nl"><![CDATA[Google Analytics Tracking Id]]></translation>
+        <translation locale="en"><![CDATA[Google Analytics Tracking Id]]></translation>
+      </item>
+      <item type="message" name="HelpGoogleTrackingGoogleAnalyticsTrackingId">
+        <translation locale="nl"><![CDATA[Dit kan je terugvinden in <a target="_blank" rel="noopener noreferrer" href="https://support.google.com/analytics/answer/1008080?hl=nl">Google Analytics</a>. Dit ziet er uit als UA-000000-2.]]></translation>
+        <translation locale="en"><![CDATA[You can find the Tracking Id in <a target="_blank" rel="noopener noreferrer" href="https://support.google.com/analytics/answer/1008080?hl=en">Google Analytics</a>, it will look like: UA-000000-2.]]></translation>
+      </item>
+      <item type="label" name="GoogleTagManagerContainerId">
+        <translation locale="nl"><![CDATA[Google Tag Manager Container Id]]></translation>
+        <translation locale="en"><![CDATA[Google Tag Manager Container Id]]></translation>
+      </item>
+      <item type="message" name="HelpGoogleTrackingGoogleTagManagerContainerId">
+        <translation locale="nl"><![CDATA[Dit kan je terugvinden in <a target="_blank" rel="noopener noreferrer" href="https://support.google.com/tagmanager/answer/6103696?hl=nl">Google Tag Manager</a>. Dit ziet er uit als GTM-XXXXXX.]]></translation>
+        <translation locale="en"><![CDATA[You can find the Container Id in <a target="_blank" rel="noopener noreferrer" href="https://support.google.com/tagmanager/answer/6103696?hl=en">Google Tag Manager</a>, it will look like: GTM-XXXXXX.]]></translation>
+      </item>
     </Frontend>
   </Backend>
   <Frontend>
@@ -163,8 +186,8 @@
       <translation locale="pt"><![CDATA[fechar]]></translation>
     </item>
     <item type="label" name="PrivacyConsentDialogTitle">
-      <translation locale="nl"><![CDATA[Jouw privacy voorkeuren]]></translation>
-      <translation locale="en"><![CDATA[Your privacy]]></translation>
+      <translation locale="nl"><![CDATA[jouw privacy voorkeuren]]></translation>
+      <translation locale="en"><![CDATA[your privacy]]></translation>
     </item>
     <item type="message" name="PrivacyConsentDialogBefore">
       <translation locale="nl"><![CDATA[Deze website maakt gebruik van cookies. Je kan hieronder jouw voorkeuren instellen.]]></translation>
@@ -175,16 +198,24 @@
       <translation locale="en"><![CDATA[If you need more information you find it in our <a href="/disclaimer">disclaimer</a>.]]></translation>
     </item>
     <item type="label" name="PrivacyConsentLevelFunctional">
-      <translation locale="nl"><![CDATA[Functionele cookies]]></translation>
-      <translation locale="en"><![CDATA[Functional cookies]]></translation>
+      <translation locale="nl"><![CDATA[functionele cookies]]></translation>
+      <translation locale="en"><![CDATA[functional cookies]]></translation>
     </item>
     <item type="message" name="PrivacyConsentLevelFunctional">
       <translation locale="nl"><![CDATA[Deze cookies zijn nodig om de website correct te laten werken. Dit is bijvoorbeeld je taalvoorkeur, &hellip;]]></translation>
       <translation locale="en"><![CDATA[These cookies are needed to let the website function correctly. For instance we store your language preference, &hellip;]]></translation>
     </item>
+    <item type="label" name="PrivacyConsentLevelAnalytics">
+      <translation locale="nl"><![CDATA[analytisch]]></translation>
+      <translation locale="en"><![CDATA[analytics]]></translation>
+    </item>
+    <item type="message" name="PrivacyConsentLevelAnalytics">
+      <translation locale="nl"><![CDATA[Deze cookies verzamelen gegevens om specifieke metingen uit te voeren over het gebruik van deze site, dit met oog op het verbeteren van onze diensten.]]></translation>
+      <translation locale="en"><![CDATA[These cookies collect data to perform specific measurements about the use of this site, in order to improve our services.]]></translation>
+    </item>
     <item type="label" name="PrivacyConsentDialogSave">
-      <translation locale="nl"><![CDATA[Bewaar mijn voorkeuren]]></translation>
-      <translation locale="en"><![CDATA[Save my preferences]]></translation>
+      <translation locale="nl"><![CDATA[bewaar mijn voorkeuren]]></translation>
+      <translation locale="en"><![CDATA[save my preferences]]></translation>
     </item>
   </Frontend>
 </translations>

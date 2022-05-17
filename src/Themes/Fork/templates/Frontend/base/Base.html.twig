@@ -2,7 +2,7 @@
 
 <body class="{{ app.request.locale }}" itemscope itemtype="http://schema.org/WebPage">
 {# Site wide HTML just after body tag #}
-{{ get_module_setting('Frontend', 'site_html_start_of_body', '')|raw }}
+{{ site_html_start_of_body|raw }}
 
 <div id="root">
   {% block privacyConsentDialog %}
@@ -67,6 +67,6 @@
 {% endfor %}
 
 {# Site wide HTML just before closing body tag #}
-{{ get_module_setting('Frontend', 'site_html_end_of_body', '')|raw }}
+{{ site_html_end_of_body|raw }}
 </body>
 </html>

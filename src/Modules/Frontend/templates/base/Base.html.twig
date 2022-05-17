@@ -2,7 +2,7 @@
 
 <body class="{{ app.request.locale }} d-flex flex-column h-100" itemscope itemtype="http://schema.org/WebPage">
 {# Site wide HTML just after body tag #}
-{{ get_module_setting('Frontend', 'site_html_start_of_body', '')|raw }}
+{{ site_html_start_of_body|raw }}
 {% block navigation %}
   <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
     <div class="container">
@@ -55,6 +55,6 @@
 {% endfor %}
 
 {# Site wide HTML just before closing body tag #}
-{{ get_module_setting('Frontend', 'site_html_end_of_body', '')|raw }}
+{{ site_html_end_of_body|raw }}
 </body>
 </html>
