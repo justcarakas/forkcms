@@ -16,7 +16,7 @@ trait RepositoryWithMetaTrait
     /** @param T $subject */
     public function slugify(string $string, object $subject, Locale|null $locale = null): string
     {
-        $slugger = new AsciiSlugger(Locale::default()->value);
+        $slugger = new AsciiSlugger(Locale::current()->value);
         $slug = $slugger->slug(mb_strtolower($string))->toString();
         $entityAlias = 's';
         $query = $this->createQueryBuilder($entityAlias)

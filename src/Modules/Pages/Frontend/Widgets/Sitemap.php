@@ -25,9 +25,9 @@ class Sitemap extends AbstractWidgetController
 
     public function execute(Request $request, Response $response): void
     {
-        $navigationTree = $this->navigationBuilder->getTree(Locale::from($request->getLocale()));
+        $navigationTree = $this->navigationBuilder->getTree(Locale::current());
         $sitemap = [];
-        $currentLocale = Locale::from($request->getLocale());
+        $currentLocale = Locale::current();
         foreach ($navigationTree as $navigationCategory) {
             $categoryKey = $navigationCategory['label']->trans($this->translator, $currentLocale->value);
             $sitemap[$categoryKey] = $this->getPageData((array) $navigationCategory['pages'], $currentLocale);

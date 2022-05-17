@@ -8,6 +8,11 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockControllerInterface;
 use ForkCMS\Modules\Frontend\Domain\Privacy\ConsentDialog;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
+use ForkCMS\Modules\Pages\Domain\Page\NavigationBuilder;
+use ForkCMS\Modules\Pages\Domain\Page\Page;
+use ForkCMS\Modules\Pages\Domain\Revision\MenuType;
 use ForkCMS\Modules\Pages\Domain\Revision\Revision;
 use ForkCMS\Modules\Pages\Domain\RevisionBlock\RevisionBlock;
 use Symfony\Component\DependencyInjection\ServiceLocator;
@@ -15,6 +20,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Environment;
 
@@ -27,6 +33,9 @@ final class PageController
         private readonly ModuleSettings $moduleSettings,
         private readonly ConsentDialog $consentDialog,
         private readonly Header $header,
+        private readonly NavigationBuilder $navigationBuilder,
+        private readonly RouterInterface $router,
+        private readonly InstalledLocaleRepository $installedLocaleRepository,
     ) {
     }
 
@@ -42,6 +51,8 @@ final class PageController
         $this->header->parse($this->twig);
         $this->parseRevision($request, $revision);
         $this->parsePrivacyConsents();
+        $this->parseFooterLinks();
+        $this->parseLocales($request);
 
         $revisionContext = [
             'positions' => [],
@@ -118,5 +129,47 @@ final class PageController
         $this->twig->addGlobal('privacyConsentEnabled', $this->consentDialog->isDialogEnabled());
         $this->twig->addGlobal('privacyConsentDialogHide', !$this->consentDialog->shouldDialogBeShown());
         $this->twig->addGlobal('privacyConsentDialogLevels', $this->consentDialog->getLevels());
+    }
+
+    protected function parseFooterLinks(): void
+    {
+        $tree = $this->navigationBuilder->getTree(Locale::current());
+        $footerLinks = [];
+        foreach ($tree[MenuType::FOOTER->value]['pages'] as $menuItem) {
+            /** @var Revision $revision */
+            $revision = $menuItem['page']->getActiveRevision();
+            $footerLinks[] = [
+                'rel' => $menuItem['attr']['rel'],
+                'navigation_title' => $revision->getNavigationTitle(),
+                'url' => $this->router->generate($revision->getRouteName()),
+            ];
+        }
+
+        $this->twig->addGlobal('footerLinks', $footerLinks);
+    }
+
+    protected function parseLocales(Request $request): void
+    {
+        $locales = [];
+        $websiteLocales = $this->installedLocaleRepository->findForWebsite();
+        foreach (array_keys($websiteLocales) as $locale) {
+            try {
+                $url = $this->router->generate(
+                    str_replace(
+                        '.' . $request->getLocale(),
+                        '.' . $locale,
+                        $request->attributes->get('_route')
+                    )
+                );
+            } catch (RouteNotFoundException $e) {
+                $url = $this->router->generate(Revision::getRouteNameForPageIdAndLocale(Page::PAGE_ID_HOME, $locale));
+            }
+            $locales[] = [
+                'locale' => Locale::from($locale),
+                'url' => $url,
+                'active' => $locale === $request->getLocale(),
+            ];
+        }
+        $this->twig->addGlobal('locales', $locales);
     }
 }

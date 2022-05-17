@@ -85,7 +85,7 @@ class Page
 
     public function getActiveRevision(Locale|null $locale = null): Revision
     {
-        $locale ??= Locale::default();
+        $locale ??= Locale::current();
 
         return $this->revisions->filter(
             static fn (Revision $revision) => $revision->getLocale() === $locale && !$revision->isDraft()

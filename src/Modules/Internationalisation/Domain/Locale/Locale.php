@@ -34,7 +34,7 @@ enum Locale: string implements TranslatableInterface
         return self::English;
     }
 
-    public static function default(): self
+    public static function current(): self
     {
         return self::from(substr(IntlLocale::getDefault(), 0, 2));
     }
