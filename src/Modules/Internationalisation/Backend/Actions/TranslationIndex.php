@@ -34,6 +34,11 @@ final class TranslationIndex extends AbstractFormActionController
         parent::__construct($actionServices);
     }
 
+    protected function addBreadcrumbForRequest(Request $request): void
+    {
+        // no action specific breadcrumb needed
+    }
+
     protected function getFormResponse(Request $request): ?Response
     {
         $this->filter = TranslationFilter::fromRequest($request);

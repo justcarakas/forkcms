@@ -6,6 +6,8 @@ use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Core\Domain\Header\Asset\Asset;
 use ForkCMS\Core\Domain\Header\Asset\AssetCollection;
 use ForkCMS\Core\Domain\Header\Asset\Priority;
+use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
+use ForkCMS\Core\Domain\Header\Breadcrumb\BreadcrumbCollection;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\User\User;
@@ -35,6 +37,7 @@ final class Header
     private readonly AssetCollection $jsAssets;
 
     public function __construct(
+        public readonly BreadcrumbCollection $breadcrumbs,
         private readonly RequestStack $requestStack,
         KernelInterface $kernel,
         Security $security,
@@ -74,6 +77,8 @@ final class Header
         $twig->addGlobal('jsData', $this->jsData);
         $twig->addGlobal('jsFiles', $this->jsAssets);
         $twig->addGlobal('cssFiles', $this->cssAssets);
+        $twig->addGlobal('breadcrumbs', $this->breadcrumbs);
+        $twig->addGlobal('page_title', new PageTitle($this->breadcrumbs));
     }
 
     private function getFirstPossibleSessionTimeout(): int
@@ -114,6 +119,11 @@ final class Header
     public function addCss(Asset $assets): void
     {
         $this->cssAssets->add($assets);
+    }
+
+    public function addBreadcrumb(Breadcrumb $breadcrumb): void
+    {
+        $this->breadcrumbs->add($breadcrumb);
     }
 
     public function addAssetsForAction(ModuleAction $moduleAction): void

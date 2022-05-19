@@ -3,10 +3,13 @@
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use ForkCMS\Core\Domain\Form\ActionType;
+use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Extensions\Domain\Module\Command\ChangeModuleSettings;
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
+use ForkCMS\Modules\Internationalisation\Domain\Translator\DataCollectorTranslator;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,6 +20,30 @@ abstract class AbstractFormActionController extends AbstractActionController
 {
     protected function execute(Request $request): void
     {
+        $this->addBreadcrumbForRequest($request);
+    }
+
+    protected function addBreadcrumbForRequest(Request $request): void
+    {
+        if ($this->translator instanceof DataCollectorTranslator) {
+            $this->translator->disableCollecting();
+        }
+        $actionLabel = self::getActionSlug()->getActionName()->asLabel();
+        $translatedActionName = $this->translator->trans($actionLabel);
+        if ($this->translator instanceof DataCollectorTranslator) {
+            $this->translator->enableCollecting();
+        }
+        if (str_starts_with($translatedActionName, 'lbl.')) {
+            $label = match (true) {
+                str_ends_with($translatedActionName, 'Edit') => 'Edit',
+                str_ends_with($translatedActionName, 'Add') => 'Add',
+                default => null,
+            };
+            // translate it again, even if we didn't change it so it is collected if needed
+            $translatedActionName = $label === null
+                ? $actionLabel : $this->translator->trans(TranslationKey::label($label));
+        }
+        $this->header->addBreadcrumb(new Breadcrumb($translatedActionName, $request->getRequestUri()));
     }
 
     public function getResponse(Request $request): Response

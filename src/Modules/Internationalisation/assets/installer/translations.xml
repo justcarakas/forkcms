@@ -1029,44 +1029,9 @@
         <translation locale="pl"><![CDATA[typy]]></translation>
         <translation locale="pt"><![CDATA[tipos]]></translation>
       </item>
-      <item type="label" name="TranslationIndex">
-        <translation locale="nl"><![CDATA[overzicht]]></translation>
-        <translation locale="en"><![CDATA[overview]]></translation>
-        <translation locale="hu"><![CDATA[áttekintés]]></translation>
-        <translation locale="ru"><![CDATA[Обзор]]></translation>
-        <translation locale="it"><![CDATA[panoramica]]></translation>
-        <translation locale="zh"><![CDATA[概览]]></translation>
-        <translation locale="de"><![CDATA[Übersicht]]></translation>
-        <translation locale="fr"><![CDATA[vue d'ensemble]]></translation>
-        <translation locale="es"><![CDATA[resumen]]></translation>
-        <translation locale="lt"><![CDATA[apžvalga]]></translation>
-        <translation locale="uk"><![CDATA[Перегляд]]></translation>
-        <translation locale="sv"><![CDATA[översikt]]></translation>
-        <translation locale="el"><![CDATA[επισκόπιση]]></translation>
-        <translation locale="tr"><![CDATA[Genel]]></translation>
-        <translation locale="pt"><![CDATA[resumo]]></translation>
-        <translation locale="pl"><![CDATA[podgląd]]></translation>
-      </item>
       <item type="message" name="NotFiltered">
         <translation locale="nl"><![CDATA[Niet gefilterd]]></translation>
         <translation locale="en"><![CDATA[Not filtered]]></translation>
-      </item>
-      <item type="label" name="TranslationEdit">
-        <translation locale="nl"><![CDATA[wijzigen]]></translation>
-        <translation locale="en"><![CDATA[edit]]></translation>
-        <translation locale="hu"><![CDATA[szerkeszt]]></translation>
-        <translation locale="it"><![CDATA[modifica]]></translation>
-        <translation locale="ru"><![CDATA[Редактировать]]></translation>
-        <translation locale="zh"><![CDATA[编辑]]></translation>
-        <translation locale="de"><![CDATA[bearbeiten]]></translation>
-        <translation locale="fr"><![CDATA[éditer]]></translation>
-        <translation locale="es"><![CDATA[editar]]></translation>
-        <translation locale="lt"><![CDATA[keisti]]></translation>
-        <translation locale="uk"><![CDATA[Редагувати]]></translation>
-        <translation locale="sv"><![CDATA[ändra]]></translation>
-        <translation locale="el"><![CDATA[μεταβολή]]></translation>
-        <translation locale="pl"><![CDATA[edytuj]]></translation>
-        <translation locale="pt"><![CDATA[editar]]></translation>
       </item>
       <item type="label" name="TranslationImport">
         <translation locale="nl"><![CDATA[importeer]]></translation>

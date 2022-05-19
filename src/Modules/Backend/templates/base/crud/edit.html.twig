@@ -5,8 +5,8 @@
 {% set crudIndexParameters = [] %}
 {% set crudIndexRelative = false %}
 {% set crudIndexLocale = null %}
-{% if crudDeleteName is not defined and breadcrumbDetail is defined %}
-  {% set crudDeleteName = breadcrumbDetail %}
+{% if crudDeleteName is not defined %}
+  {% set crudDeleteName = breadcrumbs|last.label %}
 {% endif %}
 
 {% block content %}

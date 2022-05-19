@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation\Command;
 
+use ForkCMS\Core\Domain\Kernel\Event\ClearCacheEvent;
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Event\TranslationChangedEvent;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Translation;
@@ -20,5 +21,6 @@ final class ChangeTranslationHandler implements CommandHandlerInterface
     {
         $this->translationRepository->save(Translation::fromDataTransferObject($changeTranslation));
         $this->eventDispatcher->dispatch(new TranslationChangedEvent($changeTranslation->getEntity()));
+        $this->eventDispatcher->dispatch(new ClearCacheEvent());
     }
 }

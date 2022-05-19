@@ -2,6 +2,8 @@
 
 namespace ForkCMS\Modules\Pages\Controller;
 
+use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
+use ForkCMS\Core\Domain\Header\Header;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
@@ -34,7 +36,8 @@ final class PageController
         private readonly NavigationBuilder $navigationBuilder,
         private readonly RouterInterface $router,
         private readonly InstalledLocaleRepository $installedLocaleRepository,
-        private readonly FrontendGlobals $frontendGlobals
+        private readonly FrontendGlobals $frontendGlobals,
+        private readonly Header $header,
     ) {
     }
 
@@ -50,6 +53,7 @@ final class PageController
         $this->parseRevision($request, $revision);
         $this->parseFooterLinks();
         $this->parseLocales($request);
+        $this->buildBreadcrumbs($revision);
         $this->frontendGlobals->addGlobals();
 
         $revisionContext = [
@@ -162,5 +166,32 @@ final class PageController
             ];
         }
         $this->twig->addGlobal('locales', $locales);
+    }
+
+    private function buildBreadcrumbs(Revision $revision): void
+    {
+        $pages = array_reverse($this->navigationBuilder->getActivePages($revision), true);
+        if (!array_key_exists( Page::PAGE_ID_HOME, $pages)) {
+            $homeRoute = $this->router->generate(
+                'pages__page__' . Page::PAGE_ID_HOME . '.' . $revision->getLocale()->value
+            );
+            $this->header->breadcrumbs->add(
+                new Breadcrumb(
+                    $this->router->match($homeRoute)['navigation_title'],
+                    $homeRoute
+                )
+            );
+        } elseif (count($pages) === 1) {
+            return;
+        }
+        foreach ($pages as $page) {
+            $revision = $page->getActiveRevision();
+            $this->header->breadcrumbs->add(
+                new Breadcrumb(
+                    $revision->getNavigationTitle(),
+                    $this->router->generate('pages__page__' . $page->getId() . '.' . $revision->getLocale()->value)
+                )
+            );
+        }
     }
 }

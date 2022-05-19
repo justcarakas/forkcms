@@ -973,34 +973,6 @@
       <translation locale="pl"><![CDATA[Dodaj grupę]]></translation>
       <translation locale="pt"><![CDATA[adicionar grupo]]></translation>
     </item>
-    <item type="label" name="UserGroupEdit">
-      <translation locale="nl"><![CDATA[groep wijzigen]]></translation>
-      <translation locale="en"><![CDATA[edit group]]></translation>
-    </item>
-    <item type="label" name="UserGroupDelete">
-      <translation locale="nl"><![CDATA[groep verwijderen]]></translation>
-      <translation locale="en"><![CDATA[delete group]]></translation>
-    </item>
-    <item type="label" name="UserGroupIndex">
-      <translation locale="nl"><![CDATA[groepsoverzicht]]></translation>
-      <translation locale="en"><![CDATA[group overview]]></translation>
-    </item>
-    <item type="label" name="UserAdd">
-      <translation locale="nl"><![CDATA[gebruiker toevoegen]]></translation>
-      <translation locale="en"><![CDATA[add user]]></translation>
-    </item>
-    <item type="label" name="UserEdit">
-      <translation locale="nl"><![CDATA[gebruiker wijzigen]]></translation>
-      <translation locale="en"><![CDATA[edit user]]></translation>
-    </item>
-    <item type="label" name="UserDelete">
-      <translation locale="nl"><![CDATA[gebruiker verwijderen]]></translation>
-      <translation locale="en"><![CDATA[delete user]]></translation>
-    </item>
-    <item type="label" name="UserIndex">
-      <translation locale="nl"><![CDATA[gebruikersoverzicht]]></translation>
-      <translation locale="en"><![CDATA[user overview]]></translation>
-    </item>
     <item type="label" name="Description">
       <translation locale="nl"><![CDATA[beschrijving]]></translation>
       <translation locale="en"><![CDATA[description]]></translation>

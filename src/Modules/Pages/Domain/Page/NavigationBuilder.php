@@ -2,12 +2,14 @@
 
 namespace ForkCMS\Modules\Pages\Domain\Page;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Join;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Pages\Domain\Revision\MenuType;
+use ForkCMS\Modules\Pages\Domain\Revision\Revision;
 use Symfony\Contracts\Cache\CacheInterface;
 
 final class NavigationBuilder
@@ -17,7 +19,7 @@ final class NavigationBuilder
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly CacheInterface $cache,
-        private readonly ModuleSettings $moduleSettings
+        private readonly ModuleSettings $moduleSettings,
     ) {
     }
 
@@ -56,6 +58,14 @@ final class NavigationBuilder
 
     public function getTree(Locale $locale): array
     {
+        static $cache;
+        if ($cache === null) {
+            $cache = [];
+        }
+        if (array_key_exists($locale->value, $cache)) {
+            return $cache[$locale->value];
+        }
+
         $tree = [];
         $groupedPages = $this->getGroupedPages($locale);
         foreach (MenuType::cases() as $type) {
@@ -71,6 +81,7 @@ final class NavigationBuilder
                 'pages' => self::getSubTree($type, $groupedPages, $locale),
             ];
         }
+        $cache[$locale->value] = $tree;
 
         return $tree;
     }
@@ -122,5 +133,56 @@ final class NavigationBuilder
         $this->cache->save($cache);
 
         return $groupedPages;
+    }
+
+    /** @return array<int, Page> */
+    public function getActivePages(Revision $revision): array
+    {
+        static $cache;
+        $activeId = $revision->getPage()->getId();
+        if ($cache === null) {
+            $cache = [];
+        }
+        if (array_key_exists($activeId, $cache)) {
+            return $cache[$activeId];
+        }
+
+        $tree = $this->getTree($revision->getLocale())[$revision->getType()->value]['pages'] ?? [];
+        $pages = new ArrayCollection();
+        foreach ($tree as $page) {
+            if ($this->findActivePages($page, $activeId, $pages)) {
+                $pages->set($page['page']->getId(), $page['page']);
+
+                break;
+            }
+        }
+        $cache[$activeId] = $pages->toArray();
+
+        return $cache[$activeId];
+    }
+
+    private function findActivePages(array $page, int $activeId, ArrayCollection $pages): bool
+    {
+        if ($page['page']->getId() === $activeId) {
+            $pages->set($page['page']->getId(), $page['page']);
+
+            return true;
+        }
+
+        foreach ($page['children'] ?? [] as $id => $childPage) {
+            if ($id === $activeId) {
+                $pages->set($childPage['page']->getId(), $childPage['page']);
+
+                return true;
+            }
+
+            if ($this->findActivePages($childPage, $activeId, $pages)) {
+                $pages->set($page['page']->getId(), $page['page']);
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }

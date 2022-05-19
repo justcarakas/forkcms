@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Internationalisation\Backend\Actions;
 
+use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Command\ChangeTranslation;
@@ -20,7 +21,7 @@ final class TranslationEdit extends AbstractFormActionController
     {
         $translation = $this->getEntityFromRequest($request, Translation::class);
 
-        $this->setBreadcrumbDetail($translation->getKey()->getName());
+        $this->header->addBreadcrumb(new Breadcrumb($translation->getKey()->getName()));
 
         $this->addDeleteForm(['id' => $translation->getId()], TranslationDelete::getActionSlug());
 

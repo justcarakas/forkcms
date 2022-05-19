@@ -3,11 +3,11 @@
 namespace ForkCMS\Modules\Backend\Controller;
 
 use ForkCMS\Core\Domain\Header\Header;
-use ForkCMS\Core\Domain\Header\JsData;
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItemRepository;
 use ForkCMS\Modules\Backend\Domain\User\User;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
-use ForkCMS\Modules\Internationalisation\Installer\InternationalisationInstaller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,13 +20,14 @@ use Twig\Environment;
 class LoginController
 {
     public function __construct(
-        private Environment $twig,
-        private AuthenticationUtils $authenticationUtils,
-        private TranslatorInterface $translator,
-        private Security $security,
-        private UrlGeneratorInterface $urlGenerator,
-        private NavigationItemRepository $navigationItemRepository,
-        private Header $header
+        private readonly Environment $twig,
+        private readonly AuthenticationUtils $authenticationUtils,
+        private readonly TranslatorInterface $translator,
+        private readonly Security $security,
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly NavigationItemRepository $navigationItemRepository,
+        private readonly Header $header,
+        private readonly ModuleSettings $moduleSettings,
     ) {
     }
 
@@ -52,7 +53,11 @@ class LoginController
                     'last_username' => $lastUsername,
                     'error' => $error,
                     'page_title' => $this->translator->trans(TranslationKey::label('LogIn')),
-                    'SITE_TITLE' => $_ENV['SITE_DEFAULT_TITLE'],
+                    'SITE_TITLE' => $this->moduleSettings->get(
+                        ModuleName::fromString('Frontend'),
+                        'site_title_' . $request->getLocale(),
+                        $_ENV['SITE_DEFAULT_TITLE']
+                    ),
                     'SITE_URL' => $_ENV['SITE_PROTOCOL'] . '://' . $_ENV['SITE_DOMAIN'],
                     'jsFiles' => [],
                 ]

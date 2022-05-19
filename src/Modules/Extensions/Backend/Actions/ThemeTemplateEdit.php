@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
+use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\Command\ChangeThemeTemplate;
@@ -22,13 +23,16 @@ final class ThemeTemplateEdit extends AbstractFormActionController
         $themeTemplate = $this->getEntityFromRequest($request, ThemeTemplate::class);
         $this->assign('theme', $themeTemplate->getTheme());
 
-        $this->setBreadcrumbDetail(
-            sprintf(
-                '%1$s: %2$s',
+        $themeRoute = ThemeDetail::getActionSlug()->withDefaultParameters(
+            ['slug' => $themeTemplate->getTheme()->getName()]
+        );
+        $this->header->addBreadcrumb(
+            new Breadcrumb(
                 $themeTemplate->getTheme()->getName(),
-                $themeTemplate->getName()
+                $themeRoute->generateRoute($this->router)
             )
         );
+        $this->header->addBreadcrumb(new Breadcrumb($themeTemplate->getName()));
 
         if (!$themeTemplate->isDefault()) {
             $this->addDeleteForm(['id' => $themeTemplate->getId()], ThemeTemplateDelete::getActionSlug());

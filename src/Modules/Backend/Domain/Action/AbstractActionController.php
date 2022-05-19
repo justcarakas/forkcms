@@ -22,7 +22,6 @@ use Twig\Environment;
 abstract class AbstractActionController implements ActionControllerInterface
 {
     private string $templatePath;
-    private string $pageTitle;
     /** @var array<string, mixed> */
     private array $twigContext = [];
 
@@ -53,24 +52,6 @@ abstract class AbstractActionController implements ActionControllerInterface
             $actionSlug->getModuleName(),
             $actionSlug->getActionName()
         );
-
-        $this->pageTitle = $this->buildPageTitle();
-    }
-
-    private function buildPageTitle(?string $prepend = null): string
-    {
-        $actionSlug = self::getActionSlug();
-
-        return implode(
-            ' - ',
-            array_filter(
-                [
-                    $prepend,
-                    $actionSlug->getActionName()->asLabel()->trans($this->translator),
-                    $actionSlug->getModuleName()->asLabel()->trans($this->translator),
-                ]
-            )
-        );
     }
 
     final protected function changeTemplatePath(string $templatePath): void
@@ -86,8 +67,6 @@ abstract class AbstractActionController implements ActionControllerInterface
     public function __invoke(Request $request): Response
     {
         $this->execute($request);
-
-        $this->twig->addGlobal('page_title', $this->pageTitle);
 
         return $this->getResponse($request);
     }
@@ -136,12 +115,6 @@ abstract class AbstractActionController implements ActionControllerInterface
         } catch (MissingIdentifierField) {
             throw new NotFoundHttpException('identifier field not found');
         }
-    }
-
-    final protected function setBreadcrumbDetail(string $breadcrumbDetail): void
-    {
-        $this->assign('breadcrumbDetail', $breadcrumbDetail);
-        $this->pageTitle = $this->buildPageTitle($breadcrumbDetail);
     }
 
     final protected function isAllowed(ActionSlug|AjaxActionSlug $actionSlug): bool

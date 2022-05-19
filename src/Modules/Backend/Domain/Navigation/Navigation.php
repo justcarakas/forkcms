@@ -2,8 +2,11 @@
 
 namespace ForkCMS\Modules\Backend\Domain\Navigation;
 
+use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
+use ForkCMS\Core\Domain\Header\Breadcrumb\BreadcrumbCollection;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Twig\Environment;
 
@@ -13,6 +16,7 @@ final class Navigation
         private readonly AuthorizationCheckerInterface $authorizationChecker,
         private readonly NavigationCache $navigationCache,
         private readonly RequestStack $requestStack,
+        private readonly RouterInterface $router,
     ) {
     }
 
@@ -29,9 +33,16 @@ final class Navigation
     /** @return array<int, array<string, mixed>> */
     private function getNavigationForAllowedModulesAndActions(): array
     {
-        return $this->addActiveStateToNavigation(
+        static $navigation;
+        if ($navigation !== null) {
+            return $navigation;
+        }
+
+        $navigation = $this->addActiveStateToNavigation(
             array_filter(array_map($this->getPermissionCheckerFunction(), $this->navigationCache->get()))
         );
+
+        return $navigation;
     }
 
     private function getPermissionCheckerFunction(): callable
@@ -160,5 +171,30 @@ final class Navigation
         }
 
         return null;
+    }
+
+    public function buildBreadcrumbs(BreadcrumbCollection $breadcrumbs): void
+    {
+        $navigation = $this->getNavigationForAllowedModulesAndActions();
+        while (count($navigation) > 0) {
+            $continue = false;
+            foreach ($navigation as $navigationItem) {
+                if ($navigationItem['active'] ?? false) {
+                    $breadcrumbs->add(
+                        new Breadcrumb(
+                            $navigationItem['label'],
+                            ActionSlug::fromSlug($navigationItem['slug'])->generateRoute($this->router)
+                        )
+                    );
+
+                    $continue = true;
+                    $navigation = $navigationItem['children'] ?? [];
+                    break;
+                }
+            }
+            if (!$continue) {
+                $navigation = [];
+            }
+        }
     }
 }

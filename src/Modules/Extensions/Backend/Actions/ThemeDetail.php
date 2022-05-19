@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use ForkCMS\Core\Domain\Form\ActionType;
+use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
 use ForkCMS\Modules\Backend\Domain\Action\ActionServices;
 use ForkCMS\Modules\Extensions\Domain\Theme\InstallableTheme;
@@ -51,7 +52,7 @@ final class ThemeDetail extends AbstractActionController
                     ]
                 )->createView()
             );
-            $this->setBreadcrumbDetail($theme->name);
+            $this->header->addBreadcrumb(new Breadcrumb($theme->name));
         }
     }
 }

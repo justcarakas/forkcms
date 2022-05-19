@@ -1,46 +1,16 @@
-{% set currentAction = app.request.attributes.get('action') %}
-<ol class="breadcrumb">
-  {% for topLevelItem in navigation|filter(item => item.active is defined and item.active) %}
-    <li>
-      <a href="{{ path('backend_action', {'actionSlug': topLevelItem.slug}) }}">{{- (topLevelItem.label)|trans|ucfirst -}}</a>
-    </li>
-    {% if topLevelItem.children is not empty %}
-      {% for secondaryItem in topLevelItem.children|filter(item => item.active is defined and item.active) %}
-        <li>
-          <i class="fas fa-chevron-right fa-xs"></i>
-          <a href="{{ path('backend_action', {'actionSlug': secondaryItem.slug}) }}">{{- (secondaryItem.label)|trans|ucfirst -}}</a>
-        </li>
-        {% if secondaryItem.children is not empty %}
-          {% for tertiaryItem in secondaryItem.children|filter(item => item.active is defined and item.active) %}
-            <li>
-              <i class="fas fa-chevron-right fa-xs"></i>
-              <a href="{{ path('backend_action', {'actionSlug': tertiaryItem.slug}) }}">{{- (tertiaryItem.label)|trans|ucfirst -}}</a>
-            </li>
-            {% if currentAction|lower not in tertiaryItem.slug and tertiaryItem.label|trans != currentAction|tolabel %}
-              <li>
-                <i class="fas fa-chevron-right fa-xs"></i>
-                <span>{{- currentAction|tolabel|ucfirst -}}</span>
-              </li>
-            {% endif %}
-          {% endfor %}
-        {% elseif currentAction|lower not in secondaryItem.slug and secondaryItem.label|trans != currentAction|tolabel %}
-          <li>
-            <i class="fas fa-chevron-right fa-xs"></i>
-            <span>{{- currentAction|tolabel|ucfirst -}}</span>
-          </li>
-        {% endif %}
-      {% endfor %}
-    {% elseif currentAction|lower not in topLevelItem.slug and topLevelItem.label|trans != currentAction|tolabel %}
-      <li>
+<ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList" aria-label="breadcrumb">
+  {% for breadcrumb in breadcrumbs %}
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" {{ breadcrumbs.count == loop.index ? ' aria-current="page"': '' }}>
+      {% if not loop.first%}
         <i class="fas fa-chevron-right fa-xs"></i>
-        <span>{{- currentAction|tolabel -}}</span>
-      </li>
-    {% endif %}
-  {% endfor %}
-  {% if breadcrumbDetail is defined %}
-    <li>
-      <i class="fas fa-chevron-right fa-xs"></i>
-      <span>{{- breadcrumbDetail -}}</span>
+      {% endif %}
+      {% if breadcrumb.url is null or breadcrumbs.count == loop.index %}
+        <span itemprop="name">{{ breadcrumb.label|ucfirst }}</span>
+      {% else %}
+        <a href="{{ breadcrumb.url }}" itemtype="http://schema.org/Thing" itemprop="item">
+          <span itemprop="name">{{ breadcrumb.label|ucfirst }}</span>
+        </a>
+      {% endif %}
     </li>
-  {% endif %}
+  {% endfor%}
 </ol>

@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
+use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
 use ForkCMS\Modules\Backend\Domain\UserGroup\Command\ChangeUserGroup;
@@ -21,7 +22,7 @@ final class UserGroupEdit extends AbstractFormActionController
     {
         $userGroup = $this->getEntityFromRequest($request, UserGroup::class);
 
-        $this->setBreadcrumbDetail($userGroup->getName());
+        $this->header->addBreadcrumb(new Breadcrumb($userGroup->getName()));
 
         $this->addDeleteForm(['id' => $userGroup->getId()], UserGroupDelete::getActionSlug());
 

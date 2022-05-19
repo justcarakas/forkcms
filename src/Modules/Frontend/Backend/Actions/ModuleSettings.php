@@ -9,6 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ModuleSettings extends AbstractFormActionController
 {
+    protected function addBreadcrumbForRequest(Request $request): void
+    {
+        // no action specific breadcrumb needed
+    }
+
     protected function getFormResponse(Request $request): ?Response
     {
         return $this->handleModuleSettingsForm(

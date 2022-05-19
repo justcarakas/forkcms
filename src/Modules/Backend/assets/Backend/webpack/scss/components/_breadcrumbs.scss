@@ -17,10 +17,11 @@
     a {
       display: inline-block;
       color: $gray-700;
+      border-bottom: 1px solid transparent;
 
       &:hover,
       &:focus {
-        border-bottom: 1px solid $gray-550;
+        border-bottom-color: $gray-550;
         text-decoration: none;
       }
     }

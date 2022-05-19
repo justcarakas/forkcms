@@ -13,6 +13,8 @@ final class DataCollectorTranslator extends SymfonyDataCollectorTranslator
     /** @var array<int, mixed> */
     private array $messages = [];
 
+    private bool $isCollecting = true;
+
     public function __construct(private TranslatorInterface $translator)
     {
         parent::__construct($this->translator);
@@ -35,9 +37,21 @@ final class DataCollectorTranslator extends SymfonyDataCollectorTranslator
             $domain = $this->translator->getLastUsedDomain();
         }
 
-        $this->collectMessage($locale, $domain, $id, $trans, $parameters);
+        if ($this->isCollecting) {
+            $this->collectMessage($locale, $domain, $id, $trans, $parameters);
+        }
 
         return $trans;
+    }
+
+    public function disableCollecting(): void
+    {
+        $this->isCollecting = false;
+    }
+
+    public function enableCollecting(): void
+    {
+        $this->isCollecting = true;
     }
 
     /**

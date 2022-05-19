@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
+use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
 use ForkCMS\Modules\Backend\Domain\User\Command\ChangeUser;
@@ -22,7 +23,7 @@ final class UserEdit extends AbstractFormActionController
         $user = $this->getEntityFromRequest($request, User::class);
 
         $this->assign('user', $user);
-        $this->setBreadcrumbDetail($user->getDisplayName());
+        $this->header->addBreadcrumb(new Breadcrumb($user->getDisplayName()));
 
         if ($this->getRepository(User::class)->count([]) > 1) {
             $this->addDeleteForm(['id' => $user->getId()], UserDelete::getActionSlug());
