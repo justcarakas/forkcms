@@ -128,9 +128,9 @@ final class PageController
 
     protected function parseFooterLinks(): void
     {
-        $tree = $this->navigationBuilder->getTree(Locale::current());
+        $pages = $this->navigationBuilder->getTree(Locale::current())[MenuType::FOOTER->value]['pages'] ?? [];
         $footerLinks = [];
-        foreach ($tree[MenuType::FOOTER->value]['pages'] as $menuItem) {
+        foreach ($pages as $menuItem) {
             /** @var Revision $revision */
             $revision = $menuItem['page']->getActiveRevision();
             $footerLinks[] = [
@@ -171,9 +171,9 @@ final class PageController
     private function buildBreadcrumbs(Revision $revision): void
     {
         $pages = array_reverse($this->navigationBuilder->getActivePages($revision), true);
-        if (!array_key_exists( Page::PAGE_ID_HOME, $pages)) {
+        if (!array_key_exists(Page::PAGE_ID_HOME, $pages)) {
             $homeRoute = $this->router->generate(
-                'pages__page__' . Page::PAGE_ID_HOME . '.' . $revision->getLocale()->value
+                Revision::getRouteNameForPageIdAndLocale(Page::PAGE_ID_HOME, $revision->getLocale())
             );
             $this->header->breadcrumbs->add(
                 new Breadcrumb(
@@ -189,7 +189,9 @@ final class PageController
             $this->header->breadcrumbs->add(
                 new Breadcrumb(
                     $revision->getNavigationTitle(),
-                    $this->router->generate('pages__page__' . $page->getId() . '.' . $revision->getLocale()->value)
+                    $this->router->generate(
+                        Revision::getRouteNameForPageIdAndLocale($page->getId(), $revision->getLocale())
+                    )
                 )
             );
         }

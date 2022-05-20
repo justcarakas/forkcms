@@ -58,11 +58,11 @@ class Meta implements JsonSerializable
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private string|null $custom;
 
-    #[ORM\Column(type: SEOFollowDBALType::NAME, nullable: true)]
-    private SEOFollow|null $seoFollow;
+    #[ORM\Column(type: SEOFollowDBALType::NAME)]
+    private SEOFollow $seoFollow;
 
-    #[ORM\Column(type: SEOIndexDBALType::NAME, nullable: true)]
-    private SEOIndex|null $seoIndex;
+    #[ORM\Column(type: SEOIndexDBALType::NAME)]
+    private SEOIndex $seoIndex;
 
     public function __construct(
         string $keywords,
@@ -109,8 +109,8 @@ class Meta implements JsonSerializable
         $this->slug = $slug;
         $this->slugOverwrite = $slugOverwrite;
         $this->custom = $custom;
-        $this->seoFollow = $seoFollow;
-        $this->seoIndex = $seoIndex;
+        $this->seoFollow = $seoFollow ?? SEOFollow::none;
+        $this->seoIndex = $seoIndex ?? SEOIndex::none;
         $this->canonicalUrl = $canonicalUrl;
         $this->canonicalUrlOverwrite = $canonicalUrlOverwrite;
         $this->settings = $settings ?? $this->settings;
@@ -198,15 +198,11 @@ class Meta implements JsonSerializable
 
     public function hasSEOIndex(): bool
     {
-        return $this->seoIndex !== SEOIndex::none && $this->seoIndex !== null;
+        return $this->seoIndex !== SEOIndex::none;
     }
 
-    public function getSEOIndex(): ?SEOIndex
+    public function getSEOIndex(): SEOIndex
     {
-        if (!$this->hasSEOIndex()) {
-            return null;
-        }
-
         return $this->seoIndex;
     }
 
@@ -218,7 +214,7 @@ class Meta implements JsonSerializable
     public function getSEOFollow(): ?SEOFollow
     {
         if (!$this->hasSEOFollow()) {
-            return null;
+            return SEOFollow::none;
         }
 
         return $this->seoFollow;

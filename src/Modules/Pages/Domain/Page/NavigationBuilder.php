@@ -23,32 +23,6 @@ final class NavigationBuilder
     ) {
     }
 
-    private static function getSubTree(MenuType $type, array $groupedPages, Locale $locale, int $parentId = 0): ?array
-    {
-        /** @var Page[] $subPages */
-        $subPages = $groupedPages[$type->value][$parentId] ?? null;
-
-        if ($subPages === null || count($subPages) === 0) {
-            return null;
-        }
-
-        $subTree = [];
-        foreach ($subPages as $page) {
-            $pageTreeType = $page->getPageTreeType($locale);
-            $pageId = $page->getId();
-            $subTree[$pageId] = [
-                'attr' => [
-                    'rel' => $pageTreeType,
-                    'data-jstree' => '{"type":"' . $pageTreeType . '"}',
-                ],
-                'page' => $page,
-                'children' => self::getSubtree($type, $groupedPages, $locale, $pageId),
-            ];
-        }
-
-        return $subTree;
-    }
-
     public function clearNavigationCache(): void
     {
         foreach (Locale::cases() as $locale) {
@@ -84,6 +58,64 @@ final class NavigationBuilder
         $cache[$locale->value] = $tree;
 
         return $tree;
+    }
+
+    /** @return array<int, Page> */
+    public function getActivePages(Revision $revision): array
+    {
+        static $cache;
+        $activeId = $revision->getPage()->getId();
+        if ($cache === null) {
+            $cache = [];
+        }
+        if (array_key_exists($activeId, $cache)) {
+            return $cache[$activeId];
+        }
+
+        $tree = $this->getTree($revision->getLocale())[$revision->getType()->value]['pages'] ?? [];
+        $pages = new ArrayCollection();
+        foreach ($tree as $page) {
+            if ($this->findActivePages($page, $activeId, $pages)) {
+                $pages->set($page['page']->getId(), $page['page']);
+
+                break;
+            }
+        }
+        $cache[$activeId] = $pages->toArray();
+
+        return $cache[$activeId];
+    }
+
+    public function getActiveGroupedPages(MenuType $type, Revision $revision): array
+    {
+        static $cache;
+        if ($cache === null) {
+            $cache = [];
+        }
+        $cacheKey = $type->value . '_' . $revision->getId();
+        if (array_key_exists($cacheKey, $cache)) {
+            return $cache[$cacheKey];
+        }
+
+        $pages = $this->getGroupedPages($revision->getLocale())[$type->value] ?? [];
+        $activeIds = $this->getActivePages($revision);
+        if (count($activeIds) > 1 && $revision->getPage()->getId() !== Page::PAGE_ID_HOME) {
+            unset($activeIds[Page::PAGE_ID_HOME]);
+        }
+
+        foreach ($pages as $parentId => $childPages) {
+            $pages[$parentId] = array_map(
+                static fn (Page $page): array => [
+                    'page' => $page,
+                    'active' => array_key_exists($page->getId(), $activeIds),
+                    'hasChildren' => array_key_exists($page->getId(), $pages) && $page->getId() !== Page::PAGE_ID_HOME,
+                ],
+                $childPages
+            );
+        }
+        $cache[$cacheKey] = $pages;
+
+        return $pages;
     }
 
     private function getGroupedPages(Locale $locale): array
@@ -135,32 +167,6 @@ final class NavigationBuilder
         return $groupedPages;
     }
 
-    /** @return array<int, Page> */
-    public function getActivePages(Revision $revision): array
-    {
-        static $cache;
-        $activeId = $revision->getPage()->getId();
-        if ($cache === null) {
-            $cache = [];
-        }
-        if (array_key_exists($activeId, $cache)) {
-            return $cache[$activeId];
-        }
-
-        $tree = $this->getTree($revision->getLocale())[$revision->getType()->value]['pages'] ?? [];
-        $pages = new ArrayCollection();
-        foreach ($tree as $page) {
-            if ($this->findActivePages($page, $activeId, $pages)) {
-                $pages->set($page['page']->getId(), $page['page']);
-
-                break;
-            }
-        }
-        $cache[$activeId] = $pages->toArray();
-
-        return $cache[$activeId];
-    }
-
     private function findActivePages(array $page, int $activeId, ArrayCollection $pages): bool
     {
         if ($page['page']->getId() === $activeId) {
@@ -177,12 +183,38 @@ final class NavigationBuilder
             }
 
             if ($this->findActivePages($childPage, $activeId, $pages)) {
-                $pages->set($page['page']->getId(), $page['page']);
+                $pages->set($childPage['page']->getId(), $childPage['page']);
 
                 return true;
             }
         }
 
         return false;
+    }
+
+    private static function getSubTree(MenuType $type, array $groupedPages, Locale $locale, int $parentId = 0): ?array
+    {
+        /** @var Page[] $subPages */
+        $subPages = $groupedPages[$type->value][$parentId] ?? null;
+
+        if ($subPages === null || count($subPages) === 0) {
+            return null;
+        }
+
+        $subTree = [];
+        foreach ($subPages as $page) {
+            $pageTreeType = $page->getPageTreeType($locale);
+            $pageId = $page->getId();
+            $subTree[$pageId] = [
+                'attr' => [
+                    'rel' => $pageTreeType,
+                    'data-jstree' => '{"type":"' . $pageTreeType . '"}',
+                ],
+                'page' => $page,
+                'children' => self::getSubtree($type, $groupedPages, $locale, $pageId),
+            ];
+        }
+
+        return $subTree;
     }
 }
