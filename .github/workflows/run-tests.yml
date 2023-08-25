@@ -66,7 +66,7 @@ jobs:
                   node-version: 14 # current LTS
             - run: npm install
 
-            - run: webpack
+            - run: node_modules/.bin/webpack
 
             - name: Execute tests with coverage
               if: ${{ matrix.php == '8.1' }}
@@ -208,7 +208,7 @@ jobs:
                   node-version: 14 # current LTS
             - run: npm install
 
-            - run: webpack
+            - run: node_modules/.bin/webpack
 
             - name: Test
               run: |
