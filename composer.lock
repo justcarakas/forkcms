@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a06cee11609dc3c39b15ec3f19473133",
+    "content-hash": "128e6ccb64e20ec023d7c49102064061",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -6506,29 +6506,28 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v4.4.49",
+            "version": "v7.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "b3378a7d305666a69e08457b65af8bca179fbbbb"
+                "reference": "c2d059b25e31274157dd7727131cd1cf33650207"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/b3378a7d305666a69e08457b65af8bca179fbbbb",
-                "reference": "b3378a7d305666a69e08457b65af8bca179fbbbb",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/c2d059b25e31274157dd7727131cd1cf33650207",
+                "reference": "c2d059b25e31274157dd7727131cd1cf33650207",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=7.2.5"
             },
             "conflict": {
-                "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0|<6.4,>=6.0|9.1.2"
+                "phpunit/phpunit": "<7.5|9.1.2"
             },
             "require-dev": {
-                "symfony/error-handler": "^4.4|^5.0"
-            },
-            "suggest": {
-                "symfony/error-handler": "For tracking deprecated interfaces usages at runtime with DebugClassLoader"
+                "symfony/deprecation-contracts": "^2.5|^3.0",
+                "symfony/error-handler": "^5.4|^6.4|^7.0",
+                "symfony/polyfill-php81": "^1.27"
             },
             "bin": [
                 "bin/simple-phpunit"
@@ -6568,7 +6567,7 @@
             "description": "Provides utilities for PHPUnit, especially user deprecation notices management",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/phpunit-bridge/tree/v4.4.49"
+                "source": "https://github.com/symfony/phpunit-bridge/tree/v7.0.1"
             },
             "funding": [
                 {
@@ -6584,7 +6583,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-11-08T14:39:54+00:00"
+            "time": "2023-12-01T09:26:31+00:00"
         }
     ],
     "aliases": [],
@@ -6601,5 +6600,5 @@
         "ext-simplexml": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
