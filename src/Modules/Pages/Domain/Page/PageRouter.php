@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Pages\Domain\Page;
 
 use Doctrine\ORM\Query\Expr\Join;
+use ForkCMS\Modules\Frontend\Domain\Block\BlockNameDBALType;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockRouterInterface;
 use ForkCMS\Modules\Frontend\Domain\Block\ModuleBlock;
 use ForkCMS\Modules\Frontend\Domain\Block\Type;
@@ -36,11 +37,15 @@ final class PageRouter implements BlockRouterInterface
             ->innerJoin('r.blocks', 'pb')
             ->innerJoin('pb.block', 'fb', Join::WITH, 'fb.block.module = :module AND fb.block.name = :name')
             ->setParameter('module', $moduleBlock->getModule())
-            ->setParameter('name', $moduleBlock->getName())
+            ->setParameter('name', BlockNameDBALType::prefixedString($moduleBlock->getName()))
             ->setParameter('locale', $locale->value)
             ->setParameter('draft', false)
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult();
+
+        if ($page === null) {
+            return $this->getRouteForPageId(Page::PAGE_ID_404, $locale);
+        }
 
         return $this->getRouteForPage($page, $locale, $parameters, $referenceType);
     }
