@@ -16,25 +16,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 abstract class UserDataTransferObject implements UniqueDataTransferObjectInterface
 {
     /**
-     * @Assert\Email(message="err.EmailIsInvalid")
-     * @Assert\NotBlank (message="err.EmailIsRequired")
      * We have to limit the length because of the email because of unique index
-     * @Assert\Length(max=180, maxMessage="err.EmailIsTooLong")
      */
+    #[Assert\Email(message: "err.EmailIsInvalid")]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 180, maxMessage: "err.EmailIsTooLong")]
     public ?string $email = null;
 
-    /**
-     * @Assert\NotBlank(message="err.PasswordIsRequired", groups={"create"})
-     * @Assert\Length(minMessage="err.PasswordIsTooShort", min=12)
-     * @Assert\NotCompromisedPassword(skipOnError="true")
-     */
+    #[Assert\NotCompromisedPassword(skipOnError: true)]
+    #[Assert\Length(min: 12, minMessage: 'err.PasswordIsTooShort')]
+    #[Assert\NotBlank(message: 'err.PasswordIsRequired', groups: ['create'])]
     public ?string $plainTextPassword = null;
 
-    /**
-     * @Assert\NotBlank (message="err.DisplayNameIsRequired")
-     */
-    public ?string $displayName = null;
-
+    #[Assert\NotBlank] public ?string $displayName = null;
     public bool $accessToBackend = true;
 
     public bool $superAdmin = false;

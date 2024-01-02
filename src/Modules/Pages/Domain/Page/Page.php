@@ -73,7 +73,7 @@ class Page
             return;
         }
 
-        if ($newRevision->isArchived() === null) {
+        if ($newRevision->archivedOn() === null) {
             foreach ($this->revisions as $revision) {
                 if ($revision !== $newRevision && $revision->getLocale() === $newRevision->getLocale()) {
                     $revision->archive();
@@ -96,7 +96,7 @@ class Page
             Criteria::create()
                 ->where($expressionBuilder->eq('locale', $locale))
                 ->andWhere($expressionBuilder->eq('isDraft', false))
-                ->andWhere($expressionBuilder->eq('isArchived', null))
+                ->andWhere($expressionBuilder->eq('archivedOn', null))
         )->first();
 
         if ($revision instanceof Revision) {

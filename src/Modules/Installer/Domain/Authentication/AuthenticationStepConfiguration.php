@@ -12,16 +12,16 @@ final class AuthenticationStepConfiguration implements InstallerStepConfiguratio
     /**
      * The backend login email for the GOD user.
      *
-     * @Assert\NotBlank()
-     * @Assert\Email()
      */
+    #[Assert\Email]
+    #[Assert\NotBlank]
     public ?string $email;
 
     /**
      * The backend password for the GOD user.
      *
-     * @Assert\NotBlank()
      */
+    #[Assert\NotBlank]
     public ?string $password;
 
     /**
@@ -31,9 +31,8 @@ final class AuthenticationStepConfiguration implements InstallerStepConfiguratio
 
     /**
      * The custom debug emailaddress, if applicable.
-     *
-     * @Assert\Email()
      */
+    #[Assert\Email]
     public ?string $debugEmail;
 
     /**

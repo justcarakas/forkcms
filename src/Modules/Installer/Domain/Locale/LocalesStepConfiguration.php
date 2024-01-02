@@ -24,30 +24,28 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
      * The locales to install Fork in.
      *
      * @var Locale[]
-     * @Assert\Count(min=1)
      */
+    #[Assert\Count(min: 1)]
     public array $locales = [];
 
     /**
      * The backend interface locales to install for Fork.
      *
      * @var Locale[]
-     * @Assert\Count(min=1)
      */
+    #[Assert\Count(min: 1)]
     public array $userLocales = [];
 
     /**
      * The default locale for this Fork installation.
-     *
-     * @Assert\NotBlank()
      */
+    #[Assert\NotBlank]
     public ?Locale $defaultLocale = null;
 
     /**
      * The default locale for the Fork backend.
-     *
-     * @Assert\NotBlank()
      */
+    #[Assert\NotBlank]
     public ?Locale $defaultUserLocale = null;
 
     /**

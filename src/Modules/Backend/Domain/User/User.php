@@ -29,11 +29,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * @Gedmo\SoftDeleteable(timeAware=true)
- */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'])]
+#[Gedmo\SoftDeleteable(timeAware:true)]
 #[DataGrid('User')]
 #[DataGridActionColumn(
     route: 'backend_action',

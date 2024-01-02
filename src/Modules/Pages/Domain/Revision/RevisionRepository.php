@@ -101,7 +101,7 @@ final class RevisionRepository extends ServiceEntityRepository implements MetaCa
             ->setParameter('blockId', $block->getId());
 
         if ($onlyActive) {
-            $queryBuilder->andWhere('r.isArchived IS NULL');
+            $queryBuilder->andWhere('r.archivedOn IS NULL');
         }
         $revisions = $queryBuilder->getQuery()->disableResultCache()->getResult();
         $this->getEntityManager()->getFilters()->enable('softdeleteable');

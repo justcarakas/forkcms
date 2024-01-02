@@ -9,9 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 trait Blameable
 {
-    /**
-     * @Gedmo\Blameable(on="create")
-     */
+    #[Gedmo\Blameable(on: 'create')]
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'createdBy')]
     private User|null $createdBy;
@@ -20,10 +18,7 @@ trait Blameable
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private DateTimeImmutable $createdOn;
 
-    /**
-     * @Gedmo\Blameable(on="update")
-     * @Gedmo\Blameable(on="create")
-     */
+    #[Gedmo\Blameable]
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'updatedBy')]
     private User|null $updatedBy;

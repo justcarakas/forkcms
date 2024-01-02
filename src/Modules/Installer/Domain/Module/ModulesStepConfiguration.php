@@ -15,8 +15,8 @@ final class ModulesStepConfiguration implements InstallerStepConfiguration
      * The modules to install Fork in.
      *
      * @var ModuleName[]
-     * @Assert\Count(min=1)
      */
+    #[Assert\Count(min: 1)]
     public array $modules = [];
 
     /** do we install exampleData? */

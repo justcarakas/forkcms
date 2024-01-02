@@ -19,7 +19,7 @@ abstract class RevisionDataTransferObject
     public ?string $title = null;
     public bool $isDraft = false;
     public ?ThemeTemplate $themeTemplate = null;
-    public DateTimeImmutable|null $isArchived = null;
+    public DateTimeImmutable|null $archivedOn = null;
     /** @var ArrayCollection<string, non-empty-array<int, RevisionBlockDataTransferObject>> */
     public ArrayCollection $blocks;
     public ?Locale $locale = null;
@@ -44,7 +44,7 @@ abstract class RevisionDataTransferObject
         $this->title = $this->revisionEntity->getTitle();
         $this->isDraft = $this->revisionEntity->isDraft();
         $this->themeTemplate = $this->revisionEntity->getThemeTemplate();
-        $this->isArchived = $this->revisionEntity->getArchivedDate();
+        $this->archivedOn = $this->revisionEntity->getArchivedOn();
         $blocks = [];
         foreach ($this->revisionEntity->getBlocks() as $block) {
             $position = $block->getPosition();
