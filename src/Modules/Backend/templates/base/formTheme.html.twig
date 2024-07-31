@@ -508,7 +508,7 @@
 {% endblock %}
 
 {% block tab_row %}
-  {%- set tab_class = ' tab-pane fade row' ~ (form.parent.children|keys|first == form.vars.name ? ' show active' : '') -%}
+  {%- set tab_class = ' tab-pane fade row' ~ (isActiveTab ? ' show active' : '') -%}
   {{ form_widget(form, {attr: {role: 'tabpanel', 'aria-labelledby': form.vars.id, class: (form.vars.attr.class|default('') ~ tab_class)|trim}}) }}
 {% endblock %}
 

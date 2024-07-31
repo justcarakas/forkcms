@@ -4,6 +4,8 @@ namespace ForkCMS\Core\Domain\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class TabType extends AbstractType
@@ -26,5 +28,16 @@ final class TabType extends AbstractType
                 ]
             )
             ->addAllowedTypes('fields', 'callable');
+    }
+
+    public function finishView(FormView $view, FormInterface $form, array $options): void
+    {
+        parent::finishView($view, $form, $options);
+
+        $activeTab = array_key_first(
+            $form->getParent()?->getConfig()->getAttribute('data_collector/passed_options')['tabs'] ?? []
+        );
+
+        $view->vars['isActiveTab'] = $view->vars['name'] === TabsType::getTabNameForLabel($activeTab);
     }
 }
