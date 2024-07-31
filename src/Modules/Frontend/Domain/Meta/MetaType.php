@@ -91,7 +91,10 @@ class MetaType extends AbstractType
             ->addModelTransformer(
                 new CallbackTransformer($this->getMetaTransformFunction(), $this->getMetaReverseTransformFunction())
             )
-            ->addEventListener(FormEvents::SUBMIT, $this->getSubmitEventFunction($options['base_field_name']));
+            ->addEventListener(
+                FormEvents::SUBMIT,
+                $this->getSubmitEventFunction($options['base_field_name'], $options['base_field_parent_name'])
+            );
 
         if ($options['custom_meta_tags']) {
             $builder->add(
@@ -132,9 +135,9 @@ class MetaType extends AbstractType
         ];
     }
 
-    private function getSubmitEventFunction(string $baseFieldName): callable
+    private function getSubmitEventFunction(string $baseFieldName, ?string $baseFieldParentName): callable
     {
-        return function (FormEvent $event) use ($baseFieldName) {
+        return function (FormEvent $event) use ($baseFieldName, $baseFieldParentName) {
             $metaForm = $event->getForm();
             $metaData = $event->getData();
             $parent = $metaForm->getParent();
@@ -146,7 +149,13 @@ class MetaType extends AbstractType
 
             $baseField = null;
             while ($parent !== null && $baseField === null) {
-                $baseField = $parent->has($baseFieldName) ? $parent->get($baseFieldName) : null;
+                if ($baseFieldParentName !== null) {
+                    $baseField = $parent->has($baseFieldParentName)
+                        ? $parent->get($baseFieldParentName)->get($baseFieldName)
+                        : null;
+                } else {
+                    $baseField = $parent->has($baseFieldName) ? $parent->get($baseFieldName) : null;
+                }
                 $parent = $parent->getParent();
             }
             if ($baseField === null) {
@@ -289,6 +298,7 @@ class MetaType extends AbstractType
                 'generate_slug_callback_method' => 'slugify',
                 'generate_slug_callback_parameters' => [],
                 'disable_slug_overwrite' => false,
+                'base_field_parent_name' => null,
             ]
         );
     }
@@ -307,7 +317,11 @@ class MetaType extends AbstractType
         $parent = $view->parent;
         $baseField = null;
         while ($parent !== null && $baseField === null) {
-            $baseField = $parent->children[$options['base_field_name']] ?? null;
+            if ($options['base_field_parent_name'] !== null) {
+                $baseField = $parent->children[$options['base_field_parent_name']]->children[$options['base_field_name']] ?? null;
+            } else {
+                $baseField = $parent->children[$options['base_field_name']] ?? null;
+            }
             $parent = $parent->parent;
         }
         if ($baseField === null) {
