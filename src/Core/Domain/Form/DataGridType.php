@@ -27,7 +27,9 @@ final class DataGridType extends AbstractType
             [
                 'data_grid_empty_module_action' => null,
                 'data_grid_empty_parameters' => [],
-                'data_grid_empty_locale' => null,]
+                'data_grid_empty_locale' => null,
+                'mapped' => false,
+            ]
         );
         $resolver->setAllowedTypes('data_grid', DataGrid::class);
         $resolver->setAllowedTypes('data_grid_empty_module_action', [ModuleAction::class, 'null']);
