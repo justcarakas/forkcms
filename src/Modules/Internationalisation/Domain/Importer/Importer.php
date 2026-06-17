@@ -3,7 +3,6 @@
 namespace ForkCMS\Modules\Internationalisation\Domain\Importer;
 
 use Assert\Assertion;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleRepository;

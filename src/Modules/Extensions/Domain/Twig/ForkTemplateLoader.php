@@ -18,7 +18,7 @@ final class ForkTemplateLoader extends FilesystemLoader
     public function __construct(
         #[Autowire('%kernel.project_dir%')]
         string $kernelProjectDir,
-        #[Autowire('%fork.is_installed')]
+        #[Autowire(param: 'fork.is_installed')]
         bool $forkIsInstalled
     ) {
         $filesystem = new Filesystem();
