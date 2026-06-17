@@ -40,7 +40,6 @@ final class ContentBlockType extends AbstractType
                         'revisions',
                         DataGridType::class,
                         [
-                            'mapped' => false,
                             'data_grid' => $options['revisions_data_grid'],
                         ]
                     );
