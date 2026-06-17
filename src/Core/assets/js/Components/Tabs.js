@@ -15,18 +15,19 @@ export class Tabs {
       })
     }
 
-    $('.nav-tabs a').click((e) => {
+    $('.nav-tabs button[data-bs-toggle="tab"]').click((e) => {
       // if the browser supports history.pushState(), use it to update the URL with the fragment identifier, without triggering a scroll/jump
+      const target = e.currentTarget.getAttribute('data-bs-target')
       if (window.history && window.history.pushState) {
         // an empty state object for now — either we implement a proper pop state handler ourselves, or wait for jQuery UI upstream
-        window.history.pushState({}, document.title, e.currentTarget.getAttribute('href'))
+        window.history.pushState({}, document.title, target)
       } else {
         // for browsers that do not support pushState
         // save current scroll height
         const scrolled = $(window).scrollTop()
 
         // set location hash
-        window.location.hash = '#' + e.currentTarget.getAttribute('href').split('#')[1]
+        window.location.hash = target
 
         // reset scroll height
         $(window).scrollTop(scrolled)
@@ -36,7 +37,7 @@ export class Tabs {
     // Show tab if the hash is in the url
     const hash = window.location.hash
     if ($(hash).length > 0 && $(hash).hasClass('tab-pane')) {
-      const triggerEl = document.querySelector('a[href="' + hash + '"]')
+      const triggerEl = document.querySelector('button[data-bs-target="' + hash + '"][data-bs-toggle="tab"]')
       const tab = new window.bootstrap.Tab(triggerEl)
       tab.show()
     }

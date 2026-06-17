@@ -64,6 +64,7 @@ final class TabsType extends AbstractType
 
     public function finishView(FormView $view, FormInterface $form, array $options): void
     {
+        $view->vars['active_tab'] = array_key_first($options['tabs']);
         $view->vars['left_tabs_count'] = $options['left_tabs_count'];
     }
 }

@@ -206,6 +206,21 @@ fieldset {
 }
 
 fieldset:last-of-type {
-  border-bottom: 0;
+  &:not(.card) {
+    border-bottom: 0;
+  }
   margin-bottom: 0;
+}
+
+.card.card-editor {
+  padding-left: 0;
+  padding-right: 0;
+  .ce-popover {
+    right: 0 !important;
+  }
+}
+
+.tab-pane fieldset.card {
+  padding-left: 0;
+  padding-right: 0;
 }
