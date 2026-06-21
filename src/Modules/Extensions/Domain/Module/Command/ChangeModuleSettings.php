@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Module\Command;
 
+use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 
@@ -43,7 +44,17 @@ final class ChangeModuleSettings
 
     public function __isset(string $key)
     {
-        return $this->getConvertedModule($key)->getSettings()->has($this->getConvertedKey($key));
+        if ($this->getConvertedModule($key)->getSettings()->has($this->getConvertedKey($key))) {
+            return true;
+        }
+
+        $defaults = $this->getConvertedDefault($key);
+        $matches = [];
+
+        return array_key_exists($key, $defaults) || (
+            preg_match($this->getLocaleAgnosticRegexMatch(), $key, $matches)
+            && array_key_exists($matches[1], $defaults)
+        );
     }
 
     private function getLocaleAgnosticRegexMatch(): string

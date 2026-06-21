@@ -60,7 +60,7 @@ final class SettingsBag implements JsonSerializable
 
     public function get(string $name, Locale $locale = null): mixed
     {
-        $localisedName = $this->getLocalisedName($name, $locale);
+        $localisedName = self::getLocalisedName($name, $locale);
 
         if ($localisedName !== $name && array_key_exists($localisedName, $this->settings)) {
             return $this->settings[$localisedName];
@@ -98,7 +98,7 @@ final class SettingsBag implements JsonSerializable
             $value = new DateTimeImmutable($value['date'], new DateTimeZone($value['timezone']));
         }
 
-        $localisedName = $this->getLocalisedName($name, $locale);
+        $localisedName = self::getLocalisedName($name, $locale);
         if (array_key_exists($localisedName, $this->settings)) {
             $this->hasChanges = $this->settings[$localisedName] !== $value;
             $this->settings[$localisedName] = $value;
@@ -118,14 +118,14 @@ final class SettingsBag implements JsonSerializable
             return true;
         }
 
-        $localisedName = $this->getLocalisedName($name);
+        $localisedName = self::getLocalisedName($name);
 
         return $localisedName !== $name && array_key_exists($localisedName, $this->settings);
     }
 
     public function remove(string $name, Locale $locale = null): void
     {
-        $localisedName = $this->getLocalisedName($name, $locale);
+        $localisedName = self::getLocalisedName($name, $locale);
         if ($localisedName !== $name && array_key_exists($localisedName, $this->settings)) {
             $this->hasChanges = true;
             unset($this->settings[$localisedName]);
@@ -163,7 +163,7 @@ final class SettingsBag implements JsonSerializable
         return new SettingsBag(json_decode($value, true, 512, JSON_THROW_ON_ERROR));
     }
 
-    private function getLocalisedName(string $key, Locale $locale = null): string
+    public static function getLocalisedName(string $key, Locale $locale = null): string
     {
         if (!self::$locale) {
             return $key;
