@@ -2,12 +2,14 @@
 
 namespace ForkCMS\Modules\Pages\Domain\Page;
 
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Query\Expr\Join;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockNameDBALType;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockRouterInterface;
 use ForkCMS\Modules\Frontend\Domain\Block\ModuleBlock;
 use ForkCMS\Modules\Frontend\Domain\Block\Type;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
+use ForkCMS\Modules\Pages\Domain\RevisionBlock\RevisionBlock;
 use InvalidArgumentException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -41,6 +43,7 @@ final class PageRouter implements BlockRouterInterface
             ->setParameter('locale', $locale->value)
             ->setParameter('draft', false)
             ->getQuery()
+            ->setFetchMode(RevisionBlock::class, 'block', ClassMetadataInfo::FETCH_EXTRA_LAZY)
             ->getOneOrNullResult();
 
         if ($page === null) {
