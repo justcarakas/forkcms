@@ -68,7 +68,8 @@
         "scienta/doctrine-json-functions": "^5.0",
         "twig/intl-extra": "^3.3",
         "symfony/expression-language": "6.*",
-        "symfony/lock": "6.*"
+        "symfony/lock": "6.*",
+        "laminas/laminas-feed": "^2.22"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",

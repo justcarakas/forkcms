@@ -17,3 +17,6 @@ services:
 
   ForkCMS\Modules\Frontend\Backend\:
     resource: '../Backend/*'
+
+  ForkCMS\Modules\Frontend\Frontend\:
+    resource: '../Frontend/*'

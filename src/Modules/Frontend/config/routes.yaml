@@ -8,4 +8,15 @@ frontend_ajax:
   requirements:
     module: '[a-z][a-z0-9\-]*[a-z0-9]*'
     action: '[a-z][a-z0-9\-]*[a-z0-9]*'
+
+frontend_rss:
+  path: /_rss/{_locale}/{module}/{action}/{slug?}
+  controller: ForkCMS\Modules\Frontend\Controller\FrontendRSSController
+  methods: GET
+  defaults:
+    module: ~
+    action: ~
+  requirements:
+    module: '[a-z][a-z0-9\-]*[a-z0-9]*'
+    action: '[a-z][a-z0-9\-]*[a-z0-9]*'
     slug: .+

@@ -53,6 +53,14 @@ services:
       tags:
         - { name: forkcms.frontend.block }
 
+    ForkCMS\Modules\Frontend\Domain\AjaxAction\AjaxActionControllerInterface:
+      tags:
+        - { name: forkcms.frontend.ajax_action }
+
+    ForkCMS\Modules\Frontend\Domain\RSSAction\RSSActionControllerInterface:
+      tags:
+        - { name: forkcms.frontend.rss_action }
+
     ForkCMS\Modules\Frontend\Domain\Meta\MetaCallbackService:
       tags:
         - { name: forkcms.frontend.meta.callback }
