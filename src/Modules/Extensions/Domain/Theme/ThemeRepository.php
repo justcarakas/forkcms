@@ -75,8 +75,7 @@ final class ThemeRepository extends ServiceEntityRepository
         $finder = Finder::create()->in(self::THEMES_DIRECTORY)->depth(1)->files()->name('theme.xml');
         $themes = [];
         foreach ($finder as $configFile) {
-            $theme = InstallableTheme::fromXML($configFile->getRealPath());
-            $themes[$theme->name] = dirname($configFile->getRealPath());
+            $themes[$configFile->getRelativePath()] = dirname($configFile->getRealPath());
         }
 
         return $themes;
