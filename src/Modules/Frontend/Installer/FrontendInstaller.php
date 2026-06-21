@@ -20,6 +20,7 @@ final class FrontendInstaller extends ModuleInstaller
     public function install(): void
     {
         $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');
+        $this->defaultModuleSettings();
         $this->createBackendPages();
     }
 
@@ -30,5 +31,17 @@ final class FrontendInstaller extends ModuleInstaller
             ModuleSettings::getActionSlug(),
             $this->getModuleSettingsNavigationItem()
         );
+    }
+
+    private function defaultModuleSettings(): void
+    {
+        $this->setSetting('site_html_head', '');
+        $this->setSetting('site_html_start_of_body', '');
+        $this->setSetting('site_html_end_of_body', '');
+        $this->setSetting('consent_dialog_levels', []);
+        $this->setSetting('google_analytics_enabled', false);
+        $this->setSetting('google_analytics_value', null);
+        $this->setSetting('google_tag_manager_enabled', false);
+        $this->setSetting('google_tag_manager_value', null);
     }
 }

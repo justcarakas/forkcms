@@ -15,6 +15,7 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocale;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -31,6 +32,8 @@ final class ModuleSettingsType extends AbstractType
         private readonly InstalledLocaleRepository $installedLocaleRepository,
         private readonly ModuleSettings $moduleSettings,
         private readonly ServiceLocator $editorTypeImplementations,
+        #[Autowire(env: 'bool:SITE_DEFAULT_CONSENT_DIALOG_ENABLED')]
+        private readonly bool $defaultConsentDialogEnabled,
     ) {
     }
 
@@ -108,10 +111,10 @@ final class ModuleSettingsType extends AbstractType
                     $submittedShow = $_POST['module_settings']['privacy_consents']['consent_dialog_enabled'] ?? null;
                     $showConsentDialog = $this->moduleSettings->get(
                         ModuleName::frontend(),
-                        'consent_dialog_enabled'
+                        'consent_dialog_enabled',
+                        $this->defaultConsentDialogEnabled
                     );
                     $showConsentDialog = (bool) ($submittedShow ?? $showConsentDialog);
-
                     $builder->add(
                         'consent_dialog_enabled',
                         SwitchType::class,
