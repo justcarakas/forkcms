@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Importer;
 
 use Assert\Assertion;
 use ForkCMS\Core\Domain\Application\Application;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
@@ -70,6 +71,17 @@ final class Importer
                 )
             ) {
                 $importResult->addSkipped();
+                continue;
+            }
+
+            if ($application === Application::INSTALLER) {
+                ModuleInstaller::addInstallerTranslation(
+                    $translation->getLocale()->value,
+                    $translation->getDomain()->getDomain(),
+                    (string) $translation->getKey(),
+                    $translation->getValue()
+                );
+                $importResult->addImported();
                 continue;
             }
 
