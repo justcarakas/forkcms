@@ -6,7 +6,7 @@
 {% set crud_action_locale = null %}
 
 {% block actionbar %}
-  {% if is_allowed(crud_action_name, crud_action_module) %}
+  {% if crud_action_name is defined and is_allowed(crud_action_name, crud_action_module) %}
     <div class="btn-toolbar justify-content-end">
       <div class="btn-group" role="group">
         {{ macro.buttonIcon(action_path(crud_action_name, crud_action_module, crud_action_parameters, crud_action_relative, crud_action_locale), crudActionIcon|default('plus-square'), crustActionLabel|default('lbl.Add'|trans|ucfirst), 'btn-success') }}
