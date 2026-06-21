@@ -156,6 +156,7 @@ final class PagesInstaller extends ModuleInstaller
 
     private function defaultModuleSettings(): void
     {
+        $this->setSetting('meta_navigation', false);
         $this->setSetting('enabled_extensions', [PagesRouteLoader::FORMAT_DEFAULT]);
     }
 }
