@@ -34,10 +34,6 @@ final class TabType extends AbstractType
     {
         parent::finishView($view, $form, $options);
 
-        $activeTab = array_key_first(
-            $form->getParent()?->getConfig()->getAttribute('data_collector/passed_options')['tabs'] ?? []
-        );
-
-        $view->vars['isActiveTab'] = $view->vars['name'] === TabsType::getTabNameForLabel($activeTab);
+        $view->vars['isActiveTab'] = $view->vars['name'] ===  array_key_first($form->getParent()?->all() ?? []);
     }
 }
