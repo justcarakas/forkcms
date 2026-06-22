@@ -43,7 +43,7 @@ final class PageRouter implements BlockRouterInterface
             ->setParameter('locale', $locale->value)
             ->setParameter('draft', false)
             ->getQuery()
-            ->setFetchMode(RevisionBlock::class, 'block', ClassMetadataInfo::FETCH_EXTRA_LAZY)
+            ->setFetchMode(RevisionBlock::class, 'block', ClassMetadataInfo::FETCH_LAZY)
             ->getOneOrNullResult();
 
         if ($page === null) {

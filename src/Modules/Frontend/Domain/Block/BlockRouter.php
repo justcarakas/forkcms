@@ -12,6 +12,7 @@ final readonly class BlockRouter
     {
     }
 
+    /** @param array<string, mixed> $parameters */
     public function getRouteForBlock(
         ModuleBlock $moduleBlock,
         Locale $locale = null,
