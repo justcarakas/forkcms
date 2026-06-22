@@ -46,12 +46,12 @@ final readonly class RSSActionSlug implements Stringable
         $matches = [];
         if (
             !preg_match(
-                '/^ForkCMS\\\Modules\\\([A-Z]\w*)\\\Frontend\\\RSS\\\([A-Z]\w*$)/',
+                '/^ForkCMS\\\Modules\\([A-Z]\\w*)\\Frontend\\RSS\\([A-Z]\\w*)$/',
                 $fullyQualifiedClassName,
                 $matches
             )
         ) {
-            throw new InvalidArgumentException('Can ony be created from a frontend RSS action class name');
+            throw new InvalidArgumentException('Can only be created from a frontend RSS action class name');
         }
 
         return new self(ModuleName::fromString($matches[1]), RSSActionName::fromString($matches[2]));
