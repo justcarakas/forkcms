@@ -46,7 +46,10 @@ abstract class AbstractRSSActionController implements RSSActionControllerInterfa
 
     public function getResponse(Request $request): Response
     {
-        return new Response($this->feed->export(Writer::TYPE_RSS_ANY));
+        return new Response(
+            $this->feed->export(Writer::TYPE_RSS_ANY),
+            headers: ['Content-Type' => 'application/rss+xml; charset=utf-8']
+        );
     }
 
     /** @return iterable<Entry> */
