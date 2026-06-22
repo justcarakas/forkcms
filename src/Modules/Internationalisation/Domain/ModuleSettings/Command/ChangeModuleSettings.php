@@ -18,7 +18,7 @@ final class ChangeModuleSettings
     /** @var InstalledLocaleDataTransferObject[] */
     public array $installedLocales = [];
 
-    public function __construct(private SluggerInterface $slugger, InstalledLocale ...$installedLocales)
+    public function __construct(SluggerInterface $slugger, InstalledLocale ...$installedLocales)
     {
         foreach ($installedLocales as $installedLocale) {
             if ($installedLocale->isDefaultForWebsite()) {
