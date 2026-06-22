@@ -17,38 +17,34 @@ final class NotFound extends AbstractRSSActionController
 
     protected function execute(Request $request): void
     {
-        //$this->assign('message', TranslationKey::error('NotFound')->trans($this->translator));
     }
 
     public function getResponse(Request $request): Response
     {
-        $response = parent::getResponse($request);
-        $response->setStatusCode(Response::HTTP_NOT_FOUND);
-
-        return $response;
+        return new Response(
+            '',
+            Response::HTTP_NOT_FOUND,
+            ['Content-Type' => 'application/rss+xml; charset=utf-8']
+        );
     }
 
     protected function getEntries(Request $request): iterable
     {
-        // TODO: Implement getEntries() method.
-        throw new \Exception('Method not implemented');
+        return [];
     }
 
     protected function feedTitle(Request $request): string
     {
-        // TODO: Implement feedTitle() method.
-        throw new \Exception('Method not implemented');
+        return '';
     }
 
     protected function feedDescription(Request $request): string
     {
-        // TODO: Implement feedDescription() method.
-        throw new \Exception('Method not implemented');
+        return '';
     }
 
     protected function feedLink(Request $request): string
     {
-        // TODO: Implement feedLink() method.
-        throw new \Exception('Method not implemented');
+        return '';
     }
 }
