@@ -17,7 +17,7 @@ use Throwable;
 
 final readonly class RSSActionSlug implements Stringable
 {
-    public function __construct(private ModuleName $moduleName, private RssActionName $actionName)
+    public function __construct(private ModuleName $moduleName, private RSSActionName $actionName)
     {
         Assertion::classExists($this->getFQCN(), 'RSS action class does not exist');
     }
@@ -37,7 +37,7 @@ final readonly class RSSActionSlug implements Stringable
 
         return new self(
             ModuleName::fromString(Container::camelize($matches[1])),
-            RssActionName::fromString(Container::camelize($matches[2]))
+            RSSActionName::fromString(Container::camelize($matches[2]))
         );
     }
 
@@ -54,7 +54,7 @@ final readonly class RSSActionSlug implements Stringable
             throw new InvalidArgumentException('Can ony be created from a frontend RSS action class name');
         }
 
-        return new self(ModuleName::fromString($matches[1]), RssActionName::fromString($matches[2]));
+        return new self(ModuleName::fromString($matches[1]), RSSActionName::fromString($matches[2]));
     }
 
     public static function fromRequest(Request $request): self
@@ -117,7 +117,7 @@ final readonly class RSSActionSlug implements Stringable
         return $this->moduleName;
     }
 
-    public function getActionName(): RssActionName
+    public function getActionName(): RSSActionName
     {
         return $this->actionName;
     }
