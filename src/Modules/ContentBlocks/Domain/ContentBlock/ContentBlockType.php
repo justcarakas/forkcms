@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/** @extends AbstractType<ContentBlockDataTransferObject> */
 final class ContentBlockType extends AbstractType
 {
     public function __construct(private readonly ForkTemplateLoader $forkTemplateLoader)

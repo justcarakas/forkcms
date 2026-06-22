@@ -12,9 +12,9 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @method Block|null find($id, $lockMode = null, $lockVersion = null)
- * @method Block|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Block|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Block[] findAll()
- * @method Block[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Block[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
  */
 final class BlockRepository extends SortableRepository implements ServiceEntityRepositoryInterface
 {

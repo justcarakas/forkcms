@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * This form type is a workaround for showing a datagrid in a form.
  */
+/** @extends AbstractType<array<string, mixed>> */
 final class DataGridType extends AbstractType
 {
     public function getBlockPrefix(): string

@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/** @extends AbstractType<\ForkCMS\Modules\Pages\Domain\Revision\RevisionDataTransferObject> */
 final class RevisionType extends AbstractType
 {
     public function __construct(private readonly PageRouter $pageRouter)

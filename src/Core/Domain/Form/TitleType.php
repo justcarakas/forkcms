@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/** @extends AbstractType<string> */
 class TitleType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void

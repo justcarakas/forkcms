@@ -6,7 +6,7 @@ use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
 
 final class DeleteThemeTemplate
 {
-    private ?ThemeTemplate $themeTemplateEntity;
+    private ThemeTemplate $themeTemplateEntity;
 
     public function __construct(public readonly int $id)
     {

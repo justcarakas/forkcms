@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/** @extends AbstractType<array<string, mixed>> */
 final class UserDataGridChoiceType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void

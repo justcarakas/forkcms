@@ -23,7 +23,7 @@ abstract class AbstractBlock
     }
 
     /**
-     * @return array<string, string> The config must contain the key "class" with the JS class for the editor
+     * @return array<string, mixed> The config must contain the key "class" with the JS class for the editor
      */
     abstract public function getConfig(): array;
 

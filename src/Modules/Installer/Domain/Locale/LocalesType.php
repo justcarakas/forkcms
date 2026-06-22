@@ -17,6 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @implements DataTransformerInterface<LocalesStepConfiguration,LocalesStepConfiguration>
  */
+/** @extends AbstractType<LocalesStepConfiguration> */
 class LocalesType extends AbstractType implements DataTransformerInterface
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

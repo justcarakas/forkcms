@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/** @extends AbstractType<array<string, mixed>> */
 class CollectionType extends AbstractType
 {
     public function buildView(FormView $view, FormInterface $form, array $options): void

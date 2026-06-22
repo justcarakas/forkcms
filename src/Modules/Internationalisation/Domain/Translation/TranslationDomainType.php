@@ -16,6 +16,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
 
 /** @implements DataTransformerInterface<TranslationDomain,array> */
+/** @extends AbstractType<array<string, mixed>> */
 final class TranslationDomainType extends AbstractType implements DataTransformerInterface
 {
     public function __construct(private readonly TranslatorInterface $translator)

@@ -98,7 +98,7 @@ final class SettingsBag implements JsonSerializable
 
         $localisedName = self::getLocalisedName($name, $locale);
         if (array_key_exists($localisedName, $this->settings)) {
-            $this->hasChanges &= $this->settings[$localisedName] !== $value;
+            $this->hasChanges = $this->hasChanges || $this->settings[$localisedName] !== $value;
             $this->settings[$localisedName] = $value;
             return;
         }

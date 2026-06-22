@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
 /**
  * Builds the form to set up login information.
  */
+/** @extends AbstractType<AuthenticationStepConfiguration> */
 final class AuthenticationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

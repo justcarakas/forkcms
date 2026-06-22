@@ -17,6 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/** @extends AbstractType<TranslationFilter> */
 final class TranslationFilterType extends AbstractType
 {
     public function __construct(

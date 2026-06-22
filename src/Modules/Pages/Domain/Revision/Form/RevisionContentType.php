@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/** @extends AbstractType<\ForkCMS\Modules\Pages\Domain\Revision\RevisionDataTransferObject> */
 final class RevisionContentType extends AbstractType
 {
     public function __construct(

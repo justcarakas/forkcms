@@ -19,6 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
+/** @extends AbstractType<array<string, mixed>> */
 class ModuleSettingsType extends AbstractType
 {
     public function __construct(private readonly InstalledLocaleRepository $installedLocaleRepository)

@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+/** @extends AbstractType<array<string, mixed>> */
 final class TabsType extends AbstractType
 {
     public function __construct(private readonly SluggerInterface $slugger)

@@ -20,7 +20,7 @@ abstract class RevisionDataTransferObject
     public bool $isDraft = false;
     public ?ThemeTemplate $themeTemplate = null;
     public DateTimeImmutable|null $archivedOn = null;
-    /** @var ArrayCollection<string, non-empty-array<int, RevisionBlockDataTransferObject>> */
+    /** @var ArrayCollection<string, non-empty-list<RevisionBlockDataTransferObject>> */
     public ArrayCollection $blocks;
     public ?Locale $locale = null;
     /** @var array<string, mixed>  */

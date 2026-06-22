@@ -8,9 +8,9 @@ use Throwable;
 
 /**
  * @method InstalledLocale|null find($id, $lockMode = null, $lockVersion = null)
- * @method InstalledLocale|null findOneBy(array $criteria, array $orderBy = null)
+ * @method InstalledLocale|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method InstalledLocale[] findAll()
- * @method InstalledLocale[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method InstalledLocale[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
  * @extends ServiceEntityRepository<InstalledLocale>
  */
 final class InstalledLocaleRepository extends ServiceEntityRepository

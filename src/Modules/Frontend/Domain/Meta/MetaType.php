@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/** @extends AbstractType<array<string, mixed>> */
 class MetaType extends AbstractType
 {
     /** @var array<int, Meta> */

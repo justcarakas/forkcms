@@ -10,9 +10,9 @@ use Throwable;
 
 /**
  * @method Theme|null find($id, $lockMode = null, $lockVersion = null)
- * @method Theme|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Theme|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Theme[] findAll()
- * @method Theme[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Theme[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
  * @extends ServiceEntityRepository<Theme>
  */
 final class ThemeRepository extends ServiceEntityRepository

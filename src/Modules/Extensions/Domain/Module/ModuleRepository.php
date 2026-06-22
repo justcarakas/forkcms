@@ -8,9 +8,9 @@ use Throwable;
 
 /**
  * @method Module|null find($id, $lockMode = null, $lockVersion = null)
- * @method Module|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Module|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Module[] findAll()
- * @method Module[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Module[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
  * @extends ServiceEntityRepository<Module>
  */
 final class ModuleRepository extends ServiceEntityRepository

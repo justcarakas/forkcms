@@ -112,7 +112,7 @@ class Revision
     #[ORM\OrderBy(['sequence' => 'ASC'])]
     private Collection $blocks;
 
-    /** @param Collection<string, non-empty-array<int, RevisionBlockDataTransferObject>> $blocks */
+    /** @param Collection<string, non-empty-list<RevisionBlockDataTransferObject>> $blocks */
     private function __construct(
         Page $page,
         ?Page $parentPage,

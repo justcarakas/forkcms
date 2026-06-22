@@ -25,6 +25,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Regex;
 
+/** @extends AbstractType<array<string, mixed>> */
 final class ModuleSettingsType extends AbstractType
 {
     /** @param ServiceLocator<EditorTypeImplementationInterface> $editorTypeImplementations */

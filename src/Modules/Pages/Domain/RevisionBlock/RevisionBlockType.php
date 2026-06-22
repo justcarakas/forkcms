@@ -17,6 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/** @extends AbstractType<RevisionBlockDataTransferObject> */
 final class RevisionBlockType extends AbstractType
 {
     public function __construct(private readonly TranslatorInterface $translator)

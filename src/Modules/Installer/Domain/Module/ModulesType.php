@@ -17,6 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @implements DataTransformerInterface<ModulesStepConfiguration,ModulesStepConfiguration>
  */
+/** @extends AbstractType<ModulesStepConfiguration> */
 class ModulesType extends AbstractType implements DataTransformerInterface
 {
     public function __construct(private readonly ModuleInstallerLocator $moduleInstallerLocator)

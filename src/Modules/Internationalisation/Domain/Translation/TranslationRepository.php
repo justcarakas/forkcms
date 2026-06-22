@@ -15,9 +15,9 @@ use Throwable;
 
 /**
  * @method Translation|null find($id, $lockMode = null, $lockVersion = null)
- * @method Translation|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Translation|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Translation[] findAll()
- * @method Translation[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Translation[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
  * @extends ServiceEntityRepository<Translation>
  */
 final class TranslationRepository extends ServiceEntityRepository

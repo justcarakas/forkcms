@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/** @extends AbstractType<array<string, mixed>> */
 final class ThemeTemplatePositionType extends AbstractType
 {
     public function __construct(

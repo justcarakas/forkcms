@@ -46,7 +46,7 @@ final readonly class RSSActionSlug implements Stringable
         $matches = [];
         if (
             !preg_match(
-                '/^ForkCMS\\\Modules\\([A-Z]\\w*)\\Frontend\\RSS\\([A-Z]\\w*)$/',
+                '/^ForkCMS\\\Modules\\\([A-Z]\\w*)\\\Frontend\\\RSS\\\([A-Z]\\w*)$/',
                 $fullyQualifiedClassName,
                 $matches
             )

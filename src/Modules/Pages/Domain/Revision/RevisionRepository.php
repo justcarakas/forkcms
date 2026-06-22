@@ -15,9 +15,9 @@ use ForkCMS\Modules\Pages\Domain\RevisionBlock\RevisionBlock;
 
 /**
  * @method Revision|null find($id, $lockMode = null, $lockVersion = null)
- * @method Revision|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Revision|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Revision[] findAll()
- * @method Revision[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Revision[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
  * @extends ServiceEntityRepository<Revision>
  */
 final class RevisionRepository extends ServiceEntityRepository implements MetaCallbackService
