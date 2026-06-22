@@ -116,10 +116,10 @@ jobs:
                   APP_ENV: test
 
             - name: Upload Coverage report
-              uses: codecov/codecov-action@v1
+              uses: codecov/codecov-action@v5
               if: ${{ matrix.php == '8.2' }}
               with:
-                  file: ${{ matrix.testsuite}}.clover
+                  files: ${{ matrix.testsuite}}.clover
                   flags: ${{ matrix.testsuite}}
 
     phpstan:
@@ -226,12 +226,12 @@ jobs:
             # We need to have a vendor folder locally, as the whole root folder gets mounted as volume via docker compose.
             # Alternatively, you can define a named volume for the vendor folder path in docker compose.
             - name: Install dependencies
-              run: composer install -o
+              run: composer install -o -vvv
 
             - name: Build Docker image
               run: |
                   docker pull ghcr.io/forkcms/forkcms:latest || true
-                  docker compose build
+                  docker compose build --build-arg PHP_VERSION=8.2
 
             - name: Start docker compose stack
               run: |
