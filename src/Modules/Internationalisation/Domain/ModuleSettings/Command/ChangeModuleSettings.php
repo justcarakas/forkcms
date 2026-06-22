@@ -3,7 +3,6 @@
 namespace ForkCMS\Modules\Internationalisation\Domain\ModuleSettings\Command;
 
 use ForkCMS\Core\Domain\Form\TabsType;
-use ForkCMS\Core\Domain\Form\TabType;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocale;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleDataTransferObject;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;

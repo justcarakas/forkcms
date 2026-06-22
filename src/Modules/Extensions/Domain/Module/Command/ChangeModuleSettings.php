@@ -2,7 +2,6 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Module\Command;
 
-use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 
