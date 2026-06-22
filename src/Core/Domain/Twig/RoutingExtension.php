@@ -109,7 +109,7 @@ final class RoutingExtension extends AbstractExtension
         }
 
         if ($actionName === null) {
-            $actionName = $defaultSlug->getActionName()->getName();
+            $actionName = $defaultSlug->getActionName();
         } elseif (is_string($actionName)) {
             $actionName = ActionName::fromString($actionName);
         }
