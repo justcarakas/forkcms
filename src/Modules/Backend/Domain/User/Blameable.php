@@ -39,11 +39,11 @@ trait Blameable
 
     public function getUpdatedBy(): ?User
     {
-        return $this->updatedBy;
+        return $this->updatedBy ?? $this->createdBy;
     }
 
     public function getUpdatedOn(): DateTimeImmutable
     {
-        return $this->updatedOn;
+        return $this->updatedOn ?? $this->createdOn;
     }
 }
