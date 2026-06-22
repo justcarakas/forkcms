@@ -6,8 +6,6 @@ use DateTimeImmutable;
 use DateTimeZone;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use JsonSerializable;
-use function array_key_exists;
-use function strlen;
 
 final class SettingsBag implements JsonSerializable
 {
