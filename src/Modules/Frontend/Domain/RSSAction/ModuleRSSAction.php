@@ -30,7 +30,7 @@ final class ModuleRSSAction implements Stringable
                 $matches
             )
         ) {
-            throw new InvalidArgumentException('Can ony be created from a frontend RSS action class name');
+            throw new InvalidArgumentException('Can only be created from a frontend RSS action class name');
         }
 
         return new self(ModuleName::fromString($matches[1]), RSSActionName::fromString($matches[2]));

@@ -37,7 +37,7 @@ final class ModuleAjaxAction implements Stringable
                 $matches
             )
         ) {
-            throw new InvalidArgumentException('Can ony be created from a backend ajax action class name');
+            throw new InvalidArgumentException('Can only be created from a backend ajax action class name');
         }
 
         return new self(ModuleName::fromString($matches[1]), AjaxActionName::fromString($matches[2]));
