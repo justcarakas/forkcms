@@ -14,7 +14,7 @@ final class RSSActionSlugResolver implements ValueResolverInterface
         return $argument->getType() === RSSActionSlug::class;
     }
 
-    /** @return array<?RSSActionSlug> */
+    /** @return array<RSSActionSlug> */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         if ($argument->getType() !== RSSActionSlug::class) {
