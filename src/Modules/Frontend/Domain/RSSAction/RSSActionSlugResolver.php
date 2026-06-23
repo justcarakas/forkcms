@@ -21,8 +21,8 @@ final class RSSActionSlugResolver implements ValueResolverInterface
             return [];
         }
 
-        $rssAxtionSlug = RSSActionSlug::fromRequest($request);
+        $rssActionSlug = RSSActionSlug::fromRequest($request);
 
-        return [$rssAxtionSlug];
+        return [$rssActionSlug];
     }
 }

@@ -27,11 +27,11 @@ final class AjaxActionSlugResolver implements ValueResolverInterface
             return [];
         }
 
-        $ajaxAxtionSlug = AjaxActionSlug::fromRequest($request);
-        if (!$this->authorizationChecker->isGranted($ajaxAxtionSlug->asModuleAction()->asRole())) {
+        $ajaxActionSlug = AjaxActionSlug::fromRequest($request);
+        if (!$this->authorizationChecker->isGranted($ajaxActionSlug->asModuleAction()->asRole())) {
             return [Forbidden::getAjaxActionSlug()];
         }
 
-        return [$ajaxAxtionSlug];
+        return [$ajaxActionSlug];
     }
 }

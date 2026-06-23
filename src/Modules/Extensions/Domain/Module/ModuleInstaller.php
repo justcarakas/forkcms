@@ -282,7 +282,7 @@ abstract class ModuleInstaller
         UserGroup $userGroup = null
     ): void {
         $userGroup = $userGroup ?? $this->userGroupRepository->getAdminUserGroup();
-        $userGroup->addAjaxAxtion($moduleAjaxAction);
+        $userGroup->addAjaxAction($moduleAjaxAction);
     }
 
     /**

@@ -82,9 +82,9 @@ final readonly class RSSActionSlug implements Stringable
         return 'ForkCMS\\Modules\\' . $this->moduleName . '\\Frontend\\RSS\\' . $this->actionName;
     }
 
-    public static function fromModuleRSSAction(ModuleRSSAction $ModuleRSSAction): self
+    public static function fromModuleRSSAction(ModuleRSSAction $moduleRSSAction): self
     {
-        return new self($ModuleRSSAction->getModule(), $ModuleRSSAction->getAction());
+        return new self($moduleRSSAction->getModule(), $moduleRSSAction->getAction());
     }
 
     public function asModuleAction(): ModuleRSSAction

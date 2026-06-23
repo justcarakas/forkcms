@@ -20,8 +20,8 @@ final class AjaxActionSlugResolver implements ValueResolverInterface
             return [];
         }
 
-        $ajaxAxtionSlug = AjaxActionSlug::fromRequest($request);
+        $ajaxActionSlug = AjaxActionSlug::fromRequest($request);
 
-        return [$ajaxAxtionSlug];
+        return [$ajaxActionSlug];
     }
 }
