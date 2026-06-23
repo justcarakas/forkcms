@@ -362,7 +362,11 @@ abstract class ModuleInstaller
         $module = $module ?? self::getModuleName();
         $domain = new TranslationDomain(Application::INSTALLER, $module);
 
-        return self::$installerTranslations[$locale->value][$domain->getDomain()][$id]
-            ?? $this->translator->trans($id, $parameters, $domain->getDomain(), $locale->value);
+        $translation = self::$installerTranslations[$locale->value][$domain->getDomain()][$id] ?? null;
+        if ($translation) {
+            return strtr($translation, $parameters);
+        }
+
+        return $this->translator->trans($id, $parameters, $domain->getDomain(), $locale->value);
     }
 }
