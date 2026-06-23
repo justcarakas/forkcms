@@ -161,13 +161,13 @@ final class SettingsBag implements JsonSerializable
         return new SettingsBag(json_decode($value, true, 512, JSON_THROW_ON_ERROR));
     }
 
-    public static function getLocalisedName(string $key, Locale $locale = null): string
+    public static function getLocalisedName(string $name, Locale $locale = null): string
     {
-        if (!self::$locale) {
-            return $key;
+        if (self::$locale === null && $locale === null) {
+            return $name;
         }
 
-        return $key . '_' . ($locale ?? self::$locale)->value;
+        return $name . '_' . ($locale ?? self::$locale)->value;
     }
 
     private function nameNotFound(string $name): never
