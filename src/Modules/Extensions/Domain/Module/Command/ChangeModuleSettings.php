@@ -18,11 +18,11 @@ final class ChangeModuleSettings
     public function __get(string $key): mixed
     {
         $module = $this->getConvertedModule($key);
+        $defaults = $this->getConvertedDefault($key);
         $key = $this->getConvertedKey($key);
         if ($module->getSettings()->has($key)) {
             return $module->getSettings()->get($key);
         }
-        $defaults = $this->getConvertedDefault($key);
 
         if (array_key_exists($key, $defaults)) {
             return $defaults[$key];
