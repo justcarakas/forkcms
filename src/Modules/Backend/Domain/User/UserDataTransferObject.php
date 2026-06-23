@@ -19,7 +19,7 @@ abstract class UserDataTransferObject implements UniqueDataTransferObjectInterfa
      * We have to limit the length because of the email because of unique index
      */
     #[Assert\Email(message: "err.EmailIsInvalid")]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message: 'err.EmailIsRequired')]
     #[Assert\Length(max: 180, maxMessage: "err.EmailIsTooLong")]
     public ?string $email = null;
 
@@ -28,7 +28,9 @@ abstract class UserDataTransferObject implements UniqueDataTransferObjectInterfa
     #[Assert\NotBlank(message: 'err.PasswordIsRequired', groups: ['create'])]
     public ?string $plainTextPassword = null;
 
-    #[Assert\NotBlank] public ?string $displayName = null;
+    #[Assert\NotBlank(message: 'err.DisplayNameIsRequired')]
+    public ?string $displayName = null;
+
     public bool $accessToBackend = true;
 
     public bool $superAdmin = false;
