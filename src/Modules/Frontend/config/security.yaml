@@ -1,0 +1,5 @@
+security:
+  firewalls:
+    frontend:
+      pattern: ^/
+      security: false

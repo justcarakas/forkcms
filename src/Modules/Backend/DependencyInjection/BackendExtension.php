@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Backend\DependencyInjection;
 
 use ForkCMS\Core\Domain\DependencyInjection\ForkModuleExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Yaml\Yaml;
 
 class BackendExtension extends ForkModuleExtension
 {
@@ -21,5 +22,7 @@ class BackendExtension extends ForkModuleExtension
     public function prepend(ContainerBuilder $container): void
     {
         $this->getLoader($container)->load('doctrine.yaml');
+        $config = Yaml::parseFile(__DIR__ . '/../config/security.yaml');
+        $container->prependExtensionConfig('security', $config['security']);
     }
 }
