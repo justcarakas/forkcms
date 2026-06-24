@@ -108,6 +108,13 @@ class ChangeModuleSettingsTest extends TestCase
         self::assertFalse(isset($command->missing));
     }
 
+    public function testIssetReturnsTrueForCoreDefault(): void
+    {
+        $command = new ChangeModuleSettings($this->core, $this->module, ['core' => ['site_title' => 'Default Title']]);
+
+        self::assertTrue(isset($command->{'core:site_title'}));
+    }
+
     public function testIssetReturnsTrueForStoredCoreSetting(): void
     {
         $this->core->getSettings()->set('site_title', 'Fork CMS');

@@ -48,6 +48,7 @@ final class ChangeModuleSettings
         }
 
         $defaults = $this->getConvertedDefault($key);
+        $key = $this->getConvertedKey($key);
         $matches = [];
 
         return array_key_exists($key, $defaults) || (
