@@ -11,6 +11,7 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Event\TranslationChangedEvent;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Event\TranslationCreatedEvent;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\Translation;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -42,39 +43,25 @@ final class Importer
         if (is_string($translationFile)) {
             $translationFile = new File($translationFile);
         }
-        $importResult = new ImportResult();
 
         /** @var ImporterInterface $importer */
         $importer = $this->importers->get($translationFile->guessExtension());
         Assertion::implementsInterface($importer, ImporterInterface::class);
 
-        $translations = $importer->getTranslations($translationFile);
+        $importResult = new ImportResult();
         $locales = $this->installedLocaleRepository->findAllIndexed();
         $modules = $this->moduleRepository->findAllIndexed();
         $fallbackLocale = Locale::fallback()->value;
         $existingTranslations = [];
         $newTranslations = [];
-        foreach ($translations as $translation) {
-            $application = $translation->getDomain()->getApplication();
-            $moduleName = $translation->getDomain()->getModuleName();
-            $locale = $translation->getLocale()->value;
-            if (
-                ($moduleName instanceof ModuleName && !array_key_exists($moduleName->getName(), $modules))
-                || ($specificLocale !== null && $specificLocale !== $translation->getLocale())
-                || (
-                    $locale !== $fallbackLocale
-                    && (
-                        !array_key_exists($locale, $locales)
-                        || ($application === Application::FRONTEND && !$locales[$locale]->isEnabledForWebsite())
-                        || ($application === Application::BACKEND && !$locales[$locale]->isEnabledForUser())
-                    )
-                )
-            ) {
+
+        foreach ($importer->getTranslations($translationFile) as $translation) {
+            if ($this->shouldSkipTranslation($translation, $locales, $modules, $fallbackLocale, $specificLocale)) {
                 $importResult->addSkipped();
                 continue;
             }
 
-            if ($application === Application::INSTALLER) {
+            if ($translation->getDomain()->getApplication() === Application::INSTALLER) {
                 ModuleInstaller::addInstallerTranslation(
                     $translation->getLocale()->value,
                     $translation->getDomain()->getDomain(),
@@ -85,30 +72,95 @@ final class Importer
                 continue;
             }
 
-            $existingTranslation = $existingTranslations[$translation->getId()]
-                ?? $newTranslations[$translation->getId()]
-                ?? $this->translationRepository->find($translation->getId());
-
-            if ($existingTranslation !== null) {
-                if ($overwriteConflicts) {
-                    $existingTranslation->change($translation->getValue());
-                    $existingTranslations[$translation->getId()] = $existingTranslation;
-                    $importResult->addUpdated();
-
-                    continue;
-                }
-
-                $importResult->addFailed($translation);
-                continue;
-            }
-
-            $newTranslations[$translation->getId()] = $translation;
-            $importResult->addImported();
+            $this->categorizeTranslation(
+                $translation,
+                $overwriteConflicts,
+                $existingTranslations,
+                $newTranslations,
+                $importResult
+            );
         }
 
+        $this->persistTranslations($existingTranslations, $newTranslations);
+
+        return $importResult;
+    }
+
+    /**
+     * @param array<string, mixed> $locales
+     * @param array<string, mixed> $modules
+     */
+    private function shouldSkipTranslation(
+        Translation $translation,
+        array $locales,
+        array $modules,
+        string $fallbackLocale,
+        ?Locale $specificLocale,
+    ): bool {
+        $application = $translation->getDomain()->getApplication();
+        $moduleName = $translation->getDomain()->getModuleName();
+        $locale = $translation->getLocale()->value;
+
+        if ($moduleName instanceof ModuleName && !array_key_exists($moduleName->getName(), $modules)) {
+            return true;
+        }
+
+        if ($specificLocale !== null && $specificLocale !== $translation->getLocale()) {
+            return true;
+        }
+
+        if ($locale === $fallbackLocale) {
+            return false;
+        }
+
+        return !array_key_exists($locale, $locales)
+            || ($application === Application::FRONTEND && !$locales[$locale]->isEnabledForWebsite())
+            || ($application === Application::BACKEND && !$locales[$locale]->isEnabledForUser());
+    }
+
+    /**
+     * @param array<string, Translation> $existingTranslations
+     * @param array<string, Translation> $newTranslations
+     */
+    private function categorizeTranslation(
+        Translation $translation,
+        bool $overwriteConflicts,
+        array &$existingTranslations,
+        array &$newTranslations,
+        ImportResult $importResult,
+    ): void {
+        $existingTranslation = $existingTranslations[$translation->getId()]
+            ?? $newTranslations[$translation->getId()]
+            ?? $this->translationRepository->find($translation->getId());
+
+        if ($existingTranslation !== null) {
+            if ($overwriteConflicts) {
+                $existingTranslation->change($translation->getValue());
+                $existingTranslations[$translation->getId()] = $existingTranslation;
+                $importResult->addUpdated();
+
+                return;
+            }
+
+            $importResult->addFailed($translation);
+
+            return;
+        }
+
+        $newTranslations[$translation->getId()] = $translation;
+        $importResult->addImported();
+    }
+
+    /**
+     * @param array<string, Translation> $existingTranslations
+     * @param array<string, Translation> $newTranslations
+     */
+    private function persistTranslations(array $existingTranslations, array $newTranslations): void
+    {
         $this->translationRepository->save(...$existingTranslations, ...$newTranslations);
         $this->eventDispatcher->dispatch(new TranslationChangedEvent(...$existingTranslations));
         $this->eventDispatcher->dispatch(new TranslationCreatedEvent(...$newTranslations));
+
         $filesystem = new Filesystem();
         $translationsDirectory = $this->cacheDir . '/translations';
         if ($filesystem->exists($translationsDirectory)) {
@@ -116,11 +168,8 @@ final class Importer
         }
 
         if ($this->translator instanceof Translator) {
-            // resets the translator cache
             $this->translator->setFallbackLocales($this->translator->getFallbackLocales());
         }
-
-        return $importResult;
     }
 
     /** @return string[] */
