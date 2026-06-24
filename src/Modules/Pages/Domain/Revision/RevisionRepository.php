@@ -22,7 +22,7 @@ use ForkCMS\Modules\Pages\Domain\RevisionBlock\RevisionBlock;
  */
 final class RevisionRepository extends ServiceEntityRepository implements MetaCallbackService
 {
-    /** @phpstan-use RepositoryWithMetaTrait<Revision> */
+    /** @use RepositoryWithMetaTrait<Revision> */
     use RepositoryWithMetaTrait;
 
     public function __construct(
