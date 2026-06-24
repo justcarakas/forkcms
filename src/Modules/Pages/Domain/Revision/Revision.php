@@ -31,11 +31,9 @@ use Pageon\DoctrineDataGridBundle\Attribute\DataGridActionColumn;
 use Pageon\DoctrineDataGridBundle\Attribute\DataGridMethodColumn;
 use Pageon\DoctrineDataGridBundle\Attribute\DataGridPropertyColumn;
 
-/**
- * @Gedmo\SoftDeleteable(fieldName="isArchived", timeAware=true)
- */
 #[ORM\Entity(repositoryClass: RevisionRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[Gedmo\SoftDeleteable(fieldName: 'archivedOn', timeAware: true)]
 #[DataGrid('Revision')]
 #[DataGridActionColumn(
     route: 'backend_action',
@@ -107,14 +105,14 @@ class Revision
     private ThemeTemplate $themeTemplate;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private DateTimeImmutable|null $isArchived;
+    private ?DateTimeImmutable $archivedOn;
 
     /** @var Collection<array-key, RevisionBlock> */
     #[ORM\OneToMany(mappedBy: 'revision', targetEntity: RevisionBlock::class, cascade: ['persist'])]
     #[ORM\OrderBy(['sequence' => 'ASC'])]
     private Collection $blocks;
 
-    /** @param Collection<string, non-empty-array<int, RevisionBlockDataTransferObject>> $blocks */
+    /** @param Collection<string, non-empty-list<RevisionBlockDataTransferObject>> $blocks */
     private function __construct(
         Page $page,
         ?Page $parentPage,
@@ -122,7 +120,7 @@ class Revision
         string $title,
         bool $isDraft,
         ThemeTemplate $themeTemplate,
-        ?DateTimeImmutable $isArchived,
+        ?DateTimeImmutable $archivedOn,
         Collection $blocks,
         Meta $meta,
         Locale $locale,
@@ -134,7 +132,7 @@ class Revision
         $this->title = $title;
         $this->isDraft = $isDraft;
         $this->themeTemplate = $themeTemplate;
-        $this->isArchived = $isArchived;
+        $this->archivedOn = $archivedOn;
         /** @var Collection<array-key, RevisionBlock|RevisionBlockDataTransferObject[]> $blocks */
         $blocks->map(function (array $positionBlocks) use ($blocks): void {
             foreach ($positionBlocks as $block) {
@@ -166,7 +164,7 @@ class Revision
             $revisionDataTransferObject->title,
             $revisionDataTransferObject->isDraft,
             $revisionDataTransferObject->themeTemplate,
-            $revisionDataTransferObject->isArchived,
+            $revisionDataTransferObject->archivedOn,
             $revisionDataTransferObject->blocks,
             $revisionDataTransferObject->meta,
             $revisionDataTransferObject->locale,
@@ -204,9 +202,9 @@ class Revision
         return 'test' . $this->locale->value;
     }
 
-    public function isArchived(): ?DateTimeImmutable
+    public function archivedOn(): ?DateTimeImmutable
     {
-        return $this->isArchived;
+        return $this->archivedOn;
     }
 
     public function isDraft(): bool
@@ -216,8 +214,8 @@ class Revision
 
     public function archive(): void
     {
-        if ($this->isArchived === null) {
-            $this->isArchived = new DateTimeImmutable();
+        if ($this->archivedOn === null) {
+            $this->archivedOn = new DateTimeImmutable();
         }
     }
 
@@ -256,9 +254,9 @@ class Revision
         return $this->themeTemplate;
     }
 
-    public function getArchivedDate(): ?DateTimeImmutable
+    public function getArchivedOn(): ?DateTimeImmutable
     {
-        return $this->isArchived;
+        return $this->archivedOn;
     }
 
     /** @return Collection<array-key, RevisionBlock> */
@@ -291,7 +289,7 @@ class Revision
             ->getSettings()
             ->getOr('max_revisions', 2);
         foreach ($revisions as $revision) {
-            if ($revision->isArchived() === null || $revision->getLocale() !== $this->getLocale()) {
+            if ($revision->archivedOn() === null || $revision->getLocale() !== $this->getLocale()) {
                 continue;
             }
             if ($revision->isDraft()) {
@@ -338,7 +336,7 @@ class Revision
     public static function dataGridEditLinkCallback(self $revision, array $attributes): array
     {
         $attributes['slug'] = $revision->getPage()->getId();
-        if ($revision->isArchived() !== null || $revision->isDraft()) {
+        if ($revision->archivedOn() !== null || $revision->isDraft()) {
             $attributes['revision'] = $revision->getId();
         }
 

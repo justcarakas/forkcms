@@ -7,3 +7,8 @@ services:
     public: true
     arguments:
       - !tagged_locator { tag: forkcms.frontend.ajax_action }
+
+  ForkCMS\Modules\Frontend\Controller\FrontendRSSController:
+    public: true
+    arguments:
+      - !tagged_locator { tag: forkcms.frontend.rss_action }

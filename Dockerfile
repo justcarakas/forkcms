@@ -1,4 +1,5 @@
-FROM php:8.2-apache
+ARG PHP_VERSION=8.5
+FROM php:${PHP_VERSION}-apache
 LABEL maintainer="Fork CMS <info@fork-cms.com>"
 
 # Enable Apache mod_rewrite
@@ -39,7 +40,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY var/docker/php/php.ini ${PHP_INI_DIR}/php.ini
 
 # Install and configure XDebug
-RUN pecl install xdebug-3.2.2 && \
+RUN pecl install xdebug-3.5.3 && \
     docker-php-ext-enable xdebug && \
     rm -rf /tmp/pear
 

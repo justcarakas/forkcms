@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Builds the form to set up database information.
+ * @extends AbstractType<DatabaseStepConfiguration>
  */
 class DatabaseType extends AbstractType
 {

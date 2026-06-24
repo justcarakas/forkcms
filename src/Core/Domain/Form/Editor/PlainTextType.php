@@ -6,6 +6,7 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
+/** @extends AbstractType<string> */
 final class PlainTextType extends AbstractType implements EditorTypeImplementationInterface
 {
     public function getParent(): string

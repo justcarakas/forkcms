@@ -17,6 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * This will automatically load the form type that was selected in the frontend settings
+ * @extends AbstractType<array<string, mixed>>
  */
 final class BlockEditorType extends AbstractType implements EditorTypeImplementationInterface
 {

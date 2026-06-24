@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * This prevents previously submitted passwords from being cleared.
+ * @extends AbstractType<array<string, mixed>>
  */
 final class InstallerPasswordType extends AbstractType
 {

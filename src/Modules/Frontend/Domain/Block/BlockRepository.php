@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Frontend\Domain\Block;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\EntityManagerInterface;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Frontend\Domain\Block\Event\BeforeDeleteBlockEvent;
@@ -12,9 +13,9 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @method Block|null find($id, $lockMode = null, $lockVersion = null)
- * @method Block|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Block|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Block[] findAll()
- * @method Block[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Block[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
  */
 final class BlockRepository extends SortableRepository implements ServiceEntityRepositoryInterface
 {
@@ -102,7 +103,7 @@ final class BlockRepository extends SortableRepository implements ServiceEntityR
         /* @TODO add check for widgets that have been added but aren't in the database yet */
         return $this->findBy(
             ['type' => Type::WIDGET->value, 'hidden' => false],
-            ['type' => Criteria::ASC, 'position' => Criteria::ASC]
+            ['type' => Order::Ascending->value, 'position' => Order::Ascending->value]
         );
     }
 
@@ -112,7 +113,7 @@ final class BlockRepository extends SortableRepository implements ServiceEntityR
         /* @TODO add check for actions that have been added but aren't in the database yet */
         return $this->findBy(
             ['type' => Type::ACTION->value, 'hidden' => false],
-            ['type' => Criteria::ASC, 'position' => Criteria::ASC]
+            ['type' => Order::Ascending->value, 'position' => Order::Ascending->value]
         );
     }
 }

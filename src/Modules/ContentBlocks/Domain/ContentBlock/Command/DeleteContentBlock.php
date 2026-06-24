@@ -6,7 +6,7 @@ use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
 
 final class DeleteContentBlock
 {
-    private ?ContentBlock $contentBlockEntity;
+    private ContentBlock $contentBlockEntity;
 
     public function __construct(public readonly int $id)
     {

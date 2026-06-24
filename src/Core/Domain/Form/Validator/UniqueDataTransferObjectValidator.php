@@ -175,6 +175,7 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
         return [$criteria, $hasNullValue];
     }
 
+    /** @param ClassMetadata<object> $class */
     private function formatWithIdentifiers(ObjectManager $em, ClassMetadata $class, mixed $invalidValue): string
     {
         if (!is_object($invalidValue) || $invalidValue instanceof DateTimeInterface) {
@@ -224,6 +225,7 @@ final class UniqueDataTransferObjectValidator extends ConstraintValidator
     }
 
     /**
+     * @param ClassMetadata<object> $class
      * @param class-string $idClass
      *
      * @return array<string,mixed>

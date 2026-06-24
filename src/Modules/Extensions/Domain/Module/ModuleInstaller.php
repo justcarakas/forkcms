@@ -211,8 +211,8 @@ abstract class ModuleInstaller
         SettingsBag $settings = new SettingsBag(),
         bool $hidden = false,
         ?int $position = null,
-        ModuleName $module = null,
-        Locale $locale = null
+        ?ModuleName $module = null,
+        ?Locale $locale = null
     ): Block {
         $module = $module ?? static::getModuleName();
         $moduleBlock = new ModuleBlock($module, $name);
@@ -268,7 +268,7 @@ abstract class ModuleInstaller
      */
     final protected function allowGroupToAccessModuleAction(
         ModuleAction $moduleAction,
-        UserGroup $userGroup = null
+        ?UserGroup $userGroup = null
     ): void {
         $userGroup = $userGroup ?? $this->userGroupRepository->getAdminUserGroup();
         $userGroup->addAction($moduleAction);
@@ -279,10 +279,10 @@ abstract class ModuleInstaller
      */
     final protected function allowGroupToAccessModuleAjaxAction(
         ModuleAjaxAction $moduleAjaxAction,
-        UserGroup $userGroup = null
+        ?UserGroup $userGroup = null
     ): void {
         $userGroup = $userGroup ?? $this->userGroupRepository->getAdminUserGroup();
-        $userGroup->addAjaxAxtion($moduleAjaxAction);
+        $userGroup->addAjaxAction($moduleAjaxAction);
     }
 
     /**
@@ -290,16 +290,20 @@ abstract class ModuleInstaller
      */
     final protected function allowGroupToAccessModuleWidget(
         ModuleWidget $moduleWidget,
-        UserGroup $userGroup = null
+        ?UserGroup $userGroup = null
     ): void {
         $userGroup = $userGroup ?? $this->userGroupRepository->getAdminUserGroup();
         $userGroup->addWidget($moduleWidget);
     }
 
-    final protected function setSetting(string $key, mixed $value, ModuleName $moduleName = null): void
+    final protected function setSetting(string $key, mixed $value, ?ModuleName $moduleName = null, ?Locale $locale = null): void
     {
         if (!$this->moduleRegistered) {
             throw new RuntimeException('You cannot set module settings during the pre install phase');
+        }
+
+        if ($locale) {
+            $key .= '_' . $locale->value;
         }
 
         $this->moduleSettings->set($moduleName ?? static::getModuleName(), $key, $value);
@@ -344,11 +348,24 @@ abstract class ModuleInstaller
         return $this->moduleRegistered;
     }
 
+    /** @var array<string, array<string, array<string, string>>> */
+    private static array $installerTranslations = [];
+
+    public static function addInstallerTranslation(string $locale, string $domain, string $key, string $value): void
+    {
+        self::$installerTranslations[$locale][$domain][$key] = $value;
+    }
+
     /** @param array<string, mixed> $parameters */
     public function trans(Locale $locale, string $id, array $parameters = [], ?ModuleName $module = null): string
     {
         $module = $module ?? self::getModuleName();
         $domain = new TranslationDomain(Application::INSTALLER, $module);
+
+        $translation = self::$installerTranslations[$locale->value][$domain->getDomain()][$id] ?? null;
+        if ($translation) {
+            return strtr($translation, $parameters);
+        }
 
         return $this->translator->trans($id, $parameters, $domain->getDomain(), $locale->value);
     }

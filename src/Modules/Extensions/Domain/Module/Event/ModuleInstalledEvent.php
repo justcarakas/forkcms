@@ -10,7 +10,7 @@ final class ModuleInstalledEvent extends Event
     /** @var ModuleName[] */
     public readonly array $moduleNames;
 
-    public function __construct(Modulename ...$moduleName)
+    public function __construct(ModuleName ...$moduleName)
     {
         $this->moduleNames = $moduleName;
     }

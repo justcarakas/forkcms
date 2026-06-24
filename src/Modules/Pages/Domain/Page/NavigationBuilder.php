@@ -141,7 +141,7 @@ final class NavigationBuilder
                 'p.revisions',
                 'pr',
                 Join::WITH,
-                'pr.locale = :locale AND pr.isArchived IS NULL'
+                'pr.locale = :locale AND pr.archivedOn IS NULL'
             )
             ->addSelect('pr')
             ->leftJoin('pr.blocks', 'prb')
@@ -152,7 +152,7 @@ final class NavigationBuilder
                 'p.childRevisions',
                 'cr',
                 Join::WITH,
-                'cr.locale = :locale AND cr.isArchived IS NULL'
+                'cr.locale = :locale AND cr.archivedOn IS NULL'
             )
             ->addSelect('cr')
             ->leftJoin('pr.page', 'crp')

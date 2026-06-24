@@ -187,8 +187,9 @@
         <div class="form-group">
           {{ form_widget(form.slugOverwrite) }}
           {{ form_label(form.slug) }}
-          <div class="d-flex align-items-center">
-            <span>{{ form.vars.base_url }}/ </span>{{ form_widget(form.slug) }}
+          <div class="input-group">
+            <span class="input-group-text text-black">{{ SITE_URL }}{{ form.vars.base_url != '/' ? form.vars.base_url : '' }}/</span>
+            {{ form_widget(form.slug) }}
           </div>
           {{ form_errors(form.slug) }}
           <small class="form-text text-muted">{{ 'msg.HelpMetaURL'|trans|raw }}</small>
@@ -463,6 +464,13 @@
   </fieldset>
 {% endblock %}
 
+{% block wrapper_row %}
+  <div {% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+    {{ form_label(form) }}
+    {{ form_widget(form) }}
+  </div>
+{% endblock %}
+
 {% block fieldset_label %}
   {% if label is not same as(false) %}
     {% if label is empty %}
@@ -500,7 +508,7 @@
 {% endblock %}
 
 {% block tab_row %}
-  {%- set tab_class = ' tab-pane fade row' ~ (form.parent.children|keys|first == form.vars.name ? ' show active' : '') -%}
+  {%- set tab_class = ' tab-pane fade row' ~ (isActiveTab ? ' show active' : '') -%}
   {{ form_widget(form, {attr: {role: 'tabpanel', 'aria-labelledby': form.vars.id, class: (form.vars.attr.class|default('') ~ tab_class)|trim}}) }}
 {% endblock %}
 

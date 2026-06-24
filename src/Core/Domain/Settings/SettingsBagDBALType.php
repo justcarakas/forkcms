@@ -15,7 +15,7 @@ final class SettingsBagDBALType extends JsonType
 {
     use ForkDBALTypeName;
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): string|null
+    public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): ?string
     {
         if ($value === null) {
             return null;
@@ -32,7 +32,7 @@ final class SettingsBagDBALType extends JsonType
         }
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform): SettingsBag|null
+    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): ?SettingsBag
     {
         if ($value === null || $value === '') {
             return null;

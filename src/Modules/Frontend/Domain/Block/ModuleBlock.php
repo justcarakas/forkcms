@@ -39,7 +39,7 @@ final class ModuleBlock implements Stringable
                 $matches
             )
         ) {
-            throw new InvalidArgumentException('Can ony be created from a frontend action or widget');
+            throw new InvalidArgumentException('Can only be created from a frontend action or widget');
         }
 
 

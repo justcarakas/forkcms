@@ -10,11 +10,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class TooltipExtension extends AbstractTypeExtension
 {
-    public function configureOptions(OptionsResolver $optionsResolver): void
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $optionsResolver->setDefault('label_tooltip', null);
-        $optionsResolver->setDefault('label_tooltip_translation_domain', null);
-        $optionsResolver->setDefault('label_tooltip_translation_arguments', []);
+        $resolver->setDefault('label_tooltip', null);
+        $resolver->setDefault('label_tooltip_translation_domain', null);
+        $resolver->setDefault('label_tooltip_translation_arguments', []);
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options): void

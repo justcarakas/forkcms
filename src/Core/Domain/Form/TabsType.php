@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+/** @extends AbstractType<array<string, mixed>> */
 final class TabsType extends AbstractType
 {
     public function __construct(private readonly SluggerInterface $slugger)
@@ -33,7 +34,7 @@ final class TabsType extends AbstractType
     }
 
     /**
-     * @param ?SluggerInterface $slugger You don't need to provide the slugger if you are trying to get an existing tab
+     * @param SluggerInterface|null $slugger You don't need to provide the slugger if you are trying to get an existing tab
      */
     public static function getTabNameForLabel(string $label, ?SluggerInterface $slugger = null): string
     {
@@ -64,6 +65,7 @@ final class TabsType extends AbstractType
 
     public function finishView(FormView $view, FormInterface $form, array $options): void
     {
+        $view->vars['active_tab'] = array_key_first($options['tabs']);
         $view->vars['left_tabs_count'] = $options['left_tabs_count'];
     }
 }

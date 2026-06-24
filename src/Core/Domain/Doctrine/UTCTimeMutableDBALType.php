@@ -17,7 +17,7 @@ class UTCTimeMutableDBALType extends TimeType
      *
      * @return string|null
      */
-    public function convertToDatabaseValue($time, AbstractPlatform $platform): ?string
+    public function convertToDatabaseValue(mixed $time, AbstractPlatform $platform): ?string
     {
         if ($time instanceof DateTime) {
             $time->setTimezone(self::getUtc());
@@ -34,7 +34,7 @@ class UTCTimeMutableDBALType extends TimeType
      *
      * @return DateTime|null
      */
-    public function convertToPHPValue($timeString, AbstractPlatform $platform): ?DateTime
+    public function convertToPHPValue(mixed $timeString, AbstractPlatform $platform): ?DateTime
     {
         if (null === $timeString || $timeString instanceof DateTime) {
             return $timeString;

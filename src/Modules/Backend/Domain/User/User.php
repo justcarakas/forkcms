@@ -29,11 +29,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * @Gedmo\SoftDeleteable(timeAware=true)
- */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'])]
+#[Gedmo\SoftDeleteable(timeAware:true)]
 #[DataGrid('User')]
 #[DataGridActionColumn(
     route: 'backend_action',
@@ -94,7 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $userGroups;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private DateTimeImmutable|null $deletedAt = null;
+    private ?DateTimeImmutable $deletedAt = null;
 
     /** @param Collection<int|string, UserGroup>|null $userGroups */
     public function __construct(
@@ -103,8 +101,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         string $displayName,
         bool $accessToBackend,
         bool $superAdmin,
-        Collection $userGroups = null,
-        SettingsBag $settings = null
+        ?Collection $userGroups = null,
+        ?SettingsBag $settings = null
     ) {
         $this->setEmail($email);
         $this->plainTextPassword = trim($this->plainTextPassword);

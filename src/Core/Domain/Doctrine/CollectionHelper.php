@@ -35,7 +35,7 @@ final class CollectionHelper
      *
      * @return ArrayCollection<int|string, T>
      */
-    public static function toArrayCollection(Collection|null $collection): ArrayCollection
+    public static function toArrayCollection(?Collection $collection): ArrayCollection
     {
         return new ArrayCollection($collection?->toArray() ?? []);
     }

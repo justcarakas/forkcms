@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 
+/** @extends AbstractType<array<string, mixed>> */
 final class ImportType extends AbstractType
 {
     public function __construct(private readonly Importer $importer)

@@ -35,7 +35,7 @@ class Theme
     private Collection $templates;
 
     #[ORM\OneToOne(inversedBy: 'defaultForTheme', targetEntity: ThemeTemplate::class)]
-    private ThemeTemplate|null $defaultTemplate;
+    private ?ThemeTemplate $defaultTemplate;
 
     private function __construct()
     {

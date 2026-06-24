@@ -9,24 +9,19 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 trait Blameable
 {
-    /**
-     * @Gedmo\Blameable(on="create")
-     */
+    #[Gedmo\Blameable(on: 'create')]
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'createdBy')]
-    private User|null $createdBy;
+    private ?User $createdBy;
 
     #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private DateTimeImmutable $createdOn;
 
-    /**
-     * @Gedmo\Blameable(on="update")
-     * @Gedmo\Blameable(on="create")
-     */
+    #[Gedmo\Blameable]
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'updatedBy')]
-    private User|null $updatedBy;
+    private ?User $updatedBy;
 
     #[Gedmo\Timestampable]
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
@@ -44,11 +39,11 @@ trait Blameable
 
     public function getUpdatedBy(): ?User
     {
-        return $this->updatedBy;
+        return $this->updatedBy ?? $this->createdBy;
     }
 
     public function getUpdatedOn(): DateTimeImmutable
     {
-        return $this->updatedOn;
+        return $this->updatedOn ?? $this->createdOn;
     }
 }

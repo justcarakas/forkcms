@@ -7,6 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/** @extends AbstractType<array<string, mixed>> */
 class LocaleType extends AbstractType
 {
     public function __construct(private readonly TranslatorInterface $translator)

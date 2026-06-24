@@ -12,7 +12,7 @@ enum Type: string implements TranslatableInterface
     case SLUG = 'slug';
     case ERROR = 'error';
 
-    public function trans(TranslatorInterface $translator, string $locale = null): string
+    public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         return $translator->trans('lbl.TranslationType' . ucfirst($this->value), locale: $locale);
     }

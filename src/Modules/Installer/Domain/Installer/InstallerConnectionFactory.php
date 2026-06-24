@@ -18,8 +18,8 @@ final class InstallerConnectionFactory extends ConnectionFactory
      */
     public function createConnection(
         array $params,
-        Configuration $config = null,
-        EventManager $eventManager = null,
+        ?Configuration $config = null,
+        ?EventManager $eventManager = null,
         array $mappingTypes = []
     ): Connection {
         try {
@@ -44,8 +44,8 @@ final class InstallerConnectionFactory extends ConnectionFactory
     /** @param array<string, mixed> $params */
     private function getInstallerConnection(
         array $params,
-        Configuration $config = null,
-        EventManager $eventManager = null
+        ?Configuration $config = null,
+        ?EventManager $eventManager = null
     ): Connection {
         return new Connection($params, new Driver(), $config, $eventManager);
     }

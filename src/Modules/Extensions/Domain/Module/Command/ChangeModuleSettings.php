@@ -18,11 +18,11 @@ final class ChangeModuleSettings
     public function __get(string $key): mixed
     {
         $module = $this->getConvertedModule($key);
+        $defaults = $this->getConvertedDefault($key);
         $key = $this->getConvertedKey($key);
         if ($module->getSettings()->has($key)) {
             return $module->getSettings()->get($key);
         }
-        $defaults = $this->getConvertedDefault($key);
 
         if (array_key_exists($key, $defaults)) {
             return $defaults[$key];
@@ -43,7 +43,18 @@ final class ChangeModuleSettings
 
     public function __isset(string $key)
     {
-        return $this->getConvertedModule($key)->getSettings()->has($this->getConvertedKey($key));
+        if ($this->getConvertedModule($key)->getSettings()->has($this->getConvertedKey($key))) {
+            return true;
+        }
+
+        $defaults = $this->getConvertedDefault($key);
+        $key = $this->getConvertedKey($key);
+        $matches = [];
+
+        return array_key_exists($key, $defaults) || (
+            preg_match($this->getLocaleAgnosticRegexMatch(), $key, $matches)
+            && array_key_exists($matches[1], $defaults)
+        );
     }
 
     private function getLocaleAgnosticRegexMatch(): string

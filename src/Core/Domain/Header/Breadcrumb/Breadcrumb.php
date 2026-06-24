@@ -12,14 +12,14 @@ final class Breadcrumb implements Stringable
 {
     public function __construct(
         public readonly string|TranslatableInterface $label,
-        public readonly string|null $url = null
+        public readonly ?string $url = null
     ) {
     }
 
     /**
      * @internal This method is only by the collection to make it easier to add a translation as a label
      */
-    public function withTranslatedLabel(TranslatorInterface $translator, Locale|null $locale = null): self
+    public function withTranslatedLabel(TranslatorInterface $translator, ?Locale $locale = null): self
     {
         if ($this->label instanceof TranslatableInterface) {
             return new self(

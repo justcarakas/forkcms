@@ -105,7 +105,7 @@ class UserGroup
             $userGroup->addAction(ModuleAction::fromFQCN($action));
         }
         foreach ($userDataTransferObject->ajaxActions as $ajaxAction) {
-            $userGroup->addAjaxAxtion(ModuleAjaxAction::fromFQCN($ajaxAction));
+            $userGroup->addAjaxAction(ModuleAjaxAction::fromFQCN($ajaxAction));
         }
         foreach ($userDataTransferObject->widgets as $widget) {
             $userGroup->addWidget(ModuleWidget::fromFQCN($widget));
@@ -186,7 +186,7 @@ class UserGroup
         $this->addRole($moduleWidget->asRole());
     }
 
-    public function addAjaxAxtion(ModuleAjaxAction $moduleAjaxAction): void
+    public function addAjaxAction(ModuleAjaxAction $moduleAjaxAction): void
     {
         $this->addModule($moduleAjaxAction->getModule());
         $this->addRole($moduleAjaxAction->asRole());

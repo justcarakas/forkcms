@@ -2,10 +2,12 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\ModuleSettings\Command;
 
+use ForkCMS\Core\Domain\Form\TabsType;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocale;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleDataTransferObject;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use RuntimeException;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 final class ChangeModuleSettings
 {
@@ -15,7 +17,7 @@ final class ChangeModuleSettings
     /** @var InstalledLocaleDataTransferObject[] */
     public array $installedLocales = [];
 
-    public function __construct(InstalledLocale ...$installedLocales)
+    public function __construct(SluggerInterface $slugger, InstalledLocale ...$installedLocales)
     {
         foreach ($installedLocales as $installedLocale) {
             if ($installedLocale->isDefaultForWebsite()) {
@@ -24,7 +26,7 @@ final class ChangeModuleSettings
             if ($installedLocale->isDefaultForUser()) {
                 $this->defaultForUser = $installedLocale->getLocale();
             }
-            $tabKey = md5($installedLocale->getLocale()->asTranslatable());
+            $tabKey = TabsType::getTabNameForLabel($installedLocale->getLocale()->asTranslatable(), $slugger);
             $this->installedLocales[$tabKey] = new InstalledLocaleDataTransferObject($installedLocale);
         }
     }

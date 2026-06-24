@@ -33,7 +33,7 @@ final class Entity
     /**
      * @param string[] $useStatements
      *
-     * @return array<string, string>
+     * @return array<int, string>
      */
     public function getPropertyUseStatements(array $useStatements = [], bool $includeDbalUseStatement = false): array
     {

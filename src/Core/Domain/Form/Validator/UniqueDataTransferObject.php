@@ -21,14 +21,14 @@ final class UniqueDataTransferObject extends Constraint
     public string $service = UniqueDataTransferObjectValidator::class;
 
     /** @var class-string|null */
-    public string|null $entityClass = null;
+    public ?string $entityClass = null;
 
     public string $repositoryMethod = 'findBy';
 
     /** @var string[]|string */
     public array|string $fields = [];
 
-    public string|null $errorPath = null;
+    public ?string $errorPath = null;
 
     public bool $ignoreNull = true;
 

@@ -42,7 +42,7 @@ final class FlashMessage
      * @param Type|null $translationType defaults to error
      * @param array<string, string|int|float|Stringable> $parameters
      */
-    public static function warning(string $warningMessage, array $parameters = [], Type $translationType = null): self
+    public static function warning(string $warningMessage, array $parameters = [], ?Type $translationType = null): self
     {
         return new self(
             TranslationKey::forType($translationType ?? Type::ERROR, $warningMessage)->withParameters($parameters),

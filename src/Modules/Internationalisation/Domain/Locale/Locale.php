@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
+use ForkCMS\Core\Domain\Settings\SettingsBag;
 use Locale as IntlLocale;
 use RuntimeException;
 use Symfony\Contracts\Translation\TranslatableInterface;
@@ -41,6 +42,7 @@ enum Locale: string implements TranslatableInterface
         static $current = null;
         if ($locale !== null) {
             $current = $locale;
+            SettingsBag::setDefaultLocale($locale);
         }
         if ($current === null) {
             throw new RuntimeException('Locale::current() was called before Locale::current($locale) was called');
@@ -54,7 +56,7 @@ enum Locale: string implements TranslatableInterface
         return self::from(substr(IntlLocale::getDefault(), 0, 2));
     }
 
-    public function trans(TranslatorInterface $translator, string $locale = null): string
+    public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         return $translator->trans($this->asTranslatable(), [], null, $locale);
     }

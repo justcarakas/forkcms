@@ -2,11 +2,14 @@
 
 namespace ForkCMS\Modules\Pages\Domain\Page;
 
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Query\Expr\Join;
+use ForkCMS\Modules\Frontend\Domain\Block\BlockNameDBALType;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockRouterInterface;
 use ForkCMS\Modules\Frontend\Domain\Block\ModuleBlock;
 use ForkCMS\Modules\Frontend\Domain\Block\Type;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
+use ForkCMS\Modules\Pages\Domain\RevisionBlock\RevisionBlock;
 use InvalidArgumentException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -22,7 +25,7 @@ final class PageRouter implements BlockRouterInterface
     /** @param array<string, mixed> $parameters */
     public function getRouteForBlock(
         ModuleBlock $moduleBlock,
-        Locale $locale = null,
+        ?Locale $locale = null,
         array $parameters = [],
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
     ): string {
@@ -36,11 +39,16 @@ final class PageRouter implements BlockRouterInterface
             ->innerJoin('r.blocks', 'pb')
             ->innerJoin('pb.block', 'fb', Join::WITH, 'fb.block.module = :module AND fb.block.name = :name')
             ->setParameter('module', $moduleBlock->getModule())
-            ->setParameter('name', $moduleBlock->getName())
+            ->setParameter('name', BlockNameDBALType::prefixedString($moduleBlock->getName()))
             ->setParameter('locale', $locale->value)
             ->setParameter('draft', false)
             ->getQuery()
-            ->getSingleResult();
+            ->setFetchMode(RevisionBlock::class, 'block', ClassMetadataInfo::FETCH_LAZY)
+            ->getOneOrNullResult();
+
+        if ($page === null) {
+            return $this->getRouteForPageId(Page::PAGE_ID_404, $locale);
+        }
 
         return $this->getRouteForPage($page, $locale, $parameters, $referenceType);
     }
@@ -48,7 +56,7 @@ final class PageRouter implements BlockRouterInterface
     /** @param array<string, mixed> $parameters */
     public function getRouteForPage(
         Page $page,
-        Locale $locale = null,
+        ?Locale $locale = null,
         array $parameters = [],
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
     ): string {
@@ -63,7 +71,7 @@ final class PageRouter implements BlockRouterInterface
     /** @param array<string, mixed> $parameters */
     public function getRouteForPageId(
         int $pageId,
-        Locale $locale = null,
+        ?Locale $locale = null,
         array $parameters = [],
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
     ): string {

@@ -10,9 +10,9 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 
 /**
  * @method Meta|null find($id, $lockMode = null, $lockVersion = null)
- * @method Meta|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Meta|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Meta[] findAll()
- * @method Meta[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Meta[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
  * @extends ServiceEntityRepository<Meta>
  */
 final class MetaRepository extends ServiceEntityRepository

@@ -10,9 +10,9 @@ use Throwable;
 
 /**
  * @method Theme|null find($id, $lockMode = null, $lockVersion = null)
- * @method Theme|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Theme|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Theme[] findAll()
- * @method Theme[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Theme[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
  * @extends ServiceEntityRepository<Theme>
  */
 final class ThemeRepository extends ServiceEntityRepository
@@ -69,14 +69,13 @@ final class ThemeRepository extends ServiceEntityRepository
         return $themes;
     }
 
-    /** @return string[] */
+    /** @return array<string, string> */
     public static function getThemePaths(): array
     {
         $finder = Finder::create()->in(self::THEMES_DIRECTORY)->depth(1)->files()->name('theme.xml');
         $themes = [];
         foreach ($finder as $configFile) {
-            $theme = InstallableTheme::fromXML($configFile->getRealPath());
-            $themes[$theme->name] = dirname($configFile->getRealPath());
+            $themes[$configFile->getRelativePath()] = dirname($configFile->getRealPath());
         }
 
         return $themes;

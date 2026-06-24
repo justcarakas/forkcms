@@ -14,7 +14,7 @@ if ($_ENV['APP_DEBUG']) {
     umask(0000);
 }
 
-function installTest()
+function installTest(): void
 {
     $kernel = new Kernel('test_install', true);
     $kernel->boot();

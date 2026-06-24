@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Twig\Environment;
 
+/** @extends AbstractType<array<string, mixed>> */
 final class FormatSettingsType extends AbstractType
 {
     public function __construct(

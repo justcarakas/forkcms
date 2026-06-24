@@ -4,10 +4,8 @@ namespace ForkCMS\Core\Domain\Settings;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use JsonSerializable;
-
-use function array_key_exists;
-use function strlen;
 
 final class SettingsBag implements JsonSerializable
 {
@@ -16,12 +14,19 @@ final class SettingsBag implements JsonSerializable
 
     private bool $hasChanges = false;
 
+    private static ?Locale $locale = null;
+
     /**
      * @param array<string, mixed> $settings
      */
     public function __construct(array $settings = [])
     {
         $this->add($settings);
+    }
+
+    public static function setDefaultLocale(Locale $locale): void
+    {
+        self::$locale = $locale;
     }
 
     public function clear(): void
@@ -51,8 +56,14 @@ final class SettingsBag implements JsonSerializable
         return $this->settings;
     }
 
-    public function get(string $name): mixed
+    public function get(string $name, ?Locale $locale = null): mixed
     {
+        $localisedName = self::getLocalisedName($name, $locale);
+
+        if ($localisedName !== $name && array_key_exists($localisedName, $this->settings)) {
+            return $this->settings[$localisedName];
+        }
+
         if (array_key_exists($name, $this->settings)) {
             return $this->settings[$name];
         }
@@ -61,27 +72,19 @@ final class SettingsBag implements JsonSerializable
             throw new SettingNotFoundException($name);
         }
 
-        $alternatives = [];
-        foreach ($this->settings as $key => $parameterValue) {
-            $lev = levenshtein($name, $key);
-            if ($lev <= strlen($name) / 3 || str_contains($key, $name)) {
-                $alternatives[] = $key;
-            }
-        }
-
-        throw new SettingNotFoundException($name, null, $alternatives);
+        $this->nameNotFound($name);
     }
 
-    public function getOr(string $name, mixed $default = null): mixed
+    public function getOr(string $name, mixed $default = null, ?Locale $locale = null): mixed
     {
         try {
-            return $this->get($name);
+            return $this->get($name, $locale);
         } catch (SettingNotFoundException) {
             return $default;
         }
     }
 
-    public function set(string $name, mixed $value): void
+    public function set(string $name, mixed $value, ?Locale $locale = null): void
     {
         // check if the value is a json encoded datetime
         if (
@@ -93,6 +96,15 @@ final class SettingsBag implements JsonSerializable
             $value = new DateTimeImmutable($value['date'], new DateTimeZone($value['timezone']));
         }
 
+        $localisedName = self::getLocalisedName($name, $locale);
+        if (array_key_exists($localisedName, $this->settings)) {
+            $this->hasChanges = $this->hasChanges || $this->settings[$localisedName] !== $value;
+            $this->settings[$localisedName] = $value;
+            return;
+        }
+
+        // No locale-specific key exists: write to the base key so the value works across all languages.
+        // Locale-specific entries are only updated, never created here; create them explicitly if needed.
         if (!array_key_exists($name, $this->settings) || $this->settings[$name] !== $value) {
             $this->hasChanges = true;
         }
@@ -102,13 +114,32 @@ final class SettingsBag implements JsonSerializable
 
     public function has(string $name): bool
     {
-        return array_key_exists($name, $this->settings);
+        if (array_key_exists($name, $this->settings)) {
+            return true;
+        }
+
+        $localisedName = self::getLocalisedName($name);
+
+        return $localisedName !== $name && array_key_exists($localisedName, $this->settings);
     }
 
-    public function remove(string $name): void
+    public function remove(string $name, ?Locale $locale = null): void
     {
-        $this->hasChanges = true;
-        unset($this->settings[$name]);
+        $localisedName = self::getLocalisedName($name, $locale);
+        if ($localisedName !== $name && array_key_exists($localisedName, $this->settings)) {
+            $this->hasChanges = true;
+            unset($this->settings[$localisedName]);
+
+            return;
+        }
+        if (array_key_exists($name, $this->settings)) {
+            $this->hasChanges = true;
+            unset($this->settings[$name]);
+
+            return;
+        }
+
+        $this->nameNotFound($name);
     }
 
     /** @return array<string, mixed> */
@@ -130,5 +161,27 @@ final class SettingsBag implements JsonSerializable
     public static function fromJsonString(string $value): self
     {
         return new SettingsBag(json_decode($value, true, 512, JSON_THROW_ON_ERROR));
+    }
+
+    public static function getLocalisedName(string $name, ?Locale $locale = null): string
+    {
+        if (self::$locale === null && $locale === null) {
+            return $name;
+        }
+
+        return $name . '_' . ($locale ?? self::$locale)->value;
+    }
+
+    private function nameNotFound(string $name): never
+    {
+        $alternatives = [];
+        foreach ($this->settings as $key => $parameterValue) {
+            $lev = levenshtein($name, $key);
+            if ($lev <= strlen($name) / 3 || str_contains($key, $name)) {
+                $alternatives[] = $key;
+            }
+        }
+
+        throw new SettingNotFoundException($name, null, $alternatives);
     }
 }

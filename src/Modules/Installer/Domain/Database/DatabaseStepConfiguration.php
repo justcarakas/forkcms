@@ -10,23 +10,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class DatabaseStepConfiguration implements InstallerStepConfiguration
 {
-    /** @Assert\NotBlank */
+    #[Assert\NotBlank]
     public ?string $databaseHostname;
 
-    /** @Assert\NotBlank */
+    #[Assert\NotBlank]
     public ?string $databaseUsername;
 
-    /** @Assert\NotBlank */
+    #[Assert\NotBlank]
     public ?string $databasePassword;
 
-    /** @Assert\NotBlank */
+    #[Assert\NotBlank]
     public ?string $databaseName;
 
-    /**
-     * @Assert\NotBlank
-     * @Assert\GreaterThanOrEqual(value="1")
-     * @Assert\LessThanOrEqual(value="65535")
-     */
+    #[Assert\GreaterThanOrEqual(value: 1)]
+    #[Assert\LessThanOrEqual(value: 65535)]
+    #[Assert\NotBlank]
     public int $databasePort;
 
     public function __construct(

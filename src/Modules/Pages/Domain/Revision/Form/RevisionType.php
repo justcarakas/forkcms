@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/** @extends AbstractType<\ForkCMS\Modules\Pages\Domain\Revision\RevisionDataTransferObject> */
 final class RevisionType extends AbstractType
 {
     public function __construct(private readonly PageRouter $pageRouter)
@@ -30,13 +31,13 @@ final class RevisionType extends AbstractType
             TabsType::class,
             [
                 'tabs' => [
-                    'lbl.Content' => static function (FormBuilderInterface $builder): void {
+                    'lbl.Content' => static function (): void {
                         // added through the pre-set data event
                     },
-                    'lbl.SEO' => static function (FormBuilderInterface $builder): void {
+                    'lbl.SEO' => static function (): void {
                         // added through the pre-set data event
                     },
-                    'lbl.Settings' => static function (FormBuilderInterface $builder): void {
+                    'lbl.Settings' => static function (): void {
                         // added through the pre-set data event
                     },
                 ],
@@ -66,7 +67,6 @@ final class RevisionType extends AbstractType
                     ]
                 );
                 $hasEntity = $revisionDTO->hasEntity();
-                $entity = $revisionDTO->getEntity();
                 $tabs->get(TabsType::getTabNameForLabel('lbl.SEO'))->add('meta', MetaType::class, [
                     'disable_slug_overwrite' => $revisionDTO->page->isHome(),
                     'base_field_name' => 'title',
@@ -79,10 +79,10 @@ final class RevisionType extends AbstractType
                     'generate_slug_callback_method' => 'generateSlug',
                     'generate_slug_callback_parameters' => [
                         $revisionDTO->locale,
-                        $hasEntity ? $entity->getId() : null,
+                        $hasEntity ? $revisionDTO->getEntity()->getId() : null,
                     ],
                 ]);
-                if ($revisionDTO->hasEntity()) {
+                if ($hasEntity) {
                     $event->getForm()->add(
                         'saveAsDraft',
                         SubmitType::class,

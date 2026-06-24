@@ -35,7 +35,7 @@ final class PagesExtension extends AbstractExtension
     public function getNavigation(
         Environment $twig,
         MenuType|string $type = MenuType::MAIN,
-        int|null $parentId = null,
+        ?int $parentId = null,
         int $depth = 3,
         array $excludedIds = [],
         string $template = '@Pages/Frontend/Navigation.html.twig',

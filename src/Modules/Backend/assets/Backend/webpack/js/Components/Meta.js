@@ -43,34 +43,40 @@ export class Meta {
       const $metaKeywords = $(options.metaKeywordsSelector)
       const $metaKeywordsOverwrite = $(options.metaKeywordsOverwriteSelector)
       const $slugOverwrite = $(options.slugOverwriteSelector)
+      const $overwrittenSlug = $(options.slugSelector)
 
       // bind keypress
       $element.bind('keyup input', EventUtil.debounce(calculateMeta, 400))
+      $overwrittenSlug.bind('keyup input', EventUtil.debounce(calculateOverwrittenSlug, 400))
 
       // bind change on the checkboxes
       if ($pageTitle.length > 0 && $pageTitleOverwrite.length > 0) {
         $pageTitleOverwrite.change((e) => {
-          if (!$element.is(':checked')) $pageTitle.val($element.val())
-        })
+          if (!$pageTitleOverwrite.is(':checked')) $pageTitle.val($element.val())
+        }).trigger('change')
       }
 
       if ($navigationTitle.length > 0 && $navigationTitleOverwrite.length > 0) {
         $navigationTitleOverwrite.change((e) => {
-          if (!$element.is(':checked')) $navigationTitle.val($element.val())
-        })
+          if (!$navigationTitleOverwrite.is(':checked')) $navigationTitle.val($element.val())
+        }).trigger('change')
       }
 
       $metaDescriptionOverwrite.change((e) => {
-        if (!$element.is(':checked')) $metaDescription.val($element.val())
-      })
+        if (!$metaDescriptionOverwrite.is(':checked')) $metaDescription.val($element.val())
+      }).trigger('change')
 
       $metaKeywordsOverwrite.change((e) => {
-        if (!$element.is(':checked')) $metaKeywords.val($element.val())
-      })
+        if (!$metaKeywordsOverwrite.is(':checked')) $metaKeywords.val($element.val())
+      }).trigger('change')
 
       $slugOverwrite.change((e) => {
-        if (!$element.is(':checked')) generateSlug($element.val())
-      })
+        if ($slugOverwrite.is(':checked')) {
+          generateSlug($overwrittenSlug.val())
+        } else {
+          generateSlug($element.val())
+        }
+      }).trigger('change')
 
       function generateSlug (slug) {
         if (options.pageId === '1') {
@@ -106,6 +112,13 @@ export class Meta {
               $(options.generatedSlugSelector).html(slug)
             }
           })
+      }
+
+      function calculateOverwrittenSlug (e, element) {
+        const slug = (typeof element !== 'undefined') ? element.val() : $(this).val()
+        if ($slugOverwrite.is(':checked')) {
+          generateSlug(slug)
+        }
       }
 
       // calculate meta

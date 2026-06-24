@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate;
 
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\QueryBuilder;
 use ForkCMS\Core\Domain\Form\CollectionType;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
@@ -16,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/** @extends AbstractType<array<string, mixed>> */
 final class ThemeTemplatePositionType extends AbstractType
 {
     public function __construct(
@@ -49,8 +51,8 @@ final class ThemeTemplatePositionType extends AbstractType
                                 ->setParameter('action', Type::ACTION->value)
                                 ->andWhere('b.hidden = :hidden')
                                 ->setParameter('hidden', false)
-                                ->addOrderBy('b.type', Criteria::ASC)
-                                ->addOrderBy('b.position', Criteria::ASC);
+                                ->addOrderBy('b.type', Order::Ascending->value)
+                                ->addOrderBy('b.position', Order::Ascending->value);
                         },
                         'label' => false,
                         'multiple' => false,

@@ -5,6 +5,7 @@ namespace ForkCMS\Core\Domain\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
+/** @extends AbstractType<string> */
 final class TogglePasswordType extends AbstractType
 {
     public function getParent(): string

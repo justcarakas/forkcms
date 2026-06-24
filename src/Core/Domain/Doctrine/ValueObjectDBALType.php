@@ -11,7 +11,7 @@ abstract class ValueObjectDBALType extends StringType
 {
     use ForkDBALTypeName;
 
-    final public function convertToPHPValue($value, AbstractPlatform $platform): null|Stringable|BackedEnum
+    final public function convertToPHPValue(mixed $value, AbstractPlatform $platform): null|Stringable|BackedEnum
     {
         if ($value === null) {
             return null;
@@ -20,7 +20,7 @@ abstract class ValueObjectDBALType extends StringType
         return $this->fromString($value);
     }
 
-    final public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
+    final public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): ?string
     {
         if ($value === null) {
             return null;

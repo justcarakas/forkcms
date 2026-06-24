@@ -134,7 +134,7 @@ abstract class ThemeTemplateDataTransferObject implements UniqueDataTransferObje
                     static fn ($position): string => preg_replace('/[^a-zA-Z0-9]+/', '', $position),
                     explode(',', $format)
                 ),
-                strlen(...)
+                static fn (string $position): bool => $position !== ''
             )
         );
     }

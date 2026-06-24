@@ -9,7 +9,10 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-/** This will automatically load the form type that was selected in the frontend settings */
+/**
+ * This will automatically load the form type that was selected in the frontend settings
+ * @extends AbstractType<string>
+ */
 class EditorType extends AbstractType
 {
     public const SETTING_NAME = 'editor';

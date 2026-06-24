@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Backend\Domain\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
+/** @extends Voter<string, mixed> */
 final class SuperAdminVoter extends Voter
 {
     protected function supports(string $attribute, mixed $subject): bool

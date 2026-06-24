@@ -29,7 +29,7 @@ class NavigationItem
     private ?self $parent;
 
     /**
-     * @var Collection<int, NavigationItem>|NavigationItem[]
+     * @var Collection<int, NavigationItem>
      */
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: NavigationItem::class)]
     #[ORM\OrderBy(['sequence' => 'ASC'])]
@@ -75,7 +75,7 @@ class NavigationItem
         return $this->parent;
     }
 
-    /** @return Collection<int, NavigationItem>|NavigationItem[] */
+    /** @return Collection<int, NavigationItem> */
     public function getChildren(): Collection
     {
         return $this->children;

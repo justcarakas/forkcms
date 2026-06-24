@@ -80,7 +80,7 @@ final class ModuleInformation
             $moduleConfig = simplexml_load_string(
                 file_get_contents($xmlFilePath),
                 'SimpleXMLElement',
-                LIBXML_NOCDATA | LIBXML_ERR_ERROR
+                LIBXML_NOCDATA | LIBXML_NOERROR | LIBXML_NOWARNING
             );
         } catch (Throwable) {
             return new self(
@@ -114,7 +114,7 @@ final class ModuleInformation
         if ($moduleConfig->events->event !== null) {
             foreach ($moduleConfig->events->event as $eventConfig) {
                 $class = SafeString::fromXML($eventConfig->attributes()->class);
-                if (class_exists($class)) {
+                if (class_exists((string) $class)) {
                     $events[] = [
                         'class' => SafeString::fromXML($eventConfig->attributes()->class)->string,
                         'description' => SafeHtml::fromXML($eventConfig)->html,

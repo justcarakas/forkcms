@@ -11,9 +11,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @method ContentBlock|null find($id, $lockMode = null, $lockVersion = null)
- * @method ContentBlock|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ContentBlock|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method ContentBlock[]    findAll()
- * @method ContentBlock[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ContentBlock[]    findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
  * @extends ServiceEntityRepository<ContentBlock>
  */
 final class ContentBlockRepository extends ServiceEntityRepository

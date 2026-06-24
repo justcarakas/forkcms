@@ -96,9 +96,9 @@ final class RequirementsChecker
             'Web server',
             Requirement::check(
                 'php version',
-                PHP_VERSION_ID >= 80100,
-                'Your server is running at least php 8.1.0. <br>' . $reasoningBehindTheMinimumPHPVersion,
-                'PHP version must be at least 8.1.0, Before using Fork CMS, upgrade your PHP installation, preferably to the latest version.<br>' . $reasoningBehindTheMinimumPHPVersion,
+                PHP_VERSION_ID >= 80200, // @phpstan-ignore greaterOrEqual.alwaysTrue (runtime check for installer; web server PHP may differ from CLI)
+                'Your server is running at least php 8.2.0. <br>' . $reasoningBehindTheMinimumPHPVersion,
+                'PHP version must be at least 8.2.0, Before using Fork CMS, upgrade your PHP installation, preferably to the latest version.<br>' . $reasoningBehindTheMinimumPHPVersion,
                 RequirementStatus::ERROR
             ),
             Requirement::check(
