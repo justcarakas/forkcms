@@ -188,7 +188,7 @@
           {{ form_widget(form.slugOverwrite) }}
           {{ form_label(form.slug) }}
           <div class="input-group">
-            <span class="input-group-text text-black">{{ SITE_URL }}{{ form.vars.base_url }}/</span>
+            <span class="input-group-text text-black">{{ SITE_URL }}{{ form.vars.base_url != '/' ? form.vars.base_url : '' }}/</span>
             {{ form_widget(form.slug) }}
           </div>
           {{ form_errors(form.slug) }}
