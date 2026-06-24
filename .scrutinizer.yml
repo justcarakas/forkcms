@@ -1,11 +1,11 @@
 build:
     environment:
-        node: 16.20.2
+        node: 22
     nodes:
         analysis:
             environment:
                 php:
-                    version: 8.1
+                    version: 8.2
             cache:
                 disabled: false
                 directories:
@@ -30,7 +30,6 @@ filter:
 
 tools:
     php_mess_detector: true
-    sensiolabs_security_checker: true
     php_cpd: false
     php_sim: true
     php_pdepend:
@@ -39,10 +38,11 @@ tools:
 
 application:
     symfony2:
-        autoload_file: autoload.php
+        autoload_file: vendor/autoload.php
+        kernel_class: ForkCMS\Core\Domain\Kernel\Kernel
     dependencies:
         before:
-            - 'composer install --prefer-dist'
+            - 'composer install --no-interaction --prefer-dist'
 
 checks:
     php:
@@ -51,9 +51,7 @@ checks:
         unused_parameters: true
         variable_existence: true
         unused_methods: true
-        symfony_request_injection: true
         sql_injection_vulnerabilities: true
         simplify_boolean_return: true
         excluded_dependencies:
             - simple-bus/doctrine-orm-bridge
-            - symfony/security-acl
