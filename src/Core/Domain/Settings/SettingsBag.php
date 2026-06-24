@@ -103,6 +103,8 @@ final class SettingsBag implements JsonSerializable
             return;
         }
 
+        // No locale-specific key exists: write to the base key so the value works across all languages.
+        // Locale-specific entries are only updated, never created here; create them explicitly if needed.
         if (!array_key_exists($name, $this->settings) || $this->settings[$name] !== $value) {
             $this->hasChanges = true;
         }
