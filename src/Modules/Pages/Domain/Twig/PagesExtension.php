@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Pages\Domain\Twig;
 
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Pages\Domain\Page\NavigationBuilder;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
 use ForkCMS\Modules\Pages\Domain\Revision\MenuType;
@@ -47,7 +48,9 @@ final class PagesExtension extends AbstractExtension
 
         $groupedPages = $this->navigationBuilder->getActiveGroupedPages(
             $type instanceof MenuType ? $type : MenuType::from($type),
-            $this->revisionRepository->find($this->requestStack->getCurrentRequest()->attributes->get('revision')),
+            Ensure::isNotNull(
+                $this->revisionRepository->find($this->requestStack->getCurrentRequest()->attributes->get('revision'))
+            ),
         );
 
         $pages = $groupedPages[$parentId ?? 0] ?? [];

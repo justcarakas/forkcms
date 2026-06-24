@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Pages\Domain\Page;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Query\Expr\Join;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockNameDBALType;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockRouterInterface;
 use ForkCMS\Modules\Frontend\Domain\Block\ModuleBlock;
@@ -50,7 +51,12 @@ final class PageRouter implements BlockRouterInterface
             return $this->getRouteForPageId(Page::PAGE_ID_404, $locale);
         }
 
-        return $this->getRouteForPage($page, $locale, $parameters, $referenceType);
+        return $this->getRouteForPage(
+            Ensure::isInstanceOf($page, Page::class),
+            $locale,
+            $parameters,
+            $referenceType
+        );
     }
 
     /** @param array<string, mixed> $parameters */

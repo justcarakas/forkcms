@@ -2,8 +2,8 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Translator;
 
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
-use LogicException;
 use Symfony\Component\Translation\DataCollectorTranslator as SymfonyDataCollectorTranslator;
 use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -22,10 +22,8 @@ final class DataCollectorTranslator extends SymfonyDataCollectorTranslator
 
     public function getDefaultTranslationDomain(): TranslationDomain
     {
-        if (!$this->translator instanceof ForkTranslator) {
-            throw new LogicException('Only works with the ForkTranslator.');
-        }
-        return $this->translator->getDefaultTranslationDomain();
+        return Ensure::isInstanceOf($this->translator, ForkTranslator::class, 'Only works with the ForkTranslator.')
+            ->getDefaultTranslationDomain();
     }
 
     /** @param array<string, mixed> $parameters */
@@ -74,10 +72,11 @@ final class DataCollectorTranslator extends SymfonyDataCollectorTranslator
             $domain = 'messages';
         }
 
-        if (!$this->translator instanceof TranslatorBagInterface) {
-            throw new LogicException('Cannot get a catalog out of the translator');
-        }
-        $catalogue = $this->translator->getCatalogue($locale);
+        $catalogue = Ensure::isImplementingInterface(
+            $this->translator,
+            TranslatorBagInterface::class,
+            'Cannot get a catalog out of the translator'
+        )->getCatalogue($locale);
         $locale = $catalogue->getLocale();
         $fallbackLocale = null;
         if ($catalogue->defines($id, $domain)) {

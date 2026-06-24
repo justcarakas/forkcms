@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Internationalisation\Console;
 
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Importer\Importer;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
@@ -97,7 +98,7 @@ class ImportLocaleCommand extends Command
         return $filePath ?? sprintf(
             '%s/src/Modules/%s/assets/installer/translations.xml',
             $this->rootDir,
-            ModuleName::fromString($moduleName)
+            ModuleName::fromString(Ensure::isNotNull($moduleName, 'If you do not pass a filePath you need to pass a moduleName'))
         );
     }
 }

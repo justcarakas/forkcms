@@ -3,6 +3,7 @@
 namespace ForkCMS\Core\tests;
 
 use Countable;
+use ForkCMS\Core\Domain\Util\Ensure;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,10 +33,10 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
 
     final protected static function getEntityManager(): EntityManagerInterface
     {
-        $entityManager = self::getContainer()->get('doctrine.orm.entity_manager');
-        assert($entityManager instanceof EntityManagerInterface);
-
-        return $entityManager;
+        return Ensure::isInstanceOf(
+            self::getContainer()->get('doctrine.orm.entity_manager'),
+            EntityManagerInterface::class
+        );
     }
 
     /**

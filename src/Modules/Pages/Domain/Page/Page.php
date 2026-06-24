@@ -5,10 +5,12 @@ namespace ForkCMS\Modules\Pages\Domain\Page;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Selectable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockName;
 use ForkCMS\Modules\Frontend\Domain\Block\ModuleBlock;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
@@ -92,7 +94,7 @@ class Page
         $locale ??= Locale::current();
         $expressionBuilder = Criteria::expr();
 
-        $revision = $this->revisions->matching(
+        $revision = Ensure::isImplementingInterface($this->revisions, Selectable::class)->matching(
             Criteria::create()
                 ->where($expressionBuilder->eq('locale', $locale))
                 ->andWhere($expressionBuilder->eq('isDraft', false))

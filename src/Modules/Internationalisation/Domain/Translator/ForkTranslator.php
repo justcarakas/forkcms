@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Translator;
 
 use BadMethodCallException;
 use ForkCMS\Core\Domain\Application\Application;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\AjaxActionSlug;
 use ForkCMS\Modules\Backend\Domain\User\User;
@@ -144,7 +145,7 @@ final class ForkTranslator extends Translator
 
     private function determineDefaultTranslationDomain(): TranslationDomain
     {
-        $mainRequest = $this->requestStack->getMainRequest();
+        $mainRequest = Ensure::isNotNull($this->requestStack)->getMainRequest();
         if ($mainRequest instanceof Request) {
             if ($mainRequest->attributes->has('_locale_application')) {
                 $application = Application::tryFrom($mainRequest->attributes->get('_locale_application'));

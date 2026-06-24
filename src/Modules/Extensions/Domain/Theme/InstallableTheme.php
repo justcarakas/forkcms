@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Theme;
 
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Extensions\Domain\InformationFile\Author;
 use SimpleXMLElement;
 use ForkCMS\Modules\Extensions\Domain\InformationFile\Messages;
@@ -97,7 +98,7 @@ final class InstallableTheme extends ThemeDataTransferObject
     {
         $authors = [];
         foreach ($themeConfig->authors->author as $authorConfig) {
-            $authors[] = Author::fromXML($authorConfig);
+            $authors[] = Author::fromXML(Ensure::isNotNull($authorConfig));
         }
         if (count($authors) > 0) {
             $theme->settings->set('authors', $authors);

@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Exporter;
 
-use Assert\Assertion;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Translation;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
@@ -16,9 +16,7 @@ final class Exporter
     /** @param iterable<Translation> $translations */
     public function export(iterable $translations, string $extension): string
     {
-        /** @var ExporterInterface $exporter */
-        $exporter = $this->exporters->get($extension);
-        Assertion::implementsInterface($exporter, ExporterInterface::class);
+        $exporter = Ensure::isImplementingInterface($this->exporters->get($extension), ExporterInterface::class);
 
         return $exporter->exportTranslations($translations);
     }

@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Pages\Domain\RevisionBlock;
 use Doctrine\DBAL\Types\Types;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
 use ForkCMS\Modules\Pages\Domain\Revision\Revision;
 use Doctrine\ORM\Mapping as ORM;
@@ -64,8 +65,8 @@ class RevisionBlock
         RevisionBlockDataTransferObject $revisionBlockDataTransferObject
     ): self {
         return new self(
-            $revisionBlockDataTransferObject->revision,
-            $revisionBlockDataTransferObject->position,
+            Ensure::isNotNull($revisionBlockDataTransferObject->revision),
+            Ensure::isNotNull($revisionBlockDataTransferObject->position),
             $revisionBlockDataTransferObject->block,
             $revisionBlockDataTransferObject->editorContent,
             $revisionBlockDataTransferObject->isVisible,

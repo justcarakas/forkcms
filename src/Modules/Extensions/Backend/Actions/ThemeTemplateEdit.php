@@ -4,10 +4,12 @@ namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\Command\ChangeThemeTemplate;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplateType;
+use RuntimeException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,7 +49,7 @@ final class ThemeTemplateEdit extends AbstractFormActionController
             redirectResponse: new RedirectResponse(
                 ThemeTemplateIndex::getActionSlug()->generateRoute(
                     $this->router,
-                    ['slug' => $changeThemeTemplate->theme->getName()]
+                    ['slug' => Ensure::isNotNull($changeThemeTemplate->theme?->getName(), 'No theme set yet')]
                 )
             ),
             formOptions: ['show_overwrite' => true, 'show_status' => !$themeTemplate->isDefault()],

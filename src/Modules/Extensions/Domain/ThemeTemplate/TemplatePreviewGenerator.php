@@ -2,7 +2,8 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate;
 
-use Assert\Assertion;
+use Assert\AssertionFailedException;
+use ForkCMS\Core\Domain\Util\Ensure;
 use InvalidArgumentException;
 use Twig\Environment;
 
@@ -101,14 +102,18 @@ final class TemplatePreviewGenerator
     {
         $syntax = trim(str_replace(["\n", "\r", ' '], '', $syntax));
         $table = [];
-
-        // check template settings format
-        if (!self::isValidTemplateSyntaxFormat($syntax)) {
+        try {
+            // split into rows
+            $rows = explode(
+                '],[',
+                Ensure::isMatchingRegex(
+                    $syntax,
+                    '/^\[(\/|[a-z\d])+(,(\/|[a-z\d]+))*](,\[(\/|[a-z\d])+(,(\/|[a-z\d]+))*])*$/i'
+                )
+            );
+        } catch (AssertionFailedException) {
             return $table;
         }
-
-        // split into rows
-        $rows = explode('],[', $syntax);
 
         foreach ($rows as $i => $row) {
             $row = trim(str_replace(['[', ']'], '', $row));
@@ -128,13 +133,5 @@ final class TemplatePreviewGenerator
         }
 
         return $table;
-    }
-
-    private static function isValidTemplateSyntaxFormat(string $syntax): bool
-    {
-        return Assertion::regex(
-            $syntax,
-            '/^\[(\/|[a-z\d])+(,(\/|[a-z\d]+))*](,\[(\/|[a-z\d])+(,(\/|[a-z\d]+))*])*$/i'
-        );
     }
 }

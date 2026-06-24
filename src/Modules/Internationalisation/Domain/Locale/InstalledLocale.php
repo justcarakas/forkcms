@@ -6,6 +6,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
 
 #[ORM\Entity(repositoryClass: InstalledLocaleRepository::class)]
@@ -42,7 +43,7 @@ class InstalledLocale
 
     public static function fromDataTransferObject(InstalledLocaleDataTransferObject $locale): self
     {
-        $installedLocale = $locale->hasEntity() ? $locale->getEntity() : new self($locale->locale);
+        $installedLocale = $locale->hasEntity() ? $locale->getEntity() : new self(Ensure::isNotNull($locale->locale));
 
         $installedLocale->isEnabledForWebsite = $locale->isEnabledForWebsite;
         $installedLocale->isDefaultForWebsite = $locale->isDefaultForWebsite;

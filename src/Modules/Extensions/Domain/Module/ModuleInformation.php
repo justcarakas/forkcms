@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Extensions\Domain\InformationFile\Author;
 use ForkCMS\Modules\Extensions\Domain\InformationFile\Messages;
@@ -117,7 +118,7 @@ final class ModuleInformation
 
         $authors = [];
         foreach ($moduleConfig->authors->author as $authorConfig) {
-            $authors[] = Author::fromXML($authorConfig);
+            $authors[] = Author::fromXML(Ensure::isNotNull($authorConfig));
         }
 
         $events = [];

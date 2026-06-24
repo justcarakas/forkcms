@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Backend\Domain\User;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use ForkCMS\Core\Domain\Util\Ensure;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -62,11 +63,6 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
 
     public function getAuthenticatedUser(): User
     {
-        $user = $this->security->getUser();
-        if ($user instanceof User) {
-            return $user;
-        }
-
-        throw new TypeError('There is no authenticated fork user');
+        return Ensure::isInstanceOf($this->security->getUser(), User::class, 'There is no authenticated fork user');
     }
 }

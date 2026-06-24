@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
@@ -117,10 +118,10 @@ class Translation
         }
 
         return new self(
-            $dataTransferObject->domain,
-            $dataTransferObject->key,
-            $dataTransferObject->locale,
-            $dataTransferObject->value,
+            Ensure::isNotNull($dataTransferObject->domain),
+            Ensure::isNotNull($dataTransferObject->key),
+            Ensure::isNotNull($dataTransferObject->locale),
+            Ensure::isNotNull($dataTransferObject->value),
             $dataTransferObject->source,
         );
     }

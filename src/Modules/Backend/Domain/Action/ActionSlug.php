@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
-use Assert\Assertion;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
 use ForkCMS\Modules\Backend\Backend\Actions\NotFound;
@@ -24,7 +24,7 @@ final class ActionSlug implements Stringable
 
     public function __construct(private ModuleName $moduleName, private ActionName $actionName)
     {
-        Assertion::classExists($this->getFQCN(), 'Action class does not exist');
+        Ensure::isExistingClass($this->getFQCN(), 'Action class does not exist');
     }
 
     public static function fromSlug(string $slug): self
