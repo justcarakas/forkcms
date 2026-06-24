@@ -5,6 +5,7 @@ namespace ForkCMS\Core\tests;
 use Countable;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\BrowserKit\AbstractBrowser;
 use Symfony\Component\DomCrawler\Crawler;
@@ -29,12 +30,20 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
         return [];
     }
 
+    final protected static function getEntityManager(): EntityManagerInterface
+    {
+        $entityManager = self::getContainer()->get('doctrine.orm.entity_manager');
+        assert($entityManager instanceof EntityManagerInterface);
+
+        return $entityManager;
+    }
+
     /**
      * This can only be executed before tests start because they are wrapped in a transaction
      */
     private static function loadFixture(FixtureInterface ...$fixture): void
     {
-        (new ORMExecutor(self::getContainer()->get('doctrine.orm.entity_manager')))->execute($fixture, true);
+        (new ORMExecutor(self::getEntityManager()))->execute($fixture, true);
     }
 
     /**
