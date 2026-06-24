@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Extensions\Domain\Theme;
 
 use ForkCMS\Modules\Extensions\Domain\InformationFile\Author;
+use SimpleXMLElement;
 use ForkCMS\Modules\Extensions\Domain\InformationFile\Messages;
 use ForkCMS\Modules\Extensions\Domain\InformationFile\Requirements;
 use ForkCMS\Modules\Extensions\Domain\InformationFile\SafeHtml;
@@ -28,14 +29,50 @@ final class InstallableTheme extends ThemeDataTransferObject
 
     public static function fromXML(string $xmlFilePath): self
     {
-        $themeConfig = simplexml_load_string(file_get_contents($xmlFilePath), 'SimpleXMLElement', LIBXML_NOCDATA);
         $theme = new self();
+
+        $xmlContents = file_get_contents($xmlFilePath);
+        if ($xmlContents === false) {
+            $theme->addMessage(TranslationKey::error('InvalidXML'));
+            return $theme;
+        }
+
+        $themeConfig = simplexml_load_string($xmlContents, 'SimpleXMLElement', LIBXML_NOCDATA);
+        if ($themeConfig === false) {
+            $theme->addMessage(TranslationKey::error('InvalidXML'));
+            return $theme;
+        }
+
         Requirements::fromXML($themeConfig->requirements, $theme->messages);
         $theme->name = SafeString::fromXML($themeConfig->name)->string;
-        $directoryName = basename(dirname($xmlFilePath));
-        if ($theme->name !== $directoryName) {
+        if ($theme->name !== basename(dirname($xmlFilePath))) {
             $theme->addMessage(TranslationKey::error('ThemeNameDoesntMatch'));
         }
+
+        self::parseThumbnail($xmlFilePath, $themeConfig, $theme);
+
+        $themeVersion = SafeString::fromXML($themeConfig->version)->string;
+        if ($themeVersion !== '') {
+            $theme->settings->set('themeVersion', $themeVersion);
+        }
+
+        $theme->settings->set(
+            'metaNavigation',
+            ((string) $themeConfig->meta_navigation->attributes()->enabled) === 'true'
+        );
+
+        self::parseAuthors($themeConfig, $theme);
+
+        $theme->description = SafeHtml::fromXML($themeConfig->description);
+        $theme->active = false;
+
+        self::parseTemplates($themeConfig, $theme);
+
+        return $theme;
+    }
+
+    private static function parseThumbnail(string $xmlFilePath, SimpleXMLElement $themeConfig, self $theme): void
+    {
         $thumbnail = realpath(
             dirname($xmlFilePath) . '/assets/public/' . SafeString::fromXML($themeConfig->thumbnail)->string
         );
@@ -54,14 +91,10 @@ final class InstallableTheme extends ThemeDataTransferObject
                 )
             );
         }
-        $themeVersion = SafeString::fromXML($themeConfig->version)->string;
-        if ($themeVersion !== '') {
-            $theme->settings->set('themeVersion', $themeVersion);
-        }
-        $theme->settings->set(
-            'metaNavigation',
-            ((string) $themeConfig->meta_navigation->attributes()->enabled) === 'true'
-        );
+    }
+
+    private static function parseAuthors(SimpleXMLElement $themeConfig, self $theme): void
+    {
         $authors = [];
         foreach ($themeConfig->authors->author as $authorConfig) {
             $authors[] = Author::fromXML($authorConfig);
@@ -69,8 +102,10 @@ final class InstallableTheme extends ThemeDataTransferObject
         if (count($authors) > 0) {
             $theme->settings->set('authors', $authors);
         }
-        $theme->description = SafeHtml::fromXML($themeConfig->description);
-        $theme->active = false;
+    }
+
+    private static function parseTemplates(SimpleXMLElement $themeConfig, self $theme): void
+    {
         $templates = ['default' => [], 'other' => []];
         foreach ($themeConfig->templates[0] as $template) {
             $themeTemplate = InstallableThemeTemplate::fromXML($template);
@@ -78,14 +113,13 @@ final class InstallableTheme extends ThemeDataTransferObject
                 $templates[$themeTemplate->isDefault ? 'default' : 'other'][$themeTemplate->name] = $themeTemplate;
             }
         }
-        // we need the default template to be first so it will become the default one
+
+        // default template must be first so it becomes the active default
         foreach ($templates as $templateList) {
             foreach ($templateList as $template) {
                 $theme->templates[$template->name] = $template;
             }
         }
-
-        return $theme;
     }
 
     public static function fromMessage(TranslationKey $message): self
