@@ -87,7 +87,7 @@ class Page
         $this->childRevisions->add($newRevision);
     }
 
-    public function getActiveRevision(Locale|null $locale = null): Revision
+    public function getActiveRevision(?Locale $locale = null): Revision
     {
         $locale ??= Locale::current();
         $expressionBuilder = Criteria::expr();

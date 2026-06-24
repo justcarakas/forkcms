@@ -105,7 +105,7 @@ class Revision
     private ThemeTemplate $themeTemplate;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private DateTimeImmutable|null $archivedOn;
+    private ?DateTimeImmutable $archivedOn;
 
     /** @var Collection<array-key, RevisionBlock> */
     #[ORM\OneToMany(mappedBy: 'revision', targetEntity: RevisionBlock::class, cascade: ['persist'])]

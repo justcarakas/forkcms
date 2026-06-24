@@ -270,7 +270,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
         string $pattern = '',
         mixed $timezone = null,
         string $calendar = 'gregorian',
-        string $locale = null
+        ?string $locale = null
     ): string {
         return $this->getIntlExtension(
             'formatLongDateTime',
@@ -298,7 +298,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
         string $pattern = '',
         mixed $timezone = null,
         string $calendar = 'gregorian',
-        string $locale = null
+        ?string $locale = null
     ): string {
         return $this->getIntlExtension(
             'formatLongDate',
@@ -326,7 +326,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
         string $pattern = '',
         mixed $timezone = null,
         string $calendar = 'gregorian',
-        string $locale = null
+        ?string $locale = null
     ): string {
         return $this->getIntlExtension(
             'formatUserLongDateTime',
@@ -354,7 +354,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
         string $pattern = '',
         mixed $timezone = null,
         string $calendar = 'gregorian',
-        string $locale = null
+        ?string $locale = null
     ): string {
         return $this->getIntlExtension(
             'formatUserLongDate',

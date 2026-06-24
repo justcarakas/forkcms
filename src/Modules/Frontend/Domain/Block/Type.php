@@ -22,7 +22,7 @@ enum Type: string implements TranslatableInterface
         };
     }
 
-    public function trans(TranslatorInterface $translator, string $locale = null): string
+    public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         return $this->getLabel()->trans($translator, $locale);
     }

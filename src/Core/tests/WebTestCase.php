@@ -135,7 +135,7 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
         string $expectedUrl,
         string $requestMethod = Request::METHOD_GET,
         array $requestParameters = [],
-        int $maxRedirects = null,
+        ?int $maxRedirects = null,
         int $expectedHttpResponseCode = Response::HTTP_OK
     ): void {
         $client = static::getClient();
@@ -190,7 +190,7 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
         );
     }
 
-    final protected static function getClient(AbstractBrowser $newClient = null): ?AbstractBrowser
+    final protected static function getClient(?AbstractBrowser $newClient = null): ?AbstractBrowser
     {
         static $client;
 
@@ -242,7 +242,7 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
         array $parameters = [],
         array $files = [],
         array $server = [],
-        string $content = null,
+        ?string $content = null,
         bool $changeHistory = true
     ): Crawler {
         return static::getClient()->request(

@@ -34,7 +34,7 @@ final class TabsType extends AbstractType
     }
 
     /**
-     * @param ?SluggerInterface $slugger You don't need to provide the slugger if you are trying to get an existing tab
+     * @param SluggerInterface|null $slugger You don't need to provide the slugger if you are trying to get an existing tab
      */
     public static function getTabNameForLabel(string $label, ?SluggerInterface $slugger = null): string
     {

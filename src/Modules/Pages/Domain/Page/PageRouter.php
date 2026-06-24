@@ -25,7 +25,7 @@ final class PageRouter implements BlockRouterInterface
     /** @param array<string, mixed> $parameters */
     public function getRouteForBlock(
         ModuleBlock $moduleBlock,
-        Locale $locale = null,
+        ?Locale $locale = null,
         array $parameters = [],
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
     ): string {
@@ -56,7 +56,7 @@ final class PageRouter implements BlockRouterInterface
     /** @param array<string, mixed> $parameters */
     public function getRouteForPage(
         Page $page,
-        Locale $locale = null,
+        ?Locale $locale = null,
         array $parameters = [],
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
     ): string {
@@ -71,7 +71,7 @@ final class PageRouter implements BlockRouterInterface
     /** @param array<string, mixed> $parameters */
     public function getRouteForPageId(
         int $pageId,
-        Locale $locale = null,
+        ?Locale $locale = null,
         array $parameters = [],
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
     ): string {

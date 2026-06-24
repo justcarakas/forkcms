@@ -69,7 +69,7 @@ class TranslationKey implements TranslatableInterface
         return $this->type->getAbbreviation() . '.' . $this->name;
     }
 
-    public function trans(TranslatorInterface $translator, string $locale = null): string
+    public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         return $translator->trans((string) $this, $this->parameters, null, $locale);
     }

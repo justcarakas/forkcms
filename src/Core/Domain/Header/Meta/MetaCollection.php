@@ -85,8 +85,8 @@ final class MetaCollection
         string $description,
         string $imageUrl,
         string $cardType = 'summary',
-        string $siteHandle = null,
-        string $creatorHandle = null
+        ?string $siteHandle = null,
+        ?string $creatorHandle = null
     ): void {
         $this->addMetaData(MetaData::forName('twitter:card', $cardType));
         $this->addMetaData(MetaData::forName('twitter:title', $title));

@@ -211,8 +211,8 @@ abstract class ModuleInstaller
         SettingsBag $settings = new SettingsBag(),
         bool $hidden = false,
         ?int $position = null,
-        ModuleName $module = null,
-        Locale $locale = null
+        ?ModuleName $module = null,
+        ?Locale $locale = null
     ): Block {
         $module = $module ?? static::getModuleName();
         $moduleBlock = new ModuleBlock($module, $name);
@@ -268,7 +268,7 @@ abstract class ModuleInstaller
      */
     final protected function allowGroupToAccessModuleAction(
         ModuleAction $moduleAction,
-        UserGroup $userGroup = null
+        ?UserGroup $userGroup = null
     ): void {
         $userGroup = $userGroup ?? $this->userGroupRepository->getAdminUserGroup();
         $userGroup->addAction($moduleAction);
@@ -279,7 +279,7 @@ abstract class ModuleInstaller
      */
     final protected function allowGroupToAccessModuleAjaxAction(
         ModuleAjaxAction $moduleAjaxAction,
-        UserGroup $userGroup = null
+        ?UserGroup $userGroup = null
     ): void {
         $userGroup = $userGroup ?? $this->userGroupRepository->getAdminUserGroup();
         $userGroup->addAjaxAction($moduleAjaxAction);
@@ -290,13 +290,13 @@ abstract class ModuleInstaller
      */
     final protected function allowGroupToAccessModuleWidget(
         ModuleWidget $moduleWidget,
-        UserGroup $userGroup = null
+        ?UserGroup $userGroup = null
     ): void {
         $userGroup = $userGroup ?? $this->userGroupRepository->getAdminUserGroup();
         $userGroup->addWidget($moduleWidget);
     }
 
-    final protected function setSetting(string $key, mixed $value, ModuleName $moduleName = null, Locale $locale = null): void
+    final protected function setSetting(string $key, mixed $value, ?ModuleName $moduleName = null, ?Locale $locale = null): void
     {
         if (!$this->moduleRegistered) {
             throw new RuntimeException('You cannot set module settings during the pre install phase');

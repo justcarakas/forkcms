@@ -23,7 +23,7 @@ final class MetaData
         string $content,
         array $attributes,
         array $uniqueAttributeKeys = ['content'],
-        string $uniqueKeySuffix = null
+        ?string $uniqueKeySuffix = null
     ) {
         if (empty($content)) {
             throw new InvalidArgumentException('The content can not be empty');
@@ -35,9 +35,8 @@ final class MetaData
 
     /**
      * @param string[] $uniqueAttributeKeys
-     * @param string|null $uniqueKeySuffix
      */
-    private function createUniqueKey(array $uniqueAttributeKeys, string $uniqueKeySuffix = null): void
+    private function createUniqueKey(array $uniqueAttributeKeys, ?string $uniqueKeySuffix = null): void
     {
         // make sure the keys are sorted alphabetically
         sort($uniqueAttributeKeys);

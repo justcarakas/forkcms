@@ -49,13 +49,13 @@ class Meta implements JsonSerializable
     private bool $slugOverwrite;
 
     #[ORM\Column(type: Types::STRING, nullable: true)]
-    private string|null $canonicalUrl;
+    private ?string $canonicalUrl;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     private bool $canonicalUrlOverwrite;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private string|null $custom;
+    private ?string $custom;
 
     #[ORM\Column(type: Types::STRING, enumType: SEOFollow::class)]
     private SEOFollow $seoFollow;
@@ -74,10 +74,10 @@ class Meta implements JsonSerializable
         bool $slugOverwrite,
         ?string $canonicalUrl = null,
         bool $canonicalUrlOverwrite = false,
-        string $custom = null,
-        SEOFollow $seoFollow = null,
-        SEOIndex $seoIndex = null,
-        SettingsBag $settings = null,
+        ?string $custom = null,
+        ?SEOFollow $seoFollow = null,
+        ?SEOIndex $seoIndex = null,
+        ?SettingsBag $settings = null,
     ) {
         $this->settings = $settings ?? new SettingsBag();
         $this->update(...func_get_args());
@@ -94,10 +94,10 @@ class Meta implements JsonSerializable
         bool $slugOverwrite,
         ?string $canonicalUrl = null,
         bool $canonicalUrlOverwrite = false,
-        string $custom = null,
-        SEOFollow $seoFollow = null,
-        SEOIndex $seoIndex = null,
-        SettingsBag $settings = null,
+        ?string $custom = null,
+        ?SEOFollow $seoFollow = null,
+        ?SEOIndex $seoIndex = null,
+        ?SettingsBag $settings = null,
     ): void {
         $this->keywords = $keywords;
         $this->keywordsOverwrite = $keywordsOverwrite;

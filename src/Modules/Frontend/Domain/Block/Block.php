@@ -117,7 +117,7 @@ class Block implements TranslatableInterface
         $this->position = $position;
     }
 
-    public function trans(TranslatorInterface $translator, string $locale = null): string
+    public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         $module = $this->block->getModule()->asLabel()->trans($translator) . ' › ';
         $hasOverwrite = $this->settings->has('label');

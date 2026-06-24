@@ -56,7 +56,7 @@ final class SettingsBag implements JsonSerializable
         return $this->settings;
     }
 
-    public function get(string $name, Locale $locale = null): mixed
+    public function get(string $name, ?Locale $locale = null): mixed
     {
         $localisedName = self::getLocalisedName($name, $locale);
 
@@ -75,7 +75,7 @@ final class SettingsBag implements JsonSerializable
         $this->nameNotFound($name);
     }
 
-    public function getOr(string $name, mixed $default = null, Locale $locale = null): mixed
+    public function getOr(string $name, mixed $default = null, ?Locale $locale = null): mixed
     {
         try {
             return $this->get($name, $locale);
@@ -84,7 +84,7 @@ final class SettingsBag implements JsonSerializable
         }
     }
 
-    public function set(string $name, mixed $value, Locale $locale = null): void
+    public function set(string $name, mixed $value, ?Locale $locale = null): void
     {
         // check if the value is a json encoded datetime
         if (
@@ -121,7 +121,7 @@ final class SettingsBag implements JsonSerializable
         return $localisedName !== $name && array_key_exists($localisedName, $this->settings);
     }
 
-    public function remove(string $name, Locale $locale = null): void
+    public function remove(string $name, ?Locale $locale = null): void
     {
         $localisedName = self::getLocalisedName($name, $locale);
         if ($localisedName !== $name && array_key_exists($localisedName, $this->settings)) {
@@ -161,7 +161,7 @@ final class SettingsBag implements JsonSerializable
         return new SettingsBag(json_decode($value, true, 512, JSON_THROW_ON_ERROR));
     }
 
-    public static function getLocalisedName(string $name, Locale $locale = null): string
+    public static function getLocalisedName(string $name, ?Locale $locale = null): string
     {
         if (self::$locale === null && $locale === null) {
             return $name;

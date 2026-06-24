@@ -67,8 +67,8 @@ abstract class AbstractFormActionController extends AbstractActionController
     final protected function handleForm(
         Request $request,
         string $formType,
-        object $formData = null,
-        FlashMessage $flashMessage = null,
+        ?object $formData = null,
+        ?FlashMessage $flashMessage = null,
         ?RedirectResponse $redirectResponse = null,
         array $formOptions = [],
         ?callable $defaultCallback = null,

@@ -10,7 +10,7 @@ interface BlockRouterInterface
     /** @param array<string, mixed> $parameters */
     public function getRouteForBlock(
         ModuleBlock $moduleBlock,
-        Locale $locale = null,
+        ?Locale $locale = null,
         array $parameters = [],
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
     ): string;

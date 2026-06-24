@@ -94,7 +94,7 @@ final class PagesInstaller extends ModuleInstaller
 
     /**
      * @param Locale[] $locales
-     * @param ?callable(Locale, CreateRevision): void $createRevisionCallback
+     * @param null|callable(Locale, CreateRevision): void $createRevisionCallback
      */
     public function createPage(
         array $locales,
@@ -103,7 +103,7 @@ final class PagesInstaller extends ModuleInstaller
         ?Page $parentPage = null,
         ?Page $page = null,
         ?callable $createRevisionCallback = null,
-        ThemeTemplate $themeTemplate = null
+        ?ThemeTemplate $themeTemplate = null
     ): Page {
         static $defaultTemplate = null;
         /** @var ThemeTemplateRepository $themeTemplateRepository */

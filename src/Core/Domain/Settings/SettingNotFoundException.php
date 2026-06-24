@@ -16,7 +16,7 @@ final class SettingNotFoundException extends InvalidArgumentException
      */
     public function __construct(
         private readonly string $key,
-        Throwable|null $previous = null,
+        ?Throwable $previous = null,
         private readonly array $alternatives = [],
     ) {
         parent::__construct($this->createMessage(), 0, $previous);

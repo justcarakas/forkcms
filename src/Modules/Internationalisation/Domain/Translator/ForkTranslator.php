@@ -7,7 +7,6 @@ use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\AjaxActionSlug;
 use ForkCMS\Modules\Backend\Domain\User\User;
-use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
@@ -23,7 +22,7 @@ final class ForkTranslator extends Translator
 {
     private ?TranslationDomain $defaultTranslationDomain = null;
 
-    /** @var ?string used for debug reasons */
+    /** @var string|null used for debug reasons */
     private ?string $lastUsedDomain;
 
     private ?string $fallbackLocale = null;
@@ -47,7 +46,7 @@ final class ForkTranslator extends Translator
     }
 
     /** @param array<string, mixed> $parameters */
-    public function trans(?string $id, array $parameters = [], string $domain = null, string $locale = null): string
+    public function trans(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
     {
         $isValidator = $domain === 'validators';
         if ($isValidator) {

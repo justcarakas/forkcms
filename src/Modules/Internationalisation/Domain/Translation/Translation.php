@@ -42,7 +42,7 @@ class Translation
         TranslationKey $key,
         Locale $locale,
         string $value,
-        string $source = null,
+        ?string $source = null,
     ) {
         if ($domain->getModuleName() === ModuleName::core()) {
             throw new InvalidArgumentException('Cannot create a translation for the core module');
