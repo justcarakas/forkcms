@@ -105,7 +105,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         ?SettingsBag $settings = null
     ) {
         $this->setEmail($email);
-        $this->plainTextPassword = trim($this->plainTextPassword);
+        if ($this->plainTextPassword !== null) {
+            $this->plainTextPassword = trim($this->plainTextPassword);
+        }
         $this->password = '';
         $this->displayName = $displayName;
         $this->accessToBackend = $accessToBackend;
