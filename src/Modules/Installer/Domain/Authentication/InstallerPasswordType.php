@@ -10,8 +10,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * This prevents previously submitted passwords from being cleared.
+ * @extends AbstractType<array<string, mixed>>
  */
-/** @extends AbstractType<array<string, mixed>> */
 final class InstallerPasswordType extends AbstractType
 {
     public function buildView(FormView $view, FormInterface $form, array $options): void

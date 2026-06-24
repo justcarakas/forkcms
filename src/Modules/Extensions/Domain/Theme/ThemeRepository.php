@@ -69,7 +69,7 @@ final class ThemeRepository extends ServiceEntityRepository
         return $themes;
     }
 
-    /** @return string[] */
+    /** @return array<string, string> */
     public static function getThemePaths(): array
     {
         $finder = Finder::create()->in(self::THEMES_DIRECTORY)->depth(1)->files()->name('theme.xml');
