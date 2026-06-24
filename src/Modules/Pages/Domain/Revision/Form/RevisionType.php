@@ -31,13 +31,13 @@ final class RevisionType extends AbstractType
             TabsType::class,
             [
                 'tabs' => [
-                    'lbl.Content' => static function (FormBuilderInterface $builder): void {
+                    'lbl.Content' => static function (): void {
                         // added through the pre-set data event
                     },
-                    'lbl.SEO' => static function (FormBuilderInterface $builder): void {
+                    'lbl.SEO' => static function (): void {
                         // added through the pre-set data event
                     },
-                    'lbl.Settings' => static function (FormBuilderInterface $builder): void {
+                    'lbl.Settings' => static function (): void {
                         // added through the pre-set data event
                     },
                 ],

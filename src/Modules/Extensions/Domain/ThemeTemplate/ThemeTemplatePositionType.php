@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate;
 
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\QueryBuilder;
 use ForkCMS\Core\Domain\Form\CollectionType;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
@@ -50,8 +51,8 @@ final class ThemeTemplatePositionType extends AbstractType
                                 ->setParameter('action', Type::ACTION->value)
                                 ->andWhere('b.hidden = :hidden')
                                 ->setParameter('hidden', false)
-                                ->addOrderBy('b.type', Criteria::ASC)
-                                ->addOrderBy('b.position', Criteria::ASC);
+                                ->addOrderBy('b.type', Order::Ascending->value)
+                                ->addOrderBy('b.position', Order::Ascending->value);
                         },
                         'label' => false,
                         'multiple' => false,
