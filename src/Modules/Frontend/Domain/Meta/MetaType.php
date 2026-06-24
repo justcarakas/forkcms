@@ -138,65 +138,69 @@ class MetaType extends AbstractType
 
     private function getSubmitEventFunction(string $baseFieldName, ?string $baseFieldParentName): callable
     {
-        return function (FormEvent $event) use ($baseFieldName, $baseFieldParentName) {
+        return function (FormEvent $event) use ($baseFieldName, $baseFieldParentName): void {
             $metaForm = $event->getForm();
             $metaData = $event->getData();
-            $parent = $metaForm->getParent();
-            if ($parent === null) {
-                throw new LogicException(
-                    'The MetaType is not a stand alone type, it needs to be used in a parent form'
-                );
-            }
 
-            $baseField = null;
-            while ($parent !== null && $baseField === null) {
-                if ($baseFieldParentName !== null) {
-                    $baseField = $parent->has($baseFieldParentName)
-                        ? $parent->get($baseFieldParentName)->get($baseFieldName)
-                        : null;
-                } else {
-                    $baseField = $parent->has($baseFieldName) ? $parent->get($baseFieldName) : null;
-                }
-                $parent = $parent->getParent();
-            }
-            if ($baseField === null) {
-                throw new InvalidArgumentException('The base_field_name does not exist in the parent form');
-            }
-
-            $defaultValue = $baseField->getData();
-
-            $overwritableFields = $this->getOverwritableFields();
-            array_walk(
-                $overwritableFields,
-                static function ($fieldName) use ($metaForm, $defaultValue, &$metaData) {
-                    if ($metaForm->has($fieldName) && $metaForm->get($fieldName . 'Overwrite')->getData()) {
-                        // we are overwriting it so we don't need to set the fallback
-                        return;
-                    }
-
-                    $metaData[$fieldName] = $defaultValue;
-                }
+            $parent = $metaForm->getParent() ?? throw new LogicException(
+                'The MetaType is not a stand alone type, it needs to be used in a parent form'
             );
 
-            $generatedSlug = $this->metaRepository->generateSlug(
-                htmlspecialchars_decode($metaData['slug']),
-                $metaForm->getConfig()->getOption('generate_slug_callback_class'),
-                $metaForm->getConfig()->getOption('generate_slug_callback_method'),
-                $metaForm->getConfig()->getOption('generate_slug_callback_parameters')
-            );
+            $defaultValue = $this->findBaseField($parent, $baseFieldName, $baseFieldParentName)->getData();
+            $this->applyDefaultsForNonOverwrittenFields($metaForm, $metaData, $defaultValue);
+            $this->applyGeneratedSlug($metaForm, $metaData);
 
-            if ($generatedSlug !== $metaData['slug'] && $metaData['slugOverwrite']) {
-                $metaForm->get('slug')->addError(
-                    new FormError($this->translator->trans(self::getInvalidUrlErrorMessage($generatedSlug)))
-                );
-                $event->setData($metaData);
-
-                return;
-            }
-
-            $metaData['slug'] = $generatedSlug;
             $event->setData($metaData);
         };
+    }
+
+    private function findBaseField(FormInterface $parent, string $baseFieldName, ?string $baseFieldParentName): FormInterface
+    {
+        $baseField = null;
+        while ($parent !== null && $baseField === null) {
+            if ($baseFieldParentName !== null) {
+                $baseField = $parent->has($baseFieldParentName)
+                    ? $parent->get($baseFieldParentName)->get($baseFieldName)
+                    : null;
+            } else {
+                $baseField = $parent->has($baseFieldName) ? $parent->get($baseFieldName) : null;
+            }
+            $parent = $parent->getParent();
+        }
+
+        return $baseField ?? throw new InvalidArgumentException('The base_field_name does not exist in the parent form');
+    }
+
+    /** @param array<string, mixed> $metaData */
+    private function applyDefaultsForNonOverwrittenFields(FormInterface $metaForm, array &$metaData, mixed $defaultValue): void
+    {
+        foreach ($this->getOverwritableFields() as $fieldName) {
+            if ($metaForm->has($fieldName) && $metaForm->get($fieldName . 'Overwrite')->getData()) {
+                continue;
+            }
+            $metaData[$fieldName] = $defaultValue;
+        }
+    }
+
+    /** @param array<string, mixed> $metaData */
+    private function applyGeneratedSlug(FormInterface $metaForm, array &$metaData): void
+    {
+        $generatedSlug = $this->metaRepository->generateSlug(
+            htmlspecialchars_decode($metaData['slug']),
+            $metaForm->getConfig()->getOption('generate_slug_callback_class'),
+            $metaForm->getConfig()->getOption('generate_slug_callback_method'),
+            $metaForm->getConfig()->getOption('generate_slug_callback_parameters')
+        );
+
+        if ($generatedSlug !== $metaData['slug'] && $metaData['slugOverwrite']) {
+            $metaForm->get('slug')->addError(
+                new FormError($this->translator->trans(self::getInvalidUrlErrorMessage($generatedSlug)))
+            );
+
+            return;
+        }
+
+        $metaData['slug'] = $generatedSlug;
     }
 
     /** @return string[] */
