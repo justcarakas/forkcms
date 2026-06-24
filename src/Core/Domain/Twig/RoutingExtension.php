@@ -10,6 +10,7 @@ use ForkCMS\Modules\Frontend\Domain\Block\BlockRouter;
 use ForkCMS\Modules\Frontend\Domain\Block\ModuleBlock;
 use ForkCMS\Modules\Frontend\Domain\Block\Type;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
+use InvalidArgumentException;
 use Symfony\Bridge\Twig\Extension\RoutingExtension as TwigBridgeRoutingExtension;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -97,20 +98,20 @@ final class RoutingExtension extends AbstractExtension
 
     private function getActionSlug(string|ModuleName|null $moduleName, string|ActionName|null $actionName): ActionSlug
     {
-        $defaultSlug = ActionSlug::fromRequest($this->requestStack->getMainRequest());
-        if ($moduleName === null && $actionName === null) {
-            return $defaultSlug;
+        if ($moduleName === null || $actionName === null) {
+            $request = $this->requestStack->getMainRequest() ?? throw new InvalidArgumentException(
+                'Module name and action name are required when there is no active request.'
+            );
+            $defaultSlug = ActionSlug::fromRequest($request);
+            $moduleName ??= $defaultSlug->getModuleName();
+            $actionName ??= $defaultSlug->getActionName();
         }
 
-        if ($moduleName === null) {
-            $moduleName = $defaultSlug->getModuleName();
-        } elseif (is_string($moduleName)) {
+        if (is_string($moduleName)) {
             $moduleName = ModuleName::fromString($moduleName);
         }
 
-        if ($actionName === null) {
-            $actionName = $defaultSlug->getActionName();
-        } elseif (is_string($actionName)) {
+        if (is_string($actionName)) {
             $actionName = ActionName::fromString($actionName);
         }
 
