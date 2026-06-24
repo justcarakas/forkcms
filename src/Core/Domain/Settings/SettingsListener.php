@@ -2,7 +2,9 @@
 
 namespace ForkCMS\Core\Domain\Settings;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PreFlushEventArgs;
+use ForkCMS\Core\Domain\Util\Ensure;
 use RuntimeException;
 
 final class SettingsListener
@@ -12,7 +14,7 @@ final class SettingsListener
 
     public function preFlush(PreFlushEventArgs $event): void
     {
-        $entityManager = $event->getObjectManager();
+        $entityManager = Ensure::isInstanceOf($event->getObjectManager(), EntityManagerInterface::class);
         foreach ($entityManager->getUnitOfWork()->getIdentityMap() as $className => $entities) {
             if (array_key_exists($className, self::$cache) && count(self::$cache[$className]) === 0) {
                 continue;
