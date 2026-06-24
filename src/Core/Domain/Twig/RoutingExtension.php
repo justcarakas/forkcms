@@ -10,7 +10,6 @@ use ForkCMS\Modules\Frontend\Domain\Block\BlockRouter;
 use ForkCMS\Modules\Frontend\Domain\Block\ModuleBlock;
 use ForkCMS\Modules\Frontend\Domain\Block\Type;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
-use InvalidArgumentException;
 use Symfony\Bridge\Twig\Extension\RoutingExtension as TwigBridgeRoutingExtension;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -99,10 +98,7 @@ final class RoutingExtension extends AbstractExtension
     private function getActionSlug(string|ModuleName|null $moduleName, string|ActionName|null $actionName): ActionSlug
     {
         if ($moduleName === null || $actionName === null) {
-            $request = $this->requestStack->getMainRequest() ?? throw new InvalidArgumentException(
-                'Module name and action name are required when there is no active request.'
-            );
-            $defaultSlug = ActionSlug::fromRequest($request);
+            $defaultSlug = ActionSlug::fromRequestStack($this->requestStack);
             $moduleName ??= $defaultSlug->getModuleName();
             $actionName ??= $defaultSlug->getActionName();
         }

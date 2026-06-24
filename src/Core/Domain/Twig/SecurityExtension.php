@@ -6,7 +6,6 @@ use ForkCMS\Modules\Backend\Domain\Action\ActionName;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
-use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Twig\Extension\AbstractExtension;
@@ -38,10 +37,7 @@ final class SecurityExtension extends AbstractExtension
     private function getRole(?string $moduleName, ?string $actionName): string
     {
         if ($moduleName === null || $actionName === null) {
-            $request = $this->requestStack->getMainRequest() ?? throw new InvalidArgumentException(
-                'Module name and action name are required when there is no active request.'
-            );
-            $defaultSlug = ActionSlug::fromRequest($request);
+            $defaultSlug = ActionSlug::fromRequestStack($this->requestStack);
             $moduleName ??= $defaultSlug->getModuleName()->getName();
             $actionName ??= $defaultSlug->getActionName()->getName();
         }
