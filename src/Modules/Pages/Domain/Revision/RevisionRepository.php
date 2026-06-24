@@ -73,7 +73,7 @@ final class RevisionRepository extends ServiceEntityRepository implements MetaCa
             ->andWhere($entityAlias . '.locale = :locale')
             ->setParameter('locale', ($subject?->getLocale() ?? $locale)->value);
         if ($subject !== null) {
-            if ($subject->getPage()?->hasId()) {
+            if ($subject->getPage()->hasId()) {
                 $queryBuilder
                     ->andWhere($entityAlias . '.page != :page')
                     ->setParameter('page', $subject->getPage());
