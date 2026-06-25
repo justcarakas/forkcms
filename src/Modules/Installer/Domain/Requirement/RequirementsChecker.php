@@ -402,6 +402,10 @@ final class RequirementsChecker
         // redefine argument
         $path = rtrim((string) $path, '/');
 
+        if (!is_dir($path) && !mkdir($path, 0775, true) && !is_dir($path)) {
+            return false;
+        }
+
         // create random file
         $file = uniqid('', true) . '.tmp';
 
