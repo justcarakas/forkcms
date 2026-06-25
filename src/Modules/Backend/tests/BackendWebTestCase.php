@@ -73,7 +73,7 @@ abstract class BackendWebTestCase extends WebTestCase
 
         $user = $userRespository->findOneBy(['email' => $email]);
         static::assertNotNull($user, 'User with email "' . $email . '" not found.');
-        static::getClient()->loginUser($user, 'backend');
+        Ensure::isInstanceOf(static::getClient(), KernelBrowser::class)->loginUser($user, 'backend');
         if (defined(static::class . '::TEST_URL') === true || $url !== null) {
             static::request(Request::METHOD_GET, $url ?? static::TEST_URL);
         }

@@ -35,7 +35,7 @@ final class InstallableThemeTemplate extends ThemeTemplateDataTransferObject
             foreach ($xmlPositions->position as $xmlPosition) {
                 $blocks = [];
                 foreach ($xmlPosition->block as $xmlBlock) {
-                    $blocks[] = $serialiser->decode(Ensure::isString($xmlBlock->saveXML()), 'xml');
+                    $blocks[] = $serialiser->decode(Ensure::isString(Ensure::isNotNull($xmlBlock)->saveXML()), 'xml');
                 }
                 $positions[] = [
                     'name' => SafeString::fromXML(Ensure::isNotNull(Ensure::isNotNull($xmlPosition)->attributes()?->name)),
