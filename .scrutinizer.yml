@@ -1,6 +1,4 @@
 build:
-    environment:
-        node: v22.14.0
     nodes:
         analysis:
             environment:
