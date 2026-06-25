@@ -16,7 +16,7 @@ class TranslationKey implements TranslatableInterface
     #[ORM\Column(type: Types::STRING, length: 10, enumType: Type::class)]
     private Type $type;
 
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private string $name;
 
     /** @var array<string, string|int|float|Stringable> */

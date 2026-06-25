@@ -84,7 +84,7 @@ class Revision
     #[ORM\Column(type: Types::STRING, enumType: MenuType::class)]
     private MenuType $type;
 
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     #[DataGridPropertyColumn(
         label: 'lbl.Title',
         route: 'backend_action',

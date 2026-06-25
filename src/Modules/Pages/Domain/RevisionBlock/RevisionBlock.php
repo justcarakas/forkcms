@@ -27,7 +27,7 @@ class RevisionBlock
     private Revision $revision;
 
     #[Gedmo\SortableGroup]
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private string $position;
 
     #[ORM\ManyToOne(targetEntity: Block::class, fetch: 'EAGER')]

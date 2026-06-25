@@ -73,10 +73,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private string $email;
 
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private string $password;
 
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     #[DataGridPropertyColumn(sortable: true, filterable: true, label: 'lbl.DisplayName')]
     private string $displayName;
 
@@ -170,11 +170,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->email = Ensure::hasMaxLength(Ensure::isEmail($email), 180);
 
         return $this;
-    }
-
-    public function getUsername(): string
-    {
-        return $this->getUserIdentifier();
     }
 
     public function getUserIdentifier(): string

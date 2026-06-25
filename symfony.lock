@@ -8,9 +8,6 @@
     "codex-team/editor.js": {
         "version": "v2.0.7"
     },
-    "composer/package-versions-deprecated": {
-        "version": "1.11.99.5"
-    },
     "composer/semver": {
         "version": "3.2.7"
     },
@@ -25,16 +22,6 @@
         "files": [
             "config/packages/test/dama_doctrine_test_bundle.yaml"
         ]
-    },
-    "doctrine/annotations": {
-        "version": "1.14",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "1.10",
-            "ref": "64d8583af5ea57b7afa4aba4b159907f3a148b05"
-        },
-        "files": []
     },
     "doctrine/collections": {
         "version": "1.6.8"

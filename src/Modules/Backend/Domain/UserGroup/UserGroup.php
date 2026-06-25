@@ -51,7 +51,7 @@ class UserGroup
     #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    #[ORM\Column(type: Types::STRING, unique: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, unique: true)]
     #[DataGridPropertyColumn(
         sortable: true,
         filterable: true,

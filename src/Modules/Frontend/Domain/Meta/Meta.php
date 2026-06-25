@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
-use Gedmo\Sluggable\Util\Urlizer;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: MetaRepository::class)]
@@ -24,31 +24,31 @@ class Meta implements JsonSerializable
     #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private string $keywords;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     private bool $keywordsOverwrite;
 
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private string $description;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     private bool $descriptionOverwrite;
 
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private string $title;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     private bool $titleOverwrite;
 
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private string $slug;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     private bool $slugOverwrite;
 
-    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $canonicalUrl;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
@@ -124,7 +124,7 @@ class Meta implements JsonSerializable
             false,
             $title,
             false,
-            Urlizer::urlize($title),
+            strtolower((new AsciiSlugger())->slug($title)->toString()),
             false,
             null,
             false,

@@ -43,11 +43,11 @@ class ThemeTemplate implements JsonSerializable, Stringable
     #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     #[DataGridPropertyColumn(label: 'lbl.Name')]
     private string $name;
 
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private string $path;
 
     #[ORM\Column(type: Types::BOOLEAN)]

@@ -21,7 +21,7 @@ class Theme
     use Blameable;
 
     #[ORM\Id]
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private string $name;
 
     #[ORM\Column(type: Types::TEXT)]

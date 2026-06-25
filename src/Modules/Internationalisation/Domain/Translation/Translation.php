@@ -35,7 +35,7 @@ class Translation
     #[ORM\Column(type: Types::TEXT)]
     private string $value;
 
-    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $source;
 
     public function __construct(
