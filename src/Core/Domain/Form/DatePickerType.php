@@ -36,7 +36,6 @@ class DatePickerType extends DateType
     {
         parent::configureOptions($resolver);
         $resolver->setDefault('widget', 'single_text');
-        $resolver->setDefault('html5', false);
         $resolver->setDefault('format', 'dd/MM/yyyy');
         $resolver->setDefault('start', null);
         $resolver->setDefault('end', null);

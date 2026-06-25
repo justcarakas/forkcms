@@ -5,12 +5,6 @@ namespace ForkCMS\Core\Domain\Form\Validator;
 use Attribute;
 use Symfony\Component\Validator\Constraint;
 
-/**
- * Constraint for the Unique Entity validator.
- *
- * @Annotation
- * @Target({"CLASS", "ANNOTATION"})
- */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::IS_REPEATABLE)]
 final class UniqueDataTransferObject extends Constraint
 {

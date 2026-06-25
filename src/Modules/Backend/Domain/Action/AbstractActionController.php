@@ -113,7 +113,7 @@ abstract class AbstractActionController implements ActionControllerInterface
         try {
             return $this->getRepository($entityFQCN)
                 ->find(
-                    $request->get($key)
+                    $request->attributes->get($key)
                     ?? ArrayUtil::flatten($request->query->all())[$key]
                     ?? ArrayUtil::flatten($request->request->all())[$key]
                     ?? throw $notFoundException
