@@ -10,6 +10,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class InstallCommandTest extends KernelTestCase
 {
+    /** @runInSeparateProcess */
     public function testExecute(): void
     {
         $kernel = self::bootKernel(['environment' => 'test_install']);
