@@ -56,9 +56,4 @@ final class SettingsBagDBALType extends JsonType
             ), 0, $e);
         }
     }
-
-    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
-    {
-        return true;
-    }
 }

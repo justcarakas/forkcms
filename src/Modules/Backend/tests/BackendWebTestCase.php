@@ -2,9 +2,11 @@
 
 namespace ForkCMS\Modules\Backend\tests;
 
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Core\tests\WebTestCase;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\User\UserRepository;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\DataCollectorTranslator;
 use Throwable;
