@@ -26,10 +26,12 @@ final class UniqueDataTransferObject extends Constraint
 
     public bool $ignoreNull = true;
 
-    protected static $errorNames = [
+    /** @var array<string, string> */
+    protected static array $errorNames = [
         self::NOT_UNIQUE_ERROR => 'NOT_UNIQUE_ERROR',
     ];
 
+    /** @return string[] */
     public function getRequiredOptions(): array
     {
         return ['fields'];

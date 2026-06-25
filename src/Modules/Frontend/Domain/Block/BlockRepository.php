@@ -12,6 +12,7 @@ use Gedmo\Sortable\Entity\Repository\SortableRepository;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
+ * @extends SortableRepository<Block>
  * @method Block|null find($id, $lockMode = null, $lockVersion = null)
  * @method Block|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Block[] findAll()
@@ -51,12 +52,8 @@ final class BlockRepository extends SortableRepository implements ServiceEntityR
             ->createQueryBuilder('b')
             ->where('b.type = :type')
             ->andWhere('b.hidden = :hidden')
-            ->setParameters(
-                [
-                    'type' => Type::WIDGET,
-                    'hidden' => false,
-                ]
-            )
+            ->setParameter('type', Type::WIDGET)
+            ->setParameter('hidden', false)
             ->getQuery()
             ->getResult();
     }
@@ -70,12 +67,8 @@ final class BlockRepository extends SortableRepository implements ServiceEntityR
             ->createQueryBuilder('b')
             ->where('b.type = :type')
             ->andWhere('b.hidden = :hidden')
-            ->setParameters(
-                [
-                    'type' => Type::ACTION,
-                    'hidden' => false,
-                ]
-            )
+            ->setParameter('type', Type::ACTION)
+            ->setParameter('hidden', false)
             ->getQuery()
             ->getResult();
     }

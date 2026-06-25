@@ -24,7 +24,7 @@ final class TranslationDelete extends AbstractDeleteActionController
             TranslationIndex::getActionSlug(),
             successFlashMessage: FlashMessage::success(
                 'EntityDeleted',
-                ['%entity%' => $this->translator->trans($translation?->getTranslatable())]
+                ['%entity%' => $translation?->getTranslatable()->trans($this->translator) ?? '']
             ),
         );
     }

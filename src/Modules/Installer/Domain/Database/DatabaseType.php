@@ -36,18 +36,14 @@ class DatabaseType extends AbstractType
         $resolver->setDefaults(
             [
                 'constraints' => [
-                    new Callback(
-                        [
-                            'callback' => static function (
-                                DatabaseStepConfiguration $data,
-                                ExecutionContextInterface $context
-                            ): void {
-                                if (!$data->canConnectToDatabase()) {
-                                    $context->addViolation('Problem with database credentials');
-                                }
-                            },
-                        ]
-                    ),
+                    new Callback(static function (
+                        DatabaseStepConfiguration $data,
+                        ExecutionContextInterface $context
+                    ): void {
+                        if (!$data->canConnectToDatabase()) {
+                            $context->addViolation('Problem with database credentials');
+                        }
+                    }),
                 ],
                 'data_class' => DatabaseStepConfiguration::class,
             ]

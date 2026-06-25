@@ -134,20 +134,16 @@ class ModuleSettingsType extends AbstractType
     {
         $resolver->setDefault('data_class', ChangeModuleSettings::class);
         $resolver->setDefault('constraints', [
-            new Callback(
-                [
-                    'callback' => static function (
-                        ChangeModuleSettings $changeModuleSettings,
-                        ExecutionContextInterface $context,
-                    ): void {
-                        try {
-                            $changeModuleSettings->validateDefaults();
-                        } catch (RuntimeException) {
-                            $context->addViolation('err.SomethingWentWrong');
-                        }
-                    },
-                ]
-            ),
+            new Callback(static function (
+                ChangeModuleSettings $changeModuleSettings,
+                ExecutionContextInterface $context,
+            ): void {
+                try {
+                    $changeModuleSettings->validateDefaults();
+                } catch (RuntimeException) {
+                    $context->addViolation('err.SomethingWentWrong');
+                }
+            }),
         ]);
     }
 }
