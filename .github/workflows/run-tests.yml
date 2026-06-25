@@ -87,6 +87,7 @@ jobs:
                   FORK_DATABASE_NAME: forkcms_test
                   FORK_DATABASE_USER: root
                   FORK_DATABASE_PASSWORD: kingtriton
+                  SYMFONY_PHPUNIT_VERSION: 12.3
 
             - name: Execute tests without coverage
               if: ${{ matrix.php != '8.4' }}
@@ -100,6 +101,7 @@ jobs:
                   FORK_DATABASE_NAME: forkcms_test
                   FORK_DATABASE_USER: root
                   FORK_DATABASE_PASSWORD: kingtriton
+                  SYMFONY_PHPUNIT_VERSION: 12.3
 
             - name: Display error logs on failure
               if: ${{ failure() }}
