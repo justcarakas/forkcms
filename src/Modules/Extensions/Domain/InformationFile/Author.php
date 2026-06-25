@@ -2,7 +2,6 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\InformationFile;
 
-use Assert\Assertion;
 use JsonSerializable;
 use SimpleXMLElement;
 
@@ -18,7 +17,7 @@ final class Author implements JsonSerializable
 
         return new self(
             SafeString::fromXML($author->name),
-            Assertion::url($url->string) ? $url : null
+            filter_var($url->string, FILTER_VALIDATE_URL) !== false ? $url : null
         );
     }
 

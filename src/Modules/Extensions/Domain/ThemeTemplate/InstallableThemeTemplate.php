@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate;
 
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Extensions\Domain\InformationFile\SafeString;
 use SimpleXMLElement;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -34,10 +35,10 @@ final class InstallableThemeTemplate extends ThemeTemplateDataTransferObject
             foreach ($xmlPositions->position as $xmlPosition) {
                 $blocks = [];
                 foreach ($xmlPosition->block as $xmlBlock) {
-                    $blocks[] = $serialiser->decode($xmlBlock->saveXML(), 'xml');
+                    $blocks[] = $serialiser->decode(Ensure::isString($xmlBlock->saveXML()), 'xml');
                 }
                 $positions[] = [
-                    'name' => SafeString::fromXML($xmlPosition->attributes()->name),
+                    'name' => SafeString::fromXML(Ensure::isNotNull(Ensure::isNotNull($xmlPosition)->attributes()?->name)),
                     'blocks' => $blocks,
                 ];
             }

@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PrePersistEventArgs;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
 use ForkCMS\Modules\Backend\Domain\User\User;
@@ -158,16 +159,16 @@ class Revision
     public static function fromDataTransferObject(RevisionDataTransferObject $revisionDataTransferObject): self
     {
         return new self(
-            $revisionDataTransferObject->page,
+            Ensure::isNotNull($revisionDataTransferObject->page),
             $revisionDataTransferObject->parentPage,
             $revisionDataTransferObject->type,
-            $revisionDataTransferObject->title,
+            Ensure::isNotNull($revisionDataTransferObject->title),
             $revisionDataTransferObject->isDraft,
-            $revisionDataTransferObject->themeTemplate,
+            Ensure::isNotNull($revisionDataTransferObject->themeTemplate),
             $revisionDataTransferObject->archivedOn,
             $revisionDataTransferObject->blocks,
-            $revisionDataTransferObject->meta,
-            $revisionDataTransferObject->locale,
+            Ensure::isNotNull($revisionDataTransferObject->meta),
+            Ensure::isNotNull($revisionDataTransferObject->locale),
             new SettingsBag($revisionDataTransferObject->settings),
         );
     }

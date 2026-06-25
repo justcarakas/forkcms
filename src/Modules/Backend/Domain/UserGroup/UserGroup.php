@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Doctrine\CollectionHelper;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\ModuleAjaxAction;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
@@ -89,8 +90,8 @@ class UserGroup
 
     public static function fromDataTransferObject(UserGroupDataTransferObject $userDataTransferObject): self
     {
-        $userGroup = $userDataTransferObject->hasEntity()
-            ? $userDataTransferObject->getEntity() : new self($userDataTransferObject->name);
+        $name = Ensure::isNotNull($userDataTransferObject->name);
+        $userGroup = $userDataTransferObject->hasEntity() ? $userDataTransferObject->getEntity() : new self($name);
         $userGroup->name = $userDataTransferObject->name;
         CollectionHelper::updateCollection(
             $userDataTransferObject->users,

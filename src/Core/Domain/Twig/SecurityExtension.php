@@ -36,16 +36,10 @@ final class SecurityExtension extends AbstractExtension
 
     private function getRole(?string $moduleName, ?string $actionName): string
     {
-        $defaultSlug = ActionSlug::fromRequest($this->requestStack->getMainRequest());
-        if ($moduleName === null && $actionName === null) {
-            $defaultSlug->asModuleAction()->asRole();
-        }
-
-        if ($moduleName === null) {
-            $moduleName = $defaultSlug->getModuleName()->getName();
-        }
-        if ($actionName === null) {
-            $actionName = $defaultSlug->getActionName()->getName();
+        if ($moduleName === null || $actionName === null) {
+            $defaultSlug = ActionSlug::fromRequestStack($this->requestStack);
+            $moduleName ??= $defaultSlug->getModuleName()->getName();
+            $actionName ??= $defaultSlug->getActionName()->getName();
         }
 
         return (new ModuleAction(

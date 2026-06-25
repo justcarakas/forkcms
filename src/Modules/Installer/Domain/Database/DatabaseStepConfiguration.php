@@ -2,7 +2,9 @@
 
 namespace ForkCMS\Modules\Installer\Domain\Database;
 
+use Assert\AssertionFailedException;
 use ForkCMS\Core\Domain\PDO\ForkConnection;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Modules\Installer\Domain\Installer\InstallerStep;
 use ForkCMS\Modules\Installer\Domain\Installer\InstallerStepConfiguration;
@@ -94,14 +96,18 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
 
     public function canConnectToDatabase(): bool
     {
-        return ForkConnection::testConnection(
-            'mysql',
-            $this->databaseHostname,
-            $this->databasePort,
-            $this->databaseName,
-            $this->databaseUsername,
-            $this->databasePassword
-        );
+        try {
+            return ForkConnection::testConnection(
+                'mysql',
+                Ensure::isNotNull($this->databaseHostname),
+                Ensure::isNotNull($this->databasePort),
+                Ensure::isNotNull($this->databaseName),
+                Ensure::isNotNull($this->databaseUsername),
+                Ensure::isNotNull($this->databasePassword)
+            );
+        } catch (AssertionFailedException $e) {
+            return false;
+        }
     }
 
     public static function getStep(): InstallerStep

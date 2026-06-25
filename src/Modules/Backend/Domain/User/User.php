@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Backend\Domain\User;
 
-use Assert\Assertion;
+use ForkCMS\Core\Domain\Util\Ensure;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -105,7 +105,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         ?SettingsBag $settings = null
     ) {
         $this->setEmail($email);
-        $this->plainTextPassword = trim($this->plainTextPassword);
+        if ($this->plainTextPassword !== null) {
+            $this->plainTextPassword = trim($this->plainTextPassword);
+        }
         $this->password = '';
         $this->displayName = $displayName;
         $this->accessToBackend = $accessToBackend;
@@ -121,7 +123,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $user->setEmail($userDataTransferObject->email ?? throw new InvalidArgumentException('Email is required'));
             $user->accessToBackend = $userDataTransferObject->accessToBackend;
             $user->superAdmin = $userDataTransferObject->superAdmin;
-            $user->plainTextPassword = trim($userDataTransferObject->plainTextPassword);
+            $user->plainTextPassword = $userDataTransferObject->plainTextPassword;
+            if ($user->plainTextPassword !== null) {
+                $user->plainTextPassword = trim($user->plainTextPassword);
+            }
             CollectionHelper::updateCollection(
                 $userDataTransferObject->userGroups,
                 $user->userGroups,
@@ -162,9 +167,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setEmail(string $email): self
     {
-        Assertion::email($email);
-        Assertion::maxLength($email, 180);
-        $this->email = $email;
+        $this->email = Ensure::hasMaxLength(Ensure::isEmail($email), 180);
 
         return $this;
     }

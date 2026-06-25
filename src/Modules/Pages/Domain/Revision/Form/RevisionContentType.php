@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Pages\Domain\Revision\Form;
 
 use ForkCMS\Core\Domain\Form\CollectionType;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplateRepository;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
@@ -53,7 +54,7 @@ final class RevisionContentType extends AbstractType
                 }
                 $this->buildrevisionBlockForm(
                     $event->getForm(),
-                    $this->templateTemplateRepository->find($event->getData()['themeTemplate']),
+                    Ensure::isNotNull($this->templateTemplateRepository->find($event->getData()['themeTemplate'])),
                     $options['load_default_blocks']
                 );
                 $event->setData($data);

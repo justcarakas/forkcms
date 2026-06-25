@@ -3,12 +3,12 @@
 namespace ForkCMS\Modules\BlockEditor\Domain\Editor;
 
 use ForkCMS\Core\Domain\Application\Application;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Core\Domain\Form\Editor\EditorTypeImplementationInterface;
 use ForkCMS\Core\Domain\Header\Asset\Asset;
 use ForkCMS\Core\Domain\Header\Header;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
-use RuntimeException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormInterface;
@@ -54,10 +54,11 @@ final class BlockEditorType extends AbstractType implements EditorTypeImplementa
 
     public function finishView(FormView $view, FormInterface $form, array $options): void
     {
-        $blockEditorConfig = $options['blockEditorConfig'] ?? $this->blockEditorConfig;
-        if (!$blockEditorConfig instanceof BlockEditorConfig) {
-            throw new RuntimeException('Invalid block editor config');
-        }
+        $blockEditorConfig = Ensure::isInstanceOf(
+            $options['blockEditorConfig'] ?? $this->blockEditorConfig,
+            BlockEditorConfig::class,
+            'Invalid block editor config'
+        );
 
         $view->vars['attr']['data-fork-block-editor-config'] = json_encode(
             $blockEditorConfig->getConfig(),

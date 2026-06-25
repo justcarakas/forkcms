@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
-use Assert\Assertion;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
 use ForkCMS\Modules\Backend\Backend\Actions\NotFound;
@@ -13,6 +13,7 @@ use InvalidArgumentException;
 use Stringable;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Throwable;
 
@@ -23,7 +24,7 @@ final class ActionSlug implements Stringable
 
     public function __construct(private ModuleName $moduleName, private ActionName $actionName)
     {
-        Assertion::classExists($this->getFQCN(), 'Action class does not exist');
+        Ensure::isExistingClass($this->getFQCN(), 'Action class does not exist');
     }
 
     public static function fromSlug(string $slug): self
@@ -59,6 +60,15 @@ final class ActionSlug implements Stringable
         }
 
         return new self(ModuleName::fromString($matches[1]), ActionName::fromString($matches[2]));
+    }
+
+    public static function fromRequestStack(RequestStack $requestStack): self
+    {
+        $request = $requestStack->getMainRequest() ?? throw new InvalidArgumentException(
+            'No active request found in the request stack.'
+        );
+
+        return self::fromRequest($request);
     }
 
     public static function fromRequest(Request $request): self

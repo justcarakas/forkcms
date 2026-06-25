@@ -2,8 +2,8 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Importer;
 
-use Assert\Assertion;
 use ForkCMS\Core\Domain\Application\Application;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleRepository;
@@ -13,6 +13,7 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\Event\TranslationCha
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Event\TranslationCreatedEvent;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Translation;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
+use InvalidArgumentException;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -44,9 +45,12 @@ final class Importer
             $translationFile = new File($translationFile);
         }
 
-        /** @var ImporterInterface $importer */
-        $importer = $this->importers->get($translationFile->guessExtension());
-        Assertion::implementsInterface($importer, ImporterInterface::class);
+        $importer = Ensure::isImplementingInterface(
+            $this->importers->get(
+                Ensure::isNotNull($translationFile->guessExtension(), 'Filename extension not found')
+            ),
+            ImporterInterface::class
+        );
 
         $importResult = new ImportResult();
         $locales = $this->installedLocaleRepository->findAllIndexed();

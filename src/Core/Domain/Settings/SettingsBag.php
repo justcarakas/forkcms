@@ -135,11 +135,7 @@ final class SettingsBag implements JsonSerializable
         if (array_key_exists($name, $this->settings)) {
             $this->hasChanges = true;
             unset($this->settings[$name]);
-
-            return;
         }
-
-        $this->nameNotFound($name);
     }
 
     /** @return array<string, mixed> */

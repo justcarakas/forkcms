@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate;
 
-use Assert\Assertion;
+use ForkCMS\Core\Domain\Util\Ensure;
 use Assert\AssertionFailedException;
 use ForkCMS\Core\Domain\Form\Validator\UniqueDataTransferObject;
 use ForkCMS\Core\Domain\Form\Validator\UniqueDataTransferObjectInterface;
@@ -107,16 +107,15 @@ abstract class ThemeTemplateDataTransferObject implements UniqueDataTransferObje
         }
         foreach ($positionNames as $index => $position) {
             try {
-                Assertion::regex($position, '/^[a-z0-9]+$/i');
+                if (!in_array(Ensure::isMatchingRegex($position, '/^[a-z0-9]+$/i'), $layoutPositions, true)) {
+                    $context->buildViolation(TranslationKey::error('NonExistingPositionName'), ['%1$s' => $position])
+                        ->atPath('positions')
+                        ->atPath(sprintf('[%s]', $index))
+                        ->atPath('[name]')
+                        ->addViolation();
+                }
             } catch (AssertionFailedException) {
                 $context->buildViolation(TranslationKey::error('NoAlphaNumPositionName'), ['%1$s' => $position])
-                    ->atPath('positions')
-                    ->atPath(sprintf('[%s]', $index))
-                    ->atPath('[name]')
-                    ->addViolation();
-            }
-            if (!in_array($position, $layoutPositions, true)) {
-                $context->buildViolation(TranslationKey::error('NonExistingPositionName'), ['%1$s' => $position])
                     ->atPath('positions')
                     ->atPath(sprintf('[%s]', $index))
                     ->atPath('[name]')

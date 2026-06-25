@@ -31,10 +31,10 @@ class Theme
     private bool $active;
 
     /** @var Collection<int|string,ThemeTemplate> */
-    #[ORM\OneToMany(mappedBy: 'theme', targetEntity: ThemeTemplate::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: ThemeTemplate::class, mappedBy: 'theme', cascade: ['persist', 'remove'])]
     private Collection $templates;
 
-    #[ORM\OneToOne(inversedBy: 'defaultForTheme', targetEntity: ThemeTemplate::class)]
+    #[ORM\OneToOne(targetEntity: ThemeTemplate::class, inversedBy: 'defaultForTheme')]
     private ?ThemeTemplate $defaultTemplate;
 
     private function __construct()

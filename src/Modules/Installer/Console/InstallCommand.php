@@ -2,8 +2,8 @@
 
 namespace ForkCMS\Modules\Installer\Console;
 
-use Assert\Assertion;
 use Assert\AssertionFailedException;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Core\Domain\Kernel\Kernel;
 use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
 use ForkCMS\Modules\Installer\Domain\Authentication\AuthenticationStepConfiguration;
@@ -11,7 +11,6 @@ use ForkCMS\Modules\Installer\Domain\Configuration\ConfigurationParser;
 use ForkCMS\Modules\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Modules\Installer\Domain\Installer\InstallerStep;
 use ForkCMS\Modules\Installer\Domain\Installer\InstallForkCMS;
-use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -66,10 +65,11 @@ class InstallCommand extends Command
         $_SERVER['HTTPS'] = 'on';
         try {
             // We can't get this via DI because it only works after the kernel reboot
-            $messengerBus = $this->kernel->getContainer()->get('messenger.default_bus');
-            if (!$messengerBus instanceof MessageBusInterface) {
-                throw new RuntimeException('The messenger bus is missing');
-            }
+            $messengerBus = Ensure::isInstanceOf(
+                $this->kernel->getContainer()->get('messenger.default_bus'),
+                MessageBusInterface::class,
+                'The messenger bus is missing'
+            );
             $messengerBus->dispatch(new InstallForkCMS($installerConfiguration));
         } catch (Throwable $throwable) {
             if ($output->isVerbose()) {
@@ -126,18 +126,16 @@ class InstallCommand extends Command
         $adminPassword = $this->input->getOption('password');
 
         if ($adminEmail !== null && $adminPassword !== null) {
+            $authenticationStepConfiguration = AuthenticationStepConfiguration::fromInstallerConfiguration(
+                $installerConfiguration
+            );
             try {
-                Assertion::email($adminEmail);
+                $authenticationStepConfiguration->email = Ensure::isEmail($adminEmail);
             } catch (AssertionFailedException) {
                 $this->formatter->error('Please provide a valid email address.');
 
                 return null;
             }
-
-            $authenticationStepConfiguration = AuthenticationStepConfiguration::fromInstallerConfiguration(
-                $installerConfiguration
-            );
-            $authenticationStepConfiguration->email = $adminEmail;
             $authenticationStepConfiguration->password = $adminPassword;
             $installerConfiguration->withAuthenticationStep($authenticationStepConfiguration);
         }

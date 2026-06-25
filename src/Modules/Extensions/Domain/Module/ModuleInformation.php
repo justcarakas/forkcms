@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Extensions\Domain\InformationFile\Author;
 use ForkCMS\Modules\Extensions\Domain\InformationFile\Messages;
@@ -76,21 +77,31 @@ final class ModuleInformation
 
     public static function fromXML(string $xmlFilePath): self
     {
+        $invalidXML = new self(
+            ModuleName::fromString(basename(dirname($xmlFilePath))),
+            '?.?.?',
+            '',
+            [],
+            [],
+            new Messages([TranslationKey::error('InvalidXML')])
+        );
+
         try {
+            $xmlContents = file_get_contents($xmlFilePath);
+            if ($xmlContents === false) {
+                return $invalidXML;
+            }
+
             $moduleConfig = simplexml_load_string(
-                file_get_contents($xmlFilePath),
+                $xmlContents,
                 'SimpleXMLElement',
                 LIBXML_NOCDATA | LIBXML_NOERROR | LIBXML_NOWARNING
             );
+            if ($moduleConfig === false) {
+                return $invalidXML;
+            }
         } catch (Throwable) {
-            return new self(
-                ModuleName::fromString(basename(dirname($xmlFilePath))),
-                '?.?.?',
-                '',
-                [],
-                [],
-                new Messages([TranslationKey::error('InvalidXML')])
-            );
+            return $invalidXML;
         }
         $messages = new Messages();
         Requirements::fromXML($moduleConfig->requirements, $messages);
@@ -107,7 +118,7 @@ final class ModuleInformation
 
         $authors = [];
         foreach ($moduleConfig->authors->author as $authorConfig) {
-            $authors[] = Author::fromXML($authorConfig);
+            $authors[] = Author::fromXML(Ensure::isNotNull($authorConfig));
         }
 
         $events = [];

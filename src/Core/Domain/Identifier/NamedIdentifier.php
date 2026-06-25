@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Core\Domain\Identifier;
 
-use Assert\Assertion;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 
 trait NamedIdentifier
@@ -14,9 +14,11 @@ trait NamedIdentifier
 
     private function __construct(string $name)
     {
-        Assertion::regex($name, '/^[A-Z][A-Za-z0-9]*$/', 'Invalid name: ' . $name);
-
-        $this->name = $name;
+        $this->name = Ensure::isMatchingRegex(
+            $name,
+            '/^[A-Z][A-Za-z0-9]*$/',
+            'Invalid name: ' . $name
+        );
     }
 
     final public function getName(): string

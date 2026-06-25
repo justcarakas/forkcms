@@ -165,7 +165,7 @@ final class Navigation
      */
     private function getSelectedKey(array $navigation): ?int
     {
-        $activeUrl = ActionSlug::fromRequest($this->requestStack->getMainRequest())->getSlug();
+        $activeUrl = ActionSlug::fromRequestStack($this->requestStack)->getSlug();
         foreach ($navigation as $key => $navigationItem) {
             if ($this->navigationItemMatchesActiveUrl($navigationItem, $activeUrl)) {
                 return $key;

@@ -2,7 +2,7 @@
 
 namespace ForkCMS\Modules\Backend\Domain\AjaxAction;
 
-use Assert\Assertion;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Backend\Backend\Ajax\NotFound;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
@@ -19,7 +19,7 @@ final class AjaxActionSlug implements Stringable
 {
     public function __construct(private ModuleName $moduleName, private AjaxActionName $actionName)
     {
-        Assertion::classExists($this->getFQCN(), 'Ajax action class does not exist');
+        Ensure::isExistingClass($this->getFQCN(), 'Ajax action class does not exist');
     }
 
     public static function fromSlug(string $slug): self

@@ -363,7 +363,7 @@ abstract class ModuleInstaller
         $domain = new TranslationDomain(Application::INSTALLER, $module);
 
         $translation = self::$installerTranslations[$locale->value][$domain->getDomain()][$id] ?? null;
-        if ($translation) {
+        if ($translation !== null) {
             return strtr($translation, $parameters);
         }
 
