@@ -12,6 +12,4 @@ interface ImporterInterface
 {
     /** @return Generator<Translation> */
     public function getTranslations(File $translationFile): Generator;
-
-    public static function forExtension(): string;
 }

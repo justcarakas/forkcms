@@ -27,7 +27,7 @@ final class Importer
 {
     /** @param ServiceLocator<ImporterInterface> $importers */
     public function __construct(
-        #[AutowireLocator('forkcms.translation.importer', defaultIndexMethod: 'forExtension')]
+        #[AutowireLocator('forkcms.translation.importer')]
         private readonly ServiceLocator $importers,
         #[Autowire(param: 'kernel.cache_dir')]
         private readonly string $cacheDir,

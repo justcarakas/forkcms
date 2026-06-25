@@ -10,6 +10,7 @@ use ForkCMS\Modules\BlockEditor\Domain\Blocks\ParagraphBlock;
 use JsonException;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
+use Symfony\Component\DependencyInjection\Attribute\Target;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class BlockEditorConfig
@@ -27,6 +28,7 @@ final class BlockEditorConfig
         #[AutowireLocator('fork.block_editor.block')]
         public readonly ServiceLocator $editorBlocks,
         private readonly bool $isDebug,
+        #[Target('cache.block_editor')]
         private readonly CacheItemPoolInterface $cacheBlockEditor
     ) {
         $this->javascripts = new AssetCollection();

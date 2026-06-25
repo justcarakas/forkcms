@@ -67,9 +67,6 @@
     </php>
     <extensions>
         <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension" />
+        <extension class="Symfony\Bridge\PhpUnit\SymfonyExtension" />
     </extensions>
-
-    <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
-    </listeners>
 </phpunit>

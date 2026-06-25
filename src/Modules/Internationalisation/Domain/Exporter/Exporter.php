@@ -11,7 +11,7 @@ final class Exporter
 {
     /** @param ServiceLocator<ExporterInterface> $exporters */
     public function __construct(
-        #[AutowireLocator('forkcms.translation.exporter', defaultIndexMethod: 'forExtension')]
+        #[AutowireLocator('forkcms.translation.exporter')]
         private readonly ServiceLocator $exporters
     ) {
     }

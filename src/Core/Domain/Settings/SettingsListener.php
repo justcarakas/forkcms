@@ -23,10 +23,10 @@ final class SettingsListener
             $metaData = $entityManager->getClassMetadata($className);
             self::$cache[$className] = [];
             foreach ($metaData->fieldMappings as $field) {
-                if ($field['type'] !== 'core__settings__settings_bag') {
+                if ($field->type !== 'core__settings__settings_bag') {
                     continue;
                 }
-                self::$cache[$className][] = $field['fieldName'];
+                self::$cache[$className][] = $field->fieldName;
             }
 
             if (count(self::$cache[$className]) === 0) {

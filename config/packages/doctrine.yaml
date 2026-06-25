@@ -18,7 +18,6 @@ doctrine:
           charset: utf8mb4
           collate: utf8mb4_unicode_ci
   orm:
-    enable_native_lazy_objects: true
     entity_managers:
       default:
         validate_xml_mapping: true
