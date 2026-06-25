@@ -5,6 +5,7 @@ namespace ForkCMS\Core\Domain\Router;
 use RuntimeException;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
+use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 use Symfony\Component\Routing\RouteCollection;
 
 final class ModuleRouteLoader implements LoaderInterface
@@ -13,8 +14,10 @@ final class ModuleRouteLoader implements LoaderInterface
     private LoaderResolverInterface $resolver;
 
     /** @param iterable<ModuleRouteProviderInterface> $moduleLoaders */
-    public function __construct(private iterable $moduleLoaders)
-    {
+    public function __construct(
+        #[AutowireIterator('forkcms.routing.loader')]
+        private iterable $moduleLoaders
+    ) {
     }
 
     public function load(mixed $resource, ?string $type = null): RouteCollection

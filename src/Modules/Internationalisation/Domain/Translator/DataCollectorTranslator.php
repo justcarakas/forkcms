@@ -2,111 +2,51 @@
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Translator;
 
-use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
-use Symfony\Component\Translation\DataCollectorTranslator as SymfonyDataCollectorTranslator;
+use Symfony\Component\Translation\MessageCatalogueInterface;
 use Symfony\Component\Translation\TranslatorBagInterface;
+use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class DataCollectorTranslator extends SymfonyDataCollectorTranslator
+final class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInterface, LocaleAwareInterface
 {
-    /** @var array<int, mixed> */
-    private array $messages = [];
-
-    private bool $isCollecting = true;
-
-    public function __construct(private TranslatorInterface $translator)
-    {
-        parent::__construct($this->translator);
+    public function __construct(
+        private readonly TranslatorInterface&TranslatorBagInterface $inner,
+        private readonly ForkTranslator $forkTranslator,
+    ) {
     }
 
     public function getDefaultTranslationDomain(): TranslationDomain
     {
-        return Ensure::isInstanceOf($this->translator, ForkTranslator::class, 'Only works with the ForkTranslator.')
-            ->getDefaultTranslationDomain();
+        return $this->forkTranslator->getDefaultTranslationDomain();
     }
 
     /** @param array<string, mixed> $parameters */
     public function trans(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
     {
-        $trans = $this->translator->trans($id = (string) $id, $parameters, $domain, $locale);
-
-        if ($this->translator instanceof ForkTranslator) {
-            $domain = $this->translator->getLastUsedDomain();
-        }
-
-        if ($this->isCollecting) {
-            $this->collectMessage($locale, $domain, $id, $trans, $parameters);
-        }
-
-        return $trans;
+        return $this->inner->trans((string) $id, $parameters, $domain, $locale);
     }
 
-    public function disableCollecting(): void
+    public function getLocale(): string
     {
-        $this->isCollecting = false;
+        return $this->inner->getLocale();
     }
 
-    public function enableCollecting(): void
+    public function setLocale(string $locale): void
     {
-        $this->isCollecting = true;
+        if ($this->inner instanceof LocaleAwareInterface) {
+            $this->inner->setLocale($locale);
+        }
     }
 
-    /**
-     * @return array<int, mixed>
-     */
-    public function getCollectedMessages(): array
+    public function getCatalogue(?string $locale = null): MessageCatalogueInterface
     {
-        return $this->messages;
+        return $this->inner->getCatalogue($locale);
     }
 
-    /** @param array<string, mixed>|null $parameters */
-    private function collectMessage(
-        ?string $locale,
-        ?string $domain,
-        string $id,
-        string $translation,
-        ?array $parameters = []
-    ): void {
-        if ($domain === null) {
-            $domain = 'messages';
-        }
-
-        $catalogue = Ensure::isImplementingInterface(
-            $this->translator,
-            TranslatorBagInterface::class,
-            'Cannot get a catalog out of the translator'
-        )->getCatalogue($locale);
-        $locale = $catalogue->getLocale();
-        $fallbackLocale = null;
-        if ($catalogue->defines($id, $domain)) {
-            $state = self::MESSAGE_DEFINED;
-        } elseif ($catalogue->has($id, $domain)) {
-            $state = self::MESSAGE_EQUALS_FALLBACK;
-
-            $fallbackCatalogue = $catalogue->getFallbackCatalogue();
-            while ($fallbackCatalogue) {
-                if ($fallbackCatalogue->defines($id, $domain)) {
-                    $fallbackLocale = $fallbackCatalogue->getLocale();
-                    break;
-                }
-                $fallbackCatalogue = $fallbackCatalogue->getFallbackCatalogue();
-            }
-        } else {
-            $state = self::MESSAGE_MISSING;
-        }
-
-        $this->messages[] = [
-            'locale' => $locale,
-            'fallbackLocale' => $fallbackLocale,
-            'domain' => $domain,
-            'id' => $id,
-            'translation' => $translation,
-            'parameters' => $parameters,
-            'state' => $state,
-            'transChoiceNumber' => isset($parameters['%count%']) && is_numeric(
-                $parameters['%count%']
-            ) ? $parameters['%count%'] : null,
-        ];
+    /** @return MessageCatalogueInterface[] */
+    public function getCatalogues(): array
+    {
+        return $this->inner->getCatalogues();
     }
 }

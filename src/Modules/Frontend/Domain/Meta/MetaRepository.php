@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use RuntimeException;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
 /**
@@ -18,8 +19,11 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 final class MetaRepository extends ServiceEntityRepository
 {
     /** @param ServiceLocator<MetaCallbackService> $metaCallbacks */
-    public function __construct(ManagerRegistry $registry, private readonly ServiceLocator $metaCallbacks)
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        #[AutowireLocator('forkcms.frontend.meta.callback')]
+        private readonly ServiceLocator $metaCallbacks
+    ) {
         parent::__construct($registry, Meta::class);
     }
 

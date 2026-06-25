@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Backend\Domain\User;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /** @extends Voter<string, mixed> */
@@ -16,13 +17,22 @@ final class SuperAdminVoter extends Voter
                || str_starts_with($attribute, 'ROLE_MODULE__');
     }
 
-    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         $user = $token->getUser();
         if (!$user instanceof User) {
+            $vote?->addReason('The user is not logged in.');
+            return false;
+        }
+        if (!$user->hasAccessToBackend()) {
+            $vote?->addReason('The user does not have access to the backend.');
+            return false;
+        }
+        if (!$user->isSuperAdmin()) {
+            $vote?->addReason('The user is not a super administrator.');
             return false;
         }
 
-        return $user->isSuperAdmin() && $user->hasAccessToBackend();
+        return true;
     }
 }

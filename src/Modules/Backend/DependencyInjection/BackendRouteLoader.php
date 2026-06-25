@@ -3,13 +3,16 @@
 namespace ForkCMS\Modules\Backend\DependencyInjection;
 
 use ForkCMS\Core\Domain\Router\ModuleRouteProviderInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Routing\RouteCollection;
 
 final class BackendRouteLoader implements ModuleRouteProviderInterface
 {
-    public function __construct(private readonly YamlFileLoader $yamlFileLoader)
-    {
+    public function __construct(
+        #[Autowire(service: 'routing.loader.yml')]
+        private readonly YamlFileLoader $yamlFileLoader
+    ) {
     }
 
     public function getRouteCollection(): RouteCollection

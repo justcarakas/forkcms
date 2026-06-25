@@ -16,6 +16,7 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocale;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -32,6 +33,7 @@ final class ModuleSettingsType extends AbstractType
     public function __construct(
         private readonly InstalledLocaleRepository $installedLocaleRepository,
         private readonly ModuleSettings $moduleSettings,
+        #[AutowireLocator('forkcms.editor')]
         private readonly ServiceLocator $editorTypeImplementations,
         #[Autowire(env: 'bool:SITE_DEFAULT_CONSENT_DIALOG_ENABLED')]
         private readonly bool $defaultConsentDialogEnabled,

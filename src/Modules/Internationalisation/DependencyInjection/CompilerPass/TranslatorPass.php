@@ -9,11 +9,9 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
 use ForkCMS\Modules\Internationalisation\Domain\Translator\DataCollectorTranslator;
 use ForkCMS\Modules\Internationalisation\Domain\Translator\ForkTranslator;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 final class TranslatorPass implements CompilerPassInterface
 {
@@ -22,10 +20,6 @@ final class TranslatorPass implements CompilerPassInterface
         $domains = $this->getDatabaseDomains(InstalledModules::fromContainer($container));
         $locales = $this->getDatabaseLocales($container);
         $defaultLocale = array_search(true, $locales);
-        $translator = $container->getDefinition('translator.default');
-        $translator->setClass(ForkTranslator::class);
-        $translator->addArgument(new Reference(Security::class));
-        $translator->addArgument(new Reference(RequestStack::class));
         $container->prependExtensionConfig(
             'framework',
             [
@@ -36,6 +30,7 @@ final class TranslatorPass implements CompilerPassInterface
         $container->setParameter('kernel.default_locale', $defaultLocale);
         $container->setParameter('kernel.enabled_locales', array_keys($locales));
 
+        $translator = $container->getDefinition('translator.default');
         foreach ($domains as $domain) {
             foreach ($locales as $locale => $isDefault) {
                 $translator->addMethodCall(
@@ -50,9 +45,15 @@ final class TranslatorPass implements CompilerPassInterface
             }
         }
 
-        if ($container->hasDefinition('translator.data_collector')) {
-            $container->getDefinition('translator.data_collector')->setClass(DataCollectorTranslator::class);
-        }
+        $container->register(ForkTranslator::class, ForkTranslator::class)
+            ->setAutowired(true)
+            ->setDecoratedService('translator.default')
+            ->setArgument('$inner', new Reference(ForkTranslator::class . '.inner'));
+
+        $container->register(DataCollectorTranslator::class, DataCollectorTranslator::class)
+            ->setAutowired(true)
+            ->setDecoratedService('translator')
+            ->setArgument('$inner', new Reference(DataCollectorTranslator::class . '.inner'));
     }
 
     /** @return array<string, TranslationDomain> */

@@ -7,6 +7,7 @@ use ForkCMS\Modules\Backend\Domain\Action\ActionServices;
 use ForkCMS\Modules\Backend\Domain\Dashboard\Widget;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use ForkCMS\Modules\Backend\Domain\Widget\WidgetControllerInterface;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -18,6 +19,7 @@ final class Dashboard extends AbstractActionController
     /** @param ServiceLocator<WidgetControllerInterface> $backendDashboardWidgets */
     public function __construct(
         ActionServices $actionServices,
+        #[AutowireLocator('forkcms.backend.widget')]
         private readonly ServiceLocator $backendDashboardWidgets,
     ) {
         parent::__construct($actionServices);

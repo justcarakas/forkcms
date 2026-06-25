@@ -17,7 +17,6 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Frontend\Domain\Meta\Meta;
 use ForkCMS\Modules\Frontend\Domain\Privacy\ConsentDialog;
 use ForkCMS\Modules\Internationalisation\Domain\Translator\DataCollectorTranslator;
-use ForkCMS\Modules\Internationalisation\Domain\Translator\ForkTranslator;
 use InvalidArgumentException;
 use LogicException;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -84,7 +83,7 @@ final class Header
         if ($user instanceof User) {
             $defaults['locale'] = $user->getSetting('locale', $defaults['locale']);
         }
-        if ($translator instanceof ForkTranslator || $translator instanceof DataCollectorTranslator) {
+        if ($translator instanceof DataCollectorTranslator) {
             $translationDomain = $translator->getDefaultTranslationDomain();
             $defaults['default_translation_domain'] = $translationDomain->getDomain();
             $fallbackDomain = $translationDomain->getFallback()?->getDomain();

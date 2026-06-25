@@ -5,6 +5,7 @@ namespace ForkCMS\Core\Domain\Form;
 use ForkCMS\Core\Domain\Form\Editor\EditorTypeImplementationInterface;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -20,6 +21,7 @@ class EditorType extends AbstractType
     /** @param ServiceLocator<EditorTypeImplementationInterface> $editorTypeImplementations */
     public function __construct(
         private readonly ModuleSettings $moduleSettings,
+        #[AutowireLocator('forkcms.editor')]
         private readonly ServiceLocator $editorTypeImplementations,
     ) {
     }

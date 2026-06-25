@@ -19,6 +19,7 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\Permission\PermissionType;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use ForkCMS\Modules\Backend\Domain\Widget\WidgetControllerInterface;
 use ReflectionClass;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -34,8 +35,11 @@ final class UserGroupType extends AbstractType
      * @param ServiceLocator<WidgetControllerInterface> $backendDashboardWidgets
      */
     public function __construct(
+        #[AutowireLocator('forkcms.backend.action')]
         private readonly ServiceLocator $backendActions,
+        #[AutowireLocator('forkcms.backend.ajax_action')]
         private readonly ServiceLocator $backendAjaxActions,
+        #[AutowireLocator('forkcms.backend.widget')]
         private readonly ServiceLocator $backendDashboardWidgets,
         private readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {

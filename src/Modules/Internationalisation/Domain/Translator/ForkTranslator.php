@@ -10,40 +10,27 @@ use ForkCMS\Modules\Backend\Domain\AjaxAction\AjaxActionSlug;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
 use InvalidArgumentException;
-use Psr\Container\ContainerInterface;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
+use Symfony\Component\Translation\MessageCatalogueInterface;
+use Symfony\Component\Translation\TranslatorBagInterface;
+use Symfony\Contracts\Translation\LocaleAwareInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use ValueError;
 
 /** This class will make sure that the domain is set correctly */
-final class ForkTranslator extends Translator
+final class ForkTranslator implements TranslatorInterface, TranslatorBagInterface, LocaleAwareInterface
 {
     private ?TranslationDomain $defaultTranslationDomain = null;
 
-    /** @var string|null used for debug reasons */
-    private ?string $lastUsedDomain;
-
     private ?string $fallbackLocale = null;
 
-    /**
-     * @param array<string, array<int, string>>$loaderIds
-     * @param array<string, mixed>$options
-     * @param string[] $enabledLocales
-     */
     public function __construct(
-        ContainerInterface $container,
-        MessageFormatterInterface $formatter,
-        string $defaultLocale,
-        array $loaderIds = [],
-        array $options = [],
-        array $enabledLocales = [],
+        private readonly TranslatorInterface&TranslatorBagInterface $inner,
         private readonly ?Security $security = null,
         private readonly ?RequestStack $requestStack = null,
     ) {
-        parent::__construct($container, $formatter, $defaultLocale, $loaderIds, $options, $enabledLocales);
     }
 
     /** @param array<string, mixed> $parameters */
@@ -58,10 +45,10 @@ final class ForkTranslator extends Translator
             $user = $this->security?->getUser();
             $this->fallbackLocale = ($user instanceof User ? $user->getSetting('locale') : null) ?? $this->getLocale();
         }
-        $locale = $locale ?? $this->fallbackLocale;
+        $locale ??= $this->fallbackLocale;
 
         if (!$this->requestStack instanceof RequestStack) {
-            return $this->getTranslationAndStoreDomain($id, $parameters, $domain, $locale);
+            return $this->innerTrans($id, $parameters, $domain, $locale);
         }
 
         if ($this->defaultTranslationDomain === null) {
@@ -70,7 +57,7 @@ final class ForkTranslator extends Translator
 
         $domain ??= $this->defaultTranslationDomain->getDomain();
 
-        $translated = $this->getTranslationAndStoreDomain($id, $parameters, $domain, $locale);
+        $translated = $this->innerTrans($id, $parameters, $domain, $locale);
 
         if ($translated !== $id) {
             return $translated;
@@ -79,9 +66,8 @@ final class ForkTranslator extends Translator
         try {
             $fallbackDomain = TranslationDomain::fromDomain($domain)->getFallback();
         } catch (ValueError | InvalidArgumentException | BadMethodCallException) {
-            // Not a fork translation domain or no fallback available
             if ($isValidator) {
-                return $this->getTranslationAndStoreDomain($id, $parameters, 'validator', $locale);
+                return $this->innerTrans($id, $parameters, 'validator', $locale);
             }
 
             return $translated;
@@ -89,22 +75,19 @@ final class ForkTranslator extends Translator
 
         if ($fallbackDomain === null) {
             if ($isValidator) {
-                return $this->getTranslationAndStoreDomain($id, $parameters, 'validator', $locale);
+                return $this->innerTrans($id, $parameters, 'validator', $locale);
             }
 
             return $translated;
         }
 
-        $domain = $fallbackDomain->getDomain();
-
-        // use the fallback of the application
-        $translated = $this->getTranslationAndStoreDomain($id, $parameters, $domain, $locale, false);
+        $translated = $this->innerTrans($id, $parameters, $fallbackDomain->getDomain(), $locale);
 
         if ($translated !== $id || !$isValidator) {
             return $translated;
         }
 
-        return $this->getTranslationAndStoreDomain($id, $parameters, 'validator', $locale);
+        return $this->innerTrans($id, $parameters, 'validator', $locale);
     }
 
     public function setDefaultTranslationDomain(TranslationDomain $defaultTranslationDomain): void
@@ -121,26 +104,33 @@ final class ForkTranslator extends Translator
         return $this->defaultTranslationDomain;
     }
 
-    public function getLastUsedDomain(): ?string
+    public function getLocale(): string
     {
-        return $this->lastUsedDomain;
+        return $this->inner->getLocale();
+    }
+
+    public function setLocale(string $locale): void
+    {
+        if ($this->inner instanceof LocaleAwareInterface) {
+            $this->inner->setLocale($locale);
+        }
+    }
+
+    public function getCatalogue(?string $locale = null): MessageCatalogueInterface
+    {
+        return $this->inner->getCatalogue($locale);
+    }
+
+    /** @return MessageCatalogueInterface[] */
+    public function getCatalogues(): array
+    {
+        return $this->inner->getCatalogues();
     }
 
     /** @param array<string, mixed> $parameters */
-    private function getTranslationAndStoreDomain(
-        ?string $id,
-        array $parameters = [],
-        string $domain = null,
-        string $locale = null,
-        bool $storeDomainIfTranslationWasNotFound = true
-    ): string {
-        $translated = parent::trans($id, $parameters, $domain, $locale);
-
-        if ($storeDomainIfTranslationWasNotFound || $id !== $translated) {
-            $this->lastUsedDomain = $domain;
-        }
-
-        return $translated;
+    private function innerTrans(?string $id, array $parameters, ?string $domain, ?string $locale): string
+    {
+        return $this->inner->trans((string) $id, $parameters, $domain, $locale);
     }
 
     private function determineDefaultTranslationDomain(): TranslationDomain
@@ -153,7 +143,7 @@ final class ForkTranslator extends Translator
                     return new TranslationDomain($application);
                 }
             }
-            return match ($mainRequest->get('_route')) {
+            return match ($mainRequest->attributes->get('_route')) {
                 'backend_action',
                 'backend_login' => ActionSlug::fromRequest($mainRequest)->getTranslationDomain(),
                 'backend_ajax' => AjaxActionSlug::fromRequest($mainRequest)->getTranslationDomain(),

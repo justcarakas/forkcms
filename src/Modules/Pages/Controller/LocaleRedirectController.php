@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Pages\Controller;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Pages\DependencyInjection\PagesRouteLoader;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\RouterInterface;
 
+#[Autoconfigure(public: true)]
 final class LocaleRedirectController
 {
     public const ROUTE_LOCALE_REDIRECT = 'pages_page_locale_redirect';

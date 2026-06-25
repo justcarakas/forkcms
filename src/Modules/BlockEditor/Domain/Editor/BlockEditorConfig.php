@@ -9,7 +9,7 @@ use ForkCMS\Modules\BlockEditor\Domain\Blocks\AbstractBlock;
 use ForkCMS\Modules\BlockEditor\Domain\Blocks\ParagraphBlock;
 use JsonException;
 use Psr\Cache\CacheItemPoolInterface;
-use Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class BlockEditorConfig
@@ -24,7 +24,7 @@ final class BlockEditorConfig
 
     /** @param ServiceLocator<AbstractBlock> $editorBlocks */
     public function __construct(
-        #[TaggedLocator('fork.block_editor.block')]
+        #[AutowireLocator('fork.block_editor.block')]
         public readonly ServiceLocator $editorBlocks,
         private readonly bool $isDebug,
         private readonly CacheItemPoolInterface $cacheBlockEditor

@@ -16,6 +16,8 @@ use ForkCMS\Modules\Pages\Domain\Page\Page;
 use ForkCMS\Modules\Pages\Domain\Revision\MenuType;
 use ForkCMS\Modules\Pages\Domain\Revision\Revision;
 use ForkCMS\Modules\Pages\Domain\RevisionBlock\RevisionBlock;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,10 +28,12 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Environment;
 
+#[Autoconfigure(public: true)]
 final class PageController
 {
     /** @param ServiceLocator<BlockControllerInterface> $frontendBlocks */
     public function __construct(
+        #[AutowireLocator('forkcms.frontend.block')]
         private readonly ServiceLocator $frontendBlocks,
         private readonly SerializerInterface $serializer,
         private readonly Environment $twig,

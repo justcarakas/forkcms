@@ -11,11 +11,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
 class ImportLocaleCommand extends Command
 {
     public function __construct(
+        #[Autowire(param: 'kernel.project_dir')]
         private string $rootDir,
         private Importer $translationImporter,
     ) {

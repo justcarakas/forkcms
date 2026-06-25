@@ -13,6 +13,8 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocale;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use InvalidArgumentException;
 use Psr\Container\NotFoundExceptionInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,10 +22,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Twig\Environment;
 
+#[Autoconfigure(public: true)]
 final class BackendController
 {
     /** @param ServiceLocator<ActionControllerInterface> $actions */
     public function __construct(
+        #[AutowireLocator('forkcms.backend.action')]
         private readonly ServiceLocator $actions,
         private readonly Environment $twig,
         private readonly Navigation $navigation,

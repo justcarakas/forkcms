@@ -10,7 +10,6 @@ use ForkCMS\Modules\Extensions\Domain\Module\Command\ChangeModuleSettings;
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
-use ForkCMS\Modules\Internationalisation\Domain\Translator\DataCollectorTranslator;
 use RuntimeException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
@@ -27,14 +26,8 @@ abstract class AbstractFormActionController extends AbstractActionController
 
     protected function addBreadcrumbForRequest(Request $request): void
     {
-        if ($this->translator instanceof DataCollectorTranslator) {
-            $this->translator->disableCollecting();
-        }
         $actionLabel = self::getActionSlug()->getActionName()->asLabel();
         $translatedActionName = $this->translator->trans($actionLabel);
-        if ($this->translator instanceof DataCollectorTranslator) {
-            $this->translator->enableCollecting();
-        }
         if (str_starts_with($translatedActionName, 'lbl.')) {
             $label = match (true) {
                 str_ends_with($translatedActionName, 'Edit') => 'Edit',
