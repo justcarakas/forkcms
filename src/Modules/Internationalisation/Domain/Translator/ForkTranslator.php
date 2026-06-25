@@ -34,7 +34,7 @@ final class ForkTranslator implements TranslatorInterface, TranslatorBagInterfac
     }
 
     /** @param array<string, mixed> $parameters */
-    public function trans(?string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
+    public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
     {
         $isValidator = $domain === 'validators';
         if ($isValidator) {
@@ -128,9 +128,9 @@ final class ForkTranslator implements TranslatorInterface, TranslatorBagInterfac
     }
 
     /** @param array<string, mixed> $parameters */
-    private function innerTrans(?string $id, array $parameters, ?string $domain, ?string $locale): string
+    private function innerTrans(string $id, array $parameters, ?string $domain, ?string $locale): string
     {
-        return $this->inner->trans((string) $id, $parameters, $domain, $locale);
+        return $this->inner->trans($id, $parameters, $domain, $locale);
     }
 
     private function determineDefaultTranslationDomain(): TranslationDomain
