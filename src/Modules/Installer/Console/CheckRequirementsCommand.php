@@ -6,12 +6,13 @@ use ForkCMS\Modules\Installer\Domain\Requirement\Requirement;
 use ForkCMS\Modules\Installer\Domain\Requirement\RequirementCategory;
 use ForkCMS\Modules\Installer\Domain\Requirement\RequirementsChecker;
 use RuntimeException;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-/** This command will run the requirements checks of fork.*/
+#[AsCommand(name: 'forkcms:installer:check-requirements', description: 'Command to check if the server meets the install requirements')]
 final class CheckRequirementsCommand extends Command
 {
     public const RETURN_SERVER_DOES_NOT_MEET_REQUIREMENTS = 2;
@@ -23,13 +24,6 @@ final class CheckRequirementsCommand extends Command
     public function __construct(private readonly RequirementsChecker $requirementsChecker)
     {
         parent::__construct();
-    }
-
-    protected function configure(): void
-    {
-        $this
-            ->setName('forkcms:installer:check-requirements')
-            ->setDescription('Command to check if the server meets the install requirements');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

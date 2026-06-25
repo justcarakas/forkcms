@@ -6,6 +6,7 @@ use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Importer\Importer;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -14,6 +15,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
+#[AsCommand(name: 'forkcms:internationalisation:locale:import', description: 'Import fork translations for a specific module or from a given file')]
 class ImportLocaleCommand extends Command
 {
     public function __construct(
@@ -21,12 +23,12 @@ class ImportLocaleCommand extends Command
         private string $rootDir,
         private Importer $translationImporter,
     ) {
-        parent::__construct('forkcms:internationalisation:locale:import');
+        parent::__construct();
     }
 
     protected function configure(): void
     {
-        $this->setDescription('Import fork translations for a specific modul or from a given file')
+        $this
             ->addOption('overwrite', 'o', InputOption::VALUE_NONE, 'Overwrite the existing translations')
             ->addOption('file', 'f', InputOption::VALUE_REQUIRED, 'Path to the file with the translations')
             ->addOption('module', 'm', InputOption::VALUE_REQUIRED, 'Name of the module that contains the translations')

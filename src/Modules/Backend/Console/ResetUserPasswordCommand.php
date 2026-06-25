@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Backend\Console;
 
 use ForkCMS\Modules\Backend\Domain\User\Command\ChangeUser;
 use ForkCMS\Modules\Backend\Domain\User\UserRepository;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,6 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Messenger\MessageBusInterface;
 
+#[AsCommand(name: 'forkcms:backend:reset-user-password', description: 'Reset a users password')]
 class ResetUserPasswordCommand extends Command
 {
     private SymfonyStyle $formatter;
@@ -25,8 +27,6 @@ class ResetUserPasswordCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('forkcms:backend:reset-user-password')
-            ->setDescription('Reset a users password')
             ->addArgument('email', InputArgument::OPTIONAL, '(Optional) The users email-address')
             ->addArgument('password', InputArgument::OPTIONAL, '(Optional) The desired new password');
     }
