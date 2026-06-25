@@ -8,9 +8,7 @@ services:
     exclude:
       '../Domain/Meta/AddMetaSubscriber.php'
 
-  ForkCMS\Modules\Frontend\DependencyInjection\FrontendRouteLoader:
-    arguments:
-      - '@routing.loader.yml'
+  ForkCMS\Modules\Frontend\DependencyInjection\FrontendRouteLoader: ~
 
   ForkCMS\Modules\Frontend\Backend\:
     resource: '../Backend/*'

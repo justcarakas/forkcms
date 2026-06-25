@@ -14,3 +14,5 @@ services:
 
   ForkCMS\Modules\Backend\DataFixtures\:
     resource: '../DataFixtures/*'
+
+  ForkCMS\Modules\Backend\DependencyInjection\BackendRouteLoader: ~

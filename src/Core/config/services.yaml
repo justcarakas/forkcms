@@ -28,9 +28,7 @@ services:
     tags:
       - { name: routing.loader }
 
-  ForkCMS\Core\DependencyInjection\CoreRouteLoader:
-    arguments:
-      - '@routing.loader.yml'
+  ForkCMS\Core\DependencyInjection\CoreRouteLoader: ~
 
   Twig\Extension\StringLoaderExtension:
 
