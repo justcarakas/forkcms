@@ -64,7 +64,7 @@ jobs:
             - name: Install Node
               uses: actions/setup-node@v4
               with:
-                  node-version: 22 # current LTS
+                  node-version: 24 # current LTS
             - run: npm install
 
             - run: node_modules/.bin/webpack
@@ -198,7 +198,7 @@ jobs:
             - name: Install Node
               uses: actions/setup-node@v4
               with:
-                  node-version: 22 # current LTS
+                  node-version: 24 # current LTS
             - run: npm install
             - run: npm test
 
@@ -242,7 +242,7 @@ jobs:
             - name: Install Node
               uses: actions/setup-node@v4
               with:
-                  node-version: 22 # current LTS
+                  node-version: 24 # current LTS
             - run: npm install
 
             - run: node_modules/.bin/webpack
