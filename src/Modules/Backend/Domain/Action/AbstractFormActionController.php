@@ -28,7 +28,7 @@ abstract class AbstractFormActionController extends AbstractActionController
     protected function addBreadcrumbForRequest(Request $request): void
     {
         $actionLabel = self::getActionSlug()->getActionName()->asLabel();
-        if ($this->translator instanceof ForkTranslator && !$this->translator->hasTranslation($actionLabel)) {
+        if (!$this->translator->hasTranslation($actionLabel)) {
             $label = match (true) {
                 str_ends_with($actionLabel, 'Edit') => 'Edit',
                 str_ends_with($actionLabel, 'Add') => 'Add',
