@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
   <Backend>
+    <item type="label" name="SEO">
+      <translation locale="nl"><![CDATA[SEO]]></translation>
+      <translation locale="en"><![CDATA[SEO]]></translation>
+      <translation locale="hu"><![CDATA[SEO]]></translation>
+      <translation locale="it"><![CDATA[SEO]]></translation>
+      <translation locale="fr"><![CDATA[SEO]]></translation>
+      <translation locale="ru"><![CDATA[SEO]]></translation>
+      <translation locale="zh"><![CDATA[SEO]]></translation>
+      <translation locale="de"><![CDATA[SEO]]></translation>
+      <translation locale="es"><![CDATA[SEO]]></translation>
+      <translation locale="uk"><![CDATA[SEO]]></translation>
+      <translation locale="lt"><![CDATA[SEO]]></translation>
+      <translation locale="sv"><![CDATA[SEO]]></translation>
+      <translation locale="el"><![CDATA[SEO]]></translation>
+      <translation locale="pl"><![CDATA[SEO]]></translation>
+      <translation locale="tr"><![CDATA[SEO]]></translation>
+      <translation locale="pt"><![CDATA[SEO]]></translation>
+    </item>
+
+    <item type="label" name="Categories">
+      <translation locale="nl"><![CDATA[categorieën]]></translation>
+      <translation locale="en"><![CDATA[categories]]></translation>
+      <translation locale="hu"><![CDATA[kategóriák]]></translation>
+      <translation locale="it"><![CDATA[categorie]]></translation>
+      <translation locale="fr"><![CDATA[catégories]]></translation>
+      <translation locale="ru"><![CDATA[Категории]]></translation>
+      <translation locale="zh"><![CDATA[分类]]></translation>
+      <translation locale="de"><![CDATA[Kategorien]]></translation>
+      <translation locale="es"><![CDATA[Categorías]]></translation>
+      <translation locale="uk"><![CDATA[Категорії]]></translation>
+      <translation locale="lt"><![CDATA[kategorijos]]></translation>
+      <translation locale="sv"><![CDATA[kategorier]]></translation>
+      <translation locale="el"><![CDATA[κατηγορίες]]></translation>
+      <translation locale="pl"><![CDATA[Kategorie]]></translation>
+      <translation locale="tr"><![CDATA[kategoriler]]></translation>
+      <translation locale="pt"><![CDATA[categorias]]></translation>
+    </item>
+    <item type="label" name="Category">
+      <translation locale="nl"><![CDATA[categorie]]></translation>
+      <translation locale="en"><![CDATA[category]]></translation>
+      <translation locale="hu"><![CDATA[kategória]]></translation>
+      <translation locale="it"><![CDATA[categoria]]></translation>
+      <translation locale="fr"><![CDATA[catégorie]]></translation>
+      <translation locale="ru"><![CDATA[Категория]]></translation>
+      <translation locale="zh"><![CDATA[分类]]></translation>
+      <translation locale="de"><![CDATA[Kategorie]]></translation>
+      <translation locale="es"><![CDATA[Categoría]]></translation>
+      <translation locale="uk"><![CDATA[Категорія]]></translation>
+      <translation locale="lt"><![CDATA[kategorija]]></translation>
+      <translation locale="sv"><![CDATA[kategori]]></translation>
+      <translation locale="el"><![CDATA[κατηγορία]]></translation>
+      <translation locale="pl"><![CDATA[Kategoria]]></translation>
+      <translation locale="tr"><![CDATA[kategori]]></translation>
+      <translation locale="pt"><![CDATA[categoria]]></translation>
+    </item>
     <item type="label" name="Title">
       <translation locale="nl"><![CDATA[titel]]></translation>
       <translation locale="en"><![CDATA[title]]></translation>
@@ -1673,6 +1728,24 @@
       <translation locale="nl"><![CDATA[Ben je zeker dat je deze actie wilt uitvoeren?]]></translation>
       <translation locale="en"><![CDATA[Are you sure you want to perform this action?]]></translation>
       <translation locale="pt"><![CDATA[Tem a certeza que pertende efectuar esta acção?]]></translation>
+    </item>
+    <item type="message" name="ConfirmLeaveWithUnsavedChanges">
+      <translation locale="nl"><![CDATA[Wijzigingen worden niet opgeslagen voor het verlaten van deze pagina.]]></translation>
+      <translation locale="en"><![CDATA[Changes won't be saved before leaving this page.]]></translation>
+      <translation locale="de"><![CDATA[Änderungen werden vor dem Verlassen dieser Seite nicht gespeichert.]]></translation>
+      <translation locale="fr"><![CDATA[Les modifications ne seront pas enregistrées avant de quitter cette page.]]></translation>
+      <translation locale="es"><![CDATA[Los cambios no se guardarán antes de salir de esta página.]]></translation>
+      <translation locale="it"><![CDATA[Le modifiche non verranno salvate prima di lasciare questa pagina.]]></translation>
+      <translation locale="ru"><![CDATA[Изменения не будут сохранены перед выходом с этой страницы.]]></translation>
+      <translation locale="zh"><![CDATA[离开此页面前，更改不会被保存。]]></translation>
+      <translation locale="hu"><![CDATA[A módosítások nem kerülnek mentésre az oldal elhagyása előtt.]]></translation>
+      <translation locale="pl"><![CDATA[Zmiany nie zostaną zapisane przed opuszczeniem tej strony.]]></translation>
+      <translation locale="pt"><![CDATA[As alterações não serão guardadas antes de sair desta página.]]></translation>
+      <translation locale="sv"><![CDATA[Ändringar sparas inte innan du lämnar den här sidan.]]></translation>
+      <translation locale="lt"><![CDATA[Pakeitimai nebus išsaugoti prieš paliekant šį puslapį.]]></translation>
+      <translation locale="uk"><![CDATA[Зміни не будуть збережені перед виходом з цієї сторінки.]]></translation>
+      <translation locale="el"><![CDATA[Οι αλλαγές δεν θα αποθηκευτούν πριν αφήσετε αυτήν τη σελίδα.]]></translation>
+      <translation locale="tr"><![CDATA[Bu sayfadan çıkmadan önce değişiklikler kaydedilmeyecek.]]></translation>
     </item>
     <item type="error" name="ActionNotAllowed">
       <translation locale="nl"><![CDATA[Je hebt onvoldoende rechten voor deze actie.]]></translation>
