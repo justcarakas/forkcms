@@ -34,12 +34,12 @@ final class NotFound extends AbstractRSSActionController
 
     protected function feedTitle(Request $request): string
     {
-        return $this->translator->trans(TranslationKey::error('404'));
+        return TranslationKey::error('404')->trans($this->translator);
     }
 
     protected function feedDescription(Request $request): string
     {
-        return $this->translator->trans(TranslationKey::error('404RssDescription'));
+        return TranslationKey::error('404RssDescription')->trans($this->translator);
     }
 
     protected function feedLink(Request $request): string

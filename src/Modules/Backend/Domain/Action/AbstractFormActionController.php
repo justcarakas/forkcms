@@ -35,9 +35,9 @@ abstract class AbstractFormActionController extends AbstractActionController
                 default => null,
             };
             $translatedActionName = $label === null
-                ? $actionLabel : $this->translator->trans(TranslationKey::label($label));
+                ? $actionLabel : TranslationKey::label($label)->trans($this->translator);
         } else {
-            $translatedActionName = $this->translator->trans($actionLabel);
+            $translatedActionName = $actionLabel->trans($this->translator);
         }
         $this->header->addBreadcrumb(new Breadcrumb($translatedActionName, $request->getRequestUri()));
     }
