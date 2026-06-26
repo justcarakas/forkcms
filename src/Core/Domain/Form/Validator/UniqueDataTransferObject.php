@@ -31,6 +31,29 @@ final class UniqueDataTransferObject extends Constraint
         self::NOT_UNIQUE_ERROR => 'NOT_UNIQUE_ERROR',
     ];
 
+    /**
+     * @param string[]|string $fields
+     * @param class-string|null $entityClass
+     */
+    public function __construct(
+        array|string $fields = [],
+        ?string $entityClass = null,
+        string $repositoryMethod = 'findBy',
+        ?string $errorPath = null,
+        bool $ignoreNull = true,
+        string $message = 'err.NotUnique',
+        ?array $groups = null,
+        mixed $payload = null,
+    ) {
+        parent::__construct(null, $groups, $payload);
+        $this->fields = $fields;
+        $this->entityClass = $entityClass;
+        $this->repositoryMethod = $repositoryMethod;
+        $this->errorPath = $errorPath;
+        $this->ignoreNull = $ignoreNull;
+        $this->message = $message;
+    }
+
     /** @return string[] */
     public function getRequiredOptions(): array
     {

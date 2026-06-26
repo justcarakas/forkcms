@@ -486,6 +486,24 @@
       <translation locale="tr"><![CDATA[kapat]]></translation>
       <translation locale="pt"><![CDATA[fechar]]></translation>
     </item>
+    <item type="label" name="OpenNavigation">
+      <translation locale="nl"><![CDATA[navigatie openen]]></translation>
+      <translation locale="en"><![CDATA[open navigation]]></translation>
+      <translation locale="fr"><![CDATA[ouvrir la navigation]]></translation>
+      <translation locale="de"><![CDATA[Navigation öffnen]]></translation>
+      <translation locale="es"><![CDATA[abrir navegación]]></translation>
+      <translation locale="it"><![CDATA[apri navigazione]]></translation>
+      <translation locale="ru"><![CDATA[Открыть навигацию]]></translation>
+      <translation locale="uk"><![CDATA[Відкрити навігацію]]></translation>
+      <translation locale="zh"><![CDATA[打开导航]]></translation>
+      <translation locale="pt"><![CDATA[abrir navegação]]></translation>
+      <translation locale="pl"><![CDATA[otwórz nawigację]]></translation>
+      <translation locale="sv"><![CDATA[öppna navigering]]></translation>
+      <translation locale="hu"><![CDATA[navigáció megnyitása]]></translation>
+      <translation locale="el"><![CDATA[άνοιγμα πλοήγησης]]></translation>
+      <translation locale="lt"><![CDATA[atidaryti navigaciją]]></translation>
+      <translation locale="tr"><![CDATA[gezinmeyi aç]]></translation>
+    </item>
     <item type="label" name="PrivacyConsentDialogTitle">
       <translation locale="nl"><![CDATA[jouw privacy voorkeuren]]></translation>
       <translation locale="en"><![CDATA[your privacy]]></translation>

@@ -10,6 +10,7 @@ use ForkCMS\Modules\Extensions\Domain\Module\Command\ChangeModuleSettings;
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
+use ForkCMS\Modules\Internationalisation\Domain\Translator\ForkTranslator;
 use RuntimeException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
@@ -27,16 +28,16 @@ abstract class AbstractFormActionController extends AbstractActionController
     protected function addBreadcrumbForRequest(Request $request): void
     {
         $actionLabel = self::getActionSlug()->getActionName()->asLabel();
-        $translatedActionName = $this->translator->trans($actionLabel);
-        if (str_starts_with($translatedActionName, 'lbl.')) {
+        if ($this->translator instanceof ForkTranslator && !$this->translator->hasTranslation($actionLabel)) {
             $label = match (true) {
-                str_ends_with($translatedActionName, 'Edit') => 'Edit',
-                str_ends_with($translatedActionName, 'Add') => 'Add',
+                str_ends_with($actionLabel, 'Edit') => 'Edit',
+                str_ends_with($actionLabel, 'Add') => 'Add',
                 default => null,
             };
-            // translate it again, even if we didn't change it so it is collected if needed
             $translatedActionName = $label === null
                 ? $actionLabel : $this->translator->trans(TranslationKey::label($label));
+        } else {
+            $translatedActionName = $this->translator->trans($actionLabel);
         }
         $this->header->addBreadcrumb(new Breadcrumb($translatedActionName, $request->getRequestUri()));
     }

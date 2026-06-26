@@ -47,11 +47,6 @@ abstract class BackendWebTestCase extends WebTestCase
             if ($enableProfiler && $url !== null) {
                 $url .= str_contains($url, '?') ? '&enable-framework-profiler=1' : '?enable-framework-profiler=1';
             }
-
-            if ($loginBackendUser) {
-                // we are already on the page
-                return $user;
-            }
         }
 
         if ($url === null) {

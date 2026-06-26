@@ -57,37 +57,32 @@ final class ForkTranslator implements TranslatorInterface, TranslatorBagInterfac
 
         $domain ??= $this->defaultTranslationDomain->getDomain();
 
-        $translated = $this->innerTrans($id, $parameters, $domain, $locale);
+        return $this->innerTrans($id, $parameters, $this->resolveDomain($id, $domain, $locale, $isValidator), $locale);
+    }
 
-        if ($translated !== $id) {
-            return $translated;
+    private function resolveDomain(string $id, string $domain, ?string $locale, bool $isValidator): string
+    {
+        $catalogue = $this->inner->getCatalogue($locale);
+
+        if ($catalogue->has($id, $domain)) {
+            return $domain;
         }
 
         try {
-            $fallbackDomain = TranslationDomain::fromDomain($domain)->getFallback();
+            $fallback = TranslationDomain::fromDomain($domain)->getFallback();
         } catch (ValueError | InvalidArgumentException | BadMethodCallException) {
-            if ($isValidator) {
-                return $this->innerTrans($id, $parameters, 'validator', $locale);
-            }
-
-            return $translated;
+            return $isValidator && $catalogue->has($id, 'validator') ? 'validator' : $domain;
         }
 
-        if ($fallbackDomain === null) {
-            if ($isValidator) {
-                return $this->innerTrans($id, $parameters, 'validator', $locale);
-            }
-
-            return $translated;
+        if ($fallback !== null && $catalogue->has($id, $fallback->getDomain())) {
+            return $fallback->getDomain();
         }
 
-        $translated = $this->innerTrans($id, $parameters, $fallbackDomain->getDomain(), $locale);
-
-        if ($translated !== $id || !$isValidator) {
-            return $translated;
+        if ($isValidator && $catalogue->has($id, 'validator')) {
+            return 'validator';
         }
 
-        return $this->innerTrans($id, $parameters, 'validator', $locale);
+        return $domain;
     }
 
     public function setDefaultTranslationDomain(TranslationDomain $defaultTranslationDomain): void
@@ -95,10 +90,28 @@ final class ForkTranslator implements TranslatorInterface, TranslatorBagInterfac
         $this->defaultTranslationDomain = $defaultTranslationDomain;
     }
 
+    public function hasTranslation(string $id, ?string $locale = null): bool
+    {
+        if (!$this->requestStack instanceof RequestStack) {
+            return false;
+        }
+
+        $defaultDomain = $this->getDefaultTranslationDomain();
+        $catalogue = $this->inner->getCatalogue($locale);
+
+        if ($catalogue->has($id, $defaultDomain->getDomain())) {
+            return true;
+        }
+
+        $fallback = $defaultDomain->getFallback();
+
+        return $fallback !== null && $catalogue->has($id, $fallback->getDomain());
+    }
+
     public function getDefaultTranslationDomain(): TranslationDomain
     {
         if ($this->defaultTranslationDomain === null) {
-            $this->defaultTranslationDomain = $this->determineDefaultTranslationDomain();
+            $this->setDefaultTranslationDomain($this->determineDefaultTranslationDomain());
         }
 
         return $this->defaultTranslationDomain;

@@ -8,12 +8,12 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /** @implements UniqueDataTransferObjectInterface<Translation> */
-#[UniqueDataTransferObject([
-    'entityClass' => Translation::class,
-    'fields' => ['domain', 'key', 'locale'],
-    'repositoryMethod' => 'uniqueDataTransferObjectMethod',
-    'message' => 'err.TranslationAlreadyExists',
-])]
+#[UniqueDataTransferObject(
+    entityClass: Translation::class,
+    fields: ['domain', 'key', 'locale'],
+    repositoryMethod: 'uniqueDataTransferObjectMethod',
+    message: 'err.TranslationAlreadyExists',
+)]
 abstract class TranslationDataTransferObject implements UniqueDataTransferObjectInterface
 {
     #[Assert\Valid]

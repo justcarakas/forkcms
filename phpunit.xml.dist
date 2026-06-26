@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
     bootstrap="src/Core/tests/bootstrap.php"
-    cacheResultFile="var/cache/.phpunit/test-results"
     executionOrder="depends,defects"
     beStrictAboutOutputDuringTests="true"
-    beStrictAboutTodoAnnotatedTests="true"
     failOnRisky="true"
     failOnWarning="true"
-    verbose="true"
     defaultTestSuite="unit"
     backupGlobals="false"
     colors="true"
-    convertDeprecationsToExceptions="false"
+    cacheDirectory=".phpunit.cache"
 >
     <testsuites>
         <testsuite name="installer">
@@ -41,17 +37,6 @@
         </testsuite>
     </testsuites>
 
-    <coverage cacheDirectory="var/cache/.phpunit/code-coverage" processUncoveredFiles="true" ignoreDeprecatedCodeUnits="true">
-        <include>
-            <directory suffix=".php">src/Modules</directory>
-            <directory suffix=".php">src/Core</directory>
-        </include>
-        <exclude>
-            <directory suffix=".php">src/Core/test</directory>
-            <directory suffix=".php">src/Modules/*/tests</directory>
-            <directory suffix=".tpl.php">src</directory>
-        </exclude>
-    </coverage>
     <php>
         <ini name="display_errors" value="1" />
         <ini name="error_reporting" value="-1" />
@@ -65,8 +50,21 @@
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
         <server name="SYMFONY_PHPUNIT_VERSION" value="12.3" />
     </php>
+
     <extensions>
-        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension" />
-        <extension class="Symfony\Bridge\PhpUnit\SymfonyExtension" />
+        <bootstrap class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
+        <bootstrap class="Symfony\Bridge\PhpUnit\SymfonyExtension"/>
     </extensions>
+
+    <source>
+        <include>
+            <directory suffix=".php">src/Modules</directory>
+            <directory suffix=".php">src/Core</directory>
+        </include>
+        <exclude>
+            <directory suffix=".php">src/Core/test</directory>
+            <directory suffix=".php">src/Modules/*/tests</directory>
+            <directory suffix=".tpl.php">src</directory>
+        </exclude>
+    </source>
 </phpunit>

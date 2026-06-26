@@ -7,7 +7,6 @@ use ForkCMS\Core\Domain\PDO\ForkConnection;
 use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
-use ForkCMS\Modules\Internationalisation\Domain\Translator\DataCollectorTranslator;
 use ForkCMS\Modules\Internationalisation\Domain\Translator\ForkTranslator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -47,13 +46,8 @@ final class TranslatorPass implements CompilerPassInterface
 
         $container->register(ForkTranslator::class, ForkTranslator::class)
             ->setAutowired(true)
-            ->setDecoratedService('translator.default')
+            ->setDecoratedService('translator', null, -1)
             ->setArgument('$inner', new Reference(ForkTranslator::class . '.inner'));
-
-        $container->register(DataCollectorTranslator::class, DataCollectorTranslator::class)
-            ->setAutowired(true)
-            ->setDecoratedService('translator')
-            ->setArgument('$inner', new Reference(DataCollectorTranslator::class . '.inner'));
     }
 
     /** @return array<string, TranslationDomain> */

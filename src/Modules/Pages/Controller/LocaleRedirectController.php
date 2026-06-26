@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -42,6 +43,9 @@ final class LocaleRedirectController
                     self::ROUTE_LOCALE_REDIRECT . '.' . $request->attributes->get('default_locale'),
                     $routeParameters
                 );
+            } catch (InvalidParameterException) {
+                // Path is empty (root URL) — redirect to locale root.
+                $path = '/' . $locale;
             }
 
             return new RedirectResponse($path, Response::HTTP_TEMPORARY_REDIRECT);
