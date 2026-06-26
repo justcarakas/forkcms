@@ -3,6 +3,7 @@
 namespace ForkCMS\Modules\Installer\Console;
 
 use PDOException;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,6 +14,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * This command will prepare everything for a full reinstall.
  */
+#[AsCommand(name: 'forkcms:installer:prepare-for-reinstall', description: 'Revert Fork CMS to an uninstalled state, prompting the install wizard.')]
 class PrepareForReinstallCommand extends Command
 {
     public const RETURN_SUCCESS = 0;
@@ -23,12 +25,7 @@ class PrepareForReinstallCommand extends Command
         private readonly string $rootDir,
         private readonly bool $forkIsInstalled,
     ) {
-        parent::__construct('forkcms:installer:prepare-for-reinstall');
-    }
-
-    protected function configure(): void
-    {
-        $this->setDescription('Revert Fork CMS to an uninstalled state, prompting the install wizard.');
+        parent::__construct();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

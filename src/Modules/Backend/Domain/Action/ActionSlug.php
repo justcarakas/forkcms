@@ -77,8 +77,8 @@ final class ActionSlug implements Stringable
             throw new InvalidArgumentException('This is not a backend action request');
         }
 
-        $module = $request->get('module');
-        $action = $request->get('action');
+        $module = $request->attributes->get('module');
+        $action = $request->attributes->get('action');
 
         if ($module === null && $action === null) {
             return self::fromFQCN(AuthenticationLogin::class);

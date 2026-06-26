@@ -18,7 +18,6 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
     #[Assert\NotBlank]
     public ?string $databaseUsername;
 
-    #[Assert\NotBlank]
     public ?string $databasePassword;
 
     #[Assert\NotBlank]
@@ -103,7 +102,7 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
                 Ensure::isNotNull($this->databasePort),
                 Ensure::isNotNull($this->databaseName),
                 Ensure::isNotNull($this->databaseUsername),
-                Ensure::isNotNull($this->databasePassword)
+                $this->databasePassword ?? ''
             );
         } catch (AssertionFailedException $e) {
             return false;

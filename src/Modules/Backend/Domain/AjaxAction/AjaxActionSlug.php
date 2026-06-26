@@ -63,8 +63,8 @@ final class AjaxActionSlug implements Stringable
             throw new InvalidArgumentException('This is not a backend ajax action request');
         }
 
-        $module = $request->get('module') ?? $request->request->get('module');
-        $action = $request->get('action') ?? $request->request->get('action');
+        $module = $request->attributes->get('module') ?? $request->request->get('module');
+        $action = $request->attributes->get('action') ?? $request->request->get('action');
 
         if ($module === null && $action === null) {
             return self::fromFQCN(NotFound::class);

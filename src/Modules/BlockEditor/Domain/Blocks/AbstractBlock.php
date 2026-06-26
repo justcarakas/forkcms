@@ -3,8 +3,10 @@
 namespace ForkCMS\Modules\BlockEditor\Domain\Blocks;
 
 use ForkCMS\Core\Domain\Header\Asset\Asset;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Twig\Environment;
 
+#[AutoconfigureTag('fork.block_editor.block')]
 abstract class AbstractBlock
 {
     public function __construct(private readonly Environment $twig)

@@ -13,7 +13,8 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\Event\TranslationCha
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Event\TranslationCreatedEvent;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Translation;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
-use InvalidArgumentException;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -26,7 +27,9 @@ final class Importer
 {
     /** @param ServiceLocator<ImporterInterface> $importers */
     public function __construct(
+        #[AutowireLocator('forkcms.translation.importer')]
         private readonly ServiceLocator $importers,
+        #[Autowire(param: 'kernel.cache_dir')]
         private readonly string $cacheDir,
         private readonly TranslationRepository $translationRepository,
         private readonly InstalledLocaleRepository $installedLocaleRepository,

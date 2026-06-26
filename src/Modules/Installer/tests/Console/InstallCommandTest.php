@@ -2,6 +2,7 @@
 
 namespace ForkCMS\Modules\Installer\tests\Console;
 
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -10,6 +11,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class InstallCommandTest extends KernelTestCase
 {
+    #[RunInSeparateProcess]
     public function testExecute(): void
     {
         $kernel = self::bootKernel(['environment' => 'test_install']);
@@ -33,5 +35,14 @@ class InstallCommandTest extends KernelTestCase
         // the output of the command in the console
         $output = $commandTester->getDisplay();
         $this->assertStringContainsString('[OK] Fork CMS is installed', $output);
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        // FrameworkBundle::boot() calls ErrorHandler::register() which adds one exception handler
+        // that is never removed by kernel shutdown. Restore it here so PHPUnit 12's handler-leak
+        // detection does not mark this test as risky.
+        restore_exception_handler();
     }
 }

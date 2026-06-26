@@ -6,15 +6,20 @@ use ForkCMS\Modules\Frontend\Domain\AjaxAction\AjaxActionControllerInterface;
 use ForkCMS\Modules\Frontend\Domain\AjaxAction\AjaxActionSlug;
 use InvalidArgumentException;
 use Psr\Container\NotFoundExceptionInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Autoconfigure(public: true)]
 final class FrontendAjaxController
 {
     /** @param ServiceLocator<AjaxActionControllerInterface> $ajaxActions */
-    public function __construct(private readonly ServiceLocator $ajaxActions)
-    {
+    public function __construct(
+        #[AutowireLocator('forkcms.frontend.ajax_action')]
+        private readonly ServiceLocator $ajaxActions
+    ) {
     }
 
     public function __invoke(

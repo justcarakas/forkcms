@@ -3,10 +3,13 @@
 namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate;
 
 use Assert\AssertionFailedException;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
+use Doctrine\ORM\Events;
 use ForkCMS\Core\Domain\Util\Ensure;
 use InvalidArgumentException;
 use Twig\Environment;
 
+#[AsEntityListener(event: Events::preFlush, method: 'generatePreview', entity: ThemeTemplate::class, lazy: true)]
 final class TemplatePreviewGenerator
 {
     public function __construct(private Environment $twig)

@@ -13,7 +13,7 @@ use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 
 /** @implements UniqueDataTransferObjectInterface<UserGroup> */
-#[UniqueDataTransferObject(['entityClass' => UserGroup::class, 'fields' => ['name']])]
+#[UniqueDataTransferObject(entityClass: UserGroup::class, fields: ['name'])]
 abstract class UserGroupDataTransferObject implements UniqueDataTransferObjectInterface
 {
     public ?string $name;

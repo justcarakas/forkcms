@@ -21,6 +21,19 @@ final class CreateSchema
             [$this->entityManager, 'getClassMetadata'],
             $entityClasses
         );
-        $schemaTool->updateSchema($metaData, true);
+
+        $connection = $this->entityManager->getConnection();
+        $config = $connection->getConfiguration();
+        $previousFilter = $config->getSchemaAssetsFilter();
+        // ORM 3 removed $saveMode — setting a non-null filter causes createSchemaForComparison
+        // to only include tables present in the target schema, preventing DROP statements
+        // for tables owned by other module installers.
+        $config->setSchemaAssetsFilter(static fn (): bool => false);
+
+        try {
+            $schemaTool->updateSchema($metaData);
+        } finally {
+            $config->setSchemaAssetsFilter($previousFilter);
+        }
     }
 }

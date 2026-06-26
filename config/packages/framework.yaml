@@ -2,7 +2,6 @@
 framework:
   secret: '%env(APP_SECRET)%'
   csrf_protection: true
-  annotations: true
   http_method_override: false
   handle_all_throwables: true
 
@@ -21,7 +20,6 @@ framework:
 
   router:
 #    resource: "%kernel.project_dir%/config/routing.yml"
-    strict_requirements: ~
   serializer: true
   assets:
     packages: # create the "assets.packages" service

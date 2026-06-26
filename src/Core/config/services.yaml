@@ -4,7 +4,6 @@ services:
     autoconfigure: true
     bind:
       $twigBridgeRoutingExcension: '@twig.extension.routing'
-      $editorTypeImplementations: !tagged_locator { tag: 'forkcms.editor' }
 
   _instanceof:
     Symfony\Component\Console\Command\Command:
@@ -26,14 +25,10 @@ services:
       - { name: doctrine.event_listener, event: preFlush }
 
   ForkCMS\Core\Domain\Router\ModuleRouteLoader:
-    arguments:
-      - !tagged_iterator { tag: forkcms.routing.loader }
     tags:
       - { name: routing.loader }
 
-  ForkCMS\Core\DependencyInjection\CoreRouteLoader:
-    arguments:
-      - '@routing.loader.yml'
+  ForkCMS\Core\DependencyInjection\CoreRouteLoader: ~
 
   Twig\Extension\StringLoaderExtension:
 

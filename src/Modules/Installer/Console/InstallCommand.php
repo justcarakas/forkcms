@@ -11,6 +11,7 @@ use ForkCMS\Modules\Installer\Domain\Configuration\ConfigurationParser;
 use ForkCMS\Modules\Installer\Domain\Configuration\InstallerConfiguration;
 use ForkCMS\Modules\Installer\Domain\Installer\InstallerStep;
 use ForkCMS\Modules\Installer\Domain\Installer\InstallForkCMS;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,6 +24,7 @@ use Throwable;
 /**
  * This command will run the requirements checks of fork.
  */
+#[AsCommand(name: 'forkcms:installer:install', description: 'Install fork from the console using the configuration in the fork-cms-installation-configuration.yaml file')]
 class InstallCommand extends Command
 {
     private InputInterface $input;
@@ -34,16 +36,12 @@ class InstallCommand extends Command
         private ConfigurationParser $configurationParser,
         private Kernel $kernel,
     ) {
-        parent::__construct('forkcms:installer:install');
+        parent::__construct();
     }
 
     protected function configure(): void
     {
         $this
-            ->setDescription(
-                'Install fork from the console using the configuration in ' .
-                'the fork-cms-installation-configuration.yaml file'
-            )
             ->addOption('email', 'u', InputOption::VALUE_REQUIRED, 'The email address of the backend user')
             ->addOption('password', 'p', InputOption::VALUE_REQUIRED, 'The password of the backend user')
             ->setHidden($this->forkIsInstalled);

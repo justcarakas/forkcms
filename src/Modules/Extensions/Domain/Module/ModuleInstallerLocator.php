@@ -4,6 +4,7 @@ namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use InvalidArgumentException;
 use RuntimeException;
+use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 final class ModuleInstallerLocator
 {
@@ -12,6 +13,7 @@ final class ModuleInstallerLocator
 
     /** @param iterable|ModuleInstaller[] $moduleInstallers */
     public function __construct(
+        #[AutowireIterator('forkcms.module.installer')]
         iterable $moduleInstallers,
         private readonly bool $forkIsInstalled,
         private readonly ModuleRepository $moduleRepository

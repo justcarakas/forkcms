@@ -2,7 +2,6 @@
 
 namespace ForkCMS\Modules\Pages\Domain\Page;
 
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Query\Expr\Join;
 use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockNameDBALType;
@@ -44,7 +43,6 @@ final class PageRouter implements BlockRouterInterface
             ->setParameter('locale', $locale->value)
             ->setParameter('draft', false)
             ->getQuery()
-            ->setFetchMode(RevisionBlock::class, 'block', ClassMetadataInfo::FETCH_LAZY)
             ->getOneOrNullResult();
 
         if ($page === null) {

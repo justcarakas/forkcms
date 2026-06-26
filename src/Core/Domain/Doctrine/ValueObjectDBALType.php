@@ -11,6 +11,13 @@ abstract class ValueObjectDBALType extends StringType
 {
     use ForkDBALTypeName;
 
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
+    {
+        $column['length'] ??= 255;
+
+        return parent::getSQLDeclaration($column, $platform);
+    }
+
     final public function convertToPHPValue(mixed $value, AbstractPlatform $platform): null|Stringable|BackedEnum
     {
         if ($value === null) {

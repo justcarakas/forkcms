@@ -5,12 +5,6 @@ namespace ForkCMS\Core\Domain\Form\Validator;
 use Attribute;
 use Symfony\Component\Validator\Constraint;
 
-/**
- * Constraint for the Unique Entity validator.
- *
- * @Annotation
- * @Target({"CLASS", "ANNOTATION"})
- */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::IS_REPEATABLE)]
 final class UniqueDataTransferObject extends Constraint
 {
@@ -32,10 +26,35 @@ final class UniqueDataTransferObject extends Constraint
 
     public bool $ignoreNull = true;
 
-    protected static $errorNames = [
+    /** @var array<string, string> */
+    protected static array $errorNames = [
         self::NOT_UNIQUE_ERROR => 'NOT_UNIQUE_ERROR',
     ];
 
+    /**
+     * @param string[]|string $fields
+     * @param class-string|null $entityClass
+     */
+    public function __construct(
+        array|string $fields = [],
+        ?string $entityClass = null,
+        string $repositoryMethod = 'findBy',
+        ?string $errorPath = null,
+        bool $ignoreNull = true,
+        string $message = 'err.NotUnique',
+        ?array $groups = null,
+        mixed $payload = null,
+    ) {
+        parent::__construct(null, $groups, $payload);
+        $this->fields = $fields;
+        $this->entityClass = $entityClass;
+        $this->repositoryMethod = $repositoryMethod;
+        $this->errorPath = $errorPath;
+        $this->ignoreNull = $ignoreNull;
+        $this->message = $message;
+    }
+
+    /** @return string[] */
     public function getRequiredOptions(): array
     {
         return ['fields'];

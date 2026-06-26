@@ -11,8 +11,8 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /** @implements UniqueDataTransferObjectInterface<User> */
-#[UniqueDataTransferObject(['entityClass' => User::class, 'fields' => ['email'], 'message' => 'err.EmailExists'])]
-#[UniqueDataTransferObject(['entityClass' => User::class, 'fields' => ['displayName'], 'message' => 'err.DisplayNameExists'])]
+#[UniqueDataTransferObject(entityClass: User::class, fields: ['email'], message: 'err.EmailExists')]
+#[UniqueDataTransferObject(entityClass: User::class, fields: ['displayName'], message: 'err.DisplayNameExists')]
 abstract class UserDataTransferObject implements UniqueDataTransferObjectInterface
 {
     /**

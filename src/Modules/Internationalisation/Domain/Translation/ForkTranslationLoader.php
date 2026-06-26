@@ -9,9 +9,11 @@ use Error;
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use IntlDateFormatter;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\MessageCatalogue;
 
+#[AutoconfigureTag('translation.loader', attributes: ['alias' => 'db'])]
 final class ForkTranslationLoader implements LoaderInterface
 {
     public function __construct(private readonly TranslationRepository $translationRepository)

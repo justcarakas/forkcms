@@ -10,14 +10,19 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Type;
 use Generator;
+use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
+#[AsTaggedItem(index: 'xml')]
 final class XmlImporter implements ImporterInterface
 {
-    public function __construct(private string $rootDir)
-    {
+    public function __construct(
+        #[Autowire(param: 'kernel.project_dir')]
+        private string $rootDir
+    ) {
     }
 
     public function getTranslations(File $translationFile): Generator
@@ -50,11 +55,6 @@ final class XmlImporter implements ImporterInterface
                 );
             }
         }
-    }
-
-    public static function forExtension(): string
-    {
-        return 'xml';
     }
 
     /**

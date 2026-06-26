@@ -6,15 +6,20 @@ use ForkCMS\Modules\Frontend\Domain\RSSAction\RSSActionControllerInterface;
 use ForkCMS\Modules\Frontend\Domain\RSSAction\RSSActionSlug;
 use InvalidArgumentException;
 use Psr\Container\NotFoundExceptionInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+#[Autoconfigure(public: true)]
 final class FrontendRSSController
 {
     /** @param ServiceLocator<RSSActionControllerInterface> $rssActions */
-    public function __construct(private readonly ServiceLocator $rssActions)
-    {
+    public function __construct(
+        #[AutowireLocator('forkcms.frontend.rss_action')]
+        private readonly ServiceLocator $rssActions
+    ) {
     }
 
     public function __invoke(

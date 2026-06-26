@@ -5,7 +5,6 @@ doctrine:
     default_connection: default
     connections:
       default:
-        use_savepoints: true
         profiling_collect_backtrace: '%kernel.debug%'
         driver: "pdo_%env(FORK_DATABASE_DRIVER)%"
         host: "%env(FORK_DATABASE_HOST)%"
@@ -19,11 +18,8 @@ doctrine:
           charset: utf8mb4
           collate: utf8mb4_unicode_ci
   orm:
-    auto_generate_proxy_classes: true
-    enable_lazy_ghost_objects: true
     entity_managers:
       default:
-        report_fields_where_declared: true
         validate_xml_mapping: true
         connection: default
         naming_strategy: ForkCMS\Core\Domain\Doctrine\ForkNamingStrategy
@@ -68,8 +64,6 @@ doctrine:
 when@prod:
   doctrine:
     orm:
-      auto_generate_proxy_classes: false
-      proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
       query_cache_driver:
         type: pool
         pool: doctrine.system_cache_pool

@@ -44,7 +44,7 @@ class LocalesType extends AbstractType implements DataTransformerInterface
             [
                 'expanded' => true,
                 'multiple' => true,
-                'choice_label' => fn (Locale $locale): string => $locale->name,
+                'choice_label' => fn (Locale $locale): string => mb_ucfirst(mb_strtolower($locale->name)),
                 'attr' => [
                     'data-fork-cms-role' => 'locales',
                 ],
@@ -54,7 +54,7 @@ class LocalesType extends AbstractType implements DataTransformerInterface
             LocaleType::class,
             [
                 'label' => 'What is the default locale for your website?',
-                'choice_label' => fn (Locale $locale): string => $locale->name,
+                'choice_label' => fn (Locale $locale): string => mb_ucfirst(mb_strtolower($locale->name)),
                 'attr' => [
                     'data-fork-cms-role' => 'default-locale',
                 ],
@@ -74,7 +74,7 @@ class LocalesType extends AbstractType implements DataTransformerInterface
             LocaleType::class,
             [
                 'label' => 'What is the default locale for users in the CMS interface?',
-                'choice_label' => fn (Locale $locale): string => $locale->name,
+                'choice_label' => fn (Locale $locale): string => mb_ucfirst(mb_strtolower($locale->name)),
                 'attr' => [
                     'data-fork-cms-role' => 'default-user-locale',
                 ],
@@ -85,7 +85,7 @@ class LocalesType extends AbstractType implements DataTransformerInterface
             [
                 'label' => 'Select the locale(s) users can choose in the CMS interface.',
                 'multiple' => true,
-                'choice_label' => fn (Locale $locale): string => $locale->name,
+                'choice_label' => fn (Locale $locale): string => mb_ucfirst(mb_strtolower($locale->name)),
                 'expanded' => true,
                 'attr' => [
                     'data-fork-cms-role' => 'user-locales',

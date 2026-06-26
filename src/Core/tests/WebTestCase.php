@@ -44,7 +44,11 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
      */
     private static function loadFixture(FixtureInterface ...$fixture): void
     {
-        (new ORMExecutor(self::getEntityManager()))->execute($fixture, true);
+        if ($fixture === []) {
+            return;
+        }
+
+        new ORMExecutor(self::getEntityManager())->execute($fixture, true);
     }
 
     /**
@@ -302,5 +306,9 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
     {
         parent::tearDown();
         static::getClient(null);
+        // FrameworkBundle::boot() calls ErrorHandler::register() which adds one exception handler
+        // that is never removed by kernel shutdown. Restore it here so PHPUnit 12's handler-leak
+        // detection does not mark every test as risky.
+        restore_exception_handler();
     }
 }

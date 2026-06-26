@@ -139,7 +139,7 @@ abstract class AbstractBlockController implements BlockControllerInterface
         try {
             return $this->getRepository($entityFQCN)
                     ->find(
-                        $request->get($key)
+                        $request->attributes->get($key)
                         ?? $request->query->get($key)
                         ?? $request->request->get($key)
                     )

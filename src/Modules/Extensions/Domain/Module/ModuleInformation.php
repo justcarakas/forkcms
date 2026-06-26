@@ -124,6 +124,7 @@ final class ModuleInformation
         $events = [];
         if ($moduleConfig->events->event !== null) {
             foreach ($moduleConfig->events->event as $eventConfig) {
+                $eventConfig = Ensure::isNotNull($eventConfig);
                 $class = SafeString::fromXML($eventConfig->attributes()->class);
                 if (class_exists((string) $class)) {
                     $events[] = [

@@ -29,7 +29,7 @@ final class TranslationAdd extends AbstractFormActionController
             redirectResponse: new RedirectResponse(TranslationIndex::getActionSlug()->generateRoute($this->router)),
             successFlashMessageCallback: fn (FormInterface $form) => FlashMessage::success(
                 'EntityAdded',
-                ['entity' => $this->translator->trans($form->getData()->getEntity()->getTranslatable())]
+                ['entity' => $form->getData()->getEntity()->getTranslatable()->trans($this->translator)]
             ),
         );
     }

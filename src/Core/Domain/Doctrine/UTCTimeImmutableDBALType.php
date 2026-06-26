@@ -43,11 +43,12 @@ class UTCTimeImmutableDBALType extends TimeImmutableType
         $time = DateTimeImmutable::createFromFormat($platform->getTimeFormatString(), $timeString, self::getUtc());
 
         if (!$time) {
-            throw ConversionException::conversionFailedFormat(
+            throw new ConversionException(sprintf(
+                'Could not convert database value "%s" to Doctrine Type "%s" using format "%s"',
                 $timeString,
-                $this->getName(),
+                static::class,
                 $platform->getTimeFormatString()
-            );
+            ));
         }
 
         // set time zone

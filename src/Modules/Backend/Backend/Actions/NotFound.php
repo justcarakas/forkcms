@@ -4,12 +4,14 @@ namespace ForkCMS\Modules\Backend\Backend\Actions;
 
 use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * This class will handle the backend 404 page.
  */
+#[Autoconfigure(public: true)]
 final class NotFound extends AbstractActionController
 {
     protected function execute(Request $request): void

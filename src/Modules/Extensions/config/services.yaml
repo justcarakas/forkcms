@@ -14,21 +14,8 @@ services:
     arguments:
       - '%fork.is_installed%'
 
-  ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator:
-    arguments:
-      - !tagged_iterator { tag: 'forkcms.module.installer' }
-
   ForkCMS\Modules\Extensions\Console\:
     resource: '../Console/*'
 
   ForkCMS\Modules\Extensions\Backend\Actions\:
     resource: '../Backend/Actions/*'
-
-  ForkCMS\Modules\Extensions\Domain\ThemeTemplate\TemplatePreviewGenerator:
-    tags:
-      -
-        name: 'doctrine.orm.entity_listener'
-        event: 'preFlush'
-        entity: 'ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate'
-        method: 'generatePreview'
-        lazy: true

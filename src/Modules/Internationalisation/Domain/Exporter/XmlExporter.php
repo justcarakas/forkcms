@@ -4,7 +4,9 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Exporter;
 
 use DOMDocument;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Translation;
+use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
 
+#[AsTaggedItem(index: 'xml')]
 final class XmlExporter implements ExporterInterface
 {
     /** @param iterable<Translation> $translations */
@@ -67,10 +69,5 @@ final class XmlExporter implements ExporterInterface
         }
 
         return $xml->saveXML();
-    }
-
-    public static function forExtension(): string
-    {
-        return 'xml';
     }
 }

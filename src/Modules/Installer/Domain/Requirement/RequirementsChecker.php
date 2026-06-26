@@ -90,15 +90,15 @@ final class RequirementsChecker
 
     private function checkWebServer(): RequirementCategory
     {
-        $reasoningBehindTheMinimumPHPVersion = 'At this moment we require php 8.1 as we follow the <a href="http://php.net/supported-versions.php">supported versions timeline of php</a>';
+        $reasoningBehindTheMinimumPHPVersion = 'At this moment we require php 8.4.1 as we follow the <a href="http://php.net/supported-versions.php">supported versions timeline of php and this is the minimum version for Symfony 8</a>';
 
         return new RequirementCategory(
             'Web server',
             Requirement::check(
                 'php version',
-                PHP_VERSION_ID >= 80200, // @phpstan-ignore greaterOrEqual.alwaysTrue (runtime check for installer; web server PHP may differ from CLI)
-                'Your server is running at least php 8.2.0. <br>' . $reasoningBehindTheMinimumPHPVersion,
-                'PHP version must be at least 8.2.0, Before using Fork CMS, upgrade your PHP installation, preferably to the latest version.<br>' . $reasoningBehindTheMinimumPHPVersion,
+                PHP_VERSION_ID >= 80401, // @phpstan-ignore greaterOrEqual.alwaysTrue (runtime check for installer; web server PHP may differ from CLI)
+                'Your server is running at least php 8.4.1. <br>' . $reasoningBehindTheMinimumPHPVersion,
+                'PHP version must be at least 8.4.1, Before using Fork CMS, upgrade your PHP installation, preferably to the latest version.<br>' . $reasoningBehindTheMinimumPHPVersion,
                 RequirementStatus::ERROR
             ),
             Requirement::check(
@@ -401,6 +401,10 @@ final class RequirementsChecker
     {
         // redefine argument
         $path = rtrim((string) $path, '/');
+
+        if (!is_dir($path) && !mkdir($path, 0775, true) && !is_dir($path)) {
+            return false;
+        }
 
         // create random file
         $file = uniqid('', true) . '.tmp';

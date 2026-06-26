@@ -5,65 +5,10 @@ services:
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
   _instanceof:
-    ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface:
-      tags:
-        - { name: messenger.message_handler, bus: command.bus }
-
-    ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller:
-      tags:
-        - { name: forkcms.module.installer }
-
-    ForkCMS\Core\Domain\Form\Editor\EditorTypeImplementationInterface:
-      tags:
-        - { name: forkcms.editor }
-
-    ForkCMS\Core\Domain\Router\ModuleRouteProviderInterface:
-      tags:
-        - { name: forkcms.routing.loader }
-
-    Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface:
+    Symfony\Component\HttpKernel\Controller\ValueResolverInterface:
       tags:
         - { name: controller.argument_value_resolver, priority: 101 }
-
-    ForkCMS\Modules\Backend\Domain\Action\ActionControllerInterface:
-      tags:
-        - { name: forkcms.backend.action }
-
-    ForkCMS\Modules\Backend\Domain\AjaxAction\AjaxActionControllerInterface:
-      tags:
-        - { name: forkcms.backend.ajax_action }
-
-    ForkCMS\Modules\Backend\Domain\Widget\WidgetControllerInterface:
-      tags:
-        - { name: forkcms.backend.widget }
 
     Twig\Extension\ExtensionInterface:
       tags:
         - { name: twig.extension }
-
-    ForkCMS\Modules\Internationalisation\Domain\Importer\ImporterInterface:
-      tags:
-        - { name: forkcms.translation.importer }
-
-    ForkCMS\Modules\Internationalisation\Domain\Exporter\ExporterInterface:
-      tags:
-        - { name: forkcms.translation.exporter }
-
-    ForkCMS\Modules\Frontend\Domain\Block\BlockControllerInterface:
-      tags:
-        - { name: forkcms.frontend.block }
-
-    ForkCMS\Modules\Frontend\Domain\AjaxAction\AjaxActionControllerInterface:
-      tags:
-        - { name: forkcms.frontend.ajax_action }
-
-    ForkCMS\Modules\Frontend\Domain\RSSAction\RSSActionControllerInterface:
-      tags:
-        - { name: forkcms.frontend.rss_action }
-
-    ForkCMS\Modules\Frontend\Domain\Meta\MetaCallbackService:
-      tags:
-        - { name: forkcms.frontend.meta.callback }
-
-    ForkCMS\Modules\BlockEditor\Domain\Blocks\AbstractBlock:
-      tags: [ 'fork.block_editor.block' ]

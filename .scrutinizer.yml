@@ -1,11 +1,10 @@
 build:
-    environment:
-        node: 22
+    image: default-jammy
     nodes:
         analysis:
             environment:
                 php:
-                    version: 8.2
+                    version: 8.4.1
             cache:
                 disabled: false
                 directories:

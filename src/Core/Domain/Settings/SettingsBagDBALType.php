@@ -22,13 +22,17 @@ final class SettingsBagDBALType extends JsonType
         }
 
         if (!$value instanceof SettingsBag) {
-            throw ConversionException::conversionFailed($value, $this->getName());
+            throw new ConversionException(sprintf(
+                'Could not convert PHP value of type "%s" to type "%s"',
+                get_debug_type($value),
+                static::class
+            ));
         }
 
         try {
             return $value->asJsonString();
         } catch (JsonException $e) {
-            throw ConversionException::conversionFailedSerialization($value, 'json', $e->getMessage(), $e);
+            throw new ConversionException('Could not serialize value to JSON: ' . $e->getMessage(), 0, $e);
         }
     }
 
@@ -45,12 +49,11 @@ final class SettingsBagDBALType extends JsonType
         try {
             return SettingsBag::fromJsonString($value);
         } catch (JsonException $e) {
-            throw ConversionException::conversionFailed($value, $this->getName(), $e);
+            throw new ConversionException(sprintf(
+                'Could not convert database value "%s" to type "%s"',
+                $value,
+                static::class
+            ), 0, $e);
         }
-    }
-
-    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
-    {
-        return true;
     }
 }

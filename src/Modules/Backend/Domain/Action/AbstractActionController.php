@@ -6,8 +6,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use ForkCMS\Core\Domain\Header\Header;
 use ForkCMS\Core\Domain\Util\ArrayUtil;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\AjaxActionSlug;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Internationalisation\Domain\Translator\ForkTranslator;
 use Pageon\DoctrineDataGridBundle\DataGrid\DataGridFactory;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +32,7 @@ abstract class AbstractActionController implements ActionControllerInterface
     protected readonly DataGridFactory $dataGridFactory;
     protected readonly EntityManagerInterface $entityManager;
     protected readonly Environment $twig;
-    protected readonly TranslatorInterface $translator;
+    protected readonly ForkTranslator $translator;
     protected readonly Header $header;
     protected readonly RouterInterface $router;
     protected readonly FormFactoryInterface $formFactory;
@@ -113,7 +115,7 @@ abstract class AbstractActionController implements ActionControllerInterface
         try {
             return $this->getRepository($entityFQCN)
                 ->find(
-                    $request->get($key)
+                    $request->attributes->get($key)
                     ?? ArrayUtil::flatten($request->query->all())[$key]
                     ?? ArrayUtil::flatten($request->request->all())[$key]
                     ?? throw $notFoundException

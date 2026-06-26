@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Context\ExecutionContext;
 
 /** @implements UniqueDataTransferObjectInterface<ThemeTemplate> */
 #[Assert\Callback(callback: 'validateThemeTemplate')]
-#[UniqueDataTransferObject(['entityClass' => ThemeTemplate::class, 'fields' => ['name', 'theme']])]
+#[UniqueDataTransferObject(entityClass: ThemeTemplate::class, fields: ['name', 'theme'])]
 abstract class ThemeTemplateDataTransferObject implements UniqueDataTransferObjectInterface
 {
     #[Assert\NotBlank(message: 'err.FieldIsRequired')]

@@ -2,9 +2,11 @@
 
 namespace ForkCMS\Modules\Backend\tests;
 
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Core\tests\WebTestCase;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\User\UserRepository;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\DataCollectorTranslator;
 use Throwable;
@@ -45,11 +47,6 @@ abstract class BackendWebTestCase extends WebTestCase
             if ($enableProfiler && $url !== null) {
                 $url .= str_contains($url, '?') ? '&enable-framework-profiler=1' : '?enable-framework-profiler=1';
             }
-
-            if ($loginBackendUser) {
-                // we are already on the page
-                return $user;
-            }
         }
 
         if ($url === null) {
@@ -71,7 +68,7 @@ abstract class BackendWebTestCase extends WebTestCase
 
         $user = $userRespository->findOneBy(['email' => $email]);
         static::assertNotNull($user, 'User with email "' . $email . '" not found.');
-        static::getClient()->loginUser($user, 'backend');
+        Ensure::isInstanceOf(static::getClient(), KernelBrowser::class)->loginUser($user, 'backend');
         if (defined(static::class . '::TEST_URL') === true || $url !== null) {
             static::request(Request::METHOD_GET, $url ?? static::TEST_URL);
         }

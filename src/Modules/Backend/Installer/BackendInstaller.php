@@ -107,7 +107,7 @@ final class BackendInstaller extends ModuleInstaller
         $connection = $this->entityManager->getConnection();
         $doctrineTokenProvider = new DoctrineTokenProvider($connection);
         $schema = $connection->createSchemaManager()->introspectSchema();
-        $doctrineTokenProvider->configureSchema($schema, $connection);
+        $doctrineTokenProvider->configureSchema($schema, $connection, static fn () => true);
         $connection->createSchemaManager()->migrateSchema($schema);
     }
 }
