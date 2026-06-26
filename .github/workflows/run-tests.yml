@@ -233,7 +233,7 @@ jobs:
             - name: Build Docker image
               run: |
                   docker pull ghcr.io/forkcms/forkcms:latest || true
-                  docker compose build --build-arg PHP_VERSION=8.2
+                  docker compose build --build-arg PHP_VERSION=8.4
 
             - name: Start docker compose stack
               run: |
