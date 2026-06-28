@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Container;
 
 trait ForkDBALTypeName
 {
-    public function getName(): string
+    public static function getName(): string
     {
         $matches = [];
         if (

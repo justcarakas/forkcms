@@ -25,9 +25,5 @@ final class DependencyInjection
             $modulePath . '/config/services.yaml',
             Template::getPath('config/services.tpl.yaml')
         );
-        $generator->generateFile(
-            $modulePath . '/config/doctrine.yaml',
-            Template::getPath('config/doctrine.tpl.yaml')
-        );
     }
 }

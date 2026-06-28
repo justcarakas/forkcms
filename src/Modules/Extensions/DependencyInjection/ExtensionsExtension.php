@@ -17,7 +17,7 @@ class ExtensionsExtension extends ForkModuleExtension
 
     public function prepend(ContainerBuilder $container): void
     {
-        $this->getLoader($container)->load('doctrine.yaml');
+        parent::prepend($container);
         $this->configureLiipImagine($container);
     }
 
