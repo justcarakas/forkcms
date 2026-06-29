@@ -19,9 +19,4 @@ class PagesExtension extends ForkModuleExtension
             $this->getLoader($container)->load('controllers.yaml');
         }
     }
-
-    public function prepend(ContainerBuilder $container): void
-    {
-        $this->getLoader($container)->load('doctrine.yaml');
-    }
 }

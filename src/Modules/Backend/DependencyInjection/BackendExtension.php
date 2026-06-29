@@ -17,9 +17,4 @@ class BackendExtension extends ForkModuleExtension
             $this->getLoader($container)->load('services_install.yaml');
         }
     }
-
-    public function prepend(ContainerBuilder $container): void
-    {
-        $this->getLoader($container)->load('doctrine.yaml');
-    }
 }

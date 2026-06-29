@@ -6,6 +6,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleNameDBALType;
 use Symfony\Component\DependencyInjection\Container;
 
 #[ORM\Embeddable]
@@ -14,7 +15,7 @@ class TranslationDomain
     #[ORM\Column(type: Types::STRING, length: 10, enumType: Application::class)]
     private Application $application;
 
-    #[ORM\Column(type: 'modules__extensions__module__module_name', nullable: true)]
+    #[ORM\Column(type: ModuleNameDBALType::class, nullable: true)]
     private ?ModuleName $moduleName;
 
     public function __construct(Application $application, ?ModuleName $moduleName = null)

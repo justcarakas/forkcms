@@ -6,10 +6,16 @@ use DateTime;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeType;
+use Doctrine\DBAL\Types\Types;
 
 class UTCDateTimeMutableDBALType extends DateTimeType
 {
     use UTCDBALTrait;
+
+    public static function getName(): string
+    {
+        return Types::DATETIME_MUTABLE;
+    }
 
     /**
      * @param DateTime|null $dateTime

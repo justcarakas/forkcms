@@ -5,6 +5,7 @@ namespace ForkCMS\Modules\Backend\Domain\Widget;
 use Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleNameDBALType;
 use InvalidArgumentException;
 use Stringable;
 use Symfony\Component\DependencyInjection\Container;
@@ -14,10 +15,10 @@ final class ModuleWidget implements Stringable
 {
     public const ROLE_PREFIX = 'ROLE_MODULE_WIDGET__';
 
-    #[ORM\Column(type: 'modules__extensions__module__module_name')]
+    #[ORM\Column(type: ModuleNameDBALType::class)]
     private ModuleName $module;
 
-    #[ORM\Column(type: 'modules__backend__widget__widget_name')]
+    #[ORM\Column(type: WidgetNameDBALType::class)]
     private WidgetName $widget;
 
     public function __construct(ModuleName $module, WidgetName $widget)

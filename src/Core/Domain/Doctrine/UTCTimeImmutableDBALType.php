@@ -6,10 +6,16 @@ use DateTimeImmutable;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\TimeImmutableType;
+use Doctrine\DBAL\Types\Types;
 
 class UTCTimeImmutableDBALType extends TimeImmutableType
 {
     use UTCDBALTrait;
+
+    public static function getName(): string
+    {
+        return Types::TIME_IMMUTABLE;
+    }
 
     /**
      * @param DateTimeImmutable|null $time

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait EntityWithSettingsTrait
 {
-    #[ORM\Column(type: 'core__settings__settings_bag')]
+    #[ORM\Column(type: SettingsBagDBALType::class)]
     private SettingsBag $settings;
 
     public function hasSetting(string $name): bool

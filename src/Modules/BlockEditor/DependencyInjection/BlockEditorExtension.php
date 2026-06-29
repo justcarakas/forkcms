@@ -14,6 +14,7 @@ final class BlockEditorExtension extends ForkModuleExtension
 
     public function prepend(ContainerBuilder $container): void
     {
+        parent::prepend($container);
         $this->getLoader($container)->load('cache.yaml');
     }
 

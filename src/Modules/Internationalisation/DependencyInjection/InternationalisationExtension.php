@@ -21,9 +21,4 @@ class InternationalisationExtension extends ForkModuleExtension
             $this->getLoader($container)->load('twig.yaml');
         }
     }
-
-    public function prepend(ContainerBuilder $container): void
-    {
-        $this->getLoader($container)->load('doctrine.yaml');
-    }
 }
