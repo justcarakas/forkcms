@@ -55,8 +55,7 @@ abstract class ForkModuleExtension extends Extension implements PrependExtension
                 continue;
             }
 
-            $classReflector = new ReflectionClass($fqcn);
-            if ($classReflector->isAbstract() || !$classReflector->hasMethod('getName')) {
+            if ((new ReflectionClass($fqcn))->isAbstract()) {
                 continue;
             }
 

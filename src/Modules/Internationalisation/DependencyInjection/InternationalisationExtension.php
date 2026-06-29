@@ -21,5 +21,4 @@ class InternationalisationExtension extends ForkModuleExtension
             $this->getLoader($container)->load('twig.yaml');
         }
     }
-
 }

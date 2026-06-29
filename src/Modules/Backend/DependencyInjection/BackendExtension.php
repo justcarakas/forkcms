@@ -17,5 +17,4 @@ class BackendExtension extends ForkModuleExtension
             $this->getLoader($container)->load('services_install.yaml');
         }
     }
-
 }

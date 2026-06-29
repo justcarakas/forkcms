@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
+use ForkCMS\Modules\Backend\Domain\Action\ActionSlugDBALType;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
@@ -38,7 +39,7 @@ class NavigationItem
     #[ORM\Embedded(class: TranslationKey::class)]
     private TranslationKey $label;
 
-    #[ORM\Column(type: 'modules__backend__action__action_slug', nullable: true)]
+    #[ORM\Column(type: ActionSlugDBALType::class, nullable: true)]
     private ?ActionSlug $slug;
 
     #[ORM\Column(type: Types::BOOLEAN)]

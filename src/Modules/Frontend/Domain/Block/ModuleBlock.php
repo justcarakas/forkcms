@@ -5,16 +5,17 @@ namespace ForkCMS\Modules\Frontend\Domain\Block;
 use Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleNameDBALType;
 use InvalidArgumentException;
 use Stringable;
 
 #[ORM\Embeddable]
 final class ModuleBlock implements Stringable
 {
-    #[ORM\Column(type: 'modules__extensions__module__module_name')]
+    #[ORM\Column(type: ModuleNameDBALType::class)]
     private ModuleName $module;
 
-    #[ORM\Column(type: 'modules__frontend__block__block_name')]
+    #[ORM\Column(type: BlockNameDBALType::class)]
     private BlockName $name;
 
     public function __construct(ModuleName $module, BlockName $name)

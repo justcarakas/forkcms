@@ -14,5 +14,4 @@ class FrontendExtension extends ForkModuleExtension
             $this->getLoader($container)->load('controllers.yaml');
         }
     }
-
 }

@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\Persistence\ManagerRegistry;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
+use ForkCMS\Core\Domain\Settings\SettingsBagDBALType;
 use ReflectionClass;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\Str;
@@ -62,7 +63,7 @@ final class EntityProperty
         'many_to_many' => Collection::class,
         'many_to_one' => Collection::class,
 
-        'core__settings__settings_bag' => SettingsBag::class,
+        SettingsBagDBALType::class => SettingsBag::class,
     ];
 
     public function __construct(

@@ -15,7 +15,7 @@ class Module
     use EntityWithSettingsTrait;
 
     #[ORM\Id]
-    #[ORM\Column(type: 'modules__extensions__module__module_name')]
+    #[ORM\Column(type: ModuleNameDBALType::class)]
     private ModuleName $name;
 
     private function __construct(ModuleName $name)
