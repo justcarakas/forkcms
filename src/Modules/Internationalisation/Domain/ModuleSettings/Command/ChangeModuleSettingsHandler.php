@@ -9,11 +9,11 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocale;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-final class ChangeModuleSettingsHandler implements CommandHandlerInterface
+final readonly class ChangeModuleSettingsHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly InstalledLocaleRepository $installedLocaleRepository,
-        private readonly EventDispatcherInterface $eventDispatcher,
+        private InstalledLocaleRepository $installedLocaleRepository,
+        private EventDispatcherInterface $eventDispatcher,
     ) {
     }
 

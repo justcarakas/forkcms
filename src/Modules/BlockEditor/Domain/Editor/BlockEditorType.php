@@ -27,11 +27,13 @@ final class BlockEditorType extends AbstractType implements EditorTypeImplementa
     ) {
     }
 
+    #[\Override]
     public function getParent(): string
     {
         return TextareaType::class;
     }
 
+    #[\Override]
     public function getBlockPrefix(): string
     {
         return 'block_editor';
@@ -42,6 +44,7 @@ final class BlockEditorType extends AbstractType implements EditorTypeImplementa
         return TranslationKey::label('BlockEditor');
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('blockEditorConfig', null);

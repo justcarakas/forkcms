@@ -7,12 +7,12 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\Translation;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
-final class Exporter
+final readonly class Exporter
 {
     /** @param ServiceLocator<ExporterInterface> $exporters */
     public function __construct(
-        #[AutowireLocator('forkcms.translation.exporter')]
-        private readonly ServiceLocator $exporters
+        #[AutowireLocator(ExporterInterface::class)]
+        private ServiceLocator $exporters
     ) {
     }
 

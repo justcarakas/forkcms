@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class UserGroupIndex extends AbstractDataGridActionController
 {
+    #[\Override]
     protected function execute(Request $request): void
     {
         $this->renderDataGrid(

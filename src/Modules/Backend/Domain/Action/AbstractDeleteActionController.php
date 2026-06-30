@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractDeleteActionController extends AbstractFormActionController
 {
+    #[\Override]
     protected function addBreadcrumbForRequest(Request $request): void
     {
         // no action specific breadcrumb needed

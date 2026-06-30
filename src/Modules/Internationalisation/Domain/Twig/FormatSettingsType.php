@@ -21,6 +21,7 @@ final class FormatSettingsType extends AbstractType
     ) {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $previewDate = DateTimeImmutable::createFromFormat('Y/m/d H:i:s', '1991/03/24 02:50:01');
@@ -86,6 +87,7 @@ final class FormatSettingsType extends AbstractType
         );
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);

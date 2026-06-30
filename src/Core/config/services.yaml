@@ -3,7 +3,7 @@ services:
     autowire: true
     autoconfigure: true
     bind:
-      $twigBridgeRoutingExcension: '@twig.extension.routing'
+      $twigBridgeRoutingExtension: '@twig.extension.routing'
 
   _instanceof:
     Symfony\Component\Console\Command\Command:

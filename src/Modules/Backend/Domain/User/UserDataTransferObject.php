@@ -11,8 +11,8 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /** @implements UniqueDataTransferObjectInterface<User> */
-#[UniqueDataTransferObject(entityClass: User::class, fields: ['email'], message: 'err.EmailExists')]
-#[UniqueDataTransferObject(entityClass: User::class, fields: ['displayName'], message: 'err.DisplayNameExists')]
+#[UniqueDataTransferObject(fields: ['email'], entityClass: User::class, message: 'err.EmailExists')]
+#[UniqueDataTransferObject(fields: ['displayName'], entityClass: User::class, message: 'err.DisplayNameExists')]
 abstract class UserDataTransferObject implements UniqueDataTransferObjectInterface
 {
     /**
@@ -45,19 +45,24 @@ abstract class UserDataTransferObject implements UniqueDataTransferObjectInterfa
     public function __construct(?User $userEntity = null)
     {
         $this->userEntity = $userEntity;
-        $this->email = $userEntity?->getEmail();
-        $this->displayName = $userEntity?->getDisplayName();
+        $this->email = $userEntity?->email;
+        $this->displayName = $userEntity?->displayName;
+        // @phpstan-ignore nullsafe.neverNull
         $this->accessToBackend = $userEntity?->hasAccessToBackend() ?? true;
-        $this->superAdmin = $userEntity?->isSuperAdmin() ?? false;
-        $this->userGroups = CollectionHelper::toArrayCollection($userEntity?->getUserGroups());
-        $this->settings = $userEntity?->getSettings() ?? new SettingsBag();
+        // @phpstan-ignore nullsafe.neverNull
+        $this->superAdmin = $userEntity?->superAdmin ?? false;
+        $this->userGroups = CollectionHelper::toArrayCollection($userEntity?->userGroups);
+        // @phpstan-ignore nullsafe.neverNull
+        $this->settings = $userEntity?->settings ?? new SettingsBag();
     }
 
+    #[\Override]
     final public function hasEntity(): bool
     {
         return $this->userEntity instanceof User;
     }
 
+    #[\Override]
     final public function getEntity(): User
     {
         return $this->userEntity;

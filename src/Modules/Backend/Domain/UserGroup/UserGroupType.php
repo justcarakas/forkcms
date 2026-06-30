@@ -35,16 +35,17 @@ final class UserGroupType extends AbstractType
      * @param ServiceLocator<WidgetControllerInterface> $backendDashboardWidgets
      */
     public function __construct(
-        #[AutowireLocator('forkcms.backend.action')]
+        #[AutowireLocator(ActionControllerInterface::class)]
         private readonly ServiceLocator $backendActions,
-        #[AutowireLocator('forkcms.backend.ajax_action')]
+        #[AutowireLocator(AjaxActionControllerInterface::class)]
         private readonly ServiceLocator $backendAjaxActions,
-        #[AutowireLocator('forkcms.backend.widget')]
+        #[AutowireLocator(WidgetControllerInterface::class)]
         private readonly ServiceLocator $backendDashboardWidgets,
         private readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $actions = $this->getAvailableActions();
@@ -153,8 +154,8 @@ final class UserGroupType extends AbstractType
 
                 return new Permission(
                     $fullyQualifiedClassName,
-                    $moduleAction->getModule()->getName(),
-                    $moduleAction->getAction()->getName(),
+                    $moduleAction->module->name,
+                    $moduleAction->action->name,
                     self::getClassDescription($fullyQualifiedClassName),
                 );
             },
@@ -185,8 +186,8 @@ final class UserGroupType extends AbstractType
 
                 return new Permission(
                     $fullyQualifiedClassName,
-                    $moduleAction->getModule()->getName(),
-                    $moduleAction->getWidget()->getName(),
+                    $moduleAction->module->name,
+                    $moduleAction->widget->name,
                     self::getClassDescription($fullyQualifiedClassName),
                 );
             },
@@ -208,8 +209,8 @@ final class UserGroupType extends AbstractType
 
                 return new Permission(
                     $fullyQualifiedClassName,
-                    $moduleAjaxAction->getModule()->getName(),
-                    $moduleAjaxAction->getAction()->getName(),
+                    $moduleAjaxAction->module->name,
+                    $moduleAjaxAction->action->name,
                     self::getClassDescription($fullyQualifiedClassName),
                 );
             },

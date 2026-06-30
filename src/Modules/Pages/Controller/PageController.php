@@ -29,20 +29,20 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Environment;
 
 #[Autoconfigure(public: true)]
-final class PageController
+final readonly class PageController
 {
     /** @param ServiceLocator<BlockControllerInterface> $frontendBlocks */
     public function __construct(
-        #[AutowireLocator('forkcms.frontend.block')]
-        private readonly ServiceLocator $frontendBlocks,
-        private readonly SerializerInterface $serializer,
-        private readonly Environment $twig,
-        private readonly ModuleSettings $moduleSettings,
-        private readonly NavigationBuilder $navigationBuilder,
-        private readonly RouterInterface $router,
-        private readonly InstalledLocaleRepository $installedLocaleRepository,
-        private readonly Header $header,
-        private readonly EditorType $editorType,
+        #[AutowireLocator(BlockControllerInterface::class)]
+        private ServiceLocator $frontendBlocks,
+        private SerializerInterface $serializer,
+        private Environment $twig,
+        private ModuleSettings $moduleSettings,
+        private NavigationBuilder $navigationBuilder,
+        private RouterInterface $router,
+        private InstalledLocaleRepository $installedLocaleRepository,
+        private Header $header,
+        private EditorType $editorType,
     ) {
     }
 
@@ -58,23 +58,23 @@ final class PageController
         $this->parseFooterLinks();
         $this->parseLocales($request);
         $this->buildBreadcrumbs($revision);
-        $this->header->appendMeta($revision->getMeta());
+        $this->header->appendMeta($revision->meta);
         $revisionContext = [
             'positions' => [],
-            'template' => $revision->getThemeTemplate()->getTemplatePath(),
+            'template' => $revision->themeTemplate->getTemplatePath(),
         ];
 
         $response = $hasJsonResponse ? new JsonResponse() : new Response();
 
         /** @var array<string, array<int,RevisionBlock>> $positions */
         $positions = [];
-        foreach ($revision->getBlocks() as $revisionBlock) {
-            $positions[$revisionBlock->getPosition()][] = $revisionBlock;
+        foreach ($revision->blocks as $revisionBlock) {
+            $positions[$revisionBlock->position][] = $revisionBlock;
         }
         foreach ($positions as $position => $revisionBlocks) {
             $revisionContext['positions'][$position] = [];
             foreach ($revisionBlocks as $revisionBlock) {
-                $block = $revisionBlock->getBlock();
+                $block = $revisionBlock->block;
                 if ($block instanceof Block) {
                     $blockName = (string) $block;
                     if ($this->frontendBlocks->has($blockName)) {
@@ -85,13 +85,13 @@ final class PageController
                             $blockName,
                             $blockController($request, $response, $block)
                         );
-                        $responseOverride = $blockController->getResponseOverride();
+                        $responseOverride = $blockController->responseOverride;
                         if ($responseOverride !== null) {
                             return $responseOverride;
                         }
                     }
                 }
-                $editorContent = $revisionBlock->getEditorContent();
+                $editorContent = $revisionBlock->editorContent;
                 if ($editorContent !== null) {
                     $revisionContext['positions'][$position][] = $this->getBlockResponse(
                         $hasJsonResponse,
@@ -202,7 +202,7 @@ final class PageController
                 new Breadcrumb(
                     $revision->getNavigationTitle(),
                     $this->router->generate(
-                        Page::getRouteNameForIdAndLocale($page->getId(), $revision->getLocale())
+                        Page::getRouteNameForIdAndLocale($page->id, $revision->locale)
                     )
                 )
             );

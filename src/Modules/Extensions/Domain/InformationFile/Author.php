@@ -5,9 +5,9 @@ namespace ForkCMS\Modules\Extensions\Domain\InformationFile;
 use JsonSerializable;
 use SimpleXMLElement;
 
-final class Author implements JsonSerializable
+final readonly class Author implements JsonSerializable
 {
-    public function __construct(public readonly string $name, public readonly ?string $url)
+    public function __construct(public string $name, public ?string $url)
     {
     }
 
@@ -22,6 +22,7 @@ final class Author implements JsonSerializable
     }
 
     /** @return array<string, string|null> */
+    #[\Override]
     public function jsonSerialize(): array
     {
         return [

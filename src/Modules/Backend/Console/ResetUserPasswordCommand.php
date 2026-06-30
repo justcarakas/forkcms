@@ -24,6 +24,7 @@ class ResetUserPasswordCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this
@@ -31,6 +32,7 @@ class ResetUserPasswordCommand extends Command
             ->addArgument('password', InputArgument::OPTIONAL, '(Optional) The desired new password');
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->formatter = new SymfonyStyle($input, $output);

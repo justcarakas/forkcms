@@ -10,8 +10,8 @@ use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
 
 #[ORM\Entity(repositoryClass: InstalledLocaleRepository::class)]
-#[ORM\Index(columns: ['isDefaultForWebsite'], name: 'idx_default_for_website')]
-#[ORM\Index(columns: ['isDefaultForUser'], name: 'idx_default_for_user')]
+#[ORM\Index(name: 'idx_default_for_website', columns: ['isDefaultForWebsite'])]
+#[ORM\Index(name: 'idx_default_for_user', columns: ['isDefaultForUser'])]
 class InstalledLocale
 {
     use EntityWithSettingsTrait;
@@ -19,22 +19,22 @@ class InstalledLocale
 
     #[ORM\Id]
     #[ORM\Column(type: Types::STRING, length: 5, enumType: Locale::class)]
-    private Locale $locale;
+    private(set) Locale $locale;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $isEnabledForWebsite;
+    private(set) bool $isEnabledForWebsite;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $isDefaultForWebsite;
+    private(set) bool $isDefaultForWebsite;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $isEnabledForBrowserLocaleRedirect;
+    private(set) bool $isEnabledForBrowserLocaleRedirect;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $isEnabledForUser;
+    private(set) bool $isEnabledForUser;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $isDefaultForUser;
+    private(set) bool $isDefaultForUser;
 
     private function __construct(Locale $locale)
     {
@@ -53,35 +53,5 @@ class InstalledLocale
         $installedLocale->settings = new SettingsBag($locale->settings);
 
         return $installedLocale;
-    }
-
-    public function getLocale(): Locale
-    {
-        return $this->locale;
-    }
-
-    public function isEnabledForWebsite(): bool
-    {
-        return $this->isEnabledForWebsite;
-    }
-
-    public function isDefaultForWebsite(): bool
-    {
-        return $this->isDefaultForWebsite;
-    }
-
-    public function isEnabledForBrowserLocaleRedirect(): bool
-    {
-        return $this->isEnabledForBrowserLocaleRedirect;
-    }
-
-    public function isEnabledForUser(): bool
-    {
-        return $this->isEnabledForUser;
-    }
-
-    public function isDefaultForUser(): bool
-    {
-        return $this->isDefaultForUser;
     }
 }

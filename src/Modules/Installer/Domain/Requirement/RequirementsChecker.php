@@ -40,16 +40,7 @@ final class RequirementsChecker
             $this->checkRequirements();
         }
 
-        return in_array(
-            true,
-            array_map(
-                static function (RequirementCategory $requirementCategory) {
-                    return $requirementCategory->hasErrors();
-                },
-                $this->requirementCategories
-            ),
-            true
-        );
+        return array_find($this->requirementCategories, static fn (RequirementCategory $c) => $c->hasErrors()) !== null;
     }
 
     /**
@@ -61,14 +52,7 @@ final class RequirementsChecker
             $this->checkRequirements();
         }
 
-        return in_array(
-            true,
-            array_map(
-                static fn (RequirementCategory $requirementCategory) => $requirementCategory->hasWarnings(),
-                $this->requirementCategories
-            ),
-            true
-        );
+        return array_find($this->requirementCategories, static fn (RequirementCategory $c) => $c->hasWarnings()) !== null;
     }
 
     /**
@@ -104,7 +88,7 @@ final class RequirementsChecker
             Requirement::check(
                 'subfolder',
                 // If we don't know for sure but we shall assume that it isn't in a subfolder
-                array_key_exists('REQUEST_URI', $_SERVER) ? mb_strpos($_SERVER['REQUEST_URI'], '/install') === 0 : true,
+                !array_key_exists('REQUEST_URI', $_SERVER) || str_starts_with($_SERVER['REQUEST_URI'], '/install'),
                 'Fork CMS is as far as we can detect not running is a subfolder',
                 'Fork CMS can\'t be installed in subfolders',
                 RequirementStatus::ERROR
@@ -356,7 +340,7 @@ final class RequirementsChecker
     }
 
     /**
-     * Check if a directory and its sub-directories and its subdirectories and ... are writable.
+     * Check if a directory and its subdirectories and its subdirectories and ... are writable.
      *
      * @param string $path the path to check
      */
@@ -387,7 +371,7 @@ final class RequirementsChecker
             }
         }
 
-        // we were able to read all sub-directories
+        // we were able to read all subdirectories
         return true;
     }
 

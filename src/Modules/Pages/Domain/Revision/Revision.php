@@ -71,18 +71,18 @@ class Revision
 
     #[ORM\ManyToOne(targetEntity: Page::class, cascade: ['persist'], inversedBy: 'revisions')]
     #[ORM\JoinColumn(nullable: false)]
-    private Page $page;
+    private(set) Page $page;
 
     #[ORM\ManyToOne(targetEntity: Page::class, inversedBy: 'childRevisions')]
-    private ?Page $parentPage;
+    private(set) ?Page $parentPage;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
-    private int $id;
+    private(set) int $id;
 
     #[ORM\Column(type: Types::STRING, enumType: MenuType::class)]
-    private MenuType $type;
+    private(set) MenuType $type;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
     #[DataGridPropertyColumn(
@@ -96,22 +96,22 @@ class Revision
         routeRole: ModuleAction::ROLE_PREFIX . 'PAGES__PAGE_EDIT',
         columnAttributes: ['class' => 'title'],
     )]
-    private string $title;
+    private(set) string $title;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $isDraft;
+    private(set) bool $isDraft;
 
     #[ORM\ManyToOne(targetEntity: ThemeTemplate::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private ThemeTemplate $themeTemplate;
+    private(set) ThemeTemplate $themeTemplate;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?DateTimeImmutable $archivedOn;
+    private(set) ?DateTimeImmutable $archivedOn;
 
     /** @var Collection<array-key, RevisionBlock> */
-    #[ORM\OneToMany(mappedBy: 'revision', targetEntity: RevisionBlock::class, cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: RevisionBlock::class, mappedBy: 'revision', cascade: ['persist'])]
     #[ORM\OrderBy(['sequence' => 'ASC'])]
-    private Collection $blocks;
+    private(set) Collection $blocks;
 
     /** @param Collection<string, non-empty-list<RevisionBlockDataTransferObject>> $blocks */
     private function __construct(
@@ -173,19 +173,14 @@ class Revision
         );
     }
 
-    public function getPage(): Page
-    {
-        return $this->page;
-    }
-
     public function getRel(): string
     {
         $relParts = [];
-        $follow = $this->meta->getSEOFollow();
+        $follow = $this->meta->seoFollow;
         if ($follow === SEOFollow::NO_FOLLOW) {
             $relParts[] = $follow->value;
         }
-        $index = $this->meta->getSEOIndex();
+        $index = $this->meta->seoIndex;
         if ($index === SEOIndex::NO_INDEX) {
             $relParts[] = $index->value;
         }
@@ -193,13 +188,9 @@ class Revision
         return implode(' ', $relParts);
     }
 
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
     public function getContent(): string
     {
+        // @TODO properly implement it
         return 'test' . $this->locale->value;
     }
 
@@ -208,26 +199,11 @@ class Revision
         return $this->archivedOn;
     }
 
-    public function isDraft(): bool
-    {
-        return $this->isDraft;
-    }
-
     public function archive(): void
     {
         if ($this->archivedOn === null) {
             $this->archivedOn = new DateTimeImmutable();
         }
-    }
-
-    public function getParentPage(): ?Page
-    {
-        return $this->parentPage;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     public function getLocale(): Locale
@@ -243,27 +219,6 @@ class Revision
     public function getSettings(): SettingsBag
     {
         return $this->settings;
-    }
-
-    public function getType(): MenuType
-    {
-        return $this->type;
-    }
-
-    public function getThemeTemplate(): ThemeTemplate
-    {
-        return $this->themeTemplate;
-    }
-
-    public function getArchivedOn(): ?DateTimeImmutable
-    {
-        return $this->archivedOn;
-    }
-
-    /** @return Collection<array-key, RevisionBlock> */
-    public function getBlocks(): Collection
-    {
-        return $this->blocks;
     }
 
     public function removeBlock(RevisionBlock $block): void
@@ -287,40 +242,40 @@ class Revision
         $moduleRepository = $entityManager->getRepository(Module::class);
         $maxRevisions = $moduleRepository
             ->findOneBy(['name' => ModuleName::fromFQCN($moduleRepository::class)])
-            ->getSettings()
-            ->getOr('max_revisions', 2);
+            ->settings->getOr('max_revisions', 2);
         foreach ($revisions as $revision) {
             if ($revision->archivedOn() === null || $revision->getLocale() !== $this->getLocale()) {
                 continue;
             }
-            if ($revision->isDraft()) {
-                $connection->delete($revisionClassMetadata->getTableName(), ['id' => $revision->getId()]);
+            if ($revision->isDraft) {
+                $connection->delete($revisionClassMetadata->getTableName(), ['id' => $revision->id]);
                 continue;
             }
             ++$counter;
             if ($counter > $maxRevisions) {
                 $connection->delete($revisionBlockClassMetadata->getTableName(), [
-                    'id' => $revision->getBlocks()->map(
+                    'id' => $revision->blocks->map(
                         static function (RevisionBlock $revisionBlock): int {
-                            return $revisionBlock->getId();
+                            return $revisionBlock->id;
                         }
                     ),
                 ]);
-                $connection->delete($revisionClassMetadata->getTableName(), ['id' => $revision->getId()]);
+                $connection->delete($revisionClassMetadata->getTableName(), ['id' => $revision->id]);
             }
         }
 
         $entityManager->getFilters()->enable('softdeleteable');
     }
 
-    public function __toString()
+    #[\Override]
+    public function __toString(): string
     {
         return $this->title;
     }
 
     public function getRouteName(): string
     {
-        return Page::getRouteNameForIdAndLocale($this->page->getId(), $this->locale);
+        return Page::getRouteNameForIdAndLocale($this->page->id, $this->locale);
     }
 
     public function getNavigationTitle(): string
@@ -336,9 +291,9 @@ class Revision
      */
     public static function dataGridEditLinkCallback(self $revision, array $attributes): array
     {
-        $attributes['slug'] = $revision->getPage()->getId();
-        if ($revision->archivedOn() !== null || $revision->isDraft()) {
-            $attributes['revision'] = $revision->getId();
+        $attributes['slug'] = $revision->page->id;
+        if ($revision->archivedOn() !== null || $revision->isDraft) {
+            $attributes['revision'] = $revision->id;
         }
 
         return $attributes;

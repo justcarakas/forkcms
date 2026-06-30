@@ -8,19 +8,13 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\Type;
 final class Messages
 {
     /** @param TranslationKey[] $messages */
-    public function __construct(private array $messages = [])
+    public function __construct(private(set) array $messages = [])
     {
     }
 
     public function addMessage(TranslationKey $message): void
     {
-        $this->messages[(string) $message->getName()] = $message;
-    }
-
-    /** @return array<string, TranslationKey> */
-    public function getMessages(): array
-    {
-        return $this->messages;
+        $this->messages[$message->name] = $message;
     }
 
     public function hasErrors(): bool
@@ -28,7 +22,7 @@ final class Messages
         return count(
             array_filter(
                 $this->messages,
-                static fn (TranslationKey $translationKey): bool => $translationKey->getType() === Type::ERROR
+                static fn (TranslationKey $translationKey): bool => $translationKey->type === Type::ERROR
             )
         ) === 0;
     }

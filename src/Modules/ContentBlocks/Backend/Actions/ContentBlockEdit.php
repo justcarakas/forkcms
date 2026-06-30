@@ -13,7 +13,6 @@ use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockType;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Knp\Component\Pager\PaginatorInterface;
-use Pageon\DoctrineDataGridBundle\Attribute\DataGridActionColumn;
 use Pageon\DoctrineDataGridBundle\Column\Column;
 use Pageon\DoctrineDataGridBundle\DataGrid\DataGrid;
 use Symfony\Component\Form\FormInterface;
@@ -34,15 +33,16 @@ final class ContentBlockEdit extends AbstractFormActionController
         parent::__construct($actionServices);
     }
 
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         $contentBlock = $this->getEntityFromRequest($request, ContentBlock::class);
         $this->assign('contentBlock', $contentBlock);
-        $this->header->addBreadcrumb(new Breadcrumb($contentBlock->getTitle()));
+        $this->header->addBreadcrumb(new Breadcrumb($contentBlock->title));
 
         if (!$this->contentBlockRepository->isContentBlockInUse($contentBlock)) {
             $this->addDeleteForm(
-                ['id' => $contentBlock->getRevisionId()],
+                ['id' => $contentBlock->revisionId],
                 ActionSlug::fromFQCN(ContentBlockDelete::class)
             );
         }

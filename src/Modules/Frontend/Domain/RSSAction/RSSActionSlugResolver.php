@@ -2,7 +2,6 @@
 
 namespace ForkCMS\Modules\Frontend\Domain\RSSAction;
 
-use ForkCMS\Modules\Frontend\Domain\RSSAction\RSSActionSlug;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -15,6 +14,7 @@ final class RSSActionSlugResolver implements ValueResolverInterface
     }
 
     /** @return array<RSSActionSlug> */
+    #[\Override]
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         if ($argument->getType() !== RSSActionSlug::class) {

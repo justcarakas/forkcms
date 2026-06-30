@@ -11,18 +11,17 @@ use ForkCMS\Modules\Installer\Domain\Module\ModulesStepConfiguration;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use InvalidArgumentException;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Yaml\Tag\TaggedValue;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Contracts\Cache\ItemInterface;
 
-final class ConfigurationParser
+final readonly class ConfigurationParser
 {
     public function __construct(
-        private readonly string $rootDir,
-        private readonly ModuleInstallerLocator $moduleInstallerLocator,
-        private readonly MessageBusInterface $commandBus,
+        private string $rootDir,
+        private ModuleInstallerLocator $moduleInstallerLocator,
+        private MessageBusInterface $commandBus,
     ) {
     }
 
@@ -33,8 +32,8 @@ final class ConfigurationParser
 
     public function toDotEnv(InstallerConfiguration $installerConfiguration): string
     {
-        $debugEmail = $installerConfiguration->hasDifferentDebugEmail()
-            ? $installerConfiguration->getDebugEmail() : $installerConfiguration->getAdminEmail();
+        $debugEmail = $installerConfiguration->differentDebugEmail
+            ? $installerConfiguration->debugEmail : $installerConfiguration->adminEmail;
 
         $isOnHttps = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
             || ((int) ($_SERVER['SERVER_PORT'] ?? 80)) === 443 || $_ENV['SITE_PROTOCOL'] === 'https';
@@ -55,15 +54,15 @@ SITE_PROTOCOL=%7$s
 SITE_DOMAIN=%8$s
 SITE_MULTILINGUAL=%9$s
 APP_SECRET=%10$s',
-            $installerConfiguration->getDatabaseHostname(),
-            $installerConfiguration->getDatabasePort(),
-            $installerConfiguration->getDatabaseName(),
-            $installerConfiguration->getDatabaseUsername(),
-            $installerConfiguration->getDatabasePassword(),
+            $installerConfiguration->databaseHostname,
+            $installerConfiguration->databasePort,
+            $installerConfiguration->databaseName,
+            $installerConfiguration->databaseUsername,
+            $installerConfiguration->databasePassword,
             $debugEmail,
             $isOnHttps ? 'https' : 'http',
             $_SERVER['SERVER_NAME'] ?? $_SERVER['HTTP_HOST'] ?? $siteDomain,
-            $installerConfiguration->isMultilingual() ? 'true' : 'false',
+            $installerConfiguration->multilingual ? 'true' : 'false',
             bin2hex(random_bytes(10))
         );
     }
@@ -75,7 +74,7 @@ APP_SECRET=%10$s',
 
     public function toYaml(InstallerConfiguration $installerConfiguration): string
     {
-        $withCredentials = $installerConfiguration->shouldSaveConfigurationWithCredentials();
+        $withCredentials = $installerConfiguration->saveConfigurationWithCredentials;
         $authentication = AuthenticationStepConfiguration::fromInstallerConfiguration($installerConfiguration);
         $database = DatabaseStepConfiguration::fromInstallerConfiguration($installerConfiguration);
         $locales = LocalesStepConfiguration::fromInstallerConfiguration($installerConfiguration);
@@ -102,7 +101,7 @@ APP_SECRET=%10$s',
             ),
             'default-interface-locale' => new TaggedValue('fork-cms_locale', $locales->defaultUserLocale->value),
             'modules' => array_map(
-                static fn (ModuleName $moduleName) => new TaggedValue('fork-cms_module', $moduleName->getName()),
+                static fn (ModuleName $moduleName) => new TaggedValue('fork-cms_module', $moduleName->name),
                 $modules->modules
             ),
             'install-example-data' => $modules->installExampleData,
@@ -189,7 +188,6 @@ APP_SECRET=%10$s',
     public function toCache(InstallerConfiguration $installerConfiguration): void
     {
         $cache = $this->getCache();
-        /** @var CacheItem $cacheItem */
         $cacheItem = $cache->getItem('installer.configuration');
         $cacheItem->expiresAfter(3600);
         $cacheItem->set($installerConfiguration);

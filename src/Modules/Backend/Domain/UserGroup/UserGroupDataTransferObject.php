@@ -13,7 +13,7 @@ use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 
 /** @implements UniqueDataTransferObjectInterface<UserGroup> */
-#[UniqueDataTransferObject(entityClass: UserGroup::class, fields: ['name'])]
+#[UniqueDataTransferObject(fields: ['name'], entityClass: UserGroup::class)]
 abstract class UserGroupDataTransferObject implements UniqueDataTransferObjectInterface
 {
     public ?string $name;
@@ -34,29 +34,33 @@ abstract class UserGroupDataTransferObject implements UniqueDataTransferObjectIn
 
     public function __construct(protected ?UserGroup $userGroupEntity = null)
     {
-        $this->name = $userGroupEntity?->getName();
-        $this->users = CollectionHelper::toArrayCollection($userGroupEntity?->getUsers());
-        $this->settings = $userGroupEntity?->getSettings() ?? new SettingsBag();
-        $roles = $userGroupEntity?->getRoles() ?? [];
+        $this->name = $userGroupEntity?->name;
+        $this->users = CollectionHelper::toArrayCollection($userGroupEntity?->users);
+        // @phpstan-ignore nullsafe.neverNull
+        $this->settings = $userGroupEntity?->settings ?? new SettingsBag();
+        // @phpstan-ignore nullsafe.neverNull
+        $roles = $userGroupEntity?->roles ?? [];
         $this->actions = array_map(
             static fn (ModuleAction $moduleAjaxAction): string => $moduleAjaxAction->getFQCN(),
-            array_filter(array_map([ModuleAction::class, 'tryFromRole'], $roles))
+            array_filter(array_map(ModuleAction::tryFromRole(...), $roles))
         );
         $this->ajaxActions = array_map(
             static fn (ModuleAjaxAction $moduleAjaxAction): string => $moduleAjaxAction->getFQCN(),
-            array_filter(array_map([ModuleAjaxAction::class, 'tryFromRole'], $roles))
+            array_filter(array_map(ModuleAjaxAction::tryFromRole(...), $roles))
         );
         $this->widgets = array_map(
             static fn (ModuleWidget $moduleAjaxAction): string => $moduleAjaxAction->getFQCN(),
-            array_filter(array_map([ModuleWidget::class, 'tryFromRole'], $roles))
+            array_filter(array_map(ModuleWidget::tryFromRole(...), $roles))
         );
     }
 
+    #[\Override]
     final public function hasEntity(): bool
     {
         return $this->userGroupEntity !== null;
     }
 
+    #[\Override]
     final public function getEntity(): UserGroup
     {
         return $this->userGroupEntity;

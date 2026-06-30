@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class TranslationDelete extends AbstractDeleteActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): RedirectResponse
     {
         $translation = $this->getEntityFromRequestOrNull($request, Translation::class, 'action.id');

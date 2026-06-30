@@ -9,18 +9,18 @@ use ForkCMS\Modules\Pages\Domain\Revision\Revision;
 use ForkCMS\Modules\Pages\Domain\Revision\RevisionRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-final class CreateRevisionHandler implements CommandHandlerInterface
+final readonly class CreateRevisionHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly RevisionRepository $revisionRepository,
-        private readonly EventDispatcherInterface $eventDispatcher
+        private RevisionRepository $revisionRepository,
+        private EventDispatcherInterface $eventDispatcher
     ) {
     }
 
     public function __invoke(CreateRevision $createRevision): void
     {
         $revision = Revision::fromDataTransferObject($createRevision);
-        if (!$revision->isDraft() && $createRevision->hasEntity()) {
+        if (!$revision->isDraft && $createRevision->hasEntity()) {
             $createRevision->getEntity()->archive();
         }
         $this->revisionRepository->save($revision);

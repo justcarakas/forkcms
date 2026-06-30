@@ -11,6 +11,7 @@ final class WidgetName implements Stringable, BlockName
 {
     use NamedIdentifier;
 
+    #[\Override]
     public function getType(): Type
     {
         return Type::WIDGET;

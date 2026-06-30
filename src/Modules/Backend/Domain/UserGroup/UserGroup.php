@@ -44,12 +44,12 @@ class UserGroup
 
     use EntityWithSettingsTrait;
 
-    public const ADMIN_GROUP_ID = 1;
+    public const int ADMIN_GROUP_ID = 1;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
-    private int $id;
+    private(set) int $id;
 
     #[ORM\Column(type: Types::STRING, length: 255, unique: true)]
     #[DataGridPropertyColumn(
@@ -65,15 +65,15 @@ class UserGroup
         routeRole: ModuleAction::ROLE_PREFIX . 'BACKEND__USER_GROUP_EDIT',
         columnAttributes: ['class' => 'title'],
     )]
-    private string $name;
+    private(set) string $name;
 
     /** @var Collection<int|string, User> */
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'userGroups')]
-    protected Collection $users;
+    private(set) Collection $users;
 
     /** @var array<string, string> */
     #[ORM\Column(type: Types::JSON)]
-    private array $roles;
+    private(set) array $roles;
 
     private function __construct(string $name)
     {
@@ -81,11 +81,6 @@ class UserGroup
         $this->users = new ArrayCollection();
         $this->settings = new SettingsBag();
         $this->roles = [];
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     public static function fromDataTransferObject(UserGroupDataTransferObject $userDataTransferObject): self
@@ -115,11 +110,6 @@ class UserGroup
         return $userGroup;
     }
 
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
     public function addUser(User $user): User
     {
         if (!$this->users->contains($user)) {
@@ -140,18 +130,6 @@ class UserGroup
         return $user;
     }
 
-    /** @return Collection<int|string, User> */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    /** @return string[] */
-    public function getRoles(): array
-    {
-        return $this->roles;
-    }
-
     #[DataGridMethodColumn(label: 'lbl.NumberOfUsers')]
     public function getUserCount(): int
     {
@@ -165,7 +143,7 @@ class UserGroup
      */
     public static function dataGridEditLinkCallback(self $userGroup, array $attributes): array
     {
-        $attributes['slug'] = $userGroup->getId();
+        $attributes['slug'] = $userGroup->id;
 
         return $attributes;
     }
@@ -177,19 +155,19 @@ class UserGroup
 
     public function addAction(ModuleAction $moduleAction): void
     {
-        $this->addModule($moduleAction->getModule());
+        $this->addModule($moduleAction->module);
         $this->addRole($moduleAction->asRole());
     }
 
     public function addWidget(ModuleWidget $moduleWidget): void
     {
-        $this->addModule($moduleWidget->getModule());
+        $this->addModule($moduleWidget->module);
         $this->addRole($moduleWidget->asRole());
     }
 
     public function addAjaxAction(ModuleAjaxAction $moduleAjaxAction): void
     {
-        $this->addModule($moduleAjaxAction->getModule());
+        $this->addModule($moduleAjaxAction->module);
         $this->addRole($moduleAjaxAction->asRole());
     }
 

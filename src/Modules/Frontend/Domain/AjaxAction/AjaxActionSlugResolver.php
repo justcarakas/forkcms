@@ -14,6 +14,7 @@ final class AjaxActionSlugResolver implements ValueResolverInterface
     }
 
     /** @return array<?AjaxActionSlug> */
+    #[\Override]
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         if ($argument->getType() !== AjaxActionSlug::class) {

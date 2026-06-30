@@ -67,6 +67,7 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
         $this->defaultUserLocale = $defaultUserLocale;
     }
 
+    #[\Override]
     public static function fromInstallerConfiguration(InstallerConfiguration $installerConfiguration): static
     {
         if (!$installerConfiguration->hasStep(self::getStep())) {
@@ -74,14 +75,15 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
         }
 
         return new self(
-            $installerConfiguration->isMultilingual(),
-            $installerConfiguration->getLocales(),
-            $installerConfiguration->getUserLocales(),
-            $installerConfiguration->getDefaultLocale(),
-            $installerConfiguration->getDefaultUserLocale(),
+            $installerConfiguration->multilingual,
+            $installerConfiguration->locales,
+            $installerConfiguration->userLocales,
+            $installerConfiguration->defaultLocale,
+            $installerConfiguration->defaultUserLocale,
         );
     }
 
+    #[\Override]
     public static function fromArray(array $configuration): static
     {
         return new self(
@@ -114,6 +116,7 @@ final class LocalesStepConfiguration implements InstallerStepConfiguration
         $this->userLocales = $userLocales;
     }
 
+    #[\Override]
     public static function getStep(): InstallerStep
     {
         return InstallerStep::LOCALES;

@@ -15,9 +15,9 @@ namespace <?= $namespace ?>;
 
 <?php foreach ($useStatements as $useStatement) echo $useStatement.PHP_EOL ?>
 
-final class <?= $class_name; ?> implements CommandHandlerInterface
+final readonly class <?= $class_name; ?> implements CommandHandlerInterface
 {
-    public function __construct(private readonly <?= $repository ?> $<?= lcfirst($repository) ?>)
+    public function __construct(private <?= $repository ?> $<?= lcfirst($repository) ?>)
     {
     }
 

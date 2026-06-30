@@ -24,6 +24,7 @@ final class ThemeInstall extends AbstractFormActionController
         parent::__construct($services);
     }
 
+    #[\Override]
     protected function getFormResponse(Request $request): Response
     {
         return $this->handleForm(

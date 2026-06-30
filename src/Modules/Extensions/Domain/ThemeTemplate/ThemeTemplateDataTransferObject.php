@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Context\ExecutionContext;
 
 /** @implements UniqueDataTransferObjectInterface<ThemeTemplate> */
 #[Assert\Callback(callback: 'validateThemeTemplate')]
-#[UniqueDataTransferObject(entityClass: ThemeTemplate::class, fields: ['name', 'theme'])]
+#[UniqueDataTransferObject(fields: ['name', 'theme'], entityClass: ThemeTemplate::class)]
 abstract class ThemeTemplateDataTransferObject implements UniqueDataTransferObjectInterface
 {
     #[Assert\NotBlank(message: 'err.FieldIsRequired')]
@@ -42,11 +42,11 @@ abstract class ThemeTemplateDataTransferObject implements UniqueDataTransferObje
             return;
         }
 
-        $this->name = $themeTemplateEntity->getName();
-        $this->path = str_replace(ThemeTemplate::PATH_DIRECTORY, '', $themeTemplateEntity->getPath());
-        $this->settings = $themeTemplateEntity->getSettings();
-        $this->active = $themeTemplateEntity->getActive();
-        $this->theme = $themeTemplateEntity->getTheme();
+        $this->name = $themeTemplateEntity->name;
+        $this->path = str_replace(ThemeTemplate::PATH_DIRECTORY, '', $themeTemplateEntity->path);
+        $this->settings = $themeTemplateEntity->settings;
+        $this->active = $themeTemplateEntity->active;
+        $this->theme = $themeTemplateEntity->theme;
         $this->default = $themeTemplateEntity->isDefault();
     }
 
@@ -76,11 +76,13 @@ abstract class ThemeTemplateDataTransferObject implements UniqueDataTransferObje
         $this->settings->set('positions', $positions);
     }
 
+    #[\Override]
     public function hasEntity(): bool
     {
         return $this->themeTemplateEntity !== null;
     }
 
+    #[\Override]
     public function getEntity(): ?ThemeTemplate
     {
         return $this->themeTemplateEntity;

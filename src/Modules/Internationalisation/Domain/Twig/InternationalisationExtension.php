@@ -14,6 +14,7 @@ final class InternationalisationExtension extends AbstractExtension
     {
     }
 
+    #[\Override]
     public function getFilters(): array
     {
         return [

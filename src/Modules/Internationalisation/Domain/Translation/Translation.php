@@ -18,25 +18,25 @@ class Translation
 
     #[ORM\Id]
     #[ORM\Column(type: Types::STRING, length: 32, unique: true)]
-    private string $id;
+    private(set) string $id;
 
     #[ORM\Column(type: Types::STRING, length: 32, options: ['comment' => 'Translation id across locale'])]
-    private string $crossLocaleId;
+    private(set) string $crossLocaleId;
 
     #[ORM\Embedded(class: TranslationDomain::class)]
-    private TranslationDomain $domain;
+    private(set) TranslationDomain $domain;
 
     #[ORM\Embedded(class: TranslationKey::class)]
-    private TranslationKey $key;
+    private(set) TranslationKey $key;
 
     #[ORM\Column(type: Types::STRING, length: 5, enumType: Locale::class)]
-    private Locale $locale;
+    private(set) Locale $locale;
 
     #[ORM\Column(type: Types::TEXT)]
-    private string $value;
+    private(set) string $value;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $source;
+    private(set) ?string $source;
 
     public function __construct(
         TranslationDomain $domain,
@@ -45,7 +45,7 @@ class Translation
         string $value,
         ?string $source = null,
     ) {
-        if ($domain->getModuleName() === ModuleName::core()) {
+        if ($domain->moduleName === ModuleName::core()) {
             throw new InvalidArgumentException('Cannot create a translation for the core module');
         }
 
@@ -58,45 +58,10 @@ class Translation
         $this->source = $source;
     }
 
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    public function getCrossLocaleId(): string
-    {
-        return $this->crossLocaleId;
-    }
-
-    public function getDomain(): TranslationDomain
-    {
-        return $this->domain;
-    }
-
-    public function getKey(): TranslationKey
-    {
-        return $this->key;
-    }
-
-    public function getLocale(): Locale
-    {
-        return $this->locale;
-    }
-
-    public function getValue(): string
-    {
-        return $this->value;
-    }
-
     /** @param array<int, mixed> $parameters */
     public function getTranslatable(array $parameters = []): TranslatableMessage
     {
         return new TranslatableMessage($this->key->__toString(), $parameters, $this->domain->__toString());
-    }
-
-    public function getSource(): ?string
-    {
-        return $this->source;
     }
 
     public function change(string $value): void

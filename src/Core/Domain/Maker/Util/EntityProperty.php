@@ -24,7 +24,7 @@ use Symfony\Component\Uid\Uuid;
 
 final class EntityProperty
 {
-    private const FIELD_MAPPING = [
+    private const array FIELD_MAPPING = [
         'string' => 'string',
         'ascii_string' => 'string',
         'text' => 'string',
@@ -147,7 +147,7 @@ final class EntityProperty
             static function (string $constant): string {
                 return Types::class . '::' . $constant;
             },
-            array_flip((new ReflectionClass(Types::class))->getConstants())
+            array_flip(new ReflectionClass(Types::class)->getConstants())
         );
 
         $registeredTypes = array_keys(StringType::getTypesMap());

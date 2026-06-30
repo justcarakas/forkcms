@@ -7,6 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class FrontendExtension extends ForkModuleExtension
 {
+    #[\Override]
     public function load(array $configs, ContainerBuilder $container): void
     {
         $this->getLoader($container)->load('services.yaml');

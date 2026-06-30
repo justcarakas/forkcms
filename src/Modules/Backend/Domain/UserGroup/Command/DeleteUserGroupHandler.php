@@ -8,18 +8,18 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupRepository;
 use ForkCMS\Modules\Backend\Domain\UserGroup\Event\UserGroupDeletedEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-final class DeleteUserGroupHandler implements CommandHandlerInterface
+final readonly class DeleteUserGroupHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly UserGroupRepository $userGroupRepository,
-        private readonly EventDispatcherInterface $eventDispatcher,
+        private UserGroupRepository $userGroupRepository,
+        private EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
     public function __invoke(DeleteUserGroup $deleteUserGroup): void
     {
         $userGroup = Ensure::isNotNull(
-            $this->userGroupRepository->find($deleteUserGroup->getUserGroupId()),
+            $this->userGroupRepository->find($deleteUserGroup->userGroupId),
             'UserGroup not found'
         );
         $this->userGroupRepository->remove($userGroup);

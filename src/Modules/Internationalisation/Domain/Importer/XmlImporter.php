@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
 #[AsTaggedItem(index: 'xml')]
-final class XmlImporter implements ImporterInterface
+final readonly class XmlImporter implements ImporterInterface
 {
     public function __construct(
         #[Autowire(param: 'kernel.project_dir')]

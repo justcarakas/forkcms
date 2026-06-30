@@ -42,10 +42,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 #[AutoconfigureTag('forkcms.module.installer')]
 abstract class ModuleInstaller
 {
-    public const IS_REQUIRED = false;
+    public const bool IS_REQUIRED = false;
 
     /** If the module should show up on a list of installed or installable modules */
-    public const IS_VISIBLE_IN_OVERVIEW = true;
+    public const bool IS_VISIBLE_IN_OVERVIEW = true;
 
     protected readonly CreateSchema $createSchema;
     protected readonly ModuleRepository $moduleRepository;
@@ -115,7 +115,7 @@ abstract class ModuleInstaller
 
     final protected function addModuleDependency(ModuleName $moduleName): void
     {
-        $this->moduleDependencies[$moduleName->getName()] = $moduleName;
+        $this->moduleDependencies[$moduleName->name] = $moduleName;
     }
 
     /** @return array<string,ModuleName> */
@@ -141,31 +141,31 @@ abstract class ModuleInstaller
         if ($coreModule === static::getModuleName()) {
             return $this->defaultModuleDependencies;
         }
-        $this->defaultModuleDependencies[$coreModule->getName()] = $coreModule;
+        $this->defaultModuleDependencies[$coreModule->name] = $coreModule;
 
         $backendModule = BackendInstaller::getModuleName();
         if ($backendModule === static::getModuleName()) {
             return $this->defaultModuleDependencies;
         }
-        $this->defaultModuleDependencies[$backendModule->getName()] = $backendModule;
+        $this->defaultModuleDependencies[$backendModule->name] = $backendModule;
 
         $frontendModule = FrontendInstaller::getModuleName();
         if ($frontendModule === static::getModuleName()) {
             return $this->defaultModuleDependencies;
         }
-        $this->defaultModuleDependencies[$frontendModule->getName()] = $frontendModule;
+        $this->defaultModuleDependencies[$frontendModule->name] = $frontendModule;
 
         $internationalisationModule = InternationalisationInstaller::getModuleName();
         if ($internationalisationModule === static::getModuleName()) {
             return $this->defaultModuleDependencies;
         }
-        $this->defaultModuleDependencies[$internationalisationModule->getName()] = $internationalisationModule;
+        $this->defaultModuleDependencies[$internationalisationModule->name] = $internationalisationModule;
 
         $extensionModule = ExtensionsInstaller::getModuleName();
         if ($extensionModule === static::getModuleName()) {
             return $this->defaultModuleDependencies;
         }
-        $this->defaultModuleDependencies[$extensionModule->getName()] = $extensionModule;
+        $this->defaultModuleDependencies[$extensionModule->name] = $extensionModule;
 
         return $this->defaultModuleDependencies;
     }
@@ -298,8 +298,12 @@ abstract class ModuleInstaller
         $userGroup->addWidget($moduleWidget);
     }
 
-    final protected function setSetting(string $key, mixed $value, ?ModuleName $moduleName = null, ?Locale $locale = null): void
-    {
+    final protected function setSetting(
+        string $key,
+        mixed $value,
+        ?ModuleName $moduleName = null,
+        ?Locale $locale = null
+    ): void {
         if (!$this->moduleRegistered) {
             throw new RuntimeException('You cannot set module settings during the pre install phase');
         }
@@ -343,11 +347,6 @@ abstract class ModuleInstaller
         }
 
         return $this->moduleInformation;
-    }
-
-    public function isModuleRegistered(): bool
-    {
-        return $this->moduleRegistered;
     }
 
     /** @var array<string, array<string, array<string, string>>> */

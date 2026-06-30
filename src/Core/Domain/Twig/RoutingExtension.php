@@ -20,7 +20,7 @@ final class RoutingExtension extends AbstractExtension
 {
     public function __construct(
         private readonly UrlGeneratorInterface $generator,
-        private readonly TwigBridgeRoutingExtension $twigBridgeRoutingExcension,
+        private readonly TwigBridgeRoutingExtension $twigBridgeRoutingExtension,
         private readonly RequestStack $requestStack,
         private readonly BlockRouter $blockRouter,
     ) {
@@ -32,12 +32,12 @@ final class RoutingExtension extends AbstractExtension
             new TwigFunction(
                 'action_url',
                 [$this, 'getActionUrl'],
-                ['is_safe_callback' => [$this->twigBridgeRoutingExcension, 'isUrlGenerationSafe']]
+                ['is_safe_callback' => [$this->twigBridgeRoutingExtension, 'isUrlGenerationSafe']]
             ),
             new TwigFunction(
                 'action_path',
                 [$this, 'getActionPath'],
-                ['is_safe_callback' => [$this->twigBridgeRoutingExcension, 'isUrlGenerationSafe']]
+                ['is_safe_callback' => [$this->twigBridgeRoutingExtension, 'isUrlGenerationSafe']]
             ),
             new TwigFunction(
                 'block_url',
@@ -99,8 +99,8 @@ final class RoutingExtension extends AbstractExtension
     {
         if ($moduleName === null || $actionName === null) {
             $defaultSlug = ActionSlug::fromRequestStack($this->requestStack);
-            $moduleName ??= $defaultSlug->getModuleName();
-            $actionName ??= $defaultSlug->getActionName();
+            $moduleName ??= $defaultSlug->moduleName;
+            $actionName ??= $defaultSlug->actionName;
         }
 
         if (is_string($moduleName)) {

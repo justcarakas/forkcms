@@ -14,6 +14,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class TranslatorPass implements CompilerPassInterface
 {
+    #[\Override]
     public function process(ContainerBuilder $container): void
     {
         $domains = $this->getDatabaseDomains(InstalledModules::fromContainer($container));

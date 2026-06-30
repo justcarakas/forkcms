@@ -7,27 +7,20 @@ use ForkCMS\Modules\Frontend\Domain\Block\Event\IsBlockInUseEvent;
 use ForkCMS\Modules\Pages\Domain\Revision\RevisionRepository;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 
-#[AsEventListener(
-    event: IsBlockInUseEvent::class,
-    method: 'isBlockInUse'
-)]
-#[AsEventListener(
-    event: BeforeDeleteBlockEvent::class,
-    method: 'onBlockDelete'
-)]
 final readonly class FrontendBlockEventListener
 {
     public function __construct(private RevisionRepository $revisionRepository)
     {
     }
 
+    #[AsEventListener(event: IsBlockInUseEvent::class)]
     public function isBlockInUse(IsBlockInUseEvent $findBlockUsagesEvent): void
     {
         if (count($this->revisionRepository->findRevisionsForFrontendBlock($findBlockUsagesEvent->block)) > 0) {
             $findBlockUsagesEvent->registerUsage();
         }
     }
-
+    #[AsEventListener(event: BeforeDeleteBlockEvent::class)]
     public function onBlockDelete(BeforeDeleteBlockEvent $beforeDeleteBlockEvent): void
     {
         $this->revisionRepository->deleteFrontendBlockFromRevisions($beforeDeleteBlockEvent->block);

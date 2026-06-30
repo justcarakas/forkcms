@@ -21,6 +21,7 @@ final class PagesExtension extends AbstractExtension
     ) {
     }
 
+    #[\Override]
     public function getFunctions(): array
     {
         return [

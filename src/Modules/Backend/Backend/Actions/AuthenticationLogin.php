@@ -25,6 +25,7 @@ final class AuthenticationLogin extends AbstractActionController
         // no need to call the parent since we don't use it
     }
 
+    #[\Override]
     public function __invoke(Request $request): Response
     {
         try {
@@ -35,9 +36,10 @@ final class AuthenticationLogin extends AbstractActionController
             return ($this->notFoundAction)($request);
         }
 
-        return new RedirectResponse($navigationItem->getSlug()?->generateRoute($this->router));
+        return new RedirectResponse($navigationItem->slug?->generateRoute($this->router));
     }
 
+    #[\Override]
     protected function execute(Request $request): void
     {
         // everything is handled in the __invoke function

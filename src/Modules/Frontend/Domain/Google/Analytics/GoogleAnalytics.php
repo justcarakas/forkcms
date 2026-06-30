@@ -6,11 +6,11 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 use ForkCMS\Modules\Frontend\Domain\Privacy\ConsentDialog;
 
-final class GoogleAnalytics
+final readonly class GoogleAnalytics
 {
     public function __construct(
-        private readonly ConsentDialog $consentDialog,
-        private readonly ModuleSettings $moduleSettings
+        private ConsentDialog $consentDialog,
+        private ModuleSettings $moduleSettings
     ) {
     }
 

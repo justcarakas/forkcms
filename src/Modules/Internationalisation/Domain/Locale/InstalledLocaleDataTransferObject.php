@@ -31,13 +31,13 @@ final class InstalledLocaleDataTransferObject implements ArrayAccess
             return;
         }
 
-        $this->locale = $installedLocale->getLocale();
-        $this->isEnabledForWebsite = $installedLocale->isEnabledForWebsite();
-        $this->isDefaultForWebsite = $installedLocale->isDefaultForWebsite();
-        $this->isEnabledForBrowserLocaleRedirect = $installedLocale->isEnabledForBrowserLocaleRedirect();
-        $this->isEnabledForUser = $installedLocale->isEnabledForUser();
-        $this->isDefaultForUser = $installedLocale->isDefaultForUser();
-        $this->settings = $installedLocale->getSettings()->all();
+        $this->locale = $installedLocale->locale;
+        $this->isEnabledForWebsite = $installedLocale->isEnabledForWebsite;
+        $this->isDefaultForWebsite = $installedLocale->isDefaultForWebsite;
+        $this->isEnabledForBrowserLocaleRedirect = $installedLocale->isEnabledForBrowserLocaleRedirect;
+        $this->isEnabledForUser = $installedLocale->isEnabledForUser;
+        $this->isDefaultForUser = $installedLocale->isDefaultForUser;
+        $this->settings = $installedLocale->settings->all();
     }
 
     public static function fromLocale(Locale $locale): self
@@ -58,21 +58,25 @@ final class InstalledLocaleDataTransferObject implements ArrayAccess
         return $this->installedLocale;
     }
 
+    #[\Override]
     public function offsetExists(mixed $offset): bool
     {
         return isset($this->$offset);
     }
 
+    #[\Override]
     public function offsetGet(mixed $offset): mixed
     {
         return $this->$offset;
     }
 
+    #[\Override]
     public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->$offset = $value;
     }
 
+    #[\Override]
     public function offsetUnset(mixed $offset): void
     {
         unset($this->$offset);

@@ -13,7 +13,7 @@ use Twig\Environment;
 final class Navigation
 {
     /** @var array<int, array<string, mixed>> */
-    private $navigation = [];
+    private array $navigation = [];
 
     public function __construct(
         private readonly AuthorizationCheckerInterface $authorizationChecker,
@@ -90,7 +90,7 @@ final class Navigation
         }
 
         if (
-            $this->authorizationChecker->isGranted($navigationItem['slug']->getModuleName()->asRole())
+            $this->authorizationChecker->isGranted($navigationItem['slug']->moduleName->asRole())
             && $this->authorizationChecker->isGranted($navigationItem['slug']->asModuleAction()->asRole())
         ) {
             return $navigationItem;

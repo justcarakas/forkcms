@@ -10,7 +10,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 use Twig\TwigFilter;
-use Twig\TwigFunction;
 
 final class CoreExtension extends AbstractExtension implements GlobalsInterface
 {

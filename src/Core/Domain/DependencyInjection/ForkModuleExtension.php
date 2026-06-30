@@ -15,10 +15,12 @@ use Symfony\Component\Finder\Finder;
  */
 abstract class ForkModuleExtension extends Extension implements PrependExtensionInterface
 {
+    #[\Override]
     public function load(array $configs, ContainerBuilder $container): void
     {
     }
 
+    #[\Override]
     public function prepend(ContainerBuilder $container): void
     {
         $this->registerDBALTypes($container);
@@ -55,7 +57,7 @@ abstract class ForkModuleExtension extends Extension implements PrependExtension
                 continue;
             }
 
-            if ((new ReflectionClass($fqcn))->isAbstract()) {
+            if (new ReflectionClass($fqcn)->isAbstract()) {
                 continue;
             }
 

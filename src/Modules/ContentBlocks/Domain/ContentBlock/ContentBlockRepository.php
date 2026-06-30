@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  * @method ContentBlock|null find($id, $lockMode = null, $lockVersion = null)
  * @method ContentBlock|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method ContentBlock[]    findAll()
- * @method ContentBlock[]    findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
+ * @method ContentBlock[]    findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null) // phpcs:ignore Generic.Files.LineLength.TooLong
  * @extends ServiceEntityRepository<ContentBlock>
  */
 final class ContentBlockRepository extends ServiceEntityRepository
@@ -32,7 +32,7 @@ final class ContentBlockRepository extends ServiceEntityRepository
         $entityManager->persist($contentBlock);
         $entityManager->flush();
 
-        if ($contentBlock->getStatus() !== Status::ARCHIVED) {
+        if ($contentBlock->status !== Status::ARCHIVED) {
             $this->updateWidget($contentBlock);
         }
     }
@@ -49,8 +49,8 @@ final class ContentBlockRepository extends ServiceEntityRepository
     {
         $widgets = [];
         foreach ($contentBlocks as $contentBlock) {
-            $widget = $contentBlock->getWidget();
-            $widgets[$widget->getId()] = $widget;
+            $widget = $contentBlock->widget;
+            $widgets[$widget->id] = $widget;
         }
 
         $entityManager = $this->getEntityManager();
@@ -74,7 +74,7 @@ final class ContentBlockRepository extends ServiceEntityRepository
             return [];
         }
 
-        return $this->findBy(['id' => $contentBlock->getId(), 'locale' => $contentBlock->getLocale()]);
+        return $this->findBy(['id' => $contentBlock->id, 'locale' => $contentBlock->locale]);
     }
 
     public function getNextIdForLocale(Locale $locale): int
@@ -106,12 +106,12 @@ final class ContentBlockRepository extends ServiceEntityRepository
 
     private function updateWidget(ContentBlock $contentBlock): void
     {
-        $block = $contentBlock->getWidget();
+        $block = $contentBlock->widget;
         $block->getSettings()->add([
-            'label' => $contentBlock->getTitle(),
-            'content_block_id' => $contentBlock->getId(),
+            'label' => $contentBlock->title,
+            'content_block_id' => $contentBlock->id,
         ]);
-        if ($contentBlock->isHidden()) {
+        if ($contentBlock->isHidden) {
             $block->hide();
         } else {
             $block->show();
@@ -130,8 +130,8 @@ final class ContentBlockRepository extends ServiceEntityRepository
             ->andWhere('cb.locale = :locale')
             ->andWhere('cb.status = :archived')
             ->addOrderBy('cb.updatedOn', 'ASC')
-            ->setParameter('id', $contentBlock->getId())
-            ->setParameter('locale', $contentBlock->getLocale())
+            ->setParameter('id', $contentBlock->id)
+            ->setParameter('locale', $contentBlock->locale)
             ->setParameter('archived', Status::ARCHIVED)
             ->getQuery()
             ->getResult();
@@ -139,9 +139,9 @@ final class ContentBlockRepository extends ServiceEntityRepository
 
     public function isContentBlockInUse(ContentBlock $contentBlock): bool
     {
-        $isContentBlockInUseEvent = new IsBlockInUseEvent($contentBlock->getWidget());
+        $isContentBlockInUseEvent = new IsBlockInUseEvent($contentBlock->widget);
         $this->eventDispatcher->dispatch($isContentBlockInUseEvent);
 
-        return $isContentBlockInUseEvent->isInUse();
+        return $isContentBlockInUseEvent->inUse;
     }
 }

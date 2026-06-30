@@ -9,7 +9,7 @@ final class IsBlockInUseEvent extends Event
 {
     public function __construct(
         public readonly Block $block,
-        private bool $inUse = false,
+        private(set) bool $inUse = false
     ) {
     }
 
@@ -17,10 +17,5 @@ final class IsBlockInUseEvent extends Event
     {
         $this->inUse = true;
         $this->stopPropagation();
-    }
-
-    public function isInUse(): bool
-    {
-        return $this->inUse;
     }
 }

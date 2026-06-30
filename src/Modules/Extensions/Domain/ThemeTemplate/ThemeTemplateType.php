@@ -17,6 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /** @extends AbstractType<ThemeTemplateDataTransferObject> */
 final class ThemeTemplateType extends AbstractType
 {
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -31,7 +32,7 @@ final class ThemeTemplateType extends AbstractType
                                 'class' => Theme::class,
                                 'required' => true,
                                 'choice_label' => static function (Theme $theme) {
-                                    return $theme->getName();
+                                    return $theme->name;
                                 },
                                 'label' => TranslationKey::label('Theme'),
                                 'label_attr' => ['class' => 'visually-hidden'],
@@ -133,6 +134,7 @@ final class ThemeTemplateType extends AbstractType
         }
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('data_class', ThemeTemplateDataTransferObject::class);

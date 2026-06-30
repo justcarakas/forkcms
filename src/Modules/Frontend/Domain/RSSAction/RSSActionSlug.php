@@ -17,7 +17,7 @@ use Throwable;
 
 final readonly class RSSActionSlug implements Stringable
 {
-    public function __construct(private ModuleName $moduleName, private RSSActionName $actionName)
+    public function __construct(private(set) ModuleName $moduleName, private(set) RSSActionName $actionName)
     {
         Ensure::isExistingClass($this->getFQCN(), 'RSS action class does not exist');
     }
@@ -84,12 +84,12 @@ final readonly class RSSActionSlug implements Stringable
 
     public static function fromModuleRSSAction(ModuleRSSAction $moduleRSSAction): self
     {
-        return new self($moduleRSSAction->getModule(), $moduleRSSAction->getAction());
+        return new self($moduleRSSAction->module, $moduleRSSAction->action);
     }
 
     public function asModuleAction(): ModuleRSSAction
     {
-        return new ModuleRSSAction($this->getModuleName(), $this->getActionName());
+        return new ModuleRSSAction($this->moduleName, $this->actionName);
     }
 
     public function getSlug(): string
@@ -100,26 +100,17 @@ final readonly class RSSActionSlug implements Stringable
             implode(
                 '/',
                 [
-                    Container::underscore($this->moduleName->getName()),
-                    Container::underscore($this->actionName->getName()),
+                    Container::underscore($this->moduleName->name),
+                    Container::underscore($this->actionName->name),
                 ]
             )
         );
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->getSlug();
-    }
-
-    public function getModuleName(): ModuleName
-    {
-        return $this->moduleName;
-    }
-
-    public function getActionName(): RSSActionName
-    {
-        return $this->actionName;
     }
 
     public function getTranslationDomain(): TranslationDomain
@@ -134,8 +125,8 @@ final readonly class RSSActionSlug implements Stringable
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH,
         ?Locale $locale = null
     ): string {
-        $parameters['action'] = str_replace('_', '-', Container::underscore($this->actionName->getName()));
-        $parameters['module'] = str_replace('_', '-', Container::underscore($this->moduleName->getName()));
+        $parameters['action'] = str_replace('_', '-', Container::underscore($this->actionName->name));
+        $parameters['module'] = str_replace('_', '-', Container::underscore($this->moduleName->name));
 
         if ($locale instanceof Locale) {
             $parameters['_locale'] = $locale->value;

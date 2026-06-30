@@ -2,15 +2,13 @@
 
 namespace ForkCMS\Core\Domain\Header\Meta;
 
-final class MetaCustom
+final readonly class MetaCustom
 {
-    private function __construct(private readonly string $metaData)
-    {
-    }
+    public string $uniqueKey;
 
-    public function getUniqueKey(): string
+    private function __construct(private string $metaData)
     {
-        return hash('xxh128', $this->metaData);
+        $this->uniqueKey = hash('xxh128', $this->metaData);
     }
 
     public function __toString(): string

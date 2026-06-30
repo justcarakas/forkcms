@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class PageDelete extends AbstractDeleteActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         // TODO: Implement getFormResponse() method.

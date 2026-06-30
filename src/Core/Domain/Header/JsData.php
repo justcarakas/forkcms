@@ -13,7 +13,7 @@ final class JsData
 
     public function add(ModuleName $module, string $key, mixed $value): void
     {
-        $this->jsData[$module->getName()][$key] = $value;
+        $this->jsData[$module->name][$key] = $value;
     }
 
     public function __toString(): string

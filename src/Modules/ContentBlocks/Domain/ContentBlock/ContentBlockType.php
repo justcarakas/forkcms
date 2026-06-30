@@ -23,6 +23,7 @@ final class ContentBlockType extends AbstractType
     {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if ($options['revisions_data_grid'] === null) {
@@ -86,6 +87,7 @@ final class ContentBlockType extends AbstractType
         $builder->add('isVisible', SwitchType::class, $isVisibleOptions);
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);

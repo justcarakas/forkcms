@@ -27,10 +27,12 @@ final class ThemeTemplateExport extends AbstractActionController
         parent::__construct($services);
     }
 
+    #[\Override]
     protected function execute(Request $request): void
     {
     }
 
+    #[\Override]
     public function getResponse(Request $request): Response
     {
         $theme = $this->getEntityFromRequest($request, Theme::class);
@@ -39,10 +41,10 @@ final class ThemeTemplateExport extends AbstractActionController
         $xml->preserveWhiteSpace = false;
         $templatesXml = $xml->createElement('templates');
         $xml->appendChild($templatesXml);
-        foreach ($theme->getTemplates() as $template) {
+        foreach ($theme->templates as $template) {
             $templateXml = $xml->createElement('template');
-            $templateXml->setAttribute('name', $template->getName());
-            $templateXml->setAttribute('path', $template->getPath());
+            $templateXml->setAttribute('name', $template->name);
+            $templateXml->setAttribute('path', $template->path);
             if ($template->isDefault()) {
                 $templateXml->setAttribute('default', 'true');
             }
@@ -76,9 +78,9 @@ final class ThemeTemplateExport extends AbstractActionController
                     );
                     /** @var DOMElement $blockXml */
                     $blockXml = $xml->importNode($blockDOMDocument->documentElement, true);
-                    $blockXml->setAttribute('module', $block->getBlock()->getModule()->getName());
-                    $blockXml->setAttribute('type', $block->getType()->value);
-                    $blockXml->setAttribute('name', $block->getBlock()->getName());
+                    $blockXml->setAttribute('module', $block->block->module->name);
+                    $blockXml->setAttribute('type', $block->type->value);
+                    $blockXml->setAttribute('name', $block->block->name);
                     $blockXml->setAttribute('label', $this->translator->trans($block));
                     $positionXml->append($blockXml);
                 }

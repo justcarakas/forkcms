@@ -20,6 +20,7 @@ class PageIndex extends AbstractActionController
         parent::__construct($actionServices);
     }
 
+    #[\Override]
     protected function execute(Request $request): void
     {
         $this->assign('sidebarTree', $this->navigationBuilder->getTree(Locale::current()));

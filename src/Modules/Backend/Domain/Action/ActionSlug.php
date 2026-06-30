@@ -22,7 +22,7 @@ final class ActionSlug implements Stringable
     /** @var array<string, mixed> */
     private array $defaultParameters = [];
 
-    public function __construct(private ModuleName $moduleName, private ActionName $actionName)
+    public function __construct(public readonly ModuleName $moduleName, public readonly ActionName $actionName)
     {
         Ensure::isExistingClass($this->getFQCN(), 'Action class does not exist');
     }
@@ -98,12 +98,12 @@ final class ActionSlug implements Stringable
 
     public static function fromModuleAction(ModuleAction $moduleAction): self
     {
-        return new self($moduleAction->getModule(), $moduleAction->getAction());
+        return new self($moduleAction->module, $moduleAction->action);
     }
 
     public function asModuleAction(): ModuleAction
     {
-        return new ModuleAction($this->getModuleName(), $this->getActionName());
+        return new ModuleAction($this->moduleName, $this->actionName);
     }
 
     public function getSlug(): string
@@ -114,26 +114,17 @@ final class ActionSlug implements Stringable
             implode(
                 '/',
                 [
-                    Container::underscore($this->moduleName->getName()),
-                    Container::underscore($this->actionName->getName()),
+                    Container::underscore($this->moduleName->name),
+                    Container::underscore($this->actionName->name),
                 ]
             )
         );
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->getSlug();
-    }
-
-    public function getModuleName(): ModuleName
-    {
-        return $this->moduleName;
-    }
-
-    public function getActionName(): ActionName
-    {
-        return $this->actionName;
     }
 
     public function getTranslationDomain(): TranslationDomain
@@ -159,15 +150,15 @@ final class ActionSlug implements Stringable
 
     public function getActionNameSlug(): string
     {
-        return Container::underscore($this->actionName->getName());
+        return Container::underscore($this->actionName->name);
     }
 
     /** @return array<string,string> */
     public function getRouteParameters(): array
     {
         return [
-            'action' => str_replace('_', '-', Container::underscore($this->actionName->getName())),
-            'module' => str_replace('_', '-', Container::underscore($this->moduleName->getName())),
+            'action' => str_replace('_', '-', Container::underscore($this->actionName->name)),
+            'module' => str_replace('_', '-', Container::underscore($this->moduleName->name)),
         ];
     }
 

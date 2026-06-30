@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class TranslationAdd extends AbstractFormActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         $translation = $request->attributes->get('slug') === null

@@ -11,6 +11,7 @@ abstract class ValueObjectDBALType extends StringType
 {
     use ForkDBALTypeName;
 
+    #[\Override]
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         $column['length'] ??= 255;

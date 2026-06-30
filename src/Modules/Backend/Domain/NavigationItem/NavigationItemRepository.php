@@ -17,13 +17,15 @@ use Throwable;
  * @method NavigationItem|null find($id, $lockMode = null, $lockVersion = null)
  * @method NavigationItem|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method NavigationItem[] findAll()
- * @method NavigationItem[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
+ * @method NavigationItem[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null) // phpcs:ignore Generic.Files.LineLength.TooLong
  * @extends ServiceEntityRepository<NavigationItem>
  */
 final class NavigationItemRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry, private AuthorizationCheckerInterface $authorizationChecker)
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        private readonly AuthorizationCheckerInterface $authorizationChecker
+    ) {
         try {
             parent::__construct($registry, NavigationItem::class);
         } catch (Throwable $throwable) {
@@ -53,8 +55,8 @@ final class NavigationItemRepository extends ServiceEntityRepository
     ): ?NavigationItem {
         return $this->findOneBy(
             [
-                'label.type' => $label->getType()->value,
-                'label.name' => $label->getName(),
+                'label.type' => $label->type->value,
+                'label.name' => $label->name,
                 'slug' => $slug,
                 'parent' => $parent,
             ]
@@ -78,16 +80,16 @@ final class NavigationItemRepository extends ServiceEntityRepository
     private function findAccessibleNavigationItemForUser(NavigationItem $navigationItem, User $user): ?NavigationItem
     {
         if (
-            $navigationItem->getSlug() instanceof ActionSlug
+            $navigationItem->slug instanceof ActionSlug
             && $navigationItem->getModuleAction() instanceof ModuleAction
             && $this->authorizationChecker->isGranted($navigationItem->getModuleAction()->asRole())
         ) {
             return $navigationItem;
         }
 
-        foreach ($navigationItem->getChildren() as $childNavigationItem) {
+        foreach ($navigationItem->children as $childNavigationItem) {
             $result = $this->findAccessibleNavigationItemForUser($childNavigationItem, $user);
-            if ($result instanceof NavigationItem && $result->getSlug() instanceof ActionSlug) {
+            if ($result instanceof NavigationItem && $result->slug instanceof ActionSlug) {
                 return $result;
             }
         }

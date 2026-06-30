@@ -24,7 +24,7 @@ final class ForkNamingStrategy extends UnderscoreNamingStrategy
         $underscoredClassName = parent::classToTableName($className);
 
         try {
-            $moduleName = ModuleName::fromFQCN($className)->getName();
+            $moduleName = ModuleName::fromFQCN($className)->name;
         } catch (InvalidArgumentException) {
             return $underscoredClassName;
         }

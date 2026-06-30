@@ -7,6 +7,7 @@ use Stringable;
 
 class ActionSlugDBALType extends ValueObjectDBALType
 {
+    #[\Override]
     protected function fromString(string $value): Stringable
     {
         return ActionSlug::fromSlug($value);

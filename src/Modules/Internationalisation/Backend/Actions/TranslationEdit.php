@@ -18,13 +18,14 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class TranslationEdit extends AbstractFormActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         $translation = $this->getEntityFromRequest($request, Translation::class);
 
         $this->header->addBreadcrumb(new Breadcrumb($translation->getTranslatable()));
 
-        $this->addDeleteForm(['id' => $translation->getId()], TranslationDelete::getActionSlug());
+        $this->addDeleteForm(['id' => $translation->id], TranslationDelete::getActionSlug());
 
         return $this->handleForm(
             request: $request,

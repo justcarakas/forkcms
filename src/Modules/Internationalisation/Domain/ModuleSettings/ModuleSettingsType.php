@@ -26,11 +26,12 @@ class ModuleSettingsType extends AbstractType
     {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $installedLocales = $this->installedLocaleRepository->findAll();
         $localeChoices = array_map(
-            static fn (InstalledLocale $locale): Locale => $locale->getLocale(),
+            static fn (InstalledLocale $locale): Locale => $locale->locale,
             $installedLocales
         );
         $tabs = [];
@@ -130,6 +131,7 @@ class ModuleSettingsType extends AbstractType
         );
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('data_class', ChangeModuleSettings::class);

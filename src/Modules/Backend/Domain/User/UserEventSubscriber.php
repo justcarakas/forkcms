@@ -7,13 +7,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 
-final class UserEventSubscriber implements EventSubscriberInterface
+final readonly class UserEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly UserRepository $userRepository,
+        private UserRepository $userRepository,
     ) {
     }
 
+    #[\Override]
     public static function getSubscribedEvents(): array
     {
         return [

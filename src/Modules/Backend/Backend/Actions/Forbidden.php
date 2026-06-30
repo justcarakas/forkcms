@@ -12,12 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class Forbidden extends AbstractActionController
 {
+    #[\Override]
     protected function execute(Request $request): void
     {
         $this->assign('message', TranslationKey::error('ActionNotAllowed'));
         $this->assign('page_title', TranslationKey::label('Error'));
     }
 
+    #[\Override]
     public function getResponse(Request $request): Response
     {
         $response = parent::getResponse($request);

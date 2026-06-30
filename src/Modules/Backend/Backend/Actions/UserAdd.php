@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class UserAdd extends AbstractFormActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         return $this->handleForm(

@@ -7,7 +7,7 @@ use Generator;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\HttpFoundation\File\File;
 
-#[AutoconfigureTag('forkcms.translation.importer')]
+#[AutoconfigureTag(self::class)]
 interface ImporterInterface
 {
     /** @return Generator<Translation> */

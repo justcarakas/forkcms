@@ -14,10 +14,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class TranslationKey implements TranslatableInterface
 {
     #[ORM\Column(type: Types::STRING, length: 10, enumType: Type::class)]
-    private Type $type;
+    private(set) readonly Type $type;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $name;
+    private(set) readonly string $name;
 
     /** @var array<string, string|int|float|Stringable> */
     private array $parameters = [];
@@ -54,21 +54,12 @@ class TranslationKey implements TranslatableInterface
         return new self(Type::SLUG, $name);
     }
 
-    public function getType(): Type
-    {
-        return $this->type;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
     public function __toString(): string
     {
         return $this->type->getAbbreviation() . '.' . $this->name;
     }
 
+    #[\Override]
     public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         return $translator->trans((string) $this, $this->parameters, null, $locale);

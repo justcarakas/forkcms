@@ -24,7 +24,10 @@ use Throwable;
 /**
  * This command will run the requirements checks of fork.
  */
-#[AsCommand(name: 'forkcms:installer:install', description: 'Install fork from the console using the configuration in the fork-cms-installation-configuration.yaml file')]
+#[AsCommand(
+    name: 'forkcms:installer:install',
+    description: 'Install fork from the console using the fork-cms-installation-configuration.yaml config file'
+)]
 class InstallCommand extends Command
 {
     private InputInterface $input;
@@ -32,13 +35,14 @@ class InstallCommand extends Command
     private SymfonyStyle $formatter;
 
     public function __construct(
-        private bool $forkIsInstalled,
-        private ConfigurationParser $configurationParser,
-        private Kernel $kernel,
+        private readonly bool $forkIsInstalled,
+        private readonly ConfigurationParser $configurationParser,
+        private readonly Kernel $kernel,
     ) {
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this
@@ -47,6 +51,7 @@ class InstallCommand extends Command
             ->setHidden($this->forkIsInstalled);
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->input = $input;
@@ -58,7 +63,7 @@ class InstallCommand extends Command
             return self::FAILURE;
         }
 
-        InstalledModules::setModulesToInstall(...$installerConfiguration->getModules());
+        InstalledModules::setModulesToInstall(...$installerConfiguration->modules);
         $this->kernel->reboot(null);
         $_SERVER['HTTPS'] = 'on';
         try {

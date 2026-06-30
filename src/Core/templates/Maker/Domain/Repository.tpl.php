@@ -19,7 +19,7 @@ use Doctrine\Persistence\ManagerRegistry;
 * @method <?= $entity->getName() ?>|null find($id, $lockMode = null, $lockVersion = null)
 * @method <?= $entity->getName() ?>|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
 * @method <?= $entity->getName() ?>[] findAll()
-* @method <?= $entity->getName() ?>[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
+* @method <?= $entity->getName() ?>[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null) // phpcs:ignore Generic.Files.LineLength.TooLong
 * @extends ServiceEntityRepository<<?= $entity->getName() ?>>
 */
 final class <?= $class_name ?> extends ServiceEntityRepository

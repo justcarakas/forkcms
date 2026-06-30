@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Routing\RouteCollection;
 
-final class FrontendRouteLoader implements ModuleRouteProviderInterface
+final readonly class FrontendRouteLoader implements ModuleRouteProviderInterface
 {
     public function __construct(
         #[Autowire(service: 'routing.loader.yml')]
@@ -15,6 +15,7 @@ final class FrontendRouteLoader implements ModuleRouteProviderInterface
     ) {
     }
 
+    #[\Override]
     public function getRouteCollection(): RouteCollection
     {
         return $this->yamlFileLoader->load(__DIR__ . '/../config/routes.yaml');

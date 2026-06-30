@@ -56,6 +56,7 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
         return implode('_', $chunks);
     }
 
+    #[\Override]
     public static function fromArray(array $configuration): static
     {
         return new self(
@@ -67,6 +68,7 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
         );
     }
 
+    #[\Override]
     public static function fromInstallerConfiguration(InstallerConfiguration $installerConfiguration): static
     {
         if (!$installerConfiguration->hasStep(self::getStep())) {
@@ -74,11 +76,11 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
         }
 
         return new self(
-            $installerConfiguration->getDatabaseHostname(),
-            $installerConfiguration->getDatabaseUsername(),
-            $installerConfiguration->getDatabasePassword(),
-            $installerConfiguration->getDatabaseName(),
-            $installerConfiguration->getDatabasePort()
+            $installerConfiguration->databaseHostname,
+            $installerConfiguration->databaseUsername,
+            $installerConfiguration->databasePassword,
+            $installerConfiguration->databaseName,
+            $installerConfiguration->databasePort
         );
     }
 
@@ -109,6 +111,7 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
         }
     }
 
+    #[\Override]
     public static function getStep(): InstallerStep
     {
         return InstallerStep::DATABASE;

@@ -4,9 +4,9 @@ namespace ForkCMS\Modules\Extensions\Domain\Theme\Command;
 
 use ForkCMS\Modules\Extensions\Domain\Theme\InstallableTheme;
 
-final class InstallTheme
+final readonly class InstallTheme
 {
-    public function __construct(public readonly InstallableTheme $theme)
+    public function __construct(public InstallableTheme $installableTheme)
     {
     }
 }

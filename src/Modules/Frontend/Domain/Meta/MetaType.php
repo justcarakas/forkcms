@@ -33,6 +33,7 @@ class MetaType extends AbstractType
     ) {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -45,19 +46,31 @@ class MetaType extends AbstractType
                 TextType::class,
                 ['label' => 'lbl.PageTitle', 'label_attr' => ['class' => 'visually-hidden']]
             )
-            ->add('titleOverwrite', SwitchType::class, ['label' => 'lbl.PageTitle', 'required' => false])
+            ->add(
+                'titleOverwrite',
+                SwitchType::class,
+                ['label' => 'lbl.PageTitle', 'required' => false]
+            )
             ->add(
                 'description',
                 TextType::class,
                 ['label' => 'lbl.Description', 'label_attr' => ['class' => 'visually-hidden']]
             )
-            ->add('descriptionOverwrite', SwitchType::class, ['label' => 'lbl.Description', 'required' => false])
+            ->add(
+                'descriptionOverwrite',
+                SwitchType::class,
+                ['label' => 'lbl.Description', 'required' => false]
+            )
             ->add(
                 'keywords',
                 TextType::class,
                 ['label' => 'lbl.Keywords', 'label_attr' => ['class' => 'visually-hidden']]
             )
-            ->add('keywordsOverwrite', SwitchType::class, ['label' => 'lbl.Keywords', 'required' => false])
+            ->add(
+                'keywordsOverwrite',
+                SwitchType::class,
+                ['label' => 'lbl.Keywords', 'required' => false]
+            )
             ->add(
                 'slug',
                 TextType::class,
@@ -86,9 +99,21 @@ class MetaType extends AbstractType
                     'label_attr' => ['class' => 'visually-hidden'],
                 ]
             )
-            ->add('canonicalUrlOverwrite', SwitchType::class, ['label' => 'lbl.CanonicalURL', 'required' => false])
-            ->add('SEOIndex', EnumType::class, $this->getSEOIndexChoiceTypeOptions())
-            ->add('SEOFollow', EnumType::class, $this->getSEOFollowChoiceTypeOptions())
+            ->add(
+                'canonicalUrlOverwrite',
+                SwitchType::class,
+                ['label' => 'lbl.CanonicalURL', 'required' => false]
+            )
+            ->add(
+                'SEOIndex',
+                EnumType::class,
+                $this->getSEOIndexChoiceTypeOptions()
+            )
+            ->add(
+                'SEOFollow',
+                EnumType::class,
+                $this->getSEOFollowChoiceTypeOptions()
+            )
             ->addModelTransformer(
                 new CallbackTransformer($this->getMetaTransformFunction(), $this->getMetaReverseTransformFunction())
             )
@@ -154,8 +179,11 @@ class MetaType extends AbstractType
         };
     }
 
-    private function findBaseField(FormInterface $parent, string $baseFieldName, ?string $baseFieldParentName): FormInterface
-    {
+    private function findBaseField(
+        FormInterface $parent,
+        string $baseFieldName,
+        ?string $baseFieldParentName
+    ): FormInterface {
         $baseField = null;
         while ($parent !== null && $baseField === null) {
             if ($baseFieldParentName !== null) {
@@ -168,12 +196,17 @@ class MetaType extends AbstractType
             $parent = $parent->getParent();
         }
 
-        return $baseField ?? throw new InvalidArgumentException('The base_field_name does not exist in the parent form');
+        return $baseField ?? throw new InvalidArgumentException(
+            'The base_field_name does not exist in the parent form'
+        );
     }
 
     /** @param array<string, mixed> $metaData */
-    private function applyDefaultsForNonOverwrittenFields(FormInterface $metaForm, array &$metaData, mixed $defaultValue): void
-    {
+    private function applyDefaultsForNonOverwrittenFields(
+        FormInterface $metaForm,
+        array &$metaData,
+        mixed $defaultValue
+    ): void {
         foreach ($this->getOverwritableFields() as $fieldName) {
             if ($metaForm->has($fieldName) && $metaForm->get($fieldName . 'Overwrite')->getData()) {
                 continue;
@@ -219,23 +252,23 @@ class MetaType extends AbstractType
                 ];
             }
 
-            $this->meta[$meta->getId()] = $meta;
+            $this->meta[$meta->id] = $meta;
 
             return [
-                'id' => $meta->getId(),
-                'title' => $meta->getTitle(),
-                'titleOverwrite' => $meta->isTitleOverwrite(),
-                'description' => $meta->getDescription(),
-                'descriptionOverwrite' => $meta->isDescriptionOverwrite(),
-                'keywords' => $meta->getKeywords(),
-                'keywordsOverwrite' => $meta->isKeywordsOverwrite(),
-                'custom' => $meta->getCustom(),
-                'slug' => $meta->getSlug(),
-                'slugOverwrite' => $meta->isSlugOverwrite(),
-                'canonicalUrl' => $meta->getCanonicalUrl(),
-                'canonicalUrlOverwrite' => $meta->isCanonicalUrlOverwrite(),
-                'SEOIndex' => $meta->getSEOIndex(),
-                'SEOFollow' => $meta->getSEOFollow(),
+                'id' => $meta->id,
+                'title' => $meta->title,
+                'titleOverwrite' => $meta->titleOverwrite,
+                'description' => $meta->description,
+                'descriptionOverwrite' => $meta->descriptionOverwrite,
+                'keywords' => $meta->keywords,
+                'keywordsOverwrite' => $meta->keywordsOverwrite,
+                'custom' => $meta->custom,
+                'slug' => $meta->slug,
+                'slugOverwrite' => $meta->slugOverwrite,
+                'canonicalUrl' => $meta->canonicalUrl,
+                'canonicalUrlOverwrite' => $meta->canonicalUrlOverwrite,
+                'SEOIndex' => $meta->seoIndex,
+                'SEOFollow' => $meta->seoFollow,
             ];
         };
     }
@@ -285,6 +318,7 @@ class MetaType extends AbstractType
         };
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired(
@@ -308,6 +342,7 @@ class MetaType extends AbstractType
         );
     }
 
+    #[\Override]
     public function getBlockPrefix(): string
     {
         return 'meta';
@@ -322,8 +357,9 @@ class MetaType extends AbstractType
         $parent = $view->parent;
         $baseField = null;
         while ($parent !== null && $baseField === null) {
-            if ($options['base_field_parent_name'] !== null) {
-                $baseField = $parent->children[$options['base_field_parent_name']]->children[$options['base_field_name']] ?? null;
+            $parentName = $options['base_field_parent_name'];
+            if ($parentName !== null) {
+                $baseField = $parent->children[$parentName]->children[$options['base_field_name']] ?? null;
             } else {
                 $baseField = $parent->children[$options['base_field_name']] ?? null;
             }

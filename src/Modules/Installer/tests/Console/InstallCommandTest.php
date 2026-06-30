@@ -37,6 +37,7 @@ class InstallCommandTest extends KernelTestCase
         $this->assertStringContainsString('[OK] Fork CMS is installed', $output);
     }
 
+    #[\Override]
     protected function tearDown(): void
     {
         parent::tearDown();

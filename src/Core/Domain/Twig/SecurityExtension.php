@@ -38,8 +38,8 @@ final class SecurityExtension extends AbstractExtension
     {
         if ($moduleName === null || $actionName === null) {
             $defaultSlug = ActionSlug::fromRequestStack($this->requestStack);
-            $moduleName ??= $defaultSlug->getModuleName()->getName();
-            $actionName ??= $defaultSlug->getActionName()->getName();
+            $moduleName ??= $defaultSlug->moduleName->name;
+            $actionName ??= $defaultSlug->actionName->name;
         }
 
         return (new ModuleAction(

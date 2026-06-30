@@ -25,6 +25,7 @@ final class PageAdd extends AbstractFormActionController
         parent::__construct($actionServices);
     }
 
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         $this->assign('sidebarTree', $this->navigationBuilder->getTree(Locale::current()));

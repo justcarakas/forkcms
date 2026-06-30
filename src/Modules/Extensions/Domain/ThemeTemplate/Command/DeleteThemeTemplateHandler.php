@@ -8,11 +8,11 @@ use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplateRepository;
 use InvalidArgumentException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-final class DeleteThemeTemplateHandler implements CommandHandlerInterface
+final readonly class DeleteThemeTemplateHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly ThemeTemplateRepository $themeTemplateRepository,
-        private readonly EventDispatcherInterface $eventDispatcher
+        private ThemeTemplateRepository $themeTemplateRepository,
+        private EventDispatcherInterface $eventDispatcher
     ) {
     }
 

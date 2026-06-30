@@ -11,8 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Core\Domain\Util\Ensure;
-use ForkCMS\Modules\Frontend\Domain\Block\BlockName;
-use ForkCMS\Modules\Frontend\Domain\Block\ModuleBlock;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Pages\Domain\Revision\Revision;
 use ForkCMS\Modules\Pages\Domain\RevisionBlock\RevisionBlock;
@@ -24,24 +22,24 @@ class Page
 {
     use EntityWithSettingsTrait;
 
-    public const PAGE_ID_HOME = 1;
-    public const PAGE_ID_404 = 404;
-    public const PAGE_ID_START = 1000;
+    public const int PAGE_ID_HOME = 1;
+    public const int PAGE_ID_404 = 404;
+    public const int PAGE_ID_START = 1000;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
-    private int $id;
+    private(set) int $id;
 
-    #[ORM\Column(type: 'string', length: 5, enumType: Locale::class)]
+    #[ORM\Column(type: Types::STRING, length: 5, enumType: Locale::class)]
     private Locale $originalLocale;
 
     /** @var Collection<array-key, Revision> */
-    #[ORM\OneToMany(mappedBy: 'page', targetEntity: Revision::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: Revision::class, mappedBy: 'page', cascade: ['persist', 'remove'])]
     private Collection $revisions;
 
     /** @var Collection<array-key, Revision> */
-    #[ORM\OneToMany(mappedBy: 'parentPage', targetEntity: Revision::class)]
+    #[ORM\OneToMany(targetEntity: Revision::class, mappedBy: 'parentPage')]
     private Collection $childRevisions;
 
     public function __construct(Locale $originalLocale)
@@ -52,26 +50,16 @@ class Page
         $this->settings = new SettingsBag();
     }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
     public function hasId(): bool
     {
         return isset($this->id);
-    }
-
-    public function getOriginalLocale(): Locale
-    {
-        return $this->originalLocale;
     }
 
     public function addRevision(Revision $newRevision): void
     {
         $this->revisions->add($newRevision);
 
-        if ($newRevision->isDraft()) {
+        if ($newRevision->isDraft) {
             return;
         }
 
@@ -151,15 +139,15 @@ class Page
         if ($revision->getSetting('hidden', false)) {
             return 'hidden';
         }
-        if ($this->getId() === self::PAGE_ID_HOME) {
+        if ($this->id === self::PAGE_ID_HOME) {
             return 'home';
         }
-        if ($this->getId() === self::PAGE_ID_404) {
+        if ($this->id === self::PAGE_ID_404) {
             return 'error';
         }
         if (
-            !$revision->getBlocks()->filter(
-                static fn (RevisionBlock $block) => $block->getBlock()?->getBlock()->getFQCN() === Sitemap::class
+            !$revision->blocks->filter(
+                static fn (RevisionBlock $block) => $block->block?->block->getFQCN() === Sitemap::class
             )->isEmpty()
         ) {
             return 'sitemap';

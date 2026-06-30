@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class DatabaseController extends AbstractStepController
 {
+    #[\Override]
     public function __invoke(Request $request): Response
     {
         return $this->handleInstallationStep(

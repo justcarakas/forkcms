@@ -23,6 +23,7 @@ final class TranslationKeyType extends AbstractType implements DataTransformerIn
     {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
@@ -49,6 +50,7 @@ final class TranslationKeyType extends AbstractType implements DataTransformerIn
         )->addModelTransformer($this);
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
@@ -61,12 +63,13 @@ final class TranslationKeyType extends AbstractType implements DataTransformerIn
      *
      * @return array{type?:Type, name?:string}
      */
+    #[\Override]
     public function transform(mixed $value): array
     {
         if ($value instanceof TranslationKey) {
             return [
-                'type' => $value->getType(),
-                'name' => $value->getName(),
+                'type' => $value->type,
+                'name' => $value->name,
             ];
         }
 
@@ -74,6 +77,7 @@ final class TranslationKeyType extends AbstractType implements DataTransformerIn
     }
 
     /** @param array{type:Type, name:string} $value */
+    #[\Override]
     public function reverseTransform(mixed $value): ?TranslationKey
     {
         try {

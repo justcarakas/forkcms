@@ -17,11 +17,13 @@ final class Forbidden extends AbstractAjaxActionController
     {
     }
 
+    #[\Override]
     protected function execute(Request $request): void
     {
         $this->assign('message', TranslationKey::error('ActionNotAllowed')->trans($this->translator));
     }
 
+    #[\Override]
     public function getResponse(Request $request): Response
     {
         $response = parent::getResponse($request);

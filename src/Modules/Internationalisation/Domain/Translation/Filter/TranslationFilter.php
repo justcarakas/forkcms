@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 #[DataGrid('translation', noResultsMessage: 'msg.FilterToSeeTheMatchingTranslations')]
 final class TranslationFilter
 {
-    private readonly bool $shouldFilter;
+    public readonly bool $shouldFilter;
 
     /**
      * @param Type[] $type
@@ -46,11 +46,6 @@ final class TranslationFilter
         }
 
         return $filter;
-    }
-
-    public function shouldFilter(): bool
-    {
-        return $this->shouldFilter;
     }
 
     /** @return array<string, string> */

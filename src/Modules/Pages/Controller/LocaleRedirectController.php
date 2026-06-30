@@ -15,14 +15,14 @@ use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\RouterInterface;
 
 #[Autoconfigure(public: true)]
-final class LocaleRedirectController
+final readonly class LocaleRedirectController
 {
-    public const ROUTE_LOCALE_REDIRECT = 'pages_page_locale_redirect';
+    public const string ROUTE_LOCALE_REDIRECT = 'pages_page_locale_redirect';
 
     public function __construct(
-        private readonly InstalledLocaleRepository $installedLocaleRepository,
-        private readonly RouterInterface $router,
-        private readonly HttpKernelInterface $httpKernel,
+        private InstalledLocaleRepository $installedLocaleRepository,
+        private RouterInterface $router,
+        private HttpKernelInterface $httpKernel,
     ) {
     }
 

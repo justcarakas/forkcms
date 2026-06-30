@@ -12,12 +12,12 @@ use Symfony\Component\BrowserKit\AbstractBrowser;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use function func_num_args;
 
 abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
     protected KernelBrowser $client;
 
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -302,6 +302,7 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
         return static::getClient(parent::createClient($options, $server));
     }
 
+    #[\Override]
     protected function tearDown(): void
     {
         parent::tearDown();

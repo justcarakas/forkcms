@@ -25,6 +25,7 @@ class Sitemap extends AbstractWidgetController
         parent::__construct($blockServices);
     }
 
+    #[\Override]
     public function execute(Request $request, Response $response): void
     {
         $navigationTree = $this->navigationBuilder->getTree(Locale::current());

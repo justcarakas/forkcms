@@ -28,17 +28,17 @@ final class FilteredTranslation
     public static function forTranslation(Translation $translation): self
     {
         return new self(
-            $translation->getDomain()->getApplication(),
-            $translation->getDomain()->getModuleName() ?? ModuleName::core(),
-            $translation->getKey()->getName(),
-            $translation->getKey()->getType(),
+            $translation->domain->application,
+            $translation->domain->moduleName ?? ModuleName::core(),
+            $translation->key,
+            $translation->key->type,
         );
     }
 
     public function addTranslation(Translation $translation): void
     {
-        $this->values[$translation->getLocale()->value] = $translation->getValue();
-        $this->ids[$translation->getLocale()->value] = $translation->getId();
+        $this->values[$translation->locale->value] = $translation->value;
+        $this->ids[$translation->locale->value] = $translation->id;
     }
 
     public function getValue(Locale $locale): string

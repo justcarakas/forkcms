@@ -14,7 +14,6 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use InvalidArgumentException;
 use LogicException;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
@@ -22,36 +21,27 @@ final class InstallerConfiguration
 {
     /** @var InstallerStep[] */
     private array $withSteps = [];
-    private bool $multilingual;
-    private Locale $defaultLocale;
-    private Locale $defaultUserLocale;
+    private(set) bool $multilingual;
+    private(set) Locale $defaultLocale;
+    private(set) Locale $defaultUserLocale;
     /** @var Locale[] */
-    private array $locales = [];
+    private(set) array $locales = [];
     /** @var Locale[] */
-    private array $userLocales = [];
+    private(set) array $userLocales = [];
     /** @var ModuleName[] */
-    private array $modules = [];
-    private bool $installExampleData;
-    private bool $differentDebugEmail;
-    private ?string $debugEmail;
-    private string $databaseHostname;
-    private string $databaseUsername;
-    private string $databasePassword;
-    private string $databaseName;
-    private int $databasePort;
-    private string $adminEmail;
-    private string $adminPassword;
-    private bool $saveConfiguration;
-    private bool $saveConfigurationWithCredentials;
-
-    public static function fromSession(SessionInterface $session): self
-    {
-        if (!$session->has('installer_configuration')) {
-            $session->set('installer_configuration', new self());
-        }
-
-        return $session->get('installer_configuration');
-    }
+    private(set) array $modules = [];
+    private(set) bool $installExampleData;
+    private(set) bool $differentDebugEmail;
+    private(set) ?string $debugEmail;
+    private(set) string $databaseHostname;
+    private(set) string $databaseUsername;
+    private(set) string $databasePassword;
+    private(set) string $databaseName;
+    private(set) int $databasePort;
+    private(set) string $adminEmail;
+    private(set) string $adminPassword;
+    private(set) bool $saveConfiguration;
+    private(set) bool $saveConfigurationWithCredentials;
 
     public function isValidForStep(InstallerStep $installerStep): bool
     {
@@ -101,33 +91,6 @@ final class InstallerConfiguration
         return $this;
     }
 
-    public function isMultilingual(): bool
-    {
-        return $this->multilingual;
-    }
-
-    public function getDefaultLocale(): Locale
-    {
-        return $this->defaultLocale;
-    }
-
-    public function getDefaultUserLocale(): Locale
-    {
-        return $this->defaultUserLocale;
-    }
-
-    /** @return Locale[] */
-    public function getLocales(): array
-    {
-        return $this->locales;
-    }
-
-    /** @return Locale[] */
-    public function getUserLocales(): array
-    {
-        return $this->userLocales;
-    }
-
     public function withModulesStep(
         ModulesStepConfiguration $modulesStepConfiguration,
         ModuleInstallerLocator $moduleInstallerLocator,
@@ -145,17 +108,6 @@ final class InstallerConfiguration
         $commandBus->dispatch(new ClearContainerCache());
 
         return $this;
-    }
-
-    /** @return ModuleName[] */
-    public function getModules(): array
-    {
-        return $this->modules;
-    }
-
-    public function shouldInstallExampleData(): bool
-    {
-        return $this->installExampleData;
     }
 
     public function withDatabaseStep(DatabaseStepConfiguration $databaseStepConfiguration): self
@@ -177,31 +129,6 @@ final class InstallerConfiguration
         return $this;
     }
 
-    public function getDatabaseHostname(): string
-    {
-        return $this->databaseHostname;
-    }
-
-    public function getDatabaseUsername(): string
-    {
-        return $this->databaseUsername;
-    }
-
-    public function getDatabasePassword(): string
-    {
-        return $this->databasePassword;
-    }
-
-    public function getDatabaseName(): string
-    {
-        return $this->databaseName;
-    }
-
-    public function getDatabasePort(): int
-    {
-        return $this->databasePort;
-    }
-
     public function withAuthenticationStep(AuthenticationStepConfiguration $authenticationStepConfiguration): self
     {
         $authenticationStepConfiguration->normalise();
@@ -216,36 +143,6 @@ final class InstallerConfiguration
         $this->addStep($authenticationStepConfiguration::getStep());
 
         return $this;
-    }
-
-    public function getAdminEmail(): string
-    {
-        return $this->adminEmail;
-    }
-
-    public function getAdminPassword(): string
-    {
-        return $this->adminPassword;
-    }
-
-    public function hasDifferentDebugEmail(): bool
-    {
-        return $this->differentDebugEmail;
-    }
-
-    public function getDebugEmail(): ?string
-    {
-        return $this->debugEmail;
-    }
-
-    public function shouldSaveConfiguration(): bool
-    {
-        return $this->saveConfiguration;
-    }
-
-    public function shouldSaveConfigurationWithCredentials(): bool
-    {
-        return $this->saveConfigurationWithCredentials;
     }
 
     private static function getCache(): FilesystemAdapter
