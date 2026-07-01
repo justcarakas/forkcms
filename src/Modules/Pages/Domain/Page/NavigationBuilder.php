@@ -156,7 +156,7 @@ final readonly class NavigationBuilder
                 'cr.locale = :locale AND cr.archivedOn IS NULL'
             )
             ->addSelect('cr')
-            ->leftJoin('pr.page', 'crp')
+            ->leftJoin('cr.page', 'crp')
             ->addSelect('crp')
             ->getQuery()
             ->getResult();
