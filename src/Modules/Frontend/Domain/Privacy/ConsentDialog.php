@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\Privacy;
 
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
@@ -9,7 +11,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class ConsentDialog implements JsonSerializable
 {
-    public const CONSENT_DIALOG_ANALYTICS_TECHNICAL_NAME = 'analytics';
+    public const string CONSENT_DIALOG_ANALYTICS_TECHNICAL_NAME = 'analytics';
 
     public function __construct(private readonly ModuleSettings $settings, private readonly RequestStack $requestStack)
     {
@@ -99,6 +101,7 @@ class ConsentDialog implements JsonSerializable
     }
 
     /** @return array{possibleLevels: string[], levelsHash: string, visitorChoices: array<string, bool>} */
+    #[\Override]
     public function jsonSerialize(): array
     {
         return [

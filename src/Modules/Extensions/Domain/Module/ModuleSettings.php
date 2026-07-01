@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use ForkCMS\Modules\Extensions\Domain\Module\Event\ModuleInstalledEvent;
@@ -29,7 +31,7 @@ final class ModuleSettings implements EventSubscriberInterface
     {
         $settings = $this->getSettings();
 
-        return $settings[$module->getName()][$key] ?? $defaultValue;
+        return $settings[$module->name][$key] ?? $defaultValue;
     }
 
     /**
@@ -73,7 +75,7 @@ final class ModuleSettings implements EventSubscriberInterface
     public function getForModule(ModuleName $moduleName): array
     {
         $settings = $this->getSettings();
-        $name = $moduleName->getName();
+        $name = $moduleName->name;
 
         if (isset($settings[$name])) {
             return $settings[$name];
@@ -117,7 +119,7 @@ final class ModuleSettings implements EventSubscriberInterface
         // loop settings & unserialize the values
         $groupedSettings = [];
         foreach ($modules as $module) {
-            $groupedSettings[$module->getName()->getName()] = $module->getSettings()->all();
+            $groupedSettings[$module->name->name] = $module->settings->all();
         }
 
         return $groupedSettings;
@@ -126,7 +128,7 @@ final class ModuleSettings implements EventSubscriberInterface
 
     public function getModule(ModuleName $moduleName): Module
     {
-        $name = $moduleName->getName();
+        $name = $moduleName->name;
 
         $this->modules[$name] = $this->modules[$name]
             ?? $this->moduleRepository->find($moduleName)
@@ -156,6 +158,7 @@ final class ModuleSettings implements EventSubscriberInterface
         return str_replace('\\', '_', self::class);
     }
 
+    #[\Override]
     public static function getSubscribedEvents(): array
     {
         return [

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\AjaxAction;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,11 +13,13 @@ abstract class AbstractAjaxActionController implements AjaxActionControllerInter
     /** @var array<string, mixed> */
     private array $data = [];
 
+    #[\Override]
     final public static function getAjaxActionSlug(): AjaxActionSlug
     {
         return AjaxActionSlug::fromFQCN(static::class);
     }
 
+    #[\Override]
     public function __invoke(Request $request): Response
     {
         $this->execute($request);

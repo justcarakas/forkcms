@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\ModuleSettings\Command;
 
 use ForkCMS\Core\Domain\Form\TabsType;
@@ -20,13 +22,13 @@ final class ChangeModuleSettings
     public function __construct(SluggerInterface $slugger, InstalledLocale ...$installedLocales)
     {
         foreach ($installedLocales as $installedLocale) {
-            if ($installedLocale->isDefaultForWebsite()) {
-                $this->defaultForWebsite = $installedLocale->getLocale();
+            if ($installedLocale->isDefaultForWebsite) {
+                $this->defaultForWebsite = $installedLocale->locale;
             }
-            if ($installedLocale->isDefaultForUser()) {
-                $this->defaultForUser = $installedLocale->getLocale();
+            if ($installedLocale->isDefaultForUser) {
+                $this->defaultForUser = $installedLocale->locale;
             }
-            $tabKey = TabsType::getTabNameForLabel($installedLocale->getLocale()->asTranslatable(), $slugger);
+            $tabKey = TabsType::getTabNameForLabel($installedLocale->locale->asTranslatable(), $slugger);
             $this->installedLocales[$tabKey] = new InstalledLocaleDataTransferObject($installedLocale);
         }
     }

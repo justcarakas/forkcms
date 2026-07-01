@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -13,6 +15,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 /** @extends AbstractType<array<string, mixed>> */
 final class CheckboxTextType extends AbstractType
 {
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $requiredGroupName = $builder->getName() . '_required';
@@ -37,6 +40,7 @@ final class CheckboxTextType extends AbstractType
         );
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);

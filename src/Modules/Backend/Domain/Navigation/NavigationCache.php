@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\Navigation;
 
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
@@ -7,13 +9,13 @@ use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItem;
 use ForkCMS\Modules\Backend\Domain\NavigationItem\NavigationItemRepository;
 use Psr\Cache\CacheItemPoolInterface;
 
-final class NavigationCache
+final readonly class NavigationCache
 {
-    private const CACHE_KEY = 'backend_navigation';
+    private const string CACHE_KEY = 'backend_navigation';
 
     public function __construct(
-        private readonly CacheItemPoolInterface $cache,
-        private readonly NavigationItemRepository $navigationItemRepository,
+        private CacheItemPoolInterface $cache,
+        private NavigationItemRepository $navigationItemRepository,
     ) {
     }
 
@@ -54,31 +56,31 @@ final class NavigationCache
     /** @return array<string, mixed>|null */
     private function buildNavigationItem(NavigationItem $navigationItemEntity): ?array
     {
-        if (!$navigationItemEntity->isVisibleInNavigationMenu()) {
+        if (!$navigationItemEntity->visibleInNavigationMenu) {
             return null;
         }
 
         $navigationItem = [
             'slug' => $navigationItemEntity->getFirstAvailableSlug(),
-            'label' => $navigationItemEntity->getLabel(),
+            'label' => $navigationItemEntity->label,
             'selected_for' => array_filter(
-                $navigationItemEntity->getChildren()
+                $navigationItemEntity->children
                     ->filter(
-                        static fn (NavigationItem $item): bool => !$item->isVisibleInNavigationMenu()
-                            && $item->getSlug() instanceof ActionSlug
+                        static fn (NavigationItem $item): bool => !$item->visibleInNavigationMenu
+                                                                  && $item->slug instanceof ActionSlug
                     )
-                    ->map(static fn (NavigationItem $item): ?string => $item->getSlug()?->getSlug())
+                    ->map(static fn (NavigationItem $item): ?string => $item->slug?->getSlug())
                     ->toArray()
             ),
             'children' => array_filter(
-                $navigationItemEntity->getChildren()->map(
+                $navigationItemEntity->children->map(
                     function (NavigationItem $navigationItem) {
                         return $this->buildNavigationItem($navigationItem);
                     }
                 )->toArray()
             ),
         ];
-        $slug = $navigationItemEntity->getSlug();
+        $slug = $navigationItemEntity->slug;
         if ($slug instanceof ActionSlug) {
             $navigationItem['selected_for'][] = $slug->getSlug();
         }

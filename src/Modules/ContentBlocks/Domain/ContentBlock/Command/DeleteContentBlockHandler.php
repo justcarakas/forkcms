@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Command;
 
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
@@ -29,7 +31,7 @@ final readonly class DeleteContentBlockHandler implements CommandHandlerInterfac
 
         $activeBlock = null;
         foreach ($versions as $version) {
-            if ($version->getStatus() === Status::ACTIVE) {
+            if ($version->status === Status::ACTIVE) {
                 $activeBlock = $version;
             }
         }

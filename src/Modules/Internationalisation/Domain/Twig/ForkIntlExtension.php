@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Twig;
 
 use DateTimeInterface;
@@ -15,7 +17,7 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use IntlDateFormatter;
 use Locale as IntlLocale;
 use NumberFormatter;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -47,7 +49,7 @@ use Twig\TwigFunction;
  * @method string formatUserDate(Environment $env, mixed $date, ?string $dateFormat = 'medium', string $pattern = '', mixed $timezone = null, string $calendar = 'gregorian', string $locale = null)
  * @method string formatUserTime(Environment $env, ?string $timeFormat = 'medium', string $pattern = '', $timezone = null, string $calendar = 'gregorian', string $locale = null)
  */
-final class ForkIntlExtension extends AbstractExtension implements EventSubscriberInterface
+final class ForkIntlExtension extends AbstractExtension
 {
     /** @var array<string, IntlExtension> */
     private array $extensions = [];
@@ -70,6 +72,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
     }
 
     /** @return TwigFilter[] */
+    #[\Override]
     public function getFilters(): array
     {
         $filters = array_map(
@@ -125,6 +128,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
     }
 
     /** @return TwigFunction[] */
+    #[\Override]
     public function getFunctions(): array
     {
         return array_map(function (TwigFunction $function) {
@@ -192,7 +196,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
 
     private function createNumberFormatter(InstalledLocale $locale, ?User $user): NumberFormatter
     {
-        $cacheKey = $locale->getLocale()->value . ($user ? 'user' : '');
+        $cacheKey = $locale->locale->value . ($user ? 'user' : '');
 
         if (array_key_exists($cacheKey, $this->numberFormatterCache)) {
             return $this->numberFormatterCache[$cacheKey];
@@ -204,7 +208,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
         }
 
         $numberFormatter = new NumberFormatter(
-            $locale->getLocale()->value,
+            $locale->locale->value,
             NumberFormatter::DECIMAL,
             '#,##0.####################',
         );
@@ -230,7 +234,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
         string $dateFormatType = 'short',
         ?User $user = null
     ): IntlDateFormatter {
-        $cacheKey = $locale->getLocale()->value . $order . $dateFormatType . ($user ? 'user' : '');
+        $cacheKey = $locale->locale->value . $order . $dateFormatType . ($user ? 'user' : '');
         if (array_key_exists($cacheKey, $this->dateFormatter)) {
             return $this->dateFormatter[$cacheKey];
         }
@@ -274,7 +278,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
     ): string {
         return $this->getIntlExtension(
             'formatLongDateTime',
-            (is_string($locale) ? Locale::tryFrom($locale) : null) ?? Locale::i18n()
+            Locale::tryFromNullable($locale) ?? Locale::i18n()
         )->formatDateTime(
             $env,
             $date,
@@ -302,7 +306,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
     ): string {
         return $this->getIntlExtension(
             'formatLongDate',
-            (is_string($locale) ? Locale::tryFrom($locale) : null) ?? Locale::i18n()
+            Locale::tryFromNullable($locale) ?? Locale::i18n()
         )->formatDate(
             $env,
             $date,
@@ -330,7 +334,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
     ): string {
         return $this->getIntlExtension(
             'formatUserLongDateTime',
-            (is_string($locale) ? Locale::tryFrom($locale) : null) ?? Locale::i18n()
+            Locale::tryFromNullable($locale) ?? Locale::i18n()
         )->formatDateTime(
             $env,
             $date,
@@ -358,7 +362,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
     ): string {
         return $this->getIntlExtension(
             'formatUserLongDate',
-            (is_string($locale) ? Locale::tryFrom($locale) : null) ?? Locale::i18n()
+            Locale::tryFromNullable($locale) ?? Locale::i18n()
         )->formatDate(
             $env,
             $date,
@@ -381,15 +385,8 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
         return $this->installedLocales[$locale->value];
     }
 
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            BuildUserSettingsFormEvent::class => 'onBuildUserSettingsForm',
-            KernelEvents::REQUEST => [['userLocale', 100], ['userLocale', 16]], // it gets reset, we need do it again
-            UserChangedEvent::class => 'onUserChanged',
-        ];
-    }
-
+    #[AsEventListener(event: KernelEvents::REQUEST, priority: 100)]
+    #[AsEventListener(event: KernelEvents::REQUEST, priority: 15)] // it gets reset by LocaleListener at priority 16, we need to run after it
     public function userLocale(RequestEvent $event): void
     {
         $request = $event->getRequest();
@@ -402,6 +399,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
         }
     }
 
+    #[AsEventListener(event: UserChangedEvent::class)]
     public function onUserChanged(UserChangedEvent $event): void
     {
         if ($event->user->getUserIdentifier() === $this->security->getUser()?->getUserIdentifier()) {
@@ -410,6 +408,7 @@ final class ForkIntlExtension extends AbstractExtension implements EventSubscrib
         }
     }
 
+    #[AsEventListener(event: BuildUserSettingsFormEvent::class)]
     public function onBuildUserSettingsForm(BuildUserSettingsFormEvent $formEvent): void
     {
         $formEvent->formBuilder->add(

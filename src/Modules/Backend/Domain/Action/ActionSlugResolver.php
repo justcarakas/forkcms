@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use ForkCMS\Modules\Backend\Backend\Actions\Forbidden;
@@ -21,6 +23,7 @@ final class ActionSlugResolver implements ValueResolverInterface
     }
 
     /** @return array<?ActionSlug> */
+    #[\Override]
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         if ($argument->getType() !== ActionSlug::class) {

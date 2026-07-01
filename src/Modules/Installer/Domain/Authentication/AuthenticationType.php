@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\Domain\Authentication;
 
 use Symfony\Component\Form\AbstractType;
@@ -16,6 +18,7 @@ use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
  */
 final class AuthenticationType extends AbstractType
 {
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -71,6 +74,7 @@ final class AuthenticationType extends AbstractType
             );
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
@@ -80,6 +84,7 @@ final class AuthenticationType extends AbstractType
         );
     }
 
+    #[\Override]
     public function getBlockPrefix(): string
     {
         return 'install_authentication';

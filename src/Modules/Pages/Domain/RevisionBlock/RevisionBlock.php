@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Domain\RevisionBlock;
 
 use Doctrine\DBAL\Types\Types;
@@ -19,29 +21,29 @@ class RevisionBlock
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
-    private int $id;
+    private(set) int $id;
 
     #[Gedmo\SortableGroup]
     #[ORM\ManyToOne(targetEntity: Revision::class, inversedBy: 'blocks')]
     #[ORM\JoinColumn(name: 'revision_id', nullable: false, onDelete: 'CASCADE')]
-    private Revision $revision;
+    private(set) Revision $revision;
 
     #[Gedmo\SortableGroup]
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $position;
+    private(set) string $position;
 
     #[ORM\ManyToOne(targetEntity: Block::class, fetch: 'EAGER')]
-    private ?Block $block;
+    private(set) ?Block $block;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $editorContent;
+    private(set) ?string $editorContent;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $isVisible;
+    private(set) bool $isVisible;
 
     #[Gedmo\SortablePosition]
     #[ORM\Column(type: Types::INTEGER)]
-    private int $sequence;
+    private(set) int $sequence;
 
     public function __construct(
         Revision $revision,
@@ -78,41 +80,6 @@ class RevisionBlock
     public function getSettings(): SettingsBag
     {
         return $this->settings;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function getRevision(): Revision
-    {
-        return $this->revision;
-    }
-
-    public function getPosition(): string
-    {
-        return $this->position;
-    }
-
-    public function getBlock(): ?Block
-    {
-        return $this->block;
-    }
-
-    public function getEditorContent(): ?string
-    {
-        return $this->editorContent;
-    }
-
-    public function isVisible(): bool
-    {
-        return $this->isVisible;
-    }
-
-    public function getSequence(): ?int
-    {
-        return $this->sequence;
     }
 
     public function removeBlock(): void

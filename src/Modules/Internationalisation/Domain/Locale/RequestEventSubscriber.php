@@ -1,20 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-final class RequestEventSubscriber implements EventSubscriberInterface
+final class RequestEventSubscriber
 {
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            KernelEvents::REQUEST => ['mainRequestLocale', 16]
-        ];
-    }
-
+    #[AsEventListener(event: KernelEvents::REQUEST, priority: 15)]
     public function mainRequestLocale(RequestEvent $event): void
     {
         if (!$event->isMainRequest()) {

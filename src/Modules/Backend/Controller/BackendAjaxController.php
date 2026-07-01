@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Controller;
 
 use ForkCMS\Modules\Backend\Backend\Ajax\NotFound;
@@ -15,12 +17,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 #[Autoconfigure(public: true)]
-final class BackendAjaxController
+final readonly class BackendAjaxController
 {
     /** @param ServiceLocator<AjaxActionControllerInterface> $ajaxActions */
     public function __construct(
-        #[AutowireLocator('forkcms.backend.ajax_action')]
-        private readonly ServiceLocator $ajaxActions
+        #[AutowireLocator(AjaxActionControllerInterface::class)]
+        private ServiceLocator $ajaxActions
     ) {
     }
 

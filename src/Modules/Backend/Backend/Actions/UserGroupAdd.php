@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
@@ -16,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class UserGroupAdd extends AbstractFormActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         return $this->handleForm(

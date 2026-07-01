@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\InformationFile;
 
 use Composer\Semver\Comparator;
@@ -8,16 +10,16 @@ use SimpleXMLElement;
 use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
 use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
 
-final class Requirements implements \JsonSerializable
+final readonly class Requirements implements \JsonSerializable
 {
-    public function __construct(public readonly string $minimumVersion, public readonly string $maximumVersion)
+    public function __construct(public string $minimumVersion, public string $maximumVersion)
     {
     }
 
     public static function fromXML(SimpleXMLElement $requirements, Messages $messages): self
     {
         $sanitiser = new HtmlSanitizer((new HtmlSanitizerConfig()));
-        $minimumVersion = $sanitiser->sanitize($requirements->minimum_version ?? '');
+        $minimumVersion = $sanitiser->sanitize((string) ($requirements->minimum_version ?? ''));
         if ($minimumVersion !== '' && Comparator::lessThan($_ENV['FORK_VERSION'], $minimumVersion)) {
             $messages->addMessage(
                 TranslationKey::error('InformationVersionTooLow')->withParameters(
@@ -25,7 +27,7 @@ final class Requirements implements \JsonSerializable
                 )
             );
         }
-        $maximumVersion = $sanitiser->sanitize($requirements->maximum_version ?? '');
+        $maximumVersion = $sanitiser->sanitize((string) ($requirements->maximum_version ?? ''));
         if ($maximumVersion !== '' && Comparator::greaterThanOrEqualTo($_ENV['FORK_VERSION'], $maximumVersion)) {
             $messages->addMessage(
                 TranslationKey::error('InformationVersionTooHigh')->withParameters(
@@ -38,6 +40,7 @@ final class Requirements implements \JsonSerializable
     }
 
     /** @return array<string, string> */
+    #[\Override]
     public function jsonSerialize(): array
     {
         return [

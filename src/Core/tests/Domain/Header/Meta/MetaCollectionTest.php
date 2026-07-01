@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\tests\Domain\Header\Meta;
 
 use ForkCMS\Core\Domain\Header\Meta\MetaCollection;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Backend\Actions;
 
 use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
@@ -26,6 +28,7 @@ final class PageEdit extends AbstractFormActionController
         parent::__construct($actionServices);
     }
 
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         $revision = $request->query->has('revision')

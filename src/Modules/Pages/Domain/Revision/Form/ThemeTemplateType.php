@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Domain\Revision\Form;
 
 use Doctrine\ORM\Query\Expr\Join;
@@ -13,6 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /** @extends AbstractType<array<string, mixed>> */
 final class ThemeTemplateType extends AbstractType
 {
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
@@ -29,7 +32,7 @@ final class ThemeTemplateType extends AbstractType
                         ->createQueryBuilder('tt')
                         ->innerJoin('tt.theme', 't', Join::WITH, 't.active = 1 AND tt.active = 1');
                 },
-                'choice_label' => static fn (ThemeTemplate $themeTemplate): string => $themeTemplate->getName(),
+                'choice_label' => static fn (ThemeTemplate $themeTemplate): string => $themeTemplate->name,
                 'choice_attr' => static fn (ThemeTemplate $themeTemplate): array => [
                     'data-template' => $themeTemplate
                 ],
@@ -38,6 +41,7 @@ final class ThemeTemplateType extends AbstractType
         );
     }
 
+    #[\Override]
     public function getParent(): string
     {
         return EntityType::class;

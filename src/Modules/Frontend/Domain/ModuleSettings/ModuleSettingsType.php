@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\ModuleSettings;
 
 use ForkCMS\Core\Domain\Form\CheckboxTextType;
@@ -33,18 +35,19 @@ final class ModuleSettingsType extends AbstractType
     public function __construct(
         private readonly InstalledLocaleRepository $installedLocaleRepository,
         private readonly ModuleSettings $moduleSettings,
-        #[AutowireLocator('forkcms.editor')]
+        #[AutowireLocator(EditorTypeImplementationInterface::class)]
         private readonly ServiceLocator $editorTypeImplementations,
         #[Autowire(env: 'bool:SITE_DEFAULT_CONSENT_DIALOG_ENABLED')]
         private readonly bool $defaultConsentDialogEnabled,
     ) {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $installedLocales = $this->installedLocaleRepository->findAll();
         $localeChoices = array_map(
-            static fn (InstalledLocale $locale): Locale => $locale->getLocale(),
+            static fn (InstalledLocale $locale): Locale => $locale->locale,
             $installedLocales
         );
         $tabs = [];
@@ -199,15 +202,16 @@ final class ModuleSettingsType extends AbstractType
                             'choices' => $this->getEditorTypeChoices(),
                         ]
                     );
-                }
+                },
             ]
         );
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
-        // @TODO refactor this to a custom form type since we need the smae things here over and over again
+        // @TODO refactor this to a custom form type since we need the same things here over and over again
         $resolver->setDefault('data_class', ChangeModuleSettings::class);
     }
 
@@ -216,9 +220,9 @@ final class ModuleSettingsType extends AbstractType
     {
         return array_flip(
             array_map(
-                fn (string $editorType): string => (string) $this->editorTypeImplementations->get(
-                    $editorType
-                )->getLabel(),
+                fn (string $editorType): string => (string) $this->editorTypeImplementations
+                    ->get($editorType)
+                    ->getLabel(),
                 $this->editorTypeImplementations->getProvidedServices()
             )
         );

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\Controller;
 
 use ForkCMS\Modules\Installer\Domain\Configuration\InstallerConfiguration;
@@ -12,12 +14,12 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 
-final class InstallController
+final readonly class InstallController
 {
     public function __construct(
-        private readonly Environment $twig,
-        private readonly RouterInterface $router,
-        private readonly MessageBusInterface $commandBus
+        private Environment $twig,
+        private RouterInterface $router,
+        private MessageBusInterface $commandBus
     ) {
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\User;
 
 use ForkCMS\Core\Domain\Util\Ensure;
@@ -55,7 +57,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
-    private int $id;
+    private(set) int $id;
 
     #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     #[DataGridPropertyColumn(
@@ -71,28 +73,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         routeRole: ModuleAction::ROLE_PREFIX . 'BACKEND__USER_EDIT',
         columnAttributes: ['class' => 'title'],
     )]
-    private string $email;
+    // phpcs:disable -- property hooks are not yet supported
+    public string $email {
+        get => $this->email;
+        set(string $email) {
+            $this->email = Ensure::hasMaxLength(Ensure::isEmail($email), 180);
+        }
+    }
+    // phpcs:enable
 
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $password;
+    public string $password;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
     #[DataGridPropertyColumn(sortable: true, filterable: true, label: 'lbl.DisplayName')]
-    private string $displayName;
+    private(set) string $displayName;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $accessToBackend;
+    private(set) bool $accessToBackend;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $superAdmin;
+    private(set) bool $superAdmin;
 
     /** @var Collection<int|string, UserGroup> */
     #[ORM\ManyToMany(targetEntity: UserGroup::class, inversedBy: 'users')]
     #[ORM\InverseJoinColumn(referencedColumnName: 'id')]
-    private Collection $userGroups;
+    private(set) Collection $userGroups;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?DateTimeImmutable $deletedAt = null;
+    private(set) ?DateTimeImmutable $deletedAt = null;
 
     /** @param Collection<int|string, UserGroup>|null $userGroups */
     public function __construct(
@@ -104,7 +113,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         ?Collection $userGroups = null,
         ?SettingsBag $settings = null
     ) {
-        $this->setEmail($email);
+        $this->email = $email;
         if ($this->plainTextPassword !== null) {
             $this->plainTextPassword = trim($this->plainTextPassword);
         }
@@ -120,7 +129,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($userDataTransferObject->hasEntity()) {
             $user = $userDataTransferObject->getEntity();
-            $user->setEmail($userDataTransferObject->email ?? throw new InvalidArgumentException('Email is required'));
+            $user->email = $userDataTransferObject->email ?? throw new InvalidArgumentException('Email is required');
             $user->accessToBackend = $userDataTransferObject->accessToBackend;
             $user->superAdmin = $userDataTransferObject->superAdmin;
             $user->plainTextPassword = $userDataTransferObject->plainTextPassword;
@@ -150,34 +159,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         );
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function getDisplayName(): string
-    {
-        return $this->displayName;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = Ensure::hasMaxLength(Ensure::isEmail($email), 180);
-
-        return $this;
-    }
-
+    /** @see UserInterface */
+    #[\Override]
     public function getUserIdentifier(): string
     {
         return $this->email;
     }
 
     /** @see UserInterface */
+    #[\Override]
     public function getRoles(): array
     {
         if (!$this->accessToBackend) {
@@ -196,34 +186,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $groupRoles = [];
 
         foreach ($this->userGroups as $userGroup) {
-            $groupRoles[] = array_values($userGroup->getRoles());
+            $groupRoles[] = array_values($userGroup->roles);
         }
 
         return array_unique(array_merge($roles, ...$groupRoles));
     }
 
     /** @see UserInterface */
+    #[\Override]
     public function getPassword(): string
     {
         return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getSalt(): ?string
-    {
-        return null; // we don't need a salt because we use a modern hashing algorithm
-    }
-
-    /** @see UserInterface */
-    public function eraseCredentials(): void
-    {
-        $this->plainTextPassword = null;
     }
 
     public function hashPassword(UserPasswordHasherInterface $passwordHasher): void
@@ -237,7 +210,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->password = $passwordHasher->hashPassword($this, $this->plainTextPassword);
-        $this->eraseCredentials();
+        $this->plainTextPassword = null;
     }
 
     public function hasAccessToBackend(): bool
@@ -245,20 +218,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->accessToBackend;
     }
 
+    /** @TODO implement */
     public function undoDelete(): void
     {
         $this->deletedAt = null;
-    }
-
-    public function isSuperAdmin(): bool
-    {
-        return $this->superAdmin;
-    }
-
-    /** @return Collection<int|string, UserGroup> */
-    public function getUserGroups(): Collection
-    {
-        return $this->userGroups;
     }
 
     public function addUserGroup(UserGroup $userGroup): UserGroup
@@ -288,7 +251,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public static function dataGridEditLinkCallback(self $user, array $attributes): array
     {
-        $attributes['slug'] = $user->getId();
+        $attributes['slug'] = $user->id;
 
         return $attributes;
     }

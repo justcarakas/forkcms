@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
 use Symfony\Component\Form\AbstractType;
@@ -16,6 +18,7 @@ class InstalledLocaleType extends AbstractType
     ) {
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
@@ -29,11 +32,13 @@ class InstalledLocaleType extends AbstractType
         );
     }
 
+    #[\Override]
     public function getBlockPrefix(): string
     {
         return 'fork_installed_locale';
     }
 
+    #[\Override]
     public function getParent(): string
     {
         return EnumType::class;

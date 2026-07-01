@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use ForkCMS\Core\Domain\Form\ActionType;
@@ -20,6 +22,7 @@ final class ThemeIndex extends AbstractActionController
         parent::__construct($services);
     }
 
+    #[\Override]
     protected function execute(Request $request): void
     {
         $this->assign(

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Doctrine;
 
 use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
@@ -24,7 +26,7 @@ final class ForkNamingStrategy extends UnderscoreNamingStrategy
         $underscoredClassName = parent::classToTableName($className);
 
         try {
-            $moduleName = ModuleName::fromFQCN($className)->getName();
+            $moduleName = ModuleName::fromFQCN($className)->name;
         } catch (InvalidArgumentException) {
             return $underscoredClassName;
         }

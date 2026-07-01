@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\tests\Backend\Actions;
 
 use ForkCMS\Modules\Backend\tests\BackendWebTestCase;
 
 final class UserAddTest extends BackendWebTestCase
 {
-    protected const TEST_URL = '/private/en/backend/user-add';
+    protected const string TEST_URL = '/private/en/backend/user-add';
 
     public function testPageLoads(): void
     {
@@ -55,8 +57,8 @@ final class UserAddTest extends BackendWebTestCase
         self::submitForm(
             'Add',
             [
-                'user[user][tab_Authentication][displayName]' => $user->getDisplayName(),
-                'user[user][tab_Authentication][email]' => $user->getEmail(),
+                'user[user][tab_Authentication][displayName]' => $user->displayName,
+                'user[user][tab_Authentication][email]' => $user->email,
                 'user[user][tab_Authentication][plainTextPassword][first]' => 'IAbsolutely<3ForkCMS',
                 'user[user][tab_Authentication][plainTextPassword][second]' => 'IAbsolutely<3ForkCMS',
             ],

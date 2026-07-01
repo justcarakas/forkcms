@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation\Filter;
 
 use ForkCMS\Core\Domain\Application\Application;
@@ -26,11 +28,12 @@ final class TranslationFilterType extends AbstractType
     ) {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $modules = $this->moduleRepository->findAllIndexed();
-        $moduleNames = array_map(static fn (Module $module): ModuleName => $module->getName(), $modules);
-        unset($moduleNames[ModuleName::core()->getName()]);
+        $moduleNames = array_map(static fn (Module $module): ModuleName => $module->name, $modules);
+        unset($moduleNames[ModuleName::core()->name]);
         array_unshift($moduleNames, ModuleName::core());
 
         $builder->add(
@@ -102,6 +105,7 @@ final class TranslationFilterType extends AbstractType
         );
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);

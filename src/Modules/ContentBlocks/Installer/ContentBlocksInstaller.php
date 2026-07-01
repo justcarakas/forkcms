@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\ContentBlocks\Installer;
 
 use ForkCMS\Modules\ContentBlocks\Backend\Actions\ContentBlockAdd;
@@ -12,11 +14,13 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 
 final class ContentBlocksInstaller extends ModuleInstaller
 {
+    #[\Override]
     public function preInstall(): void
     {
         $this->createTableForEntities(ContentBlock::class);
     }
 
+    #[\Override]
     public function install(): void
     {
         $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');

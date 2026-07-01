@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate;
 
 use Doctrine\DBAL\Types\Types;
@@ -36,28 +38,28 @@ class ThemeTemplate implements JsonSerializable, Stringable
 
     use Blameable;
 
-    public const PATH_DIRECTORY = 'Frontend/base/';
+    public const string PATH_DIRECTORY = 'Frontend/base/';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
-    private int $id;
+    private(set) int $id;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
     #[DataGridPropertyColumn(label: 'lbl.Name')]
-    private string $name;
+    private(set) string $name;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $path;
+    private(set) string $path;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $active;
+    private(set) bool $active;
 
     #[ORM\ManyToOne(targetEntity: Theme::class, inversedBy: 'templates')]
     #[ORM\JoinColumn(name: 'theme', referencedColumnName: 'name', nullable: false)]
-    private Theme $theme;
+    private(set) Theme $theme;
 
-    #[ORM\OneToOne(mappedBy: 'defaultTemplate', targetEntity: Theme::class)]
+    #[ORM\OneToOne(targetEntity: Theme::class, mappedBy: 'defaultTemplate')]
     private ?Theme $defaultForTheme = null;
 
     private function __construct(Theme $theme)
@@ -81,32 +83,6 @@ class ThemeTemplate implements JsonSerializable, Stringable
         return $entity;
     }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getPath(): string
-    {
-        return $this->path;
-    }
-
-    #[DataGridMethodColumn(label: 'lbl.Active')]
-    public function getActive(): bool
-    {
-        return $this->active;
-    }
-
-    public function getTheme(): Theme
-    {
-        return $this->theme;
-    }
-
     #[DataGridMethodColumn(label: 'lbl.Default')]
     public function isDefault(): bool
     {
@@ -120,7 +96,7 @@ class ThemeTemplate implements JsonSerializable, Stringable
      */
     public static function dataGridEditLinkCallback(self $themeTemplate, array $attributes): array
     {
-        $attributes['slug'] = $themeTemplate->getId();
+        $attributes['slug'] = $themeTemplate->id;
 
         return $attributes;
     }
@@ -142,20 +118,21 @@ class ThemeTemplate implements JsonSerializable, Stringable
     }
 
     /** @return array<string, mixed> */
+    #[\Override]
     public function jsonSerialize(): array
     {
         $json = [
             'id' => $this->id,
             'name' => $this->name,
             'path' => $this->path,
-            'theme' => $this->theme->getName(),
+            'theme' => $this->theme,
             'is_default' => $this->isDefault(),
             'settings' => $this->settings->all(),
             'has_block' => false,
         ];
 
         $currentLocale = Locale::current();
-        $json['settings']['default_extras'] = $json['settings']['default_extras'][$currentLocale] ?? [];
+        $json['settings']['default_extras'] = $json['settings']['default_extras'][$currentLocale->value] ?? [];
 
         // validate
         if (!isset($json['settings']['layout'])) {
@@ -165,6 +142,7 @@ class ThemeTemplate implements JsonSerializable, Stringable
         return $json;
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->name;

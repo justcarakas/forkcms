@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\Meta;
 
 use Doctrine\DBAL\Types\Types;
@@ -11,7 +13,7 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: MetaRepository::class)]
-#[ORM\Index(columns: ['slug'], name: 'idx_slug')]
+#[ORM\Index(name: 'idx_slug', columns: ['slug'])]
 #[ORM\HasLifecycleCallbacks]
 class Meta implements JsonSerializable
 {
@@ -22,46 +24,46 @@ class Meta implements JsonSerializable
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
-    private int $id;
+    private(set) int $id;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $keywords;
+    private(set) string $keywords;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
-    private bool $keywordsOverwrite;
+    private(set) bool $keywordsOverwrite;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $description;
+    private(set) string $description;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
-    private bool $descriptionOverwrite;
+    private(set) bool $descriptionOverwrite;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $title;
+    private(set) string $title;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
-    private bool $titleOverwrite;
+    private(set) bool $titleOverwrite;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $slug;
+    public string $slug;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
-    private bool $slugOverwrite;
+    private(set) bool $slugOverwrite;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $canonicalUrl;
+    private(set) ?string $canonicalUrl;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
-    private bool $canonicalUrlOverwrite;
+    private(set) bool $canonicalUrlOverwrite;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $custom;
+    private(set) ?string $custom;
 
     #[ORM\Column(type: Types::STRING, enumType: SEOFollow::class)]
-    private SEOFollow $seoFollow;
+    private(set) SEOFollow $seoFollow;
 
     #[ORM\Column(type: Types::STRING, enumType: SEOIndex::class)]
-    private SEOIndex $seoIndex;
+    private(set) SEOIndex $seoIndex;
 
     public function __construct(
         string $keywords,
@@ -124,109 +126,29 @@ class Meta implements JsonSerializable
             false,
             $title,
             false,
-            strtolower((new AsciiSlugger())->slug($title)->toString()),
-            false,
-            null,
-            false,
-            null,
-            null,
-            null,
-            null
+            strtolower(new AsciiSlugger()->slug($title)->toString()),
+            false
         );
     }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function getKeywords(): string
-    {
-        return $this->keywords;
-    }
-
-    public function isKeywordsOverwrite(): bool
-    {
-        return $this->keywordsOverwrite;
-    }
-
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    public function isDescriptionOverwrite(): bool
-    {
-        return $this->descriptionOverwrite;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    public function isTitleOverwrite(): bool
-    {
-        return $this->titleOverwrite;
-    }
-
-    public function getSlug(): string
-    {
-        return $this->slug;
-    }
-
-    public function isSlugOverwrite(): bool
-    {
-        return $this->slugOverwrite;
-    }
-
-    public function getCanonicalUrl(): ?string
-    {
-        return $this->canonicalUrl;
-    }
-
-    public function isCanonicalUrlOverwrite(): bool
-    {
-        return $this->canonicalUrlOverwrite;
-    }
-
-    public function getCustom(): ?string
-    {
-        return $this->custom;
-    }
-
-    public function getSEOIndex(): SEOIndex
-    {
-        return $this->seoIndex;
-    }
-
-    public function getSEOFollow(): SEOFollow
-    {
-        return $this->seoFollow;
-    }
-
     /** @return array<string, mixed> */
+    #[\Override]
     public function jsonSerialize(): array
     {
         return [
-            'id' => $this->getId(),
-            'keywords' => $this->getKeywords(),
-            'keywordsOverwrite' => $this->isKeywordsOverwrite(),
-            'description' => $this->getDescription(),
-            'descriptionOverwrite' => $this->isDescriptionOverwrite(),
-            'title' => $this->getTitle(),
-            'titleOverwrite' => $this->isTitleOverwrite(),
-            'settings' => $this->getSettings(),
-            'slug' => $this->getSlug(),
-            'slugOverwrite' => $this->isSlugOverwrite(),
-            'custom' => $this->getCustom(),
-            'seoFollow' => $this->getSEOFollow(),
-            'seoIndex' => $this->getSEOIndex(),
+            'id' => $this->id,
+            'keywords' => $this->keywords,
+            'keywordsOverwrite' => $this->keywordsOverwrite,
+            'description' => $this->description,
+            'descriptionOverwrite' => $this->descriptionOverwrite,
+            'title' => $this->title,
+            'titleOverwrite' => $this->titleOverwrite,
+            'settings' => $this->settings,
+            'slug' => $this->slug,
+            'slugOverwrite' => $this->slugOverwrite,
+            'custom' => $this->custom,
+            'seoFollow' => $this->seoFollow,
+            'seoIndex' => $this->seoIndex,
         ];
-    }
-
-    public function setSlug(string $slug): void
-    {
-        $this->slug = $slug;
     }
 }

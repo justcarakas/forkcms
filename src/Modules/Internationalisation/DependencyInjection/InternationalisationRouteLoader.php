@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\DependencyInjection;
 
 use ForkCMS\Core\Domain\Router\ModuleRouteProviderInterface;
@@ -8,14 +10,15 @@ use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
-final class InternationalisationRouteLoader implements ModuleRouteProviderInterface
+final readonly class InternationalisationRouteLoader implements ModuleRouteProviderInterface
 {
-    public const ROUTE_NAME_JS_TRANSLATIONS = 'internationalisation_js_translations';
+    public const string ROUTE_NAME_JS_TRANSLATIONS = 'internationalisation_js_translations';
 
-    public function __construct(private readonly InstalledLocaleRepository $installedLocaleRepository)
+    public function __construct(private InstalledLocaleRepository $installedLocaleRepository)
     {
     }
 
+    #[\Override]
     public function getRouteCollection(): RouteCollection
     {
         $allowedLocales = $this->installedLocaleRepository

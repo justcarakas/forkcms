@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use ForkCMS\Core\Domain\PDO\ForkConnection;
@@ -12,7 +14,7 @@ final class InstalledModules
     /** @var ModuleName[] needed for the console install command */
     private static array $modulesToInstall = [];
 
-    public function __construct(private bool $forkIsInstalled)
+    public function __construct(private readonly bool $forkIsInstalled)
     {
     }
 
@@ -29,13 +31,13 @@ final class InstalledModules
                 return self::$modulesToInstall;
             }
 
-            return InstallerConfiguration::fromCache()->getModules();
+            return InstallerConfiguration::fromCache()->modules;
         }
 
         try {
             return ForkConnection::get()->getInstalledModules();
         } catch (PDOException) {
-            return InstallerConfiguration::fromCache()->getModules();
+            return InstallerConfiguration::fromCache()->modules;
         }
     }
 

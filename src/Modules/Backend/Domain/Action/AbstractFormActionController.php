@@ -1,16 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use ForkCMS\Core\Domain\Form\ActionType;
 use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
-use ForkCMS\Core\Domain\Util\ArrayUtil;
 use ForkCMS\Modules\Extensions\Domain\Module\Command\ChangeModuleSettings;
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
-use ForkCMS\Modules\Internationalisation\Domain\Translator\ForkTranslator;
 use RuntimeException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractFormActionController extends AbstractActionController
 {
+    #[\Override]
     protected function execute(Request $request): void
     {
         $this->addBreadcrumbForRequest($request);
@@ -27,11 +28,11 @@ abstract class AbstractFormActionController extends AbstractActionController
 
     protected function addBreadcrumbForRequest(Request $request): void
     {
-        $actionLabel = self::getActionSlug()->getActionName()->asLabel();
+        $actionLabel = self::getActionSlug()->actionName->asLabel();
         if (!$this->translator->hasTranslation($actionLabel)) {
             $label = match (true) {
-                str_ends_with($actionLabel, 'Edit') => 'Edit',
-                str_ends_with($actionLabel, 'Add') => 'Add',
+                str_ends_with($actionLabel->name, 'Edit') => 'Edit',
+                str_ends_with($actionLabel->name, 'Add') => 'Add',
                 default => null,
             };
             $translatedActionName = $label === null
@@ -42,6 +43,7 @@ abstract class AbstractFormActionController extends AbstractActionController
         $this->header->addBreadcrumb(new Breadcrumb($translatedActionName, $request->getRequestUri()));
     }
 
+    #[\Override]
     public function getResponse(Request $request): Response
     {
         return $this->getFormResponse($request) ?? parent::getResponse($request);
@@ -50,13 +52,11 @@ abstract class AbstractFormActionController extends AbstractActionController
     abstract protected function getFormResponse(Request $request): ?Response;
 
     /**
-     * @codingStandardsIgnoreStart
      * @param class-string<FormTypeInterface> $formType
      * @param array<string, mixed> $formOptions
-     * @param callable(FormInterface):Response|callable(FormInterface):FormInterface|callable(FormInterface):null|null $defaultCallback
-     * @param callable(FormInterface):Response|callable(FormInterface):FormInterface|callable(FormInterface):null|null $validCallback
+     * @param callable(FormInterface):Response|callable(FormInterface):FormInterface|callable(FormInterface):null|null $defaultCallback // phpcs:ignore Generic.Files.LineLength.TooLong
+     * @param callable(FormInterface):Response|callable(FormInterface):FormInterface|callable(FormInterface):null|null $validCallback // phpcs:ignore Generic.Files.LineLength.TooLong
      * @param callable(FormInterface):FlashMessage|null $successFlashMessageCallback
-     * @codingStandardsIgnoreEnd
      */
     final protected function handleForm(
         Request $request,
@@ -107,7 +107,7 @@ abstract class AbstractFormActionController extends AbstractActionController
         string $formType = ActionType::class,
         array $options = []
     ): void {
-        $this->assign('crud_delete_action', $deleteActionSlug->getActionName());
+        $this->assign('crud_delete_action', $deleteActionSlug->actionName);
         $this->assign(
             'backend_delete_form',
             $this->formFactory->create(
@@ -156,10 +156,5 @@ abstract class AbstractFormActionController extends AbstractActionController
                 $defaults
             ),
         );
-    }
-
-    final protected function getSubmittedValue(Request $request, string $key): mixed
-    {
-        return ArrayUtil::flatten($request->request->all())[$key] ?? null;
     }
 }

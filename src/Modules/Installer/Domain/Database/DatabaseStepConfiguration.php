@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\Domain\Database;
 
 use Assert\AssertionFailedException;
@@ -56,6 +58,7 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
         return implode('_', $chunks);
     }
 
+    #[\Override]
     public static function fromArray(array $configuration): static
     {
         return new self(
@@ -67,6 +70,7 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
         );
     }
 
+    #[\Override]
     public static function fromInstallerConfiguration(InstallerConfiguration $installerConfiguration): static
     {
         if (!$installerConfiguration->hasStep(self::getStep())) {
@@ -74,11 +78,11 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
         }
 
         return new self(
-            $installerConfiguration->getDatabaseHostname(),
-            $installerConfiguration->getDatabaseUsername(),
-            $installerConfiguration->getDatabasePassword(),
-            $installerConfiguration->getDatabaseName(),
-            $installerConfiguration->getDatabasePort()
+            $installerConfiguration->databaseHostname,
+            $installerConfiguration->databaseUsername,
+            $installerConfiguration->databasePassword,
+            $installerConfiguration->databaseName,
+            $installerConfiguration->databasePort
         );
     }
 
@@ -89,7 +93,7 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
             $_ENV['FORK_DATABASE_USER'],
             $_ENV['FORK_DATABASE_PASSWORD'],
             $_ENV['FORK_DATABASE_NAME'],
-            $_ENV['FORK_DATABASE_PORT'],
+            (int) $_ENV['FORK_DATABASE_PORT'],
         );
     }
 
@@ -109,6 +113,7 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
         }
     }
 
+    #[\Override]
     public static function getStep(): InstallerStep
     {
         return InstallerStep::DATABASE;

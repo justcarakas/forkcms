@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
@@ -20,24 +22,25 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class ThemeTemplateEdit extends AbstractFormActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         $themeTemplate = $this->getEntityFromRequest($request, ThemeTemplate::class);
-        $this->assign('theme', $themeTemplate->getTheme());
+        $this->assign('theme', $themeTemplate->theme);
 
         $themeRoute = ThemeDetail::getActionSlug()->withDefaultParameters(
-            ['slug' => $themeTemplate->getTheme()->getName()]
+            ['slug' => $themeTemplate->theme->name]
         );
         $this->header->addBreadcrumb(
             new Breadcrumb(
-                $themeTemplate->getTheme()->getName(),
+                $themeTemplate->theme->name,
                 $themeRoute->generateRoute($this->router)
             )
         );
-        $this->header->addBreadcrumb(new Breadcrumb($themeTemplate->getName()));
+        $this->header->addBreadcrumb(new Breadcrumb($themeTemplate->name));
 
         if (!$themeTemplate->isDefault()) {
-            $this->addDeleteForm(['id' => $themeTemplate->getId()], ThemeTemplateDelete::getActionSlug());
+            $this->addDeleteForm(['id' => $themeTemplate->id], ThemeTemplateDelete::getActionSlug());
         }
 
         $changeThemeTemplate = new ChangeThemeTemplate($themeTemplate);
@@ -49,7 +52,7 @@ final class ThemeTemplateEdit extends AbstractFormActionController
             redirectResponse: new RedirectResponse(
                 ThemeTemplateIndex::getActionSlug()->generateRoute(
                     $this->router,
-                    ['slug' => Ensure::isNotNull($changeThemeTemplate->theme?->getName(), 'No theme set yet')]
+                    ['slug' => Ensure::isNotNull($changeThemeTemplate->theme, 'No theme set yet')->name]
                 )
             ),
             formOptions: ['show_overwrite' => true, 'show_status' => !$themeTemplate->isDefault()],

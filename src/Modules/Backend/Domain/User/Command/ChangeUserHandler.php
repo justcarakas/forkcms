@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\User\Command;
 
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
@@ -9,12 +11,12 @@ use ForkCMS\Modules\Backend\Domain\User\UserRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-final class ChangeUserHandler implements CommandHandlerInterface
+final readonly class ChangeUserHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly UserRepository $userRepository,
-        private readonly UserPasswordHasherInterface $passwordHasher,
-        private readonly EventDispatcherInterface $eventDispatcher,
+        private UserRepository $userRepository,
+        private UserPasswordHasherInterface $passwordHasher,
+        private EventDispatcherInterface $eventDispatcher,
     ) {
     }
 

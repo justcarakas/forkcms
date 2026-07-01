@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Backend\Ajax;
 
 use ForkCMS\Modules\Backend\Domain\AjaxAction\AbstractAjaxActionController;
@@ -16,6 +18,7 @@ final class GenerateSlug extends AbstractAjaxActionController
     {
     }
 
+    #[\Override]
     protected function execute(Request $request): void
     {
         $slug = $request->request->get('slug', '');

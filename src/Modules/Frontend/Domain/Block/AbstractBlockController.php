@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\Block;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,8 +29,7 @@ abstract class AbstractBlockController implements BlockControllerInterface
     protected readonly FormFactoryInterface $formFactory;
     protected readonly MessageBusInterface $commandBus;
     protected readonly AuthorizationCheckerInterface $authorizationChecker;
-
-    protected ?Response $responseOverride = null;
+    protected(set) ?Response $responseOverride = null;
     private string $templatePath;
     private Block $block;
     /** @var array<string, mixed> */
@@ -47,9 +48,9 @@ abstract class AbstractBlockController implements BlockControllerInterface
         $moduleBlock = self::getModuleBlock();
         $this->templatePath = sprintf(
             '@%s/Frontend/%s/%s.html.twig',
-            $moduleBlock->getModule()->getName(),
-            $moduleBlock->getName()->getType()->getDirectoryName(),
-            $moduleBlock->getName()->getName(),
+            $moduleBlock->module->name,
+            $moduleBlock->name->getType()->getDirectoryName(),
+            $moduleBlock->name->name,
         );
     }
 
@@ -68,11 +69,7 @@ abstract class AbstractBlockController implements BlockControllerInterface
         return null;
     }
 
-    final public function getResponseOverride(): ?Response
-    {
-        return $this->responseOverride;
-    }
-
+    #[\Override]
     final public static function getModuleBlock(): ModuleBlock
     {
         return ModuleBlock::fromFQCN(static::class);
@@ -89,12 +86,13 @@ abstract class AbstractBlockController implements BlockControllerInterface
         $moduleBlock = self::getModuleBlock();
         $this->templatePath = sprintf(
             '@%s/Frontend/%s/%s',
-            $moduleBlock->getModule()->getName(),
-            $moduleBlock->getName()->getType()->getDirectoryName(),
+            $moduleBlock->module->name,
+            $moduleBlock->name->getType()->getDirectoryName(),
             $templatePath,
         );
     }
 
+    #[\Override]
     public function __invoke(Request $request, Response $response, Block $block): string|array
     {
         $this->block = $block;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use InvalidArgumentException;
@@ -20,13 +22,13 @@ final class ModuleInstallerLocator
     ) {
         $this->moduleInstallers = [];
         foreach ($moduleInstallers as $moduleInstaller) {
-            $this->moduleInstallers[$moduleInstaller::getModuleName()->getName()] = $moduleInstaller;
+            $this->moduleInstallers[$moduleInstaller::getModuleName()->name] = $moduleInstaller;
         }
     }
 
     public function getModuleInstaller(ModuleName $moduleName): ModuleInstaller
     {
-        return $this->moduleInstallers[$moduleName->getName()]
+        return $this->moduleInstallers[$moduleName->name]
             ?? throw new InvalidArgumentException('No installer was found for the module: ' . $moduleName);
     }
 
@@ -66,7 +68,7 @@ final class ModuleInstallerLocator
     public function getSortedUninstalledInstallersForModuleNames(ModuleName ...$moduleNames): array
     {
         $moduleInstallers = array_combine(
-            array_map(static fn (ModuleName $moduleName): string => $moduleName->getName(), $moduleNames),
+            array_map(static fn (ModuleName $moduleName): string => $moduleName->name, $moduleNames),
             array_map(
                 fn (ModuleName $moduleName): ModuleInstaller => $this->getModuleInstaller($moduleName),
                 $moduleNames
@@ -77,9 +79,9 @@ final class ModuleInstallerLocator
         /** @var ModuleInstaller $moduleInstaller */
         foreach ($moduleInstallers as $moduleInstaller) {
             foreach ($moduleInstaller->getModuleDependencies() as $moduleDependency) {
-                $requiredModules[$moduleDependency->getName()] = $this->getModuleInstaller($moduleDependency);
+                $requiredModules[$moduleDependency->name] = $this->getModuleInstaller($moduleDependency);
             }
-            $requiredModules[$moduleInstaller::getModuleName()->getName()] = $moduleInstaller;
+            $requiredModules[$moduleInstaller::getModuleName()->name] = $moduleInstaller;
         }
         $sortedModuleInstallers = [];
         while (count($requiredModules) > 0) {
@@ -121,7 +123,7 @@ final class ModuleInstallerLocator
         }
 
         return array_map(
-            fn (Module $module) => $this->getModuleInstaller($module->getName()),
+            fn (Module $module) => $this->getModuleInstaller($module->name),
             $this->moduleRepository->findAllIndexed()
         );
     }

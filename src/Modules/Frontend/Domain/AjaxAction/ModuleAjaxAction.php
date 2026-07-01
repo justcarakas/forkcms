@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\AjaxAction;
 
 use Assert\Assert;
@@ -11,20 +13,16 @@ use Stringable;
 use Symfony\Component\DependencyInjection\Container;
 
 #[ORM\Embeddable]
-final class ModuleAjaxAction implements Stringable
+final readonly class ModuleAjaxAction implements Stringable
 {
-    public const ROLE_PREFIX = 'ROLE_MODULE_AJAX_ACTION__';
+    public const string ROLE_PREFIX = 'ROLE_MODULE_AJAX_ACTION__';
 
-    #[ORM\Column(type: ModuleNameDBALType::class)]
-    private ModuleName $module;
-
-    #[ORM\Column(type: AjaxActionNameDBALType::class)]
-    private AjaxActionName $action;
-
-    public function __construct(ModuleName $module, AjaxActionName $action)
-    {
-        $this->module = $module;
-        $this->action = $action;
+    public function __construct(
+        #[ORM\Column(type: ModuleNameDBALType::class)]
+        public ModuleName $module,
+        #[ORM\Column(type: AjaxActionNameDBALType::class)]
+        public AjaxActionName $action,
+    ) {
         Assert::that($this->getFQCN())->classExists('Ajax action class not found');
     }
 
@@ -74,20 +72,9 @@ final class ModuleAjaxAction implements Stringable
         return $this->getFQCN();
     }
 
-    public function getModule(): ModuleName
-    {
-        return $this->module;
-    }
-
-    public function getAction(): AjaxActionName
-    {
-        return $this->action;
-    }
-
     public function asRole(): string
     {
-        $identifier = Container::underscore($this->module->getName()) . '__' .
-                      Container::underscore($this->action->getName());
+        $identifier = Container::underscore($this->module->name) . '__' . Container::underscore($this->action->name);
 
         return self::ROLE_PREFIX . strtoupper($identifier);
     }

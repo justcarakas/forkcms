@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Backend\Ajax;
 
 use ForkCMS\Modules\Backend\Domain\AjaxAction\AbstractAjaxActionController;
@@ -10,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class PageMove extends AbstractAjaxActionController
 {
+    #[\Override]
     protected function execute(Request $request): void
     {
         // TODO: Implement getFormResponse() method.

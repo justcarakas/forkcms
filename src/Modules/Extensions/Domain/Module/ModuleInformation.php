@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use ForkCMS\Core\Domain\Util\Ensure;
@@ -27,7 +29,7 @@ use Throwable;
     requiredRole: ModuleAction::ROLE_PREFIX . 'EXTENSIONS__MODULE_DETAIL',
     columnAttributes: ['class' => 'fork-data-grid-action'],
 )]
-final class ModuleInformation
+final readonly class ModuleInformation
 {
     private function __construct(
         #[DataGridPropertyColumn(
@@ -38,16 +40,16 @@ final class ModuleInformation
             routeRole: ModuleAction::ROLE_PREFIX . 'EXTENSIONS__MODULE_DETAIL',
             columnAttributes: ['class' => 'title'],
         )]
-        public readonly ModuleName $name,
+        public ModuleName $name,
         #[DataGridPropertyColumn(label: 'lbl.Version')]
-        public readonly string $version,
+        public string $version,
         #[DataGridPropertyColumn(label: 'lbl.Description', valueCallback: [self::class, 'truncateDescription'])]
-        public readonly ?string $description,
+        public ?string $description,
         /** @var Author[] $authors */
-        public readonly array $authors,
+        public array $authors,
         /** @var array<int, array<string, string>> $events */
-        public readonly array $events,
-        public readonly Messages $messages,
+        public array $events,
+        public Messages $messages,
     ) {
     }
 
@@ -105,9 +107,9 @@ final class ModuleInformation
         }
         $messages = new Messages();
         Requirements::fromXML($moduleConfig->requirements, $messages);
-        $name = ModuleName::fromString(SafeString::fromXML($moduleConfig->name));
+        $name = ModuleName::fromString(SafeString::fromXML($moduleConfig->name)->string);
         $directoryName = basename(dirname($xmlFilePath));
-        if ($name->getName() !== $directoryName) {
+        if ($name->name !== $directoryName) {
             $messages->addMessage(TranslationKey::error('ModuleNameDoesntMatch'));
         }
 
@@ -138,7 +140,7 @@ final class ModuleInformation
         return new self(
             $name,
             $moduleVersion,
-            SafeHtml::fromXML($moduleConfig->description),
+            SafeHtml::fromXML($moduleConfig->description)->html,
             $authors,
             $events,
             $messages
@@ -167,13 +169,8 @@ final class ModuleInformation
      */
     public static function dataGridSlugCallback(self $moduleInformation, array $attributes): array
     {
-        $attributes['slug'] = $moduleInformation->name->getName();
+        $attributes['slug'] = $moduleInformation->name;
 
         return $attributes;
-    }
-
-    public function getModuleName(): string
-    {
-        return $this->name->getName();
     }
 }

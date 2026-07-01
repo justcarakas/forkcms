@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Form;
 
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
@@ -16,6 +18,7 @@ class ActionType extends AbstractType
     {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->setAction($options['actionSlug']->generateRoute($this->router, $options['get_parameters']));
@@ -23,6 +26,7 @@ class ActionType extends AbstractType
         $builder->add($options['id_field_name'], HiddenType::class);
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired('actionSlug');

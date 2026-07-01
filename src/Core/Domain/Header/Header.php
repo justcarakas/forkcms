@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Header;
 
 use ForkCMS\Core\Domain\Application\Application;
@@ -30,19 +32,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * This class will be used to alter the head-part of the HTML-document that will be created by he Backend
  * Therefore it will handle meta-stuff (title, including JS, including CSS, ...).
  */
-final class Header
+final readonly class Header
 {
-    public readonly JsData $jsData;
+    public JsData $jsData;
 
-    public readonly AssetCollection $cssFiles;
-    public readonly AssetCollection $jsFiles;
+    public AssetCollection $cssFiles;
+    public AssetCollection $jsFiles;
 
     public function __construct(
-        public readonly BreadcrumbCollection $breadcrumbs,
-        public readonly PageTitle $pageTitle,
-        public readonly ContentTitle $contentTitle,
-        public readonly MetaCollection $meta,
-        private readonly RequestStack $requestStack,
+        public BreadcrumbCollection $breadcrumbs,
+        public PageTitle $pageTitle,
+        public ContentTitle $contentTitle,
+        public MetaCollection $meta,
+        private RequestStack $requestStack,
         KernelInterface $kernel,
         Security $security,
         TranslatorInterface $translator,
@@ -55,14 +57,14 @@ final class Header
 
     public function appendMeta(Meta $meta): void
     {
-        $this->contentTitle->overwriteContentTitle($meta->getTitle());
-        $this->meta->addDescription($meta->getDescription(), $meta->isDescriptionOverwrite());
-        $this->meta->addKeywords($meta->getKeywords(), $meta->isKeywordsOverwrite());
-        $this->meta->setSEOFollow($meta->getSEOFollow());
-        $this->meta->setSEOIndex($meta->getSEOIndex());
+        $this->contentTitle->overwriteContentTitle($meta->title);
+        $this->meta->addDescription($meta->description, $meta->descriptionOverwrite);
+        $this->meta->addKeywords($meta->keywords, $meta->keywordsOverwrite);
+        $this->meta->setSEOFollow($meta->seoFollow);
+        $this->meta->setSEOIndex($meta->seoIndex);
 
-        if ($meta->isCanonicalUrlOverwrite() && $meta->getCanonicalUrl() !== null && $meta->getCanonicalUrl() !== '') {
-            $this->meta->addMetaLink(MetaLink::canonical($meta->getCanonicalUrl()));
+        if ($meta->canonicalUrlOverwrite && $meta->canonicalUrl !== null && $meta->canonicalUrl !== '') {
+            $this->meta->addMetaLink(MetaLink::canonical($meta->canonicalUrl));
         }
     }
 
@@ -117,8 +119,8 @@ final class Header
         $session = $this->requestStack->getSession();
         try {
             $session->getFlashBag()->add(
-                $flashMessage->getType()->value,
-                $flashMessage->getMessage()
+                $flashMessage->type->value,
+                $flashMessage->message
             );
         } catch (SessionNotFoundException $e) {
             throw new LogicException(
@@ -147,7 +149,7 @@ final class Header
 
     public function addAssetsForAction(ModuleAction $moduleAction): void
     {
-        $module = $moduleAction->getModule();
+        $module = $moduleAction->module;
         try {
             $this->addJs(
                 Asset::forModule(
@@ -166,7 +168,7 @@ final class Header
                 Asset::forModule(
                     Application::BACKEND,
                     $module,
-                    'js/' . $moduleAction->getAction()->getName() . '.js',
+                    'js/' . $moduleAction->action->name . '.js',
                     priority: Priority::forModuleName($module)
                 )
             );
@@ -192,7 +194,7 @@ final class Header
                 Asset::forModule(
                     Application::BACKEND,
                     $module,
-                    'css/' . $moduleAction->getAction()->getName() . '.css',
+                    'css/' . $moduleAction->action->name . '.css',
                     priority: Priority::forModuleName($module)
                 )
             );

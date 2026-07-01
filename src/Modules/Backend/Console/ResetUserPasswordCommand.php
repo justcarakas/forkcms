@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Console;
 
 use ForkCMS\Modules\Backend\Domain\User\Command\ChangeUser;
@@ -24,6 +26,7 @@ class ResetUserPasswordCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this
@@ -31,6 +34,7 @@ class ResetUserPasswordCommand extends Command
             ->addArgument('password', InputArgument::OPTIONAL, '(Optional) The desired new password');
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->formatter = new SymfonyStyle($input, $output);

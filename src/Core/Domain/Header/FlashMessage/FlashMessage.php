@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Header\FlashMessage;
 
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
@@ -7,20 +9,10 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\Type;
 use Stringable;
 use Symfony\Contracts\Translation\TranslatableInterface;
 
-final class FlashMessage
+final readonly class FlashMessage
 {
-    public function __construct(private string|TranslatableInterface $message, private FlashMessageType $type)
+    public function __construct(public string|TranslatableInterface $message, public FlashMessageType $type)
     {
-    }
-
-    public function getMessage(): string|TranslatableInterface
-    {
-        return $this->message;
-    }
-
-    public function getType(): FlashMessageType
-    {
-        return $this->type;
     }
 
     /** @param array<string, string|int|float|Stringable> $parameters */

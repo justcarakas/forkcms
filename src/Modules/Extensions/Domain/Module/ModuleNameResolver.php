@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +16,7 @@ final class ModuleNameResolver implements ValueResolverInterface
     }
 
     /** @return array<ModuleName> */
+    #[\Override]
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         if ($argument->getType() !== ModuleName::class) {

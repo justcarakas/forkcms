@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Backend\Ajax;
 
 use ForkCMS\Core\Domain\Application\Application;
@@ -27,6 +29,7 @@ final class TranslationEdit extends AbstractAjaxActionController
     ) {
     }
 
+    #[\Override]
     protected function execute(Request $request): void
     {
         $moduleName = ModuleName::fromString($request->query->get('moduleName'));

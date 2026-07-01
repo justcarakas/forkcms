@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Theme;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -12,12 +14,12 @@ use Throwable;
  * @method Theme|null find($id, $lockMode = null, $lockVersion = null)
  * @method Theme|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Theme[] findAll()
- * @method Theme[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
+ * @method Theme[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null) // phpcs:ignore Generic.Files.LineLength.TooLong
  * @extends ServiceEntityRepository<Theme>
  */
 final class ThemeRepository extends ServiceEntityRepository
 {
-    public const THEMES_DIRECTORY = __DIR__ . '/../../../../Themes';
+    public const string THEMES_DIRECTORY = __DIR__ . '/../../../../Themes';
 
     public function __construct(ManagerRegistry $registry)
     {

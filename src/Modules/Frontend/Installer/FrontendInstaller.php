@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Installer;
 
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
@@ -10,13 +12,15 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 
 final class FrontendInstaller extends ModuleInstaller
 {
-    public const IS_REQUIRED = true;
+    public const bool IS_REQUIRED = true;
 
+    #[\Override]
     public function preInstall(): void
     {
         $this->createTableForEntities(Meta::class, Block::class);
     }
 
+    #[\Override]
     public function install(): void
     {
         $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');

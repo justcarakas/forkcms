@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use Doctrine\DBAL\Types\Types;
@@ -7,31 +9,18 @@ use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleNameDBALType;
+use Stringable;
 use Symfony\Component\DependencyInjection\Container;
 
 #[ORM\Embeddable]
-class TranslationDomain
+final readonly class TranslationDomain implements Stringable
 {
-    #[ORM\Column(type: Types::STRING, length: 10, enumType: Application::class)]
-    private Application $application;
-
-    #[ORM\Column(type: ModuleNameDBALType::class, nullable: true)]
-    private ?ModuleName $moduleName;
-
-    public function __construct(Application $application, ?ModuleName $moduleName = null)
-    {
-        $this->application = $application;
-        $this->moduleName = $moduleName;
-    }
-
-    public function getApplication(): Application
-    {
-        return $this->application;
-    }
-
-    public function getModuleName(): ?ModuleName
-    {
-        return $this->moduleName;
+    public function __construct(
+        #[ORM\Column(type: Types::STRING, length: 10, enumType: Application::class)]
+        public Application $application,
+        #[ORM\Column(type: ModuleNameDBALType::class, nullable: true)]
+        public ?ModuleName $moduleName = null,
+    ) {
     }
 
     public function getDomain(): string
@@ -39,6 +28,7 @@ class TranslationDomain
         return Container::underscore($this->application->value . $this->moduleName);
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->getDomain();

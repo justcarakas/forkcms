@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\Console;
 
 use PDOException;
@@ -12,14 +14,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * This command will prepare everything for a full reinstall.
+ * This command will prepare everything for a full reinstallation.
  */
-#[AsCommand(name: 'forkcms:installer:prepare-for-reinstall', description: 'Revert Fork CMS to an uninstalled state, prompting the install wizard.')]
+#[AsCommand(
+    name: 'forkcms:installer:prepare-for-reinstall',
+    description: 'Revert Fork CMS to an uninstalled state, prompting the install wizard.'
+)]
 class PrepareForReinstallCommand extends Command
 {
-    public const RETURN_SUCCESS = 0;
-    public const RETURN_DID_NOT_REINSTALL = 1;
-    public const RETURN_DID_NOT_CLEAR_DATABASE = 2;
+    public const int RETURN_SUCCESS = 0;
+    public const int RETURN_DID_NOT_REINSTALL = 1;
+    public const int RETURN_DID_NOT_CLEAR_DATABASE = 2;
 
     public function __construct(
         private readonly string $rootDir,
@@ -28,6 +33,7 @@ class PrepareForReinstallCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);

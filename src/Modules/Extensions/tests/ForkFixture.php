@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\tests;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -10,6 +12,6 @@ abstract class ForkFixture extends Fixture implements FixtureGroupInterface
 {
     public static function getGroups(): array
     {
-        return [ModuleName::fromFQCN(static::class)->getName()];
+        return [ModuleName::fromFQCN(static::class)->name];
     }
 }

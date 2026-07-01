@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Frontend\Ajax;
 
 use ForkCMS\Modules\Frontend\Domain\AjaxAction\AbstractAjaxActionController;
@@ -13,15 +15,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class NotFound extends AbstractAjaxActionController
 {
-    public function __construct(private TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
     }
 
+    #[\Override]
     protected function execute(Request $request): void
     {
         $this->assign('message', TranslationKey::error('NotFound')->trans($this->translator));
     }
 
+    #[\Override]
     public function getResponse(Request $request): Response
     {
         $response = parent::getResponse($request);

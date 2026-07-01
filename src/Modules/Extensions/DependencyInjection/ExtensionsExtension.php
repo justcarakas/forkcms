@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\DependencyInjection;
 
 use ForkCMS\Core\Domain\Application\Application;
@@ -10,11 +12,13 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class ExtensionsExtension extends ForkModuleExtension
 {
+    #[\Override]
     public function load(array $configs, ContainerBuilder $container): void
     {
         $this->getLoader($container)->load('services.yaml');
     }
 
+    #[\Override]
     public function prepend(ContainerBuilder $container): void
     {
         parent::prepend($container);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\Authentication;
 
 use ForkCMS\Modules\Backend\Backend\Actions\AuthenticationLogin;
@@ -21,12 +23,13 @@ class BackendAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'backend_login';
+    public const string LOGIN_ROUTE = 'backend_login';
 
     public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
     }
 
+    #[\Override]
     public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('email', '');
@@ -43,6 +46,7 @@ class BackendAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
+    #[\Override]
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
@@ -52,6 +56,7 @@ class BackendAuthenticator extends AbstractLoginFormAuthenticator
         return new RedirectResponse(AuthenticationLogin::getActionSlug()->generateRoute($this->urlGenerator));
     }
 
+    #[\Override]
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);

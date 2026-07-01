@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -10,7 +12,7 @@ use Throwable;
  * @method Module|null find($id, $lockMode = null, $lockVersion = null)
  * @method Module|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Module[] findAll()
- * @method Module[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
+ * @method Module[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null) // phpcs:ignore Generic.Files.LineLength.TooLong
  * @extends ServiceEntityRepository<Module>
  */
 final class ModuleRepository extends ServiceEntityRepository

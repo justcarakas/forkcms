@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\UserGroup\Command;
 
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
@@ -8,11 +10,11 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-final class ChangeUserGroupHandler implements CommandHandlerInterface
+final readonly class ChangeUserGroupHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly UserGroupRepository $userGroupRepository,
-        private readonly EventDispatcherInterface $eventDispatcher,
+        private UserGroupRepository $userGroupRepository,
+        private EventDispatcherInterface $eventDispatcher,
     ) {
     }
 

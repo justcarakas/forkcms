@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use Symfony\Contracts\Translation\TranslatableInterface;
@@ -12,6 +14,7 @@ enum Type: string implements TranslatableInterface
     case SLUG = 'slug';
     case ERROR = 'error';
 
+    #[\Override]
     public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         return $translator->trans('lbl.TranslationType' . ucfirst($this->value), locale: $locale);

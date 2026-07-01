@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "28b5fb3617a975a03bd3c2ce0c238fa7",
+    "content-hash": "ab8e955a4c3e368bbf7cbb98c7d0210d",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2822,16 +2822,16 @@
         },
         {
             "name": "pageon/pageon-doctrine-data-grid-bundle",
-            "version": "0.3.1",
+            "version": "0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pageon/PageonDoctrineDataGridBundle.git",
-                "reference": "6ff83713654ea5699afe27de7a130e4d1e1e9290"
+                "reference": "4a022ca1f0cb0b50c461ed225236f3b555a5d1bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pageon/PageonDoctrineDataGridBundle/zipball/6ff83713654ea5699afe27de7a130e4d1e1e9290",
-                "reference": "6ff83713654ea5699afe27de7a130e4d1e1e9290",
+                "url": "https://api.github.com/repos/pageon/PageonDoctrineDataGridBundle/zipball/4a022ca1f0cb0b50c461ed225236f3b555a5d1bd",
+                "reference": "4a022ca1f0cb0b50c461ed225236f3b555a5d1bd",
                 "shasum": ""
             },
             "require": {
@@ -2839,7 +2839,8 @@
                 "knplabs/knp-components": "^5.0",
                 "knplabs/knp-paginator-bundle": "^6.0",
                 "php": ">=8.4",
-                "symfony/security-core": "^8.0"
+                "symfony/security-core": "^8.0",
+                "twig/twig": "^3.0"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -2860,9 +2861,9 @@
             "description": "A bundle that wraps around the knp paginator bundle and doctrine to generate a data grid from your entity",
             "support": {
                 "issues": "https://github.com/pageon/PageonDoctrineDataGridBundle/issues",
-                "source": "https://github.com/pageon/PageonDoctrineDataGridBundle/tree/0.3.1"
+                "source": "https://github.com/pageon/PageonDoctrineDataGridBundle/tree/0.4.1"
             },
-            "time": "2026-06-25T22:59:23+00:00"
+            "time": "2026-07-01T15:22:54+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",

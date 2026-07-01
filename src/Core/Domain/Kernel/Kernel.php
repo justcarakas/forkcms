@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Kernel;
 
 use ForkCMS\Core\DependencyInjection\CoreExtension;
@@ -19,11 +21,11 @@ use Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPa
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
-class Kernel extends BaseKernel
+final class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-    private const ROOT_DIR = __DIR__ . '/../../../../';
+    private const string ROOT_DIR = __DIR__ . '/../../../../';
 
     private bool $isInstalled;
 
@@ -43,15 +45,15 @@ class Kernel extends BaseKernel
         return $this->isInstalled || !str_ends_with($this->environment, 'install');
     }
 
-    protected function configureContainer(ContainerConfigurator $containerConfigurator): void
+    protected function configureContainer(ContainerConfigurator $container): void
     {
         if ($this->isInstalled()) {
-            $this->configureLiveContainer($containerConfigurator);
+            $this->configureLiveContainer($container);
 
             return;
         }
 
-        $this->configureInstallerContainer($containerConfigurator);
+        $this->configureInstallerContainer($container);
     }
 
     protected function buildContainer(): ContainerBuilder
@@ -164,13 +166,13 @@ class Kernel extends BaseKernel
                     [
                         'orm' => [
                             'mappings' => [
-                                $module->getName() => [
+                                $module->name => [
                                     'type' => 'annotation',
                                     'is_bundle' => false,
                                     'dir' => $domainDirectory,
                                     'prefix' => 'ForkCMS\\Modules\\' . $module . '\\Domain',
                                 ],
-                                $module->getName() => [
+                                $module->name => [
                                     'type' => 'attribute',
                                     'is_bundle' => false,
                                     'dir' => $domainDirectory,
@@ -212,11 +214,6 @@ class Kernel extends BaseKernel
         $container->getCompilerPassConfig()->setMergePass(
             new MergeExtensionConfigurationPass(array_keys($container->getExtensions()))
         );
-    }
-
-    public function getContainerClass(): string
-    {
-        return parent::getContainerClass();
     }
 
     protected function initializeContainer(): void

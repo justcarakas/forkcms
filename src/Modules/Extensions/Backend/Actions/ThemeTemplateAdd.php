@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
@@ -17,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class ThemeTemplateAdd extends AbstractFormActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         $theme = $this->getEntityFromRequest($request, Theme::class);
@@ -27,7 +30,7 @@ final class ThemeTemplateAdd extends AbstractFormActionController
             formType: ThemeTemplateType::class,
             formData: new CreateThemeTemplate($theme),
             redirectResponse: new RedirectResponse(
-                ThemeTemplateIndex::getActionSlug()->generateRoute($this->router, ['slug' => $theme->getName()])
+                ThemeTemplateIndex::getActionSlug()->generateRoute($this->router, ['slug' => $theme->name])
             ),
             successFlashMessageCallback: static fn (FormInterface $form) => FlashMessage::success(
                 'ThemeTemplateAdded',

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\Console;
 
 use ForkCMS\Modules\Installer\Domain\Requirement\Requirement;
@@ -12,12 +14,15 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand(name: 'forkcms:installer:check-requirements', description: 'Command to check if the server meets the install requirements')]
+#[AsCommand(
+    name: 'forkcms:installer:check-requirements',
+    description: 'Command to check if the server meets the install requirements'
+)]
 final class CheckRequirementsCommand extends Command
 {
-    public const RETURN_SERVER_DOES_NOT_MEET_REQUIREMENTS = 2;
-    public const RETURN_SERVER_MEETS_REQUIREMENTS = 0;
-    public const RETURN_SERVER_MEETS_REQUIREMENTS_BUT_HAS_WARNINGS = 1;
+    public const int RETURN_SERVER_DOES_NOT_MEET_REQUIREMENTS = 2;
+    public const int RETURN_SERVER_MEETS_REQUIREMENTS = 0;
+    public const int RETURN_SERVER_MEETS_REQUIREMENTS_BUT_HAS_WARNINGS = 1;
 
     private SymfonyStyle $formatter;
 
@@ -26,6 +31,7 @@ final class CheckRequirementsCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->formatter = new SymfonyStyle($input, $output);

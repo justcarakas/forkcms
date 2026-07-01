@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Controller;
 
 use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
@@ -17,15 +19,15 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Twig\Environment;
 
 #[Autoconfigure(public: true)]
-class LoginController
+final readonly class LoginController
 {
     public function __construct(
-        private readonly Environment $twig,
-        private readonly AuthenticationUtils $authenticationUtils,
-        private readonly Security $security,
-        private readonly UrlGeneratorInterface $urlGenerator,
-        private readonly NavigationItemRepository $navigationItemRepository,
-        private readonly BreadcrumbCollection $breadcrumbs,
+        private Environment $twig,
+        private AuthenticationUtils $authenticationUtils,
+        private Security $security,
+        private UrlGeneratorInterface $urlGenerator,
+        private NavigationItemRepository $navigationItemRepository,
+        private BreadcrumbCollection $breadcrumbs,
     ) {
     }
 
@@ -33,9 +35,10 @@ class LoginController
     {
         $currentUser = $this->security->getUser();
         if ($currentUser instanceof User) {
-            $slug = $this->navigationItemRepository->findFirstWithSlugForUser($currentUser)->getSlug();
             return new RedirectResponse(
-                $slug?->generateRoute($this->urlGenerator)
+                $this->navigationItemRepository
+                    ->findFirstWithSlugForUser($currentUser)
+                    ->slug->generateRoute($this->urlGenerator)
             );
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\DataFixtures;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -11,12 +13,12 @@ use ForkCMS\Modules\Extensions\tests\ForkFixture;
 
 final class UserFixture extends ForkFixture implements DependentFixtureInterface
 {
-    public const PLAIN_TEXT_PASSWORD = 'test';
-    private const PASSWORD = '$2y$13$YJGHIjorExsQSD9VCzMgBuwi5QS3Zr2tVBisWS4vrcKDin/9BdBQq';
-    public const SUPER_ADMIN_REFERENCE = 'user-super-admin';
-    public const SUPER_ADMIN_EMAIL = 'super-admin@example.com';
-    public const USER_REFERENCE = 'user-super-admin';
-    public const USER_EMAIL = 'user@example.com';
+    public const string PLAIN_TEXT_PASSWORD = 'test';
+    private const string PASSWORD = '$2y$13$YJGHIjorExsQSD9VCzMgBuwi5QS3Zr2tVBisWS4vrcKDin/9BdBQq';
+    public const string SUPER_ADMIN_REFERENCE = 'user-super-admin';
+    public const string SUPER_ADMIN_EMAIL = 'super-admin@example.com';
+    public const string USER_REFERENCE = 'user-super-admin';
+    public const string USER_EMAIL = 'user@example.com';
 
     public function __construct()
     {
@@ -29,9 +31,11 @@ final class UserFixture extends ForkFixture implements DependentFixtureInterface
         $createSuperAdmin->displayName = 'Super admin';
         $createSuperAdmin->superAdmin = true;
         $createSuperAdmin->plainTextPassword = self::PLAIN_TEXT_PASSWORD;
-        $createSuperAdmin->userGroups->add($this->getReference(UserGroupFixture::ONLY_DASHBOARD_REFERENCE, UserGroup::class));
+        $createSuperAdmin->userGroups->add(
+            $this->getReference(UserGroupFixture::ONLY_DASHBOARD_REFERENCE, UserGroup::class)
+        );
         $superAdmin = User::fromDataTransferObject($createSuperAdmin);
-        $superAdmin->setPassword(self::PASSWORD);
+        $superAdmin->password = self::PASSWORD;
         $manager->persist($superAdmin);
         $this->setReference(self::SUPER_ADMIN_REFERENCE, $superAdmin);
 
@@ -40,9 +44,11 @@ final class UserFixture extends ForkFixture implements DependentFixtureInterface
         $createUser->displayName = 'Normal user';
         $createUser->superAdmin = false;
         $createUser->plainTextPassword = self::PLAIN_TEXT_PASSWORD;
-        $createUser->userGroups->add($this->getReference(UserGroupFixture::ONLY_DASHBOARD_REFERENCE, UserGroup::class));
+        $createUser->userGroups->add(
+            $this->getReference(UserGroupFixture::ONLY_DASHBOARD_REFERENCE, UserGroup::class)
+        );
         $user = User::fromDataTransferObject($createUser);
-        $user->setPassword(self::PASSWORD);
+        $user->password = self::PASSWORD;
         $manager->persist($user);
         $this->setReference(self::USER_REFERENCE, $user);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Frontend\Widgets;
 
 use ForkCMS\Modules\Frontend\Domain\Block\BlockServices;
@@ -25,6 +27,7 @@ class Sitemap extends AbstractWidgetController
         parent::__construct($blockServices);
     }
 
+    #[\Override]
     public function execute(Request $request, Response $response): void
     {
         $navigationTree = $this->navigationBuilder->getTree(Locale::current());

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\RSSAction;
 
 use Assert\Assert;
@@ -7,16 +9,12 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use InvalidArgumentException;
 use Stringable;
 
-final class ModuleRSSAction implements Stringable
+final readonly class ModuleRSSAction implements Stringable
 {
-    private ModuleName $module;
-
-    private RSSActionName $action;
-
-    public function __construct(ModuleName $module, RSSActionName $action)
-    {
-        $this->module = $module;
-        $this->action = $action;
+    public function __construct(
+        private(set) ModuleName $module,
+        private(set) RSSActionName $action,
+    ) {
         Assert::that($this->getFQCN())->classExists('RSS action class not found');
     }
 
@@ -41,18 +39,9 @@ final class ModuleRSSAction implements Stringable
         return 'ForkCMS\\Modules\\' . $this->module . '\\Frontend\\RSS\\' . $this->action;
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->getFQCN();
-    }
-
-    public function getModule(): ModuleName
-    {
-        return $this->module;
-    }
-
-    public function getAction(): RSSActionName
-    {
-        return $this->action;
     }
 }

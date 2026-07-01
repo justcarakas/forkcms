@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\Domain\Database;
 
 use ForkCMS\Modules\Installer\Domain\Authentication\InstallerPasswordType;
@@ -16,6 +18,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class DatabaseType extends AbstractType
 {
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -26,11 +29,13 @@ class DatabaseType extends AbstractType
             ->add('databasePassword', InstallerPasswordType::class);
     }
 
+    #[\Override]
     public function getBlockPrefix(): string
     {
         return 'install_database';
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @global string $class_name
  * @global string $namespace
@@ -10,16 +12,16 @@
  * @global string[] $useStatements
  */
 ?>
-<?= "<?php\n"; ?>
+<?= "<?php\n\ndeclare(strict_types=1);\n"; ?>
 
 namespace <?= $namespace ?>;
 
 <?php foreach ($useStatements as $useStatement) echo $useStatement.PHP_EOL ?>
 use InvalidArgumentException;
 
-final class <?= $class_name ?> implements CommandHandlerInterface
+final readonly class <?= $class_name ?> implements CommandHandlerInterface
 {
-    public function __construct(private readonly <?= $repository ?> $<?= lcfirst($repository) ?>)
+    public function __construct(private <?= $repository ?> $<?= lcfirst($repository) ?>)
     {
     }
 

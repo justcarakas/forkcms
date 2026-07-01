@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-#[AutoconfigureTag('forkcms.backend.action')]
+#[AutoconfigureTag(self::class)]
 interface ActionControllerInterface
 {
     public function __invoke(Request $request): Response;

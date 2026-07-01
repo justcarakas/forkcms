@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Form;
 
 use RuntimeException;
@@ -17,6 +19,7 @@ final class TabsType extends AbstractType
     {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         foreach ($options['tabs'] as $label => $fields) {
@@ -34,7 +37,8 @@ final class TabsType extends AbstractType
     }
 
     /**
-     * @param SluggerInterface|null $slugger You don't need to provide the slugger if you are trying to get an existing tab
+     * @param SluggerInterface|null $slugger You don't need to provide the slugger if
+     *                                       you are trying to get an existing tab
      */
     public static function getTabNameForLabel(string $label, ?SluggerInterface $slugger = null): string
     {
@@ -43,9 +47,10 @@ final class TabsType extends AbstractType
             $cachedSlugger = $slugger ?? throw new RuntimeException('No slugger provided');
         }
 
-        return $cachedSlugger->slug(str_replace('lbl.', 'tab.', $label), '_');
+        return $cachedSlugger->slug(str_replace('lbl.', 'tab.', $label), '_')->toString();
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver

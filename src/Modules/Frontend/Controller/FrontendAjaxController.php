@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Controller;
 
 use ForkCMS\Modules\Frontend\Domain\AjaxAction\AjaxActionControllerInterface;
@@ -13,12 +15,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 #[Autoconfigure(public: true)]
-final class FrontendAjaxController
+final readonly class FrontendAjaxController
 {
     /** @param ServiceLocator<AjaxActionControllerInterface> $ajaxActions */
     public function __construct(
-        #[AutowireLocator('forkcms.frontend.ajax_action')]
-        private readonly ServiceLocator $ajaxActions
+        #[AutowireLocator(AjaxActionControllerInterface::class)]
+        private ServiceLocator $ajaxActions
     ) {
     }
 

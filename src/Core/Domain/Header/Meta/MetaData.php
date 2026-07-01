@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Header\Meta;
 
 use InvalidArgumentException;
@@ -9,7 +11,7 @@ final class MetaData
     /** @var array<string, string> */
     private array $attributes;
 
-    private string $uniqueKey;
+    private(set) string $uniqueKey;
 
     /**
      * @param string $content since we always need content we've added it as a separate parameter
@@ -56,11 +58,6 @@ final class MetaData
         if ($uniqueKeySuffix !== null) {
             $this->uniqueKey .= '|' . $uniqueKeySuffix;
         }
-    }
-
-    public function getUniqueKey(): string
-    {
-        return $this->uniqueKey;
     }
 
     public function hasAttributeWithValue(string $attributeKey, string $attributeValue): bool

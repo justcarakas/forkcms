@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Backend\Ajax;
 
 use ForkCMS\Modules\Backend\Domain\AjaxAction\AbstractAjaxActionController;
@@ -17,11 +19,13 @@ final class NotFound extends AbstractAjaxActionController
     {
     }
 
+    #[\Override]
     protected function execute(Request $request): void
     {
         $this->assign('message', TranslationKey::error('NotFound')->trans($this->translator));
     }
 
+    #[\Override]
     public function getResponse(Request $request): Response
     {
         $response = parent::getResponse($request);

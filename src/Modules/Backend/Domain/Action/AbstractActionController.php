@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -55,8 +57,8 @@ abstract class AbstractActionController implements ActionControllerInterface
         $actionSlug = self::getActionSlug();
         $this->templatePath = sprintf(
             '@%s/Backend/Actions/%s.html.twig',
-            $actionSlug->getModuleName(),
-            $actionSlug->getActionName()
+            $actionSlug->moduleName,
+            $actionSlug->actionName
         );
     }
 
@@ -65,11 +67,13 @@ abstract class AbstractActionController implements ActionControllerInterface
         $this->templatePath = $templatePath;
     }
 
+    #[\Override]
     final public static function getActionSlug(): ActionSlug
     {
         return ActionSlug::fromFQCN(static::class);
     }
 
+    #[\Override]
     public function __invoke(Request $request): Response
     {
         $this->execute($request);
@@ -133,8 +137,11 @@ abstract class AbstractActionController implements ActionControllerInterface
      *
      * @return T|null
      */
-    final protected function getEntityFromRequestOrNull(Request $request, string $entityFQCN, string $key = 'slug'): mixed
-    {
+    final protected function getEntityFromRequestOrNull(
+        Request $request,
+        string $entityFQCN,
+        string $key = 'slug'
+    ): mixed {
         try {
             return $this->getEntityFromRequest($request, $entityFQCN, $key);
         } catch (NotFoundHttpException) {

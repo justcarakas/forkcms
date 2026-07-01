@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\Block;
 
 use BackedEnum;
@@ -11,8 +13,8 @@ use Stringable;
 
 class BlockNameDBALType extends ValueObjectDBALType
 {
-    public const ACTION_PREFIX = 'action__';
-    public const WIDGET_PREFIX = 'widget__';
+    public const string ACTION_PREFIX = 'action__';
+    public const string WIDGET_PREFIX = 'widget__';
 
     protected function fromString(string $value): Stringable
     {
@@ -40,6 +42,6 @@ class BlockNameDBALType extends ValueObjectDBALType
         return match ($blockName->getType()) {
             Type::ACTION => self::ACTION_PREFIX,
             Type::WIDGET => self::WIDGET_PREFIX,
-        } . $blockName->getName();
+        } . $blockName->name;
     }
 }

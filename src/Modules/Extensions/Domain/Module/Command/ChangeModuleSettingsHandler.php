@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Module\Command;
 
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleRepository;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 
-final class ChangeModuleSettingsHandler implements CommandHandlerInterface
+final readonly class ChangeModuleSettingsHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly ModuleRepository $moduleRepository,
-        private readonly ModuleSettings $moduleSettings,
+        private ModuleRepository $moduleRepository,
+        private ModuleSettings $moduleSettings,
     ) {
     }
 

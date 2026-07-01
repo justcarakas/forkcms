@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
@@ -24,6 +26,7 @@ final class TooltipExtension extends AbstractTypeExtension
         $view->vars['label_tooltip_translation_arguments'] = $options['label_tooltip_translation_arguments'];
     }
 
+    #[\Override]
     public static function getExtendedTypes(): iterable
     {
         return [

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Domain\Twig;
 
 use ForkCMS\Core\Domain\Util\Ensure;
@@ -21,6 +23,7 @@ final class PagesExtension extends AbstractExtension
     ) {
     }
 
+    #[\Override]
     public function getFunctions(): array
     {
         return [

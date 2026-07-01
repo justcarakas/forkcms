@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Domain\Revision\Form;
 
 use ForkCMS\Core\Domain\Form\TabsType;
@@ -23,6 +25,7 @@ final class RevisionType extends AbstractType
     {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('title', TitleType::class);
@@ -98,6 +101,7 @@ final class RevisionType extends AbstractType
         );
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(

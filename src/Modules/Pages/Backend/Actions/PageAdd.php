@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Backend\Actions;
 
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
@@ -25,6 +27,7 @@ final class PageAdd extends AbstractFormActionController
         parent::__construct($actionServices);
     }
 
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         $this->assign('sidebarTree', $this->navigationBuilder->getTree(Locale::current()));

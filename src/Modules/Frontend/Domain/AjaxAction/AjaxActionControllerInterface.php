@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\AjaxAction;
 
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-#[AutoconfigureTag('forkcms.frontend.ajax_action')]
+#[AutoconfigureTag(self::class)]
 interface AjaxActionControllerInterface
 {
     public function __invoke(Request $request): Response;

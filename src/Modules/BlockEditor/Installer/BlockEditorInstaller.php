@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\BlockEditor\Installer;
 
 use ForkCMS\Core\Domain\Form\EditorType;
@@ -9,9 +11,11 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 
 final class BlockEditorInstaller extends ModuleInstaller
 {
-    public const IS_REQUIRED = true;
-    public const IS_VISIBLE_IN_OVERVIEW = false;
+    public const bool IS_REQUIRED = true;
 
+    public const bool IS_VISIBLE_IN_OVERVIEW = false;
+
+    #[\Override]
     public function install(): void
     {
         $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');

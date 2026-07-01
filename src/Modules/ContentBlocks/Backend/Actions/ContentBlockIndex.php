@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\ContentBlocks\Backend\Actions;
 
 use Doctrine\ORM\QueryBuilder;
@@ -13,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class ContentBlockIndex extends AbstractDataGridActionController
 {
+    #[\Override]
     protected function execute(Request $request): void
     {
         $locale = $this->translator->getLocale();

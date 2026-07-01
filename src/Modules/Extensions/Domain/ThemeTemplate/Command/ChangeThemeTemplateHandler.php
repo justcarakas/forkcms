@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate\Command;
 
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
@@ -8,11 +10,11 @@ use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplateRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-final class ChangeThemeTemplateHandler implements CommandHandlerInterface
+final readonly class ChangeThemeTemplateHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly ThemeTemplateRepository $themeTemplateRepository,
-        private readonly EventDispatcherInterface $eventDispatcher
+        private ThemeTemplateRepository $themeTemplateRepository,
+        private EventDispatcherInterface $eventDispatcher
     ) {
     }
 

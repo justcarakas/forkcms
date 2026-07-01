@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Twig;
 
 use ForkCMS\Modules\Backend\Domain\Action\ActionName;
@@ -20,7 +22,7 @@ final class RoutingExtension extends AbstractExtension
 {
     public function __construct(
         private readonly UrlGeneratorInterface $generator,
-        private readonly TwigBridgeRoutingExtension $twigBridgeRoutingExcension,
+        private readonly TwigBridgeRoutingExtension $twigBridgeRoutingExtension,
         private readonly RequestStack $requestStack,
         private readonly BlockRouter $blockRouter,
     ) {
@@ -32,12 +34,12 @@ final class RoutingExtension extends AbstractExtension
             new TwigFunction(
                 'action_url',
                 [$this, 'getActionUrl'],
-                ['is_safe_callback' => [$this->twigBridgeRoutingExcension, 'isUrlGenerationSafe']]
+                ['is_safe_callback' => [$this->twigBridgeRoutingExtension, 'isUrlGenerationSafe']]
             ),
             new TwigFunction(
                 'action_path',
                 [$this, 'getActionPath'],
-                ['is_safe_callback' => [$this->twigBridgeRoutingExcension, 'isUrlGenerationSafe']]
+                ['is_safe_callback' => [$this->twigBridgeRoutingExtension, 'isUrlGenerationSafe']]
             ),
             new TwigFunction(
                 'block_url',
@@ -58,7 +60,7 @@ final class RoutingExtension extends AbstractExtension
             $this->generator,
             $parameters,
             $relative ? UrlGeneratorInterface::RELATIVE_PATH : UrlGeneratorInterface::ABSOLUTE_PATH,
-            $locale === null ? null : Locale::tryFrom($locale)
+            Locale::tryFromNullable($locale)
         );
     }
 
@@ -74,7 +76,7 @@ final class RoutingExtension extends AbstractExtension
             $this->generator,
             $parameters,
             $relative ? UrlGeneratorInterface::NETWORK_PATH : UrlGeneratorInterface::ABSOLUTE_URL,
-            $locale === null ? null : Locale::tryFrom($locale)
+            Locale::tryFromNullable($locale)
         );
     }
 
@@ -89,7 +91,7 @@ final class RoutingExtension extends AbstractExtension
     ): string {
         return $this->blockRouter->getRouteForBlock(
             $this->getModuleBlock($moduleName, $blockName, $type),
-            $locale === null ? null : Locale::tryFrom($locale),
+            Locale::tryFromNullable($locale),
             $parameters,
             $relative ? UrlGeneratorInterface::NETWORK_PATH : UrlGeneratorInterface::ABSOLUTE_URL,
         );
@@ -99,8 +101,8 @@ final class RoutingExtension extends AbstractExtension
     {
         if ($moduleName === null || $actionName === null) {
             $defaultSlug = ActionSlug::fromRequestStack($this->requestStack);
-            $moduleName ??= $defaultSlug->getModuleName();
-            $actionName ??= $defaultSlug->getActionName();
+            $moduleName ??= $defaultSlug->moduleName;
+            $actionName ??= $defaultSlug->actionName;
         }
 
         if (is_string($moduleName)) {

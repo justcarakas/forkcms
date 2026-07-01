@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Settings;
 
 use DateTimeImmutable;
@@ -139,6 +141,7 @@ final class SettingsBag implements JsonSerializable
     }
 
     /** @return array<string, mixed> */
+    #[\Override]
     public function jsonSerialize(): array
     {
         return $this->all();

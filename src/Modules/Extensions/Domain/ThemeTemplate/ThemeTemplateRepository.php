@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -9,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method ThemeTemplate|null find($id, $lockMode = null, $lockVersion = null)
  * @method ThemeTemplate|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method ThemeTemplate[] findAll()
- * @method ThemeTemplate[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
+ * @method ThemeTemplate[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null) // phpcs:ignore Generic.Files.LineLength.TooLong
  * @extends ServiceEntityRepository<ThemeTemplate>
  */
 final class ThemeTemplateRepository extends ServiceEntityRepository

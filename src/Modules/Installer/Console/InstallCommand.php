@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\Console;
 
 use Assert\AssertionFailedException;
+use Doctrine\DBAL\DriverManager;
 use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Core\Domain\Kernel\Kernel;
 use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
@@ -24,7 +27,10 @@ use Throwable;
 /**
  * This command will run the requirements checks of fork.
  */
-#[AsCommand(name: 'forkcms:installer:install', description: 'Install fork from the console using the configuration in the fork-cms-installation-configuration.yaml file')]
+#[AsCommand(
+    name: 'forkcms:installer:install',
+    description: 'Install fork from the console using the fork-cms-installation-configuration.yaml config file'
+)]
 class InstallCommand extends Command
 {
     private InputInterface $input;
@@ -32,21 +38,24 @@ class InstallCommand extends Command
     private SymfonyStyle $formatter;
 
     public function __construct(
-        private bool $forkIsInstalled,
-        private ConfigurationParser $configurationParser,
-        private Kernel $kernel,
+        private readonly bool $forkIsInstalled,
+        private readonly ConfigurationParser $configurationParser,
+        private readonly Kernel $kernel,
     ) {
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this
             ->addOption('email', 'u', InputOption::VALUE_REQUIRED, 'The email address of the backend user')
             ->addOption('password', 'p', InputOption::VALUE_REQUIRED, 'The password of the backend user')
+            ->addOption('clear-database', 'c', InputOption::VALUE_NONE, 'Clear the database of all content before installing')
             ->setHidden($this->forkIsInstalled);
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->input = $input;
@@ -57,8 +66,29 @@ class InstallCommand extends Command
         if (!$installerConfiguration instanceof InstallerConfiguration) {
             return self::FAILURE;
         }
+        if ($input->getOption('clear-database')) {
+            if (!$this->formatter->confirm('Are you sure you want to clear all tables in this database?', false)) {
+                return self::FAILURE;
+            }
 
-        InstalledModules::setModulesToInstall(...$installerConfiguration->getModules());
+            $connection = DriverManager::getConnection([
+                'driver' => 'pdo_mysql',
+                'host' => $installerConfiguration->databaseHostname,
+                'user' => $installerConfiguration->databaseUsername,
+                'password' => $installerConfiguration->databasePassword,
+                'dbname' => $installerConfiguration->databaseName,
+                'port' => $installerConfiguration->databasePort,
+                'charset' => 'utf8mb4',
+            ]);
+            $connection->executeStatement('SET FOREIGN_KEY_CHECKS = 0');
+            $platform = $connection->getDatabasePlatform();
+            foreach ($connection->executeQuery('SHOW TABLES')->fetchFirstColumn() as $table) {
+                $connection->executeStatement('DROP TABLE ' . $platform->quoteSingleIdentifier($table));
+            }
+            $connection->executeStatement('SET FOREIGN_KEY_CHECKS = 1');
+        }
+
+        InstalledModules::setModulesToInstall(...$installerConfiguration->modules);
         $this->kernel->reboot(null);
         $_SERVER['HTTPS'] = 'on';
         try {

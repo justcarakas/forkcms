@@ -7,13 +7,18 @@
     <arg name="colors"/>
     <arg name="extensions" value="php"/>
 
+    <config name="php_version" value="80400"/>
+
     <rule ref="PSR12"/>
+    <rule ref="Generic.PHP.RequireStrictTypes"/>
 
     <file>config/</file>
     <file>public/</file>
     <file>src/</file>
 
     <exclude-pattern>config/preload.php</exclude-pattern>
+    <exclude-pattern>config/reference.php</exclude-pattern>
+    <exclude-pattern>src/Core/tests/bootstrap.php</exclude-pattern>
     <exclude-pattern>public/index.php</exclude-pattern>
     <exclude-pattern>config/bundles.php</exclude-pattern>
     <exclude-pattern>vendor</exclude-pattern>
@@ -24,5 +29,6 @@
     <rule ref="Generic.Files.LineLength.TooLong">
         <exclude-pattern>src/Modules/Internationalisation/Domain/Twig/ForkIntlExtension.php</exclude-pattern>
         <exclude-pattern>src/Modules/Installer/Domain/Requirement/RequirementsChecker.php</exclude-pattern>
+        <exclude-pattern>src/**/tests/**</exclude-pattern>
     </rule>
 </ruleset>

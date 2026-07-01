@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Header\Meta;
 
 use ForkCMS\Modules\Frontend\Domain\Meta\SEOFollow;
@@ -29,8 +31,8 @@ final class MetaCollection
 
     public function addMetaData(MetaData $metaData, bool $overwrite = false): void
     {
-        if ($overwrite || !array_key_exists($metaData->getUniqueKey(), $this->metaData)) {
-            $this->metaData[$metaData->getUniqueKey()] = $metaData;
+        if ($overwrite || !array_key_exists($metaData->uniqueKey, $this->metaData)) {
+            $this->metaData[$metaData->uniqueKey] = $metaData;
 
             return;
         }
@@ -40,20 +42,20 @@ final class MetaCollection
             return;
         }
 
-        $this->metaData[$metaData->getUniqueKey()]->merge($metaData);
+        $this->metaData[$metaData->uniqueKey]->merge($metaData);
     }
 
     public function addMetaLink(MetaLink $metaLink, bool $overwrite = false): void
     {
-        if ($overwrite || !array_key_exists($metaLink->getUniqueKey(), $this->metaLinks)) {
-            $this->metaLinks[$metaLink->getUniqueKey()] = $metaLink;
+        if ($overwrite || !array_key_exists($metaLink->uniqueKey, $this->metaLinks)) {
+            $this->metaLinks[$metaLink->uniqueKey] = $metaLink;
         }
     }
 
     public function addMetaCustom(MetaCustom $metaCustom, bool $overwrite = false): void
     {
-        if ($overwrite || !array_key_exists($metaCustom->getUniqueKey(), $this->metaCustoms)) {
-            $this->metaCustoms[$metaCustom->getUniqueKey()] = $metaCustom;
+        if ($overwrite || !array_key_exists($metaCustom->uniqueKey, $this->metaCustoms)) {
+            $this->metaCustoms[$metaCustom->uniqueKey] = $metaCustom;
         }
     }
 

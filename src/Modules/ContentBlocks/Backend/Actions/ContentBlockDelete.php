@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\ContentBlocks\Backend\Actions;
 
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
@@ -14,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class ContentBlockDelete extends AbstractDeleteActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): RedirectResponse
     {
         $contentBlock = $this->getEntityFromRequestOrNull($request, ContentBlock::class, 'action.id');
@@ -22,7 +25,10 @@ final class ContentBlockDelete extends AbstractDeleteActionController
             $request,
             DeleteContentBlock::class,
             ContentBlockIndex::getActionSlug(),
-            successFlashMessage: FlashMessage::success('Deleted', ['%contentBlock%' => $contentBlock?->getTitle()]),
+            successFlashMessage: $contentBlock === null ? null : FlashMessage::success(
+                'Deleted',
+                ['%contentBlock%' => $contentBlock->title]
+            ),
         );
     }
 }

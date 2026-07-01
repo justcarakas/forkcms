@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Module\Command;
 
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 
+/** Can't be readonly because of the __set method */
 final class ChangeModuleSettings
 {
     /** @param array<string, mixed> $defaults */
@@ -20,8 +23,8 @@ final class ChangeModuleSettings
         $module = $this->getConvertedModule($key);
         $defaults = $this->getConvertedDefault($key);
         $key = $this->getConvertedKey($key);
-        if ($module->getSettings()->has($key)) {
-            return $module->getSettings()->get($key);
+        if ($module->settings->has($key)) {
+            return $module->settings->get($key);
         }
 
         if (array_key_exists($key, $defaults)) {
@@ -38,12 +41,12 @@ final class ChangeModuleSettings
 
     public function __set(string $key, mixed $value): void
     {
-        $this->getConvertedModule($key)->getSettings()->set($this->getConvertedKey($key), $value);
+        $this->getConvertedModule($key)->settings->set($this->getConvertedKey($key), $value);
     }
 
     public function __isset(string $key)
     {
-        if ($this->getConvertedModule($key)->getSettings()->has($this->getConvertedKey($key))) {
+        if ($this->getConvertedModule($key)->settings->has($this->getConvertedKey($key))) {
             return true;
         }
 

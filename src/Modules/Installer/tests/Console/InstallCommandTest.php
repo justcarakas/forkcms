@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\tests\Console;
 
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
@@ -37,6 +39,7 @@ class InstallCommandTest extends KernelTestCase
         $this->assertStringContainsString('[OK] Fork CMS is installed', $output);
     }
 
+    #[\Override]
     protected function tearDown(): void
     {
         parent::tearDown();

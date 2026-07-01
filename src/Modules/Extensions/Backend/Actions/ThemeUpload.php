@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
@@ -10,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class ThemeUpload extends AbstractActionController
 {
+    #[\Override]
     protected function execute(Request $request): void
     {
         // TODO: Implement execute() method.

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Router;
 
 use RuntimeException;
@@ -15,8 +17,8 @@ final class ModuleRouteLoader implements LoaderInterface
 
     /** @param iterable<ModuleRouteProviderInterface> $moduleLoaders */
     public function __construct(
-        #[AutowireIterator('forkcms.routing.loader')]
-        private iterable $moduleLoaders
+        #[AutowireIterator(ModuleRouteProviderInterface::class)]
+        private readonly iterable $moduleLoaders
     ) {
     }
 

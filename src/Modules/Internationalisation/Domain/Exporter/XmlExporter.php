@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Exporter;
 
 use DOMDocument;
@@ -29,16 +31,16 @@ final class XmlExporter implements ExporterInterface
 
         /** @var Translation $translation */
         foreach ($translations as $translation) {
-            if ($currentApplication !== $translation->getDomain()->getApplication()) {
-                $currentApplication = $translation->getDomain()->getApplication();
+            if ($currentApplication !== $translation->domain->application) {
+                $currentApplication = $translation->domain->application;
                 $applicationElement = $xml->createElement($currentApplication->value);
                 $root->appendChild($applicationElement);
                 $translationItemElement = null;
             }
-            if ($currentModule?->getName() !== $translation->getDomain()->getModuleName()?->getName()) {
-                $currentModule = $translation->getDomain()->getModuleName();
+            if ($currentModule->name !== $translation->domain->moduleName->name) {
+                $currentModule = $translation->domain->moduleName;
                 if ($currentModule !== null) {
-                    $moduleElement = $xml->createElement($currentModule->getName());
+                    $moduleElement = $xml->createElement($currentModule->name);
                     $applicationElement->appendChild($moduleElement);
                 } else {
                     $moduleElement = null;
@@ -46,25 +48,25 @@ final class XmlExporter implements ExporterInterface
                 $translationItemElement = null;
             }
 
-            if ($translationItemElement === null || !$translation->getKey()->equals($currentTranslationKey)) {
+            if ($translationItemElement === null || !$translation->key->equals($currentTranslationKey)) {
                 $translationItemElement = $xml->createElement('item');
                 if ($moduleElement !== null) {
                     $moduleElement->appendChild($translationItemElement);
                 } else {
                     $applicationElement->appendChild($translationItemElement);
                 }
-                $translationItemElement->setAttribute('type', $translation->getKey()->getType()->value);
-                $translationItemElement->setAttribute('name', $translation->getKey()->getName());
+                $translationItemElement->setAttribute('type', $translation->key->type->value);
+                $translationItemElement->setAttribute('name', (string) $translation->key);
 
-                $currentTranslationKey = $translation->getKey();
+                $currentTranslationKey = $translation->key;
             }
 
             $translationElement = $xml->createElement('translation');
-            $translationElement->setAttribute('locale', $translation->getLocale()->value);
-            if ($translation->getSource() !== null) {
-                $translationElement->setAttribute('source', $translation->getSource());
+            $translationElement->setAttribute('locale', $translation->locale->value);
+            if ($translation->source !== null) {
+                $translationElement->setAttribute('source', $translation->source);
             }
-            $translationElement->nodeValue = sprintf('<![CDATA[%1$s]]>', $translation->getValue());
+            $translationElement->nodeValue = sprintf('<![CDATA[%1$s]]>', $translation->value);
             $translationItemElement->appendChild($translationElement);
         }
 

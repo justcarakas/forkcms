@@ -1,42 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Importer;
 
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Translation;
 
 final class ImportResult
 {
-    private int $importedCount = 0;
-    private int $updatedCount = 0;
-    private int $skippedCount = 0;
-
+    private(set) int $importedCount = 0;
+    private(set) int $updatedCount = 0;
+    private(set) int $skippedCount = 0;
     /** @var Translation[] */
-    private array $failed = [];
-
-    public function getImportedCount(): int
-    {
-        return $this->importedCount;
-    }
-
-    public function getUpdatedCount(): int
-    {
-        return $this->updatedCount;
-    }
-
-    public function getSkippedCount(): int
-    {
-        return $this->skippedCount;
-    }
+    private(set) array $failed = [];
 
     public function getFailedCount(): int
     {
         return count($this->failed);
-    }
-
-    /** @return Translation[] */
-    public function getFailed(): array
-    {
-        return $this->failed;
     }
 
     public function addFailed(Translation $translation): void
@@ -61,9 +41,9 @@ final class ImportResult
 
     public function getTotalCount(): int
     {
-        return $this->getSkippedCount()
-               + $this->getUpdatedCount()
+        return $this->skippedCount
+               + $this->updatedCount
                + $this->getFailedCount()
-               + $this->getImportedCount();
+               + $this->importedCount;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\Domain\Locale;
 
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
@@ -20,6 +22,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class LocalesType extends AbstractType implements DataTransformerInterface
 {
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
@@ -94,6 +97,7 @@ class LocalesType extends AbstractType implements DataTransformerInterface
         )->addModelTransformer($this);
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
@@ -103,16 +107,19 @@ class LocalesType extends AbstractType implements DataTransformerInterface
         );
     }
 
+    #[\Override]
     public function getBlockPrefix(): string
     {
         return 'install_locales';
     }
 
+    #[\Override]
     public function transform($value): LocalesStepConfiguration
     {
         return $value;
     }
 
+    #[\Override]
     public function reverseTransform($value): LocalesStepConfiguration
     {
         if (!$value instanceof LocalesStepConfiguration) {

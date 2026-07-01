@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\BlockEditor\Domain\Blocks;
 
 use ForkCMS\Core\Domain\Maker\Util\Template;

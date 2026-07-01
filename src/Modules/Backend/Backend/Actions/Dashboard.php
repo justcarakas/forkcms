@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
 use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
@@ -19,12 +21,13 @@ final class Dashboard extends AbstractActionController
     /** @param ServiceLocator<WidgetControllerInterface> $backendDashboardWidgets */
     public function __construct(
         ActionServices $actionServices,
-        #[AutowireLocator('forkcms.backend.widget')]
+        #[AutowireLocator(WidgetControllerInterface::class)]
         private readonly ServiceLocator $backendDashboardWidgets,
     ) {
         parent::__construct($actionServices);
     }
 
+    #[\Override]
     protected function execute(Request $request): void
     {
         $widgets = [];
@@ -35,8 +38,8 @@ final class Dashboard extends AbstractActionController
             }
 
             $widgets[] = new Widget(
-                $moduleWidget->getModule()->asLabel(),
-                $moduleWidget->getWidget()->asLabel(),
+                $moduleWidget->module->asLabel(),
+                $moduleWidget->widget->asLabel(),
                 $this->backendDashboardWidgets->get($fullyQualifiedClassName)($request)
             );
         }

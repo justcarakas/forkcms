@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Command;
 
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
@@ -23,7 +25,7 @@ final readonly class ChangeContentBlockHandler implements CommandHandlerInterfac
         $contentBlock->activate();
 
         $previousActiveContentBlocks = $this->contentBlockRepository->findBy([
-            'id' => $contentBlock->getId(),
+            'id' => $contentBlock->id,
             'status' => Status::ACTIVE
         ]);
         foreach ($previousActiveContentBlocks as $previousActiveContentBlock) {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\UserGroup;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -12,7 +14,7 @@ use Throwable;
  * @method UserGroup|null find($id, $lockMode = null, $lockVersion = null)
  * @method UserGroup|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method UserGroup[] findAll()
- * @method UserGroup[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
+ * @method UserGroup[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null) // phpcs:ignore Generic.Files.LineLength.TooLong
  * @extends ServiceEntityRepository<UserGroup>
  */
 final class UserGroupRepository extends ServiceEntityRepository
@@ -36,7 +38,7 @@ final class UserGroupRepository extends ServiceEntityRepository
 
     public function remove(UserGroup $userGroup): void
     {
-        if ($userGroup->getId() === UserGroup::ADMIN_GROUP_ID) {
+        if ($userGroup->id === UserGroup::ADMIN_GROUP_ID) {
             throw new InvalidArgumentException('Deleting the admin group is not allowed');
         }
 

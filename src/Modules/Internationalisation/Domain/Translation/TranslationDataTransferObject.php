@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use ForkCMS\Core\Domain\Form\Validator\UniqueDataTransferObject;
@@ -9,8 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /** @implements UniqueDataTransferObjectInterface<Translation> */
 #[UniqueDataTransferObject(
-    entityClass: Translation::class,
     fields: ['domain', 'key', 'locale'],
+    entityClass: Translation::class,
     repositoryMethod: 'uniqueDataTransferObjectMethod',
     message: 'err.TranslationAlreadyExists',
 )]
@@ -34,18 +36,20 @@ abstract class TranslationDataTransferObject implements UniqueDataTransferObject
 
     public function __construct(protected ?Translation $translationEntity = null)
     {
-        $this->domain = $translationEntity?->getDomain();
-        $this->key = $translationEntity?->getKey();
-        $this->locale = $translationEntity?->getLocale();
-        $this->value = $translationEntity?->getValue();
-        $this->source = $translationEntity?->getSource();
+        $this->domain = $translationEntity?->domain;
+        $this->key = $translationEntity?->key;
+        $this->locale = $translationEntity?->locale;
+        $this->value = $translationEntity?->value;
+        $this->source = $translationEntity?->source;
     }
 
+    #[\Override]
     public function hasEntity(): bool
     {
         return $this->translationEntity !== null;
     }
 
+    #[\Override]
     public function getEntity(): Translation
     {
         return $this->translationEntity;

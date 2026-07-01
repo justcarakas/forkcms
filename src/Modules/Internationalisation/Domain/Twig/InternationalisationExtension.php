@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Twig;
 
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
@@ -14,6 +16,7 @@ final class InternationalisationExtension extends AbstractExtension
     {
     }
 
+    #[\Override]
     public function getFilters(): array
     {
         return [

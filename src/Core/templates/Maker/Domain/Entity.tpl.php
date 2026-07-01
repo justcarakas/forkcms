@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Doctrine\ORM\Mapping\Embedded;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -16,7 +18,7 @@ use Symfony\Bundle\MakerBundle\Str;
  * @global Entity $entity
  */
 ?>
-<?= "<?php\n" ?>
+<?= "<?php\n\ndeclare(strict_types=1);\n" ?>
 
 namespace <?= $namespace ?>;
 

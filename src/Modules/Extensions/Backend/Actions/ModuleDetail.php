@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use ForkCMS\Core\Domain\Form\ActionType;
@@ -22,20 +24,21 @@ final class ModuleDetail extends AbstractActionController
         parent::__construct($services);
     }
 
+    #[\Override]
     protected function execute(Request $request): void
     {
         $module = ModuleInformation::fromModule(ModuleName::fromString($request->attributes->get('slug')));
         $this->assign('module', $module);
-        $this->header->addBreadcrumb(new Breadcrumb($module->getModuleName()));
+        $this->header->addBreadcrumb(new Breadcrumb($module->name->asLabel()));
 
-        if (!array_key_exists($module->getModuleName(), $this->moduleRepository->findAllIndexed())) {
+        if (!array_key_exists($module->name->name, $this->moduleRepository->findAllIndexed())) {
             $module->messages->addMessage(TranslationKey::message('InformationModuleIsNotInstalled'));
             $this->assign(
                 'installForm',
                 $this->formFactory->create(
                     ActionType::class,
                     [
-                        'id' => $module->getModuleName(),
+                        'id' => $module->name,
                     ],
                     [
                         'actionSlug' => ModuleInstall::getActionSlug(),

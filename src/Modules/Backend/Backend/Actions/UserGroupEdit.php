@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
 use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
@@ -18,13 +20,14 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class UserGroupEdit extends AbstractFormActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         $userGroup = $this->getEntityFromRequest($request, UserGroup::class);
 
-        $this->header->addBreadcrumb(new Breadcrumb($userGroup->getName()));
+        $this->header->addBreadcrumb(new Breadcrumb($userGroup->name));
 
-        $this->addDeleteForm(['id' => $userGroup->getId()], UserGroupDelete::getActionSlug());
+        $this->addDeleteForm(['id' => $userGroup->id], UserGroupDelete::getActionSlug());
 
         return $this->handleForm(
             request: $request,

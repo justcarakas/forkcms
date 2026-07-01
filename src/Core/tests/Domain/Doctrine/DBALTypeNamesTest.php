@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\tests\Domain\Doctrine;
 
 use Doctrine\DBAL\Types\Types;

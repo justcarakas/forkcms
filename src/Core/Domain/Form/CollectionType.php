@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -32,6 +34,7 @@ class CollectionType extends AbstractType
         }
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
@@ -58,11 +61,13 @@ class CollectionType extends AbstractType
         );
     }
 
+    #[\Override]
     public function getParent(): string
     {
         return SymfonyCollectionType::class;
     }
 
+    #[\Override]
     public function getBlockPrefix(): string
     {
         return 'bootstrap_collection';

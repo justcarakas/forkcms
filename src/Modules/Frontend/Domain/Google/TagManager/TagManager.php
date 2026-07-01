@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\Google\TagManager;
 
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 use ForkCMS\Modules\Frontend\Domain\Privacy\ConsentDialog;
 
-final class TagManager
+final readonly class TagManager
 {
     public function __construct(
-        private readonly ModuleSettings $moduleSettings,
-        private readonly DataLayer $dataLayer,
-        private readonly ConsentDialog $consentDialog
+        private ModuleSettings $moduleSettings,
+        private DataLayer $dataLayer,
+        private ConsentDialog $consentDialog
     ) {
     }
 
@@ -86,8 +88,7 @@ final class TagManager
 
         $codeLines = [
             '<!-- Google Tag Manager (noscript) -->',
-            // @codingStandardsIgnoreLine
-            '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=%1$s%2$s" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>',
+            '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=%1$s%2$s" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>', // phpcs:ignore Generic.Files.LineLength.TooLong
             '<!-- End Google Tag Manager (noscript) -->'
         ];
 

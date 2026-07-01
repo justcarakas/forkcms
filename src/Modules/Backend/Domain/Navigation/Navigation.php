@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\Navigation;
 
 use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
@@ -13,7 +15,7 @@ use Twig\Environment;
 final class Navigation
 {
     /** @var array<int, array<string, mixed>> */
-    private $navigation = [];
+    private array $navigation = [];
 
     public function __construct(
         private readonly AuthorizationCheckerInterface $authorizationChecker,
@@ -90,7 +92,7 @@ final class Navigation
         }
 
         if (
-            $this->authorizationChecker->isGranted($navigationItem['slug']->getModuleName()->asRole())
+            $this->authorizationChecker->isGranted($navigationItem['slug']->moduleName->asRole())
             && $this->authorizationChecker->isGranted($navigationItem['slug']->asModuleAction()->asRole())
         ) {
             return $navigationItem;
@@ -185,7 +187,7 @@ final class Navigation
                     $breadcrumbs->add(
                         new Breadcrumb(
                             $navigationItem['label'],
-                            ActionSlug::fromSlug($navigationItem['slug'])->generateRoute($this->router)
+                            $navigationItem['slug']->generateRoute($this->router)
                         )
                     );
 

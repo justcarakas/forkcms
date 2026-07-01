@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleType;
@@ -11,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /** @extends AbstractType<TranslationDataTransferObject> */
 final class TranslationType extends AbstractType
 {
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -20,6 +23,7 @@ final class TranslationType extends AbstractType
             ->add('value', TextareaType::class, ['label' => 'lbl.Translation']);
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);

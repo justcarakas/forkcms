@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Form;
 
 use ForkCMS\Core\Domain\Form\Editor\EditorTypeImplementationInterface;
@@ -16,16 +18,17 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
  */
 class EditorType extends AbstractType
 {
-    public const SETTING_NAME = 'editor';
+    public const string SETTING_NAME = 'editor';
 
     /** @param ServiceLocator<EditorTypeImplementationInterface> $editorTypeImplementations */
     public function __construct(
         private readonly ModuleSettings $moduleSettings,
-        #[AutowireLocator('forkcms.editor')]
+        #[AutowireLocator(EditorTypeImplementationInterface::class)]
         private readonly ServiceLocator $editorTypeImplementations,
     ) {
     }
 
+    #[\Override]
     public function getParent(): string
     {
         return $this->moduleSettings->get(

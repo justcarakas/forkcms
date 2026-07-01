@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Backend\Actions;
 
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
@@ -9,11 +11,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ModuleSettings extends AbstractFormActionController
 {
+    #[\Override]
     protected function addBreadcrumbForRequest(Request $request): void
     {
         // no action specific breadcrumb needed
     }
 
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         return $this->handleModuleSettingsForm(

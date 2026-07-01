@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Domain\Revision\Form;
 
 use ForkCMS\Core\Domain\Form\CollectionType;
@@ -31,6 +33,7 @@ final class RevisionContentType extends AbstractType
     ) {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
@@ -52,7 +55,7 @@ final class RevisionContentType extends AbstractType
                         );
                     }
                 }
-                $this->buildrevisionBlockForm(
+                $this->buildRevisionBlockForm(
                     $event->getForm(),
                     Ensure::isNotNull($this->templateTemplateRepository->find($event->getData()['themeTemplate'])),
                     $options['load_default_blocks']
@@ -61,13 +64,14 @@ final class RevisionContentType extends AbstractType
             }
         );
 
-        $this->buildrevisionBlockForm(
+        $this->buildRevisionBlockForm(
             $builder,
             $options['selectedTemplate'],
             $options['load_default_blocks']
         );
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
@@ -81,7 +85,7 @@ final class RevisionContentType extends AbstractType
         $resolver->setRequired('selectedTemplate');
     }
 
-    private function buildrevisionBlockForm(
+    private function buildRevisionBlockForm(
         FormInterface|FormBuilderInterface $form,
         ThemeTemplate $selectedTemplate,
         bool $loadDefaultBlocks
@@ -97,12 +101,12 @@ final class RevisionContentType extends AbstractType
             // TODO: implement this
         }
 
-        if (!$selectedTemplate->getSettings()->has('positions')) {
+        if (!$selectedTemplate->settings->has('positions')) {
             return;
         }
 
         // add the blocks that didn't have defaults
-        foreach ($selectedTemplate->getSettings()->get('positions') as $position) {
+        foreach ($selectedTemplate->settings->get('positions') as $position) {
             $blockName = $position['name'];
             $blockFormName = 'blocks_' . $blockName;
             if ($form->has($blockFormName)) {
@@ -131,6 +135,7 @@ final class RevisionContentType extends AbstractType
         }
     }
 
+    #[\Override]
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         parent::buildView($view, $form, $options);

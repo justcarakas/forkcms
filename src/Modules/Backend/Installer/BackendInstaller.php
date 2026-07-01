@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Installer;
 
 use ForkCMS\Modules\Backend\Backend\Actions\Dashboard;
@@ -23,7 +25,7 @@ use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
 
 final class BackendInstaller extends ModuleInstaller
 {
-    public const IS_REQUIRED = true;
+    public const bool IS_REQUIRED = true;
 
     public function preInstall(): void
     {
@@ -36,6 +38,7 @@ final class BackendInstaller extends ModuleInstaller
         $this->createAdminUser();
     }
 
+    #[\Override]
     public function install(): void
     {
         $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');
@@ -76,13 +79,13 @@ final class BackendInstaller extends ModuleInstaller
         $installerConfiguration = InstallerConfiguration::fromCache();
 
         $createUser = new CreateUser();
-        $createUser->email = $installerConfiguration->getAdminEmail();
-        $createUser->plainTextPassword = $installerConfiguration->getAdminPassword();
+        $createUser->email = $installerConfiguration->adminEmail;
+        $createUser->plainTextPassword = $installerConfiguration->adminPassword;
         $createUser->displayName = 'Fork CMS';
         $createUser->superAdmin = true;
         $createUser->accessToBackend = true;
         $createUser->userGroups->add($this->userGroupRepository->getAdminUserGroup());
-        $createUser->settings->set('locale', $installerConfiguration->getDefaultUserLocale()->value);
+        $createUser->settings->set('locale', $installerConfiguration->defaultUserLocale->value);
         $createUser->settings->set('date_format_short', $_ENV['FORK_DEFAULT_DATE_FORMAT_SHORT']);
         $createUser->settings->set('date_format_long', $_ENV['FORK_DEFAULT_DATE_FORMAT_LONG']);
         $createUser->settings->set('time_format', $_ENV['FORK_DEFAULT_TIME_FORMAT']);

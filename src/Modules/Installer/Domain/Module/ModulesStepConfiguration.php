@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\Domain\Module;
 
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
@@ -31,11 +33,13 @@ final class ModulesStepConfiguration implements InstallerStepConfiguration
         $this->installExampleData = $installExampleData;
     }
 
+    #[\Override]
     public static function getStep(): InstallerStep
     {
         return InstallerStep::MODULES;
     }
 
+    #[\Override]
     public static function fromArray(array $configuration): static
     {
         return new self(
@@ -44,6 +48,7 @@ final class ModulesStepConfiguration implements InstallerStepConfiguration
         );
     }
 
+    #[\Override]
     public static function fromInstallerConfiguration(InstallerConfiguration $installerConfiguration): static
     {
         if (!$installerConfiguration->hasStep(self::getStep())) {
@@ -51,8 +56,8 @@ final class ModulesStepConfiguration implements InstallerStepConfiguration
         }
 
         return new self(
-            $installerConfiguration->getModules(),
-            $installerConfiguration->shouldInstallExampleData(),
+            $installerConfiguration->modules,
+            $installerConfiguration->installExampleData,
         );
     }
 

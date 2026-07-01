@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Theme;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,20 +24,20 @@ class Theme
 
     #[ORM\Id]
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $name;
+    private(set) string $name;
 
     #[ORM\Column(type: Types::TEXT)]
-    private string $description;
+    private(set) string $description;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $active;
+    private(set) bool $active;
 
     /** @var Collection<int|string,ThemeTemplate> */
     #[ORM\OneToMany(targetEntity: ThemeTemplate::class, mappedBy: 'theme', cascade: ['persist', 'remove'])]
-    private Collection $templates;
+    private(set) Collection $templates;
 
     #[ORM\OneToOne(targetEntity: ThemeTemplate::class, inversedBy: 'defaultForTheme')]
-    private ?ThemeTemplate $defaultTemplate;
+    private(set) ?ThemeTemplate $defaultTemplate;
 
     private function __construct()
     {
@@ -82,29 +84,6 @@ class Theme
         $theme->settings = $dataTransferObject->settings;
 
         return $theme;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->active;
-    }
-
-    /**
-     * @return Collection<int|string, ThemeTemplate>
-     */
-    public function getTemplates(): Collection
-    {
-        return $this->templates;
     }
 
     public function getDefaultTemplate(): ThemeTemplate

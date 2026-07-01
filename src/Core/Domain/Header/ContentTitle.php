@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Header;
 
 use ForkCMS\Core\Domain\Header\Breadcrumb\BreadcrumbCollection;
@@ -16,6 +18,7 @@ final class ContentTitle implements Stringable
     {
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->getContentTitle();

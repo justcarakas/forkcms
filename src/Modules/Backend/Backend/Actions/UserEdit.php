@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
 use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
@@ -18,15 +20,16 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class UserEdit extends AbstractFormActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         $user = $this->getEntityFromRequest($request, User::class);
 
         $this->assign('user', $user);
-        $this->header->addBreadcrumb(new Breadcrumb($user->getDisplayName()));
+        $this->header->addBreadcrumb(new Breadcrumb($user->displayName));
 
         if ($this->getRepository(User::class)->count([]) > 1) {
-            $this->addDeleteForm(['id' => $user->getId()], UserDelete::getActionSlug());
+            $this->addDeleteForm(['id' => $user->id], UserDelete::getActionSlug());
         }
 
         return $this->handleForm(

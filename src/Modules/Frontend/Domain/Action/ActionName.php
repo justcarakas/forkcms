@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\Action;
 
 use ForkCMS\Core\Domain\Identifier\NamedIdentifier;
@@ -11,6 +13,7 @@ final class ActionName implements Stringable, BlockName
 {
     use NamedIdentifier;
 
+    #[\Override]
     public function getType(): Type
     {
         return Type::ACTION;

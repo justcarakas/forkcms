@@ -1,12 +1,14 @@
 <?php
 
-namespace ForkCMS\Modules\Backend\tests\Backend\Actions;
+declare(strict_types=1);
+
+namespace ForkCMS\Modules\ContentBlocks\tests\Backend\Actions;
 
 use ForkCMS\Modules\Backend\tests\BackendWebTestCase;
 
 final class ContentBlockAddTest extends BackendWebTestCase
 {
-    protected const TEST_URL = '/private/en/content-blocks/content-block-add';
+    protected const string TEST_URL = '/private/en/content-blocks/content-block-add';
 
     public function testPageLoads(): void
     {

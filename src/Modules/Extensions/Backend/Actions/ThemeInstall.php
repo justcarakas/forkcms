@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use ForkCMS\Core\Domain\Form\ActionType;
@@ -24,6 +26,7 @@ final class ThemeInstall extends AbstractFormActionController
         parent::__construct($services);
     }
 
+    #[\Override]
     protected function getFormResponse(Request $request): Response
     {
         return $this->handleForm(

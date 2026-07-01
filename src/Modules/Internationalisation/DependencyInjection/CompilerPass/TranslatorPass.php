@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\DependencyInjection\CompilerPass;
 
 use ForkCMS\Core\Domain\Application\Application;
@@ -14,6 +16,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class TranslatorPass implements CompilerPassInterface
 {
+    #[\Override]
     public function process(ContainerBuilder $container): void
     {
         $domains = $this->getDatabaseDomains(InstalledModules::fromContainer($container));

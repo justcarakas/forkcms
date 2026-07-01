@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Kernel;
 
 use ForkCMS\Core\Domain\Kernel\Command\ClearContainerCache;
@@ -9,12 +11,13 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\DispatchAfterCurrentBusStamp;
 
-final class KernelSubscriber implements EventSubscriberInterface
+final readonly class KernelSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly MessageBusInterface $commandBus)
+    public function __construct(private MessageBusInterface $commandBus)
     {
     }
 
+    #[\Override]
     public static function getSubscribedEvents(): array
     {
         return [

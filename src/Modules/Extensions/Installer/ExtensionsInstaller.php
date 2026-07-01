@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Installer;
 
 use ForkCMS\Modules\Extensions\Backend\Actions\ModuleDetail;
@@ -27,8 +29,9 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 
 final class ExtensionsInstaller extends ModuleInstaller
 {
-    public const IS_REQUIRED = true;
+    public const bool IS_REQUIRED = true;
 
+    #[\Override]
     public function preInstall(): void
     {
         $this->createTableForEntities(
@@ -38,6 +41,7 @@ final class ExtensionsInstaller extends ModuleInstaller
         );
     }
 
+    #[\Override]
     public function install(): void
     {
         $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');
@@ -93,6 +97,6 @@ final class ExtensionsInstaller extends ModuleInstaller
         $themeRepository = $this->getRepository(Theme::class);
         $installTheme = new InstallTheme($themeRepository->findInstallable()[$_ENV['FORK_INSTALLER_THEME']]);
         $this->dispatchCommand($installTheme);
-        $this->dispatchCommand(new ActivateTheme($installTheme->theme->getEntity()));
+        $this->dispatchCommand(new ActivateTheme($installTheme->installableTheme->getEntity()));
     }
 }

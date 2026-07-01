@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\AjaxAction;
 
 use ForkCMS\Core\Domain\Util\Ensure;
@@ -15,9 +17,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Throwable;
 
-final class AjaxActionSlug implements Stringable
+final readonly class AjaxActionSlug implements Stringable
 {
-    public function __construct(private ModuleName $moduleName, private AjaxActionName $actionName)
+    public function __construct(public ModuleName $moduleName, public AjaxActionName $actionName)
     {
         Ensure::isExistingClass($this->getFQCN(), 'Ajax action class does not exist');
     }
@@ -84,12 +86,12 @@ final class AjaxActionSlug implements Stringable
 
     public static function fromModuleAjaxAction(ModuleAjaxAction $moduleAjaxAction): self
     {
-        return new self($moduleAjaxAction->getModule(), $moduleAjaxAction->getAction());
+        return new self($moduleAjaxAction->module, $moduleAjaxAction->action);
     }
 
     public function asModuleAction(): ModuleAjaxAction
     {
-        return new ModuleAjaxAction($this->getModuleName(), $this->getActionName());
+        return new ModuleAjaxAction($this->moduleName, $this->actionName);
     }
 
     public function getSlug(): string
@@ -100,26 +102,17 @@ final class AjaxActionSlug implements Stringable
             implode(
                 '/',
                 [
-                    Container::underscore($this->moduleName->getName()),
-                    Container::underscore($this->actionName->getName()),
+                    Container::underscore($this->moduleName->name),
+                    Container::underscore($this->actionName->name),
                 ]
             )
         );
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->getSlug();
-    }
-
-    public function getModuleName(): ModuleName
-    {
-        return $this->moduleName;
-    }
-
-    public function getActionName(): AjaxActionName
-    {
-        return $this->actionName;
     }
 
     public function getTranslationDomain(): TranslationDomain
@@ -134,8 +127,8 @@ final class AjaxActionSlug implements Stringable
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH,
         ?Locale $locale = null
     ): string {
-        $parameters['action'] = str_replace('_', '-', Container::underscore($this->actionName->getName()));
-        $parameters['module'] = str_replace('_', '-', Container::underscore($this->moduleName->getName()));
+        $parameters['action'] = str_replace('_', '-', Container::underscore($this->actionName->name));
+        $parameters['module'] = str_replace('_', '-', Container::underscore($this->moduleName->name));
 
         if ($locale instanceof Locale) {
             $parameters['_locale'] = $locale->value;

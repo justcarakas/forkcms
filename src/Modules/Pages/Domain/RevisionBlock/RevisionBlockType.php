@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Domain\RevisionBlock;
 
 use Doctrine\ORM\QueryBuilder;
@@ -24,6 +26,7 @@ final class RevisionBlockType extends AbstractType
     {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
@@ -65,10 +68,10 @@ final class RevisionBlockType extends AbstractType
                 'label' => 'lbl.Block',
                 'class' => Block::class,
                 'required' => false,
-                'group_by' => static fn (Block $block): TranslationKey => $block->getBlock()->getModule()->asLabel(),
+                'group_by' => static fn (Block $block): TranslationKey => $block->block->module->asLabel(),
                 'choice_label' => fn (Block $block): string => $block->trans($this->translator),
                 'choice_attr' => static fn (Block $block): array => [
-                    'data-type' => $block->getType()->value,
+                    'data-type' => $block->type->value,
                 ],
                 'query_builder' => static function (BlockRepository $repository): QueryBuilder {
                     return $repository->createQueryBuilder('b')
@@ -122,6 +125,7 @@ final class RevisionBlockType extends AbstractType
 //        );
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(['data_class' => RevisionBlockDataTransferObject::class]);

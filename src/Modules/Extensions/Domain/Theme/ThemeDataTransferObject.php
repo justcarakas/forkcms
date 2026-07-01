@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Theme;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -41,12 +43,12 @@ abstract class ThemeDataTransferObject
             return;
         }
 
-        $this->name = $themeEntity->getName();
-        $this->description = $themeEntity->getDescription();
-        $this->active = $themeEntity->isActive();
-        $this->templates = $themeEntity->getTemplates();
-        $this->settings = $themeEntity->getSettings();
-        if (!$themeEntity->getTemplates()->isEmpty()) {
+        $this->name = $themeEntity->name;
+        $this->description = $themeEntity->description;
+        $this->active = $themeEntity->active;
+        $this->templates = $themeEntity->templates;
+        $this->settings = $themeEntity->settings;
+        if (!$themeEntity->templates->isEmpty()) {
             $this->defaultTemplate = $themeEntity->getDefaultTemplate();
         }
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Header\Breadcrumb;
 
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
@@ -8,11 +10,11 @@ use Stringable;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class Breadcrumb implements Stringable
+final readonly class Breadcrumb implements Stringable
 {
     public function __construct(
-        public readonly string|TranslatableInterface $label,
-        public readonly ?string $url = null
+        public string|TranslatableInterface $label,
+        public ?string $url = null
     ) {
     }
 

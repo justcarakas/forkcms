@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\Twig;
 
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
@@ -23,6 +25,7 @@ final class FrontendExtension extends AbstractExtension implements GlobalsInterf
     ) {
     }
 
+    #[\Override]
     public function getGlobals(): array
     {
         $mainRequest = $this->requestStack->getMainRequest();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\RSSAction;
 
 use Laminas\Feed\Writer\Entry;
@@ -10,18 +12,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractRSSActionController implements RSSActionControllerInterface
 {
-    private Feed $feed;
+    private(set) Feed $feed;
 
+    #[\Override]
     final public static function getRSSActionSlug(): RSSActionSlug
     {
         return RSSActionSlug::fromFQCN(static::class);
     }
 
-    final protected function getFeed(): Feed
-    {
-        return $this->feed;
-    }
-
+    #[\Override]
     public function __invoke(Request $request): Response
     {
         $this->feed = new Feed();

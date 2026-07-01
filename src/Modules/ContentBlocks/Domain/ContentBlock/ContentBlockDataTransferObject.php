@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\ContentBlocks\Domain\ContentBlock;
 
 use ForkCMS\Core\Domain\Settings\SettingsBag;
@@ -45,16 +47,16 @@ abstract class ContentBlockDataTransferObject
             return;
         }
 
-        $this->id = $contentBlockEntity->getId();
-        $this->widget = $contentBlockEntity->getWidget();
-        $this->isVisible = !$contentBlockEntity->isHidden();
-        $this->title = $contentBlockEntity->getTitle();
-        $this->text = $contentBlockEntity->getText();
-        $this->template = $contentBlockEntity->getTemplate();
-        $this->locale = $contentBlockEntity->getLocale();
-        $this->status = $contentBlockEntity->getStatus();
-        $this->revisionId = $contentBlockEntity->getRevisionId();
-        $this->settings = $contentBlockEntity->getSettings();
+        $this->id = $contentBlockEntity->id;
+        $this->widget = $contentBlockEntity->widget;
+        $this->isVisible = !$contentBlockEntity->isHidden;
+        $this->title = $contentBlockEntity->title;
+        $this->text = $contentBlockEntity->text;
+        $this->template = $contentBlockEntity->template;
+        $this->locale = $contentBlockEntity->locale;
+        $this->status = $contentBlockEntity->status;
+        $this->revisionId = $contentBlockEntity->revisionId;
+        $this->settings = $contentBlockEntity->settings;
     }
 
     public function getEntity(): ?ContentBlock

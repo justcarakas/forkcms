@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
@@ -15,6 +17,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 final class ThemeTemplateDelete extends AbstractDeleteActionController
 {
+    #[\Override]
     public function getFormResponse(Request $request): Response
     {
         $themeTemplate = $this->getEntityFromRequestOrNull($request, ThemeTemplate::class, 'action.id');
@@ -23,9 +26,9 @@ final class ThemeTemplateDelete extends AbstractDeleteActionController
             $request,
             DeleteThemeTemplate::class,
             ThemeTemplateIndex::getActionSlug()->withDefaultParameters(
-                ['slug' => $themeTemplate?->getTheme()?->getName()]
+                ['slug' => $themeTemplate->theme->name]
             ),
-            FlashMessage::success('ThemeTemplateDeleted', ['%template%' => $themeTemplate?->getName()]),
+            FlashMessage::success('ThemeTemplateDeleted', ['%template%' => $themeTemplate->name]),
         );
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation\Filter;
 
 use ForkCMS\Core\Domain\Application\Application;
@@ -12,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 #[DataGrid('translation', noResultsMessage: 'msg.FilterToSeeTheMatchingTranslations')]
 final class TranslationFilter
 {
-    private readonly bool $shouldFilter;
+    public readonly bool $shouldFilter;
 
     /**
      * @param Type[] $type
@@ -33,8 +35,9 @@ final class TranslationFilter
     public static function fromRequest(Request $request): self
     {
         $filter = new self(
-            Application::tryFrom($request->query->get('application')),
-            $request->query->has('moduleName') ? ModuleName::fromString($request->query->get('moduleName')) : null,
+            Application::tryFrom($request->query->getString('application')),
+            $request->query->has('moduleName')
+                ? ModuleName::fromString($request->query->getString('moduleName')) : null,
             array_map(Type::from(...), $request->query->all('type')),
             array_map(Locale::from(...), $request->query->all('locale')),
             $request->query->get('name'),
@@ -46,11 +49,6 @@ final class TranslationFilter
         }
 
         return $filter;
-    }
-
-    public function shouldFilter(): bool
-    {
-        return $this->shouldFilter;
     }
 
     /** @return array<string, string> */

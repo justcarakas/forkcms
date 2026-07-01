@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use ForkCMS\Core\Domain\Form\ActionType;
@@ -17,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class ModuleInstall extends AbstractFormActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): Response
     {
         return $this->handleForm(

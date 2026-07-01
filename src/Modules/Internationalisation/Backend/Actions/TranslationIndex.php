@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Backend\Actions;
 
 use ForkCMS\Core\Domain\Application\Application;
@@ -34,16 +36,18 @@ final class TranslationIndex extends AbstractFormActionController
         parent::__construct($actionServices);
     }
 
+    #[\Override]
     protected function addBreadcrumbForRequest(Request $request): void
     {
         // no action specific breadcrumb needed
     }
 
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         $this->filter = TranslationFilter::fromRequest($request);
 
-        if ($this->filter->shouldFilter() && $this->isAllowed(TranslationExport::getActionSlug())) {
+        if ($this->filter->shouldFilter && $this->isAllowed(TranslationExport::getActionSlug())) {
             $this->assign(
                 'exportUrl',
                 TranslationExport::getActionSlug()
@@ -69,7 +73,7 @@ final class TranslationIndex extends AbstractFormActionController
             return $redirectResponse;
         }
 
-        if (!$this->filter->shouldFilter()) {
+        if (!$this->filter->shouldFilter) {
             $this->assign(
                 'notFiltered',
                 $this->dataGridFactory->forArray(TranslationFilter::class, [])

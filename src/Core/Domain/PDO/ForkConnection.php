@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\PDO;
 
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
@@ -66,7 +68,7 @@ final class ForkConnection extends PDO
         $enabledLocales = $query->fetchAll(PDO::FETCH_KEY_PAIR);
         $query->closeCursor();
 
-        return array_map(static fn (bool $isEnabled): bool => $isEnabled, $enabledLocales);
+        return array_map(boolval(...), $enabledLocales);
     }
 
     /** @return array<string, bool> true for the default website locale */
@@ -80,7 +82,7 @@ final class ForkConnection extends PDO
         $locales = $query->fetchAll(PDO::FETCH_KEY_PAIR);
         $query->closeCursor();
 
-        return array_map(static fn (bool $isEnabled): bool => $isEnabled, $locales);
+        return array_map(boolval(...), $locales);
     }
 
     /** @return string[] */

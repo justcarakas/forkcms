@@ -1,12 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+namespace ForkCMS\Modules\Backend\tests\Backend\Actions;
+
 use ForkCMS\Modules\Backend\DataFixtures\UserFixture;
 use ForkCMS\Modules\Backend\DataFixtures\UserGroupFixture;
 use ForkCMS\Modules\Backend\tests\BackendWebTestCase;
 
 final class UserIndexTest extends BackendWebTestCase
 {
-    protected const TEST_URL = '/private/en/backend/user-index';
+    protected const string TEST_URL = '/private/en/backend/user-index';
 
     public function testPageLoads(): void
     {
@@ -23,7 +27,7 @@ final class UserIndexTest extends BackendWebTestCase
     {
         $user = self::loadPage();
 
-        self::assertDataGridHasLink($user->getEmail(), '/private/en/backend/user-edit/' . $user->getId());
+        self::assertDataGridHasLink($user->email, '/private/en/backend/user-edit/' . $user->id);
         self::assertDataGridHasLink(UserFixture::USER_EMAIL);
         self::assertDataGridHasLink(UserFixture::SUPER_ADMIN_EMAIL);
         self::assertDataGridNotHasLink('demo@example.com');
@@ -31,14 +35,15 @@ final class UserIndexTest extends BackendWebTestCase
         self::assertDataGridHasLink(UserFixture::USER_EMAIL);
         self::assertDataGridNotHasLink(UserFixture::SUPER_ADMIN_EMAIL);
         self::assertDataGridNotHasLink('demo@example.com');
-        self::assertDataGridNotHasLink($user->getEmail());
-        self::filterDataGrid('User.email', $user->getEmail());
+        self::assertDataGridNotHasLink($user->email);
+        self::filterDataGrid('User.email', $user->email);
         self::filterDataGrid('User.displayName', 'demo');
         self::assertDataGridIsEmpty();
-        self::filterDataGrid('User.displayName', $user->getDisplayName());
-        self::assertDataGridHasLink($user->getEmail(), '/private/en/backend/user-edit/' . $user->getId());
+        self::filterDataGrid('User.displayName', $user->displayName);
+        self::assertDataGridHasLink($user->email, '/private/en/backend/user-edit/' . $user->id);
     }
 
+    #[\Override]
     protected static function getClassFixtures(): array
     {
         return [

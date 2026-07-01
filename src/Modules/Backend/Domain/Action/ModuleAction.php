@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use Assert\Assert;
@@ -11,20 +13,16 @@ use Stringable;
 use Symfony\Component\DependencyInjection\Container;
 
 #[ORM\Embeddable]
-final class ModuleAction implements Stringable
+final readonly class ModuleAction implements Stringable
 {
-    public const ROLE_PREFIX = 'ROLE_MODULE_ACTION__';
+    public const string ROLE_PREFIX = 'ROLE_MODULE_ACTION__';
 
-    #[ORM\Column(type: ModuleNameDBALType::class)]
-    private ModuleName $module;
-
-    #[ORM\Column(type: ActionNameDBALType::class)]
-    private ActionName $action;
-
-    public function __construct(ModuleName $module, ActionName $action)
-    {
-        $this->module = $module;
-        $this->action = $action;
+    public function __construct(
+        #[ORM\Column(type: ModuleNameDBALType::class)]
+        public ModuleName $module,
+        #[ORM\Column(type: ActionNameDBALType::class)]
+        public ActionName $action,
+    ) {
         Assert::that($this->getFQCN())->classExists('Action class not found');
     }
 
@@ -69,25 +67,15 @@ final class ModuleAction implements Stringable
         return 'ForkCMS\\Modules\\' . $this->module . '\\Backend\\Actions\\' . $this->action;
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->getFQCN();
     }
 
-    public function getModule(): ModuleName
-    {
-        return $this->module;
-    }
-
-    public function getAction(): ActionName
-    {
-        return $this->action;
-    }
-
     public function asRole(): string
     {
-        $identifier = Container::underscore($this->module->getName()) . '__' .
-            Container::underscore($this->action->getName());
+        $identifier = Container::underscore($this->module->name) . '__' . Container::underscore($this->action->name);
 
         return self::ROLE_PREFIX . strtoupper($identifier);
     }

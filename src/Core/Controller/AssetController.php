@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Controller;
 
 use ForkCMS\Core\Domain\Application\Application;
@@ -14,9 +16,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\ValueResolver;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-final class AssetController
+final readonly class AssetController
 {
-    public function __construct(private readonly ThemeRepository $themeRepository)
+    public function __construct(private ThemeRepository $themeRepository)
     {
     }
 

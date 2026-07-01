@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Kernel\Command;
 
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
@@ -9,11 +11,10 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Filesystem\Filesystem;
 
-final class ClearContainerCacheHandler implements CommandHandlerInterface
+final readonly class ClearContainerCacheHandler implements CommandHandlerInterface
 {
-    public function __construct(
-        private Kernel $kernel
-    ) {
+    public function __construct(private Kernel $kernel)
+    {
     }
 
     public function __invoke(ClearContainerCache $clearContainerCache): void
@@ -26,11 +27,12 @@ final class ClearContainerCacheHandler implements CommandHandlerInterface
             'pools' => ['cache.global_clearer']
         ]), new NullOutput());
 
-        $fileSystem = new Filesystem();
-        $containerCachePath = $this->kernel->getCacheDir() . '/' . $this->kernel->getContainerClass() . '.php';
-
-        if ($fileSystem->exists($containerCachePath)) {
-            $fileSystem->remove($containerCachePath);
-        }
+        $cacheDir = $this->kernel->getCacheDir();
+        register_shutdown_function(static function () use ($cacheDir): void {
+            $fileSystem = new Filesystem();
+            foreach (glob($cacheDir . '/*Container*') ?: [] as $path) {
+                $fileSystem->remove($path);
+            }
+        });
     }
 }

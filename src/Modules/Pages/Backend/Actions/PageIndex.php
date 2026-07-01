@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Backend\Actions;
 
 use Doctrine\ORM\QueryBuilder;
@@ -20,6 +22,7 @@ class PageIndex extends AbstractActionController
         parent::__construct($actionServices);
     }
 
+    #[\Override]
     protected function execute(Request $request): void
     {
         $this->assign('sidebarTree', $this->navigationBuilder->getTree(Locale::current()));

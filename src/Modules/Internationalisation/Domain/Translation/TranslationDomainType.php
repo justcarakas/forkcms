@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Internationalisation\Domain\Translator\ForkTranslator;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -12,7 +15,6 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
 
 /**
@@ -21,10 +23,11 @@ use Throwable;
  */
 final class TranslationDomainType extends AbstractType implements DataTransformerInterface
 {
-    public function __construct(private readonly TranslatorInterface $translator)
+    public function __construct(private readonly ForkTranslator $translator)
     {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
@@ -46,8 +49,8 @@ final class TranslationDomainType extends AbstractType implements DataTransforme
                 'class' => Module::class,
                 'choice_value' => 'name',
                 'choice_label' => fn (Module $module): string =>
-                    ucfirst($this->translator->trans($module->getName()->asLabel())),
-                'choice_filter' => static fn (?Module $module): bool => $module?->getName() !== ModuleName::core(),
+                    ucfirst($this->translator->trans($module->name->asLabel())),
+                'choice_filter' => static fn (?Module $module): bool => $module?->name !== ModuleName::core(),
                 'label' => 'lbl.Module',
                 'required' => false,
                 'choice_translation_domain' => false,
@@ -55,6 +58,7 @@ final class TranslationDomainType extends AbstractType implements DataTransforme
         )->addModelTransformer($this);
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
@@ -65,12 +69,13 @@ final class TranslationDomainType extends AbstractType implements DataTransforme
      * @param TranslationDomain|null $value
      * @return array{application?:Application, module?:Module}
      */
+    #[\Override]
     public function transform(mixed $value): array
     {
         if ($value instanceof TranslationDomain) {
             return [
-                'application' => $value->getApplication(),
-                'module' => Module::fromModuleName($value->getModuleName() ?? ModuleName::core()),
+                'application' => $value->application,
+                'module' => Module::fromModuleName($value->moduleName ?? ModuleName::core()),
             ];
         }
 
@@ -78,10 +83,11 @@ final class TranslationDomainType extends AbstractType implements DataTransforme
     }
 
     /** @param array{application?:Application, module?:Module|null} $value */
+    #[\Override]
     public function reverseTransform(mixed $value): TranslationDomain
     {
         try {
-            return new TranslationDomain($value['application'], $value['module']?->getName());
+            return new TranslationDomain($value['application'], $value['module']->name);
         } catch (Throwable $exception) {
             throw new TransformationFailedException($exception->getMessage(), $exception->getCode(), $exception);
         }

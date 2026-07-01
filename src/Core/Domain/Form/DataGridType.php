@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Form;
 
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
@@ -16,11 +18,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class DataGridType extends AbstractType
 {
+    #[\Override]
     public function getBlockPrefix(): string
     {
         return 'data_grid';
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired('data_grid');
@@ -42,8 +46,8 @@ final class DataGridType extends AbstractType
     {
         $view->vars['data_grid'] = $options['data_grid'];
         if ($options['data_grid_empty_module_action'] instanceof ModuleAction) {
-            $view->vars['data_grid_empty_action'] = $options['data_grid_empty_module_action']->getAction()->getName();
-            $view->vars['data_grid_empty_module'] = $options['data_grid_empty_module_action']->getModule()->getName();
+            $view->vars['data_grid_empty_action'] = $options['data_grid_empty_module_action']->action->name;
+            $view->vars['data_grid_empty_module'] = $options['data_grid_empty_module_action']->module->name;
         }
         $view->vars['data_grid_empty_parameters'] = $options['data_grid_empty_parameters'];
         $view->vars['data_grid_empty_locale'] = $options['data_grid_empty_locale'];

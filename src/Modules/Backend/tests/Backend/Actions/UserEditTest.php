@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\tests\Backend\Actions;
 
 use ForkCMS\Modules\Backend\DataFixtures\UserFixture;
@@ -8,22 +10,22 @@ use ForkCMS\Modules\Backend\tests\BackendWebTestCase;
 
 final class UserEditTest extends BackendWebTestCase
 {
-    protected const TEST_URL = '/private/en/backend/user-edit/1';
+    protected const string TEST_URL = '/private/en/backend/user-edit/1';
 
     public function testPageLoads(): void
     {
         $user = self::loginBackendUser();
         self::assertPageLoadedCorrectly(
             self::TEST_URL,
-            $user->getDisplayName() . ' | Edit | Users | Settings | Fork CMS | Fork CMS',
+            $user->displayName . ' | Edit | Users | Settings | Fork CMS | Fork CMS',
             [
                 'Display name',
                 'E-mail',
                 'Super admin (grant access to everything)',
                 'Enable CMS access for this account.',
                 'Short date format',
-                $user->getDisplayName(),
-                $user->getEmail(),
+                $user->displayName,
+                $user->email,
             ]
         );
 
@@ -35,8 +37,8 @@ final class UserEditTest extends BackendWebTestCase
         $user = self::loadPage();
         self::assertEmptyFormSubmission('user', 0, 'Save');
         self::assertCurrentUrlEndsWith('/private/en/backend/user-index');
-        self::assertDataGridHasLink($user->getEmail());
-        self::assertResponseContains('The settings for "' . $user->getDisplayName() . '" were saved.');
+        self::assertDataGridHasLink($user->email);
+        self::assertResponseContains('The settings for "' . $user->displayName . '" were saved.');
     }
 
     public function testWithInvalidData(): void
@@ -89,6 +91,7 @@ final class UserEditTest extends BackendWebTestCase
         self::assertResponseContains('The settings for "Jelmer Prins" were saved.');
     }
 
+    #[\Override]
     protected static function getClassFixtures(): array
     {
         return [

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Doctrine;
 
 use DateTimeImmutable;
@@ -23,6 +25,7 @@ class UTCTimeImmutableDBALType extends TimeImmutableType
      *
      * @return string|null
      */
+    #[\Override]
     public function convertToDatabaseValue(mixed $time, AbstractPlatform $platform): ?string
     {
         if ($time instanceof DateTimeImmutable) {
@@ -40,6 +43,7 @@ class UTCTimeImmutableDBALType extends TimeImmutableType
      *
      * @return DateTimeImmutable|null
      */
+    #[\Override]
     public function convertToPHPValue(mixed $timeString, AbstractPlatform $platform): ?DateTimeImmutable
     {
         if (null === $timeString || $timeString instanceof DateTimeImmutable) {

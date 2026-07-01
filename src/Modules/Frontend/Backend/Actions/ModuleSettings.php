@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Backend\Actions;
 
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
@@ -21,11 +23,13 @@ final class ModuleSettings extends AbstractFormActionController
         parent::__construct($services);
     }
 
+    #[\Override]
     protected function addBreadcrumbForRequest(Request $request): void
     {
         // no action specific breadcrumb needed
     }
 
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         return $this->handleModuleSettingsForm(

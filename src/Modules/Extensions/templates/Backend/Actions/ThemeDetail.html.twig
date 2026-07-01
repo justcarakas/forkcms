@@ -2,7 +2,7 @@
 {% import '@Backend/base/macros.html.twig' as macro %}
 
 {% block content %}
-  {% if theme.messages|count > 0 %}
+  {% if theme.messages.hasErrors %}
     <div class="fork-module-messages">
       {% for message in theme.messages %}
         <div class="content-block content-block-pb">

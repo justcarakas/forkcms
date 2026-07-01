@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\Block;
 
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
@@ -19,7 +21,7 @@ final readonly class BlockRouter
         array $parameters = [],
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
     ): string {
-        if ($moduleBlock->getName()->getType() !== Type::ACTION) {
+        if ($moduleBlock->name->getType() !== Type::ACTION) {
             throw new InvalidArgumentException('Only actions can be routed');
         }
 

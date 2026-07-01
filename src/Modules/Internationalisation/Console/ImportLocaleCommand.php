@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Console;
 
 use ForkCMS\Core\Domain\Util\Ensure;
@@ -15,17 +17,21 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
-#[AsCommand(name: 'forkcms:internationalisation:locale:import', description: 'Import fork translations for a specific module or from a given file')]
+#[AsCommand(
+    name: 'forkcms:internationalisation:locale:import',
+    description: 'Import fork translations for a specific module or from a given file'
+)]
 class ImportLocaleCommand extends Command
 {
     public function __construct(
         #[Autowire(param: 'kernel.project_dir')]
-        private string $rootDir,
-        private Importer $translationImporter,
+        private readonly string $rootDir,
+        private readonly Importer $translationImporter,
     ) {
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this
@@ -35,6 +41,7 @@ class ImportLocaleCommand extends Command
             ->addOption('locale', 'l', InputOption::VALUE_REQUIRED, 'Only install for a specific locale');
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $filePath = $input->getOption('file');
@@ -69,18 +76,18 @@ class ImportLocaleCommand extends Command
             return self::INVALID;
         }
 
-        if ($importResults->getImportedCount() > 0) {
-            $formatter->comment('Imported ' . $importResults->getImportedCount() . ' translations succesfully!');
+        if ($importResults->importedCount > 0) {
+            $formatter->comment('Imported ' . $importResults->importedCount . ' translations succesfully!');
         }
-        if ($importResults->getUpdatedCount() > 0) {
-            $formatter->comment('Updated ' . $importResults->getUpdatedCount() . ' translations succesfully!');
+        if ($importResults->updatedCount > 0) {
+            $formatter->comment('Updated ' . $importResults->updatedCount . ' translations succesfully!');
         }
-        if ($importResults->getSkippedCount() > 0) {
+        if ($importResults->skippedCount > 0) {
             $formatter->comment(
                 sprintf(
                     'Skipped %d translations because they belong to a locale that is not installed ' .
                     'or to a different locale than specified with the --locale option.',
-                    $importResults->getSkippedCount()
+                    $importResults->skippedCount
                 )
             );
         }
@@ -102,7 +109,9 @@ class ImportLocaleCommand extends Command
         return $filePath ?? sprintf(
             '%s/src/Modules/%s/assets/installer/translations.xml',
             $this->rootDir,
-            ModuleName::fromString(Ensure::isNotNull($moduleName, 'If you do not pass a filePath you need to pass a moduleName'))
+            ModuleName::fromString(
+                Ensure::isNotNull($moduleName, 'If you do not pass a filePath you need to pass a moduleName')
+            )
         );
     }
 }

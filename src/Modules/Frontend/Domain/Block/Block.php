@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\Block;
 
 use Doctrine\DBAL\Types\Types;
@@ -10,11 +12,12 @@ use ForkCMS\Modules\Backend\Domain\User\Blameable;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Stringable;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[ORM\Entity(repositoryClass: BlockRepository::class)]
-class Block implements TranslatableInterface
+class Block implements TranslatableInterface, Stringable
 {
     use EntityWithSettingsTrait;
     use Blameable;
@@ -22,28 +25,27 @@ class Block implements TranslatableInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
-    private int $id;
+    private(set) int $id;
 
     #[ORM\Embedded]
-    private ModuleBlock $block;
+    private(set) ModuleBlock $block;
 
     #[ORM\Column(type: Types::STRING, enumType: Type::class)]
     #[Gedmo\SortableGroup]
-    private Type $type;
+    private(set) Type $type;
 
     #[ORM\Embedded]
-    private TranslationKey $label;
+    private(set) TranslationKey $label;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $hidden;
+    private(set) bool $hidden;
 
-    #[ORM\Column(type: Types::INTEGER)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     #[Gedmo\SortablePosition]
-    /** @phpstan-ignore-next-line */
-    private ?int $position;
+    private(set) ?int $position;
 
     #[ORM\Column(type: Types::STRING, length: 5, nullable: true, enumType: Locale::class)]
-    private ?Locale $locale = null;
+    private(set) ?Locale $locale = null;
 
     public function __construct(
         ModuleBlock $block,
@@ -54,47 +56,17 @@ class Block implements TranslatableInterface
         ?Locale $locale = null,
     ) {
         $this->block = $block;
-        $this->type = $block->getName()->getType();
+        $this->type = $block->name->getType();
         $this->settings = $settings ?? new SettingsBag();
-        $this->label = $label ?? TranslationKey::label($block->getName()->getName());
+        $this->label = $label ?? $block->name->asLabel();
         $this->hidden = $hidden;
         $this->position = $position;
         $this->locale = $locale;
     }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
     public function getSettings(): SettingsBag
     {
         return $this->settings;
-    }
-
-    public function getBlock(): ModuleBlock
-    {
-        return $this->block;
-    }
-
-    public function getLocale(): ?Locale
-    {
-        return $this->locale;
-    }
-
-    public function getLabel(): TranslationKey
-    {
-        return $this->label;
-    }
-
-    public function isHidden(): bool
-    {
-        return $this->hidden;
-    }
-
-    public function getPosition(): int
-    {
-        return $this->position;
     }
 
     public function hide(): void
@@ -107,19 +79,15 @@ class Block implements TranslatableInterface
         $this->hidden = false;
     }
 
-    public function getType(): Type
-    {
-        return $this->type;
-    }
-
     public function changePosition(int $position): void
     {
         $this->position = $position;
     }
 
+    #[\Override]
     public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
-        $module = $this->block->getModule()->asLabel()->trans($translator) . ' › ';
+        $module = $this->block->module->asLabel()->trans($translator) . ' › ';
         $hasOverwrite = $this->settings->has('label');
         $hasLocaleSpecificOverwrite = $this->settings->has('label_' . $locale);
         if (!$hasOverwrite && !$hasLocaleSpecificOverwrite) {
@@ -138,8 +106,9 @@ class Block implements TranslatableInterface
         return $module . $this->settings->get($overwriteSettingName);
     }
 
+    #[\Override]
     public function __toString(): string
     {
-        return $this->getBlock()->getFQCN();
+        return $this->block->getFQCN();
     }
 }

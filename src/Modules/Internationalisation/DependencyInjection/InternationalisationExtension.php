@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\DependencyInjection;
 
 use ForkCMS\Core\Domain\DependencyInjection\ForkModuleExtension;
@@ -12,6 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class InternationalisationExtension extends ForkModuleExtension
 {
+    #[\Override]
     public function load(array $configs, ContainerBuilder $container): void
     {
         $this->getLoader($container)->load('services.yaml');

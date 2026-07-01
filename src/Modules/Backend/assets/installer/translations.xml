@@ -204,7 +204,7 @@
     </item>
     <item type="message" name="EntityEdited">
       <translation locale="nl"><![CDATA[wijzigingen aan "%entity%" werden opgeslaan.]]></translation>
-      <translation locale="en"><![CDATA[changes for "%entity%" has been saved.]]></translation>
+      <translation locale="en"><![CDATA[changes for "%entity%" have been saved.]]></translation>
       <translation locale="it"><![CDATA[le modifiche per "%entity%" sono state salvate.]]></translation>
       <translation locale="ru"><![CDATA["%entity%" - изменено.]]></translation>
       <translation locale="zh"><![CDATA[“%entity”的变更已保存。]]></translation>

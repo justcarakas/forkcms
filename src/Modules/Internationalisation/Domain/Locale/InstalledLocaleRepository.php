@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -10,7 +12,7 @@ use Throwable;
  * @method InstalledLocale|null find($id, $lockMode = null, $lockVersion = null)
  * @method InstalledLocale|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method InstalledLocale[] findAll()
- * @method InstalledLocale[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
+ * @method InstalledLocale[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null) // phpcs:ignore Generic.Files.LineLength.TooLong
  * @extends ServiceEntityRepository<InstalledLocale>
  */
 final class InstalledLocaleRepository extends ServiceEntityRepository
@@ -50,7 +52,7 @@ final class InstalledLocaleRepository extends ServiceEntityRepository
     public function findInstalledLocales(): array
     {
         return array_map(
-            static fn (InstalledLocale $installedLocale): Locale => $installedLocale->getLocale(),
+            static fn (InstalledLocale $installedLocale): Locale => $installedLocale->locale,
             $this->findAllIndexed()
         );
     }

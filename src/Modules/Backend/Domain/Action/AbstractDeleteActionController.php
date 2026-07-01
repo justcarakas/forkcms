@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use ForkCMS\Core\Domain\Form\ActionType;
@@ -11,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractDeleteActionController extends AbstractFormActionController
 {
+    #[\Override]
     protected function addBreadcrumbForRequest(Request $request): void
     {
         // no action specific breadcrumb needed
@@ -41,7 +44,7 @@ abstract class AbstractDeleteActionController extends AbstractFormActionControll
                 $deleteCommandFullyQualifiedClassName,
                 $redirectActionSlug
             ): RedirectResponse {
-                $this->commandBus->dispatch(new $deleteCommandFullyQualifiedClassName($form->getData()['id']));
+                $this->commandBus->dispatch(new $deleteCommandFullyQualifiedClassName((int) $form->getData()['id']));
 
                 return new RedirectResponse($redirectActionSlug->generateRoute($this->router));
             },

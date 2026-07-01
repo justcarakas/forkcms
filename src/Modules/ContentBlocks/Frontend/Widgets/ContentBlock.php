@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\ContentBlocks\Frontend\Widgets;
 
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock as ContentBlockEntity;
@@ -19,6 +21,7 @@ class ContentBlock extends AbstractWidgetController
         parent::__construct($blockServices);
     }
 
+    #[\Override]
     protected function execute(Request $request, Response $response): void
     {
         if (!$this->hasSetting('content_block_id')) {
@@ -37,7 +40,7 @@ class ContentBlock extends AbstractWidgetController
 
             return;
         }
-        $this->changeTemplatePath($contentBlock->getTemplate());
+        $this->changeTemplatePath($contentBlock->template);
         $this->assign('content_block', $contentBlock);
     }
 }

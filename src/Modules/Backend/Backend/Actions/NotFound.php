@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
 use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;
@@ -14,12 +16,14 @@ use Symfony\Component\HttpFoundation\Response;
 #[Autoconfigure(public: true)]
 final class NotFound extends AbstractActionController
 {
+    #[\Override]
     protected function execute(Request $request): void
     {
         $this->assign('message', TranslationKey::error('NotFound'));
         $this->assign('page_title', 404);
     }
 
+    #[\Override]
     public function getResponse(Request $request): Response
     {
         $response = parent::getResponse($request);

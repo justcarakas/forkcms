@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Domain\Page;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -13,14 +15,14 @@ use ForkCMS\Modules\Pages\Domain\Revision\Revision;
 use Psr\Cache\CacheItemPoolInterface;
 
 /** @phpstan-type PageCache array{attr: array<string, string>, page: Page, children: array{attr: array<string, string>, page: Page, children: array{attr: array<string, string>, page: Page, children: array{attr: array<string, string>, page: Page, children: mixed[]|null}[]|null}[]|null}[]|null} */
-final class NavigationBuilder
+final readonly class NavigationBuilder
 {
-    public const GROUPED_PAGES_CACHE_KEY = 'pages_grouped_';
+    public const string GROUPED_PAGES_CACHE_KEY = 'pages_grouped_';
 
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        private readonly CacheItemPoolInterface $cache,
-        private readonly ModuleSettings $moduleSettings,
+        private EntityManagerInterface $entityManager,
+        private CacheItemPoolInterface $cache,
+        private ModuleSettings $moduleSettings,
     ) {
     }
 
@@ -69,7 +71,7 @@ final class NavigationBuilder
     public function getActivePages(Revision $revision): array
     {
         static $cache;
-        $activeId = $revision->getPage()->getId();
+        $activeId = $revision->page->id;
         if ($cache === null) {
             $cache = [];
         }
@@ -77,11 +79,11 @@ final class NavigationBuilder
             return $cache[$activeId];
         }
 
-        $tree = $this->getTree($revision->getLocale())[$revision->getType()->value]['pages'] ?? [];
+        $tree = $this->getTree($revision->getLocale())[$revision->type->value]['pages'] ?? [];
         $pages = new ArrayCollection();
         foreach ($tree as $page) {
             if ($this->findActivePages($page, $activeId, $pages)) {
-                $pages->set($page['page']->getId(), $page['page']);
+                $pages->set($page['page']->id, $page['page']);
 
                 break;
             }
@@ -98,14 +100,14 @@ final class NavigationBuilder
         if ($cache === null) {
             $cache = [];
         }
-        $cacheKey = $type->value . '_' . $revision->getId();
+        $cacheKey = $type->value . '_' . $revision->id;
         if (array_key_exists($cacheKey, $cache)) {
             return $cache[$cacheKey];
         }
 
         $pages = $this->getGroupedPages($revision->getLocale())[$type->value] ?? [];
         $activeIds = $this->getActivePages($revision);
-        if (count($activeIds) > 1 && $revision->getPage()->getId() !== Page::PAGE_ID_HOME) {
+        if (count($activeIds) > 1 && $revision->page->id !== Page::PAGE_ID_HOME) {
             unset($activeIds[Page::PAGE_ID_HOME]);
         }
 
@@ -113,8 +115,8 @@ final class NavigationBuilder
             $pages[$parentId] = array_map(
                 static fn (Page $page): array => [
                     'page' => $page,
-                    'active' => array_key_exists($page->getId(), $activeIds),
-                    'hasChildren' => array_key_exists($page->getId(), $pages) && $page->getId() !== Page::PAGE_ID_HOME,
+                    'active' => array_key_exists($page->id, $activeIds),
+                    'hasChildren' => array_key_exists($page->id, $pages) && $page->id !== Page::PAGE_ID_HOME,
                 ],
                 $childPages
             );
@@ -131,7 +133,6 @@ final class NavigationBuilder
         if ($cache->isHit()) {
             return $cache->get();
         }
-
         /** @var Page[] $pages */
         $pages = $this->entityManager->createQueryBuilder()
             ->select('p')
@@ -155,7 +156,7 @@ final class NavigationBuilder
                 'cr.locale = :locale AND cr.archivedOn IS NULL'
             )
             ->addSelect('cr')
-            ->leftJoin('pr.page', 'crp')
+            ->leftJoin('cr.page', 'crp')
             ->addSelect('crp')
             ->getQuery()
             ->getResult();
@@ -163,9 +164,9 @@ final class NavigationBuilder
         $groupedPages = [];
         foreach ($pages as $page) {
             $revision = $page->getActiveRevision($locale);
-            $type = $revision->getType()->value;
-            $pageId = $page->getId();
-            $groupedPages[$type][$revision->getParentPage()?->getId() ?? 0][$pageId] = $page;
+            $type = $revision->type->value;
+            $pageId = $page->id;
+            $groupedPages[$type][$revision->parentPage->id ?? 0][$pageId] = $page;
         }
 
         $cache->set($groupedPages);
@@ -180,21 +181,21 @@ final class NavigationBuilder
      */
     private function findActivePages(array $page, int $activeId, ArrayCollection $pages): bool
     {
-        if ($page['page']->getId() === $activeId) {
-            $pages->set($page['page']->getId(), $page['page']);
+        if ($page['page']->id === $activeId) {
+            $pages->set($page['page']->id, $page['page']);
 
             return true;
         }
 
         foreach ($page['children'] ?? [] as $id => $childPage) {
             if ($id === $activeId) {
-                $pages->set($childPage['page']->getId(), $childPage['page']);
+                $pages->set($childPage['page']->id, $childPage['page']);
 
                 return true;
             }
 
             if ($this->findActivePages($childPage, $activeId, $pages)) {
-                $pages->set($childPage['page']->getId(), $childPage['page']);
+                $pages->set($childPage['page']->id, $childPage['page']);
 
                 return true;
             }
@@ -220,7 +221,7 @@ final class NavigationBuilder
         $subTree = [];
         foreach ($subPages as $page) {
             $pageTreeType = $page->getPageTreeType($locale);
-            $pageId = $page->getId();
+            $pageId = $page->id;
             $subTree[$pageId] = [
                 'attr' => [
                     'rel' => $pageTreeType,

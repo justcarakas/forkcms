@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Backend\Actions;
 
 use ForkCMS\Modules\Backend\Domain\Action\ActionControllerInterface;
@@ -11,14 +13,15 @@ use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class TranslationExport implements ActionControllerInterface
+final readonly class TranslationExport implements ActionControllerInterface
 {
     public function __construct(
-        private readonly TranslationRepository $translationRepository,
-        private readonly Exporter $exporter
+        private TranslationRepository $translationRepository,
+        private Exporter $exporter
     ) {
     }
 
+    #[\Override]
     public function __invoke(Request $request): Response
     {
         $filter = TranslationFilter::fromRequest($request);
@@ -50,6 +53,7 @@ final class TranslationExport implements ActionControllerInterface
         );
     }
 
+    #[\Override]
     public static function getActionSlug(): ActionSlug
     {
         return ActionSlug::fromFQCN(self::class);

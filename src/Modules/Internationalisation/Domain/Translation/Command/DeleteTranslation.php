@@ -1,15 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation\Command;
 
-final class DeleteTranslation
+final readonly class DeleteTranslation
 {
-    public function __construct(private string $translationId)
+    public function __construct(public string $translationId)
     {
-    }
-
-    public function getTranslationId(): string
-    {
-        return $this->translationId;
     }
 }

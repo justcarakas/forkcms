@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
 use Doctrine\ORM\QueryBuilder;
@@ -12,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class UserIndex extends AbstractDataGridActionController
 {
+    #[\Override]
     protected function execute(Request $request): void
     {
         $this->renderDataGrid(

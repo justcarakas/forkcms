@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Backend\Actions;
 
 use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
@@ -18,13 +20,14 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class TranslationEdit extends AbstractFormActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         $translation = $this->getEntityFromRequest($request, Translation::class);
 
         $this->header->addBreadcrumb(new Breadcrumb($translation->getTranslatable()));
 
-        $this->addDeleteForm(['id' => $translation->getId()], TranslationDelete::getActionSlug());
+        $this->addDeleteForm(['id' => $translation->id], TranslationDelete::getActionSlug());
 
         return $this->handleForm(
             request: $request,
@@ -33,7 +36,7 @@ final class TranslationEdit extends AbstractFormActionController
             redirectResponse: new RedirectResponse(TranslationIndex::getActionSlug()->generateRoute($this->router)),
             successFlashMessageCallback: fn (FormInterface $form) => FlashMessage::success(
                 'EntityEdited',
-                ['entity' => $form->getData()->getEntity()->getTranslatable()->trans($this->translator)]
+                ['%entity%' => $form->getData()->getEntity()->getTranslatable()->trans($this->translator)]
             ),
         );
     }

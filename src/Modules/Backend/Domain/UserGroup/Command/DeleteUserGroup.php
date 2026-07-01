@@ -1,15 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\UserGroup\Command;
 
-final class DeleteUserGroup
+final readonly class DeleteUserGroup
 {
-    public function __construct(private int $userGroupId)
+    public function __construct(public int $userGroupId)
     {
-    }
-
-    public function getUserGroupId(): int
-    {
-        return $this->userGroupId;
     }
 }

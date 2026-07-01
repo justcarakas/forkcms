@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\Domain\Authentication;
 
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;

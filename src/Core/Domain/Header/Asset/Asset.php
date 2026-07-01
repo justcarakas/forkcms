@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Header\Asset;
 
 use DateTimeImmutable;
@@ -119,7 +121,7 @@ final class Asset
         Priority $priority = Priority::STANDARD
     ): self {
         return new self(
-            'assets/modules/' . ucfirst($application->value) . '/' . $moduleName->getName() . '/' . $file,
+            'assets/modules/' . ucfirst($application->value) . '/' . $moduleName->name . '/' . $file,
             $addTimestamp,
             $priority
         );
@@ -132,7 +134,7 @@ final class Asset
         Priority $priority = Priority::STANDARD
     ): self {
         return new self(
-            'assets/themes/' . $theme->getName() . '/' . $file,
+            'assets/themes/' . $theme->name . '/' . $file,
             $addTimestamp,
             $priority
         );

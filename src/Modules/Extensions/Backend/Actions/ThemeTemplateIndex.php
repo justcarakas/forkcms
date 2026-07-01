@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use Doctrine\ORM\QueryBuilder;
@@ -14,6 +16,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 final class ThemeTemplateIndex extends AbstractDataGridActionController
 {
+    #[\Override]
     protected function execute(Request $request): void
     {
         $theme = $this->getTheme($request);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\Block;
 
 use Assert\Assert;
@@ -10,18 +12,14 @@ use InvalidArgumentException;
 use Stringable;
 
 #[ORM\Embeddable]
-final class ModuleBlock implements Stringable
+final readonly class ModuleBlock implements Stringable
 {
-    #[ORM\Column(type: ModuleNameDBALType::class)]
-    private ModuleName $module;
-
-    #[ORM\Column(type: BlockNameDBALType::class)]
-    private BlockName $name;
-
-    public function __construct(ModuleName $module, BlockName $name)
-    {
-        $this->module = $module;
-        $this->name = $name;
+    public function __construct(
+        #[ORM\Column(type: ModuleNameDBALType::class)]
+        private(set) ModuleName $module,
+        #[ORM\Column(type: BlockNameDBALType::class)]
+        private(set) BlockName $name,
+    ) {
         Assert::that($this->getFQCN())->classExists('Action class not found');
     }
 
@@ -58,22 +56,13 @@ final class ModuleBlock implements Stringable
             'ForkCMS\\Modules\\%1$s\\Frontend\\%2$s\\%3$s',
             $this->module,
             $this->name->getType()->getDirectoryName(),
-            $this->name->getName()
+            $this->name
         );
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->getFQCN();
-    }
-
-    public function getModule(): ModuleName
-    {
-        return $this->module;
-    }
-
-    public function getName(): BlockName
-    {
-        return $this->name;
     }
 }

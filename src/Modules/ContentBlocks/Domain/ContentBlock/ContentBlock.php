@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\ContentBlocks\Domain\ContentBlock;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
@@ -38,25 +41,25 @@ class ContentBlock
     use EntityWithLocaleTrait;
     use EntityWithSettingsTrait;
 
-    public const DEFAULT_TEMPLATE = 'Default.html.twig';
+    public const string DEFAULT_TEMPLATE = 'Default.html.twig';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name: 'revision_id', type: 'integer')]
+    #[ORM\Column(name: 'revision_id', type: Types::INTEGER)]
     /** @phpstan-ignore-next-line */
-    private int $revisionId;
+    private(set) int $revisionId;
 
-    #[ORM\Column(type: 'integer')]
-    private int $id;
+    #[ORM\Column(type: Types::INTEGER)]
+    private(set) int $id;
 
     #[ORM\ManyToOne(targetEntity: Block::class, cascade: ['persist'], fetch: 'EAGER')]
     #[ORM\JoinColumn(nullable: false)]
-    private Block $widget;
+    private(set) Block $widget;
 
-    #[ORM\Column(type: 'string', options: ['default' => self::DEFAULT_TEMPLATE])]
-    private string $template;
+    #[ORM\Column(type: Types::STRING, options: ['default' => self::DEFAULT_TEMPLATE])]
+    private(set) string $template;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: Types::STRING)]
     #[DataGridPropertyColumn(
         sortable: true,
         filterable: true,
@@ -70,16 +73,16 @@ class ContentBlock
         routeRole: ModuleAction::ROLE_PREFIX . 'CONTENT_BLOCKS__CONTENT_BLOCK_EDIT',
         columnAttributes: ['class' => 'title'],
     )]
-    private string $title;
+    private(set) string $title;
 
-    #[ORM\Column(type: 'text')]
-    private string $text;
+    #[ORM\Column(type: Types::TEXT)]
+    private(set) string $text;
 
-    #[ORM\Column(name: 'hidden', type: 'boolean', options: ['default' => false])]
-    private bool $isHidden;
+    #[ORM\Column(name: 'hidden', type: Types::BOOLEAN, options: ['default' => false])]
+    private(set) bool $isHidden;
 
-    #[ORM\Column(type: 'string', enumType: Status::class, options: ['default' => Status::ACTIVE->value])]
-    private Status $status;
+    #[ORM\Column(type: Types::STRING, enumType: Status::class, options: ['default' => Status::ACTIVE->value])]
+    private(set) Status $status;
 
     private function __construct(ContentBlockDataTransferObject $dataTransferObject)
     {
@@ -94,50 +97,10 @@ class ContentBlock
         $this->settings = $dataTransferObject->settings;
     }
 
-    public function getRevisionId(): int
-    {
-        return $this->revisionId;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function getWidget(): Block
-    {
-        return $this->widget;
-    }
-
-    public function getTemplate(): string
-    {
-        return $this->template;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    public function getText(): string
-    {
-        return $this->text;
-    }
-
-    public function isHidden(): bool
-    {
-        return $this->isHidden;
-    }
-
     #[DataGridMethodColumn(label: 'lbl.VisibleOnSite')]
     public function isVisible(): bool
     {
         return !$this->isHidden;
-    }
-
-    public function getStatus(): Status
-    {
-        return $this->status;
     }
 
     public function archive(): void
@@ -162,7 +125,7 @@ class ContentBlock
      */
     public static function dataGridEditLinkCallback(self $contentBlock, array $attributes): array
     {
-        $attributes['slug'] = $contentBlock->getRevisionId();
+        $attributes['slug'] = $contentBlock->revisionId;
 
         return $attributes;
     }
@@ -175,11 +138,11 @@ class ContentBlock
             return;
         }
         $objectManager = $args->getObjectManager();
-        $this->widget->getSettings()->add([
+        $this->widget->settings->add([
             'label' => $this->title,
             'content_block_id' => $this->id,
         ]);
-        if ($this->isHidden()) {
+        if ($this->isHidden) {
             $this->widget->hide();
         } else {
             $this->widget->show();

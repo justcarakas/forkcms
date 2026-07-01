@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
 use Doctrine\ORM\Query\Expr\Join;
@@ -13,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class UserGroupIndex extends AbstractDataGridActionController
 {
+    #[\Override]
     protected function execute(Request $request): void
     {
         $this->renderDataGrid(

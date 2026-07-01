@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\tests\Backend\Actions;
 
 use ForkCMS\Modules\Backend\DataFixtures\UserFixture;
@@ -8,14 +10,14 @@ use ForkCMS\Modules\Backend\tests\BackendWebTestCase;
 
 final class UserDeleteTest extends BackendWebTestCase
 {
-    protected const TEST_URL = '/private/en/backend/user-delete';
+    protected const string TEST_URL = '/private/en/backend/user-delete';
 
     public function testWithoutSubmitRedirectToIndex(): void
     {
         $user = self::loadPage();
         self::getClient()->followRedirect();
         self::assertCurrentUrlEndsWith('/private/en/backend/user-index');
-        self::assertDataGridHasLink($user->getEmail());
+        self::assertDataGridHasLink($user->email);
         self::assertResponseContains('This user doesn\'t exist.');
     }
 
@@ -32,6 +34,7 @@ final class UserDeleteTest extends BackendWebTestCase
         self::assertResponseContains('The user "Super admin" was deleted.');
     }
 
+    #[\Override]
     protected static function getClassFixtures(): array
     {
         return [

@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Backend\Actions;
 
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
 use ForkCMS\Modules\Backend\Domain\Action\ActionServices;
 use ForkCMS\Modules\Internationalisation\Domain\Importer\Importer;
 use ForkCMS\Modules\Internationalisation\Domain\Importer\ImportType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +19,7 @@ final class TranslationImport extends AbstractFormActionController
         parent::__construct($actionServices);
     }
 
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         return $this->handleForm(
@@ -35,7 +37,6 @@ final class TranslationImport extends AbstractFormActionController
                         $form->getData()['overwrite']
                     )
                 );
-
 
                 return null;
             },

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\DataFixtures;
 
 use Doctrine\Persistence\ObjectManager;
@@ -10,7 +12,7 @@ use ForkCMS\Modules\Extensions\tests\ForkFixture;
 
 final class UserGroupFixture extends ForkFixture
 {
-    public const ONLY_DASHBOARD_REFERENCE = 'user-group-only-dasbboard';
+    public const string ONLY_DASHBOARD_REFERENCE = 'user-group-only-dasbboard';
 
     public function load(ObjectManager $manager): void
     {

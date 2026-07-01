@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\Controller;
 
 use ForkCMS\Modules\Installer\Domain\Configuration\InstallerConfiguration;
@@ -20,8 +22,8 @@ final class RequirementCheckerController extends AbstractStepController
         RouterInterface $router,
         FormFactoryInterface $formFactory,
         MessageBusInterface $commandBus,
-        private RequirementsChecker $requirementsChecker,
-        private string $rootDir,
+        private readonly RequirementsChecker $requirementsChecker,
+        private readonly string $rootDir,
     ) {
         parent::__construct(
             $twig,
@@ -31,6 +33,7 @@ final class RequirementCheckerController extends AbstractStepController
         );
     }
 
+    #[\Override]
     public function __invoke(Request $request): Response
     {
         $step = InstallerStep::REQUIREMENTS;

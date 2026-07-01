@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Module\Command;
 
 use ForkCMS\Core\Domain\Kernel\Event\ClearCacheEvent;
@@ -19,7 +21,7 @@ final readonly class InstallModulesHandler implements CommandHandlerInterface
     public function __invoke(InstallModules $installModules): void
     {
         $moduleInstallers = $this->moduleInstallerLocator->getSortedUninstalledInstallersForModuleNames(
-            ...$installModules->getModuleNames()
+            ...$installModules->moduleNames
         );
 
         foreach ($moduleInstallers as $moduleInstaller) {
@@ -31,7 +33,7 @@ final readonly class InstallModulesHandler implements CommandHandlerInterface
             $moduleInstaller->install();
         }
 
-        $this->eventDispatcher->dispatch(new ModuleInstalledEvent(...$installModules->getModuleNames()));
+        $this->eventDispatcher->dispatch(new ModuleInstalledEvent(...$installModules->moduleNames));
         $this->eventDispatcher->dispatch(new ClearCacheEvent());
     }
 }

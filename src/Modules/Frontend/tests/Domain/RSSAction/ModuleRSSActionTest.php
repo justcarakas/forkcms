@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\tests\Domain\RSSAction;
 
 use ForkCMS\Modules\Frontend\Domain\RSSAction\ModuleRSSAction;
@@ -15,8 +17,8 @@ class ModuleRSSActionTest extends TestCase
         );
 
         self::assertSame('ForkCMS\Modules\Frontend\Frontend\RSS\NotFound', (string) $moduleRssAction);
-        self::assertSame('Frontend', (string) $moduleRssAction->getModule());
-        self::assertSame('NotFound', (string) $moduleRssAction->getAction());
+        self::assertSame('Frontend', (string) $moduleRssAction->module);
+        self::assertSame('NotFound', (string) $moduleRssAction->action);
     }
 
     public function testFromFQCNThrowsOnNonMatchingClassName(): void

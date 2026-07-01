@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\tests\Domain\Module\Command;
 
 use ForkCMS\Modules\Extensions\Domain\Module\Command\ChangeModuleSettings;
@@ -19,7 +21,7 @@ class ChangeModuleSettingsTest extends TestCase
 
     public function testGetReturnsModuleSetting(): void
     {
-        $this->module->getSettings()->set('foo', 'bar');
+        $this->module->settings->set('foo', 'bar');
         $command = new ChangeModuleSettings($this->core, $this->module, []);
 
         self::assertSame('bar', $command->foo);
@@ -41,7 +43,7 @@ class ChangeModuleSettingsTest extends TestCase
 
     public function testGetPrefersStoredSettingOverDefault(): void
     {
-        $this->module->getSettings()->set('foo', 'stored');
+        $this->module->settings->set('foo', 'stored');
         $command = new ChangeModuleSettings($this->core, $this->module, ['foo' => 'default']);
 
         self::assertSame('stored', $command->foo);
@@ -49,7 +51,7 @@ class ChangeModuleSettingsTest extends TestCase
 
     public function testGetCoreSettingWithPrefix(): void
     {
-        $this->core->getSettings()->set('site_title', 'Fork CMS');
+        $this->core->settings->set('site_title', 'Fork CMS');
         $command = new ChangeModuleSettings($this->core, $this->module, []);
 
         self::assertSame('Fork CMS', $command->{'core:site_title'});
@@ -74,7 +76,7 @@ class ChangeModuleSettingsTest extends TestCase
         $command = new ChangeModuleSettings($this->core, $this->module, []);
         $command->foo = 'written';
 
-        self::assertSame('written', $this->module->getSettings()->getOr('foo'));
+        self::assertSame('written', $this->module->settings->getOr('foo'));
     }
 
     public function testSetWithCorePrefixWritesToCoreSettings(): void
@@ -82,13 +84,13 @@ class ChangeModuleSettingsTest extends TestCase
         $command = new ChangeModuleSettings($this->core, $this->module, []);
         $command->{'core:site_title'} = 'Updated';
 
-        self::assertSame('Updated', $this->core->getSettings()->getOr('site_title'));
-        self::assertFalse($this->module->getSettings()->has('site_title'));
+        self::assertSame('Updated', $this->core->settings->getOr('site_title'));
+        self::assertFalse($this->module->settings->has('site_title'));
     }
 
     public function testIssetReturnsTrueForStoredModuleSetting(): void
     {
-        $this->module->getSettings()->set('foo', 'bar');
+        $this->module->settings->set('foo', 'bar');
         $command = new ChangeModuleSettings($this->core, $this->module, []);
 
         self::assertTrue(isset($command->foo));
@@ -117,7 +119,7 @@ class ChangeModuleSettingsTest extends TestCase
 
     public function testIssetReturnsTrueForStoredCoreSetting(): void
     {
-        $this->core->getSettings()->set('site_title', 'Fork CMS');
+        $this->core->settings->set('site_title', 'Fork CMS');
         $command = new ChangeModuleSettings($this->core, $this->module, []);
 
         self::assertTrue(isset($command->{'core:site_title'}));

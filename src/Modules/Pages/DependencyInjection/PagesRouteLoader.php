@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\DependencyInjection;
 
 use ForkCMS\Core\Domain\Router\ModuleRouteProviderInterface;
@@ -12,18 +14,19 @@ use ForkCMS\Modules\Pages\Domain\Revision\RevisionRepository;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
-final class PagesRouteLoader implements ModuleRouteProviderInterface
+final readonly class PagesRouteLoader implements ModuleRouteProviderInterface
 {
-    private const FORMAT_WILDCARD_REGEX = '[^\.]+';
-    public const FORMAT_REQUIREMENT = 'html|json';
-    public const FORMAT_DEFAULT = 'html';
+    private const string FORMAT_WILDCARD_REGEX = '[^\.]+';
+    public const string FORMAT_REQUIREMENT = 'html|json';
+    public const string FORMAT_DEFAULT = 'html';
 
     public function __construct(
-        private readonly RevisionRepository $revisionRepository,
-        private readonly InstalledLocaleRepository $installedLocaleRepository,
+        private RevisionRepository $revisionRepository,
+        private InstalledLocaleRepository $installedLocaleRepository,
     ) {
     }
 
+    #[\Override]
     public function getRouteCollection(): RouteCollection
     {
         $pagesRoutes = new RouteCollection();
@@ -53,18 +56,18 @@ final class PagesRouteLoader implements ModuleRouteProviderInterface
             if (!array_key_exists($locale->value, $websiteLocales)) {
                 continue;
             }
-            $path = $revision->getMeta()->getSlug();
-            $parentPage = $revision->getParentPage();
+            $path = $revision->meta->slug;
+            $parentPage = $revision->parentPage;
             while ($parentPage !== null) {
                 $parentRevision = $parentPage->getActiveRevision($locale);
-                if ($parentRevision->getPage()->getId() !== Page::PAGE_ID_HOME) {
-                    $path = $parentRevision->getMeta()->getSlug() . '/' . $path;
+                if ($parentRevision->page->id !== Page::PAGE_ID_HOME) {
+                    $path = $parentRevision->meta->slug . '/' . $path;
                 }
-                $parentPage = $parentRevision->getParentPage();
+                $parentPage = $parentRevision->parentPage;
             }
 
             if ($_ENV['SITE_MULTILINGUAL'] === 'true') {
-                if ($revision->getPage()->getId() !== Page::PAGE_ID_HOME) {
+                if ($revision->page->id !== Page::PAGE_ID_HOME) {
                     $path = $locale->value . '/' . $path;
                 } else {
                     $path = $locale->value;
@@ -79,7 +82,7 @@ final class PagesRouteLoader implements ModuleRouteProviderInterface
                     '_canonical_route' => $routeName,
                     '_controller' => PageController::class,
                     '_locale' => $locale->value,
-                    'revision' => $revision->getId(),
+                    'revision' => $revision->id,
                     'navigationTitle' => $revision->getNavigationTitle(),
                     '_format' => self::FORMAT_DEFAULT,
                 ],

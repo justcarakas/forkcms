@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\User;
 
 use ForkCMS\Core\Domain\Form\SwitchType;
@@ -27,6 +29,7 @@ final class UserType extends AbstractType
     ) {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
@@ -81,7 +84,7 @@ final class UserType extends AbstractType
                             );
                         /** @var User|null $user */
                         $user = $this->tokenStorage->getToken()?->getUser();
-                        if ($user?->isSuperAdmin() ?? false) {
+                        if ($user->superAdmin ?? false) {
                             $builder->add(
                                 'superAdmin',
                                 SwitchType::class,

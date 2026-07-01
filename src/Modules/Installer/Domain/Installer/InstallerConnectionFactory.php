@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\Domain\Installer;
 
 use Doctrine\Bundle\DoctrineBundle\ConnectionFactory;
@@ -8,10 +10,10 @@ use Doctrine\DBAL\Connection;
 use Exception;
 use ForkCMS\Modules\Installer\Domain\Configuration\InstallerConfiguration;
 
-final class InstallerConnectionFactory
+final readonly class InstallerConnectionFactory
 {
     /** @param mixed[][] $typesConfig */
-    public function __construct(private readonly array $typesConfig = [])
+    public function __construct(private array $typesConfig = [])
     {
     }
 
@@ -30,13 +32,13 @@ final class InstallerConnectionFactory
                 return $this->getInstallerConnection($config, $mappingTypes);
             }
 
-            $params['host'] = $installationData->getDatabaseHostname();
-            $params['port'] = $installationData->getDatabasePort();
-            $params['dbname'] = $installationData->getDatabaseName();
-            $params['user'] = $installationData->getDatabaseUsername();
-            $params['password'] = $installationData->getDatabasePassword();
+            $params['host'] = $installationData->databaseHostname;
+            $params['port'] = $installationData->databasePort;
+            $params['dbname'] = $installationData->databaseName;
+            $params['user'] = $installationData->databaseUsername;
+            $params['password'] = $installationData->databasePassword;
 
-            return (new ConnectionFactory($this->typesConfig))->createConnection($params, $config, $mappingTypes);
+            return new ConnectionFactory($this->typesConfig)->createConnection($params, $config, $mappingTypes);
         } catch (Exception) {
             return $this->getInstallerConnection($config, $mappingTypes);
         }
