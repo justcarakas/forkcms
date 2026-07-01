@@ -1,16 +1,21 @@
+# .scrutinizer.yml
 build:
     image: default-jammy
     nodes:
         analysis:
             environment:
                 php:
-                    version: 8.4.1
+                    version: "8.4.1" # Quoted to prevent YAML parsing floats
             cache:
                 disabled: false
                 directories:
                     - ~/.composer/cache
             project_setup:
                 override: true
+            dependencies:
+                override:
+                    # Added --optimize-autoloader to map modern Symfony 8 attributes efficiently
+                    - 'composer install --no-interaction --prefer-dist --optimize-autoloader'
             tests:
                 override:
                     - php-scrutinizer-run
@@ -28,20 +33,29 @@ filter:
         - vendor/*
 
 tools:
+    php_analyzer:
+        enabled: true
+        config:
+            parameter_reference_check: { enabled: true }
+            checkstyle: { enabled: true }
+            suspicious_code: { enabled: true }
+            unreachable_code: { enabled: true }
+            unused_code: { enabled: true }
+
     php_mess_detector: true
-    php_cpd: false
     php_sim: true
     php_pdepend:
         excluded_dirs:
             - vendor
 
-application:
-    symfony2:
-        autoload_file: vendor/autoload.php
-        kernel_class: ForkCMS\Core\Domain\Kernel\Kernel
-    dependencies:
-        before:
-            - 'composer install --no-interaction --prefer-dist'
+    php_code_sniffer:
+        config:
+            standard: phpcs.xml.dist
+        filter:
+            excluded_paths:
+                - 'tests.fork5/*'
+                - 'src/Core/templates/Maker/*'
+                - 'src/Modules/*/tests/*'
 
 checks:
     php:
