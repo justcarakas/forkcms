@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ForkCMS\Modules\Installer\Console;
 
 use Assert\AssertionFailedException;
+use Doctrine\DBAL\DriverManager;
 use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Core\Domain\Kernel\Kernel;
 use ForkCMS\Modules\Extensions\Domain\Module\InstalledModules;
@@ -50,6 +51,7 @@ class InstallCommand extends Command
         $this
             ->addOption('email', 'u', InputOption::VALUE_REQUIRED, 'The email address of the backend user')
             ->addOption('password', 'p', InputOption::VALUE_REQUIRED, 'The password of the backend user')
+            ->addOption('clear-database', 'c', InputOption::VALUE_NONE, 'Clear the database of all content before installing')
             ->setHidden($this->forkIsInstalled);
     }
 
@@ -63,6 +65,27 @@ class InstallCommand extends Command
         $installerConfiguration = $this->getInstallerConfiguration();
         if (!$installerConfiguration instanceof InstallerConfiguration) {
             return self::FAILURE;
+        }
+        if ($input->getOption('clear-database')) {
+            if (!$this->formatter->confirm('Are you sure you want to clear all tables in this database?', false)) {
+                return self::FAILURE;
+            }
+
+            $connection = DriverManager::getConnection([
+                'driver' => 'pdo_mysql',
+                'host' => $installerConfiguration->databaseHostname,
+                'user' => $installerConfiguration->databaseUsername,
+                'password' => $installerConfiguration->databasePassword,
+                'dbname' => $installerConfiguration->databaseName,
+                'port' => $installerConfiguration->databasePort,
+                'charset' => 'utf8mb4',
+            ]);
+            $connection->executeStatement('SET FOREIGN_KEY_CHECKS = 0');
+            $platform = $connection->getDatabasePlatform();
+            foreach ($connection->executeQuery('SHOW TABLES')->fetchFirstColumn() as $table) {
+                $connection->executeStatement('DROP TABLE ' . $platform->quoteSingleIdentifier($table));
+            }
+            $connection->executeStatement('SET FOREIGN_KEY_CHECKS = 1');
         }
 
         InstalledModules::setModulesToInstall(...$installerConfiguration->modules);
