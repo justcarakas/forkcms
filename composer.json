@@ -58,7 +58,7 @@
         "beberlei/assert": "^3.3",
         "symfony/rate-limiter": "^8.0",
         "symfony/http-client": "^8.0",
-        "pageon/pageon-doctrine-data-grid-bundle": "^0.3.0",
+        "pageon/pageon-doctrine-data-grid-bundle": "^0.4",
         "stof/doctrine-extensions-bundle": "^1.7",
         "symfony/uid": "^8.0",
         "composer/semver": "^3.2",
