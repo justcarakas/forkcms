@@ -83,7 +83,7 @@ final class ThemeTemplateExport extends AbstractActionController
                     $blockXml->setAttribute('module', $block->block->module->name);
                     $blockXml->setAttribute('type', $block->type->value);
                     $blockXml->setAttribute('name', (string) $block->block->name);
-                    $blockXml->setAttribute('label', $this->translator->trans($block));
+                    $blockXml->setAttribute('label', (string) $block->label);
                     $positionXml->append($blockXml);
                 }
                 $positionsXml->appendChild($positionXml);

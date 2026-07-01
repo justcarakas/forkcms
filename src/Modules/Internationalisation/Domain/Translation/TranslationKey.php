@@ -13,7 +13,7 @@ use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[ORM\Embeddable]
-class TranslationKey implements TranslatableInterface
+class TranslationKey implements TranslatableInterface, Stringable
 {
     #[ORM\Column(type: Types::STRING, length: 10, enumType: Type::class)]
     private(set) readonly Type $type;
