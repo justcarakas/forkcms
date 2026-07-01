@@ -60,7 +60,7 @@ final class RoutingExtension extends AbstractExtension
             $this->generator,
             $parameters,
             $relative ? UrlGeneratorInterface::RELATIVE_PATH : UrlGeneratorInterface::ABSOLUTE_PATH,
-            $locale === null ? null : Locale::tryFrom($locale)
+            Locale::tryFromNullable($locale)
         );
     }
 
@@ -76,7 +76,7 @@ final class RoutingExtension extends AbstractExtension
             $this->generator,
             $parameters,
             $relative ? UrlGeneratorInterface::NETWORK_PATH : UrlGeneratorInterface::ABSOLUTE_URL,
-            $locale === null ? null : Locale::tryFrom($locale)
+            Locale::tryFromNullable($locale)
         );
     }
 
@@ -91,7 +91,7 @@ final class RoutingExtension extends AbstractExtension
     ): string {
         return $this->blockRouter->getRouteForBlock(
             $this->getModuleBlock($moduleName, $blockName, $type),
-            $locale === null ? null : Locale::tryFrom($locale),
+            Locale::tryFromNullable($locale),
             $parameters,
             $relative ? UrlGeneratorInterface::NETWORK_PATH : UrlGeneratorInterface::ABSOLUTE_URL,
         );

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
+use ForkCMS\Core\Domain\Enum\TryFromNullable;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use Locale as IntlLocale;
 use RuntimeException;
@@ -12,6 +13,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 enum Locale: string implements TranslatableInterface
 {
+    use TryFromNullable;
+
     case ENGLISH = 'en';
     case CHINESE = 'zh';
     case DUTCH = 'nl';

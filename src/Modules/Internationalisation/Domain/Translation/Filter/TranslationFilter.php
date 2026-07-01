@@ -35,7 +35,7 @@ final class TranslationFilter
     public static function fromRequest(Request $request): self
     {
         $filter = new self(
-            Application::tryFromNullable($request->query->get('application')),
+            Application::tryFrom($request->query->getString('application')),
             $request->query->has('moduleName')
                 ? ModuleName::fromString($request->query->getString('moduleName')) : null,
             array_map(Type::from(...), $request->query->all('type')),

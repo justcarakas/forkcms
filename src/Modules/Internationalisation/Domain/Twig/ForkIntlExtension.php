@@ -278,7 +278,7 @@ final class ForkIntlExtension extends AbstractExtension
     ): string {
         return $this->getIntlExtension(
             'formatLongDateTime',
-            (is_string($locale) ? Locale::tryFrom($locale) : null) ?? Locale::i18n()
+            Locale::tryFromNullable($locale) ?? Locale::i18n()
         )->formatDateTime(
             $env,
             $date,
@@ -306,7 +306,7 @@ final class ForkIntlExtension extends AbstractExtension
     ): string {
         return $this->getIntlExtension(
             'formatLongDate',
-            (is_string($locale) ? Locale::tryFrom($locale) : null) ?? Locale::i18n()
+            Locale::tryFromNullable($locale) ?? Locale::i18n()
         )->formatDate(
             $env,
             $date,
@@ -334,7 +334,7 @@ final class ForkIntlExtension extends AbstractExtension
     ): string {
         return $this->getIntlExtension(
             'formatUserLongDateTime',
-            (is_string($locale) ? Locale::tryFrom($locale) : null) ?? Locale::i18n()
+            Locale::tryFromNullable($locale) ?? Locale::i18n()
         )->formatDateTime(
             $env,
             $date,
@@ -362,7 +362,7 @@ final class ForkIntlExtension extends AbstractExtension
     ): string {
         return $this->getIntlExtension(
             'formatUserLongDate',
-            (is_string($locale) ? Locale::tryFrom($locale) : null) ?? Locale::i18n()
+            Locale::tryFromNullable($locale) ?? Locale::i18n()
         )->formatDate(
             $env,
             $date,
