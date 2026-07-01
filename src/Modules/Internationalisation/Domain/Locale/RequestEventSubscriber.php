@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class RequestEventSubscriber
 {
-    #[AsEventListener(event: KernelEvents::REQUEST, priority: 16)]
+    #[AsEventListener(event: KernelEvents::REQUEST, priority: 15)]
     public function mainRequestLocale(RequestEvent $event): void
     {
         if (!$event->isMainRequest()) {

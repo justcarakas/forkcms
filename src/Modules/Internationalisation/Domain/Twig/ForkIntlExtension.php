@@ -386,7 +386,7 @@ final class ForkIntlExtension extends AbstractExtension
     }
 
     #[AsEventListener(event: KernelEvents::REQUEST, priority: 100)]
-    #[AsEventListener(event: KernelEvents::REQUEST, priority: 16)] // it gets reset, we need to do it again
+    #[AsEventListener(event: KernelEvents::REQUEST, priority: 15)] // it gets reset by LocaleListener at priority 16, we need to run after it
     public function userLocale(RequestEvent $event): void
     {
         $request = $event->getRequest();
