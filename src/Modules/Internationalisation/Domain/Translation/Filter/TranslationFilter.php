@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation\Filter;
 
 use ForkCMS\Core\Domain\Application\Application;
@@ -33,8 +35,9 @@ final class TranslationFilter
     public static function fromRequest(Request $request): self
     {
         $filter = new self(
-            Application::tryFrom($request->query->get('application')),
-            $request->query->has('moduleName') ? ModuleName::fromString($request->query->get('moduleName')) : null,
+            Application::tryFromNullable($request->query->get('application')),
+            $request->query->has('moduleName')
+                ? ModuleName::fromString($request->query->getString('moduleName')) : null,
             array_map(Type::from(...), $request->query->all('type')),
             array_map(Locale::from(...), $request->query->all('locale')),
             $request->query->get('name'),

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\InformationFile;
 
 use SimpleXMLElement;
@@ -17,7 +19,7 @@ final readonly class SafeString implements Stringable
     {
         $sanitizer = new HtmlSanitizer((new HtmlSanitizerConfig()));
 
-        return new self($sanitizer->sanitize(nl2br(trim($XMLElement))));
+        return new self($sanitizer->sanitize(nl2br(trim((string) $XMLElement))));
     }
 
     #[\Override]

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\tests\Domain\RSSAction;
 
 use ForkCMS\Modules\Frontend\Domain\RSSAction\ModuleRSSAction;

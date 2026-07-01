@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\InformationFile;
 
 use Composer\Semver\Comparator;
@@ -17,7 +19,7 @@ final readonly class Requirements implements \JsonSerializable
     public static function fromXML(SimpleXMLElement $requirements, Messages $messages): self
     {
         $sanitiser = new HtmlSanitizer((new HtmlSanitizerConfig()));
-        $minimumVersion = $sanitiser->sanitize($requirements->minimum_version ?? '');
+        $minimumVersion = $sanitiser->sanitize((string) ($requirements->minimum_version ?? ''));
         if ($minimumVersion !== '' && Comparator::lessThan($_ENV['FORK_VERSION'], $minimumVersion)) {
             $messages->addMessage(
                 TranslationKey::error('InformationVersionTooLow')->withParameters(
@@ -25,7 +27,7 @@ final readonly class Requirements implements \JsonSerializable
                 )
             );
         }
-        $maximumVersion = $sanitiser->sanitize($requirements->maximum_version ?? '');
+        $maximumVersion = $sanitiser->sanitize((string) ($requirements->maximum_version ?? ''));
         if ($maximumVersion !== '' && Comparator::greaterThanOrEqualTo($_ENV['FORK_VERSION'], $maximumVersion)) {
             $messages->addMessage(
                 TranslationKey::error('InformationVersionTooHigh')->withParameters(

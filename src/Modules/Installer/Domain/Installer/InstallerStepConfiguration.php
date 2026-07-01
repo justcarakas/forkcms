@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\Domain\Installer;
 
 use ForkCMS\Modules\Installer\Domain\Configuration\InstallerConfiguration;

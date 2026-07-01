@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\Meta;
 
 use Doctrine\ORM\Mapping as ORM;

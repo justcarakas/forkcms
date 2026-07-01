@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use ForkCMS\Core\Domain\Util\Ensure;
@@ -105,7 +107,7 @@ final readonly class ModuleInformation
         }
         $messages = new Messages();
         Requirements::fromXML($moduleConfig->requirements, $messages);
-        $name = ModuleName::fromString(SafeString::fromXML($moduleConfig->name));
+        $name = ModuleName::fromString(SafeString::fromXML($moduleConfig->name)->string);
         $directoryName = basename(dirname($xmlFilePath));
         if ($name->name !== $directoryName) {
             $messages->addMessage(TranslationKey::error('ModuleNameDoesntMatch'));
@@ -138,7 +140,7 @@ final readonly class ModuleInformation
         return new self(
             $name,
             $moduleVersion,
-            SafeHtml::fromXML($moduleConfig->description),
+            SafeHtml::fromXML($moduleConfig->description)->html,
             $authors,
             $events,
             $messages

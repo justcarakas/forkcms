@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Form;
 
 use RuntimeException;
@@ -45,7 +47,7 @@ final class TabsType extends AbstractType
             $cachedSlugger = $slugger ?? throw new RuntimeException('No slugger provided');
         }
 
-        return $cachedSlugger->slug(str_replace('lbl.', 'tab.', $label), '_');
+        return $cachedSlugger->slug(str_replace('lbl.', 'tab.', $label), '_')->toString();
     }
 
     #[\Override]

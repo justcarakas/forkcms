@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\Dashboard;
 
 use Symfony\Contracts\Translation\TranslatableInterface;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Controller;
 
 use ForkCMS\Core\Domain\Application\Application;

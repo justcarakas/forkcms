@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
 use Doctrine\ORM\QueryBuilder;

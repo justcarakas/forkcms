@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Domain\Revision;
 
 use Symfony\Contracts\Translation\TranslatableInterface;

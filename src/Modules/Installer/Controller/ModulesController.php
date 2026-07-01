@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\Controller;
 
 use ForkCMS\Modules\Installer\Domain\Module\ModulesStepConfiguration;

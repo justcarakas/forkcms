@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\BlockEditor\Domain\Blocks;
 
 final class HeaderBlock extends AbstractBlock

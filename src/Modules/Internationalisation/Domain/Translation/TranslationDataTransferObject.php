@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use ForkCMS\Core\Domain\Form\Validator\UniqueDataTransferObject;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate;
 
 use ForkCMS\Core\Domain\Util\Ensure;
@@ -20,14 +22,14 @@ final class InstallableThemeTemplate extends ThemeTemplateDataTransferObject
         }
 
         $themeTemplate = new self();
-        $themeTemplate->name = SafeString::fromXML($template->attributes()->name);
+        $themeTemplate->name = SafeString::fromXML($template->attributes()->name)->string;
         $themeTemplate->path = str_replace(
             ThemeTemplate::PATH_DIRECTORY,
             '',
-            SafeString::fromXML($template->attributes()->path)
+            SafeString::fromXML($template->attributes()->path)->string
         );
         $themeTemplate->active = true;
-        $layout = str_replace(' ', '', trim(SafeString::fromXML($template->layout)));
+        $layout = str_replace(' ', '', trim(SafeString::fromXML($template->layout)->string));
         $themeTemplate->settings->set('layout', $layout);
         $positions = [];
         $serialiser = new Serializer([], [new XmlEncoder()]);
@@ -40,7 +42,7 @@ final class InstallableThemeTemplate extends ThemeTemplateDataTransferObject
                 $positions[] = [
                     'name' => SafeString::fromXML(
                         Ensure::isNotNull(Ensure::isNotNull($xmlPosition)->attributes()?->name)
-                    ),
+                    )->string,
                     'blocks' => $blocks,
                 ];
             }

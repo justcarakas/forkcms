@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\UserGroup;
 
 use ForkCMS\Core\Domain\Form\TabsType;
@@ -233,7 +235,12 @@ final class UserGroupType extends AbstractType
     private static function getClassDescription(string $fullyQualifiedClassName): string
     {
         $reflection = new ReflectionClass($fullyQualifiedClassName);
-        $phpDoc = trim($reflection->getDocComment());
+        $docComment = $reflection->getDocComment();
+        if ($docComment === false) {
+            return '';
+        }
+
+        $phpDoc = trim($docComment);
         if ($phpDoc === '') {
             return '';
         }

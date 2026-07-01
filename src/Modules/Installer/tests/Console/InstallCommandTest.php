@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\tests\Console;
 
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;

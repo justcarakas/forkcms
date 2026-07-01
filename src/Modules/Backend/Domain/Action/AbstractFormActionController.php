@@ -1,16 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use ForkCMS\Core\Domain\Form\ActionType;
 use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
-use ForkCMS\Core\Domain\Util\ArrayUtil;
 use ForkCMS\Modules\Extensions\Domain\Module\Command\ChangeModuleSettings;
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
-use ForkCMS\Modules\Internationalisation\Domain\Translator\ForkTranslator;
 use RuntimeException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
@@ -31,8 +31,8 @@ abstract class AbstractFormActionController extends AbstractActionController
         $actionLabel = self::getActionSlug()->actionName->asLabel();
         if (!$this->translator->hasTranslation($actionLabel)) {
             $label = match (true) {
-                str_ends_with($actionLabel, 'Edit') => 'Edit',
-                str_ends_with($actionLabel, 'Add') => 'Add',
+                str_ends_with($actionLabel->name, 'Edit') => 'Edit',
+                str_ends_with($actionLabel->name, 'Add') => 'Add',
                 default => null,
             };
             $translatedActionName = $label === null

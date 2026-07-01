@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Domain\Page;
 
 use Doctrine\ORM\Query\Expr\Join;

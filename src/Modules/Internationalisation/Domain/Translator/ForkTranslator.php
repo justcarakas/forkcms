@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Translator;
 
 use BadMethodCallException;
@@ -8,7 +10,9 @@ use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\AjaxActionSlug;
 use ForkCMS\Modules\Backend\Domain\User\User;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationDomain;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -35,8 +39,9 @@ final class ForkTranslator implements TranslatorInterface, TranslatorBagInterfac
 
     /** @param array<string, mixed> $parameters */
     #[\Override]
-    public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
+    public function trans(string|TranslationKey $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
     {
+        $id = (string) $id;
         $isValidator = $domain === 'validators';
         if ($isValidator) {
             $domain = null;
@@ -91,12 +96,12 @@ final class ForkTranslator implements TranslatorInterface, TranslatorBagInterfac
         $this->defaultTranslationDomain = $defaultTranslationDomain;
     }
 
-    public function hasTranslation(string $id, ?string $locale = null): bool
+    public function hasTranslation(string|TranslationKey $id, ?string $locale = null): bool
     {
         if (!$this->requestStack instanceof RequestStack) {
             return false;
         }
-
+        $id = (string) $id;
         $defaultDomain = $this->getDefaultTranslationDomain();
         $catalogue = $this->inner->getCatalogue($locale);
 
@@ -125,15 +130,19 @@ final class ForkTranslator implements TranslatorInterface, TranslatorBagInterfac
     }
 
     #[\Override]
-    public function setLocale(string $locale): void
+    public function setLocale(string|Locale $locale): void
     {
         if ($this->inner instanceof LocaleAwareInterface) {
-            $this->inner->setLocale($locale);
+            $this->inner->setLocale((string) $locale);
         }
     }
 
-    public function getCatalogue(?string $locale = null): MessageCatalogueInterface
+    public function getCatalogue(string|Locale|null $locale = null): MessageCatalogueInterface
     {
+        if ($locale !== null) {
+            $locale = (string) $locale;
+        }
+
         return $this->inner->getCatalogue($locale);
     }
 

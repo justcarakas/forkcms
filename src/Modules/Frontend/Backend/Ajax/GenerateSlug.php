@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Backend\Ajax;
 
 use ForkCMS\Modules\Backend\Domain\AjaxAction\AbstractAjaxActionController;

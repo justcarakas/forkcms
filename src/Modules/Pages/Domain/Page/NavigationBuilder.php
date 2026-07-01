@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Domain\Page;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -131,7 +133,6 @@ final readonly class NavigationBuilder
         if ($cache->isHit()) {
             return $cache->get();
         }
-
         /** @var Page[] $pages */
         $pages = $this->entityManager->createQueryBuilder()
             ->select('p')

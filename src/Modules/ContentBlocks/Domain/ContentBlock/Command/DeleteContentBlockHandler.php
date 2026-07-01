@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Command;
 
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;

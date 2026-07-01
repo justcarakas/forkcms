@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Locale;
 
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;

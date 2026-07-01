@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Domain\Revision\Form;
 
 use ForkCMS\Core\Domain\Form\CollectionType;

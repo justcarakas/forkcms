@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Theme;
 
 use ForkCMS\Core\Domain\Util\Ensure;
@@ -64,7 +66,7 @@ final class InstallableTheme extends ThemeDataTransferObject
 
         self::parseAuthors($themeConfig, $theme);
 
-        $theme->description = SafeHtml::fromXML($themeConfig->description);
+        $theme->description = SafeHtml::fromXML($themeConfig->description)->html;
         $theme->active = false;
 
         self::parseTemplates($themeConfig, $theme);

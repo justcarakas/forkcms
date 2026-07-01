@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Frontend\Widgets;
 
 use ForkCMS\Modules\Frontend\Domain\Block\BlockServices;

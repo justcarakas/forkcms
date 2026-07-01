@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\ContentBlocks\DataFixtures;
 
 use Doctrine\Persistence\ObjectManager;

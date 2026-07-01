@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Backend\Actions;
 
 use ForkCMS\Modules\Backend\Domain\Action\AbstractActionController;

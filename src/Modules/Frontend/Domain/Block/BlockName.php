@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\Block;
 
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;

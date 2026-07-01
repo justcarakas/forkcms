@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Controller;
 
 use ForkCMS\Modules\Backend\Backend\Ajax\NotFound;

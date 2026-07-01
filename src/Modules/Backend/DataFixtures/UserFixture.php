@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\DataFixtures;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;

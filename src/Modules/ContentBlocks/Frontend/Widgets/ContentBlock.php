@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\ContentBlocks\Frontend\Widgets;
 
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock as ContentBlockEntity;

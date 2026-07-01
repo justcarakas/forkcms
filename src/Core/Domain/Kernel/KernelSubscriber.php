@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Kernel;
 
 use ForkCMS\Core\Domain\Kernel\Command\ClearContainerCache;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\ContentBlocks\Installer;
 
 use ForkCMS\Modules\ContentBlocks\Backend\Actions\ContentBlockAdd;

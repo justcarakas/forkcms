@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\UserGroup;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Pages\Controller;
 
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\DependencyInjection;
 
 use ForkCMS\Core\Domain\Router\ModuleRouteProviderInterface;

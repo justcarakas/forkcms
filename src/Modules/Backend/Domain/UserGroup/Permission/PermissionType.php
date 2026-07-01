@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\UserGroup\Permission;
 
 use Symfony\Component\Form\AbstractType;
@@ -60,7 +62,7 @@ final class PermissionType extends AbstractType
 
         $permissionsByModule = [];
         foreach (array_values($options['choices']) as $index => $permission) {
-            $permissionsByModule[$permission->getModule()][$index] = $permission;
+            $permissionsByModule[$permission->module][$index] = $permission;
         }
         $view->vars['permissionsByModule'] = $permissionsByModule;
         $view->vars['nameLabel'] = $options['name_label'];

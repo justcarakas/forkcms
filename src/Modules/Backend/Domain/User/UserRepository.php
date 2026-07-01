@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\User;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Installer\Domain\Locale;
 
 use ForkCMS\Modules\Installer\Domain\Configuration\InstallerConfiguration;

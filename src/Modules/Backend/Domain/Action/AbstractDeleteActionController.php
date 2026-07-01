@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\Action;
 
 use ForkCMS\Core\Domain\Form\ActionType;
@@ -42,7 +44,7 @@ abstract class AbstractDeleteActionController extends AbstractFormActionControll
                 $deleteCommandFullyQualifiedClassName,
                 $redirectActionSlug
             ): RedirectResponse {
-                $this->commandBus->dispatch(new $deleteCommandFullyQualifiedClassName($form->getData()['id']));
+                $this->commandBus->dispatch(new $deleteCommandFullyQualifiedClassName((int) $form->getData()['id']));
 
                 return new RedirectResponse($redirectActionSlug->generateRoute($this->router));
             },

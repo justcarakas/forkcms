@@ -10,6 +10,7 @@
     <config name="php_version" value="80400"/>
 
     <rule ref="PSR12"/>
+    <rule ref="Generic.PHP.RequireStrictTypes"/>
 
     <file>config/</file>
     <file>public/</file>

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\AjaxAction;
 
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Backend\Actions;
 
 use DOMDocument;
@@ -80,7 +82,7 @@ final class ThemeTemplateExport extends AbstractActionController
                     $blockXml = $xml->importNode($blockDOMDocument->documentElement, true);
                     $blockXml->setAttribute('module', $block->block->module->name);
                     $blockXml->setAttribute('type', $block->type->value);
-                    $blockXml->setAttribute('name', $block->block->name);
+                    $blockXml->setAttribute('name', (string) $block->block->name);
                     $blockXml->setAttribute('label', $this->translator->trans($block));
                     $positionXml->append($blockXml);
                 }

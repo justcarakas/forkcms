@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\AjaxAction;
 
 use ForkCMS\Core\Domain\Util\Ensure;

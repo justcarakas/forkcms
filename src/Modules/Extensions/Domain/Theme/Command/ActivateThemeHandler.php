@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Theme\Command;
 
 use ForkCMS\Core\Domain\Kernel\Event\ClearCacheEvent;

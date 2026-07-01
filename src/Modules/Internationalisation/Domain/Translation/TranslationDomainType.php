@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Internationalisation\Domain\Translator\ForkTranslator;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -12,7 +15,6 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
 
 /**
@@ -21,7 +23,7 @@ use Throwable;
  */
 final class TranslationDomainType extends AbstractType implements DataTransformerInterface
 {
-    public function __construct(private readonly TranslatorInterface $translator)
+    public function __construct(private readonly ForkTranslator $translator)
     {
     }
 
@@ -48,7 +50,7 @@ final class TranslationDomainType extends AbstractType implements DataTransforme
                 'choice_value' => 'name',
                 'choice_label' => fn (Module $module): string =>
                     ucfirst($this->translator->trans($module->name->asLabel())),
-                'choice_filter' => static fn (?Module $module): bool => $module->name !== ModuleName::core(),
+                'choice_filter' => static fn (?Module $module): bool => $module?->name !== ModuleName::core(),
                 'label' => 'lbl.Module',
                 'required' => false,
                 'choice_translation_domain' => false,

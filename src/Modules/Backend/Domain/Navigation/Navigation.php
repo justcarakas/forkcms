@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Backend\Domain\Navigation;
 
 use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
@@ -185,7 +187,7 @@ final class Navigation
                     $breadcrumbs->add(
                         new Breadcrumb(
                             $navigationItem['label'],
-                            ActionSlug::fromSlug($navigationItem['slug'])->generateRoute($this->router)
+                            $navigationItem['slug']->generateRoute($this->router)
                         )
                     );
 

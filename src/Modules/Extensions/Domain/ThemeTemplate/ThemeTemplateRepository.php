@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

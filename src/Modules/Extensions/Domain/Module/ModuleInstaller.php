@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Extensions\Domain\Module;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -191,7 +193,7 @@ abstract class ModuleInstaller
 
         foreach ($selectedFor as $selectedForLabel => $selectedForSlug) {
             $this->getOrCreateBackendNavigationItem(
-                TranslationKey::label($selectedForLabel),
+                is_int($selectedForLabel) ? $selectedForSlug->actionName->asLabel() : $selectedForLabel,
                 $selectedForSlug,
                 $navigationItem,
                 [],

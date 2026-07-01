@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Core\Domain\Header\FlashMessage;
 
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;

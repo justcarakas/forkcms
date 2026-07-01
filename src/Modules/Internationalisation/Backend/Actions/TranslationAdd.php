@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Backend\Actions;
 
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
@@ -30,7 +32,7 @@ final class TranslationAdd extends AbstractFormActionController
             redirectResponse: new RedirectResponse(TranslationIndex::getActionSlug()->generateRoute($this->router)),
             successFlashMessageCallback: fn (FormInterface $form) => FlashMessage::success(
                 'EntityAdded',
-                ['entity' => $form->getData()->getEntity()->getTranslatable()->trans($this->translator)]
+                ['%entity%' => $form->getData()->getEntity()->getTranslatable()->trans($this->translator)]
             ),
         );
     }

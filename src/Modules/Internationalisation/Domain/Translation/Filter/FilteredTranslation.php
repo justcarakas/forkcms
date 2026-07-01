@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Translation\Filter;
 
 use ForkCMS\Core\Domain\Application\Application;
@@ -30,7 +32,7 @@ final class FilteredTranslation
         return new self(
             $translation->domain->application,
             $translation->domain->moduleName ?? ModuleName::core(),
-            $translation->key,
+            (string) $translation->key,
             $translation->key->type,
         );
     }

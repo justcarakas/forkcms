@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Frontend\Domain\RSSAction;
 
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;

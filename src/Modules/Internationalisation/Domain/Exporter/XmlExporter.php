@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ForkCMS\Modules\Internationalisation\Domain\Exporter;
 
 use DOMDocument;
@@ -54,7 +56,7 @@ final class XmlExporter implements ExporterInterface
                     $applicationElement->appendChild($translationItemElement);
                 }
                 $translationItemElement->setAttribute('type', $translation->key->type->value);
-                $translationItemElement->setAttribute('name', $translation->key);
+                $translationItemElement->setAttribute('name', (string) $translation->key);
 
                 $currentTranslationKey = $translation->key;
             }
