@@ -29,7 +29,7 @@ final readonly class DeleteContentBlockHandler implements CommandHandlerInterfac
 
         $activeBlock = null;
         foreach ($versions as $version) {
-            if ($version->getStatus() === Status::ACTIVE) {
+            if ($version->status === Status::ACTIVE) {
                 $activeBlock = $version;
             }
         }

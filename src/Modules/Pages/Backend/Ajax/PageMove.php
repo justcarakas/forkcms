@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class PageMove extends AbstractAjaxActionController
 {
+    #[\Override]
     protected function execute(Request $request): void
     {
         // TODO: Implement getFormResponse() method.

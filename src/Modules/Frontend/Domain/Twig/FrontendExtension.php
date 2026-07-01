@@ -23,6 +23,7 @@ final class FrontendExtension extends AbstractExtension implements GlobalsInterf
     ) {
     }
 
+    #[\Override]
     public function getGlobals(): array
     {
         $mainRequest = $this->requestStack->getMainRequest();

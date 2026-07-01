@@ -24,6 +24,7 @@ class ModulesType extends AbstractType implements DataTransformerInterface
     {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $requiredModules = $this->moduleInstallerLocator->getRequiredModuleNames();
@@ -32,8 +33,8 @@ class ModulesType extends AbstractType implements DataTransformerInterface
             ChoiceType::class,
             [
                 'choices' => $this->moduleInstallerLocator->getModuleNamesForOverview(),
-                'choice_value' => static fn (ModuleName $moduleName): string => $moduleName->getName(),
-                'choice_label' => static fn (ModuleName $moduleName): string => $moduleName->getName(),
+                'choice_value' => static fn (ModuleName $moduleName): string => $moduleName->name,
+                'choice_label' => static fn (ModuleName $moduleName): string => $moduleName->name,
                 'preferred_choices' => static function (ModuleName $moduleName) use ($requiredModules): bool {
                     return in_array($moduleName, $requiredModules);
                 },
@@ -61,6 +62,7 @@ class ModulesType extends AbstractType implements DataTransformerInterface
         )->addModelTransformer($this);
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
@@ -70,16 +72,19 @@ class ModulesType extends AbstractType implements DataTransformerInterface
         );
     }
 
+    #[\Override]
     public function getBlockPrefix(): string
     {
         return 'install_modules';
     }
 
+    #[\Override]
     public function transform($value): ModulesStepConfiguration
     {
         return $value;
     }
 
+    #[\Override]
     public function reverseTransform($value): ModulesStepConfiguration
     {
         if (!$value instanceof ModulesStepConfiguration) {

@@ -13,12 +13,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 #[Autoconfigure(public: true)]
-final class FrontendRSSController
+final readonly class FrontendRSSController
 {
     /** @param ServiceLocator<RSSActionControllerInterface> $rssActions */
     public function __construct(
-        #[AutowireLocator('forkcms.frontend.rss_action')]
-        private readonly ServiceLocator $rssActions
+        #[AutowireLocator(RSSActionControllerInterface::class)]
+        private ServiceLocator $rssActions
     ) {
     }
 

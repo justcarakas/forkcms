@@ -17,7 +17,7 @@ use Throwable;
  * @method Translation|null find($id, $lockMode = null, $lockVersion = null)
  * @method Translation|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Translation[] findAll()
- * @method Translation[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
+ * @method Translation[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null) // phpcs:ignore Generic.Files.LineLength.TooLong
  * @extends ServiceEntityRepository<Translation>
  */
 final class TranslationRepository extends ServiceEntityRepository
@@ -64,10 +64,10 @@ final class TranslationRepository extends ServiceEntityRepository
     {
         return $this->findBy(
             [
-                'domain.application' => $fields['domain']->getApplication()->value,
-                'domain.moduleName' => $fields['domain']->getModuleName(),
-                'key.name' => $fields['key']->getName(),
-                'key.type' => $fields['key']->getType()->value,
+                'domain.application' => $fields['domain']->application->value,
+                'domain.moduleName' => $fields['domain']->moduleName,
+                'key.name' => $fields['key']->name,
+                'key.type' => $fields['key']->type->value,
                 'locale' => $fields['locale']->value,
             ]
         );
@@ -77,7 +77,7 @@ final class TranslationRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('t');
 
-        if (!$filter->shouldFilter()) {
+        if (!$filter->shouldFilter) {
             return $queryBuilder;
         }
 
@@ -148,15 +148,16 @@ final class TranslationRepository extends ServiceEntityRepository
     /** @return array<string, FilteredTranslation[]> */
     public function getFilteredTranslations(TranslationFilter $filter): array
     {
-        if (!$filter->shouldFilter()) {
+        if (!$filter->shouldFilter) {
             return [];
         }
 
         /** @var array<string, FilteredTranslation[]> $filteredTranslations */
         $filteredTranslations = [];
+        /** @var Translation $translation */
         foreach ($this->getTranslationsQueryBuilderForFilter($filter)->getQuery()->toIterable() as $translation) {
-            $key = $translation->getDomain() . '.' . $translation->getKey()->getName();
-            $type = $translation->getKey()->getType()->value;
+            $key = $translation->domain . '.' . $translation->key->name;
+            $type = $translation->key->type->value;
 
             if (!isset($filteredTranslations[$type][$key])) {
                 $filteredTranslations[$type][$key] = FilteredTranslation::forTranslation($translation);

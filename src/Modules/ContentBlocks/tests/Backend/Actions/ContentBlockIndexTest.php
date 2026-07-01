@@ -1,11 +1,13 @@
 <?php
 
+namespace ForkCMS\Modules\ContentBlocks\tests\Backend\Actions;
+
 use ForkCMS\Modules\Backend\tests\BackendWebTestCase;
 use ForkCMS\Modules\ContentBlocks\DataFixtures\ContentBlockFixture;
 
 final class ContentBlockIndexTest extends BackendWebTestCase
 {
-    protected const TEST_URL = '/private/en/content-blocks/content-block-index';
+    protected const string TEST_URL = '/private/en/content-blocks/content-block-index';
 
     public function testPageLoads(): void
     {
@@ -30,6 +32,7 @@ final class ContentBlockIndexTest extends BackendWebTestCase
         self::assertDataGridIsEmpty();
     }
 
+    #[\Override]
     protected static function getClassFixtures(): array
     {
         return [

@@ -1,15 +1,13 @@
 <?php
 
-namespace ForkCMS\Modules\Backend\tests\Backend\Actions;
+namespace ForkCMS\Modules\ContentBlocks\tests\Backend\Actions;
 
-use ForkCMS\Modules\Backend\DataFixtures\UserFixture;
-use ForkCMS\Modules\Backend\DataFixtures\UserGroupFixture;
 use ForkCMS\Modules\Backend\tests\BackendWebTestCase;
 use ForkCMS\Modules\ContentBlocks\DataFixtures\ContentBlockFixture;
 
 final class ContentBlockDeleteTest extends BackendWebTestCase
 {
-    protected const TEST_URL = '/private/en/content-blocks/content-block-delete';
+    protected const string TEST_URL = '/private/en/content-blocks/content-block-delete';
 
     public function testWithoutSubmitRedirectToIndex(): void
     {
@@ -34,6 +32,7 @@ final class ContentBlockDeleteTest extends BackendWebTestCase
         self::assertResponseContains('The content block "' . ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE . '" was deleted.');
     }
 
+    #[\Override]
     protected static function getClassFixtures(): array
     {
         return [

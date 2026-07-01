@@ -8,20 +8,20 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepositor
 use InvalidArgumentException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-final class DeleteTranslationHandler implements CommandHandlerInterface
+final readonly class DeleteTranslationHandler implements CommandHandlerInterface
 {
     public function __construct(
         private TranslationRepository $translationRepository,
-        private readonly EventDispatcherInterface $eventDispatcher,
+        private EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
     public function __invoke(DeleteTranslation $deleteTranslation): void
     {
-        $translation = $this->translationRepository->find($deleteTranslation->getTranslationId());
+        $translation = $this->translationRepository->find($deleteTranslation->translationId);
         if ($translation === null) {
             throw new InvalidArgumentException(
-                'The translation with id ' . $deleteTranslation->getTranslationId() . ' does not exist'
+                'The translation with id ' . $deleteTranslation->translationId . ' does not exist'
             );
         }
         $this->translationRepository->remove($translation);

@@ -56,6 +56,7 @@ enum Locale: string implements TranslatableInterface
         return self::from(substr(IntlLocale::getDefault(), 0, 2));
     }
 
+    #[\Override]
     public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         return $translator->trans($this->asTranslatable(), [], null, $locale);

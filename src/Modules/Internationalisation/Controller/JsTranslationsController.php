@@ -11,15 +11,13 @@ use Symfony\Component\Translation\MessageCatalogueInterface;
 use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class JsTranslationsController
+final readonly class JsTranslationsController
 {
     public function __construct(private TranslatorInterface $translator)
     {
     }
 
-    /**
-     * @throws AssertionFailedException
-     */
+    /** @throws AssertionFailedException */
     public function __invoke(Request $request): JsonResponse
     {
         try {

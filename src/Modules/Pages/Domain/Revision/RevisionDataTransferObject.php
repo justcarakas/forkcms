@@ -38,16 +38,16 @@ abstract class RevisionDataTransferObject
             return;
         }
 
-        $this->page = $this->revisionEntity->getPage();
-        $this->parentPage = $this->revisionEntity->getParentPage();
-        $this->type = $this->revisionEntity->getType();
-        $this->title = $this->revisionEntity->getTitle();
-        $this->isDraft = $this->revisionEntity->isDraft();
-        $this->themeTemplate = $this->revisionEntity->getThemeTemplate();
-        $this->archivedOn = $this->revisionEntity->getArchivedOn();
+        $this->page = $this->revisionEntity->page;
+        $this->parentPage = $this->revisionEntity->parentPage;
+        $this->type = $this->revisionEntity->type;
+        $this->title = $this->revisionEntity->title;
+        $this->isDraft = $this->revisionEntity->isDraft;
+        $this->themeTemplate = $this->revisionEntity->themeTemplate;
+        $this->archivedOn = $this->revisionEntity->archivedOn;
         $blocks = [];
-        foreach ($this->revisionEntity->getBlocks() as $block) {
-            $position = $block->getPosition();
+        foreach ($this->revisionEntity->blocks as $block) {
+            $position = $block->position;
             if (!array_key_exists($position, $blocks)) {
                 $blocks[$position] = [];
             }
@@ -56,7 +56,7 @@ abstract class RevisionDataTransferObject
         $this->blocks = new ArrayCollection($blocks);
         $this->locale = $this->revisionEntity->getLocale();
         $this->settings = $this->revisionEntity->getSettings()->all();
-        $this->meta = clone $this->revisionEntity->getMeta();
+        $this->meta = clone $this->revisionEntity->meta;
     }
 
     public function hasEntity(): bool

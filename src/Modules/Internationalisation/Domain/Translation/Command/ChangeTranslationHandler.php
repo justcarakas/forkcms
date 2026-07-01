@@ -9,11 +9,11 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\Translation;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-final class ChangeTranslationHandler implements CommandHandlerInterface
+final readonly class ChangeTranslationHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly TranslationRepository $translationRepository,
-        private readonly EventDispatcherInterface $eventDispatcher,
+        private TranslationRepository $translationRepository,
+        private EventDispatcherInterface $eventDispatcher,
     ) {
     }
 

@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class ContentBlockAdd extends AbstractFormActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         return $this->handleForm(

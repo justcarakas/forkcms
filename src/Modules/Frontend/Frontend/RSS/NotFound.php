@@ -18,30 +18,35 @@ final class NotFound extends AbstractRSSActionController
     {
     }
 
+    #[\Override]
     public function getResponse(Request $request): Response
     {
         return new Response(
-            $this->getFeed()->export(Writer::TYPE_RSS_ANY),
+            $this->feed->export(Writer::TYPE_RSS_ANY),
             Response::HTTP_NOT_FOUND,
             ['Content-Type' => 'application/rss+xml; charset=utf-8']
         );
     }
 
+    #[\Override]
     protected function getEntries(Request $request): iterable
     {
         return [];
     }
 
+    #[\Override]
     protected function feedTitle(Request $request): string
     {
         return TranslationKey::error('404')->trans($this->translator);
     }
 
+    #[\Override]
     protected function feedDescription(Request $request): string
     {
         return TranslationKey::error('404RssDescription')->trans($this->translator);
     }
 
+    #[\Override]
     protected function feedLink(Request $request): string
     {
         return $request->getSchemeAndHttpHost() . $request->getBaseUrl();

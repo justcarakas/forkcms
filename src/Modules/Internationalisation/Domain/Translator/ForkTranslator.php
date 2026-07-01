@@ -34,6 +34,7 @@ final class ForkTranslator implements TranslatorInterface, TranslatorBagInterfac
     }
 
     /** @param array<string, mixed> $parameters */
+    #[\Override]
     public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
     {
         $isValidator = $domain === 'validators';
@@ -117,11 +118,13 @@ final class ForkTranslator implements TranslatorInterface, TranslatorBagInterfac
         return $this->defaultTranslationDomain;
     }
 
+    #[\Override]
     public function getLocale(): string
     {
         return $this->inner->getLocale();
     }
 
+    #[\Override]
     public function setLocale(string $locale): void
     {
         if ($this->inner instanceof LocaleAwareInterface) {

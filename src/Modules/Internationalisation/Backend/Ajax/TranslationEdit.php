@@ -27,6 +27,7 @@ final class TranslationEdit extends AbstractAjaxActionController
     ) {
     }
 
+    #[\Override]
     protected function execute(Request $request): void
     {
         $moduleName = ModuleName::fromString($request->query->get('moduleName'));

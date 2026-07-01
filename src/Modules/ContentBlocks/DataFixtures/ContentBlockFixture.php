@@ -14,13 +14,14 @@ use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 
 final class ContentBlockFixture extends ForkFixture
 {
-    public const CONTENT_BLOCK_VISIBLE_ID = 1;
-    public const CONTENT_BLOCK_VISIBLE_TITLE = 'Visible content block';
-    public const CONTENT_BLOCK_VISIBLE_TEXT = 'This is a visible content block';
-    public const CONTENT_BLOCK_HIDDEN_ID = 2;
-    public const CONTENT_BLOCK_HIDDEN_TITLE = 'Hidden content block';
-    public const CONTENT_BLOCK_HIDDEN_TEXT = 'This is a hidden content block';
+    public const int CONTENT_BLOCK_VISIBLE_ID = 1;
+    public const string CONTENT_BLOCK_VISIBLE_TITLE = 'Visible content block';
+    public const string CONTENT_BLOCK_VISIBLE_TEXT = 'This is a visible content block';
+    public const int CONTENT_BLOCK_HIDDEN_ID = 2;
+    public const string CONTENT_BLOCK_HIDDEN_TITLE = 'Hidden content block';
+    public const string CONTENT_BLOCK_HIDDEN_TEXT = 'This is a hidden content block';
 
+    #[\Override]
     public function load(ObjectManager $manager): void
     {
         $manager->persist(

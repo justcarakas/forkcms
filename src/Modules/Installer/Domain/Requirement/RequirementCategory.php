@@ -2,12 +2,12 @@
 
 namespace ForkCMS\Modules\Installer\Domain\Requirement;
 
-final class RequirementCategory
+final readonly class RequirementCategory
 {
     /** @var Requirement[] */
-    public readonly array $requirements;
+    public array $requirements;
 
-    public function __construct(public readonly string $name, Requirement ...$requirements)
+    public function __construct(public string $name, Requirement ...$requirements)
     {
         $this->requirements = $requirements;
     }

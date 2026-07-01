@@ -20,10 +20,11 @@ final class RevisionSettingsType extends AbstractType
     {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $user = $this->tokenStorage->getToken()?->getUser();
-        if ($user instanceof User && $user->isSuperAdmin()) {
+        if ($user instanceof User && $user->superAdmin) {
             $builder->add(
                 'settings',
                 FieldsetType::class,
@@ -160,6 +161,7 @@ final class RevisionSettingsType extends AbstractType
         );
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(

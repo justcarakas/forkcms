@@ -71,6 +71,7 @@ final class AuthenticationStepConfiguration implements InstallerStepConfiguratio
         return 'info@' . $host;
     }
 
+    #[\Override]
     public static function fromArray(array $configuration): static
     {
         return new self(
@@ -81,6 +82,7 @@ final class AuthenticationStepConfiguration implements InstallerStepConfiguratio
         );
     }
 
+    #[\Override]
     public static function fromInstallerConfiguration(InstallerConfiguration $installerConfiguration): static
     {
         if (!$installerConfiguration->hasStep(self::getStep())) {
@@ -88,15 +90,16 @@ final class AuthenticationStepConfiguration implements InstallerStepConfiguratio
         }
 
         return new self(
-            $installerConfiguration->getAdminEmail(),
-            $installerConfiguration->getAdminPassword(),
-            $installerConfiguration->hasDifferentDebugEmail(),
-            $installerConfiguration->getDebugEmail(),
-            $installerConfiguration->shouldSaveConfiguration(),
-            $installerConfiguration->shouldSaveConfigurationWithCredentials(),
+            $installerConfiguration->adminEmail,
+            $installerConfiguration->adminPassword,
+            $installerConfiguration->differentDebugEmail,
+            $installerConfiguration->debugEmail,
+            $installerConfiguration->saveConfiguration,
+            $installerConfiguration->saveConfigurationWithCredentials,
         );
     }
 
+    #[\Override]
     public static function getStep(): InstallerStep
     {
         return InstallerStep::AUTHENTICATION;

@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class PageCopyToOtherLocale extends AbstractFormActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         // TODO: Implement getFormResponse() method.

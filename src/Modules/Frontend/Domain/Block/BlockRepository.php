@@ -3,7 +3,6 @@
 namespace ForkCMS\Modules\Frontend\Domain\Block;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\EntityManagerInterface;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
@@ -16,7 +15,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  * @method Block|null find($id, $lockMode = null, $lockVersion = null)
  * @method Block|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Block[] findAll()
- * @method Block[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
+ * @method Block[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null) // phpcs:ignore Generic.Files.LineLength.TooLong
  */
 final class BlockRepository extends SortableRepository implements ServiceEntityRepositoryInterface
 {
@@ -43,9 +42,7 @@ final class BlockRepository extends SortableRepository implements ServiceEntityR
         $entityManager->flush();
     }
 
-    /**
-     * @return Block[]
-     */
+    /** @return Block[] */
     public function getWidgets(): array
     {
         return $this
@@ -58,9 +55,7 @@ final class BlockRepository extends SortableRepository implements ServiceEntityR
             ->getResult();
     }
 
-    /**
-     * @return Block[]
-     */
+    /** @return Block[] */
     public function getActions(): array
     {
         return $this
@@ -79,11 +74,11 @@ final class BlockRepository extends SortableRepository implements ServiceEntityR
     ): ?Block {
         $queryBuilder = $this->createQueryBuilder('b')
             ->andWhere('b.block.module = :module')
-            ->setParameter('module', $moduleBlock->getModule()->getName())
+            ->setParameter('module', $moduleBlock->module->name)
             ->andWhere('b.block.name = :name')
-            ->setParameter('name', BlockNameDBALType::prefixedString($moduleBlock->getName()))
+            ->setParameter('name', BlockNameDBALType::prefixedString($moduleBlock->name))
             ->andWhere('b.type = :type')
-            ->setParameter('type', $moduleBlock->getName()->getType()->value)
+            ->setParameter('type', $moduleBlock->name->getType()->value)
             ->andWhere('JSON_CONTAINS(b.settings, :settings) = 1')
             ->setParameter('settings', $settings->asJsonString());
 

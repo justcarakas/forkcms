@@ -16,6 +16,7 @@ final class GenerateSlug extends AbstractAjaxActionController
     {
     }
 
+    #[\Override]
     protected function execute(Request $request): void
     {
         $slug = $request->request->get('slug', '');

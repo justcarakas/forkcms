@@ -14,12 +14,13 @@ use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\MessageCatalogue;
 
 #[AutoconfigureTag('translation.loader', attributes: ['alias' => 'db'])]
-final class ForkTranslationLoader implements LoaderInterface
+final readonly class ForkTranslationLoader implements LoaderInterface
 {
-    public function __construct(private readonly TranslationRepository $translationRepository)
+    public function __construct(private TranslationRepository $translationRepository)
     {
     }
 
+    #[\Override]
     public function load(mixed $resource, string $locale, string $domain = 'messages'): MessageCatalogue
     {
         $forkLocale = Locale::from($locale);
@@ -30,12 +31,12 @@ final class ForkTranslationLoader implements LoaderInterface
             $translations = $this->translationRepository->findBy(
                 [
                     'locale' => $forkLocale->value,
-                    'domain.application' => $translationDomain->getApplication()->value,
-                    'domain.moduleName' => $translationDomain->getModuleName(),
+                    'domain.application' => $translationDomain->application->value,
+                    'domain.moduleName' => $translationDomain->moduleName,
                 ]
             );
             foreach ($translations as $translation) {
-                $catalogue->set((string) $translation->getKey(), $translation->getValue(), $domain);
+                $catalogue->set((string) $translation->key, $translation->value, $domain);
             }
 
             $monthDate = new DateTime('first day of January');

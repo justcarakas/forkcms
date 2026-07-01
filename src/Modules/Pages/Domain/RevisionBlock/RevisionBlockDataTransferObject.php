@@ -23,16 +23,16 @@ final class RevisionBlockDataTransferObject
         }
 
         // don't map the revision since changes should result in a new revision
-        $this->position = $revisionBlock->getPosition();
-        $this->editorContent = $revisionBlock->getEditorContent();
-        $this->isVisible = $revisionBlock->isVisible();
-        $this->sequence = $revisionBlock->getSequence();
-        $this->settings = $revisionBlock->getSettings()->all();
-        $this->block = $revisionBlock->getBlock();
+        $this->position = $revisionBlock->position;
+        $this->editorContent = $revisionBlock->editorContent;
+        $this->isVisible = $revisionBlock->isVisible;
+        $this->sequence = $revisionBlock->sequence;
+        $this->settings = $revisionBlock->settings->all();
+        $this->block = $revisionBlock->block;
     }
 
     public function getType(): Type
     {
-        return Type::fromBlockType($this->block?->getType());
+        return Type::fromBlockType($this->block?->type);
     }
 }

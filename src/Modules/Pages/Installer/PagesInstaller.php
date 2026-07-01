@@ -29,13 +29,15 @@ use ForkCMS\Modules\Pages\Frontend\Widgets\Sitemap;
 
 final class PagesInstaller extends ModuleInstaller
 {
-    public const IS_REQUIRED = true;
+    public const bool IS_REQUIRED = true;
 
+    #[\Override]
     public function preInstall(): void
     {
         $this->createTableForEntities(Page::class, Revision::class, RevisionBlock::class);
     }
 
+    #[\Override]
     public function install(): void
     {
         $this->importTranslations(__DIR__ . '/../assets/installer/translations.xml');
@@ -84,7 +86,7 @@ final class PagesInstaller extends ModuleInstaller
             'lbl.Sitemap',
             MenuType::FOOTER,
             createRevisionCallback: function (Locale $locale, CreateRevision $revision): void {
-                $revision->addBlock('main', $this->getOrCreateFrontendBlock(Sitemap::getModuleBlock()->getName()));
+                $revision->addBlock('main', $this->getOrCreateFrontendBlock(Sitemap::getModuleBlock()->name));
             }
         );
         $this->setPagesAutoIncrement(Page::PAGE_ID_404);

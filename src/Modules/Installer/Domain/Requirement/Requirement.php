@@ -2,12 +2,12 @@
 
 namespace ForkCMS\Modules\Installer\Domain\Requirement;
 
-final class Requirement
+final readonly class Requirement
 {
     private function __construct(
-        public readonly string $name,
-        public readonly RequirementStatus $status,
-        public readonly string $message
+        public string $name,
+        public RequirementStatus $status,
+        public string $message
     ) {
     }
 

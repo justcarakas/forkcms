@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class ContentBlockIndex extends AbstractDataGridActionController
 {
+    #[\Override]
     protected function execute(Request $request): void
     {
         $locale = $this->translator->getLocale();

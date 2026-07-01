@@ -4,9 +4,11 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Importer;
 
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Core\Domain\Util\Ensure;
+use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleRepository;
+use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocale;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\InstalledLocaleRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Event\TranslationChangedEvent;
@@ -23,19 +25,19 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Translation\Translator;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class Importer
+final readonly class Importer
 {
     /** @param ServiceLocator<ImporterInterface> $importers */
     public function __construct(
-        #[AutowireLocator('forkcms.translation.importer')]
-        private readonly ServiceLocator $importers,
+        #[AutowireLocator(ImporterInterface::class)]
+        private ServiceLocator $importers,
         #[Autowire(param: 'kernel.cache_dir')]
-        private readonly string $cacheDir,
-        private readonly TranslationRepository $translationRepository,
-        private readonly InstalledLocaleRepository $installedLocaleRepository,
-        private readonly ModuleRepository $moduleRepository,
-        private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly TranslatorInterface $translator
+        private string $cacheDir,
+        private TranslationRepository $translationRepository,
+        private InstalledLocaleRepository $installedLocaleRepository,
+        private ModuleRepository $moduleRepository,
+        private EventDispatcherInterface $eventDispatcher,
+        private TranslatorInterface $translator
     ) {
     }
 
@@ -68,12 +70,12 @@ final class Importer
                 continue;
             }
 
-            if ($translation->getDomain()->getApplication() === Application::INSTALLER) {
+            if ($translation->domain->application === Application::INSTALLER) {
                 ModuleInstaller::addInstallerTranslation(
-                    $translation->getLocale()->value,
-                    $translation->getDomain()->getDomain(),
-                    (string) $translation->getKey(),
-                    $translation->getValue()
+                    $translation->locale->value,
+                    $translation->domain->getDomain(),
+                    (string) $translation->key,
+                    $translation->value
                 );
                 $importResult->addImported();
                 continue;
@@ -94,8 +96,8 @@ final class Importer
     }
 
     /**
-     * @param array<string, mixed> $locales
-     * @param array<string, mixed> $modules
+     * @param array<string, InstalledLocale> $locales
+     * @param array<string, Module> $modules
      */
     private function shouldSkipTranslation(
         Translation $translation,
@@ -104,15 +106,15 @@ final class Importer
         string $fallbackLocale,
         ?Locale $specificLocale,
     ): bool {
-        $application = $translation->getDomain()->getApplication();
-        $moduleName = $translation->getDomain()->getModuleName();
-        $locale = $translation->getLocale()->value;
+        $application = $translation->domain->application;
+        $moduleName = $translation->domain->moduleName;
+        $locale = $translation->locale->value;
 
-        if ($moduleName instanceof ModuleName && !array_key_exists($moduleName->getName(), $modules)) {
+        if ($moduleName instanceof ModuleName && !array_key_exists($moduleName->name, $modules)) {
             return true;
         }
 
-        if ($specificLocale !== null && $specificLocale !== $translation->getLocale()) {
+        if ($specificLocale !== null && $specificLocale !== $translation->locale) {
             return true;
         }
 
@@ -121,8 +123,8 @@ final class Importer
         }
 
         return !array_key_exists($locale, $locales)
-            || ($application === Application::FRONTEND && !$locales[$locale]->isEnabledForWebsite())
-            || ($application === Application::BACKEND && !$locales[$locale]->isEnabledForUser());
+            || ($application === Application::FRONTEND && !$locales[$locale]->isEnabledForWebsite)
+            || ($application === Application::BACKEND && !$locales[$locale]->isEnabledForUser);
     }
 
     /**
@@ -136,14 +138,14 @@ final class Importer
         array &$newTranslations,
         ImportResult $importResult,
     ): void {
-        $existingTranslation = $existingTranslations[$translation->getId()]
-            ?? $newTranslations[$translation->getId()]
-            ?? $this->translationRepository->find($translation->getId());
+        $existingTranslation = $existingTranslations[$translation->id]
+            ?? $newTranslations[$translation->id]
+            ?? $this->translationRepository->find($translation->id);
 
         if ($existingTranslation !== null) {
             if ($overwriteConflicts) {
-                $existingTranslation->change($translation->getValue());
-                $existingTranslations[$translation->getId()] = $existingTranslation;
+                $existingTranslation->change($translation->value);
+                $existingTranslations[$translation->id] = $existingTranslation;
                 $importResult->addUpdated();
 
                 return;
@@ -154,7 +156,7 @@ final class Importer
             return;
         }
 
-        $newTranslations[$translation->getId()] = $translation;
+        $newTranslations[$translation->id] = $translation;
         $importResult->addImported();
     }
 

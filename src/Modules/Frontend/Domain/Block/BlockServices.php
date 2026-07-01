@@ -11,17 +11,17 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
-final class BlockServices
+final readonly class BlockServices
 {
     public function __construct(
-        public readonly EntityManagerInterface $entityManager,
-        public readonly Environment $twig,
-        public readonly TranslatorInterface $translator,
-        public readonly Header $header,
-        public readonly RouterInterface $router,
-        public readonly FormFactoryInterface $formFactory,
-        public readonly MessageBusInterface $commandBus,
-        public readonly AuthorizationCheckerInterface $authorizationChecker,
+        public EntityManagerInterface $entityManager,
+        public Environment $twig,
+        public TranslatorInterface $translator,
+        public Header $header,
+        public RouterInterface $router,
+        public FormFactoryInterface $formFactory,
+        public MessageBusInterface $commandBus,
+        public AuthorizationCheckerInterface $authorizationChecker,
     ) {
     }
 }

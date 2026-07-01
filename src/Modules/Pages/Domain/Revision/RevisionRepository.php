@@ -11,13 +11,12 @@ use ForkCMS\Modules\Frontend\Domain\Meta\RepositoryWithMetaTrait;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Pages\Domain\Page\NavigationBuilder;
 use ForkCMS\Modules\Pages\Domain\Page\Page;
-use ForkCMS\Modules\Pages\Domain\RevisionBlock\RevisionBlock;
 
 /**
  * @method Revision|null find($id, $lockMode = null, $lockVersion = null)
  * @method Revision|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Revision[] findAll()
- * @method Revision[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
+ * @method Revision[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null) // phpcs:ignore Generic.Files.LineLength.TooLong
  * @extends ServiceEntityRepository<Revision>
  */
 final class RevisionRepository extends ServiceEntityRepository implements MetaCallbackService
@@ -36,11 +35,11 @@ final class RevisionRepository extends ServiceEntityRepository implements MetaCa
     {
         $entityManager = $this->getEntityManager();
 
-        $revision->getMeta()->setSlug($this->slugify($revision->getTitle(), $revision, $revision->getLocale()));
+        $revision->meta->slug = $this->slugify($revision->title, $revision, $revision->getLocale());
         $entityManager->persist($revision);
         $entityManager->flush();
-        if ($revision->getPage()->getId() === Page::PAGE_ID_HOME) {
-            $revision->getMeta()->setSlug('');
+        if ($revision->page->id === Page::PAGE_ID_HOME) {
+            $revision->meta->slug = '';
             $entityManager->flush();
         }
         $this->navigationBuilder->clearNavigationCache();
@@ -54,6 +53,7 @@ final class RevisionRepository extends ServiceEntityRepository implements MetaCa
         $this->navigationBuilder->clearNavigationCache();
     }
 
+    /** @TODO verify if used */
     public function generateSlug(string $slug, Locale $locale, ?int $revisionId): string
     {
         if ($revisionId === null) {
@@ -73,18 +73,18 @@ final class RevisionRepository extends ServiceEntityRepository implements MetaCa
             ->andWhere($entityAlias . '.locale = :locale')
             ->setParameter('locale', ($subject?->getLocale() ?? $locale)->value);
         if ($subject !== null) {
-            if ($subject->getPage()->hasId()) {
+            if ($subject->page->hasId()) {
                 $queryBuilder
                     ->andWhere($entityAlias . '.page != :page')
-                    ->setParameter('page', $subject->getPage());
+                    ->setParameter('page', $subject->page);
             }
-            if ($subject->getParentPage() === null) {
+            if ($subject->parentPage === null) {
                 $queryBuilder
                     ->andWhere($entityAlias . '.parentPage IS NULL');
             } else {
                 $queryBuilder
                     ->andWhere($entityAlias . '.parentPage = :parentPage')
-                    ->setParameter('parentPage', $subject->getParentPage());
+                    ->setParameter('parentPage', $subject->parentPage);
             }
         }
     }
@@ -98,7 +98,7 @@ final class RevisionRepository extends ServiceEntityRepository implements MetaCa
             ->innerJoin('r.blocks', 'rb')
             ->innerJoin('rb.block', 'b')
             ->andWhere('b.id = :blockId')
-            ->setParameter('blockId', $block->getId());
+            ->setParameter('blockId', $block->id);
 
         if ($onlyActive) {
             $queryBuilder->andWhere('r.archivedOn IS NULL');
@@ -114,9 +114,9 @@ final class RevisionRepository extends ServiceEntityRepository implements MetaCa
         $this->getEntityManager()->getFilters()->disable('softdeleteable');
 
         foreach ($this->findRevisionsForFrontendBlock($block, onlyActive: false) as $revision) {
-            foreach ($revision->getBlocks() as $revisionBlock) {
-                $revisionBlockFrontendBlock = $revisionBlock->getBlock();
-                if ($revisionBlockFrontendBlock !== null && $revisionBlockFrontendBlock->getId() === $block->getId()) {
+            foreach ($revision->blocks as $revisionBlock) {
+                $revisionBlockFrontendBlock = $revisionBlock->block;
+                if ($revisionBlockFrontendBlock !== null && $revisionBlockFrontendBlock->id === $block->id) {
                     $revision->removeBlock($revisionBlock);
                 }
             }

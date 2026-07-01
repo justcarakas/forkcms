@@ -11,6 +11,7 @@ final class ActionName implements Stringable, BlockName
 {
     use NamedIdentifier;
 
+    #[\Override]
     public function getType(): Type
     {
         return Type::ACTION;

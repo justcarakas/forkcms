@@ -26,6 +26,7 @@ final class PageEdit extends AbstractFormActionController
         parent::__construct($actionServices);
     }
 
+    #[\Override]
     protected function getFormResponse(Request $request): ?Response
     {
         $revision = $request->query->has('revision')

@@ -12,6 +12,7 @@ enum MenuType: string implements TranslatableInterface
     case FOOTER = 'footer';
     case ROOT = 'root';
 
+    #[\Override]
     public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         return $translator->trans('lbl.' . ucfirst($this->value), locale: $locale);

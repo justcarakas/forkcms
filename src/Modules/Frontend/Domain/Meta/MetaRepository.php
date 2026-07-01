@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
  * @method Meta|null find($id, $lockMode = null, $lockVersion = null)
  * @method Meta|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method Meta[] findAll()
- * @method Meta[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
+ * @method Meta[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null) // phpcs:ignore Generic.Files.LineLength.TooLong
  * @extends ServiceEntityRepository<Meta>
  */
 final class MetaRepository extends ServiceEntityRepository
@@ -21,14 +21,14 @@ final class MetaRepository extends ServiceEntityRepository
     /** @param ServiceLocator<MetaCallbackService> $metaCallbacks */
     public function __construct(
         ManagerRegistry $registry,
-        #[AutowireLocator('forkcms.frontend.meta.callback')]
+        #[AutowireLocator(MetaCallbackService::class)]
         private readonly ServiceLocator $metaCallbacks
     ) {
         parent::__construct($registry, Meta::class);
     }
 
     /**
-     * Generate an url, using the predefined callback.
+     * Generate a url, using the predefined callback.
      *
      * @param string $url the base-url to start from
      * @param string $class The Fully Qualified Class Name or service name
