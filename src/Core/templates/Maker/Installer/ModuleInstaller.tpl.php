@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use ForkCMS\Core\Domain\Maker\Util\Entity;
 
 /**
@@ -10,7 +12,7 @@ use ForkCMS\Core\Domain\Maker\Util\Entity;
  * @global Entity[] $entities
  */
 ?>
-<?= "<?php\n"; ?>
+<?= "<?php\n\ndeclare(strict_types=1);\n"; ?>
 
 namespace <?= $namespace ?>;
 

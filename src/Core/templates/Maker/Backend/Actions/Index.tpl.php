@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @global string $class_name
  * @global string $namespace
@@ -6,7 +8,7 @@
  * @global string $entity
  */
 ?>
-<?= "<?php\n"; ?>
+<?= "<?php\n\ndeclare(strict_types=1);\n"; ?>
 
 namespace <?= $namespace ?>;
 
