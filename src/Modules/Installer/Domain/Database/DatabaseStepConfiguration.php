@@ -93,7 +93,7 @@ final class DatabaseStepConfiguration implements InstallerStepConfiguration
             $_ENV['FORK_DATABASE_USER'],
             $_ENV['FORK_DATABASE_PASSWORD'],
             $_ENV['FORK_DATABASE_NAME'],
-            $_ENV['FORK_DATABASE_PORT'],
+            (int) $_ENV['FORK_DATABASE_PORT'],
         );
     }
 

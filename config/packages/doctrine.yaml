@@ -1,5 +1,5 @@
 parameters:
-  env(FORK_DATABASE_VERSION): '5.7.32'
+  env(FORK_DATABASE_VERSION): '8.0.0'
 doctrine:
   dbal:
     default_connection: default
