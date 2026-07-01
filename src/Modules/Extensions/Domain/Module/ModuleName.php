@@ -63,6 +63,11 @@ final class ModuleName implements Stringable, JsonSerializable
         return self::fromString('Core');
     }
 
+    public function isCore(): bool
+    {
+        return $this->name === self::core()->name;
+    }
+
     public static function installer(): self
     {
         return self::fromString('Installer');

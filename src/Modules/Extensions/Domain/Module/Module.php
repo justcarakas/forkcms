@@ -7,6 +7,7 @@ namespace ForkCMS\Modules\Extensions\Domain\Module;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Backend\Domain\User\Blameable;
 use Stringable;
 
@@ -37,12 +38,19 @@ class Module implements Stringable
 
     public function __toString(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     public function getPath(): string
     {
-        return realpath(__DIR__ . '/../../../../Modules/' . $this->name);
+        if ($this->name->isCore()) {
+            return realpath(__DIR__ . '/../../../../Core');
+        }
+
+        return Ensure::isString(
+            realpath(__DIR__ . '/../../../../Modules/' . $this->name),
+            sprintf('The module %s does not exist', $this->name)
+        );
     }
 
     public function getAssetsPath(): string
