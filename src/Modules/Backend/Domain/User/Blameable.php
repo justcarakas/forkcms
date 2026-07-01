@@ -12,38 +12,28 @@ trait Blameable
     #[Gedmo\Blameable(on: 'create')]
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'createdBy')]
-    private ?User $createdBy;
+    private(set) ?User $createdBy;
 
     #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private DateTimeImmutable $createdOn;
+    private(set) DateTimeImmutable $createdOn;
 
     #[Gedmo\Blameable]
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'updatedBy')]
-    private ?User $updatedBy;
+    // phpcs:disable -- property hooks are not yet supported
+    private(set) ?User $updatedBy {
+        get => $this->updatedBy ?? $this->createdBy;
+    }
+    // phpcs:enable
 
     #[Gedmo\Timestampable]
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private DateTimeImmutable $updatedOn;
-
-    public function getCreatedBy(): ?User
-    {
-        return $this->createdBy;
+    // phpcs:disable
+    private(set) DateTimeImmutable $updatedOn {
+        get {
+            return $this->updatedOn ?? $this->createdOn;
+        }
     }
-
-    public function getCreatedOn(): DateTimeImmutable
-    {
-        return $this->createdOn;
-    }
-
-    public function getUpdatedBy(): ?User
-    {
-        return $this->updatedBy ?? $this->createdBy;
-    }
-
-    public function getUpdatedOn(): DateTimeImmutable
-    {
-        return $this->updatedOn ?? $this->createdOn;
-    }
+    // phpcs:enable
 }

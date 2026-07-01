@@ -13,6 +13,7 @@ enum Application: string implements TranslatableInterface
     case CONSOLE = 'console';
     case API = 'api';
 
+    #[\Override]
     public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         return $translator->trans('lbl.Application' . ucfirst($this->value), locale: $locale);

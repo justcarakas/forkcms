@@ -28,6 +28,7 @@ final class WebpackConfigCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $config = ['themes' => [], 'modules' => []];
@@ -38,7 +39,7 @@ final class WebpackConfigCommand extends Command
             }
 
             $config['themes'][] = [
-                'name' => $theme->getName(),
+                'name' => $theme->name,
                 'path' => $assetsPath,
                 'js' => is_dir($assetsPath . '/js'),
                 'scss' => is_dir($assetsPath . '/scss'),
@@ -58,7 +59,7 @@ final class WebpackConfigCommand extends Command
             }
 
             $config['modules'][] = [
-                'name' => $module->getName()->getName(),
+                'name' => $module->name->name,
                 'path' => $assetsPath,
             ];
         }

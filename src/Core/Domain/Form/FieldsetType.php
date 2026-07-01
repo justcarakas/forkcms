@@ -10,11 +10,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /** @extends AbstractType<array<string, mixed>> */
 final class FieldsetType extends AbstractType
 {
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $options['fields']($builder);
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver

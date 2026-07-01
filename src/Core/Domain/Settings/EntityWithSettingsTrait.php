@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait EntityWithSettingsTrait
 {
     #[ORM\Column(type: SettingsBagDBALType::class)]
-    private SettingsBag $settings;
+    private(set) SettingsBag $settings;
 
     public function hasSetting(string $name): bool
     {
@@ -27,10 +27,5 @@ trait EntityWithSettingsTrait
     public function setSetting(string $name, mixed $value): void
     {
         $this->settings->set($name, $value);
-    }
-
-    public function getSettings(): SettingsBag
-    {
-        return $this->settings;
     }
 }

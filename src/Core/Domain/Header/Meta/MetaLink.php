@@ -10,7 +10,7 @@ final class MetaLink
     /** @var string[] */
     private array $attributes;
 
-    private string $uniqueKey;
+    private(set) string $uniqueKey;
 
     /**
      * @param string $href since we always need a href we've added it as a separate parameter
@@ -51,11 +51,6 @@ final class MetaLink
                 )
             )
         );
-    }
-
-    public function getUniqueKey(): string
-    {
-        return $this->uniqueKey;
     }
 
     public function hasAttributeWithValue(string $attributeKey, string $attributeValue): bool

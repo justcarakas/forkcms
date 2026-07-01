@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class ModuleUpload extends AbstractActionController
 {
+    #[\Override]
     protected function execute(Request $request): void
     {
         // TODO: Implement execute() method.

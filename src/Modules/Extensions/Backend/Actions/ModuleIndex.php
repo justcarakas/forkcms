@@ -24,6 +24,7 @@ final class ModuleIndex extends AbstractActionController
         parent::__construct($actionServices);
     }
 
+    #[\Override]
     protected function execute(Request $request): void
     {
         $installedModules = $this->moduleRepository->findAllIndexed();
@@ -31,10 +32,10 @@ final class ModuleIndex extends AbstractActionController
         $installed = [];
         $notInstalled = [];
         foreach ($this->moduleInstallerLocator->getModuleInstallersForOverview() as $installer) {
-            if (array_key_exists($installer::getModuleName()->getName(), $installedModules)) {
-                $installed[$installer::getModuleName()->getName()] = $installer->getInformation();
+            if (array_key_exists($installer::getModuleName()->name, $installedModules)) {
+                $installed[$installer::getModuleName()->name] = $installer->getInformation();
             } else {
-                $notInstalled[$installer::getModuleName()->getName()] = $installer->getInformation();
+                $notInstalled[$installer::getModuleName()->name] = $installer->getInformation();
             }
         }
         $this->assign(
@@ -53,7 +54,7 @@ final class ModuleIndex extends AbstractActionController
                     new Column(
                         name: 'moduleName',
                         label: 'lbl.Install',
-                        valueCallback: [$this, 'getInstallButton'],
+                        valueCallback: $this->getInstallButton(...),
                         html: true,
                         showColumnLabel: false,
                     )

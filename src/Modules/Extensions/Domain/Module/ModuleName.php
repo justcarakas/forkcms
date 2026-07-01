@@ -12,7 +12,7 @@ final class ModuleName implements Stringable, JsonSerializable
 {
     use NamedIdentifier;
 
-    public const ROLE_PREFIX = 'ROLE_MODULE__';
+    public const string ROLE_PREFIX = 'ROLE_MODULE__';
 
     public static function fromFQCN(string $fullyQualifiedClassName): self
     {
@@ -28,7 +28,9 @@ final class ModuleName implements Stringable, JsonSerializable
                 return self::core();
             }
 
-            throw new InvalidArgumentException('Can only be created from a module classes: ' . $fullyQualifiedClassName);
+            throw new InvalidArgumentException(
+                'Can only be created from a module classes: ' . $fullyQualifiedClassName
+            );
         }
 
         return self::fromString($matches[1]);
@@ -51,7 +53,7 @@ final class ModuleName implements Stringable, JsonSerializable
 
     public function asRole(): string
     {
-        return self::ROLE_PREFIX . strtoupper(Container::underscore($this->getName()));
+        return self::ROLE_PREFIX . strtoupper(Container::underscore($this->name));
     }
 
     public static function core(): self

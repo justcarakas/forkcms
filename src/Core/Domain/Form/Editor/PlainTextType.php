@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 /** @extends AbstractType<string> */
 final class PlainTextType extends AbstractType implements EditorTypeImplementationInterface
 {
+    #[\Override]
     public function getParent(): string
     {
         return TextareaType::class;
@@ -24,6 +25,7 @@ final class PlainTextType extends AbstractType implements EditorTypeImplementati
         return $content;
     }
 
+    #[\Override]
     public function getBlockPrefix(): string
     {
         return 'plain_text_editor';

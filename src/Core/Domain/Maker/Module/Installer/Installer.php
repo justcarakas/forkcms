@@ -13,7 +13,7 @@ final class Installer
     public static function generate(Generator $generator, ModuleInfo $moduleInfo, bool $isRequired, bool $isHiddenFromOverview, array $entities): void
     {
         $installerClass = $generator->createClassNameDetails(
-            $moduleInfo->name->getName() . 'Installer',
+            $moduleInfo->name . 'Installer',
             $moduleInfo->namespace . 'Installer'
         );
         $generator->generateClass(

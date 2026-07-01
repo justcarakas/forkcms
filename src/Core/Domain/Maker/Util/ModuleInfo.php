@@ -7,9 +7,9 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use InvalidArgumentException;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 
-final class ModuleInfo
+final readonly class ModuleInfo
 {
-    public function __construct(public readonly ModuleName $name, public readonly string $namespace)
+    public function __construct(public ModuleName $name, public string $namespace)
     {
     }
 
@@ -38,6 +38,6 @@ final class ModuleInfo
             }
         );
 
-        return new self($Name, 'Modules\\' . $Name->getName() . '\\');
+        return new self($Name, 'Modules\\' . $Name->name . '\\');
     }
 }

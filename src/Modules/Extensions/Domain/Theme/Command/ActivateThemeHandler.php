@@ -8,11 +8,11 @@ use ForkCMS\Modules\Extensions\Domain\Theme\Event\ThemeActivatedEvent;
 use ForkCMS\Modules\Extensions\Domain\Theme\ThemeRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-final class ActivateThemeHandler implements CommandHandlerInterface
+final readonly class ActivateThemeHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly ThemeRepository $themeRepository,
-        private readonly EventDispatcherInterface $eventDispatcher
+        private ThemeRepository $themeRepository,
+        private EventDispatcherInterface $eventDispatcher
     ) {
     }
 

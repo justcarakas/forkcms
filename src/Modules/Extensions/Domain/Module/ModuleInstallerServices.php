@@ -13,21 +13,21 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ModuleInstallerServices
+final readonly class ModuleInstallerServices
 {
     public function __construct(
-        public readonly CreateSchema $createSchema,
-        public readonly ModuleRepository $moduleRepository,
-        public readonly NavigationItemRepository $navigationRepository,
-        public readonly UserGroupRepository $userGroupRepository,
-        public readonly TranslationRepository $translationRepository,
-        public readonly InstalledLocaleRepository $installedLocaleRepository,
-        public readonly Importer $importer,
-        public readonly TokenStorageInterface $tokenStorage,
-        public readonly EntityManagerInterface $entityManager,
-        public readonly MessageBusInterface $commandBus,
-        public readonly ModuleSettings $moduleSettings,
-        public readonly TranslatorInterface $translator
+        public CreateSchema $createSchema,
+        public ModuleRepository $moduleRepository,
+        public NavigationItemRepository $navigationRepository,
+        public UserGroupRepository $userGroupRepository,
+        public TranslationRepository $translationRepository,
+        public InstalledLocaleRepository $installedLocaleRepository,
+        public Importer $importer,
+        public TokenStorageInterface $tokenStorage,
+        public EntityManagerInterface $entityManager,
+        public MessageBusInterface $commandBus,
+        public ModuleSettings $moduleSettings,
+        public TranslatorInterface $translator
     ) {
     }
 }

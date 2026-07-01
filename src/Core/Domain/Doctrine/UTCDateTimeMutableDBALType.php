@@ -23,6 +23,7 @@ class UTCDateTimeMutableDBALType extends DateTimeType
      *
      * @return string|null
      */
+    #[\Override]
     public function convertToDatabaseValue(mixed $dateTime, AbstractPlatform $platform): ?string
     {
         if ($dateTime instanceof DateTime) {
@@ -40,6 +41,7 @@ class UTCDateTimeMutableDBALType extends DateTimeType
      *
      * @return DateTime|null
      */
+    #[\Override]
     public function convertToPHPValue(mixed $dateTimeString, AbstractPlatform $platform): ?DateTime
     {
         if (null === $dateTimeString || $dateTimeString instanceof DateTime) {

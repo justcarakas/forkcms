@@ -11,7 +11,7 @@ final class DependencyInjection
     public static function generate(Generator $generator, ModuleInfo $moduleInfo): void
     {
         $dependencyInjectionClass = $generator->createClassNameDetails(
-            $moduleInfo->name->getName() . 'Extension',
+            $moduleInfo->name . 'Extension',
             $moduleInfo->namespace . 'DependencyInjection'
         );
         $modulePath = dirname(

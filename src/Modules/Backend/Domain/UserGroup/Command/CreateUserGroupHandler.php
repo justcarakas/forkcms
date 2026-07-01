@@ -8,11 +8,11 @@ use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroupRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-final class CreateUserGroupHandler implements CommandHandlerInterface
+final readonly class CreateUserGroupHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly UserGroupRepository $userGroupRepository,
-        private readonly EventDispatcherInterface $eventDispatcher,
+        private UserGroupRepository $userGroupRepository,
+        private EventDispatcherInterface $eventDispatcher,
     ) {
     }
 

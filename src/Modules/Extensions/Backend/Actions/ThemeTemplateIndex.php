@@ -14,6 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 final class ThemeTemplateIndex extends AbstractDataGridActionController
 {
+    #[\Override]
     protected function execute(Request $request): void
     {
         $theme = $this->getTheme($request);

@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class UserGroupDelete extends AbstractDeleteActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): RedirectResponse
     {
         $userGroup = $this->getEntityFromRequestOrNull($request, UserGroup::class, 'action.id');
@@ -22,7 +23,7 @@ final class UserGroupDelete extends AbstractDeleteActionController
             $request,
             DeleteUserGroup::class,
             UserGroupIndex::getActionSlug(),
-            successFlashMessage: FlashMessage::success('UserGroupDeleted', ['%userGroup%' => $userGroup?->getName()]),
+            successFlashMessage: FlashMessage::success('UserGroupDeleted', ['%userGroup%' => $userGroup->name]),
         );
     }
 }

@@ -19,7 +19,7 @@ final readonly class InstallModulesHandler implements CommandHandlerInterface
     public function __invoke(InstallModules $installModules): void
     {
         $moduleInstallers = $this->moduleInstallerLocator->getSortedUninstalledInstallersForModuleNames(
-            ...$installModules->getModuleNames()
+            ...$installModules->moduleNames
         );
 
         foreach ($moduleInstallers as $moduleInstaller) {
@@ -31,7 +31,7 @@ final readonly class InstallModulesHandler implements CommandHandlerInterface
             $moduleInstaller->install();
         }
 
-        $this->eventDispatcher->dispatch(new ModuleInstalledEvent(...$installModules->getModuleNames()));
+        $this->eventDispatcher->dispatch(new ModuleInstalledEvent(...$installModules->moduleNames));
         $this->eventDispatcher->dispatch(new ClearCacheEvent());
     }
 }

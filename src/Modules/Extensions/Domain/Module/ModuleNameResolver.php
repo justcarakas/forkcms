@@ -14,6 +14,7 @@ final class ModuleNameResolver implements ValueResolverInterface
     }
 
     /** @return array<ModuleName> */
+    #[\Override]
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         if ($argument->getType() !== ModuleName::class) {

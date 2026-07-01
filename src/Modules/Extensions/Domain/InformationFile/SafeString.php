@@ -7,9 +7,9 @@ use Stringable;
 use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
 use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
 
-final class SafeString implements Stringable
+final readonly class SafeString implements Stringable
 {
-    private function __construct(public readonly string $string)
+    private function __construct(public string $string)
     {
     }
 
@@ -20,6 +20,7 @@ final class SafeString implements Stringable
         return new self($sanitizer->sanitize(nl2br(trim($XMLElement))));
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->string;

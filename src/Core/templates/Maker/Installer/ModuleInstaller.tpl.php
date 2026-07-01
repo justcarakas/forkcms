@@ -21,10 +21,10 @@ use <?= $entity->entityClassNameDetails->getFullName() ?>;
 final class <?= $class_name; ?> extends ModuleInstaller
 {
 <?php if ($isRequired): ?>
-    public const IS_REQUIRED = true;
+    public const bool IS_REQUIRED = true;
 <?php endif; ?>
 <?php if ($hideFromOverview): ?>
-    public const IS_VISIBLE_IN_OVERVIEW = false;
+    public const bool IS_VISIBLE_IN_OVERVIEW = false;
 <?php endif; ?>
 
     public function preInstall(): void
@@ -36,6 +36,7 @@ final class <?= $class_name; ?> extends ModuleInstaller
         );
     }
 
+    #[\Override]
     public function install(): void
     {
         throw new \RuntimeException('Not implemented yet');

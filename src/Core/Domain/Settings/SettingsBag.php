@@ -139,6 +139,7 @@ final class SettingsBag implements JsonSerializable
     }
 
     /** @return array<string, mixed> */
+    #[\Override]
     public function jsonSerialize(): array
     {
         return $this->all();

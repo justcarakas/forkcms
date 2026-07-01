@@ -23,16 +23,16 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Twig\Environment;
 
 #[Autoconfigure(public: true)]
-final class BackendController
+final readonly class BackendController
 {
     /** @param ServiceLocator<ActionControllerInterface> $actions */
     public function __construct(
-        #[AutowireLocator('forkcms.backend.action')]
-        private readonly ServiceLocator $actions,
-        private readonly Environment $twig,
-        private readonly Navigation $navigation,
-        private readonly Header $header,
-        private readonly InstalledLocaleRepository $localeRepository,
+        #[AutowireLocator(ActionControllerInterface::class)]
+        private ServiceLocator $actions,
+        private Environment $twig,
+        private Navigation $navigation,
+        private Header $header,
+        private InstalledLocaleRepository $localeRepository,
     ) {
     }
 
@@ -43,7 +43,7 @@ final class BackendController
         $locales = $this->localeRepository->findAllIndexed();
         $this->configureTwigForAction($request, $actionSlug, $locales);
 
-        if (!$locales[$request->getLocale()]->isEnabledForWebsite()) {
+        if (!$locales[$request->getLocale()]->isEnabledForWebsite) {
             return $this->actions->get(NotFound::class)($request);
         }
 
@@ -71,10 +71,11 @@ final class BackendController
     {
         $this->navigation->parse($this->twig);
         $this->navigation->buildBreadcrumbs($this->header->breadcrumbs);
-        $this->header->addAssetsForAction($actionSlug->asModuleAction());
-        $this->twig->addGlobal('bodyID', Container::underscore($actionSlug->getModuleName()));
+        $moduleAction = $actionSlug->asModuleAction();
+        $this->header->addAssetsForAction($moduleAction);
+        $this->twig->addGlobal('bodyID', Container::underscore($actionSlug->moduleName->name));
         $this->twig->addGlobal('bodyClass', str_replace('/', '_', $actionSlug->getSlug()));
         $this->twig->addGlobal('LOCALES', $locales);
-        $this->twig->addGlobal('MODULE_ACTION', $actionSlug->asModuleAction());
+        $this->twig->addGlobal('MODULE_ACTION', $moduleAction);
     }
 }

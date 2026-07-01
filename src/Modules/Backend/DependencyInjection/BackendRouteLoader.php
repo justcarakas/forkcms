@@ -7,11 +7,11 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Routing\RouteCollection;
 
-final class BackendRouteLoader implements ModuleRouteProviderInterface
+final readonly class BackendRouteLoader implements ModuleRouteProviderInterface
 {
     public function __construct(
         #[Autowire(service: 'routing.loader.yml')]
-        private readonly YamlFileLoader $yamlFileLoader
+        private YamlFileLoader $yamlFileLoader
     ) {
     }
 

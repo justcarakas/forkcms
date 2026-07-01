@@ -36,14 +36,14 @@ final class ForkTemplateLoader extends FilesystemLoader
         $theme = ForkConnection::get()->getActiveTheme();
         $themePath = realpath(__DIR__ . '/../../../../Themes/' . $theme);
 
-        foreach ((new InstalledModules(true))() as $moduleName) {
+        foreach (new InstalledModules(true)() as $moduleName) {
             $themeTemplates = $themePath . '/templates/' . $moduleName;
             if ($themePath !== false && $filesystem->exists($themeTemplates)) {
-                $this->addPath($themeTemplates, $moduleName->getName());
+                $this->addPath($themeTemplates, $moduleName->name);
             }
             $moduleTemplates = $modulesDirectory . $moduleName . '/templates';
             if ($filesystem->exists($moduleTemplates)) {
-                $this->addPath($moduleTemplates, $moduleName->getName());
+                $this->addPath($moduleTemplates, $moduleName->name);
             }
         }
     }
@@ -71,7 +71,7 @@ final class ForkTemplateLoader extends FilesystemLoader
         $finder = new Finder();
         $finder->name('*.html.twig');
 
-        $basePaths = $this->getPaths($moduleName->getName());
+        $basePaths = $this->getPaths($moduleName->name);
         foreach ($basePaths as $basePath) {
             $isTheme = str_contains($basePath, 'src/Themes');
             if ($isTheme && $application === Application::FRONTEND) {

@@ -6,16 +6,17 @@ use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstaller;
 
 final class CoreInstaller extends ModuleInstaller
 {
-    public const IS_REQUIRED = true;
-    public const IS_VISIBLE_IN_OVERVIEW = false;
+    public const bool IS_REQUIRED = true;
 
+    public const bool IS_VISIBLE_IN_OVERVIEW = false;
+
+    #[\Override]
     public function install(): void
     {
         $this->setSetting(
             'date_formats_short',
             [
-                // @codingStandardsIgnoreLine
-                // php format  => IntlDateFormatter format (https://unicode-org.github.io/icu/userguide/format_parse/datetime/index#datetimepatterngenerator)
+                // php format  => IntlDateFormatter format (https://unicode-org.github.io/icu/userguide/format_parse/datetime/index#datetimepatterngenerator) // phpcs:ignore Generic.Files.LineLength.TooLong
                 'j/n/Y' => 'd/M/yyyy',
                 'j-n-Y' => 'd-M-yyyy',
                 'j.n.Y' => 'd.M.yyyy',
@@ -48,8 +49,7 @@ final class CoreInstaller extends ModuleInstaller
         $this->setSetting(
             'date_formats_long',
             [
-                // @codingStandardsIgnoreLine
-                // php format  => IntlDateFormatter format (https://unicode-org.github.io/icu/userguide/format_parse/datetime/index#datetimepatterngenerator)
+                // php format  => IntlDateFormatter format (https://unicode-org.github.io/icu/userguide/format_parse/datetime/index#datetimepatterngenerator) // phpcs:ignore Generic.Files.LineLength.TooLong
                 'j F Y' => 'd MMMM yyyy',
                 'D j F Y' => 'EEE d MMMM yyyy',
                 'l j F Y' => 'EEEE d MMMM yyyy',
@@ -69,8 +69,7 @@ final class CoreInstaller extends ModuleInstaller
         $this->setSetting(
             'time_formats',
             [
-                // @codingStandardsIgnoreLine
-                // php format  => IntlDateFormatter format (https://unicode-org.github.io/icu/userguide/format_parse/datetime/index#datetimepatterngenerator)
+                // php format  => IntlDateFormatter format (https://unicode-org.github.io/icu/userguide/format_parse/datetime/index#datetimepatterngenerator) // phpcs:ignore Generic.Files.LineLength.TooLong
                 'H:i' => 'kk:mm',
                 'g:i a' => 'h:mm a',
                 'H:i:s' => 'kk:mm:ss',

@@ -14,6 +14,7 @@ final class PageTitle implements Stringable
     {
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->getPageTitle();

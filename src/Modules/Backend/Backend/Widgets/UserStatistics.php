@@ -12,6 +12,7 @@ final class UserStatistics implements WidgetControllerInterface
     {
     }
 
+    #[\Override]
     public function __invoke(Request $request): string
     {
         return $this->twig->render('@Backend/Backend/Widgets/UserStatistics.html.twig');

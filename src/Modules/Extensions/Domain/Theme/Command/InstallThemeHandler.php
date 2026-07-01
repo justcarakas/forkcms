@@ -17,18 +17,18 @@ use ForkCMS\Modules\Frontend\Domain\Block\Type;
 use ForkCMS\Modules\Frontend\Domain\Widget\WidgetName;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-final class InstallThemeHandler implements CommandHandlerInterface
+final readonly class InstallThemeHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private readonly ThemeRepository $themeRepository,
-        private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly BlockRepository $blockRepository
+        private ThemeRepository $themeRepository,
+        private EventDispatcherInterface $eventDispatcher,
+        private BlockRepository $blockRepository
     ) {
     }
 
     public function __invoke(InstallTheme $installTheme): void
     {
-        foreach ($installTheme->theme->templates as $template) {
+        foreach ($installTheme->installableTheme->templates as $template) {
             if (!$template instanceof InstallableThemeTemplate) {
                 continue;
             }
@@ -53,7 +53,7 @@ final class InstallThemeHandler implements CommandHandlerInterface
                                     ARRAY_FILTER_USE_KEY
                                 )
                             )
-                        )?->getId();
+                        )?->id;
                     }
                     $position['blocks'] = array_filter($blocks, is_int(...));
 
@@ -61,12 +61,12 @@ final class InstallThemeHandler implements CommandHandlerInterface
                 }, $template->getPositions())
             );
         }
-        $theme = Theme::fromDataTransferObject($installTheme->theme);
-        $installTheme->theme->setTheme($theme);
+        $theme = Theme::fromDataTransferObject($installTheme->installableTheme);
+        $installTheme->installableTheme->setTheme($theme);
         $this->themeRepository->save($theme);
 
         $this->eventDispatcher->dispatch(new ThemeInstalledEvent($theme));
-        foreach ($theme->getTemplates() as $themeTemplate) {
+        foreach ($theme->templates as $themeTemplate) {
             $this->eventDispatcher->dispatch(new ThemeTemplateCreatedEvent($themeTemplate));
         }
     }

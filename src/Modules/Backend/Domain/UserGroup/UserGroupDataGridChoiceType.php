@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /** @extends AbstractType<array<string, mixed>> */
 final class UserGroupDataGridChoiceType extends AbstractType
 {
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
@@ -20,27 +21,30 @@ final class UserGroupDataGridChoiceType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'label' => false,
-                'choice_label' => static fn (UserGroup $userGroup): string => $userGroup->getName(),
+                'choice_label' => static fn (UserGroup $userGroup): string => $userGroup->name,
             ]
         );
     }
 
+    #[\Override]
     public function getParent(): string
     {
         return EntityType::class;
     }
 
+    #[\Override]
     public function getBlockPrefix(): string
     {
         return 'user_group_data_grid_choice';
     }
 
+    #[\Override]
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $possibleGroups = $options['choice_loader']->loadChoiceList()->getChoices();
 
         $view->vars['possibleGroups'] = array_combine(
-            array_map(static fn (UserGroup $userGroup): int => $userGroup->getId(), $possibleGroups),
+            array_map(static fn (UserGroup $userGroup): int => $userGroup->id, $possibleGroups),
             $possibleGroups
         );
     }

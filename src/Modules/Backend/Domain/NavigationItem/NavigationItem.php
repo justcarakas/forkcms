@@ -24,29 +24,29 @@ class NavigationItem
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
-    private int $id;
+    private(set) int $id;
 
     #[ORM\ManyToOne(targetEntity: NavigationItem::class, inversedBy: 'children')]
-    private ?self $parent;
+    private(set) ?self $parent;
 
     /**
      * @var Collection<int, NavigationItem>
      */
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: NavigationItem::class)]
+    #[ORM\OneToMany(targetEntity: NavigationItem::class, mappedBy: 'parent')]
     #[ORM\OrderBy(['sequence' => 'ASC'])]
-    private Collection $children;
+    private(set) Collection $children;
 
     #[ORM\Embedded(class: TranslationKey::class)]
-    private TranslationKey $label;
+    private(set) TranslationKey $label;
 
     #[ORM\Column(type: ActionSlugDBALType::class, nullable: true)]
-    private ?ActionSlug $slug;
+    private(set) ?ActionSlug $slug;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $visibleInNavigationMenu;
+    private(set) bool $visibleInNavigationMenu;
 
     #[ORM\Column(type: Types::INTEGER, options: ['unsigned' => true])]
-    private int $sequence;
+    private(set) int $sequence;
 
     public function __construct(
         TranslationKey $label,
@@ -66,32 +66,6 @@ class NavigationItem
         }
     }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function getParent(): NavigationItem
-    {
-        return $this->parent;
-    }
-
-    /** @return Collection<int, NavigationItem> */
-    public function getChildren(): Collection
-    {
-        return $this->children;
-    }
-
-    public function getLabel(): TranslationKey
-    {
-        return $this->label;
-    }
-
-    public function getSlug(): ?ActionSlug
-    {
-        return $this->slug;
-    }
-
     public function getModuleAction(): ?ModuleAction
     {
         if ($this->slug === null) {
@@ -101,23 +75,13 @@ class NavigationItem
         return $this->slug->asModuleAction();
     }
 
-    public function isVisibleInNavigationMenu(): bool
-    {
-        return $this->visibleInNavigationMenu;
-    }
-
-    public function getSequence(): int
-    {
-        return $this->sequence;
-    }
-
     private function getFallbackSequence(?self $parent = null): int
     {
         if ($parent === null) {
             throw new InvalidArgumentException('Cannot calculate next sequence, please pass a sequence as an argument');
         }
 
-        return $parent->getChildren()->count() + 1;
+        return $parent->children->count() + 1;
     }
 
     public function getFirstAvailableSlug(): ActionSlug
@@ -131,7 +95,7 @@ class NavigationItem
             return $this->slug;
         }
 
-        foreach ($this->getChildren() as $navigationItem) {
+        foreach ($this->children as $navigationItem) {
             $slug = $navigationItem->getSlugRecursive();
             if ($slug instanceof ActionSlug) {
                 return $slug;

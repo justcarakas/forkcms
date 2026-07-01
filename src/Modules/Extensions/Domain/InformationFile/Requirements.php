@@ -8,9 +8,9 @@ use SimpleXMLElement;
 use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
 use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
 
-final class Requirements implements \JsonSerializable
+final readonly class Requirements implements \JsonSerializable
 {
-    public function __construct(public readonly string $minimumVersion, public readonly string $maximumVersion)
+    public function __construct(public string $minimumVersion, public string $maximumVersion)
     {
     }
 
@@ -38,6 +38,7 @@ final class Requirements implements \JsonSerializable
     }
 
     /** @return array<string, string> */
+    #[\Override]
     public function jsonSerialize(): array
     {
         return [

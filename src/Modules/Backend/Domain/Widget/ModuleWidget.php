@@ -11,20 +11,16 @@ use Stringable;
 use Symfony\Component\DependencyInjection\Container;
 
 #[ORM\Embeddable]
-final class ModuleWidget implements Stringable
+final readonly class ModuleWidget implements Stringable
 {
-    public const ROLE_PREFIX = 'ROLE_MODULE_WIDGET__';
+    public const string ROLE_PREFIX = 'ROLE_MODULE_WIDGET__';
 
-    #[ORM\Column(type: ModuleNameDBALType::class)]
-    private ModuleName $module;
-
-    #[ORM\Column(type: WidgetNameDBALType::class)]
-    private WidgetName $widget;
-
-    public function __construct(ModuleName $module, WidgetName $widget)
-    {
-        $this->module = $module;
-        $this->widget = $widget;
+    public function __construct(
+        #[ORM\Column(type: ModuleNameDBALType::class)]
+        public ModuleName $module,
+        #[ORM\Column(type: WidgetNameDBALType::class)]
+        public WidgetName $widget,
+    ) {
         Assert::that($this->getFQCN())->classExists('Widget class not found');
     }
 
@@ -69,25 +65,16 @@ final class ModuleWidget implements Stringable
         return 'ForkCMS\\Modules\\' . $this->module . '\\Backend\\Widgets\\' . $this->widget;
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->getFQCN();
     }
 
-    public function getModule(): ModuleName
-    {
-        return $this->module;
-    }
-
-    public function getWidget(): WidgetName
-    {
-        return $this->widget;
-    }
-
     public function asRole(): string
     {
-        $identifier = Container::underscore($this->module->getName()) . '__' .
-            Container::underscore($this->widget->getName());
+        $identifier = Container::underscore($this->module->name) . '__' .
+                      Container::underscore($this->widget->name);
 
         return self::ROLE_PREFIX . strtoupper($identifier);
     }

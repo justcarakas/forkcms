@@ -2,7 +2,6 @@
 
 namespace ForkCMS\Modules\Extensions\Domain\ThemeTemplate;
 
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\QueryBuilder;
 use ForkCMS\Core\Domain\Form\CollectionType;
@@ -26,6 +25,7 @@ final class ThemeTemplatePositionType extends AbstractType
     ) {
     }
 
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -56,7 +56,7 @@ final class ThemeTemplatePositionType extends AbstractType
                         },
                         'label' => false,
                         'multiple' => false,
-                        'group_by' => fn (Block $block): string => $block->getType()->trans($this->translator),
+                        'group_by' => fn (Block $block): string => $block->type->trans($this->translator),
                     ],
                     'allow_add' => true,
                     'allow_delete' => true,
@@ -73,7 +73,7 @@ final class ThemeTemplatePositionType extends AbstractType
                         return array_map($this->blockRepository->find(...), $blocks);
                     },
                     static function (array $blocks = []) {
-                        return array_map(static fn (Block $block): int => $block->getId(), $blocks);
+                        return array_map(static fn (Block $block): int => $block->id, $blocks);
                     }
                 )
             );

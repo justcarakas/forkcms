@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class UserDelete extends AbstractDeleteActionController
 {
+    #[\Override]
     protected function getFormResponse(Request $request): RedirectResponse
     {
         $user = $this->getEntityFromRequestOrNull($request, User::class, 'action.id');
@@ -22,7 +23,10 @@ final class UserDelete extends AbstractDeleteActionController
             $request,
             DeleteUser::class,
             UserIndex::getActionSlug(),
-            FlashMessage::success('UserDeleted', ['%user%' => $user?->getDisplayName()]),
+            $user === null ? null : FlashMessage::success(
+                'UserDeleted',
+                ['%user%' => $user->displayName]
+            ),
             notFoundFlashMessage: FlashMessage::error('NonExistingUser')
         );
     }

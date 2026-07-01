@@ -10,11 +10,13 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class ExtensionsExtension extends ForkModuleExtension
 {
+    #[\Override]
     public function load(array $configs, ContainerBuilder $container): void
     {
         $this->getLoader($container)->load('services.yaml');
     }
 
+    #[\Override]
     public function prepend(ContainerBuilder $container): void
     {
         parent::prepend($container);

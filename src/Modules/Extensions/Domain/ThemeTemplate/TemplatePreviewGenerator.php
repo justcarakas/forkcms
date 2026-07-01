@@ -9,8 +9,8 @@ use ForkCMS\Core\Domain\Util\Ensure;
 use InvalidArgumentException;
 use Twig\Environment;
 
-#[AsEntityListener(event: Events::preFlush, method: 'generatePreview', entity: ThemeTemplate::class, lazy: true)]
-final class TemplatePreviewGenerator
+#[AsEntityListener(event: Events::preFlush, method: 'generatePreview', lazy: true, entity: ThemeTemplate::class)]
+final readonly class TemplatePreviewGenerator
 {
     public function __construct(private Environment $twig)
     {
@@ -18,7 +18,7 @@ final class TemplatePreviewGenerator
 
     public function generatePreview(ThemeTemplate $template): void
     {
-        $settings = $template->getSettings();
+        $settings = $template->settings;
         if (!$settings->hasChanges()) {
             return;
         }

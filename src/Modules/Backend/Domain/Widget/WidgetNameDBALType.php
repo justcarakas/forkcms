@@ -7,6 +7,7 @@ use Stringable;
 
 class WidgetNameDBALType extends ValueObjectDBALType
 {
+    #[\Override]
     protected function fromString(string $value): Stringable
     {
         return WidgetName::fromString($value);
