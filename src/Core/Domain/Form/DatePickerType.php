@@ -37,8 +37,6 @@ class DatePickerType extends DateType
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
-        $resolver->setDefault('widget', 'single_text');
-        $resolver->setDefault('format', 'dd/MM/yyyy');
         $resolver->setDefault('start', null);
         $resolver->setDefault('end', null);
         $resolver->setDefault('time', false);
