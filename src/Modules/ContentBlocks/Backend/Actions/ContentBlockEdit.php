@@ -14,6 +14,7 @@ use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockType;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Revision;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\RevisionRepository;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +29,7 @@ final class ContentBlockEdit extends AbstractFormActionController
     public function __construct(
         ActionServices $actionServices,
         private readonly ContentBlockRepository $contentBlockRepository,
+        private readonly RevisionRepository $revisionRepository,
     ) {
         parent::__construct($actionServices);
     }
@@ -37,7 +39,7 @@ final class ContentBlockEdit extends AbstractFormActionController
     {
         $contentBlock = $this->getEntityFromRequest($request, ContentBlock::class);
         $revisionId = $request->query->getInt('revision');
-        $revision = $revisionId === 0 ? $contentBlock->getActiveRevision() : $contentBlock->revisions->get($revisionId);
+        $revision = $this->revisionRepository->getRevision($contentBlock, $revisionId === 0 ? null : $revisionId);
         if (!$revision instanceof Revision) {
             throw new NotFoundHttpException('Revision not found');
         }

@@ -72,4 +72,22 @@ final class RevisionRepository extends ServiceEntityRepository
         }
         $entityManager->flush();
     }
+
+    public function getRevision(ContentBlock $contentBlock, ?int $revisionId = null): ?Revision
+    {
+        $queryBuilder = $this->createQueryBuilder('r')
+            ->innerJoin('r.contentBlock', 'c')
+            ->andWhere('r.contentBlock = :contentBlock')
+            ->setParameter('contentBlock', $contentBlock)
+            ->addSelect('c')
+            ->innerJoin('c.widget', 'w')
+            ->addSelect('w');
+        if ($revisionId !== null) {
+            $queryBuilder->andWhere('r.id = :revisionId')->setParameter('revisionId', $revisionId);
+        } else {
+            $queryBuilder->andWhere('r.archivedOn IS NULL');
+        }
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Command;
 
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
+use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Event\ContentBlockRevisionCreatedEvent;
@@ -52,10 +53,10 @@ final readonly class CreateContentBlockRevisionHandler implements CommandHandler
         $contentBlock->revisions->set($revision->id, $revision);
         $this->eventDispatcher->dispatch(new ContentBlockRevisionCreatedEvent($revision));
 
-        $maxRevisions = $this->moduleSettings->get(
+        $maxRevisions = Ensure::isNotNull($this->moduleSettings->get(
             ModuleName::fromFQCN(self::class),
             Revision::SETTING_MAX_REVISIONS_NAME,
-        );
+        ));
         $this->revisionRepository->deleteArchivedRevisionsBeyondLimit($contentBlock, $maxRevisions);
     }
 }
