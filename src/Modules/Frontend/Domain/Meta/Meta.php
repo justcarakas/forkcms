@@ -8,7 +8,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
-use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use ForkCMS\Modules\Backend\Domain\User\Blameable\CreatedAndUpdatedBy;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use JsonSerializable;
 
@@ -19,7 +19,7 @@ class Meta implements JsonSerializable
 {
     use EntityWithSettingsTrait;
 
-    use Blameable;
+    use CreatedAndUpdatedBy;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

@@ -13,7 +13,7 @@ use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
-use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use ForkCMS\Modules\Backend\Domain\User\Blameable\CreatedAndUpdatedBy;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Extensions\Domain\Module\Module;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
@@ -69,7 +69,7 @@ class Revision
     use EntityWithSettingsTrait;
     use EntityWithMetaTrait;
     use EntityWithLocaleTrait;
-    use Blameable;
+    use CreatedAndUpdatedBy;
 
     #[ORM\ManyToOne(targetEntity: Page::class, cascade: ['persist'], inversedBy: 'revisions')]
     #[ORM\JoinColumn(nullable: false)]
@@ -299,17 +299,5 @@ class Revision
         }
 
         return $attributes;
-    }
-
-    #[DataGridMethodColumn(label: 'lbl.LastEdited')]
-    public function getUpdatedOn(): DateTimeImmutable
-    {
-        return $this->updatedOn;
-    }
-
-    #[DataGridMethodColumn(label: 'lbl.By')]
-    public function getUpdatedBy(): ?User
-    {
-        return $this->updatedBy;
     }
 }

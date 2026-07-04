@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Core\Domain\Util\Ensure;
-use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use ForkCMS\Modules\Backend\Domain\User\Blameable\CreatedAndUpdatedBy;
 
 #[ORM\Entity(repositoryClass: InstalledLocaleRepository::class)]
 #[ORM\Index(name: 'idx_default_for_website', columns: ['isDefaultForWebsite'])]
@@ -17,7 +17,7 @@ use ForkCMS\Modules\Backend\Domain\User\Blameable;
 class InstalledLocale
 {
     use EntityWithSettingsTrait;
-    use Blameable;
+    use CreatedAndUpdatedBy;
 
     #[ORM\Id]
     #[ORM\Column(type: Types::STRING, length: 5, enumType: Locale::class)]

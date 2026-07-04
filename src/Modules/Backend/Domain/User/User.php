@@ -20,6 +20,7 @@ use ForkCMS\Modules\Backend\Backend\Actions\NotFound as ActionNotFound;
 use ForkCMS\Modules\Backend\Backend\Ajax\Forbidden as AjaxForbidden;
 use ForkCMS\Modules\Backend\Backend\Ajax\NotFound as AjaxNotFound;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
+use ForkCMS\Modules\Backend\Domain\User\Blameable\CreatedAndUpdatedBy;
 use ForkCMS\Modules\Backend\Domain\UserGroup\UserGroup;
 use Gedmo\Mapping\Annotation as Gedmo;
 use InvalidArgumentException;
@@ -50,7 +51,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    use Blameable;
+    use CreatedAndUpdatedBy;
 
     use EntityWithSettingsTrait;
 

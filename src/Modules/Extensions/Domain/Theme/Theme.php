@@ -10,7 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Doctrine\CollectionHelper;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
-use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use ForkCMS\Modules\Backend\Domain\User\Blameable\CreatedAndUpdatedBy;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplate;
 use ForkCMS\Modules\Extensions\Domain\ThemeTemplate\ThemeTemplateDataTransferObject;
 use RuntimeException;
@@ -20,7 +20,7 @@ class Theme
 {
     use EntityWithSettingsTrait;
 
-    use Blameable;
+    use CreatedAndUpdatedBy;
 
     #[ORM\Id]
     #[ORM\Column(type: Types::STRING, length: 255)]

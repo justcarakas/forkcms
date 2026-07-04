@@ -94,6 +94,20 @@
     <item type="label" name="EditedBy">
       <translation locale="nl"><![CDATA[bewerkt door]]></translation>
       <translation locale="en"><![CDATA[edited by]]></translation>
+      <translation locale="hu"><![CDATA[szerkesztő]]></translation>
+      <translation locale="it"><![CDATA[modificato da]]></translation>
+      <translation locale="ru"><![CDATA[Отредактировано:]]></translation>
+      <translation locale="zh"><![CDATA[编辑者]]></translation>
+      <translation locale="de"><![CDATA[bearbeitet von]]></translation>
+      <translation locale="fr"><![CDATA[édité par]]></translation>
+      <translation locale="es"><![CDATA[editado por]]></translation>
+      <translation locale="lt"><![CDATA[redagavo]]></translation>
+      <translation locale="uk"><![CDATA[Редактор]]></translation>
+      <translation locale="sv"><![CDATA[Redigerad av]]></translation>
+      <translation locale="el"><![CDATA[μεταβλήθηκε από]]></translation>
+      <translation locale="pt"><![CDATA[editado por]]></translation>
+      <translation locale="pl"><![CDATA[edytowany przez]]></translation>
+      <translation locale="tr"><![CDATA[düzenleyen]]></translation>
     </item>
     <item type="label" name="LastEditedOn">
       <translation locale="nl"><![CDATA[laatst bewerkt op]]></translation>
@@ -115,6 +129,20 @@
     <item type="label" name="LastEditedBy">
       <translation locale="nl"><![CDATA[laatst bewerkt door]]></translation>
       <translation locale="en"><![CDATA[last edited by]]></translation>
+      <translation locale="hu"><![CDATA[utoljára szerkesztő]]></translation>
+      <translation locale="it"><![CDATA[ultima modifica di]]></translation>
+      <translation locale="ru"><![CDATA[Последний редактор:]]></translation>
+      <translation locale="zh"><![CDATA[最后编辑者]]></translation>
+      <translation locale="de"><![CDATA[zuletzt bearbeitet von]]></translation>
+      <translation locale="fr"><![CDATA[dernière édition par]]></translation>
+      <translation locale="es"><![CDATA[última edición por]]></translation>
+      <translation locale="lt"><![CDATA[paskutinį kartą redagavo]]></translation>
+      <translation locale="uk"><![CDATA[Останній редактор]]></translation>
+      <translation locale="sv"><![CDATA[Senast redigerad av]]></translation>
+      <translation locale="el"><![CDATA[τελευταία μεταβλήθηκε από]]></translation>
+      <translation locale="pt"><![CDATA[última edição por]]></translation>
+      <translation locale="pl"><![CDATA[ostatnio edytowany przez]]></translation>
+      <translation locale="tr"><![CDATA[son düzenleyen]]></translation>
     </item>
     <item type="label" name="CreatedOn">
       <translation locale="en"><![CDATA[created on]]></translation>
@@ -128,14 +156,29 @@
       <translation locale="es"><![CDATA[creado en]]></translation>
       <translation locale="lt"><![CDATA[sukurta -]]></translation>
       <translation locale="uk"><![CDATA[Створено в]]></translation>
-      <translation locale="sv"><![CDATA[skapad av]]></translation>
+      <translation locale="sv"><![CDATA[skapad den]]></translation>
       <translation locale="el"><![CDATA[δημιουργήθηκε στις]]></translation>
       <translation locale="pt"><![CDATA[criado em]]></translation>
       <translation locale="pl"><![CDATA[utworzony dn.]]></translation>
+      <translation locale="tr"><![CDATA[oluşturulma tarihi]]></translation>
     </item>
     <item type="label" name="CreatedBy">
       <translation locale="en"><![CDATA[created by]]></translation>
       <translation locale="nl"><![CDATA[aangemaakt door]]></translation>
+      <translation locale="hu"><![CDATA[létrehozta]]></translation>
+      <translation locale="it"><![CDATA[creato da]]></translation>
+      <translation locale="ru"><![CDATA[Создал]]></translation>
+      <translation locale="zh"><![CDATA[创建者]]></translation>
+      <translation locale="de"><![CDATA[erstellt von]]></translation>
+      <translation locale="fr"><![CDATA[créé par]]></translation>
+      <translation locale="es"><![CDATA[creado por]]></translation>
+      <translation locale="lt"><![CDATA[sukūrė]]></translation>
+      <translation locale="uk"><![CDATA[Створив]]></translation>
+      <translation locale="sv"><![CDATA[skapad av]]></translation>
+      <translation locale="el"><![CDATA[δημιουργήθηκε από]]></translation>
+      <translation locale="pt"><![CDATA[criado por]]></translation>
+      <translation locale="pl"><![CDATA[utworzył]]></translation>
+      <translation locale="tr"><![CDATA[oluşturan]]></translation>
     </item>
     <item type="label" name="VisibleOnSite">
       <translation locale="nl"><![CDATA[Zichtbaar op de website]]></translation>

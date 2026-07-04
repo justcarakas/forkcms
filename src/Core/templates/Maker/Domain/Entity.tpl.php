@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use ForkCMS\Core\Domain\Maker\Util\Entity;
-use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use ForkCMS\Modules\Backend\Domain\User\Blameable\CreatedAndUpdatedBy;
 use ForkCMS\Modules\Frontend\Domain\Meta\EntityWithMetaTrait;
 use Symfony\Bundle\MakerBundle\Str;
 
@@ -45,7 +45,7 @@ final class <?= $class_name, PHP_EOL ?>
 
 <?php } ?>
 <?= $entity->hasMeta ? '    use ' . Str::getShortClassName(EntityWithMetaTrait::class) . ';' . PHP_EOL . PHP_EOL : '' ?>
-<?= $entity->isBlamable ? '    use ' . Str::getShortClassName(Blameable::class) . ';'. PHP_EOL. PHP_EOL : '' ?>
+<?= $entity->isBlamable ? '    use ' . Str::getShortClassName(CreatedAndUpdatedBy::class) . ';'. PHP_EOL. PHP_EOL : '' ?>
     private function __construct()
     {
     }

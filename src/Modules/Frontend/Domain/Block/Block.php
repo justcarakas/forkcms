@@ -8,7 +8,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
-use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use ForkCMS\Modules\Backend\Domain\User\Blameable\CreatedAndUpdatedBy;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -20,7 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class Block implements TranslatableInterface, Stringable
 {
     use EntityWithSettingsTrait;
-    use Blameable;
+    use CreatedAndUpdatedBy;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

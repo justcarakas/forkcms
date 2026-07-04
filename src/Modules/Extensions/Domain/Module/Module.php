@@ -8,13 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Core\Domain\Util\Ensure;
-use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use ForkCMS\Modules\Backend\Domain\User\Blameable\CreatedAndUpdatedBy;
 use Stringable;
 
 #[ORM\Entity(repositoryClass: ModuleRepository::class)]
 class Module implements Stringable
 {
-    use Blameable;
+    use CreatedAndUpdatedBy;
 
     use EntityWithSettingsTrait;
 

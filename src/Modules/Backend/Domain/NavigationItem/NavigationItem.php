@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlugDBALType;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
-use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use ForkCMS\Modules\Backend\Domain\User\Blameable\CreatedAndUpdatedBy;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use InvalidArgumentException;
 use RuntimeException;
@@ -21,7 +21,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[UniqueEntity(fields: ['label', 'slug', 'parent'])]
 class NavigationItem
 {
-    use Blameable;
+    use CreatedAndUpdatedBy;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

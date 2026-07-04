@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use ForkCMS\Core\Domain\Settings\EntityWithSettingsTrait;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
-use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use ForkCMS\Modules\Backend\Domain\User\Blameable\CreatedAndUpdatedBy;
 use ForkCMS\Modules\Extensions\Domain\Theme\Theme;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use JsonSerializable;
@@ -36,7 +36,7 @@ class ThemeTemplate implements JsonSerializable, Stringable
 {
     use EntityWithSettingsTrait;
 
-    use Blameable;
+    use CreatedAndUpdatedBy;
 
     public const string PATH_DIRECTORY = 'Frontend/base/';
 
