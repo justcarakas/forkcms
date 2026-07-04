@@ -7,35 +7,32 @@ namespace ForkCMS\Modules\ContentBlocks\tests\Backend\Actions;
 use ForkCMS\Modules\Backend\tests\BackendWebTestCase;
 use ForkCMS\Modules\ContentBlocks\DataFixtures\ContentBlockFixture;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
-use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
-use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Revision;
 
 final class ContentBlockEditTest extends BackendWebTestCase
 {
     protected const string TEST_URL = '/private/en/content-blocks/content-block-edit/';
 
-    private function loadRevisionForId(int $id): ContentBlock
+    private function loadContentBlock(string $title): ContentBlock
     {
-        $contentBlock = self::getContainer()->get(ContentBlockRepository::class)->findForIdAndLocale(
-            $id,
-            Locale::ENGLISH
-        );
-        $url = self::TEST_URL . $contentBlock->revisionId;
-        self::loadPage($url);
+        $revision = self::getEntityManager()->getRepository(Revision::class)->findOneBy(['title' => $title]);
+        $contentBlock = $revision->contentBlock;
+        self::loadPage(self::TEST_URL . $contentBlock->id);
 
         return $contentBlock;
     }
 
     public function testPageLoads(): void
     {
-        $contentBlock = $this->loadRevisionForId(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_ID);
+        $contentBlock = $this->loadContentBlock(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
+        $revision = $contentBlock->getActiveRevision();
         self::assertPageLoadedCorrectly(
-            self::TEST_URL . $contentBlock->revisionId,
+            self::TEST_URL . $contentBlock->id,
             ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE . ' | Edit | Content blocks | Modules | Fork CMS | Fork CMS',
             [
                 'Visible on site',
-                $contentBlock->title,
-                $contentBlock->text,
+                $revision->title,
+                $revision->text,
             ]
         );
 
@@ -44,17 +41,17 @@ final class ContentBlockEditTest extends BackendWebTestCase
 
     public function testEditWithoutChanges(): void
     {
-        $contentBlock = $this->loadRevisionForId(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_ID);
-        self::assertEmptyFormSubmission('ContentBlock', 0, 'Save');
+        $contentBlock = $this->loadContentBlock(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
+        $revision = $contentBlock->getActiveRevision();
+        self::assertEmptyFormSubmission('content_block', 0, 'Save');
         self::assertCurrentUrlEndsWith('/private/en/content-blocks/content-block-index');
-        self::assertDataGridHasLink($contentBlock->title);
-        self::assertResponseContains('The content block "' . $contentBlock->title . '" was saved.');
+        self::assertDataGridHasLink($revision->title);
+        self::assertResponseContains('The content block "' . $revision->title . '" was saved.');
     }
 
     public function testRevisionsCanBeReloaded(): void
     {
-        $contentBlock = $this->loadRevisionForId(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_ID);
-        $originalRevisionId = $contentBlock->revisionId;
+        $contentBlock = $this->loadContentBlock(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
         self::assertResponseContains('There are no previous versions yet.');
         self::submitForm(
             'Save',
@@ -68,14 +65,30 @@ final class ContentBlockEditTest extends BackendWebTestCase
         self::assertDataGridNotHasLink(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
         self::assertResponseContains('The content block "I<3ForkCMS" was saved.');
         self::assertClickOnLink('I<3ForkCMS', [htmlentities('I<3ForkCMS'), ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE]);
-        self::assertStringEndsNotWith('/' . $originalRevisionId, self::getRequest()->getUri());
+        self::assertCurrentUrlContains(self::TEST_URL . $contentBlock->id);
         self::assertResponseDoesNotHaveContent('There are no previous versions yet.');
+        self::assertResponseContains('Use this version');
+        self::assertResponseContains('Archived on');
         self::assertClickOnLink(
             ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE,
-            [htmlentities('You\'re using an older version. Save to overwrite the current version.')]
+            ["You're using an older version. Save to overwrite the current version."]
         );
-        self::assertEmptyFormSubmission('ContentBlock', 0, 'Save');
+        self::assertEmptyFormSubmission('content_block', 0, 'Save');
         self::assertDataGridHasLink(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
+    }
+
+    public function testUniqueness(): void
+    {
+        $this->loadContentBlock(ContentBlockFixture::CONTENT_BLOCK_HIDDEN_TITLE);
+
+        self::submitForm(
+            'Save',
+            [
+                'content_block[contentBlock][tab_Content][title]' => ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE,
+                'content_block[contentBlock][tab_Content][text]' => 'It is simply amazing, you should try it too!',
+            ],
+            'This value is already used.',
+        );
     }
 
     #[\Override]

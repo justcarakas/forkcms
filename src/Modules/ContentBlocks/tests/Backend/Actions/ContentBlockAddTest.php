@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ForkCMS\Modules\ContentBlocks\tests\Backend\Actions;
 
 use ForkCMS\Modules\Backend\tests\BackendWebTestCase;
+use ForkCMS\Modules\ContentBlocks\DataFixtures\ContentBlockFixture;
 
 final class ContentBlockAddTest extends BackendWebTestCase
 {
@@ -46,5 +47,28 @@ final class ContentBlockAddTest extends BackendWebTestCase
         self::assertCurrentUrlEndsWith('/private/en/content-blocks/content-block-index');
         self::assertDataGridHasLink('I<3ForkCMS');
         self::assertResponseContains('The content block "I<3ForkCMS" was added.');
+    }
+
+    public function testUniqueness(): void
+    {
+        self::loadPage();
+
+        self::submitForm(
+            'Add',
+            [
+                'content_block[title]' => ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE,
+                'content_block[text]' => 'It is simply amazing, you should try it too!',
+            ],
+            'This value is already used.',
+        );
+        self::assertCurrentUrlEndsWith(self::TEST_URL);
+    }
+
+    #[\Override]
+    protected static function getClassFixtures(): array
+    {
+        return [
+            new ContentBlockFixture(),
+        ];
     }
 }
