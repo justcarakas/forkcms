@@ -27,7 +27,7 @@ final class ContentBlockDelete extends AbstractDeleteActionController
             ContentBlockIndex::getActionSlug(),
             successFlashMessage: $contentBlock === null ? null : FlashMessage::success(
                 'Deleted',
-                ['%contentBlock%' => $contentBlock->title]
+                ['%contentBlock%' => $contentBlock->getActiveRevision()->title]
             ),
         );
     }

@@ -6,7 +6,7 @@ namespace ForkCMS\Modules\ContentBlocks\Backend\Actions;
 
 use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
-use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Command\CreateContentBlock;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Command\CreateContentBlockRevision;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockType;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use Symfony\Component\Form\FormInterface;
@@ -25,7 +25,7 @@ final class ContentBlockAdd extends AbstractFormActionController
         return $this->handleForm(
             request: $request,
             formType: ContentBlockType::class,
-            formData: new CreateContentBlock(Locale::from($request->getLocale())),
+            formData: CreateContentBlockRevision::new(Locale::from($request->getLocale())),
             redirectResponse: new RedirectResponse(ContentBlockIndex::getActionSlug()->generateRoute($this->router)),
             successFlashMessageCallback: static function (FormInterface $form): FlashMessage {
                 return FlashMessage::success('Added', ['%contentBlock%' => $form->getData()->title]);

@@ -9,18 +9,16 @@ use ForkCMS\Core\Domain\Header\FlashMessage\FlashMessage;
 use ForkCMS\Modules\Backend\Domain\Action\AbstractFormActionController;
 use ForkCMS\Modules\Backend\Domain\Action\ActionServices;
 use ForkCMS\Modules\Backend\Domain\Action\ActionSlug;
-use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Command\ChangeContentBlock;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Command\CreateContentBlockRevision;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockType;
-use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
-use Knp\Component\Pager\PaginatorInterface;
-use Pageon\DoctrineDataGridBundle\Column\Column;
-use Pageon\DoctrineDataGridBundle\DataGrid\DataGrid;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Revision;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Edit an existing content block.
@@ -30,7 +28,6 @@ final class ContentBlockEdit extends AbstractFormActionController
     public function __construct(
         ActionServices $actionServices,
         private readonly ContentBlockRepository $contentBlockRepository,
-        private readonly PaginatorInterface $paginator,
     ) {
         parent::__construct($actionServices);
     }
@@ -39,12 +36,18 @@ final class ContentBlockEdit extends AbstractFormActionController
     protected function getFormResponse(Request $request): ?Response
     {
         $contentBlock = $this->getEntityFromRequest($request, ContentBlock::class);
-        $this->assign('contentBlock', $contentBlock);
-        $this->header->addBreadcrumb(new Breadcrumb($contentBlock->title));
+        $revisionId = $request->query->getInt('revision');
+        $revision = $revisionId === 0 ? $contentBlock->getActiveRevision() : $contentBlock->revisions->get($revisionId);
+        if (!$revision instanceof Revision) {
+            throw new NotFoundHttpException('Revision not found');
+        }
+        $this->assign('usingRevision', $revision->archivedOn !== null);
+
+        $this->header->addBreadcrumb(new Breadcrumb($revision->title));
 
         if (!$this->contentBlockRepository->isContentBlockInUse($contentBlock)) {
             $this->addDeleteForm(
-                ['id' => $contentBlock->revisionId],
+                ['id' => $contentBlock->id],
                 ActionSlug::fromFQCN(ContentBlockDelete::class)
             );
         }
@@ -52,59 +55,12 @@ final class ContentBlockEdit extends AbstractFormActionController
         return $this->handleForm(
             request: $request,
             formType: ContentBlockType::class,
-            formData: new ChangeContentBlock($contentBlock),
+            formData: CreateContentBlockRevision::fromRevision($revision),
             redirectResponse: new RedirectResponse(ContentBlockIndex::getActionSlug()->generateRoute($this->router)),
-            formOptions: ['revisions_data_grid' => $this->getRevisionDataGrid($contentBlock)],
+            formOptions: ['showRevisionsForContentBlockId' => $contentBlock->id],
             successFlashMessageCallback: static function (FormInterface $form): FlashMessage {
                 return FlashMessage::success('Edited', ['%contentBlock%' => $form->getData()->title]);
             }
-        );
-    }
-
-    private function getRevisionDataGrid(ContentBlock $contentBlock): DataGrid
-    {
-        return new DataGrid(
-            $this->paginator->paginate($this->contentBlockRepository->getRevisionsForContentBlock($contentBlock)),
-            [
-                Column::createPropertyColumn(
-                    name: 'title',
-                    label: TranslationKey::label('Title'),
-                    entityAlias: 't',
-                    sortable: false,
-                    filterable: false,
-                    order: 1,
-                    route: 'backend_action',
-                    routeAttributes: self::getActionSlug()->getRouteParameters(),
-                    routeAttributesCallback: [ContentBlock::class, 'dataGridEditLinkCallback'],
-                ),
-                Column::createPropertyColumn(
-                    name: 'updatedOn',
-                    label: TranslationKey::label('EditedOn'),
-                    entityAlias: 't',
-                    sortable: false,
-                    filterable: false,
-                    order: 2
-                ),
-                Column::createPropertyColumn(
-                    name: 'updatedBy',
-                    label: TranslationKey::label('EditedBy'),
-                    entityAlias: 't',
-                    sortable: false,
-                    filterable: false,
-                    order: 3
-                ),
-                Column::createActionColumn(
-                    label: TranslationKey::label('LoadRevision'),
-                    order: 4,
-                    route: 'backend_action',
-                    routeAttributes: self::getActionSlug()->getRouteParameters(),
-                    routeAttributesCallback: [ContentBlock::class, 'dataGridEditLinkCallback'],
-                    class: 'btn btn-primary btn-sm',
-                    iconClass: 'fa fa-edit',
-                    columnAttributes: ['class' => 'fork-data-grid-action'],
-                ),
-            ],
-            TranslationKey::message('NoRevisions')
         );
     }
 }
