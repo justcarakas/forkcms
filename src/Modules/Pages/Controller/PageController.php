@@ -79,7 +79,7 @@ final readonly class PageController
                 $block = $revisionBlock->block;
                 if ($block instanceof Block) {
                     $blockName = (string) $block;
-                    if ($this->frontendBlocks->has($blockName)) {
+                    if ($block->enabled && $this->frontendBlocks->has($blockName)) {
                         /** @var BlockControllerInterface $blockController */
                         $blockController = $this->frontendBlocks->get($blockName);
                         $revisionContext['positions'][$position][] = $this->getBlockResponse(

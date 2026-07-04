@@ -7,10 +7,6 @@ namespace ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Command;
 use ForkCMS\Core\Domain\MessageHandler\CommandHandlerInterface;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Event\ContentBlockDeletedEvent;
-use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Status;
-use ForkCMS\Modules\Frontend\Domain\Block\Block;
-use ForkCMS\Modules\Frontend\Domain\Block\BlockRepository;
-use Exception;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final readonly class DeleteContentBlockHandler implements CommandHandlerInterface
@@ -23,24 +19,13 @@ final readonly class DeleteContentBlockHandler implements CommandHandlerInterfac
 
     public function __invoke(DeleteContentBlock $deleteContentBlock): void
     {
-        $versions = $this->contentBlockRepository->getVersionsForRevisionId($deleteContentBlock->id);
+        $contentBlock = $this->contentBlockRepository->find($deleteContentBlock->id);
 
-        if (count($versions) === 0) {
+        if ($contentBlock === null || $this->contentBlockRepository->isContentBlockInUse($contentBlock)) {
             return;
         }
 
-        $activeBlock = null;
-        foreach ($versions as $version) {
-            if ($version->status === Status::ACTIVE) {
-                $activeBlock = $version;
-            }
-        }
-
-        if ($this->contentBlockRepository->isContentBlockInUse($activeBlock)) {
-            return;
-        }
-
-        $this->contentBlockRepository->removeMultiple($versions);
-        $this->eventDispatcher->dispatch(new ContentBlockDeletedEvent($activeBlock));
+        $this->contentBlockRepository->remove($contentBlock);
+        $this->eventDispatcher->dispatch(new ContentBlockDeletedEvent($contentBlock));
     }
 }

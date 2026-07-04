@@ -1,5 +1,8 @@
-{% if content_block is defined and content_block.text %}
-  <div class="module-content-blocks widget-content-blocks-default content-block-{{ content_block.id }}">
-    {{ content_block.text|parseEditor }}
-  </div>
+{% if content_block_revision is defined %}
+  {% set content_block_text = content_block_revision.text|parseEditor %}
+  {% if content_block_text %}
+    <div class="module-content-blocks widget-content-blocks-default content-block-{{ content_block_revision.contentBlock.id }}">
+      {{ content_block_text }}
+    </div>
+  {% endif %}
 {% endif %}

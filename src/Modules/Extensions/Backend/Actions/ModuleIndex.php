@@ -10,6 +10,7 @@ use ForkCMS\Modules\Backend\Domain\Action\ActionServices;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInformation;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleInstallerLocator;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleRepository;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use Pageon\DoctrineDataGridBundle\Column\Column;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -53,6 +54,7 @@ final class ModuleIndex extends AbstractActionController
                     null,
                     [],
                     null,
+                    TranslationKey::message('AllModulesInstalled')->trans($this->translator),
                     new Column(
                         name: 'moduleName',
                         label: 'lbl.Install',

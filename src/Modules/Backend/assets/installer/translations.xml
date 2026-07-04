@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translations>
   <Backend>
+    <item type="label" name="SEO">
+      <translation locale="nl"><![CDATA[SEO]]></translation>
+      <translation locale="en"><![CDATA[SEO]]></translation>
+      <translation locale="hu"><![CDATA[SEO]]></translation>
+      <translation locale="it"><![CDATA[SEO]]></translation>
+      <translation locale="fr"><![CDATA[SEO]]></translation>
+      <translation locale="ru"><![CDATA[SEO]]></translation>
+      <translation locale="zh"><![CDATA[SEO]]></translation>
+      <translation locale="de"><![CDATA[SEO]]></translation>
+      <translation locale="es"><![CDATA[SEO]]></translation>
+      <translation locale="uk"><![CDATA[SEO]]></translation>
+      <translation locale="lt"><![CDATA[SEO]]></translation>
+      <translation locale="sv"><![CDATA[SEO]]></translation>
+      <translation locale="el"><![CDATA[SEO]]></translation>
+      <translation locale="pl"><![CDATA[SEO]]></translation>
+      <translation locale="tr"><![CDATA[SEO]]></translation>
+      <translation locale="pt"><![CDATA[SEO]]></translation>
+    </item>
+
+    <item type="label" name="Categories">
+      <translation locale="nl"><![CDATA[categorieën]]></translation>
+      <translation locale="en"><![CDATA[categories]]></translation>
+      <translation locale="hu"><![CDATA[kategóriák]]></translation>
+      <translation locale="it"><![CDATA[categorie]]></translation>
+      <translation locale="fr"><![CDATA[catégories]]></translation>
+      <translation locale="ru"><![CDATA[Категории]]></translation>
+      <translation locale="zh"><![CDATA[分类]]></translation>
+      <translation locale="de"><![CDATA[Kategorien]]></translation>
+      <translation locale="es"><![CDATA[Categorías]]></translation>
+      <translation locale="uk"><![CDATA[Категорії]]></translation>
+      <translation locale="lt"><![CDATA[kategorijos]]></translation>
+      <translation locale="sv"><![CDATA[kategorier]]></translation>
+      <translation locale="el"><![CDATA[κατηγορίες]]></translation>
+      <translation locale="pl"><![CDATA[Kategorie]]></translation>
+      <translation locale="tr"><![CDATA[kategoriler]]></translation>
+      <translation locale="pt"><![CDATA[categorias]]></translation>
+    </item>
+    <item type="label" name="Category">
+      <translation locale="nl"><![CDATA[categorie]]></translation>
+      <translation locale="en"><![CDATA[category]]></translation>
+      <translation locale="hu"><![CDATA[kategória]]></translation>
+      <translation locale="it"><![CDATA[categoria]]></translation>
+      <translation locale="fr"><![CDATA[catégorie]]></translation>
+      <translation locale="ru"><![CDATA[Категория]]></translation>
+      <translation locale="zh"><![CDATA[分类]]></translation>
+      <translation locale="de"><![CDATA[Kategorie]]></translation>
+      <translation locale="es"><![CDATA[Categoría]]></translation>
+      <translation locale="uk"><![CDATA[Категорія]]></translation>
+      <translation locale="lt"><![CDATA[kategorija]]></translation>
+      <translation locale="sv"><![CDATA[kategori]]></translation>
+      <translation locale="el"><![CDATA[κατηγορία]]></translation>
+      <translation locale="pl"><![CDATA[Kategoria]]></translation>
+      <translation locale="tr"><![CDATA[kategori]]></translation>
+      <translation locale="pt"><![CDATA[categoria]]></translation>
+    </item>
     <item type="label" name="Title">
       <translation locale="nl"><![CDATA[titel]]></translation>
       <translation locale="en"><![CDATA[title]]></translation>
@@ -39,6 +94,20 @@
     <item type="label" name="EditedBy">
       <translation locale="nl"><![CDATA[bewerkt door]]></translation>
       <translation locale="en"><![CDATA[edited by]]></translation>
+      <translation locale="hu"><![CDATA[szerkesztő]]></translation>
+      <translation locale="it"><![CDATA[modificato da]]></translation>
+      <translation locale="ru"><![CDATA[Отредактировано:]]></translation>
+      <translation locale="zh"><![CDATA[编辑者]]></translation>
+      <translation locale="de"><![CDATA[bearbeitet von]]></translation>
+      <translation locale="fr"><![CDATA[édité par]]></translation>
+      <translation locale="es"><![CDATA[editado por]]></translation>
+      <translation locale="lt"><![CDATA[redagavo]]></translation>
+      <translation locale="uk"><![CDATA[Редактор]]></translation>
+      <translation locale="sv"><![CDATA[Redigerad av]]></translation>
+      <translation locale="el"><![CDATA[μεταβλήθηκε από]]></translation>
+      <translation locale="pt"><![CDATA[editado por]]></translation>
+      <translation locale="pl"><![CDATA[edytowany przez]]></translation>
+      <translation locale="tr"><![CDATA[düzenleyen]]></translation>
     </item>
     <item type="label" name="LastEditedOn">
       <translation locale="nl"><![CDATA[laatst bewerkt op]]></translation>
@@ -60,6 +129,38 @@
     <item type="label" name="LastEditedBy">
       <translation locale="nl"><![CDATA[laatst bewerkt door]]></translation>
       <translation locale="en"><![CDATA[last edited by]]></translation>
+      <translation locale="hu"><![CDATA[utoljára szerkesztő]]></translation>
+      <translation locale="it"><![CDATA[ultima modifica di]]></translation>
+      <translation locale="ru"><![CDATA[Последний редактор:]]></translation>
+      <translation locale="zh"><![CDATA[最后编辑者]]></translation>
+      <translation locale="de"><![CDATA[zuletzt bearbeitet von]]></translation>
+      <translation locale="fr"><![CDATA[dernière édition par]]></translation>
+      <translation locale="es"><![CDATA[última edición por]]></translation>
+      <translation locale="lt"><![CDATA[paskutinį kartą redagavo]]></translation>
+      <translation locale="uk"><![CDATA[Останній редактор]]></translation>
+      <translation locale="sv"><![CDATA[Senast redigerad av]]></translation>
+      <translation locale="el"><![CDATA[τελευταία μεταβλήθηκε από]]></translation>
+      <translation locale="pt"><![CDATA[última edição por]]></translation>
+      <translation locale="pl"><![CDATA[ostatnio edytowany przez]]></translation>
+      <translation locale="tr"><![CDATA[son düzenleyen]]></translation>
+    </item>
+    <item type="label" name="ArchivedOn">
+      <translation locale="nl"><![CDATA[gearchiveerd op]]></translation>
+      <translation locale="en"><![CDATA[archived on]]></translation>
+      <translation locale="hu"><![CDATA[archiválva]]></translation>
+      <translation locale="it"><![CDATA[archiviato il]]></translation>
+      <translation locale="ru"><![CDATA[Архивировано в]]></translation>
+      <translation locale="zh"><![CDATA[归档于]]></translation>
+      <translation locale="de"><![CDATA[archiviert am]]></translation>
+      <translation locale="fr"><![CDATA[archivé le]]></translation>
+      <translation locale="es"><![CDATA[archivado en]]></translation>
+      <translation locale="lt"><![CDATA[archyvuota -]]></translation>
+      <translation locale="uk"><![CDATA[Заархівовано в]]></translation>
+      <translation locale="sv"><![CDATA[arkiverad den]]></translation>
+      <translation locale="el"><![CDATA[αρχειοθετήθηκε στις]]></translation>
+      <translation locale="pt"><![CDATA[arquivado em]]></translation>
+      <translation locale="pl"><![CDATA[zarchiwizowano dn.]]></translation>
+      <translation locale="tr"><![CDATA[arşivlendi]]></translation>
     </item>
     <item type="label" name="CreatedOn">
       <translation locale="en"><![CDATA[created on]]></translation>
@@ -73,14 +174,29 @@
       <translation locale="es"><![CDATA[creado en]]></translation>
       <translation locale="lt"><![CDATA[sukurta -]]></translation>
       <translation locale="uk"><![CDATA[Створено в]]></translation>
-      <translation locale="sv"><![CDATA[skapad av]]></translation>
+      <translation locale="sv"><![CDATA[skapad den]]></translation>
       <translation locale="el"><![CDATA[δημιουργήθηκε στις]]></translation>
       <translation locale="pt"><![CDATA[criado em]]></translation>
       <translation locale="pl"><![CDATA[utworzony dn.]]></translation>
+      <translation locale="tr"><![CDATA[oluşturulma tarihi]]></translation>
     </item>
     <item type="label" name="CreatedBy">
       <translation locale="en"><![CDATA[created by]]></translation>
       <translation locale="nl"><![CDATA[aangemaakt door]]></translation>
+      <translation locale="hu"><![CDATA[létrehozta]]></translation>
+      <translation locale="it"><![CDATA[creato da]]></translation>
+      <translation locale="ru"><![CDATA[Создал]]></translation>
+      <translation locale="zh"><![CDATA[创建者]]></translation>
+      <translation locale="de"><![CDATA[erstellt von]]></translation>
+      <translation locale="fr"><![CDATA[créé par]]></translation>
+      <translation locale="es"><![CDATA[creado por]]></translation>
+      <translation locale="lt"><![CDATA[sukūrė]]></translation>
+      <translation locale="uk"><![CDATA[Створив]]></translation>
+      <translation locale="sv"><![CDATA[skapad av]]></translation>
+      <translation locale="el"><![CDATA[δημιουργήθηκε από]]></translation>
+      <translation locale="pt"><![CDATA[criado por]]></translation>
+      <translation locale="pl"><![CDATA[utworzył]]></translation>
+      <translation locale="tr"><![CDATA[oluşturan]]></translation>
     </item>
     <item type="label" name="VisibleOnSite">
       <translation locale="nl"><![CDATA[Zichtbaar op de website]]></translation>
@@ -133,6 +249,42 @@
       <translation locale="el"><![CDATA[Δεν υπάρχουν ακόμη προηγούμενες εκδόσεις.]]></translation>
       <translation locale="pt"><![CDATA[Ainda não existem versões anteriores.]]></translation>
       <translation locale="pl"><![CDATA[Nie ma jeszcze poprzednich wersji.]]></translation>
+    </item>
+    <item type="label" name="MaxRevisions">
+      <translation locale="nl"><![CDATA[maximum aantal revisies om te bewaren]]></translation>
+      <translation locale="en"><![CDATA[maximum number of revisions to keep]]></translation>
+      <translation locale="hu"><![CDATA[megőrzött revíziók száma]]></translation>
+      <translation locale="it"><![CDATA[numero massimo di revisioni da conservare]]></translation>
+      <translation locale="ru"><![CDATA[максимальное количество сохраняемых версий]]></translation>
+      <translation locale="zh"><![CDATA[保留的修订版本数量上限]]></translation>
+      <translation locale="de"><![CDATA[maximale Anzahl an Revisionen]]></translation>
+      <translation locale="fr"><![CDATA[nombre maximum de révisions à conserver]]></translation>
+      <translation locale="es"><![CDATA[número máximo de revisiones a conservar]]></translation>
+      <translation locale="lt"><![CDATA[maksimalus išsaugomų revizijų skaičius]]></translation>
+      <translation locale="uk"><![CDATA[максимальна кількість версій, що зберігаються]]></translation>
+      <translation locale="sv"><![CDATA[max antal versioner att behålla]]></translation>
+      <translation locale="el"><![CDATA[μέγιστος αριθμός εκδόσεων που θα διατηρούνται]]></translation>
+      <translation locale="pt"><![CDATA[número máximo de revisões a manter]]></translation>
+      <translation locale="pl"><![CDATA[maksymalna liczba przechowywanych wersji]]></translation>
+      <translation locale="tr"><![CDATA[saklanacak maksimum revizyon sayısı]]></translation>
+    </item>
+    <item type="message" name="HelpMaxRevisions">
+      <translation locale="nl"><![CDATA[Oudere revisies boven dit aantal worden automatisch verwijderd.]]></translation>
+      <translation locale="en"><![CDATA[Older revisions beyond this number get deleted automatically.]]></translation>
+      <translation locale="hu"><![CDATA[Az ennél régebbi revíziók automatikusan törlődnek.]]></translation>
+      <translation locale="it"><![CDATA[Le revisioni più vecchie oltre questo numero vengono eliminate automaticamente.]]></translation>
+      <translation locale="ru"><![CDATA[Более старые версии сверх этого количества удаляются автоматически.]]></translation>
+      <translation locale="zh"><![CDATA[超过此数量的旧修订版本将被自动删除。]]></translation>
+      <translation locale="de"><![CDATA[Ältere Revisionen über dieser Anzahl werden automatisch gelöscht.]]></translation>
+      <translation locale="fr"><![CDATA[Les révisions plus anciennes au-delà de ce nombre sont supprimées automatiquement.]]></translation>
+      <translation locale="es"><![CDATA[Las revisiones más antiguas que superen este número se eliminan automáticamente.]]></translation>
+      <translation locale="lt"><![CDATA[Senesnės nei šis skaičius revizijos ištrinamos automatiškai.]]></translation>
+      <translation locale="uk"><![CDATA[Старіші версії понад цю кількість видаляються автоматично.]]></translation>
+      <translation locale="sv"><![CDATA[Äldre versioner utöver detta antal tas bort automatiskt.]]></translation>
+      <translation locale="el"><![CDATA[Οι παλαιότερες εκδόσεις πέραν αυτού του αριθμού διαγράφονται αυτόματα.]]></translation>
+      <translation locale="pt"><![CDATA[As revisões mais antigas além deste número são eliminadas automaticamente.]]></translation>
+      <translation locale="pl"><![CDATA[Starsze wersje przekraczające tę liczbę są automatycznie usuwane.]]></translation>
+      <translation locale="tr"><![CDATA[Bu sayının üzerindeki eski revizyonlar otomatik olarak silinir.]]></translation>
     </item>
     <item type="message" name="UsingARevision">
       <translation locale="nl"><![CDATA[Je hebt een oudere versie ingeladen. Sla op om deze versie te gebruiken.]]></translation>
@@ -1673,6 +1825,24 @@
       <translation locale="nl"><![CDATA[Ben je zeker dat je deze actie wilt uitvoeren?]]></translation>
       <translation locale="en"><![CDATA[Are you sure you want to perform this action?]]></translation>
       <translation locale="pt"><![CDATA[Tem a certeza que pertende efectuar esta acção?]]></translation>
+    </item>
+    <item type="message" name="ConfirmLeaveWithUnsavedChanges">
+      <translation locale="nl"><![CDATA[Wijzigingen worden niet opgeslagen voor het verlaten van deze pagina.]]></translation>
+      <translation locale="en"><![CDATA[Changes won't be saved before leaving this page.]]></translation>
+      <translation locale="de"><![CDATA[Änderungen werden vor dem Verlassen dieser Seite nicht gespeichert.]]></translation>
+      <translation locale="fr"><![CDATA[Les modifications ne seront pas enregistrées avant de quitter cette page.]]></translation>
+      <translation locale="es"><![CDATA[Los cambios no se guardarán antes de salir de esta página.]]></translation>
+      <translation locale="it"><![CDATA[Le modifiche non verranno salvate prima di lasciare questa pagina.]]></translation>
+      <translation locale="ru"><![CDATA[Изменения не будут сохранены перед выходом с этой страницы.]]></translation>
+      <translation locale="zh"><![CDATA[离开此页面前，更改不会被保存。]]></translation>
+      <translation locale="hu"><![CDATA[A módosítások nem kerülnek mentésre az oldal elhagyása előtt.]]></translation>
+      <translation locale="pl"><![CDATA[Zmiany nie zostaną zapisane przed opuszczeniem tej strony.]]></translation>
+      <translation locale="pt"><![CDATA[As alterações não serão guardadas antes de sair desta página.]]></translation>
+      <translation locale="sv"><![CDATA[Ändringar sparas inte innan du lämnar den här sidan.]]></translation>
+      <translation locale="lt"><![CDATA[Pakeitimai nebus išsaugoti prieš paliekant šį puslapį.]]></translation>
+      <translation locale="uk"><![CDATA[Зміни не будуть збережені перед виходом з цієї сторінки.]]></translation>
+      <translation locale="el"><![CDATA[Οι αλλαγές δεν θα αποθηκευτούν πριν αφήσετε αυτήν τη σελίδα.]]></translation>
+      <translation locale="tr"><![CDATA[Bu sayfadan çıkmadan önce değişiklikler kaydedilmeyecek.]]></translation>
     </item>
     <item type="error" name="ActionNotAllowed">
       <translation locale="nl"><![CDATA[Je hebt onvoldoende rechten voor deze actie.]]></translation>

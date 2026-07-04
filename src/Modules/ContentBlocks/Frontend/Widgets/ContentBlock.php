@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace ForkCMS\Modules\ContentBlocks\Frontend\Widgets;
 
-use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock as ContentBlockEntity;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Revision;
 use ForkCMS\Modules\Frontend\Domain\Block\BlockServices;
 use ForkCMS\Modules\Frontend\Domain\Widget\AbstractWidgetController;
-use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,23 +25,16 @@ class ContentBlock extends AbstractWidgetController
     #[\Override]
     protected function execute(Request $request, Response $response): void
     {
-        if (!$this->hasSetting('content_block_id')) {
-            $this->changeTemplatePath(ContentBlockEntity::DEFAULT_TEMPLATE);
+        try {
+            $contentBlock = $this->contentBlockRepository->findForWidget($this->block);
+        } catch (NonUniqueResultException | NoResultException) {
+            $this->changeTemplatePath(Revision::DEFAULT_TEMPLATE);
 
             return;
         }
+        $revision = $contentBlock->getActiveRevision();
 
-        $contentBlock = $this->contentBlockRepository->findForIdAndLocale(
-            $this->getSetting('content_block_id'),
-            Locale::from($request->getLocale()),
-        );
-
-        if ($contentBlock === null) {
-            $this->changeTemplatePath(ContentBlockEntity::DEFAULT_TEMPLATE);
-
-            return;
-        }
-        $this->changeTemplatePath($contentBlock->template);
-        $this->assign('content_block', $contentBlock);
+        $this->changeTemplatePath($revision->template);
+        $this->assign('content_block_revision', $revision);
     }
 }

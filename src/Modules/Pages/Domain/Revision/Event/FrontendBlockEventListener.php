@@ -22,6 +22,7 @@ final readonly class FrontendBlockEventListener
             $findBlockUsagesEvent->registerUsage();
         }
     }
+
     #[AsEventListener(event: BeforeDeleteBlockEvent::class)]
     public function onBlockDelete(BeforeDeleteBlockEvent $beforeDeleteBlockEvent): void
     {

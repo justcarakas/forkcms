@@ -14,7 +14,7 @@ use ForkCMS\Core\Domain\Settings\SettingsBag;
 use ForkCMS\Core\Domain\Util\Ensure;
 use ForkCMS\Modules\Backend\Domain\Action\ModuleAction;
 use ForkCMS\Modules\Backend\Domain\AjaxAction\ModuleAjaxAction;
-use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use ForkCMS\Modules\Backend\Domain\User\Blameable\CreatedAndUpdatedBy;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\Widget\ModuleWidget;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
@@ -42,7 +42,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 )]
 class UserGroup
 {
-    use Blameable;
+    use CreatedAndUpdatedBy;
 
     use EntityWithSettingsTrait;
 

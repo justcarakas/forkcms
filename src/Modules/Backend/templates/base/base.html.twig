@@ -48,6 +48,14 @@
             </div>
           </div>
         {% endif %}
+        {% block warnings %}
+          {% if (usingRevision is defined and usingRevision) or (usingDraft is defined and usingDraft) %}
+            <div class="col-12">
+              {% if usingRevision is defined and usingRevision %}{{ macro.alert('warning', 'msg.UsingARevision'|trans|ucfirst, null, null, {'class': 'show rounded-0'}) }}{% endif %}
+              {% if usingDraft is defined and usingDraft %}{{ macro.alert('warning', 'msg.UsingADraft'|trans|ucfirst, null, null, {'class': 'show rounded-0'}) }}{% endif %}
+            </div>
+          {% endif %}
+        {% endblock %}
         <div class="content">
           <div class="container-fluid container-fluid-large" data-content-container>
             {% block content %}

@@ -75,7 +75,8 @@
     <p class="text-black mb-2">
       <strong> {{ (dataGrid.noResultsMessage == 'No results' ? 'lbl.NoResultsFound' : dataGrid.noResultsMessage)|trans|ucfirst }}</strong>
     </p>
-    {% if data_grid_empty_action is not null %}
+
+    {% if data_grid_empty_action is not null and 'fork-form-data-grid' not in data_grid_wrapper_class %}
       <a class="empty-state-add" href="{{ action_url(data_grid_empty_action, data_grid_empty_module, data_grid_empty_parameters, data_grid_empty_relatives, data_grid_empty_locale) }}">
         {{ data_grid_empty_label }}
       </a>

@@ -7,7 +7,7 @@ namespace ForkCMS\Modules\Internationalisation\Domain\Translation;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Core\Domain\Util\Ensure;
-use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use ForkCMS\Modules\Backend\Domain\User\Blameable\CreatedAndUpdatedBy;
 use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
 use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use InvalidArgumentException;
@@ -16,7 +16,7 @@ use Symfony\Component\Translation\TranslatableMessage;
 #[ORM\Entity(repositoryClass: TranslationRepository::class)]
 class Translation
 {
-    use Blameable;
+    use CreatedAndUpdatedBy;
 
     #[ORM\Id]
     #[ORM\Column(type: Types::STRING, length: 32, unique: true)]

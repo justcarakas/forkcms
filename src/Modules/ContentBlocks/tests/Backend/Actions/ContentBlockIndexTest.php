@@ -27,10 +27,13 @@ final class ContentBlockIndexTest extends BackendWebTestCase
         self::loadPage();
         self::assertDataGridHasLink(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
         self::assertDataGridHasLink(ContentBlockFixture::CONTENT_BLOCK_HIDDEN_TITLE);
-        self::filterDataGrid('ContentBlock.title', ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
+        self::assertResponseContains('Edit');
+        self::assertResponseDoesNotHaveContent('Use this version');
+        self::assertResponseDoesNotHaveContent('Archived on');
+        self::filterDataGrid('Revision.title', ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
         self::assertDataGridHasLink(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
         self::assertDataGridNotHasLink(ContentBlockFixture::CONTENT_BLOCK_HIDDEN_TITLE);
-        self::filterDataGrid('ContentBlock.title', 'nothing to see here');
+        self::filterDataGrid('Revision.title', 'nothing to see here');
         self::assertDataGridIsEmpty();
     }
 

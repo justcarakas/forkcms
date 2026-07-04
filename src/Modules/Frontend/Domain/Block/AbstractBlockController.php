@@ -31,7 +31,7 @@ abstract class AbstractBlockController implements BlockControllerInterface
     protected readonly AuthorizationCheckerInterface $authorizationChecker;
     protected(set) ?Response $responseOverride = null;
     private string $templatePath;
-    private Block $block;
+    private(set) Block $block;
     /** @var array<string, mixed> */
     private array $assignedContent = [];
 

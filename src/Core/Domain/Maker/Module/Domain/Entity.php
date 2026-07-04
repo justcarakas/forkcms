@@ -5,7 +5,7 @@ namespace ForkCMS\Core\Domain\Maker\Module\Domain;
 use Doctrine\ORM\Mapping\Entity as ORMEntity;
 use ForkCMS\Core\Domain\Maker\Util\Entity as EntityUtil;
 use ForkCMS\Core\Domain\Maker\Util\Template;
-use ForkCMS\Modules\Backend\Domain\User\Blameable;
+use ForkCMS\Modules\Backend\Domain\User\Blameable\CreatedAndUpdatedBy;
 use ForkCMS\Modules\Frontend\Domain\Meta\EntityWithMetaTrait;
 use Symfony\Bundle\MakerBundle\Generator;
 use Symfony\Bundle\MakerBundle\Str;
@@ -22,7 +22,7 @@ final class Entity
             $useStatements[] = 'use ' . Str::getNamespace(NotBlank::class) . ' as Assert;';
         }
         if ($entity->isBlamable) {
-            $useStatements[] = 'use ' . Blameable::class . ';';
+            $useStatements[] = 'use ' . CreatedAndUpdatedBy::class . ';';
         }
         if ($entity->hasMeta) {
             $useStatements[] = 'use ' . EntityWithMetaTrait::class . ';';

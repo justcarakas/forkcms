@@ -50,9 +50,9 @@ final class BlockRepository extends SortableRepository implements ServiceEntityR
         return $this
             ->createQueryBuilder('b')
             ->where('b.type = :type')
-            ->andWhere('b.hidden = :hidden')
+            ->andWhere('b.enabled = :enabled')
             ->setParameter('type', Type::WIDGET)
-            ->setParameter('hidden', false)
+            ->setParameter('enabled', true)
             ->getQuery()
             ->getResult();
     }
@@ -63,9 +63,9 @@ final class BlockRepository extends SortableRepository implements ServiceEntityR
         return $this
             ->createQueryBuilder('b')
             ->where('b.type = :type')
-            ->andWhere('b.hidden = :hidden')
+            ->andWhere('b.enabled = :enabled')
             ->setParameter('type', Type::ACTION)
-            ->setParameter('hidden', false)
+            ->setParameter('enabled', true)
             ->getQuery()
             ->getResult();
     }
@@ -92,7 +92,7 @@ final class BlockRepository extends SortableRepository implements ServiceEntityR
     {
         /* @TODO add check for widgets that have been added but aren't in the database yet */
         return $this->findBy(
-            ['type' => Type::WIDGET->value, 'hidden' => false],
+            ['type' => Type::WIDGET->value, 'enabled' => true],
             ['type' => Order::Ascending->value, 'position' => Order::Ascending->value]
         );
     }
@@ -102,7 +102,7 @@ final class BlockRepository extends SortableRepository implements ServiceEntityR
     {
         /* @TODO add check for actions that have been added but aren't in the database yet */
         return $this->findBy(
-            ['type' => Type::ACTION->value, 'hidden' => false],
+            ['type' => Type::ACTION->value, 'enabled' => true],
             ['type' => Order::Ascending->value, 'position' => Order::Ascending->value]
         );
     }

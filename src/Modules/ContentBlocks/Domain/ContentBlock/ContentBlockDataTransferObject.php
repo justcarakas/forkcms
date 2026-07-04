@@ -4,63 +4,62 @@ declare(strict_types=1);
 
 namespace ForkCMS\Modules\ContentBlocks\Domain\ContentBlock;
 
+use DateTimeImmutable;
+use ForkCMS\Core\Domain\Form\Validator\UniqueDataTransferObject;
+use ForkCMS\Core\Domain\Form\Validator\UniqueDataTransferObjectInterface;
 use ForkCMS\Core\Domain\Settings\SettingsBag;
-use ForkCMS\Modules\Frontend\Domain\Block\Block;
-use ForkCMS\Modules\Internationalisation\Domain\Locale\Locale;
 use Symfony\Component\Validator\Constraints as Assert;
 
-abstract class ContentBlockDataTransferObject
+/** @implements UniqueDataTransferObjectInterface<Revision> */
+#[UniqueDataTransferObject(
+    fields: 'title',
+    entityClass: Revision::class,
+    repositoryMethod: 'findActiveForCurrentLocaleByTitle',
+    errorPath: 'title',
+)]
+abstract class ContentBlockDataTransferObject implements UniqueDataTransferObjectInterface
 {
-    protected ?ContentBlock $contentBlockEntity;
-
-    public int $id;
-
-    public Block $widget;
-
-    public int $revisionId;
+    protected ?Revision $revisionEntity;
 
     #[Assert\NotBlank(message: 'err.FieldIsRequired')]
-    public string $title;
+    public ?string $title = null;
 
     #[Assert\NotBlank(message: 'err.FieldIsRequired')]
-    public string $template = ContentBlock::DEFAULT_TEMPLATE;
+    public string $template = Revision::DEFAULT_TEMPLATE;
 
     #[Assert\NotBlank(message: 'err.FieldIsRequired')]
-    public ?string $text;
+    public ?string $text = null;
 
-    public bool $isVisible = true;
+    public bool $isEnabled = true;
 
-    public Locale $locale;
-
-    public Status $status;
+    public ?DateTimeImmutable $archivedOn = null;
 
     public SettingsBag $settings;
 
-    public function __construct(?ContentBlock $contentBlockEntity = null)
+    public function __construct(?Revision $revisionEntity = null)
     {
-        $this->contentBlockEntity = $contentBlockEntity;
+        $this->revisionEntity = $revisionEntity;
 
-        if (!$contentBlockEntity instanceof ContentBlock) {
-            $this->status = Status::ACTIVE;
+        if (!$revisionEntity instanceof Revision) {
             $this->settings = new SettingsBag();
 
             return;
         }
 
-        $this->id = $contentBlockEntity->id;
-        $this->widget = $contentBlockEntity->widget;
-        $this->isVisible = !$contentBlockEntity->isHidden;
-        $this->title = $contentBlockEntity->title;
-        $this->text = $contentBlockEntity->text;
-        $this->template = $contentBlockEntity->template;
-        $this->locale = $contentBlockEntity->locale;
-        $this->status = $contentBlockEntity->status;
-        $this->revisionId = $contentBlockEntity->revisionId;
-        $this->settings = $contentBlockEntity->settings;
+        $this->isEnabled = $revisionEntity->contentBlock->isWidgetVisible();
+        $this->title = $revisionEntity->title;
+        $this->text = $revisionEntity->text;
+        $this->template = $revisionEntity->template;
+        $this->settings = $revisionEntity->settings;
     }
 
-    public function getEntity(): ?ContentBlock
+    public function hasEntity(): bool
     {
-        return $this->contentBlockEntity;
+        return $this->revisionEntity instanceof Revision;
+    }
+
+    public function getEntity(): ?Revision
+    {
+        return $this->revisionEntity;
     }
 }

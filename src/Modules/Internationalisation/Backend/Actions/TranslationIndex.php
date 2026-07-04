@@ -12,6 +12,7 @@ use ForkCMS\Modules\Internationalisation\Backend\Ajax\TranslationEdit as AjaxTra
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Filter\FilteredTranslation;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Filter\TranslationFilter;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Filter\TranslationFilterType;
+use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationKey;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\TranslationRepository;
 use ForkCMS\Modules\Internationalisation\Domain\Translation\Type;
 use Pageon\DoctrineDataGridBundle\Column\Column;
@@ -76,7 +77,7 @@ final class TranslationIndex extends AbstractFormActionController
         if (!$this->filter->shouldFilter) {
             $this->assign(
                 'notFiltered',
-                $this->dataGridFactory->forArray(TranslationFilter::class, [])
+                $this->dataGridFactory->forArray(TranslationFilter::class)
             );
 
             return null;
@@ -87,7 +88,7 @@ final class TranslationIndex extends AbstractFormActionController
         if (count($filteredTranslations) === 0) {
             $this->assign(
                 'notFiltered',
-                $this->dataGridFactory->forArray(FilteredTranslation::class, [])
+                $this->dataGridFactory->forArray(FilteredTranslation::class)
             );
 
             return null;
@@ -101,6 +102,7 @@ final class TranslationIndex extends AbstractFormActionController
                     $translations,
                     PHP_INT_MAX,
                     [],
+                    null,
                     null,
                     ...$this->getExtraColumns()
                 ),
