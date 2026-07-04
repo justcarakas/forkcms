@@ -38,7 +38,7 @@ class Block implements TranslatableInterface, Stringable
     private(set) TranslationKey $label;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private(set) bool $hidden;
+    private(set) bool $enabled;
 
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     #[Gedmo\SortablePosition]
@@ -51,7 +51,7 @@ class Block implements TranslatableInterface, Stringable
         ModuleBlock $block,
         ?TranslationKey $label = null,
         ?SettingsBag $settings = null,
-        bool $hidden = false,
+        bool $enabled = true,
         ?int $position = null,
         ?Locale $locale = null,
     ) {
@@ -59,7 +59,7 @@ class Block implements TranslatableInterface, Stringable
         $this->type = $block->name->getType();
         $this->settings = $settings ?? new SettingsBag();
         $this->label = $label ?? $block->name->asLabel();
-        $this->hidden = $hidden;
+        $this->enabled = $enabled;
         $this->position = $position;
         $this->locale = $locale;
     }
@@ -69,14 +69,14 @@ class Block implements TranslatableInterface, Stringable
         return $this->settings;
     }
 
-    public function hide(): void
+    public function disable(): void
     {
-        $this->hidden = true;
+        $this->enabled = false;
     }
 
-    public function show(): void
+    public function enable(): void
     {
-        $this->hidden = false;
+        $this->enabled = true;
     }
 
     public function changePosition(int $position): void
