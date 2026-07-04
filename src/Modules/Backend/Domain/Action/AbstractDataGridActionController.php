@@ -22,8 +22,7 @@ abstract class AbstractDataGridActionController extends AbstractActionController
                 $queryBuilderCallback,
                 $limit,
                 $noResultsMessage,
-                ...
-                $extraColumns
+                ...$extraColumns
             )
         );
     }

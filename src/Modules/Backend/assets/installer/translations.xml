@@ -144,6 +144,24 @@
       <translation locale="pl"><![CDATA[ostatnio edytowany przez]]></translation>
       <translation locale="tr"><![CDATA[son düzenleyen]]></translation>
     </item>
+    <item type="label" name="ArchivedOn">
+      <translation locale="nl"><![CDATA[gearchiveerd op]]></translation>
+      <translation locale="en"><![CDATA[archived on]]></translation>
+      <translation locale="hu"><![CDATA[archiválva]]></translation>
+      <translation locale="it"><![CDATA[archiviato il]]></translation>
+      <translation locale="ru"><![CDATA[Архивировано в]]></translation>
+      <translation locale="zh"><![CDATA[归档于]]></translation>
+      <translation locale="de"><![CDATA[archiviert am]]></translation>
+      <translation locale="fr"><![CDATA[archivé le]]></translation>
+      <translation locale="es"><![CDATA[archivado en]]></translation>
+      <translation locale="lt"><![CDATA[archyvuota -]]></translation>
+      <translation locale="uk"><![CDATA[Заархівовано в]]></translation>
+      <translation locale="sv"><![CDATA[arkiverad den]]></translation>
+      <translation locale="el"><![CDATA[αρχειοθετήθηκε στις]]></translation>
+      <translation locale="pt"><![CDATA[arquivado em]]></translation>
+      <translation locale="pl"><![CDATA[zarchiwizowano dn.]]></translation>
+      <translation locale="tr"><![CDATA[arşivlendi]]></translation>
+    </item>
     <item type="label" name="CreatedOn">
       <translation locale="en"><![CDATA[created on]]></translation>
       <translation locale="nl"><![CDATA[aangemaakt op]]></translation>
