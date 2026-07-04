@@ -213,7 +213,7 @@ abstract class ModuleInstaller
         BlockName $name,
         ?TranslationKey $label = null,
         SettingsBag $settings = new SettingsBag(),
-        bool $hidden = false,
+        bool $enabled = true,
         ?int $position = null,
         ?ModuleName $module = null,
         ?Locale $locale = null
@@ -228,7 +228,7 @@ abstract class ModuleInstaller
             return $block;
         }
 
-        $block = new Block($moduleBlock, $label, $settings, $hidden, $position, $locale);
+        $block = new Block($moduleBlock, $label, $settings, $enabled, $position, $locale);
         $blockRepository->save($block);
 
         return $block;

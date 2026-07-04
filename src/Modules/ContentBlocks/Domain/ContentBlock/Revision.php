@@ -24,6 +24,8 @@ class Revision
     use EntityWithSettingsTrait;
 
     public const string DEFAULT_TEMPLATE = 'Default.html.twig';
+    public const string SETTING_MAX_REVISIONS_NAME = 'max_revisions';
+    public const int SETTING_MAX_REVISIONS_DEFAULT = 10;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

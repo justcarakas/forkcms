@@ -250,6 +250,42 @@
       <translation locale="pt"><![CDATA[Ainda não existem versões anteriores.]]></translation>
       <translation locale="pl"><![CDATA[Nie ma jeszcze poprzednich wersji.]]></translation>
     </item>
+    <item type="label" name="MaxRevisions">
+      <translation locale="nl"><![CDATA[maximum aantal revisies om te bewaren]]></translation>
+      <translation locale="en"><![CDATA[maximum number of revisions to keep]]></translation>
+      <translation locale="hu"><![CDATA[megőrzött revíziók száma]]></translation>
+      <translation locale="it"><![CDATA[numero massimo di revisioni da conservare]]></translation>
+      <translation locale="ru"><![CDATA[максимальное количество сохраняемых версий]]></translation>
+      <translation locale="zh"><![CDATA[保留的修订版本数量上限]]></translation>
+      <translation locale="de"><![CDATA[maximale Anzahl an Revisionen]]></translation>
+      <translation locale="fr"><![CDATA[nombre maximum de révisions à conserver]]></translation>
+      <translation locale="es"><![CDATA[número máximo de revisiones a conservar]]></translation>
+      <translation locale="lt"><![CDATA[maksimalus išsaugomų revizijų skaičius]]></translation>
+      <translation locale="uk"><![CDATA[максимальна кількість версій, що зберігаються]]></translation>
+      <translation locale="sv"><![CDATA[max antal versioner att behålla]]></translation>
+      <translation locale="el"><![CDATA[μέγιστος αριθμός εκδόσεων που θα διατηρούνται]]></translation>
+      <translation locale="pt"><![CDATA[número máximo de revisões a manter]]></translation>
+      <translation locale="pl"><![CDATA[maksymalna liczba przechowywanych wersji]]></translation>
+      <translation locale="tr"><![CDATA[saklanacak maksimum revizyon sayısı]]></translation>
+    </item>
+    <item type="message" name="HelpMaxRevisions">
+      <translation locale="nl"><![CDATA[Oudere revisies boven dit aantal worden automatisch verwijderd.]]></translation>
+      <translation locale="en"><![CDATA[Older revisions beyond this number get deleted automatically.]]></translation>
+      <translation locale="hu"><![CDATA[Az ennél régebbi revíziók automatikusan törlődnek.]]></translation>
+      <translation locale="it"><![CDATA[Le revisioni più vecchie oltre questo numero vengono eliminate automaticamente.]]></translation>
+      <translation locale="ru"><![CDATA[Более старые версии сверх этого количества удаляются автоматически.]]></translation>
+      <translation locale="zh"><![CDATA[超过此数量的旧修订版本将被自动删除。]]></translation>
+      <translation locale="de"><![CDATA[Ältere Revisionen über dieser Anzahl werden automatisch gelöscht.]]></translation>
+      <translation locale="fr"><![CDATA[Les révisions plus anciennes au-delà de ce nombre sont supprimées automatiquement.]]></translation>
+      <translation locale="es"><![CDATA[Las revisiones más antiguas que superen este número se eliminan automáticamente.]]></translation>
+      <translation locale="lt"><![CDATA[Senesnės nei šis skaičius revizijos ištrinamos automatiškai.]]></translation>
+      <translation locale="uk"><![CDATA[Старіші версії понад цю кількість видаляються автоматично.]]></translation>
+      <translation locale="sv"><![CDATA[Äldre versioner utöver detta antal tas bort automatiskt.]]></translation>
+      <translation locale="el"><![CDATA[Οι παλαιότερες εκδόσεις πέραν αυτού του αριθμού διαγράφονται αυτόματα.]]></translation>
+      <translation locale="pt"><![CDATA[As revisões mais antigas além deste número são eliminadas automaticamente.]]></translation>
+      <translation locale="pl"><![CDATA[Starsze wersje przekraczające tę liczbę są automatycznie usuwane.]]></translation>
+      <translation locale="tr"><![CDATA[Bu sayının üzerindeki eski revizyonlar otomatik olarak silinir.]]></translation>
+    </item>
     <item type="message" name="UsingARevision">
       <translation locale="nl"><![CDATA[Je hebt een oudere versie ingeladen. Sla op om deze versie te gebruiken.]]></translation>
       <translation locale="en"><![CDATA[You're using an older version. Save to overwrite the current version.]]></translation>

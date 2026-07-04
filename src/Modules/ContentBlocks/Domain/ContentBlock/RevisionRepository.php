@@ -45,4 +45,31 @@ final class RevisionRepository extends ServiceEntityRepository
 
         return array_map(static fn (ContentBlock $contentBlock): Revision => $contentBlock->getActiveRevision(), $contentBlocks);
     }
+
+    /**
+     * Keeps the $maxRevisions most recently archived revisions for a content block and
+     * deletes the rest. The active revision is never touched since it's never archived.
+     */
+    public function deleteArchivedRevisionsBeyondLimit(ContentBlock $contentBlock, int $maxRevisions): void
+    {
+        /** @var Revision[] $archivedRevisions */
+        $archivedRevisions = $this->createQueryBuilder('r')
+            ->andWhere('r.contentBlock = :contentBlock')
+            ->andWhere('r.archivedOn IS NOT NULL')
+            ->setParameter('contentBlock', $contentBlock)
+            ->orderBy('r.archivedOn', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        $revisionsToDelete = array_slice($archivedRevisions, max($maxRevisions, 0));
+        if ($revisionsToDelete === []) {
+            return;
+        }
+
+        $entityManager = $this->getEntityManager();
+        foreach ($revisionsToDelete as $revision) {
+            $entityManager->remove($revision);
+        }
+        $entityManager->flush();
+    }
 }

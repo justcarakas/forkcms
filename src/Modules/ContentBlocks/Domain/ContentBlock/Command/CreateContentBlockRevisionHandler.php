@@ -9,7 +9,10 @@ use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlockRepository;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Event\ContentBlockRevisionCreatedEvent;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Revision;
+use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\RevisionRepository;
 use ForkCMS\Modules\ContentBlocks\Frontend\Widgets\ContentBlock as ContentBlockWidget;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleName;
+use ForkCMS\Modules\Extensions\Domain\Module\ModuleSettings;
 use ForkCMS\Modules\Frontend\Domain\Block\Block;
 use ForkCMS\Modules\Frontend\Domain\Block\ModuleBlock;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -18,6 +21,8 @@ final readonly class CreateContentBlockRevisionHandler implements CommandHandler
 {
     public function __construct(
         private ContentBlockRepository $contentBlockRepository,
+        private RevisionRepository $revisionRepository,
+        private ModuleSettings $moduleSettings,
         private EventDispatcherInterface $eventDispatcher,
     ) {
     }
@@ -46,5 +51,11 @@ final readonly class CreateContentBlockRevisionHandler implements CommandHandler
         $createContentBlock->setEntity($revision);
         $contentBlock->revisions->set($revision->id, $revision);
         $this->eventDispatcher->dispatch(new ContentBlockRevisionCreatedEvent($revision));
+
+        $maxRevisions = $this->moduleSettings->get(
+            ModuleName::fromFQCN(self::class),
+            Revision::SETTING_MAX_REVISIONS_NAME,
+        );
+        $this->revisionRepository->deleteArchivedRevisionsBeyondLimit($contentBlock, $maxRevisions);
     }
 }
