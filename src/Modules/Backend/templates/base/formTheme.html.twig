@@ -658,26 +658,34 @@
 {% endblock %}
 
 {% block data_grid_row %}
-  {{ pageon_datagrid(
-    data_grid,
-    {
-      data_grid_empty_action: data_grid_action|default(null),
-      data_grid_empty_module: data_grid_module|default(null),
-      data_grid_empty_parameters: data_grid_action_parameters|default([]),
-      data_grid_empty_relatives: data_grid_action_relatives|default(false),
-      data_grid_empty_locale: data_grid_action_locale|default(null),
-      data_grid_empty_label: data_grid_action_label|trans|ucfirst,
-      data_grid_wrapper_class: 'table-responsive fork-data-grid fork-form-data-grid',
-      data_grid_id: form.vars.id,
-    }
-  ) }}
-  {% if data_grid_action is defined and data_grid_action is not null %}
-    <div class="btn-bar">
-      <a class="{{ data_grid_action_class }} js-fork-confirmation-trigger" data-message="{{ 'msg.ConfirmLeaveWithUnsavedChanges'|trans }}" href="{{ action_url(data_grid_action, data_grid_module|default(null), data_grid_action_parameters|default([]), data_grid_action_relatives|default(false), data_grid_action_locale|default(null)) }}">
-        {% if data_grid_action_icon %}<i class="{{ data_grid_action_icon }}"></i>{% endif %}
-        {{ data_grid_action_label|trans|ucfirst }}
-      </a>
-    </div>
+  {% if data_grid is null %}
+    {# Not built yet - lazy_src fetches the real thing (see LazyDataGridFieldResolver) once this
+       frame actually becomes visible, instead of paying for its query on every page load. #}
+    <turbo-frame id="{{ form.vars.id }}" loading="lazy" src="{{ lazy_src }}">
+      <div class="text-center p-4"><span class="spinner-border" aria-hidden="true"></span></div>
+    </turbo-frame>
+  {% else %}
+    {{ pageon_datagrid(
+      data_grid,
+      {
+        data_grid_empty_action: data_grid_action|default(null),
+        data_grid_empty_module: data_grid_module|default(null),
+        data_grid_empty_parameters: data_grid_action_parameters|default([]),
+        data_grid_empty_relatives: data_grid_action_relatives|default(false),
+        data_grid_empty_locale: data_grid_action_locale|default(null),
+        data_grid_empty_label: data_grid_action_label|trans|ucfirst,
+        data_grid_wrapper_class: 'table-responsive fork-data-grid fork-form-data-grid',
+        data_grid_id: form.vars.id,
+      }
+    ) }}
+    {% if data_grid_action is defined and data_grid_action is not null %}
+      <div class="btn-bar">
+        <a class="{{ data_grid_action_class }} js-fork-confirmation-trigger" data-message="{{ 'msg.ConfirmLeaveWithUnsavedChanges'|trans }}" href="{{ action_url(data_grid_action, data_grid_module|default(null), data_grid_action_parameters|default([]), data_grid_action_relatives|default(false), data_grid_action_locale|default(null)) }}">
+          {% if data_grid_action_icon %}<i class="{{ data_grid_action_icon }}"></i>{% endif %}
+          {{ data_grid_action_label|trans|ucfirst }}
+        </a>
+      </div>
 
+    {% endif %}
   {% endif %}
 {% endblock %}

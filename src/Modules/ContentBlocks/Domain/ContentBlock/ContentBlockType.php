@@ -8,6 +8,7 @@ use Doctrine\ORM\QueryBuilder;
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Core\Domain\Form\DataGridType;
 use ForkCMS\Core\Domain\Form\EditorType;
+use ForkCMS\Core\Domain\Form\LazyDataGridFieldResolver;
 use ForkCMS\Core\Domain\Form\SwitchType;
 use ForkCMS\Core\Domain\Form\TabsType;
 use ForkCMS\Core\Domain\Form\TitleType;
@@ -25,10 +26,13 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 /** @extends AbstractType<ContentBlockDataTransferObject> */
 final class ContentBlockType extends AbstractType
 {
+    private const string REVISIONS_FIELD_NAME = 'revisions';
+
     public function __construct(
         private readonly ForkTemplateLoader $forkTemplateLoader,
         private readonly DataGridFactory $dataGridFactory,
         private readonly AuthorizationCheckerInterface $authorizationChecker,
+        private readonly LazyDataGridFieldResolver $lazyDataGridFieldResolver,
     ) {
     }
 
@@ -47,8 +51,16 @@ final class ContentBlockType extends AbstractType
                     $this->buildContentForm($builder, $options);
                 },
                 'lbl.Revisions' => function (FormBuilderInterface $builder) use ($options): void {
+                    if (!$this->lazyDataGridFieldResolver->isRequested(self::REVISIONS_FIELD_NAME)) {
+                        $builder->add(self::REVISIONS_FIELD_NAME, DataGridType::class, [
+                            'lazy_src' => $this->lazyDataGridFieldResolver->lazySrc(self::REVISIONS_FIELD_NAME),
+                        ]);
+
+                        return;
+                    }
+
                     $builder->add(
-                        'revisions',
+                        self::REVISIONS_FIELD_NAME,
                         DataGridType::class,
                         [
                             'data_grid' => $this->dataGridFactory->forEntity(
