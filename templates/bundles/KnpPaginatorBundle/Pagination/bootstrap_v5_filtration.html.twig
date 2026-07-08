@@ -1,16 +1,32 @@
-<form method="get" action="{{ action }}" enctype="application/x-www-form-urlencoded">
-  <div class="input-group input-group-sm">
-    {% if fields|length > 1 %}
-      <select class="form-select" name="{{ filterFieldName }}">
-        {% for field, label in fields %}
-          <option value="{{ field }}"{% if selectedField == field %} selected="selected"{% endif %}>{{ label }}</option>
-        {% endfor %}
-      </select>
-    {% else %}
-      <input type="hidden" name="{{ filterFieldName }}" value="{{ fields|keys|first }}"/>
-    {% endif %}
-    <input class="form-control" type="search" {% if selectedField in fields|keys %}value="{{ selectedValue }}"{% endif %} name="{{ filterValueName }}"
-           placeholder="{{ 'lbl.SearchTerm'|trans|ucfirst }}"/>
-    <button class="btn btn-primary">{% if options.button == 'Filter' %}{{ 'lbl.Filter'|trans|ucfirst }}{% else %}{{ options.button|ucfirst }}{% endif %}</button>
-  </div>
-</form>
+{# Deliberately not a <form>: this partial can end up inside a data grid that's itself embedded
+   inside a bigger form (e.g. a tab on an edit page), and HTML doesn't support nested forms.
+   DataGridFilter (Stimulus) drives the enclosing <turbo-frame> instead, live as you type. #}
+<div
+  class="input-group input-group-sm"
+  data-controller="data-grid-filter"
+  data-data-grid-filter-action-value="{{ action }}"
+  data-data-grid-filter-field-name-value="{{ filterFieldName }}"
+  data-data-grid-filter-value-name-value="{{ filterValueName }}"
+>
+  {% if fields|length > 1 %}
+    <select
+      class="form-select dontCheckBeforeUnload"
+      data-data-grid-filter-target="field"
+      data-action="change->data-grid-filter#submit"
+    >
+      {% for field, label in fields %}
+        <option value="{{ field }}"{% if selectedField == field %} selected="selected"{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  {% else %}
+    <input type="hidden" class="dontCheckBeforeUnload" data-data-grid-filter-target="field" value="{{ fields|keys|first }}"/>
+  {% endif %}
+  <input
+    class="form-control dontCheckBeforeUnload"
+    type="search"
+    data-data-grid-filter-target="value"
+    {% if selectedField in fields|keys %}value="{{ selectedValue }}"{% endif %}
+    placeholder="{{ 'lbl.SearchTerm'|trans|ucfirst }}"
+    data-action="input->data-grid-filter#onInput keydown->data-grid-filter#onKeydown"
+  />
+</div>

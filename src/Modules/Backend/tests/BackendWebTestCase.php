@@ -9,6 +9,7 @@ use ForkCMS\Core\tests\WebTestCase;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use ForkCMS\Modules\Backend\Domain\User\UserRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\DataCollectorTranslator;
 use Throwable;
@@ -78,15 +79,32 @@ abstract class BackendWebTestCase extends WebTestCase
         return $user;
     }
 
+    /**
+     * The data grid filter is deliberately not a real <form> (it can be embedded inside a bigger
+     * form, e.g. a tab on an edit page, and HTML doesn't support nested forms) - see the
+     * data-grid-filter Stimulus controller (assets/controllers/data_grid_filter_controller.js),
+     * which reloads the enclosing <turbo-frame> instead. This mimics that: read the same target
+     * straight off the controller's data attributes and navigate there directly.
+     */
     final protected static function filterDataGrid(string $filter, string $value): void
     {
-        $filterForm = static::getCrawler()
-            ->filter('#content .fork-data-grid table input[name=filterField][value="' . $filter . '"]')
-            ->closest('form')
-            ?->form(['filterValue' => $value]);
-        self::assertNotNull($filterForm, 'Filter ' . $filter . ' not found in data grid with value ' . $value . '.');
+        $container = static::getCrawler()
+            ->filter('#content .fork-data-grid [data-controller="data-grid-filter"]')
+            ->reduce(static fn (Crawler $node): bool => $node->filter(
+                '[data-data-grid-filter-target="field"][value="' . $filter . '"], option[value="' . $filter . '"]'
+            )->count() > 0);
+        self::assertGreaterThan(0, $container->count(), 'Filter ' . $filter . ' not found in data grid with value ' . $value . '.');
 
-        static::getClient()->submit($filterForm);
+        $action = $container->attr('data-data-grid-filter-action-value');
+        self::assertNotNull($action);
+        $filterFieldName = $container->attr('data-data-grid-filter-field-name-value');
+        $filterValueName = $container->attr('data-data-grid-filter-value-name-value');
+
+        $separator = str_contains($action, '?') ? '&' : '?';
+        static::request(
+            Request::METHOD_GET,
+            $action . $separator . http_build_query([$filterFieldName => $filter, $filterValueName => $value])
+        );
     }
 
     final protected static function assertAuthenticationIsNeeded(
