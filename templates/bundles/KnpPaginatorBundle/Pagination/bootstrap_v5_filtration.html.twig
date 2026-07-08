@@ -3,30 +3,30 @@
    DataGridFilter (Stimulus) drives the enclosing <turbo-frame> instead, live as you type. #}
 <div
   class="input-group input-group-sm"
-  data-controller="data-grid-filter"
-  data-data-grid-filter-action-value="{{ action }}"
-  data-data-grid-filter-field-name-value="{{ filterFieldName }}"
-  data-data-grid-filter-value-name-value="{{ filterValueName }}"
+  data-controller="core--data-grid-filter"
+  data-core--data-grid-filter-action-value="{{ action }}"
+  data-core--data-grid-filter-field-name-value="{{ filterFieldName }}"
+  data-core--data-grid-filter-value-name-value="{{ filterValueName }}"
 >
   {% if fields|length > 1 %}
     <select
       class="form-select dontCheckBeforeUnload"
-      data-data-grid-filter-target="field"
-      data-action="change->data-grid-filter#submit"
+      data-core--data-grid-filter-target="field"
+      data-action="change->core--data-grid-filter#submit"
     >
       {% for field, label in fields %}
         <option value="{{ field }}"{% if selectedField == field %} selected="selected"{% endif %}>{{ label }}</option>
       {% endfor %}
     </select>
   {% else %}
-    <input type="hidden" class="dontCheckBeforeUnload" data-data-grid-filter-target="field" value="{{ fields|keys|first }}"/>
+    <input type="hidden" class="dontCheckBeforeUnload" data-core--data-grid-filter-target="field" value="{{ fields|keys|first }}"/>
   {% endif %}
   <input
     class="form-control dontCheckBeforeUnload"
     type="search"
-    data-data-grid-filter-target="value"
+    data-core--data-grid-filter-target="value"
     {% if selectedField in fields|keys %}value="{{ selectedValue }}"{% endif %}
     placeholder="{{ 'lbl.SearchTerm'|trans|ucfirst }}"
-    data-action="input->data-grid-filter#onInput keydown->data-grid-filter#onKeydown"
+    data-action="input->core--data-grid-filter#onInput keydown->core--data-grid-filter#onKeydown"
   />
 </div>

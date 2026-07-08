@@ -82,23 +82,24 @@ abstract class BackendWebTestCase extends WebTestCase
     /**
      * The data grid filter is deliberately not a real <form> (it can be embedded inside a bigger
      * form, e.g. a tab on an edit page, and HTML doesn't support nested forms) - see the
-     * data-grid-filter Stimulus controller (assets/controllers/data_grid_filter_controller.js),
+     * core--data-grid-filter Stimulus controller
+     * (src/Core/assets/js/controllers/data_grid_filter_controller.js),
      * which reloads the enclosing <turbo-frame> instead. This mimics that: read the same target
      * straight off the controller's data attributes and navigate there directly.
      */
     final protected static function filterDataGrid(string $filter, string $value): void
     {
         $container = static::getCrawler()
-            ->filter('#content .fork-data-grid [data-controller="data-grid-filter"]')
+            ->filter('#content .fork-data-grid [data-controller="core--data-grid-filter"]')
             ->reduce(static fn (Crawler $node): bool => $node->filter(
-                '[data-data-grid-filter-target="field"][value="' . $filter . '"], option[value="' . $filter . '"]'
+                '[data-core--data-grid-filter-target="field"][value="' . $filter . '"], option[value="' . $filter . '"]'
             )->count() > 0);
         self::assertGreaterThan(0, $container->count(), 'Filter ' . $filter . ' not found in data grid with value ' . $value . '.');
 
-        $action = $container->attr('data-data-grid-filter-action-value');
+        $action = $container->attr('data-core--data-grid-filter-action-value');
         self::assertNotNull($action);
-        $filterFieldName = $container->attr('data-data-grid-filter-field-name-value');
-        $filterValueName = $container->attr('data-data-grid-filter-value-name-value');
+        $filterFieldName = $container->attr('data-core--data-grid-filter-field-name-value');
+        $filterValueName = $container->attr('data-core--data-grid-filter-value-name-value');
 
         $separator = str_contains($action, '?') ? '&' : '?';
         static::request(
