@@ -43,6 +43,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
         'action' => 'user-edit',
     ],
     routeAttributesCallback: [self::class, 'dataGridEditLinkCallback'],
+    order: 100,
     label: 'lbl.Edit',
     class: 'btn btn-primary btn-sm',
     iconClass: 'fa fa-edit',

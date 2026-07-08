@@ -25,7 +25,13 @@ trait CreatedAndUpdatedBy
     #[Gedmo\Blameable]
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'updatedBy')]
-    #[DataGridPropertyColumn(label: 'lbl.LastEditedBy')]
+    #[DataGridPropertyColumn(
+        filterable: true,
+        order: 99,
+        label: 'lbl.LastEditedBy',
+        valueCallback: [self::class, 'getUser'],
+        field: 'displayName'
+    )]
     // phpcs:disable -- property hooks are not yet supported
     private(set) ?User $updatedBy {
         get => $this->updatedBy ?? $this->createdBy;
@@ -34,7 +40,7 @@ trait CreatedAndUpdatedBy
 
     #[Gedmo\Timestampable]
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    #[DataGridPropertyColumn(sortable: true, label: 'lbl.LastEditedOn')]
+    #[DataGridPropertyColumn(sortable: true, order: 99, label: 'lbl.LastEditedOn')]
     // phpcs:disable
     private(set) DateTimeImmutable $updatedOn {
         get {
@@ -42,4 +48,9 @@ trait CreatedAndUpdatedBy
         }
     }
     // phpcs:enable
+
+    public static function getUser(?string $displayName, object $entity): ?User
+    {
+        return $entity->createdBy;
+    }
 }

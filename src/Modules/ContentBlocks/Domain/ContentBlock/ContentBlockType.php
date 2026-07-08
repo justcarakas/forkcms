@@ -112,22 +112,6 @@ final class ContentBlockType extends AbstractType
     {
         $columns = [
             Column::createPropertyColumn(
-                name: 'createdBy',
-                label: 'lbl.CreatedBy',
-                entityAlias: 'Revision',
-                sortable: false,
-                filterable: false,
-                order: 2,
-            ),
-            Column::createPropertyColumn(
-                name: 'createdOn',
-                label: 'lbl.CreatedOn',
-                entityAlias: 'Revision',
-                sortable: true,
-                filterable: false,
-                order: 3,
-            ),
-            Column::createPropertyColumn(
                 name: 'archivedOn',
                 label: 'lbl.ArchivedOn',
                 entityAlias: 'Revision',
@@ -140,7 +124,7 @@ final class ContentBlockType extends AbstractType
         if ($this->authorizationChecker->isGranted(ModuleAction::ROLE_PREFIX . 'CONTENT_BLOCKS__CONTENT_BLOCK_EDIT')) {
             $columns[] = Column::createActionColumn(
                 label: 'lbl.LoadRevision',
-                order: 5,
+                order: 100,
                 route: 'backend_action',
                 routeAttributesCallback: [Revision::class, 'dataGridEditLinkCallback'],
                 class: 'btn btn-primary btn-sm',

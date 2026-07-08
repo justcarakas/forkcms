@@ -28,6 +28,7 @@ use Stringable;
         'action' => 'theme-template-edit',
     ],
     routeAttributesCallback: [self::class, 'dataGridEditLinkCallback'],
+    order: 100,
     label: 'lbl.Edit',
     iconClass: 'edit',
     requiredRole: ModuleAction::ROLE_PREFIX . 'EXTENSIONS__THEME_TEMPLATE_EDIT',

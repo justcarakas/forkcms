@@ -109,6 +109,42 @@
       <translation locale="pl"><![CDATA[edytowany przez]]></translation>
       <translation locale="tr"><![CDATA[düzenleyen]]></translation>
     </item>
+    <item type="label" name="By">
+      <translation locale="nl"><![CDATA[door]]></translation>
+      <translation locale="en"><![CDATA[by]]></translation>
+      <translation locale="hu"><![CDATA[által]]></translation>
+      <translation locale="it"><![CDATA[di]]></translation>
+      <translation locale="ru"><![CDATA[от]]></translation>
+      <translation locale="zh"><![CDATA[由]]></translation>
+      <translation locale="de"><![CDATA[von]]></translation>
+      <translation locale="fr"><![CDATA[par]]></translation>
+      <translation locale="es"><![CDATA[por]]></translation>
+      <translation locale="lt"><![CDATA[pagal]]></translation>
+      <translation locale="uk"><![CDATA[від]]></translation>
+      <translation locale="sv"><![CDATA[av]]></translation>
+      <translation locale="el"><![CDATA[από]]></translation>
+      <translation locale="pt"><![CDATA[por]]></translation>
+      <translation locale="pl"><![CDATA[przez]]></translation>
+      <translation locale="tr"><![CDATA[tarafından]]></translation>
+    </item>
+    <item type="label" name="On">
+      <translation locale="nl"><![CDATA[op]]></translation>
+      <translation locale="en"><![CDATA[on]]></translation>
+      <translation locale="hu"><![CDATA[ekkor]]></translation>
+      <translation locale="it"><![CDATA[il]]></translation>
+      <translation locale="ru"><![CDATA[числа]]></translation>
+      <translation locale="zh"><![CDATA[于]]></translation>
+      <translation locale="de"><![CDATA[am]]></translation>
+      <translation locale="fr"><![CDATA[le]]></translation>
+      <translation locale="es"><![CDATA[el]]></translation>
+      <translation locale="lt"><![CDATA[data]]></translation>
+      <translation locale="uk"><![CDATA[дата]]></translation>
+      <translation locale="sv"><![CDATA[den]]></translation>
+      <translation locale="el"><![CDATA[στις]]></translation>
+      <translation locale="pt"><![CDATA[em]]></translation>
+      <translation locale="pl"><![CDATA[dnia]]></translation>
+      <translation locale="tr"><![CDATA[tarihinde]]></translation>
+    </item>
     <item type="label" name="LastEditedOn">
       <translation locale="nl"><![CDATA[laatst bewerkt op]]></translation>
       <translation locale="en"><![CDATA[last edited on]]></translation>
@@ -232,6 +268,24 @@
       <translation locale="tr"><![CDATA[Önceki versiyonlar]]></translation>
       <translation locale="pt"><![CDATA[versões anteriores]]></translation>
       <translation locale="pl"><![CDATA[poprzednia wersja]]></translation>
+    </item>
+    <item type="label" name="SaveDraft">
+      <translation locale="nl"><![CDATA[bewaar als klad]]></translation>
+      <translation locale="en"><![CDATA[save draft]]></translation>
+      <translation locale="hu"><![CDATA[piszkozat mentése]]></translation>
+      <translation locale="it"><![CDATA[salva come bozza]]></translation>
+      <translation locale="ru"><![CDATA[сохранить черновик]]></translation>
+      <translation locale="zh"><![CDATA[保存草稿]]></translation>
+      <translation locale="de"><![CDATA[Entwurf speichern]]></translation>
+      <translation locale="fr"><![CDATA[enregistrer comme brouillon]]></translation>
+      <translation locale="es"><![CDATA[guardar borrador]]></translation>
+      <translation locale="lt"><![CDATA[išsaugoti kaip juodraštį]]></translation>
+      <translation locale="uk"><![CDATA[зберегти чернетку]]></translation>
+      <translation locale="sv"><![CDATA[spara utkast]]></translation>
+      <translation locale="el"><![CDATA[αποθήκευση προσχεδίου]]></translation>
+      <translation locale="pt"><![CDATA[guardar rascunho]]></translation>
+      <translation locale="pl"><![CDATA[zapisz szkic]]></translation>
+      <translation locale="tr"><![CDATA[taslak olarak kaydet]]></translation>
     </item>
     <item type="message" name="NoRevisions">
       <translation locale="nl"><![CDATA[Er zijn nog geen vorige versies.]]></translation>

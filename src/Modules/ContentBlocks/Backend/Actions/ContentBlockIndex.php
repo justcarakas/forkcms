@@ -52,22 +52,6 @@ final class ContentBlockIndex extends AbstractDataGridActionController
                 order: 1,
                 valueCallback: static fn (ContentBlock $contentBlock): bool => $contentBlock->isWidgetVisible(),
             ),
-            Column::createPropertyColumn(
-                name: 'createdBy',
-                label: 'lbl.LastEditedBy',
-                entityAlias: 'Revision',
-                sortable: false,
-                filterable: false,
-                order: 2,
-            ),
-            Column::createPropertyColumn(
-                name: 'createdOn',
-                label: 'lbl.LastEditedOn',
-                entityAlias: 'Revision',
-                sortable: true,
-                filterable: false,
-                order: 3,
-            ),
         ];
 
         if (!$this->isAllowed(ContentBlockEdit::getActionSlug())) {
@@ -76,7 +60,7 @@ final class ContentBlockIndex extends AbstractDataGridActionController
 
         $columns[] = Column::createActionColumn(
             label: 'lbl.Edit',
-            order: 5,
+            order: 100,
             route: 'backend_action',
             routeAttributesCallback: [Revision::class, 'dataGridEditLinkCallback'],
             class: 'btn btn-primary btn-sm',

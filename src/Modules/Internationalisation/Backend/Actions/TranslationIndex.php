@@ -174,6 +174,7 @@ final class TranslationIndex extends AbstractFormActionController
             if ($this->isAllowed(TranslationAdd::getActionSlug())) {
                 $columns[] = Column::createActionColumn(
                     label: 'lbl.Copy',
+                    order: 100,
                     route: 'backend_action',
                     routeAttributes: TranslationAdd::getActionSlug()->getRouteParameters() + $this->filter->toArray(),
                     routeAttributesCallback: $this->addTranslationSlug(...),
@@ -185,6 +186,7 @@ final class TranslationIndex extends AbstractFormActionController
             if ($this->isAllowed(TranslationEdit::getActionSlug())) {
                 $columns[] = Column::createActionColumn(
                     label: 'lbl.Edit',
+                    order: 100,
                     route: 'backend_action',
                     routeAttributes: TranslationEdit::getActionSlug()->getRouteParameters() + $this->filter->toArray(),
                     routeAttributesCallback: $this->addTranslationSlug(...),
