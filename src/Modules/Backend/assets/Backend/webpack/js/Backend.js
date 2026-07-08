@@ -4,7 +4,8 @@ import * as bootstrap from 'bootstrap/dist/js/bootstrap.js'
 import 'select2/dist/js/select2.full'
 import 'flatpickr'
 
-// registers Stimulus controllers from assets/controllers.json and assets/controllers/
+// registers Stimulus controllers from controllers_backend.json, ./controllers, Core, and every
+// module's own Backend controllers/ directory
 import '../../../../../../../assets/stimulus_bootstrap.js'
 
 // component imports

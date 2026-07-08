@@ -161,7 +161,10 @@ for (const APPLICATION of ['Installer', 'Frontend', 'Backend']) {
     .enablePostCssLoader()
 
   if (APPLICATION === 'Backend') {
-    Encore.enableStimulusBridge('./assets/controllers.json')
+    Encore.enableStimulusBridge('./assets/controllers_backend.json')
+  }
+  if (APPLICATION === 'Frontend') {
+    Encore.enableStimulusBridge('./assets/controllers_frontend.json')
   }
 
   const COPY_FILES_CONFIGS = []
