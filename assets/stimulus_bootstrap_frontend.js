@@ -1,5 +1,5 @@
 import { startStimulusApp } from '@symfony/stimulus-bridge'
-import { namespaceContext, combineContexts, kebabCase, coreControllersContext } from './stimulus_namespacing.js'
+import { namespaceContext, combineContexts, kebabCase, coreControllersContext, registerDropInControllers } from './stimulus_namespacing.js'
 
 // Every module's own Frontend Stimulus controllers, e.g.
 // src/Modules/Blog/assets/Frontend/webpack/js/controllers/foo_controller.js -> "blog--foo"
@@ -26,3 +26,4 @@ export const app = startStimulusApp(combineContexts(
   coreControllersContext,
   moduleControllersContext,
 ))
+registerDropInControllers(app)

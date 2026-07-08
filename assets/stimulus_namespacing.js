@@ -30,6 +30,29 @@ export function combineContexts (...contexts) {
 
 export const kebabCase = (value) => value.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()
 
+// Registers a module's plain, unbundled Stimulus controllers - dropped straight into its own
+// assets/{application}/public/js/controllers/ directory, no webpack rebuild needed since Asset
+// already serves files from a module's public/ folder as-is. PHP (DropInStimulusControllerFinder,
+// wired into Header) discovers them per request and exposes {identifier: url} via the jsData global;
+// this waits for that script to have run (it's rendered after the one that loads this file) before
+// reading it.
+export function registerDropInControllers (app) {
+  const register = () => {
+    const controllers = window.jsData?.Core?.dropInStimulusControllers ?? {}
+    Object.entries(controllers).forEach(([identifier, url]) => {
+      import(/* webpackIgnore: true */ url).then((module) => {
+        app.register(identifier, module.default)
+      })
+    })
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', register)
+  } else {
+    register()
+  }
+}
+
 // Core's own Stimulus controllers: src/Core/assets/js/controllers/foo_controller.js -> "core--foo".
 // Rooted at src/Core/assets/js (which always exists), not .../controllers itself, so the controllers/
 // directory doesn't need to exist - if nothing lives there yet, this context is just empty. Shared by

@@ -7,6 +7,7 @@ namespace ForkCMS\Core\Domain\Header;
 use ForkCMS\Core\Domain\Application\Application;
 use ForkCMS\Core\Domain\Header\Asset\Asset;
 use ForkCMS\Core\Domain\Header\Asset\AssetCollection;
+use ForkCMS\Core\Domain\Header\Asset\DropInStimulusControllerFinder;
 use ForkCMS\Core\Domain\Header\Asset\Priority;
 use ForkCMS\Core\Domain\Header\Breadcrumb\Breadcrumb;
 use ForkCMS\Core\Domain\Header\Breadcrumb\BreadcrumbCollection;
@@ -49,8 +50,9 @@ final readonly class Header
         Security $security,
         TranslatorInterface $translator,
         ConsentDialog $consentDialog,
+        DropInStimulusControllerFinder $dropInStimulusControllerFinder,
     ) {
-        $this->jsData = $this->initJsData($kernel, $security, $translator, $consentDialog);
+        $this->jsData = $this->initJsData($kernel, $security, $translator, $consentDialog, $dropInStimulusControllerFinder);
         $this->jsFiles = new AssetCollection();
         $this->cssFiles = new AssetCollection();
     }
@@ -72,7 +74,8 @@ final readonly class Header
         KernelInterface $kernel,
         Security $security,
         TranslatorInterface $translator,
-        ConsentDialog $consentDialog
+        ConsentDialog $consentDialog,
+        DropInStimulusControllerFinder $dropInStimulusControllerFinder
     ): JsData {
         $defaults = [
             'default_locale' => $kernel->getContainer()->getParameter('kernel.default_locale'),
@@ -93,7 +96,7 @@ final readonly class Header
             $defaults['default_translation_domain_fallback'] = $defaultTranslationDomain;
         }
 
-        return new JsData($defaults);
+        return new JsData($defaults, $dropInStimulusControllerFinder, $this->requestStack);
     }
 
     public function addJsData(ModuleName $module, string $key, mixed $value): void
