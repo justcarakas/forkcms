@@ -6,6 +6,12 @@
 {% set data_grid_empty_label = data_grid_empty_label|default('lbl.Add'|trans|ucfirst) %}
 {% set data_grid_wrapper_class = data_grid_wrapper_class|default('table-responsive fork-data-grid') %}
 {% set data_grid_id = data_grid_id|default('backend-data-grid') %}
+{# KnpPaginator's filter/sort/pagination links are route-generated, not "current URL with a few params
+   swapped" - they only ever carry whatever's explicitly passed in here, silently dropping everything
+   else. A lazily-loaded grid (see LazyDataGridFieldResolver) needs its own _lazyDataGridField query
+   param to survive onto these links, or filtering/sorting/paginating inside it falls straight back to
+   the loading placeholder instead of showing the new page. #}
+{% set data_grid_extra_params = data_grid_extra_params|default({}) %}
 
 <turbo-frame id="{{ data_grid_id }}">
 {% if dataGrid.paginator is not empty or dataGrid.paginator.params.filterValue is defined %}
@@ -19,7 +25,7 @@
             <th scope="col">
               {% if column.showColumnLabel %}
                 {% if(column.sortable) %}
-                  {{ knp_pagination_sortable(dataGrid.paginator, column.label|trans|ucfirst, column.fullName) }}
+                  {{ knp_pagination_sortable(dataGrid.paginator, column.label|trans|ucfirst, column.fullName, {}, data_grid_extra_params) }}
                 {% else %}
                   {{ column.label|trans|ucfirst }}
                 {% endif %}
@@ -33,13 +39,16 @@
         {% if(has_filters) %}
           <tr>
             {% for column in dataGrid.columns %}
-              <th scope="col">{% if(column.filterable) %}{{ knp_pagination_filter(dataGrid.paginator, {(column.fullName): column.label}, {button: 'lbl.Filter'}) }}{% endif %}</th>
+              <th scope="col">{% if(column.filterable) %}{{ knp_pagination_filter(dataGrid.paginator, {(column.fullName): column.label}, {button: 'lbl.Filter'}, data_grid_extra_params) }}{% endif %}</th>
             {% endfor %}
           </tr>
         {% endif %}
         </thead>
       {% endblock %}
       {% block noResults %}{% endblock %}
+      {% block paginator %}
+        <div class="d-flex align-self-center justify-content-center">{{ knp_pagination_render(dataGrid.paginator, data_grid_extra_params) }}</div>
+      {% endblock %}
       {% block columnValue %}
         {% if column.showColumnLabel or column.hasValueCallback %}
           {% if column.relation is not null %}

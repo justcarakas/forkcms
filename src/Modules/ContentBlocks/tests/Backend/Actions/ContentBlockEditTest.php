@@ -95,6 +95,30 @@ final class ContentBlockEditTest extends BackendWebTestCase
         self::assertDataGridHasLink(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
     }
 
+    public function testRevisionsCanBeFiltered(): void
+    {
+        $contentBlock = $this->loadContentBlock(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
+        self::submitForm(
+            'Save',
+            [
+                'content_block[contentBlock][tab_Content][title]' => 'I<3ForkCMS',
+                'content_block[contentBlock][tab_Content][text]' => 'It is simply amazing, you should try it too!',
+            ],
+        );
+        self::getClient()->followRedirect();
+        self::assertClickOnLink('I<3ForkCMS', [htmlentities('I<3ForkCMS')]);
+        self::assertCurrentUrlContains(self::TEST_URL . $contentBlock->id);
+        $this->loadRevisionsTab($contentBlock->id);
+        self::assertResponseContains(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
+
+        // Filtering must keep resolving to the real grid, not fall back to the lazy placeholder.
+        self::filterDataGrid('Revision.title', ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
+        self::assertResponseContains(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
+
+        self::filterDataGrid('Revision.title', 'nothing to see here');
+        self::assertResponseDoesNotHaveContent(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
+    }
+
     public function testUniqueness(): void
     {
         $this->loadContentBlock(ContentBlockFixture::CONTENT_BLOCK_HIDDEN_TITLE);
