@@ -6,7 +6,7 @@ import 'flatpickr'
 
 // registers Stimulus controllers from controllers_backend.json, ./controllers, Core, and every
 // module's own Backend controllers/ directory
-import '../../../../../../../assets/stimulus_bootstrap.js'
+import '../../../../../../../assets/stimulus_bootstrap_backend.js'
 
 // component imports
 import { Data } from '../../../../../../Core/assets/js/Components/Data'

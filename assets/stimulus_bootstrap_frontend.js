@@ -20,8 +20,8 @@ const moduleControllersContext = namespaceContext(
 )
 
 // Registers Stimulus controllers from Core and every module's own Frontend controllers/ directory -
-// a separate Application instance from the Backend one (see stimulus_bootstrap.js), since a page is
-// always either a Backend admin page or a public Frontend page, never both.
+// a separate Application instance from the Backend one (see stimulus_bootstrap_backend.js), since a
+// page is always either a Backend admin page or a public Frontend page, never both.
 export const app = startStimulusApp(combineContexts(
   coreControllersContext,
   moduleControllersContext,
