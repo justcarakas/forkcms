@@ -160,6 +160,10 @@ for (const APPLICATION of ['Installer', 'Frontend', 'Backend']) {
     })
     .enablePostCssLoader()
 
+  if (APPLICATION === 'Backend') {
+    Encore.enableStimulusBridge('./assets/controllers.json')
+  }
+
   const COPY_FILES_CONFIGS = []
   for (const MODULE_CONFIG of extensionConfig.modules) {
     const MODULE_PUBLIC_DIR = `${MODULE_CONFIG.path}/${APPLICATION}/public`
