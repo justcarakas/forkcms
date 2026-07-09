@@ -95,28 +95,16 @@
 {%- endblock form_errors %}
 
 {%- block meta_widget -%}
-  {% set custom_id = form.vars.id ~ '_custom' %}
-  {% set class_id = form.vars.id ~ '_class' %}
-  {% set method_id = form.vars.id ~ '_method' %}
-  {% set parameters_id = form.vars.id ~ '_parameters' %}
   <div
     class="js-do-meta-automatically"
     data-base-field-selector="{{ base_field_selector }}"
-    data-meta-id-selector="{{ '#' ~ form.id.vars.id }}"
     data-page-title-selector="{{ '#' ~ form.title.vars.id }}"
     data-page-title-overwrite-selector="{{ '#' ~ form.titleOverwrite.vars.id }}"
     data-meta-description-selector="{{ '#' ~ form.description.vars.id }}"
     data-meta-description-overwrite-selector="{{ '#' ~ form.descriptionOverwrite.vars.id }}"
     data-meta-keywords-selector="{{ '#' ~ form.keywords.vars.id }}"
     data-meta-keywords-overwrite-selector="{{ '#' ~ form.keywordsOverwrite.vars.id }}"
-    data-slug-selector="{{ '#' ~ form.slug.vars.id }}"
-    data-slug-overwrite-selector="{{ '#' ~ form.slugOverwrite.vars.id }}"
     data-canonincal-url-overwrite-selector="{{ '#' ~ form.canonicalUrlOverwrite.vars.id }}"
-    data-generated-slug-selector="{{ form.vars.generated_slug_selector }}"
-    data-custom-selector="{{ '#' ~ custom_id }}"
-    data-class-name-selector="{{ '#' ~ class_id }}"
-    data-method-name-selector="{{ '#' ~ method_id }}"
-    data-parameters-selector="{{ '#' ~ parameters_id }}"
   >
     <fieldset>
       <legend>{{ 'lbl.Titles'|trans|ucfirst }}</legend>
@@ -193,6 +181,16 @@
           </div>
           {{ form_errors(form.slug) }}
           <small class="form-text text-muted">{{ 'msg.HelpMetaURL'|trans|raw }}</small>
+          {{ component('SlugGenerator', {
+            slug: form.slug.vars.value,
+            generateSlugCallbackClass: generate_slug_callback_class,
+            generateSlugCallbackMethod: generate_slug_callback_method,
+            generateSlugCallbackParameters: generate_slug_callback_parameters,
+            'data-backend--slug-generator-base-field-selector-value': base_field_selector,
+            'data-backend--slug-generator-overwrite-selector-value': '#' ~ form.slugOverwrite.vars.id,
+            'data-backend--slug-generator-input-selector-value': '#' ~ form.slug.vars.id,
+            'data-backend--slug-generator-preview-selector-value': form.vars.generated_slug_selector,
+          }) }}
         </div>
       </div>
       <div class="checkboxTextFieldCombo">
@@ -223,10 +221,6 @@
       </div>
     </fieldset>
   </div>
-  <input type="hidden" id="{{ custom_id }}" value="{{ custom_meta_tags ? '1' : '0' }}">
-  <input type="hidden" id="{{ class_id }}" value="{{ generate_slug_callback_class }}">
-  <input type="hidden" id="{{ method_id }}" value="{{ generate_slug_callback_method }}">
-  <input type="hidden" id="{{ parameters_id }}" value="{{ generate_slug_callback_parameters }}">
   {{ form_rest(form) }}
 {%- endblock meta_widget -%}
 
