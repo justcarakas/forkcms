@@ -18,7 +18,6 @@ import { Tabs } from '../../../../../../Core/assets/js/Components/Tabs'
 import { Collection } from '../../../../../../Core/assets/js/Components/Collection'
 import { Layout } from '../../../../../../Core/assets/js/Components/Layout'
 import { Tooltip } from '../../../../../../Core/assets/js/Components/Tooltip'
-import { AjaxContentEditable } from '../../../../../../Core/assets/js/Components/AjaxContentEditable'
 import { Modal } from './Components/Modal'
 import { Resize } from './Components/Resize'
 import { Navigation } from './Components/Navigation'
@@ -54,7 +53,6 @@ export class Backend {
     this.tooltip = new Tooltip()
     this.tableSequenceDragAndDrop = new TableSequenceDragAndDrop()
     this.session = new Session()
-    this.ajaxContentEditable = new AjaxContentEditable(this.locale)
     this.initToasts = new InitBsToasts()
 
     Backend.initPasswordGenerators()
