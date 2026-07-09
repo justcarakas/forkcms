@@ -25,7 +25,6 @@ import { Forms } from './Components/Forms'
 import { TableSequenceDragAndDrop } from './Components/TableSequenceDragAndDrop'
 import { Session } from './Components/Session'
 import { Config } from './Components/Config'
-import { PasswordGenerator } from './Components/PasswordGenerator'
 import { PasswordStrenghtMeter } from '../../../../../../Core/assets/js/Components/PasswordStrenghtMeter'
 import { InitBsToasts } from './Components/InitToasts'
 import { TogglePasswordInputType } from '../../../../../../Core/assets/js/Components/TogglePasswordInputType'
@@ -55,18 +54,11 @@ export class Backend {
     this.session = new Session()
     this.initToasts = new InitBsToasts()
 
-    Backend.initPasswordGenerators()
     Backend.initPasswordStrenghtMeters()
     Backend.initTogglePasswordInputType()
 
     // do not move, should be run as the last item.
     if (!Config.isDebug()) this.forms.unloadWarning()
-  }
-
-  static initPasswordGenerators () {
-    $('[data-password-generator]').each((index, element) => {
-      element.passwordGenerator = new PasswordGenerator($(element))
-    })
   }
 
   static initPasswordStrenghtMeters () {
