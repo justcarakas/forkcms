@@ -6,7 +6,7 @@ import { namespaceContext, combineContexts, kebabCase, coreControllersContext, r
 const moduleControllersContext = namespaceContext(
   import.meta.webpackContext('@symfony/stimulus-bridge/lazy-controller-loader!../src/Modules', {
     recursive: true,
-    regExp: /assets\/Backend\/webpack\/js\/controllers\/.+_controller\.[jt]sx?$/,
+    regExp: /assets\/Backend\/webpack\/js\/controllers\/.+_controller\.[jt]sx?$/
   }),
   (key) => {
     const match = key.match(/^\.\/([^/]+)\/assets\/Backend\/webpack\/js\/controllers\/(.+)_controller\.[jt]sx?$/)
@@ -25,10 +25,10 @@ const moduleControllersContext = namespaceContext(
 export const app = startStimulusApp(combineContexts(
   import.meta.webpackContext('@symfony/stimulus-bridge/lazy-controller-loader!./controllers', {
     recursive: true,
-    regExp: /\.[jt]sx?$/,
+    regExp: /\.[jt]sx?$/
   }),
   coreControllersContext,
-  moduleControllersContext,
+  moduleControllersContext
 ))
 registerDropInControllers(app)
 // register any custom, 3rd party controllers here

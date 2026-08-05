@@ -6,7 +6,7 @@ import { namespaceContext, combineContexts, kebabCase, coreControllersContext, r
 const moduleControllersContext = namespaceContext(
   import.meta.webpackContext('@symfony/stimulus-bridge/lazy-controller-loader!../src/Modules', {
     recursive: true,
-    regExp: /assets\/Frontend\/webpack\/js\/controllers\/.+_controller\.[jt]sx?$/,
+    regExp: /assets\/Frontend\/webpack\/js\/controllers\/.+_controller\.[jt]sx?$/
   }),
   (key) => {
     const match = key.match(/^\.\/([^/]+)\/assets\/Frontend\/webpack\/js\/controllers\/(.+)_controller\.[jt]sx?$/)
@@ -24,6 +24,6 @@ const moduleControllersContext = namespaceContext(
 // page is always either a Backend admin page or a public Frontend page, never both.
 export const app = startStimulusApp(combineContexts(
   coreControllersContext,
-  moduleControllersContext,
+  moduleControllersContext
 ))
 registerDropInControllers(app)

@@ -18,7 +18,7 @@ const MODULE_PATH = { output: 'public/assets/modules', public: '/assets/modules'
 const EXPORTS = []
 
 if (!Encore.isRuntimeEnvironmentConfigured()) {
-  Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'prod');
+  Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'prod')
 }
 
 //
@@ -60,8 +60,8 @@ for (const THEME_CONFIG of extensionConfig.themes) {
     })
     // enables @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {
-      config.useBuiltIns = 'usage';
-      config.corejs = '3.23';
+      config.useBuiltIns = 'usage'
+      config.corejs = '3.23'
     })
     .enableSassLoader((options) => {
     }, {
@@ -151,8 +151,8 @@ for (const APPLICATION of ['Installer', 'Frontend', 'Backend']) {
     })
     // enables @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {
-      config.useBuiltIns = 'usage';
-      config.corejs = '3.23';
+      config.useBuiltIns = 'usage'
+      config.corejs = '3.23'
     })
     .enableSassLoader((options) => {
     }, {

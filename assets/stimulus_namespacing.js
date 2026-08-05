@@ -60,7 +60,7 @@ export function registerDropInControllers (app) {
 export const coreControllersContext = namespaceContext(
   import.meta.webpackContext('@symfony/stimulus-bridge/lazy-controller-loader!../src/Core/assets/js', {
     recursive: true,
-    regExp: /controllers\/.+_controller\.[jt]sx?$/,
+    regExp: /controllers\/.+_controller\.[jt]sx?$/
   }),
   (key) => {
     const match = key.match(/^\.\/controllers\/(.+)_controller\.[jt]sx?$/)
