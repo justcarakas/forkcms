@@ -64,7 +64,10 @@ final class UserType extends AbstractType
                                     'first_options' => [
                                         'label' => 'lbl.Password',
                                         'row_attr' => ['class' => 'col-12 col-md-6 mb-3'],
-                                        'attr' => ['autocomplete' => 'new-password'],
+                                        'attr' => [
+                                            'autocomplete' => 'new-password',
+                                            'data-controller' => 'backend--password-generator',
+                                        ],
                                     ],
                                     'second_options' => [
                                         'label' => 'lbl.ConfirmPassword',

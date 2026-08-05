@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ForkCMS\Modules\Backend\Domain\User\User;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Pageon\DoctrineDataGridBundle\Attribute\DataGridPropertyColumn;
 
 /**
  * Like CreatedAndUpdatedBy, but without the updatedBy/updatedOn pair: use this directly on
@@ -24,9 +25,22 @@ trait CreatedBy
     #[Gedmo\Blameable(on: 'create')]
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'createdBy')]
+    #[DataGridPropertyColumn(
+        filterable: true,
+        order: 99,
+        label: 'lbl.By',
+        valueCallback: [self::class, 'getUser'],
+        field: 'displayName'
+    )]
     private(set) ?User $createdBy;
 
     #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[DataGridPropertyColumn(sortable: true, order: 99, label: 'lbl.On')]
     private(set) DateTimeImmutable $createdOn;
+
+    public static function getUser(?string $displayName, object $entity): ?User
+    {
+        return $entity->createdBy;
+    }
 }

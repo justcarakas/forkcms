@@ -34,6 +34,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
         'action' => 'user-group-edit',
     ],
     routeAttributesCallback: [self::class, 'dataGridEditLinkCallback'],
+    order: 100,
     label: 'lbl.Edit',
     class: 'btn btn-primary btn-sm',
     iconClass: 'fa fa-edit',

@@ -27,6 +27,17 @@ final class UserAddTest extends BackendWebTestCase
         self::assertHasLink('Cancel', '/private/en/backend/user-index');
     }
 
+    public function testPasswordFieldHasAGeneratorController(): void
+    {
+        self::loginBackendUser();
+        self::loadPage();
+
+        $passwordField = self::getCrawler()
+            ->filter('input[name="user[user][tab_Authentication][plainTextPassword][first]"]');
+        self::assertSame(1, $passwordField->count());
+        self::assertSame('backend--password-generator', $passwordField->attr('data-controller'));
+    }
+
     public function testEmptyFormShowsValidationErrors(): void
     {
         self::loadPage();

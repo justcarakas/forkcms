@@ -221,7 +221,7 @@ class MetaType extends AbstractType
     private function applyGeneratedSlug(FormInterface $metaForm, array &$metaData): void
     {
         $generatedSlug = $this->metaRepository->generateSlug(
-            htmlspecialchars_decode($metaData['slug']),
+            htmlspecialchars_decode($metaData['slug'] ?? ''),
             $metaForm->getConfig()->getOption('generate_slug_callback_class'),
             $metaForm->getConfig()->getOption('generate_slug_callback_method'),
             $metaForm->getConfig()->getOption('generate_slug_callback_parameters')

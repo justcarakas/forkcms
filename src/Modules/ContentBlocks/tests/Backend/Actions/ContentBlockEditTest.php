@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace ForkCMS\Modules\ContentBlocks\tests\Backend\Actions;
 
+use ForkCMS\Core\Domain\Form\LazyDataGridFieldResolver;
 use ForkCMS\Modules\Backend\tests\BackendWebTestCase;
 use ForkCMS\Modules\ContentBlocks\DataFixtures\ContentBlockFixture;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\ContentBlock;
 use ForkCMS\Modules\ContentBlocks\Domain\ContentBlock\Revision;
+use Symfony\Component\HttpFoundation\Request;
 
 final class ContentBlockEditTest extends BackendWebTestCase
 {
@@ -20,6 +22,19 @@ final class ContentBlockEditTest extends BackendWebTestCase
         self::loadPage(self::TEST_URL . $contentBlock->id);
 
         return $contentBlock;
+    }
+
+    /**
+     * The revisions tab is a lazily-loaded turbo-frame (see LazyDataGridFieldResolver): the initial
+     * page load only contains a placeholder, and its real content is fetched from a separate request
+     * once the frame is actually shown. This mimics that fetch.
+     */
+    private function loadRevisionsTab(int $contentBlockId): void
+    {
+        self::request(
+            Request::METHOD_GET,
+            self::TEST_URL . $contentBlockId . '?' . LazyDataGridFieldResolver::QUERY_PARAMETER . '=revisions'
+        );
     }
 
     public function testPageLoads(): void
@@ -52,6 +67,8 @@ final class ContentBlockEditTest extends BackendWebTestCase
     public function testRevisionsCanBeReloaded(): void
     {
         $contentBlock = $this->loadContentBlock(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
+        self::assertResponseDoesNotHaveContent('There are no previous versions yet.');
+        $this->loadRevisionsTab($contentBlock->id);
         self::assertResponseContains('There are no previous versions yet.');
         self::submitForm(
             'Save',
@@ -64,8 +81,9 @@ final class ContentBlockEditTest extends BackendWebTestCase
         self::assertCurrentUrlEndsWith('/private/en/content-blocks/content-block-index');
         self::assertDataGridNotHasLink(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
         self::assertResponseContains('The content block "I<3ForkCMS" was saved.');
-        self::assertClickOnLink('I<3ForkCMS', [htmlentities('I<3ForkCMS'), ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE]);
+        self::assertClickOnLink('I<3ForkCMS', [htmlentities('I<3ForkCMS')]);
         self::assertCurrentUrlContains(self::TEST_URL . $contentBlock->id);
+        $this->loadRevisionsTab($contentBlock->id);
         self::assertResponseDoesNotHaveContent('There are no previous versions yet.');
         self::assertResponseContains('Use this version');
         self::assertResponseContains('Archived on');
@@ -75,6 +93,30 @@ final class ContentBlockEditTest extends BackendWebTestCase
         );
         self::assertEmptyFormSubmission('content_block', 0, 'Save');
         self::assertDataGridHasLink(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
+    }
+
+    public function testRevisionsCanBeFiltered(): void
+    {
+        $contentBlock = $this->loadContentBlock(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
+        self::submitForm(
+            'Save',
+            [
+                'content_block[contentBlock][tab_Content][title]' => 'I<3ForkCMS',
+                'content_block[contentBlock][tab_Content][text]' => 'It is simply amazing, you should try it too!',
+            ],
+        );
+        self::getClient()->followRedirect();
+        self::assertClickOnLink('I<3ForkCMS', [htmlentities('I<3ForkCMS')]);
+        self::assertCurrentUrlContains(self::TEST_URL . $contentBlock->id);
+        $this->loadRevisionsTab($contentBlock->id);
+        self::assertResponseContains(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
+
+        // Filtering must keep resolving to the real grid, not fall back to the lazy placeholder.
+        self::filterDataGrid('Revision.title', ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
+        self::assertResponseContains(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
+
+        self::filterDataGrid('Revision.title', 'nothing to see here');
+        self::assertResponseDoesNotHaveContent(ContentBlockFixture::CONTENT_BLOCK_VISIBLE_TITLE);
     }
 
     public function testUniqueness(): void

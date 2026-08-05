@@ -4,6 +4,10 @@ import * as bootstrap from 'bootstrap/dist/js/bootstrap.js'
 import 'select2/dist/js/select2.full'
 import 'flatpickr'
 
+// registers Stimulus controllers from controllers_backend.json, ./controllers, Core, and every
+// module's own Backend controllers/ directory
+import '../../../../../../../assets/stimulus_bootstrap_backend.js'
+
 // component imports
 import { Data } from '../../../../../../Core/assets/js/Components/Data'
 import { Ajax } from '../../../../../../Core/assets/js/Components/Ajax'
@@ -14,7 +18,6 @@ import { Tabs } from '../../../../../../Core/assets/js/Components/Tabs'
 import { Collection } from '../../../../../../Core/assets/js/Components/Collection'
 import { Layout } from '../../../../../../Core/assets/js/Components/Layout'
 import { Tooltip } from '../../../../../../Core/assets/js/Components/Tooltip'
-import { AjaxContentEditable } from '../../../../../../Core/assets/js/Components/AjaxContentEditable'
 import { Modal } from './Components/Modal'
 import { Resize } from './Components/Resize'
 import { Navigation } from './Components/Navigation'
@@ -22,7 +25,6 @@ import { Forms } from './Components/Forms'
 import { TableSequenceDragAndDrop } from './Components/TableSequenceDragAndDrop'
 import { Session } from './Components/Session'
 import { Config } from './Components/Config'
-import { PasswordGenerator } from './Components/PasswordGenerator'
 import { PasswordStrenghtMeter } from '../../../../../../Core/assets/js/Components/PasswordStrenghtMeter'
 import { InitBsToasts } from './Components/InitToasts'
 import { TogglePasswordInputType } from '../../../../../../Core/assets/js/Components/TogglePasswordInputType'
@@ -50,21 +52,13 @@ export class Backend {
     this.tooltip = new Tooltip()
     this.tableSequenceDragAndDrop = new TableSequenceDragAndDrop()
     this.session = new Session()
-    this.ajaxContentEditable = new AjaxContentEditable(this.locale)
     this.initToasts = new InitBsToasts()
 
-    Backend.initPasswordGenerators()
     Backend.initPasswordStrenghtMeters()
     Backend.initTogglePasswordInputType()
 
     // do not move, should be run as the last item.
     if (!Config.isDebug()) this.forms.unloadWarning()
-  }
-
-  static initPasswordGenerators () {
-    $('[data-password-generator]').each((index, element) => {
-      element.passwordGenerator = new PasswordGenerator($(element))
-    })
   }
 
   static initPasswordStrenghtMeters () {

@@ -5,7 +5,15 @@
 {% set data_grid_empty_locale = data_grid_empty_locale|default(null) %}
 {% set data_grid_empty_label = data_grid_empty_label|default('lbl.Add'|trans|ucfirst) %}
 {% set data_grid_wrapper_class = data_grid_wrapper_class|default('table-responsive fork-data-grid') %}
+{% set data_grid_id = data_grid_id|default('backend-data-grid') %}
+{# KnpPaginator's filter/sort/pagination links are route-generated, not "current URL with a few params
+   swapped" - they only ever carry whatever's explicitly passed in here, silently dropping everything
+   else. A lazily-loaded grid (see LazyDataGridFieldResolver) needs its own _lazyDataGridField query
+   param to survive onto these links, or filtering/sorting/paginating inside it falls straight back to
+   the loading placeholder instead of showing the new page. #}
+{% set data_grid_extra_params = data_grid_extra_params|default({}) %}
 
+<turbo-frame id="{{ data_grid_id }}">
 {% if dataGrid.paginator is not empty or dataGrid.paginator.params.filterValue is defined %}
   <div class="{{ data_grid_wrapper_class }}">
     {% embed '@!PageonDoctrineDataGrid/dataGrid.html.twig' %}
@@ -17,7 +25,7 @@
             <th scope="col">
               {% if column.showColumnLabel %}
                 {% if(column.sortable) %}
-                  {{ knp_pagination_sortable(dataGrid.paginator, column.label|trans|ucfirst, column.fullName) }}
+                  {{ knp_pagination_sortable(dataGrid.paginator, column.label|trans|ucfirst, column.fullName, {}, data_grid_extra_params) }}
                 {% else %}
                   {{ column.label|trans|ucfirst }}
                 {% endif %}
@@ -31,15 +39,28 @@
         {% if(has_filters) %}
           <tr>
             {% for column in dataGrid.columns %}
-              <th scope="col">{% if(column.filterable) %}{{ knp_pagination_filter(dataGrid.paginator, {(column.fullName): column.label}, {button: 'lbl.Filter'}) }}{% endif %}</th>
+              <th scope="col">{% if(column.filterable) %}{{ knp_pagination_filter(dataGrid.paginator, {(column.fullName): column.label}, {button: 'lbl.Filter'}, data_grid_extra_params) }}{% endif %}</th>
             {% endfor %}
           </tr>
         {% endif %}
         </thead>
       {% endblock %}
       {% block noResults %}{% endblock %}
+      {% block paginator %}
+        <div class="d-flex align-self-center justify-content-center">{{ knp_pagination_render(dataGrid.paginator, data_grid_extra_params) }}</div>
+      {% endblock %}
       {% block columnValue %}
-        {% set value = column.showColumnLabel or column.hasValueCallback ? column.value(attribute(row, column.name), row, column.name) : column.label|trans|ucfirst %}
+        {% if column.showColumnLabel or column.hasValueCallback %}
+          {% if column.relation is not null %}
+            {% set related_entity = attribute(row, column.relation) %}
+            {% set raw_value = related_entity is null ? null : attribute(related_entity, column.name) %}
+          {% else %}
+            {% set raw_value = attribute(row, column.name) %}
+          {% endif %}
+          {% set value = column.value(raw_value, row, column.name) %}
+        {% else %}
+          {% set value = column.label|trans|ucfirst %}
+        {% endif %}
         {% set value_type = value|type %}
         {% set is_html = column.html %}
         {% if value_type == 'DateTime' or value_type == 'DateTimeImmutable' %}
@@ -61,7 +82,7 @@
         {% if column.route is null %}
           {% if is_html %}{{ value|raw }}{% else %}{{ value }}{% endif %}
         {% else %}
-          <a href="{{ path(column.route, column.routeAttributes(row)) }}"{% if column.class %} class="{{ column.class }}"{% endif %}>{% if column.iconClass %}<i class="{{ column.iconClass }}"></i> {% endif %}
+          <a href="{{ path(column.route, column.routeAttributes(row)) }}" data-turbo-frame="_top"{% if column.class %} class="{{ column.class }}"{% endif %}>{% if column.iconClass %}<i class="{{ column.iconClass }}"></i> {% endif %}
             {% if is_html %}{{ value|raw }}{% else %}{{ value }}{% endif %}
           </a>
         {% endif %}
@@ -77,9 +98,10 @@
     </p>
 
     {% if data_grid_empty_action is not null and 'fork-form-data-grid' not in data_grid_wrapper_class %}
-      <a class="empty-state-add" href="{{ action_url(data_grid_empty_action, data_grid_empty_module, data_grid_empty_parameters, data_grid_empty_relatives, data_grid_empty_locale) }}">
+      <a class="empty-state-add" data-turbo-frame="_top" href="{{ action_url(data_grid_empty_action, data_grid_empty_module, data_grid_empty_parameters, data_grid_empty_relatives, data_grid_empty_locale) }}">
         {{ data_grid_empty_label }}
       </a>
     {% endif %}
   </div>
 {% endif %}
+</turbo-frame>

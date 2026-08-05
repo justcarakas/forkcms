@@ -23,6 +23,7 @@ use Throwable;
     route: 'backend_action',
     routeAttributes: ['module' => 'extensions', 'action' => 'module-detail'],
     routeAttributesCallback: [self::class, 'dataGridSlugCallback'],
+    order: 100,
     label: 'lbl.Details',
     class: 'btn btn-default btn-sm',
     iconClass: 'fa fa-eye',

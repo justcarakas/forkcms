@@ -164,24 +164,6 @@
         <translation language="tr"><![CDATA[doğum tarihi]]></translation>
         <translation language="pt"><![CDATA[data de nascimento]]></translation>
       </item>
-      <item type="label" name="Blog">
-        <translation language="nl"><![CDATA[blog]]></translation>
-        <translation language="en"><![CDATA[blog]]></translation>
-        <translation language="hu"><![CDATA[blog]]></translation>
-        <translation language="it"><![CDATA[blog]]></translation>
-        <translation language="fr"><![CDATA[blog]]></translation>
-        <translation language="ru"><![CDATA[Блог]]></translation>
-        <translation language="zh"><![CDATA[博客]]></translation>
-        <translation language="de"><![CDATA[Blog]]></translation>
-        <translation language="es"><![CDATA[Blog]]></translation>
-        <translation language="uk"><![CDATA[Блог]]></translation>
-        <translation language="lt"><![CDATA[tinklaraštis]]></translation>
-        <translation language="sv"><![CDATA[blogg]]></translation>
-        <translation language="el"><![CDATA[ιστολόγιο]]></translation>
-        <translation language="pl"><![CDATA[Blog]]></translation>
-        <translation language="tr"><![CDATA[blog]]></translation>
-        <translation language="pt"><![CDATA[blog]]></translation>
-      </item>
       <item type="label" name="BlogArchive">
         <translation language="nl"><![CDATA[blogarchief]]></translation>
         <translation language="en"><![CDATA[blog archive]]></translation>
